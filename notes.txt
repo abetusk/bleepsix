@@ -6,7 +6,8 @@ parts marked as '*' are done.
 
 sch editor, sorted in order of (tentative) priority:
 
-  - add GPL headers:
+
+* - add GPL headers:
 "Abram Connelly (c) 2013
 Bleepsix v2. Release under GPLv3.
 
