@@ -1,0 +1,2821 @@
+{
+  "encoding": [
+    "utf-8"
+  ], 
+  "noconnect": [
+    {
+      "y": "2250", 
+      "x": "1700"
+    }, 
+    {
+      "y": "3100", 
+      "x": "1700"
+    }, 
+    {
+      "y": "3000", 
+      "x": "1700"
+    }, 
+    {
+      "y": "3650", 
+      "x": "3600"
+    }, 
+    {
+      "y": "3550", 
+      "x": "3600"
+    }, 
+    {
+      "y": "3450", 
+      "x": "3600"
+    }, 
+    {
+      "y": "3350", 
+      "x": "3600"
+    }, 
+    {
+      "y": "3250", 
+      "x": "3600"
+    }, 
+    {
+      "y": "3100", 
+      "x": "3600"
+    }, 
+    {
+      "y": "3000", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2900", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2800", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2700", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2600", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2500", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2350", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2250", 
+      "x": "3600"
+    }, 
+    {
+      "y": "2150", 
+      "x": "3600"
+    }
+  ], 
+  "component": [
+    {
+      "reference": "#PWR01", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "#PWR01", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1950", 
+          "x": "9800", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "GND", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1880", 
+          "x": "9800", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1950", 
+          "x": "9800", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1950", 
+          "x": "9800", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213CD06", 
+      "y": "1950", 
+      "x": "9800", 
+      "name": "GND"
+    }, 
+    {
+      "reference": "#PWR02", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "#PWR02", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1400", 
+          "x": "9200", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "VCC", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "1400", 
+          "x": "9200", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1300", 
+          "x": "9200", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1300", 
+          "x": "9200", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213CD01", 
+      "y": "1300", 
+      "x": "9200", 
+      "name": "VCC"
+    }, 
+    {
+      "reference": "BT1", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "BT1", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "1800", 
+          "x": "9500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "BATTERY", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "1410", 
+          "x": "9500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1600", 
+          "x": "9500", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1600", 
+          "x": "9500", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213CCF7", 
+      "y": "1600", 
+      "x": "9500", 
+      "name": "BATTERY"
+    }, 
+    {
+      "reference": "#FLG03", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "#FLG03", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4195", 
+          "x": "1100", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "PWR_FLAG", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4280", 
+          "x": "1100", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4100", 
+          "x": "1100", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4100", 
+          "x": "1100", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "-1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "1"
+        ]
+      ], 
+      "timestamp": "5213CB2E", 
+      "y": "4100", 
+      "x": "1100", 
+      "name": "PWR_FLAG"
+    }, 
+    {
+      "reference": "#FLG04", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "#FLG04", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1545", 
+          "x": "1100", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "PWR_FLAG", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "1630", 
+          "x": "1100", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1450", 
+          "x": "1100", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1450", 
+          "x": "1100", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213CB26", 
+      "y": "1450", 
+      "x": "1100", 
+      "name": "PWR_FLAG"
+    }, 
+    {
+      "reference": "#PWR05", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "#PWR05", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4150", 
+          "x": "1400", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "GND", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4080", 
+          "x": "1400", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4150", 
+          "x": "1400", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4150", 
+          "x": "1400", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213CB13", 
+      "y": "4150", 
+      "x": "1400", 
+      "name": "GND"
+    }, 
+    {
+      "reference": "#PWR06", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "#PWR06", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1500", 
+          "x": "1400", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "VCC", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "1500", 
+          "x": "1400", 
+          "size": "30"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1400", 
+          "x": "1400", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1400", 
+          "x": "1400", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213CB04", 
+      "y": "1400", 
+      "x": "1400", 
+      "name": "VCC"
+    }, 
+    {
+      "reference": "D16", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D16", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4100", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3900", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "7500", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "7500", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C98C", 
+      "y": "4000", 
+      "x": "7500", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D12", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D12", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4100", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3900", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "7200", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "7200", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C98B", 
+      "y": "4000", 
+      "x": "7200", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D8", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D8", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4100", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3900", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "6900", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "6900", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C98A", 
+      "y": "4000", 
+      "x": "6900", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D4", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D4", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4100", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3900", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "6600", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "6600", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C989", 
+      "y": "4000", 
+      "x": "6600", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D14", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D14", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2900", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2700", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "7500", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "7500", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C96E", 
+      "y": "2800", 
+      "x": "7500", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D10", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D10", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2900", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2700", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "7200", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "7200", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C96D", 
+      "y": "2800", 
+      "x": "7200", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D6", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D6", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2900", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2700", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "6900", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "6900", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C96C", 
+      "y": "2800", 
+      "x": "6900", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D2", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D2", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2900", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2700", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "6600", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2800", 
+          "x": "6600", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C96B", 
+      "y": "2800", 
+      "x": "6600", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D3", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D3", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3500", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3300", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "6600", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "6600", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C95E", 
+      "y": "3400", 
+      "x": "6600", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D7", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D7", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3500", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3300", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "6900", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "6900", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C95D", 
+      "y": "3400", 
+      "x": "6900", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D11", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D11", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3500", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3300", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "7200", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "7200", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C95C", 
+      "y": "3400", 
+      "x": "7200", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D15", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D15", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3500", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3300", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "7500", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3400", 
+          "x": "7500", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C95B", 
+      "y": "3400", 
+      "x": "7500", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D13", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D13", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2300", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2100", 
+          "x": "7500", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "7500", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "7500", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C951", 
+      "y": "2200", 
+      "x": "7500", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D9", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D9", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2300", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2100", 
+          "x": "7200", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "7200", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "7200", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C94F", 
+      "y": "2200", 
+      "x": "7200", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D5", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D5", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2300", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2100", 
+          "x": "6900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "6900", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "6900", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C94D", 
+      "y": "2200", 
+      "x": "6900", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "D1", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "D1", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2300", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "LED", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2100", 
+          "x": "6600", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "6600", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2200", 
+          "x": "6600", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "1"
+        ], 
+        [
+          "1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C948", 
+      "y": "2200", 
+      "x": "6600", 
+      "name": "LED"
+    }, 
+    {
+      "reference": "R1", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R1", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2400", 
+          "x": "5830", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "2400", 
+          "x": "5750", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2400", 
+          "x": "5750", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2400", 
+          "x": "5750", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "-1"
+        ], 
+        [
+          "-1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C820", 
+      "y": "2400", 
+      "x": "5750", 
+      "name": "R"
+    }, 
+    {
+      "reference": "R2", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R2", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3000", 
+          "x": "5830", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3000", 
+          "x": "5750", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3000", 
+          "x": "5750", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3000", 
+          "x": "5750", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "-1"
+        ], 
+        [
+          "-1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C81B", 
+      "y": "3000", 
+      "x": "5750", 
+      "name": "R"
+    }, 
+    {
+      "reference": "R4", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R4", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4200", 
+          "x": "5950", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "4200", 
+          "x": "5750", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4200", 
+          "x": "5750", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "4200", 
+          "x": "5750", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "-1"
+        ], 
+        [
+          "-1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C818", 
+      "y": "4200", 
+      "x": "5750", 
+      "name": "R"
+    }, 
+    {
+      "reference": "R3", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R3", 
+          "number": "0", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3600", 
+          "x": "5950", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "V", 
+          "hjustify": "C", 
+          "text": "R", 
+          "number": "1", 
+          "vjustify": "C", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": "3600", 
+          "x": "5750", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3600", 
+          "x": "5750", 
+          "size": "60"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "3600", 
+          "x": "5750", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "0", 
+          "-1"
+        ], 
+        [
+          "-1", 
+          "0"
+        ]
+      ], 
+      "timestamp": "5213C813", 
+      "y": "3600", 
+      "x": "5750", 
+      "name": "R"
+    }, 
+    {
+      "reference": "IC1", 
+      "nn": "1", 
+      "mm": "1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "hjustify": "L", 
+          "text": "IC1", 
+          "number": "0", 
+          "vjustify": "B", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 L BNN", 
+          "italic": false, 
+          "y": "4000", 
+          "x": "1900", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "L", 
+          "text": "ATMEGA328-A", 
+          "number": "1", 
+          "vjustify": "B", 
+          "visible": true, 
+          "bold": false, 
+          "flags": "0000 L BNN", 
+          "italic": false, 
+          "y": "1350", 
+          "x": "2850", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "TQFP32", 
+          "number": "2", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "1400", 
+          "x": "2050", 
+          "size": "50"
+        }, 
+        {
+          "orientation": "H", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": "3", 
+          "vjustify": "C", 
+          "visible": false, 
+          "bold": false, 
+          "flags": "0001 C CNN", 
+          "italic": false, 
+          "y": "2750", 
+          "x": "2600", 
+          "size": "60"
+        }
+      ], 
+      "transform": [
+        [
+          "1", 
+          "0"
+        ], 
+        [
+          "0", 
+          "-1"
+        ]
+      ], 
+      "timestamp": "5213C805", 
+      "y": "2750", 
+      "x": "2600", 
+      "name": "ATMEGA328-A"
+    }
+  ], 
+  "header": null, 
+  "connection": [
+    {
+      "y": "1500", 
+      "x": "1400"
+    }, 
+    {
+      "y": "3850", 
+      "x": "1400"
+    }, 
+    {
+      "y": "1650", 
+      "x": "1400"
+    }, 
+    {
+      "y": "1950", 
+      "x": "1400"
+    }, 
+    {
+      "y": "2600", 
+      "x": "7700"
+    }, 
+    {
+      "y": "1900", 
+      "x": "7500"
+    }, 
+    {
+      "y": "3200", 
+      "x": "7350"
+    }, 
+    {
+      "y": "3200", 
+      "x": "7050"
+    }, 
+    {
+      "y": "4200", 
+      "x": "6600"
+    }, 
+    {
+      "y": "4200", 
+      "x": "7200"
+    }, 
+    {
+      "y": "2600", 
+      "x": "6750"
+    }, 
+    {
+      "y": "1900", 
+      "x": "6600"
+    }, 
+    {
+      "y": "3600", 
+      "x": "6900"
+    }, 
+    {
+      "y": "3000", 
+      "x": "6900"
+    }, 
+    {
+      "y": "2400", 
+      "x": "6900"
+    }, 
+    {
+      "y": "2400", 
+      "x": "7200"
+    }, 
+    {
+      "y": "2400", 
+      "x": "6600"
+    }, 
+    {
+      "y": "3000", 
+      "x": "7200"
+    }, 
+    {
+      "y": "3000", 
+      "x": "6600"
+    }, 
+    {
+      "y": "3600", 
+      "x": "7200"
+    }, 
+    {
+      "y": "3600", 
+      "x": "6600"
+    }, 
+    {
+      "y": "3200", 
+      "x": "6750"
+    }, 
+    {
+      "y": "4200", 
+      "x": "6900"
+    }, 
+    {
+      "y": "1900", 
+      "x": "6900"
+    }, 
+    {
+      "y": "2600", 
+      "x": "7050"
+    }, 
+    {
+      "y": "1900", 
+      "x": "7200"
+    }, 
+    {
+      "y": "2600", 
+      "x": "7350"
+    }, 
+    {
+      "y": "3200", 
+      "x": "7700"
+    }, 
+    {
+      "y": "1750", 
+      "x": "1400"
+    }, 
+    {
+      "y": "3950", 
+      "x": "1400"
+    }, 
+    {
+      "y": "4050", 
+      "x": "1400"
+    }
+  ], 
+  "line": [
+    {
+      "endy": "1300", 
+      "endx": "9200", 
+      "startx": "9200", 
+      "starty": "1600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1950", 
+      "endx": "1400", 
+      "startx": "1400", 
+      "starty": "1400", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1500", 
+      "endx": "1100", 
+      "startx": "1400", 
+      "starty": "1500", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1450", 
+      "endx": "1100", 
+      "startx": "1100", 
+      "starty": "1500", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3850", 
+      "endx": "1400", 
+      "startx": "1700", 
+      "starty": "3850", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1650", 
+      "endx": "1400", 
+      "startx": "1700", 
+      "starty": "1650", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1950", 
+      "endx": "1700", 
+      "startx": "1400", 
+      "starty": "1950", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2050", 
+      "endx": "4900", 
+      "startx": "3600", 
+      "starty": "2050", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1300", 
+      "endx": "4900", 
+      "startx": "4900", 
+      "starty": "2050", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1300", 
+      "endx": "7500", 
+      "startx": "4900", 
+      "starty": "1300", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1850", 
+      "endx": "4150", 
+      "startx": "3600", 
+      "starty": "1850", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1700", 
+      "endx": "4150", 
+      "startx": "4150", 
+      "starty": "1850", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1700", 
+      "endx": "6900", 
+      "startx": "4150", 
+      "starty": "1700", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1650", 
+      "endx": "3900", 
+      "startx": "3600", 
+      "starty": "1650", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2400", 
+      "endx": "3900", 
+      "startx": "3900", 
+      "starty": "1650", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2400", 
+      "endx": "5500", 
+      "startx": "3900", 
+      "starty": "2400", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3850", 
+      "endx": "4250", 
+      "startx": "3600", 
+      "starty": "3850", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3600", 
+      "endx": "4250", 
+      "startx": "4250", 
+      "starty": "3850", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3600", 
+      "endx": "5500", 
+      "startx": "4250", 
+      "starty": "3600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2600", 
+      "endx": "7700", 
+      "startx": "7500", 
+      "starty": "2600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3800", 
+      "endx": "7700", 
+      "startx": "7500", 
+      "starty": "3800", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1900", 
+      "endx": "7700", 
+      "startx": "7700", 
+      "starty": "3800", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1900", 
+      "endx": "7500", 
+      "startx": "7700", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3200", 
+      "endx": "7350", 
+      "startx": "7200", 
+      "starty": "3200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3000", 
+      "endx": "6000", 
+      "startx": "7500", 
+      "starty": "3000", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "4200", 
+      "endx": "6000", 
+      "startx": "7500", 
+      "starty": "4200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3200", 
+      "endx": "6900", 
+      "startx": "7050", 
+      "starty": "3200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2600", 
+      "endx": "6600", 
+      "startx": "6750", 
+      "starty": "2600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3800", 
+      "endx": "6750", 
+      "startx": "6600", 
+      "starty": "3800", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1900", 
+      "endx": "6750", 
+      "startx": "6750", 
+      "starty": "3800", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1500", 
+      "endx": "7200", 
+      "startx": "7200", 
+      "starty": "2000", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2000", 
+      "endx": "6600", 
+      "startx": "6600", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2000", 
+      "endx": "6900", 
+      "startx": "6900", 
+      "starty": "1700", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2000", 
+      "endx": "7500", 
+      "startx": "7500", 
+      "starty": "1300", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2400", 
+      "endx": "7500", 
+      "startx": "6000", 
+      "starty": "2400", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3200", 
+      "endx": "6750", 
+      "startx": "6600", 
+      "starty": "3200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1900", 
+      "endx": "7050", 
+      "startx": "6900", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3800", 
+      "endx": "7050", 
+      "startx": "7050", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3800", 
+      "endx": "6900", 
+      "startx": "7050", 
+      "starty": "3800", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2600", 
+      "endx": "7050", 
+      "startx": "6900", 
+      "starty": "2600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3600", 
+      "endx": "6000", 
+      "startx": "7500", 
+      "starty": "3600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1900", 
+      "endx": "7350", 
+      "startx": "7200", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3800", 
+      "endx": "7350", 
+      "startx": "7350", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3800", 
+      "endx": "7200", 
+      "startx": "7350", 
+      "starty": "3800", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "2600", 
+      "endx": "7350", 
+      "startx": "7200", 
+      "starty": "2600", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3200", 
+      "endx": "7700", 
+      "startx": "7500", 
+      "starty": "3200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "4200", 
+      "endx": "4500", 
+      "startx": "5500", 
+      "starty": "4200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3750", 
+      "endx": "4500", 
+      "startx": "4500", 
+      "starty": "4200", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3750", 
+      "endx": "3600", 
+      "startx": "4500", 
+      "starty": "3750", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3000", 
+      "endx": "4050", 
+      "startx": "5500", 
+      "starty": "3000", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3950", 
+      "endx": "4050", 
+      "startx": "4050", 
+      "starty": "3000", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3950", 
+      "endx": "3600", 
+      "startx": "4050", 
+      "starty": "3950", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1900", 
+      "endx": "4350", 
+      "startx": "6750", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1750", 
+      "endx": "4350", 
+      "startx": "4350", 
+      "starty": "1900", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1750", 
+      "endx": "3600", 
+      "startx": "4350", 
+      "starty": "1750", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1500", 
+      "endx": "4800", 
+      "startx": "7200", 
+      "starty": "1500", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1950", 
+      "endx": "4800", 
+      "startx": "4800", 
+      "starty": "1500", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1950", 
+      "endx": "3600", 
+      "startx": "4800", 
+      "starty": "1950", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1750", 
+      "endx": "1400", 
+      "startx": "1700", 
+      "starty": "1750", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3750", 
+      "endx": "1400", 
+      "startx": "1400", 
+      "starty": "4150", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3750", 
+      "endx": "1700", 
+      "startx": "1400", 
+      "starty": "3750", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "3950", 
+      "endx": "1400", 
+      "startx": "1700", 
+      "starty": "3950", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "4050", 
+      "endx": "1100", 
+      "startx": "1100", 
+      "starty": "4100", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "4050", 
+      "endx": "1400", 
+      "startx": "1100", 
+      "starty": "4050", 
+      "type": "wireline"
+    }, 
+    {
+      "endy": "1950", 
+      "endx": "9800", 
+      "startx": "9800", 
+      "starty": "1600", 
+      "type": "wireline"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "library_name": "1PIN_SMD", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 150.0, 
+      "startx": -984.0, 
+      "starty": -984.0, 
+      "endy": -984.0, 
+      "endx": 984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 984.0, 
+      "starty": -984.0, 
+      "endy": 984.0, 
+      "endx": 984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 984.0, 
+      "starty": 984.0, 
+      "endy": 984.0, 
+      "endx": -984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": -984.0, 
+      "starty": 984.0, 
+      "endy": -984.0, 
+      "endx": -984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "1PIN_SMD", 
+  "keyword": [
+    " module 1 pin (ou trou mecanique de percage)"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"1PIN_SMD\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "1PIN_SMD", 
+      "y": -1378.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"P***\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "P***", 
+      "y": 1476.0, 
+      "x": 98.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1600.0, 
+      "sizey": 1600.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00A88000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4F3E5BF2", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

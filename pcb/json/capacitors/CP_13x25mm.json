@@ -1,0 +1,219 @@
+{
+  "library_name": "CP_13x25mm", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 100.0, 
+      "startx": -800.0, 
+      "starty": -2350.0, 
+      "endy": -2350.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 1150.0, 
+      "starty": -2250.0, 
+      "endy": -2250.0, 
+      "endx": -1100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -1100.0, 
+      "starty": -2250.0, 
+      "endy": -2250.0, 
+      "endx": -750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 550.0, 
+      "starty": -2500.0, 
+      "endy": -2500.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -850.0, 
+      "starty": -2400.0, 
+      "endy": -2400.0, 
+      "endx": 850.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 1100.0, 
+      "starty": -2300.0, 
+      "endy": -2300.0, 
+      "endx": -1100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -1100.0, 
+      "starty": -2300.0, 
+      "endy": -2300.0, 
+      "endx": -1050.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 1400.0, 
+      "starty": -2200.0, 
+      "endy": -2200.0, 
+      "endx": -1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -1400.0, 
+      "starty": -2200.0, 
+      "endy": -2550.0, 
+      "endx": -350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -350.0, 
+      "starty": -2550.0, 
+      "endy": -2550.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 350.0, 
+      "starty": -2550.0, 
+      "endy": -2200.0, 
+      "endx": 1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 1350.0, 
+      "starty": -2200.0, 
+      "endy": -2250.0, 
+      "endx": 1200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 2600.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 550.0, 
+      "starty": -1950.0, 
+      "endy": -1950.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "CP_13x25mm", 
+  "keyword": [
+    " Capacitor, pol, cyl 13x25mm"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"CP_13x25mm\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "CP_13x25mm", 
+      "y": -3500.0, 
+      "x": -500.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"C**\"", 
+      "sizex": 600.0, 
+      "number": "1", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "C**", 
+      "y": 3500.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 787.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1000.0, 
+      "posx": 10.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 787.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1000.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4B90D5ED", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

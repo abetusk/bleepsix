@@ -1,0 +1,1291 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "height": 500.0, 
+      "width": 400.0, 
+      "shape": "rectangle", 
+      "y": 250.0, 
+      "x": -200.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -200.0, 
+          -100.0
+        ], 
+        [
+          200.0, 
+          -100.0
+        ], 
+        [
+          200.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -200.0, 
+          100.0
+        ], 
+        [
+          200.0, 
+          100.0
+        ], 
+        [
+          200.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          -190.0
+        ], 
+        [
+          -130.0, 
+          -160.0
+        ], 
+        [
+          -130.0, 
+          -160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          -190.0
+        ], 
+        [
+          -50.0, 
+          -190.0
+        ], 
+        [
+          -50.0, 
+          -190.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          -130.0
+        ], 
+        [
+          -130.0, 
+          -100.0
+        ], 
+        [
+          -130.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          10.0
+        ], 
+        [
+          -130.0, 
+          40.0
+        ], 
+        [
+          -130.0, 
+          40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          10.0
+        ], 
+        [
+          -50.0, 
+          10.0
+        ], 
+        [
+          -50.0, 
+          10.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          70.0
+        ], 
+        [
+          -130.0, 
+          100.0
+        ], 
+        [
+          -130.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -70.0, 
+          -130.0
+        ], 
+        [
+          -50.0, 
+          -130.0
+        ], 
+        [
+          -30.0, 
+          -130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -70.0, 
+          -40.0
+        ], 
+        [
+          -50.0, 
+          -40.0
+        ], 
+        [
+          -30.0, 
+          -40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -70.0, 
+          70.0
+        ], 
+        [
+          -50.0, 
+          70.0
+        ], 
+        [
+          -30.0, 
+          70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -70.0, 
+          160.0
+        ], 
+        [
+          -50.0, 
+          160.0
+        ], 
+        [
+          -30.0, 
+          160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -190.0
+        ], 
+        [
+          -50.0, 
+          -160.0
+        ], 
+        [
+          -50.0, 
+          -160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -190.0
+        ], 
+        [
+          130.0, 
+          -190.0
+        ], 
+        [
+          130.0, 
+          -190.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -40.0
+        ], 
+        [
+          -50.0, 
+          -20.0
+        ], 
+        [
+          -50.0, 
+          -20.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -20.0
+        ], 
+        [
+          130.0, 
+          -20.0
+        ], 
+        [
+          130.0, 
+          -20.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          10.0
+        ], 
+        [
+          -50.0, 
+          40.0
+        ], 
+        [
+          -50.0, 
+          40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          10.0
+        ], 
+        [
+          130.0, 
+          10.0
+        ], 
+        [
+          130.0, 
+          10.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          -250.0
+        ], 
+        [
+          0.0, 
+          -190.0
+        ], 
+        [
+          0.0, 
+          -190.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          190.0
+        ], 
+        [
+          0.0, 
+          250.0
+        ], 
+        [
+          0.0, 
+          250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          110.0, 
+          -130.0
+        ], 
+        [
+          130.0, 
+          -130.0
+        ], 
+        [
+          150.0, 
+          -130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          110.0, 
+          -40.0
+        ], 
+        [
+          130.0, 
+          -40.0
+        ], 
+        [
+          150.0, 
+          -40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          110.0, 
+          70.0
+        ], 
+        [
+          130.0, 
+          70.0
+        ], 
+        [
+          150.0, 
+          70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          110.0, 
+          160.0
+        ], 
+        [
+          130.0, 
+          160.0
+        ], 
+        [
+          150.0, 
+          160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          -190.0
+        ], 
+        [
+          130.0, 
+          -160.0
+        ], 
+        [
+          130.0, 
+          -160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          -40.0
+        ], 
+        [
+          130.0, 
+          -20.0
+        ], 
+        [
+          130.0, 
+          -20.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          10.0
+        ], 
+        [
+          130.0, 
+          40.0
+        ], 
+        [
+          130.0, 
+          40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          -130.0
+        ], 
+        [
+          -150.0, 
+          -160.0
+        ], 
+        [
+          -110.0, 
+          -160.0
+        ], 
+        [
+          -130.0, 
+          -130.0
+        ], 
+        [
+          -130.0, 
+          -130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -130.0, 
+          70.0
+        ], 
+        [
+          -150.0, 
+          40.0
+        ], 
+        [
+          -110.0, 
+          40.0
+        ], 
+        [
+          -130.0, 
+          70.0
+        ], 
+        [
+          -130.0, 
+          70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -110.0, 
+          -120.0
+        ], 
+        [
+          -110.0, 
+          -130.0
+        ], 
+        [
+          -150.0, 
+          -130.0
+        ], 
+        [
+          -150.0, 
+          -140.0
+        ], 
+        [
+          -150.0, 
+          -140.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -110.0, 
+          80.0
+        ], 
+        [
+          -110.0, 
+          70.0
+        ], 
+        [
+          -150.0, 
+          70.0
+        ], 
+        [
+          -150.0, 
+          60.0
+        ], 
+        [
+          -150.0, 
+          60.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -130.0
+        ], 
+        [
+          -70.0, 
+          -160.0
+        ], 
+        [
+          -30.0, 
+          -160.0
+        ], 
+        [
+          -50.0, 
+          -130.0
+        ], 
+        [
+          -50.0, 
+          -130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -130.0
+        ], 
+        [
+          -50.0, 
+          -70.0
+        ], 
+        [
+          -50.0, 
+          -70.0
+        ], 
+        [
+          -50.0, 
+          -70.0
+        ], 
+        [
+          -50.0, 
+          -70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -40.0
+        ], 
+        [
+          -70.0, 
+          -70.0
+        ], 
+        [
+          -30.0, 
+          -70.0
+        ], 
+        [
+          -50.0, 
+          -40.0
+        ], 
+        [
+          -50.0, 
+          -40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          70.0
+        ], 
+        [
+          -70.0, 
+          40.0
+        ], 
+        [
+          -30.0, 
+          40.0
+        ], 
+        [
+          -50.0, 
+          70.0
+        ], 
+        [
+          -50.0, 
+          70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          70.0
+        ], 
+        [
+          -50.0, 
+          130.0
+        ], 
+        [
+          -50.0, 
+          130.0
+        ], 
+        [
+          -50.0, 
+          130.0
+        ], 
+        [
+          -50.0, 
+          130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          160.0
+        ], 
+        [
+          -70.0, 
+          130.0
+        ], 
+        [
+          -30.0, 
+          130.0
+        ], 
+        [
+          -50.0, 
+          160.0
+        ], 
+        [
+          -50.0, 
+          160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          160.0
+        ], 
+        [
+          -50.0, 
+          190.0
+        ], 
+        [
+          130.0, 
+          190.0
+        ], 
+        [
+          130.0, 
+          160.0
+        ], 
+        [
+          130.0, 
+          160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          -130.0
+        ], 
+        [
+          110.0, 
+          -160.0
+        ], 
+        [
+          150.0, 
+          -160.0
+        ], 
+        [
+          130.0, 
+          -130.0
+        ], 
+        [
+          130.0, 
+          -130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          -130.0
+        ], 
+        [
+          130.0, 
+          -70.0
+        ], 
+        [
+          130.0, 
+          -70.0
+        ], 
+        [
+          130.0, 
+          -70.0
+        ], 
+        [
+          130.0, 
+          -70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          -40.0
+        ], 
+        [
+          110.0, 
+          -70.0
+        ], 
+        [
+          150.0, 
+          -70.0
+        ], 
+        [
+          130.0, 
+          -40.0
+        ], 
+        [
+          130.0, 
+          -40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          70.0
+        ], 
+        [
+          110.0, 
+          40.0
+        ], 
+        [
+          150.0, 
+          40.0
+        ], 
+        [
+          130.0, 
+          70.0
+        ], 
+        [
+          130.0, 
+          70.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          70.0
+        ], 
+        [
+          130.0, 
+          130.0
+        ], 
+        [
+          130.0, 
+          130.0
+        ], 
+        [
+          130.0, 
+          130.0
+        ], 
+        [
+          130.0, 
+          130.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          130.0, 
+          160.0
+        ], 
+        [
+          110.0, 
+          130.0
+        ], 
+        [
+          150.0, 
+          130.0
+        ], 
+        [
+          130.0, 
+          160.0
+        ], 
+        [
+          130.0, 
+          160.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "TPD2S017", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "L", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "300", 
+      "x": "100", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "TPD2S017", 
+      "hjustify": "L", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-300", 
+      "x": "100", 
+      "size": "60"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "L", 
+      "name": "CH1Out", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "100", 
+      "x": "500", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "GND", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-450", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "CH1In", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "100", 
+      "x": "-500", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "CH2Int", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "-100", 
+      "x": "-500", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "VCC", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "450", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "CH2Out", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "-100", 
+      "x": "500", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

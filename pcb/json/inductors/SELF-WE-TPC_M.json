@@ -1,0 +1,178 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SELF-WE-TPC_M", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": 0.0, 
+      "starty": -950.0, 
+      "endy": -950.0, 
+      "endx": 700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 700.0, 
+      "starty": -950.0, 
+      "endy": -700.0, 
+      "endx": 950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 950.0, 
+      "starty": -700.0, 
+      "endy": 700.0, 
+      "endx": 950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 950.0, 
+      "starty": 700.0, 
+      "endy": 950.0, 
+      "endx": 700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 700.0, 
+      "starty": 950.0, 
+      "endy": 950.0, 
+      "endx": -700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -700.0, 
+      "starty": 950.0, 
+      "endy": 700.0, 
+      "endx": -950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -950.0, 
+      "starty": 700.0, 
+      "endy": -700.0, 
+      "endx": -950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -950.0, 
+      "starty": -700.0, 
+      "endy": -950.0, 
+      "endx": -700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -700.0, 
+      "starty": -950.0, 
+      "endy": -950.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SELF-WE-TPC_M", 
+  "keyword": [
+    " SELF WE-TPC/M"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"SELF-WE-TPC_M\"", 
+      "sizex": 394.0, 
+      "number": "0", 
+      "sizey": 394.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SELF-WE-TPC_M", 
+      "y": 39.0, 
+      "x": -236.0, 
+      "rotation": "900", 
+      "penwidth": 63.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"VAL***\"", 
+      "sizex": 315.0, 
+      "number": "1", 
+      "sizey": 315.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL***", 
+      "y": 0.0, 
+      "x": 315.0, 
+      "rotation": "900", 
+      "penwidth": 63.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 591.0, 
+      "sizey": 2087.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -850.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 591.0, 
+      "sizey": 2087.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 850.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "50C9DA66", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

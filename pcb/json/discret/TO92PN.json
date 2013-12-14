@@ -1,0 +1,182 @@
+{
+  "library_name": "TO92PN", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 59.0, 
+      "startx": 512.0, 
+      "starty": 748.0, 
+      "endy": 748.0, 
+      "endx": -512.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -984.0, 
+      "starty": -669.0, 
+      "endy": -748.0, 
+      "endx": -906.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -906.0, 
+      "starty": -748.0, 
+      "endy": -748.0, 
+      "endx": 906.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 906.0, 
+      "starty": -748.0, 
+      "endy": -669.0, 
+      "endx": 984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 984.0, 
+      "starty": -669.0, 
+      "endy": 276.0, 
+      "endx": 984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 984.0, 
+      "starty": 276.0, 
+      "endy": 748.0, 
+      "endx": 512.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -512.0, 
+      "starty": 748.0, 
+      "endy": 276.0, 
+      "endx": -984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -984.0, 
+      "starty": 276.0, 
+      "endy": -669.0, 
+      "endx": -984.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "TO92PN", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"TO92PN\"", 
+      "sizex": 276.0, 
+      "number": "0", 
+      "sizey": 276.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "TO92PN", 
+      "y": -433.0, 
+      "x": -39.0, 
+      "rotation": "0", 
+      "penwidth": 59.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL**\"", 
+      "sizex": 236.0, 
+      "number": "1", 
+      "sizey": 236.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 236.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 59.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 551.0, 
+      "sizey": 551.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -250.0, 
+      "posx": 500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 551.0, 
+      "sizey": 551.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 250.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 551.0, 
+      "sizey": 551.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -250.0, 
+      "posx": -500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "50D2C7A2", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

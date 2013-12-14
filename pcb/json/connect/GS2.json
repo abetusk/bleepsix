@@ -1,0 +1,133 @@
+{
+  "attribute": [
+    " VIRTUAL"
+  ], 
+  "library_name": "GS2", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -350.0, 
+      "starty": -500.0, 
+      "endy": 500.0, 
+      "endx": -350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 350.0, 
+      "starty": 500.0, 
+      "endy": -500.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 350.0, 
+      "starty": 500.0, 
+      "endy": 500.0, 
+      "endx": -350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -350.0, 
+      "starty": -500.0, 
+      "endy": -500.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "GS2", 
+  "keyword": [
+    " Pontet Goute de soudure"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"GS2\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "GS2", 
+      "y": 0.0, 
+      "x": 700.0, 
+      "rotation": "900", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"VAL*\"", 
+      "sizex": 300.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "VAL*", 
+      "y": 0.0, 
+      "x": 600.0, 
+      "rotation": "900", 
+      "penwidth": 50.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "N-000137", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 500.0, 
+      "sizey": 380.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "103", 
+      "drill_y": 0.0, 
+      "posy": -250.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "GND", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 500.0, 
+      "sizey": 380.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "6", 
+      "drill_y": 0.0, 
+      "posy": 250.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "426793E6", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

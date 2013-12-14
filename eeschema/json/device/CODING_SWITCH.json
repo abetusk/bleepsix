@@ -1,0 +1,201 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 150.0, 
+      "y": 0.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 600.0, 
+      "width": 600.0, 
+      "shape": "rectangle", 
+      "y": 300.0, 
+      "x": -300.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }, 
+    {
+      "count": 11, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -10.0, 
+          -100.0
+        ], 
+        [
+          -10.0, 
+          80.0
+        ], 
+        [
+          -30.0, 
+          60.0
+        ], 
+        [
+          -50.0, 
+          60.0
+        ], 
+        [
+          0.0, 
+          110.0
+        ], 
+        [
+          50.0, 
+          60.0
+        ], 
+        [
+          30.0, 
+          60.0
+        ], 
+        [
+          10.0, 
+          80.0
+        ], 
+        [
+          10.0, 
+          -100.0
+        ], 
+        [
+          -10.0, 
+          -100.0
+        ], 
+        [
+          -10.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "CODING_SWITCH", 
+  "reference": "SW", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "SW", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "350", 
+      "x": "100", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "CODING_SWITCH", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-349", 
+      "x": "0", 
+      "size": "60"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "L", 
+      "name": "CM", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "250", 
+      "x": "600", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "D0", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "50", 
+      "x": "600", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "D1", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "-50", 
+      "x": "600", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "D2", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "-150", 
+      "x": "600", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "D3", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "50", 
+      "y": "-250", 
+      "x": "600", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

@@ -1,0 +1,215 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "DPAKGDS", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": 550.0, 
+      "starty": -600.0, 
+      "endy": 650.0, 
+      "endx": 550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 550.0, 
+      "starty": 650.0, 
+      "endy": 650.0, 
+      "endx": 1250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1250.0, 
+      "starty": 650.0, 
+      "endy": -600.0, 
+      "endx": 1250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1250.0, 
+      "starty": -600.0, 
+      "endy": 650.0, 
+      "endx": -1250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1250.0, 
+      "starty": 650.0, 
+      "endy": 650.0, 
+      "endx": -550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -550.0, 
+      "starty": 650.0, 
+      "endy": -600.0, 
+      "endx": -550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1350.0, 
+      "starty": -3000.0, 
+      "endy": -600.0, 
+      "endx": 1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1350.0, 
+      "starty": -600.0, 
+      "endy": -600.0, 
+      "endx": -1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1350.0, 
+      "starty": -600.0, 
+      "endy": -3700.0, 
+      "endx": -1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1350.0, 
+      "starty": -3750.0, 
+      "endy": -3750.0, 
+      "endx": 1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1350.0, 
+      "starty": -3700.0, 
+      "endy": -3000.0, 
+      "endx": 1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "DPAKGDS", 
+  "keyword": [
+    " MOS boitier DPACK G-D-S"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"DPACKGDS\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "DPACKGDS", 
+      "y": -4100.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"VAL**\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": -950.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "G", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 650.0, 
+      "sizey": 1200.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -900.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "D", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 2400.0, 
+      "sizey": 2400.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -2500.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "S", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 650.0, 
+      "sizey": 1200.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 900.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "45125BA9", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

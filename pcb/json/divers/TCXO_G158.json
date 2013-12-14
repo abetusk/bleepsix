@@ -1,0 +1,196 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "TCXO_G158", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 150.0, 
+      "startx": -2250.0, 
+      "starty": -400.0, 
+      "endy": 400.0, 
+      "endx": -1650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 750.0, 
+      "y": 0.0, 
+      "x": -1950.0
+    }, 
+    {
+      "line_width": 150.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 500.0, 
+      "y": 0.0, 
+      "x": -1950.0
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -3650.0, 
+      "starty": -2375.0, 
+      "endy": -2375.0, 
+      "endx": 3650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 3650.0, 
+      "starty": 2375.0, 
+      "endy": 2375.0, 
+      "endx": -3650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -3650.0, 
+      "starty": 2350.0, 
+      "endy": -2350.0, 
+      "endx": -3650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 3650.0, 
+      "starty": -2350.0, 
+      "endy": 2350.0, 
+      "endx": 3650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "TCXO_G158", 
+  "keyword": [
+    " TCXO"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"TCXO_G158\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "TCXO_G158", 
+      "y": -500.0, 
+      "x": 1000.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL***\"", 
+      "sizex": 700.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL***", 
+      "y": 500.0, 
+      "x": 1000.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1500.0, 
+      "sizey": 750.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1475.0, 
+      "posx": -3550.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1500.0, 
+      "sizey": 750.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1475.0, 
+      "posx": 3550.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1500.0, 
+      "sizey": 750.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1475.0, 
+      "posx": 3550.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "4", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1500.0, 
+      "sizey": 750.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1475.0, 
+      "posx": -3550.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "451BAF4B", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

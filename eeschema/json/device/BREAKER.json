@@ -1,0 +1,113 @@
+{
+  "art": [
+    {
+      "line_width": 0, 
+      "start_angle": 0.3438298626428829, 
+      "end_angle": 2.813470754214859, 
+      "shape": "arc", 
+      "r": 162.0, 
+      "counterclockwise": true, 
+      "y": -2.0, 
+      "x": 4.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 70.0, 
+      "y": 0.0, 
+      "x": -200.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 70.0, 
+      "y": 0.0, 
+      "x": 200.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "BREAKER", 
+  "reference": "JP", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "JP", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-50", 
+      "x": "0", 
+      "size": "50"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "BREAKER", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-150", 
+      "x": "0", 
+      "size": "50"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "10", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "230", 
+      "text_size_number": "70", 
+      "y": "0", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "70", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "~", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "230", 
+      "text_size_number": "70", 
+      "y": "0", 
+      "x": "500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "70", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

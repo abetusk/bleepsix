@@ -1,0 +1,98 @@
+{
+  "art": [
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          200.0, 
+          -200.0
+        ], 
+        [
+          200.0, 
+          -200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 84.0, 
+      "y": 0.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "Hz", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "50"
+    }
+  ], 
+  "name": "V_F50Hz", 
+  "reference": "EV", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "EV", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "120", 
+      "x": "-160", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "V_F50Hz", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-140", 
+      "x": "-40", 
+      "size": "40"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "10", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "L", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "118", 
+      "text_size_number": "10", 
+      "y": "0", 
+      "x": "200", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": false, 
+  "unit_count": 1
+}

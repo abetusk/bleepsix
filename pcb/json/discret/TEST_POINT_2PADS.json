@@ -1,0 +1,152 @@
+{
+  "library_name": "TEST_POINT_2PADS", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": 500.0, 
+      "starty": 400.0, 
+      "endy": 400.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 500.0, 
+      "starty": -400.0, 
+      "endy": -400.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 0.0, 
+      "shape": "arc", 
+      "r": 400.0, 
+      "y": "0", 
+      "x": "1.27"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 400.0, 
+      "y": "0", 
+      "x": "1.27"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 400.0, 
+      "y": "0", 
+      "x": "-1.27"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 400.0, 
+      "y": "0", 
+      "x": "-1.27"
+    }
+  ], 
+  "name": "TEST_POINT_2PADS", 
+  "keyword": [
+    " Connecteurs 2 pins"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"TEST_POINT_2PADS\"", 
+      "sizex": 300.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "TEST_POINT_2PADS", 
+      "y": -756.0, 
+      "x": 12.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL**\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 870.0, 
+      "x": -28.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4D78F0EB", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

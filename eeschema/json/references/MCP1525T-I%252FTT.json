@@ -1,0 +1,102 @@
+{
+  "art": [
+    {
+      "line_width": "10", 
+      "height": 400.0, 
+      "width": 350.0, 
+      "shape": "rectangle", 
+      "y": 200.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "MCP1525T-I/TT", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "300", 
+      "x": "100", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "MCP1525T-I/TT", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "250", 
+      "x": "300", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"SOT-23\" 150 -250 30 H V C CIN", 
+      "number": "2"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "D", 
+      "name": "Vin", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "350", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "Vout", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "VSS", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-350", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

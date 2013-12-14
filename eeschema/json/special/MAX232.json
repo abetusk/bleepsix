@@ -1,0 +1,363 @@
+{
+  "art": [
+    {
+      "direction": "900", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "RS232", 
+      "y": -530.0, 
+      "x": 80.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "40"
+    }, 
+    {
+      "direction": "900", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "TTL", 
+      "y": -530.0, 
+      "x": -100.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "40"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 1600.0, 
+      "width": 1000.0, 
+      "shape": "rectangle", 
+      "y": 800.0, 
+      "x": -500.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -500.0, 
+          -300.0
+        ], 
+        [
+          500.0, 
+          -300.0
+        ], 
+        [
+          500.0, 
+          -300.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          -300.0
+        ], 
+        [
+          0.0, 
+          -800.0
+        ], 
+        [
+          0.0, 
+          -800.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "MAX232", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "850", 
+      "x": "0", 
+      "size": "70"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "MAX232", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-850", 
+      "x": "0", 
+      "size": "70"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "C1+", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "700", 
+      "x": "-800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "V+", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "300", 
+      "x": "800", 
+      "electrical_type": "w", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "C1-", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "300", 
+      "x": "-800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "C2+", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "200", 
+      "x": "-800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "C2-", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-200", 
+      "x": "-800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "V-", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-200", 
+      "x": "800", 
+      "electrical_type": "w", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "T2OUT", 
+      "number": "7", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-500", 
+      "x": "800", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "R2IN", 
+      "number": "8", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-700", 
+      "x": "800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "R2OUT", 
+      "number": "9", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-700", 
+      "x": "-800", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "T2IN", 
+      "number": "10", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-500", 
+      "x": "-800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "T1IN", 
+      "number": "11", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-400", 
+      "x": "-800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "R1OUT", 
+      "number": "12", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-600", 
+      "x": "-800", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "R1IN", 
+      "number": "13", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-600", 
+      "x": "800", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "T1OUT", 
+      "number": "14", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-400", 
+      "x": "800", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "GND", 
+      "number": "15", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "100", 
+      "x": "800", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "VCC", 
+      "number": "16", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "700", 
+      "x": "800", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

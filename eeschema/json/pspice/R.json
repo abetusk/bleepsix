@@ -1,0 +1,83 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "height": 300.0, 
+      "width": 80.0, 
+      "shape": "rectangle", 
+      "y": 150.0, 
+      "x": -40.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "R", 
+  "reference": "R", 
+  "text": [
+    {
+      "orientation": "V", 
+      "reference": "R", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "80", 
+      "size": "50"
+    }, 
+    {
+      "orientation": "V", 
+      "reference": "R", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "0", 
+      "size": "50"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "D", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "60", 
+      "y": "250", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "~", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "60", 
+      "y": "-250", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": false, 
+  "unit_count": 1
+}

@@ -1,0 +1,145 @@
+{
+  "library_name": "QMONTRE", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": -750.0, 
+      "starty": 750.0, 
+      "endy": 750.0, 
+      "endx": 750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 750.0, 
+      "starty": 750.0, 
+      "endy": 4000.0, 
+      "endx": 750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 750.0, 
+      "starty": 4000.0, 
+      "endy": 4000.0, 
+      "endx": -750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -750.0, 
+      "starty": 4000.0, 
+      "endy": 750.0, 
+      "endx": -750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -500.0, 
+      "starty": 0.0, 
+      "endy": 750.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 500.0, 
+      "starty": 0.0, 
+      "endy": 750.0, 
+      "endx": 500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "QMONTRE", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"QMONTRE\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "QMONTRE", 
+      "y": 2350.0, 
+      "x": -350.0, 
+      "rotation": "900", 
+      "penwidth": 60.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"VAL***\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "VAL***", 
+      "y": 2400.0, 
+      "x": 350.0, 
+      "rotation": "900", 
+      "penwidth": 60.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "N-000130", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 500.0, 
+      "sizey": 500.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "3", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "N-000129", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 500.0, 
+      "sizey": 500.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "4", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "451BB194", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

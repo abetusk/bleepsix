@@ -1,0 +1,148 @@
+{
+  "art": [
+    {
+      "count": 4, 
+      "line_width": "10", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -350.0, 
+          300.0
+        ], 
+        [
+          350.0, 
+          0.0
+        ], 
+        [
+          -350.0, 
+          -300.0
+        ], 
+        [
+          -350.0, 
+          300.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "TDA2003V", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-150", 
+      "x": "250", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "TDA2003V", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-200", 
+      "x": "250", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"PW-5\" -200 0 30 H V C CIN", 
+      "number": "2"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "50", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "IN+", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "150", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "IN-", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-150", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "GND", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "175", 
+      "text_size_number": "40", 
+      "y": "-350", 
+      "x": "-50", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "OUT", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "500", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "VCC", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "175", 
+      "text_size_number": "40", 
+      "y": "350", 
+      "x": "-50", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

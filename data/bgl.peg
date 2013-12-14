@@ -1,0 +1,39 @@
+start
+  = ns a:offset ns { return a; }
+
+offset
+  = left:additive ns ">>" ns right:real { return [ left, '>>', right]; } 
+  / additive
+  
+
+additive
+  = left:multiplicative ns "+" ns right:additive { return [left, '+', right]; }
+    / left:multiplicative ns "-" ns right:additive { return [left, '-', right]; }
+    / multiplicative
+
+multiplicative
+  = left:xor ns "*" ns right:multiplicative { return [left, '*' ,right]; }
+    / xor
+
+xor
+  = left:primary ns '^' ns right:xor { return [ left, '^', right]; }
+   / primary
+
+primary
+  = variable
+   / "(" ns offset:offset ns ")" { return offset; }
+
+real "real"
+  = '.' digits:[0-9]+                   { return parseFloat( '0.' + digits.join(""), 10); }
+  / digits0:[0-9]+ '.' digits1:[0-9]+   { return parseFloat(digits0.join("") + '.' + digits1.join("") , 10); }
+  / digits:[0-9]+ '.'                   { return parseFloat(digits.join(""), 10); }
+  / digits:[0-9]+                       { return parseFloat(digits.join(""), 10); }
+
+integer "integer"
+  = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
+
+variable "variable"
+  = v:([a-zA-Z_][a-zA-Z0-9\._\%-]*) { return v[0] + v[1].join(""); } /
+    v:[a-zA-Z]+ { return v.join(""); }
+ns
+  = [ ]*

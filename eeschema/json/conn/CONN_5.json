@@ -1,0 +1,133 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "height": 500.0, 
+      "width": 200.0, 
+      "shape": "rectangle", 
+      "y": 250.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "CONN_5", 
+  "reference": "P", 
+  "text": [
+    {
+      "orientation": "V", 
+      "reference": "P", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "-50", 
+      "size": "50"
+    }, 
+    {
+      "orientation": "V", 
+      "reference": "CONN_5", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "50", 
+      "size": "50"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "pin_type": "I", 
+      "direction": "R", 
+      "name": "~", 
+      "number": "1", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "200", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "R", 
+      "name": "~", 
+      "number": "2", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "100", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "R", 
+      "name": "~", 
+      "number": "3", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "0", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "R", 
+      "name": "~", 
+      "number": "4", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-100", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "R", 
+      "name": "~", 
+      "number": "5", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-200", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

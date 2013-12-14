@@ -1,0 +1,148 @@
+{
+  "library_name": "c_1206", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": 450.0, 
+      "starty": 320.0, 
+      "endy": -320.0, 
+      "endx": 450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -450.0, 
+      "starty": -320.0, 
+      "endy": 320.0, 
+      "endx": -450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -630.0, 
+      "starty": -320.0, 
+      "endy": 320.0, 
+      "endx": -630.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -630.0, 
+      "starty": 320.0, 
+      "endy": 320.0, 
+      "endx": 630.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 630.0, 
+      "starty": 320.0, 
+      "endy": -320.0, 
+      "endx": 630.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 630.0, 
+      "starty": -320.0, 
+      "endy": -320.0, 
+      "endx": -630.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "c_1206", 
+  "keyword": [
+    " SMT capacitor, 1206"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"c_1206\"", 
+      "sizex": 197.0, 
+      "number": "0", 
+      "sizey": 197.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "c_1206", 
+      "y": -510.0, 
+      "x": 10.0, 
+      "rotation": "0", 
+      "penwidth": 47.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"C***\"", 
+      "sizex": 197.0, 
+      "number": "1", 
+      "sizey": 197.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "C***", 
+      "y": 500.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 47.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 630.0, 
+      "sizey": 710.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 550.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 630.0, 
+      "sizey": 710.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -550.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "490473F0", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

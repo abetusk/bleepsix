@@ -1,0 +1,136 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "height": 350.0, 
+      "width": 600.0, 
+      "shape": "rectangle", 
+      "y": 150.0, 
+      "x": -300.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "LD3985M", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-250", 
+      "x": "250", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "LD3985M", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "200", 
+      "x": "0", 
+      "size": "60"
+    }, 
+    {
+      "text": " \"SOT23-5\" -100 -250 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "VIN", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "50", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "GND", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-400", 
+      "x": "0", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "INH", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-50", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "BYP", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-50", 
+      "x": "500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "VOUT", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "50", 
+      "x": "500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

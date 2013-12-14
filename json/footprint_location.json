@@ -1,0 +1,3871 @@
+{
+  "r_cat16-8" : {
+    "name" : "r_cat16-8" ,
+    "location" : "pcb/json/smd_resistors/r_cat16-8.json"
+  },
+
+  "r_2512" : {
+    "name" : "r_2512" ,
+    "location" : "pcb/json/smd_resistors/r_2512.json"
+  },
+
+  "r_cat16-4" : {
+    "name" : "r_cat16-4" ,
+    "location" : "pcb/json/smd_resistors/r_cat16-4.json"
+  },
+
+  "r_2010" : {
+    "name" : "r_2010" ,
+    "location" : "pcb/json/smd_resistors/r_2010.json"
+  },
+
+  "r_cat16-2" : {
+    "name" : "r_cat16-2" ,
+    "location" : "pcb/json/smd_resistors/r_cat16-2.json"
+  },
+
+  "MOLEX_53047-0510_5PIN_VERT" : {
+    "name" : "MOLEX_53047-0510_5PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0510_5PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0610_6PIN_VERT" : {
+    "name" : "MOLEX_53047-0610_6PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0610_6PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0710_7PIN_VERT" : {
+    "name" : "MOLEX_53047-0710_7PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0710_7PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0210_2PIN_VERT" : {
+    "name" : "MOLEX_53047-0210_2PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0210_2PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0810_8PIN_VERT" : {
+    "name" : "MOLEX_53047-0810_8PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0810_8PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0410_4PIN_VERT" : {
+    "name" : "MOLEX_53047-0410_4PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0410_4PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0310_3PIN_VERT" : {
+    "name" : "MOLEX_53047-0310_3PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0310_3PIN_VERT.json"
+  },
+
+  "MOLEX_53047-0910_9PIN_VERT" : {
+    "name" : "MOLEX_53047-0910_9PIN_VERT" ,
+    "location" : "pcb/json/connectors_molex_serial_53047-A123/MOLEX_53047-0910_9PIN_VERT.json"
+  },
+
+  "c_tant_U" : {
+    "name" : "c_tant_U" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_U.json"
+  },
+
+  "c_elec_6.3x4.5" : {
+    "name" : "c_elec_6.3x4.5" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_6.3x4.5.json"
+  },
+
+  "c_elec_4x5.7" : {
+    "name" : "c_elec_4x5.7" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_4x5.7.json"
+  },
+
+  "c_elec_6.3x5.8" : {
+    "name" : "c_elec_6.3x5.8" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_6.3x5.8.json"
+  },
+
+  "c_1812" : {
+    "name" : "c_1812" ,
+    "location" : "pcb/json/smd_capacitors/c_1812.json"
+  },
+
+  "c_elec_10x10" : {
+    "name" : "c_elec_10x10" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_10x10.json"
+  },
+
+  "c_elec_5x5.7" : {
+    "name" : "c_elec_5x5.7" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_5x5.7.json"
+  },
+
+  "c_1206" : {
+    "name" : "c_1206" ,
+    "location" : "pcb/json/smd_capacitors/c_1206.json"
+  },
+
+  "c_tant_R" : {
+    "name" : "c_tant_R" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_R.json"
+  },
+
+  "c_1825" : {
+    "name" : "c_1825" ,
+    "location" : "pcb/json/smd_capacitors/c_1825.json"
+  },
+
+  "c_elec_8x6.5" : {
+    "name" : "c_elec_8x6.5" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_8x6.5.json"
+  },
+
+  "c_elec_5x4.5" : {
+    "name" : "c_elec_5x4.5" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_5x4.5.json"
+  },
+
+  "c_0402" : {
+    "name" : "c_0402" ,
+    "location" : "pcb/json/smd_capacitors/c_0402.json"
+  },
+
+  "c_tant_E" : {
+    "name" : "c_tant_E" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_E.json"
+  },
+
+  "c_tant_D" : {
+    "name" : "c_tant_D" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_D.json"
+  },
+
+  "c_elec_6.3x5.7" : {
+    "name" : "c_elec_6.3x5.7" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_6.3x5.7.json"
+  },
+
+  "c_tant_A" : {
+    "name" : "c_tant_A" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_A.json"
+  },
+
+  "c_elec_6.3x5.3" : {
+    "name" : "c_elec_6.3x5.3" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_6.3x5.3.json"
+  },
+
+  "c_elec_4x5.3" : {
+    "name" : "c_elec_4x5.3" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_4x5.3.json"
+  },
+
+  "c_2220" : {
+    "name" : "c_2220" ,
+    "location" : "pcb/json/smd_capacitors/c_2220.json"
+  },
+
+  "c_1210" : {
+    "name" : "c_1210" ,
+    "location" : "pcb/json/smd_capacitors/c_1210.json"
+  },
+
+  "c_elec_8x6.7" : {
+    "name" : "c_elec_8x6.7" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_8x6.7.json"
+  },
+
+  "c_tant_X" : {
+    "name" : "c_tant_X" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_X.json"
+  },
+
+  "c_elec_3x5.3" : {
+    "name" : "c_elec_3x5.3" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_3x5.3.json"
+  },
+
+  "c_elec_10x7.7" : {
+    "name" : "c_elec_10x7.7" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_10x7.7.json"
+  },
+
+  "c_elec_10x10.5" : {
+    "name" : "c_elec_10x10.5" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_10x10.5.json"
+  },
+
+  "c_tant_S" : {
+    "name" : "c_tant_S" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_S.json"
+  },
+
+  "c_elec_4x5.8" : {
+    "name" : "c_elec_4x5.8" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_4x5.8.json"
+  },
+
+  "c_tant_B" : {
+    "name" : "c_tant_B" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_B.json"
+  },
+
+  "c_tant_V" : {
+    "name" : "c_tant_V" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_V.json"
+  },
+
+  "c_tant_C" : {
+    "name" : "c_tant_C" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_C.json"
+  },
+
+  "c_elec_5x5.8" : {
+    "name" : "c_elec_5x5.8" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_5x5.8.json"
+  },
+
+  "c_elec_8x10" : {
+    "name" : "c_elec_8x10" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_8x10.json"
+  },
+
+  "c_elec_4x4.5" : {
+    "name" : "c_elec_4x4.5" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_4x4.5.json"
+  },
+
+  "c_elec_6.3x7.7" : {
+    "name" : "c_elec_6.3x7.7" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_6.3x7.7.json"
+  },
+
+  "c_elec_8x10.5" : {
+    "name" : "c_elec_8x10.5" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_8x10.5.json"
+  },
+
+  "c_2225" : {
+    "name" : "c_2225" ,
+    "location" : "pcb/json/smd_capacitors/c_2225.json"
+  },
+
+  "c_0603" : {
+    "name" : "c_0603" ,
+    "location" : "pcb/json/smd_capacitors/c_0603.json"
+  },
+
+  "c_elec_5x5.3" : {
+    "name" : "c_elec_5x5.3" ,
+    "location" : "pcb/json/smd_capacitors/c_elec_5x5.3.json"
+  },
+
+  "c_0805" : {
+    "name" : "c_0805" ,
+    "location" : "pcb/json/smd_capacitors/c_0805.json"
+  },
+
+  "c_1808" : {
+    "name" : "c_1808" ,
+    "location" : "pcb/json/smd_capacitors/c_1808.json"
+  },
+
+  "c_tant_T" : {
+    "name" : "c_tant_T" ,
+    "location" : "pcb/json/smd_capacitors/c_tant_T.json"
+  },
+
+  "TQFP44" : {
+    "name" : "TQFP44" ,
+    "location" : "pcb/json/libcms_old/TQFP44.json"
+  },
+
+  "SM1206POL" : {
+    "name" : "SM1206POL" ,
+    "location" : "pcb/json/libcms_old/SM1206POL.json"
+  },
+
+  "MSOP10-0.5" : {
+    "name" : "MSOP10-0.5" ,
+    "location" : "pcb/json/libcms_old/MSOP10-0.5.json"
+  },
+
+  "SOT23-5" : {
+    "name" : "SOT23-5" ,
+    "location" : "pcb/json/libcms_old/SOT23-5.json"
+  },
+
+  "SO20L" : {
+    "name" : "SO20L" ,
+    "location" : "pcb/json/libcms_old/SO20L.json"
+  },
+
+  "BGA1023_1mm" : {
+    "name" : "BGA1023_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA1023_1mm.json"
+  },
+
+  "TSSOIC24" : {
+    "name" : "TSSOIC24" ,
+    "location" : "pcb/json/libcms_old/TSSOIC24.json"
+  },
+
+  "SOT23GDS" : {
+    "name" : "SOT23GDS" ,
+    "location" : "pcb/json/libcms_old/SOT23GDS.json"
+  },
+
+  "SM1210L" : {
+    "name" : "SM1210L" ,
+    "location" : "pcb/json/libcms_old/SM1210L.json"
+  },
+
+  "ST23AK#1" : {
+    "name" : "ST23AK#1" ,
+    "location" : "pcb/json/libcms_old/ST23AK%25231.json"
+  },
+
+  "CONN5_SMD" : {
+    "name" : "CONN5_SMD" ,
+    "location" : "pcb/json/libcms_old/CONN5_SMD.json"
+  },
+
+  "Q_49U3HMS" : {
+    "name" : "Q_49U3HMS" ,
+    "location" : "pcb/json/libcms_old/Q_49U3HMS.json"
+  },
+
+  "SO16L" : {
+    "name" : "SO16L" ,
+    "location" : "pcb/json/libcms_old/SO16L.json"
+  },
+
+  "DO214" : {
+    "name" : "DO214" ,
+    "location" : "pcb/json/libcms_old/DO214.json"
+  },
+
+  "EMI_FILTER" : {
+    "name" : "EMI_FILTER" ,
+    "location" : "pcb/json/libcms_old/EMI_FILTER.json"
+  },
+
+  "PQFP386" : {
+    "name" : "PQFP386" ,
+    "location" : "pcb/json/libcms_old/PQFP386.json"
+  },
+
+  "QFN24" : {
+    "name" : "QFN24" ,
+    "location" : "pcb/json/libcms_old/QFN24.json"
+  },
+
+  "DPAKGDS" : {
+    "name" : "DPAKGDS" ,
+    "location" : "pcb/json/libcms_old/DPAKGDS.json"
+  },
+
+  "PQFP160" : {
+    "name" : "PQFP160" ,
+    "location" : "pcb/json/libcms_old/PQFP160.json"
+  },
+
+  "VSOP56" : {
+    "name" : "VSOP56" ,
+    "location" : "pcb/json/libcms_old/VSOP56.json"
+  },
+
+  "TSOP32SP" : {
+    "name" : "TSOP32SP" ,
+    "location" : "pcb/json/libcms_old/TSOP32SP.json"
+  },
+
+  "BGA352" : {
+    "name" : "BGA352" ,
+    "location" : "pcb/json/libcms_old/BGA352.json"
+  },
+
+  "TQFP144" : {
+    "name" : "TQFP144" ,
+    "location" : "pcb/json/libcms_old/TQFP144.json"
+  },
+
+  "CONN3_SMD" : {
+    "name" : "CONN3_SMD" ,
+    "location" : "pcb/json/libcms_old/CONN3_SMD.json"
+  },
+
+  "BGA256" : {
+    "name" : "BGA256" ,
+    "location" : "pcb/json/libcms_old/BGA256.json"
+  },
+
+  "SSOP14" : {
+    "name" : "SSOP14" ,
+    "location" : "pcb/json/libcms_old/SSOP14.json"
+  },
+
+  "DPAK3" : {
+    "name" : "DPAK3" ,
+    "location" : "pcb/json/libcms_old/DPAK3.json"
+  },
+
+  "BGA121_1mm" : {
+    "name" : "BGA121_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA121_1mm.json"
+  },
+
+  "S0IC28N" : {
+    "name" : "S0IC28N" ,
+    "location" : "pcb/json/libcms_old/S0IC28N.json"
+  },
+
+  "SOJ4242" : {
+    "name" : "SOJ4242" ,
+    "location" : "pcb/json/libcms_old/SOJ4242.json"
+  },
+
+  "MSOP_8" : {
+    "name" : "MSOP_8" ,
+    "location" : "pcb/json/libcms_old/MSOP_8.json"
+  },
+
+  "SOIC24-WIDE" : {
+    "name" : "SOIC24-WIDE" ,
+    "location" : "pcb/json/libcms_old/SOIC24-WIDE.json"
+  },
+
+  "BGA90-0.8" : {
+    "name" : "BGA90-0.8" ,
+    "location" : "pcb/json/libcms_old/BGA90-0.8.json"
+  },
+
+  "SOT353" : {
+    "name" : "SOT353" ,
+    "location" : "pcb/json/libcms_old/SOT353.json"
+  },
+
+  "SELF-WE-PD3S" : {
+    "name" : "SELF-WE-PD3S" ,
+    "location" : "pcb/json/libcms_old/SELF-WE-PD3S.json"
+  },
+
+  "SOIC24" : {
+    "name" : "SOIC24" ,
+    "location" : "pcb/json/libcms_old/SOIC24.json"
+  },
+
+  "SUPSOJ40" : {
+    "name" : "SUPSOJ40" ,
+    "location" : "pcb/json/libcms_old/SUPSOJ40.json"
+  },
+
+  "PLCC84MS" : {
+    "name" : "PLCC84MS" ,
+    "location" : "pcb/json/libcms_old/PLCC84MS.json"
+  },
+
+  "SOJ28_WIDE" : {
+    "name" : "SOJ28_WIDE" ,
+    "location" : "pcb/json/libcms_old/SOJ28_WIDE.json"
+  },
+
+  "SO28" : {
+    "name" : "SO28" ,
+    "location" : "pcb/json/libcms_old/SO28.json"
+  },
+
+  "MLF44" : {
+    "name" : "MLF44" ,
+    "location" : "pcb/json/libcms_old/MLF44.json"
+  },
+
+  "PQFP112" : {
+    "name" : "PQFP112" ,
+    "location" : "pcb/json/libcms_old/PQFP112.json"
+  },
+
+  "SM1812L" : {
+    "name" : "SM1812L" ,
+    "location" : "pcb/json/libcms_old/SM1812L.json"
+  },
+
+  "BGA144_1mm" : {
+    "name" : "BGA144_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA144_1mm.json"
+  },
+
+  "CONN20_SMD" : {
+    "name" : "CONN20_SMD" ,
+    "location" : "pcb/json/libcms_old/CONN20_SMD.json"
+  },
+
+  "SO16N" : {
+    "name" : "SO16N" ,
+    "location" : "pcb/json/libcms_old/SO16N.json"
+  },
+
+  "BGA1295_1mm" : {
+    "name" : "BGA1295_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA1295_1mm.json"
+  },
+
+  "SO24E" : {
+    "name" : "SO24E" ,
+    "location" : "pcb/json/libcms_old/SO24E.json"
+  },
+
+  "FSUPCMS" : {
+    "name" : "FSUPCMS" ,
+    "location" : "pcb/json/libcms_old/FSUPCMS.json"
+  },
+
+  "SO8N" : {
+    "name" : "SO8N" ,
+    "location" : "pcb/json/libcms_old/SO8N.json"
+  },
+
+  "PLCC68MS" : {
+    "name" : "PLCC68MS" ,
+    "location" : "pcb/json/libcms_old/PLCC68MS.json"
+  },
+
+  "DPAK5" : {
+    "name" : "DPAK5" ,
+    "location" : "pcb/json/libcms_old/DPAK5.json"
+  },
+
+  "BGA64-0.8mm" : {
+    "name" : "BGA64-0.8mm" ,
+    "location" : "pcb/json/libcms_old/BGA64-0.8mm.json"
+  },
+
+  "SOJ32" : {
+    "name" : "SOJ32" ,
+    "location" : "pcb/json/libcms_old/SOJ32.json"
+  },
+
+  "SSOP56" : {
+    "name" : "SSOP56" ,
+    "location" : "pcb/json/libcms_old/SSOP56.json"
+  },
+
+  "PQFP80" : {
+    "name" : "PQFP80" ,
+    "location" : "pcb/json/libcms_old/PQFP80.json"
+  },
+
+  "CERAMIC_FILTER" : {
+    "name" : "CERAMIC_FILTER" ,
+    "location" : "pcb/json/libcms_old/CERAMIC_FILTER.json"
+  },
+
+  "SO14N" : {
+    "name" : "SO14N" ,
+    "location" : "pcb/json/libcms_old/SO14N.json"
+  },
+
+  "SM1812E" : {
+    "name" : "SM1812E" ,
+    "location" : "pcb/json/libcms_old/SM1812E.json"
+  },
+
+  "BGA48" : {
+    "name" : "BGA48" ,
+    "location" : "pcb/json/libcms_old/BGA48.json"
+  },
+
+  "DPAK2" : {
+    "name" : "DPAK2" ,
+    "location" : "pcb/json/libcms_old/DPAK2.json"
+  },
+
+  "CONN3-INV_SMD" : {
+    "name" : "CONN3-INV_SMD" ,
+    "location" : "pcb/json/libcms_old/CONN3-INV_SMD.json"
+  },
+
+  "SSOP8-9" : {
+    "name" : "SSOP8-9" ,
+    "location" : "pcb/json/libcms_old/SSOP8-9.json"
+  },
+
+  "uMAX-uSOP_10" : {
+    "name" : "uMAX-uSOP_10" ,
+    "location" : "pcb/json/libcms_old/uMAX-uSOP_10.json"
+  },
+
+  "SOT23EBC" : {
+    "name" : "SOT23EBC" ,
+    "location" : "pcb/json/libcms_old/SOT23EBC.json"
+  },
+
+  "PLCC32MS" : {
+    "name" : "PLCC32MS" ,
+    "location" : "pcb/json/libcms_old/PLCC32MS.json"
+  },
+
+  "SM1206" : {
+    "name" : "SM1206" ,
+    "location" : "pcb/json/libcms_old/SM1206.json"
+  },
+
+  "VQFP44" : {
+    "name" : "VQFP44" ,
+    "location" : "pcb/json/libcms_old/VQFP44.json"
+  },
+
+  "SOT223" : {
+    "name" : "SOT223" ,
+    "location" : "pcb/json/libcms_old/SOT223.json"
+  },
+
+  "SM1210" : {
+    "name" : "SM1210" ,
+    "location" : "pcb/json/libcms_old/SM1210.json"
+  },
+
+  "TQFP32" : {
+    "name" : "TQFP32" ,
+    "location" : "pcb/json/libcms_old/TQFP32.json"
+  },
+
+  "SOJ32_WIDE" : {
+    "name" : "SOJ32_WIDE" ,
+    "location" : "pcb/json/libcms_old/SOJ32_WIDE.json"
+  },
+
+  "PQFP208" : {
+    "name" : "PQFP208" ,
+    "location" : "pcb/json/libcms_old/PQFP208.json"
+  },
+
+  "VQFP240" : {
+    "name" : "VQFP240" ,
+    "location" : "pcb/json/libcms_old/VQFP240.json"
+  },
+
+  "IPAKGDS" : {
+    "name" : "IPAKGDS" ,
+    "location" : "pcb/json/libcms_old/IPAKGDS.json"
+  },
+
+  "SOJ40" : {
+    "name" : "SOJ40" ,
+    "location" : "pcb/json/libcms_old/SOJ40.json"
+  },
+
+  "SO14E" : {
+    "name" : "SO14E" ,
+    "location" : "pcb/json/libcms_old/SO14E.json"
+  },
+
+  "SM0603" : {
+    "name" : "SM0603" ,
+    "location" : "pcb/json/libcms_old/SM0603.json"
+  },
+
+  "PLCC44MS" : {
+    "name" : "PLCC44MS" ,
+    "location" : "pcb/json/libcms_old/PLCC44MS.json"
+  },
+
+  "SO8E" : {
+    "name" : "SO8E" ,
+    "location" : "pcb/json/libcms_old/SO8E.json"
+  },
+
+  "BGA484_1mm" : {
+    "name" : "BGA484_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA484_1mm.json"
+  },
+
+  "TQFP_100" : {
+    "name" : "TQFP_100" ,
+    "location" : "pcb/json/libcms_old/TQFP_100.json"
+  },
+
+  "SO16W" : {
+    "name" : "SO16W" ,
+    "location" : "pcb/json/libcms_old/SO16W.json"
+  },
+
+  "SOT23_6" : {
+    "name" : "SOT23_6" ,
+    "location" : "pcb/json/libcms_old/SOT23_6.json"
+  },
+
+  "8DIPCMS" : {
+    "name" : "8DIPCMS" ,
+    "location" : "pcb/json/libcms_old/8DIPCMS.json"
+  },
+
+  "SSOP20" : {
+    "name" : "SSOP20" ,
+    "location" : "pcb/json/libcms_old/SSOP20.json"
+  },
+
+  "SSOP8" : {
+    "name" : "SSOP8" ,
+    "location" : "pcb/json/libcms_old/SSOP8.json"
+  },
+
+  "PLCC28MS" : {
+    "name" : "PLCC28MS" ,
+    "location" : "pcb/json/libcms_old/PLCC28MS.json"
+  },
+
+  "SOT323" : {
+    "name" : "SOT323" ,
+    "location" : "pcb/json/libcms_old/SOT323.json"
+  },
+
+  "POT_CMS" : {
+    "name" : "POT_CMS" ,
+    "location" : "pcb/json/libcms_old/POT_CMS.json"
+  },
+
+  "SM2512" : {
+    "name" : "SM2512" ,
+    "location" : "pcb/json/libcms_old/SM2512.json"
+  },
+
+  "self_cms_we-pd3" : {
+    "name" : "self_cms_we-pd3" ,
+    "location" : "pcb/json/libcms_old/self_cms_we-pd3.json"
+  },
+
+  "PQFP100" : {
+    "name" : "PQFP100" ,
+    "location" : "pcb/json/libcms_old/PQFP100.json"
+  },
+
+  "SSOP28" : {
+    "name" : "SSOP28" ,
+    "location" : "pcb/json/libcms_old/SSOP28.json"
+  },
+
+  "SM2112L" : {
+    "name" : "SM2112L" ,
+    "location" : "pcb/json/libcms_old/SM2112L.json"
+  },
+
+  "BGA400_1mm" : {
+    "name" : "BGA400_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA400_1mm.json"
+  },
+
+  "SSOP17" : {
+    "name" : "SSOP17" ,
+    "location" : "pcb/json/libcms_old/SSOP17.json"
+  },
+
+  "SSOP24" : {
+    "name" : "SSOP24" ,
+    "location" : "pcb/json/libcms_old/SSOP24.json"
+  },
+
+  "SM1812" : {
+    "name" : "SM1812" ,
+    "location" : "pcb/json/libcms_old/SM1812.json"
+  },
+
+  "PLCC52MS" : {
+    "name" : "PLCC52MS" ,
+    "location" : "pcb/json/libcms_old/PLCC52MS.json"
+  },
+
+  "SO16E" : {
+    "name" : "SO16E" ,
+    "location" : "pcb/json/libcms_old/SO16E.json"
+  },
+
+  "PQFP132M" : {
+    "name" : "PQFP132M" ,
+    "location" : "pcb/json/libcms_old/PQFP132M.json"
+  },
+
+  "SMD403" : {
+    "name" : "SMD403" ,
+    "location" : "pcb/json/libcms_old/SMD403.json"
+  },
+
+  "VQFP100" : {
+    "name" : "VQFP100" ,
+    "location" : "pcb/json/libcms_old/VQFP100.json"
+  },
+
+  "QFN28" : {
+    "name" : "QFN28" ,
+    "location" : "pcb/json/libcms_old/QFN28.json"
+  },
+
+  "QFN32" : {
+    "name" : "QFN32" ,
+    "location" : "pcb/json/libcms_old/QFN32.json"
+  },
+
+  "BGA1156_1mm" : {
+    "name" : "BGA1156_1mm" ,
+    "location" : "pcb/json/libcms_old/BGA1156_1mm.json"
+  },
+
+  "CONN5-INV_SMD" : {
+    "name" : "CONN5-INV_SMD" ,
+    "location" : "pcb/json/libcms_old/CONN5-INV_SMD.json"
+  },
+
+  "TQFP_64" : {
+    "name" : "TQFP_64" ,
+    "location" : "pcb/json/libcms_old/TQFP_64.json"
+  },
+
+  "VQFP64" : {
+    "name" : "VQFP64" ,
+    "location" : "pcb/json/libcms_old/VQFP64.json"
+  },
+
+  "SM0805" : {
+    "name" : "SM0805" ,
+    "location" : "pcb/json/libcms_old/SM0805.json"
+  },
+
+  "cnp_3mm_disc" : {
+    "name" : "cnp_3mm_disc" ,
+    "location" : "pcb/json/capacitors/cnp_3mm_disc.json"
+  },
+
+  "cnp_18x5mm" : {
+    "name" : "cnp_18x5mm" ,
+    "location" : "pcb/json/capacitors/cnp_18x5mm.json"
+  },
+
+  "CP_16x25mm" : {
+    "name" : "CP_16x25mm" ,
+    "location" : "pcb/json/capacitors/CP_16x25mm.json"
+  },
+
+  "CP_10x21mm" : {
+    "name" : "CP_10x21mm" ,
+    "location" : "pcb/json/capacitors/CP_10x21mm.json"
+  },
+
+  "cnp_12mm_disc" : {
+    "name" : "cnp_12mm_disc" ,
+    "location" : "pcb/json/capacitors/cnp_12mm_disc.json"
+  },
+
+  "cnp_7.5mm_disc" : {
+    "name" : "cnp_7.5mm_disc" ,
+    "location" : "pcb/json/capacitors/cnp_7.5mm_disc.json"
+  },
+
+  "cnp_13x4mm" : {
+    "name" : "cnp_13x4mm" ,
+    "location" : "pcb/json/capacitors/cnp_13x4mm.json"
+  },
+
+  "CP_26x45mm" : {
+    "name" : "CP_26x45mm" ,
+    "location" : "pcb/json/capacitors/CP_26x45mm.json"
+  },
+
+  "CP_5x11mm" : {
+    "name" : "CP_5x11mm" ,
+    "location" : "pcb/json/capacitors/CP_5x11mm.json"
+  },
+
+  "CP_8x21mm" : {
+    "name" : "CP_8x21mm" ,
+    "location" : "pcb/json/capacitors/CP_8x21mm.json"
+  },
+
+  "CPA_6x11MM" : {
+    "name" : "CPA_6x11MM" ,
+    "location" : "pcb/json/capacitors/CPA_6x11MM.json"
+  },
+
+  "CP_10x13mm" : {
+    "name" : "CP_10x13mm" ,
+    "location" : "pcb/json/capacitors/CP_10x13mm.json"
+  },
+
+  "CPA_16x40MM" : {
+    "name" : "CPA_16x40MM" ,
+    "location" : "pcb/json/capacitors/CPA_16x40MM.json"
+  },
+
+  "CP_26x31mm" : {
+    "name" : "CP_26x31mm" ,
+    "location" : "pcb/json/capacitors/CP_26x31mm.json"
+  },
+
+  "CPA_16x31MM" : {
+    "name" : "CPA_16x31MM" ,
+    "location" : "pcb/json/capacitors/CPA_16x31MM.json"
+  },
+
+  "CPA_13x31MM" : {
+    "name" : "CPA_13x31MM" ,
+    "location" : "pcb/json/capacitors/CPA_13x31MM.json"
+  },
+
+  "cnp_7x6mm" : {
+    "name" : "cnp_7x6mm" ,
+    "location" : "pcb/json/capacitors/cnp_7x6mm.json"
+  },
+
+  "CP_13x21mm" : {
+    "name" : "CP_13x21mm" ,
+    "location" : "pcb/json/capacitors/CP_13x21mm.json"
+  },
+
+  "CPA_5x11MM" : {
+    "name" : "CPA_5x11MM" ,
+    "location" : "pcb/json/capacitors/CPA_5x11MM.json"
+  },
+
+  "CP_10x25mm" : {
+    "name" : "CP_10x25mm" ,
+    "location" : "pcb/json/capacitors/CP_10x25mm.json"
+  },
+
+  "cnp_7x2mm" : {
+    "name" : "cnp_7x2mm" ,
+    "location" : "pcb/json/capacitors/cnp_7x2mm.json"
+  },
+
+  "cnp_18x6mm" : {
+    "name" : "cnp_18x6mm" ,
+    "location" : "pcb/json/capacitors/cnp_18x6mm.json"
+  },
+
+  "CP_35x51mm" : {
+    "name" : "CP_35x51mm" ,
+    "location" : "pcb/json/capacitors/CP_35x51mm.json"
+  },
+
+  "CP_8x13mm" : {
+    "name" : "CP_8x13mm" ,
+    "location" : "pcb/json/capacitors/CP_8x13mm.json"
+  },
+
+  "CP_13x25mm" : {
+    "name" : "CP_13x25mm" ,
+    "location" : "pcb/json/capacitors/CP_13x25mm.json"
+  },
+
+  "CP_10x16mm" : {
+    "name" : "CP_10x16mm" ,
+    "location" : "pcb/json/capacitors/CP_10x16mm.json"
+  },
+
+  "CPA_8x21MM" : {
+    "name" : "CPA_8x21MM" ,
+    "location" : "pcb/json/capacitors/CPA_8x21MM.json"
+  },
+
+  "CP_30x51mm" : {
+    "name" : "CP_30x51mm" ,
+    "location" : "pcb/json/capacitors/CP_30x51mm.json"
+  },
+
+  "cnp_7x4.5mm" : {
+    "name" : "cnp_7x4.5mm" ,
+    "location" : "pcb/json/capacitors/cnp_7x4.5mm.json"
+  },
+
+  "cnp_18x8mm" : {
+    "name" : "cnp_18x8mm" ,
+    "location" : "pcb/json/capacitors/cnp_18x8mm.json"
+  },
+
+  "CP_5x6mm" : {
+    "name" : "CP_5x6mm" ,
+    "location" : "pcb/json/capacitors/CP_5x6mm.json"
+  },
+
+  "CP_22x41mm" : {
+    "name" : "CP_22x41mm" ,
+    "location" : "pcb/json/capacitors/CP_22x41mm.json"
+  },
+
+  "cnp_6mm_disc" : {
+    "name" : "cnp_6mm_disc" ,
+    "location" : "pcb/json/capacitors/cnp_6mm_disc.json"
+  },
+
+  "U9" : {
+    "name" : "U9" ,
+    "location" : "pcb/json/pga_sockets/U9.json"
+  },
+
+  "tssop-28" : {
+    "name" : "tssop-28" ,
+    "location" : "pcb/json/smd_dil/tssop-28.json"
+  },
+
+  "so-8" : {
+    "name" : "so-8" ,
+    "location" : "pcb/json/smd_dil/so-8.json"
+  },
+
+  "msoic-10" : {
+    "name" : "msoic-10" ,
+    "location" : "pcb/json/smd_dil/msoic-10.json"
+  },
+
+  "msoic-8" : {
+    "name" : "msoic-8" ,
+    "location" : "pcb/json/smd_dil/msoic-8.json"
+  },
+
+  "tssop-14" : {
+    "name" : "tssop-14" ,
+    "location" : "pcb/json/smd_dil/tssop-14.json"
+  },
+
+  "SOT363" : {
+    "name" : "SOT363" ,
+    "location" : "pcb/json/smd_dil/SOT363.json"
+  },
+
+  "so-16" : {
+    "name" : "so-16" ,
+    "location" : "pcb/json/smd_dil/so-16.json"
+  },
+
+  "so-14" : {
+    "name" : "so-14" ,
+    "location" : "pcb/json/smd_dil/so-14.json"
+  },
+
+  "ssop-28" : {
+    "name" : "ssop-28" ,
+    "location" : "pcb/json/smd_dil/ssop-28.json"
+  },
+
+  "psop-8" : {
+    "name" : "psop-8" ,
+    "location" : "pcb/json/smd_dil/psop-8.json"
+  },
+
+  "psop-24" : {
+    "name" : "psop-24" ,
+    "location" : "pcb/json/smd_dil/psop-24.json"
+  },
+
+  "tssop-16" : {
+    "name" : "tssop-16" ,
+    "location" : "pcb/json/smd_dil/tssop-16.json"
+  },
+
+  "ssop-48" : {
+    "name" : "ssop-48" ,
+    "location" : "pcb/json/smd_dil/ssop-48.json"
+  },
+
+  "ssop-16" : {
+    "name" : "ssop-16" ,
+    "location" : "pcb/json/smd_dil/ssop-16.json"
+  },
+
+  "tssop-20" : {
+    "name" : "tssop-20" ,
+    "location" : "pcb/json/smd_dil/tssop-20.json"
+  },
+
+  "tssop-24" : {
+    "name" : "tssop-24" ,
+    "location" : "pcb/json/smd_dil/tssop-24.json"
+  },
+
+  "TQFP44" : {
+    "name" : "TQFP44" ,
+    "location" : "pcb/json/libcms/TQFP44.json"
+  },
+
+  "QFN48+1" : {
+    "name" : "QFN48+1" ,
+    "location" : "pcb/json/libcms/QFN48%252B1.json"
+  },
+
+  "SM1206POL" : {
+    "name" : "SM1206POL" ,
+    "location" : "pcb/json/libcms/SM1206POL.json"
+  },
+
+  "MSOP10-0.5" : {
+    "name" : "MSOP10-0.5" ,
+    "location" : "pcb/json/libcms/MSOP10-0.5.json"
+  },
+
+  "SOT23-5" : {
+    "name" : "SOT23-5" ,
+    "location" : "pcb/json/libcms/SOT23-5.json"
+  },
+
+  "SO20L" : {
+    "name" : "SO20L" ,
+    "location" : "pcb/json/libcms/SO20L.json"
+  },
+
+  "BGA1023_1mm" : {
+    "name" : "BGA1023_1mm" ,
+    "location" : "pcb/json/libcms/BGA1023_1mm.json"
+  },
+
+  "TSSOIC24" : {
+    "name" : "TSSOIC24" ,
+    "location" : "pcb/json/libcms/TSSOIC24.json"
+  },
+
+  "SOT23GDS" : {
+    "name" : "SOT23GDS" ,
+    "location" : "pcb/json/libcms/SOT23GDS.json"
+  },
+
+  "SM1210L" : {
+    "name" : "SM1210L" ,
+    "location" : "pcb/json/libcms/SM1210L.json"
+  },
+
+  "tssop-28" : {
+    "name" : "tssop-28" ,
+    "location" : "pcb/json/libcms/tssop-28.json"
+  },
+
+  "ST23AK#1" : {
+    "name" : "ST23AK#1" ,
+    "location" : "pcb/json/libcms/ST23AK%25231.json"
+  },
+
+  "SM0402_c" : {
+    "name" : "SM0402_c" ,
+    "location" : "pcb/json/libcms/SM0402_c.json"
+  },
+
+  "CONN5_SMD" : {
+    "name" : "CONN5_SMD" ,
+    "location" : "pcb/json/libcms/CONN5_SMD.json"
+  },
+
+  "SOT553" : {
+    "name" : "SOT553" ,
+    "location" : "pcb/json/libcms/SOT553.json"
+  },
+
+  "SO16L" : {
+    "name" : "SO16L" ,
+    "location" : "pcb/json/libcms/SO16L.json"
+  },
+
+  "EMI_FILTER" : {
+    "name" : "EMI_FILTER" ,
+    "location" : "pcb/json/libcms/EMI_FILTER.json"
+  },
+
+  "PQFP386" : {
+    "name" : "PQFP386" ,
+    "location" : "pcb/json/libcms/PQFP386.json"
+  },
+
+  "QFN24" : {
+    "name" : "QFN24" ,
+    "location" : "pcb/json/libcms/QFN24.json"
+  },
+
+  "DPAKGDS" : {
+    "name" : "DPAKGDS" ,
+    "location" : "pcb/json/libcms/DPAKGDS.json"
+  },
+
+  "PQFP160" : {
+    "name" : "PQFP160" ,
+    "location" : "pcb/json/libcms/PQFP160.json"
+  },
+
+  "VSOP56" : {
+    "name" : "VSOP56" ,
+    "location" : "pcb/json/libcms/VSOP56.json"
+  },
+
+  "TSOP32SP" : {
+    "name" : "TSOP32SP" ,
+    "location" : "pcb/json/libcms/TSOP32SP.json"
+  },
+
+  "BGA352" : {
+    "name" : "BGA352" ,
+    "location" : "pcb/json/libcms/BGA352.json"
+  },
+
+  "TQFP144" : {
+    "name" : "TQFP144" ,
+    "location" : "pcb/json/libcms/TQFP144.json"
+  },
+
+  "CONN3_SMD" : {
+    "name" : "CONN3_SMD" ,
+    "location" : "pcb/json/libcms/CONN3_SMD.json"
+  },
+
+  "BGA256" : {
+    "name" : "BGA256" ,
+    "location" : "pcb/json/libcms/BGA256.json"
+  },
+
+  "SSOP14" : {
+    "name" : "SSOP14" ,
+    "location" : "pcb/json/libcms/SSOP14.json"
+  },
+
+  "DPAK3" : {
+    "name" : "DPAK3" ,
+    "location" : "pcb/json/libcms/DPAK3.json"
+  },
+
+  "LFCSP_VQ-CP40-1" : {
+    "name" : "LFCSP_VQ-CP40-1" ,
+    "location" : "pcb/json/libcms/LFCSP_VQ-CP40-1.json"
+  },
+
+  "BGA121_1mm" : {
+    "name" : "BGA121_1mm" ,
+    "location" : "pcb/json/libcms/BGA121_1mm.json"
+  },
+
+  "S0IC28N" : {
+    "name" : "S0IC28N" ,
+    "location" : "pcb/json/libcms/S0IC28N.json"
+  },
+
+  "SMDHD/VF" : {
+    "name" : "SMDHD/VF" ,
+    "location" : "pcb/json/libcms/SMDHD%252FVF.json"
+  },
+
+  "SOJ4242" : {
+    "name" : "SOJ4242" ,
+    "location" : "pcb/json/libcms/SOJ4242.json"
+  },
+
+  "MSOP_8" : {
+    "name" : "MSOP_8" ,
+    "location" : "pcb/json/libcms/MSOP_8.json"
+  },
+
+  "SOIC24-WIDE" : {
+    "name" : "SOIC24-WIDE" ,
+    "location" : "pcb/json/libcms/SOIC24-WIDE.json"
+  },
+
+  "BGA90-0.8" : {
+    "name" : "BGA90-0.8" ,
+    "location" : "pcb/json/libcms/BGA90-0.8.json"
+  },
+
+  "SOT23_INV" : {
+    "name" : "SOT23_INV" ,
+    "location" : "pcb/json/libcms/SOT23_INV.json"
+  },
+
+  "SOT353" : {
+    "name" : "SOT353" ,
+    "location" : "pcb/json/libcms/SOT353.json"
+  },
+
+  "SOIC24" : {
+    "name" : "SOIC24" ,
+    "location" : "pcb/json/libcms/SOIC24.json"
+  },
+
+  "SUPSOJ40" : {
+    "name" : "SUPSOJ40" ,
+    "location" : "pcb/json/libcms/SUPSOJ40.json"
+  },
+
+  "PLCC84MS" : {
+    "name" : "PLCC84MS" ,
+    "location" : "pcb/json/libcms/PLCC84MS.json"
+  },
+
+  "SMDSVP10" : {
+    "name" : "SMDSVP10" ,
+    "location" : "pcb/json/libcms/SMDSVP10.json"
+  },
+
+  "SOJ28_WIDE" : {
+    "name" : "SOJ28_WIDE" ,
+    "location" : "pcb/json/libcms/SOJ28_WIDE.json"
+  },
+
+  "QFN48" : {
+    "name" : "QFN48" ,
+    "location" : "pcb/json/libcms/QFN48.json"
+  },
+
+  "SM0603_Capa" : {
+    "name" : "SM0603_Capa" ,
+    "location" : "pcb/json/libcms/SM0603_Capa.json"
+  },
+
+  "SO28" : {
+    "name" : "SO28" ,
+    "location" : "pcb/json/libcms/SO28.json"
+  },
+
+  "SM0402" : {
+    "name" : "SM0402" ,
+    "location" : "pcb/json/libcms/SM0402.json"
+  },
+
+  "PQFP112" : {
+    "name" : "PQFP112" ,
+    "location" : "pcb/json/libcms/PQFP112.json"
+  },
+
+  "SM1812L" : {
+    "name" : "SM1812L" ,
+    "location" : "pcb/json/libcms/SM1812L.json"
+  },
+
+  "TSSOP14" : {
+    "name" : "TSSOP14" ,
+    "location" : "pcb/json/libcms/TSSOP14.json"
+  },
+
+  "BGA144_1mm" : {
+    "name" : "BGA144_1mm" ,
+    "location" : "pcb/json/libcms/BGA144_1mm.json"
+  },
+
+  "TSSOP-48" : {
+    "name" : "TSSOP-48" ,
+    "location" : "pcb/json/libcms/TSSOP-48.json"
+  },
+
+  "atmel-MLF44" : {
+    "name" : "atmel-MLF44" ,
+    "location" : "pcb/json/libcms/atmel-MLF44.json"
+  },
+
+  "CONN20_SMD" : {
+    "name" : "CONN20_SMD" ,
+    "location" : "pcb/json/libcms/CONN20_SMD.json"
+  },
+
+  "SO16N" : {
+    "name" : "SO16N" ,
+    "location" : "pcb/json/libcms/SO16N.json"
+  },
+
+  "QFN32-5x5" : {
+    "name" : "QFN32-5x5" ,
+    "location" : "pcb/json/libcms/QFN32-5x5.json"
+  },
+
+  "BGA1295_1mm" : {
+    "name" : "BGA1295_1mm" ,
+    "location" : "pcb/json/libcms/BGA1295_1mm.json"
+  },
+
+  "SO24E" : {
+    "name" : "SO24E" ,
+    "location" : "pcb/json/libcms/SO24E.json"
+  },
+
+  "FSUPCMS" : {
+    "name" : "FSUPCMS" ,
+    "location" : "pcb/json/libcms/FSUPCMS.json"
+  },
+
+  "SO8N" : {
+    "name" : "SO8N" ,
+    "location" : "pcb/json/libcms/SO8N.json"
+  },
+
+  "1PIN_SMD" : {
+    "name" : "1PIN_SMD" ,
+    "location" : "pcb/json/libcms/1PIN_SMD.json"
+  },
+
+  "PLCC68MS" : {
+    "name" : "PLCC68MS" ,
+    "location" : "pcb/json/libcms/PLCC68MS.json"
+  },
+
+  "DPAK5" : {
+    "name" : "DPAK5" ,
+    "location" : "pcb/json/libcms/DPAK5.json"
+  },
+
+  "BGA64-0.8mm" : {
+    "name" : "BGA64-0.8mm" ,
+    "location" : "pcb/json/libcms/BGA64-0.8mm.json"
+  },
+
+  "SOJ32" : {
+    "name" : "SOJ32" ,
+    "location" : "pcb/json/libcms/SOJ32.json"
+  },
+
+  "SSOP56" : {
+    "name" : "SSOP56" ,
+    "location" : "pcb/json/libcms/SSOP56.json"
+  },
+
+  "PQFP80" : {
+    "name" : "PQFP80" ,
+    "location" : "pcb/json/libcms/PQFP80.json"
+  },
+
+  "CERAMIC_FILTER" : {
+    "name" : "CERAMIC_FILTER" ,
+    "location" : "pcb/json/libcms/CERAMIC_FILTER.json"
+  },
+
+  "SO14N" : {
+    "name" : "SO14N" ,
+    "location" : "pcb/json/libcms/SO14N.json"
+  },
+
+  "SM1812E" : {
+    "name" : "SM1812E" ,
+    "location" : "pcb/json/libcms/SM1812E.json"
+  },
+
+  "BGA48" : {
+    "name" : "BGA48" ,
+    "location" : "pcb/json/libcms/BGA48.json"
+  },
+
+  "DPAK2" : {
+    "name" : "DPAK2" ,
+    "location" : "pcb/json/libcms/DPAK2.json"
+  },
+
+  "DO-214AC(SMA)" : {
+    "name" : "DO-214AC(SMA)" ,
+    "location" : "pcb/json/libcms/DO-214AC%2528SMA%2529.json"
+  },
+
+  "DPAKGDS1" : {
+    "name" : "DPAKGDS1" ,
+    "location" : "pcb/json/libcms/DPAKGDS1.json"
+  },
+
+  "CONN3-INV_SMD" : {
+    "name" : "CONN3-INV_SMD" ,
+    "location" : "pcb/json/libcms/CONN3-INV_SMD.json"
+  },
+
+  "SSOP8-9" : {
+    "name" : "SSOP8-9" ,
+    "location" : "pcb/json/libcms/SSOP8-9.json"
+  },
+
+  "uMAX-uSOP_10" : {
+    "name" : "uMAX-uSOP_10" ,
+    "location" : "pcb/json/libcms/uMAX-uSOP_10.json"
+  },
+
+  "SOT23EBC" : {
+    "name" : "SOT23EBC" ,
+    "location" : "pcb/json/libcms/SOT23EBC.json"
+  },
+
+  "SM0201_r" : {
+    "name" : "SM0201_r" ,
+    "location" : "pcb/json/libcms/SM0201_r.json"
+  },
+
+  "PLCC32MS" : {
+    "name" : "PLCC32MS" ,
+    "location" : "pcb/json/libcms/PLCC32MS.json"
+  },
+
+  "TO263-5" : {
+    "name" : "TO263-5" ,
+    "location" : "pcb/json/libcms/TO263-5.json"
+  },
+
+  "SM1206" : {
+    "name" : "SM1206" ,
+    "location" : "pcb/json/libcms/SM1206.json"
+  },
+
+  "VQFP44" : {
+    "name" : "VQFP44" ,
+    "location" : "pcb/json/libcms/VQFP44.json"
+  },
+
+  "SM0603_Resistor" : {
+    "name" : "SM0603_Resistor" ,
+    "location" : "pcb/json/libcms/SM0603_Resistor.json"
+  },
+
+  "SOT223" : {
+    "name" : "SOT223" ,
+    "location" : "pcb/json/libcms/SOT223.json"
+  },
+
+  "SM1210" : {
+    "name" : "SM1210" ,
+    "location" : "pcb/json/libcms/SM1210.json"
+  },
+
+  "TQFP32" : {
+    "name" : "TQFP32" ,
+    "location" : "pcb/json/libcms/TQFP32.json"
+  },
+
+  "SOJ32_WIDE" : {
+    "name" : "SOJ32_WIDE" ,
+    "location" : "pcb/json/libcms/SOJ32_WIDE.json"
+  },
+
+  "PQFP208" : {
+    "name" : "PQFP208" ,
+    "location" : "pcb/json/libcms/PQFP208.json"
+  },
+
+  "VQFP240" : {
+    "name" : "VQFP240" ,
+    "location" : "pcb/json/libcms/VQFP240.json"
+  },
+
+  "IPAKGDS" : {
+    "name" : "IPAKGDS" ,
+    "location" : "pcb/json/libcms/IPAKGDS.json"
+  },
+
+  "SOJ40" : {
+    "name" : "SOJ40" ,
+    "location" : "pcb/json/libcms/SOJ40.json"
+  },
+
+  "TSSOP16" : {
+    "name" : "TSSOP16" ,
+    "location" : "pcb/json/libcms/TSSOP16.json"
+  },
+
+  "SO14E" : {
+    "name" : "SO14E" ,
+    "location" : "pcb/json/libcms/SO14E.json"
+  },
+
+  "SM0603" : {
+    "name" : "SM0603" ,
+    "location" : "pcb/json/libcms/SM0603.json"
+  },
+
+  "PLCC44MS" : {
+    "name" : "PLCC44MS" ,
+    "location" : "pcb/json/libcms/PLCC44MS.json"
+  },
+
+  "SO8E" : {
+    "name" : "SO8E" ,
+    "location" : "pcb/json/libcms/SO8E.json"
+  },
+
+  "BGA484_1mm" : {
+    "name" : "BGA484_1mm" ,
+    "location" : "pcb/json/libcms/BGA484_1mm.json"
+  },
+
+  "TQFP_100" : {
+    "name" : "TQFP_100" ,
+    "location" : "pcb/json/libcms/TQFP_100.json"
+  },
+
+  "SO16W" : {
+    "name" : "SO16W" ,
+    "location" : "pcb/json/libcms/SO16W.json"
+  },
+
+  "SOT23" : {
+    "name" : "SOT23" ,
+    "location" : "pcb/json/libcms/SOT23.json"
+  },
+
+  "SOT23_6" : {
+    "name" : "SOT23_6" ,
+    "location" : "pcb/json/libcms/SOT23_6.json"
+  },
+
+  "8DIPCMS" : {
+    "name" : "8DIPCMS" ,
+    "location" : "pcb/json/libcms/8DIPCMS.json"
+  },
+
+  "SM0402_r" : {
+    "name" : "SM0402_r" ,
+    "location" : "pcb/json/libcms/SM0402_r.json"
+  },
+
+  "SSOP20" : {
+    "name" : "SSOP20" ,
+    "location" : "pcb/json/libcms/SSOP20.json"
+  },
+
+  "SSOP8" : {
+    "name" : "SSOP8" ,
+    "location" : "pcb/json/libcms/SSOP8.json"
+  },
+
+  "PLCC28MS" : {
+    "name" : "PLCC28MS" ,
+    "location" : "pcb/json/libcms/PLCC28MS.json"
+  },
+
+  "SOT323" : {
+    "name" : "SOT323" ,
+    "location" : "pcb/json/libcms/SOT323.json"
+  },
+
+  "POT_CMS" : {
+    "name" : "POT_CMS" ,
+    "location" : "pcb/json/libcms/POT_CMS.json"
+  },
+
+  "SM2512" : {
+    "name" : "SM2512" ,
+    "location" : "pcb/json/libcms/SM2512.json"
+  },
+
+  "PQFP100" : {
+    "name" : "PQFP100" ,
+    "location" : "pcb/json/libcms/PQFP100.json"
+  },
+
+  "SSOP28" : {
+    "name" : "SSOP28" ,
+    "location" : "pcb/json/libcms/SSOP28.json"
+  },
+
+  "SM2112L" : {
+    "name" : "SM2112L" ,
+    "location" : "pcb/json/libcms/SM2112L.json"
+  },
+
+  "SO8_WITH_EP" : {
+    "name" : "SO8_WITH_EP" ,
+    "location" : "pcb/json/libcms/SO8_WITH_EP.json"
+  },
+
+  "BGA400_1mm" : {
+    "name" : "BGA400_1mm" ,
+    "location" : "pcb/json/libcms/BGA400_1mm.json"
+  },
+
+  "SSOP17" : {
+    "name" : "SSOP17" ,
+    "location" : "pcb/json/libcms/SSOP17.json"
+  },
+
+  "SSOP24" : {
+    "name" : "SSOP24" ,
+    "location" : "pcb/json/libcms/SSOP24.json"
+  },
+
+  "TO263" : {
+    "name" : "TO263" ,
+    "location" : "pcb/json/libcms/TO263.json"
+  },
+
+  "SM2010" : {
+    "name" : "SM2010" ,
+    "location" : "pcb/json/libcms/SM2010.json"
+  },
+
+  "SM1812" : {
+    "name" : "SM1812" ,
+    "location" : "pcb/json/libcms/SM1812.json"
+  },
+
+  "PLCC52MS" : {
+    "name" : "PLCC52MS" ,
+    "location" : "pcb/json/libcms/PLCC52MS.json"
+  },
+
+  "SO16E" : {
+    "name" : "SO16E" ,
+    "location" : "pcb/json/libcms/SO16E.json"
+  },
+
+  "PQFP132M" : {
+    "name" : "PQFP132M" ,
+    "location" : "pcb/json/libcms/PQFP132M.json"
+  },
+
+  "SMD403" : {
+    "name" : "SMD403" ,
+    "location" : "pcb/json/libcms/SMD403.json"
+  },
+
+  "VQFP100" : {
+    "name" : "VQFP100" ,
+    "location" : "pcb/json/libcms/VQFP100.json"
+  },
+
+  "SOT23-SPECIAL" : {
+    "name" : "SOT23-SPECIAL" ,
+    "location" : "pcb/json/libcms/SOT23-SPECIAL.json"
+  },
+
+  "QFN28" : {
+    "name" : "QFN28" ,
+    "location" : "pcb/json/libcms/QFN28.json"
+  },
+
+  "QFN32" : {
+    "name" : "QFN32" ,
+    "location" : "pcb/json/libcms/QFN32.json"
+  },
+
+  "BGA1156_1mm" : {
+    "name" : "BGA1156_1mm" ,
+    "location" : "pcb/json/libcms/BGA1156_1mm.json"
+  },
+
+  "CONN5-INV_SMD" : {
+    "name" : "CONN5-INV_SMD" ,
+    "location" : "pcb/json/libcms/CONN5-INV_SMD.json"
+  },
+
+  "TQFP_64" : {
+    "name" : "TQFP_64" ,
+    "location" : "pcb/json/libcms/TQFP_64.json"
+  },
+
+  "DO-214AA(SMB)" : {
+    "name" : "DO-214AA(SMB)" ,
+    "location" : "pcb/json/libcms/DO-214AA%2528SMB%2529.json"
+  },
+
+  "VQFP64" : {
+    "name" : "VQFP64" ,
+    "location" : "pcb/json/libcms/VQFP64.json"
+  },
+
+  "SM0805" : {
+    "name" : "SM0805" ,
+    "location" : "pcb/json/libcms/SM0805.json"
+  },
+
+  "sot404" : {
+    "name" : "sot404" ,
+    "location" : "pcb/json/smd_transistors/sot404.json"
+  },
+
+  "sc70-6" : {
+    "name" : "sc70-6" ,
+    "location" : "pcb/json/smd_transistors/sc70-6.json"
+  },
+
+  "sot23" : {
+    "name" : "sot23" ,
+    "location" : "pcb/json/smd_transistors/sot23.json"
+  },
+
+  "sc70" : {
+    "name" : "sc70" ,
+    "location" : "pcb/json/smd_transistors/sc70.json"
+  },
+
+  "sot143r" : {
+    "name" : "sot143r" ,
+    "location" : "pcb/json/smd_transistors/sot143r.json"
+  },
+
+  "sot428" : {
+    "name" : "sot428" ,
+    "location" : "pcb/json/smd_transistors/sot428.json"
+  },
+
+  "sc70-5" : {
+    "name" : "sc70-5" ,
+    "location" : "pcb/json/smd_transistors/sc70-5.json"
+  },
+
+  "sot323-5" : {
+    "name" : "sot323-5" ,
+    "location" : "pcb/json/smd_transistors/sot323-5.json"
+  },
+
+  "sot323-6" : {
+    "name" : "sot323-6" ,
+    "location" : "pcb/json/smd_transistors/sot323-6.json"
+  },
+
+  "sot143B" : {
+    "name" : "sot143B" ,
+    "location" : "pcb/json/smd_transistors/sot143B.json"
+  },
+
+  "tsot-6" : {
+    "name" : "tsot-6" ,
+    "location" : "pcb/json/smd_transistors/tsot-6.json"
+  },
+
+  "sot89" : {
+    "name" : "sot89" ,
+    "location" : "pcb/json/smd_transistors/sot89.json"
+  },
+
+  "powermite3" : {
+    "name" : "powermite3" ,
+    "location" : "pcb/json/smd_transistors/powermite3.json"
+  },
+
+  "TEZ-22x24" : {
+    "name" : "TEZ-22x24" ,
+    "location" : "pcb/json/divers/TEZ-22x24.json"
+  },
+
+  "TEZ-44x52" : {
+    "name" : "TEZ-44x52" ,
+    "location" : "pcb/json/divers/TEZ-44x52.json"
+  },
+
+  "BUZZER" : {
+    "name" : "BUZZER" ,
+    "location" : "pcb/json/divers/BUZZER.json"
+  },
+
+  "LL1538" : {
+    "name" : "LL1538" ,
+    "location" : "pcb/json/divers/LL1538.json"
+  },
+
+  "douille_4mm" : {
+    "name" : "douille_4mm" ,
+    "location" : "pcb/json/divers/douille_4mm.json"
+  },
+
+  "TCXO_G158" : {
+    "name" : "TCXO_G158" ,
+    "location" : "pcb/json/divers/TCXO_G158.json"
+  },
+
+  "TRANSF-MICRO" : {
+    "name" : "TRANSF-MICRO" ,
+    "location" : "pcb/json/divers/TRANSF-MICRO.json"
+  },
+
+  "LL1587" : {
+    "name" : "LL1587" ,
+    "location" : "pcb/json/divers/LL1587.json"
+  },
+
+  "SELF26" : {
+    "name" : "SELF26" ,
+    "location" : "pcb/json/divers/SELF26.json"
+  },
+
+  "TEZ-35x42" : {
+    "name" : "TEZ-35x42" ,
+    "location" : "pcb/json/divers/TEZ-35x42.json"
+  },
+
+  "TRANSF-37x44" : {
+    "name" : "TRANSF-37x44" ,
+    "location" : "pcb/json/divers/TRANSF-37x44.json"
+  },
+
+  "3PIN_6mm" : {
+    "name" : "3PIN_6mm" ,
+    "location" : "pcb/json/divers/3PIN_6mm.json"
+  },
+
+  "2PIN_6mm" : {
+    "name" : "2PIN_6mm" ,
+    "location" : "pcb/json/divers/2PIN_6mm.json"
+  },
+
+  "TEZ-28x33" : {
+    "name" : "TEZ-28x33" ,
+    "location" : "pcb/json/divers/TEZ-28x33.json"
+  },
+
+  "OPTORESISTOR_NSL-32" : {
+    "name" : "OPTORESISTOR_NSL-32" ,
+    "location" : "pcb/json/divers/OPTORESISTOR_NSL-32.json"
+  },
+
+  "RJ45_TRANSFO" : {
+    "name" : "RJ45_TRANSFO" ,
+    "location" : "pcb/json/divers/RJ45_TRANSFO.json"
+  },
+
+  "TEZ-47x57" : {
+    "name" : "TEZ-47x57" ,
+    "location" : "pcb/json/divers/TEZ-47x57.json"
+  },
+
+  "TEZ-38x45" : {
+    "name" : "TEZ-38x45" ,
+    "location" : "pcb/json/divers/TEZ-38x45.json"
+  },
+
+  "LED-8MM" : {
+    "name" : "LED-8MM" ,
+    "location" : "pcb/json/led/LED-8MM.json"
+  },
+
+  "LED-5MM" : {
+    "name" : "LED-5MM" ,
+    "location" : "pcb/json/led/LED-5MM.json"
+  },
+
+  "LED-0603" : {
+    "name" : "LED-0603" ,
+    "location" : "pcb/json/led/LED-0603.json"
+  },
+
+  "LED-3MM" : {
+    "name" : "LED-3MM" ,
+    "location" : "pcb/json/led/LED-3MM.json"
+  },
+
+  "LED-1206" : {
+    "name" : "LED-1206" ,
+    "location" : "pcb/json/led/LED-1206.json"
+  },
+
+  "LED-0805" : {
+    "name" : "LED-0805" ,
+    "location" : "pcb/json/led/LED-0805.json"
+  },
+
+  "PGA84" : {
+    "name" : "PGA84" ,
+    "location" : "pcb/json/sockets/PGA84.json"
+  },
+
+  "zip28" : {
+    "name" : "zip28" ,
+    "location" : "pcb/json/sockets/zip28.json"
+  },
+
+  "PGA16X16" : {
+    "name" : "PGA16X16" ,
+    "location" : "pcb/json/sockets/PGA16X16.json"
+  },
+
+  "80188" : {
+    "name" : "80188" ,
+    "location" : "pcb/json/sockets/80188.json"
+  },
+
+  "28TEX-Ell600" : {
+    "name" : "28TEX-Ell600" ,
+    "location" : "pcb/json/sockets/28TEX-Ell600.json"
+  },
+
+  "PLCC68" : {
+    "name" : "PLCC68" ,
+    "location" : "pcb/json/sockets/PLCC68.json"
+  },
+
+  "PLCC52" : {
+    "name" : "PLCC52" ,
+    "location" : "pcb/json/sockets/PLCC52.json"
+  },
+
+  "40tex-Ell600" : {
+    "name" : "40tex-Ell600" ,
+    "location" : "pcb/json/sockets/40tex-Ell600.json"
+  },
+
+  "24tex300" : {
+    "name" : "24tex300" ,
+    "location" : "pcb/json/sockets/24tex300.json"
+  },
+
+  "PLCC32" : {
+    "name" : "PLCC32" ,
+    "location" : "pcb/json/sockets/PLCC32.json"
+  },
+
+  "PGA144" : {
+    "name" : "PGA144" ,
+    "location" : "pcb/json/sockets/PGA144.json"
+  },
+
+  "SDCARD-REVERSE" : {
+    "name" : "SDCARD-REVERSE" ,
+    "location" : "pcb/json/sockets/SDCARD-REVERSE.json"
+  },
+
+  "PGA224" : {
+    "name" : "PGA224" ,
+    "location" : "pcb/json/sockets/PGA224.json"
+  },
+
+  "H08" : {
+    "name" : "H08" ,
+    "location" : "pcb/json/sockets/H08.json"
+  },
+
+  "28tex600" : {
+    "name" : "28tex600" ,
+    "location" : "pcb/json/sockets/28tex600.json"
+  },
+
+  "PGA18X18" : {
+    "name" : "PGA18X18" ,
+    "location" : "pcb/json/sockets/PGA18X18.json"
+  },
+
+  "SIM72" : {
+    "name" : "SIM72" ,
+    "location" : "pcb/json/sockets/SIM72.json"
+  },
+
+  "40tex600" : {
+    "name" : "40tex600" ,
+    "location" : "pcb/json/sockets/40tex600.json"
+  },
+
+  "zip20" : {
+    "name" : "zip20" ,
+    "location" : "pcb/json/sockets/zip20.json"
+  },
+
+  "PLCC84" : {
+    "name" : "PLCC84" ,
+    "location" : "pcb/json/sockets/PLCC84.json"
+  },
+
+  "PLCC28" : {
+    "name" : "PLCC28" ,
+    "location" : "pcb/json/sockets/PLCC28.json"
+  },
+
+  "PGA120" : {
+    "name" : "PGA120" ,
+    "location" : "pcb/json/sockets/PGA120.json"
+  },
+
+  "20TEX300" : {
+    "name" : "20TEX300" ,
+    "location" : "pcb/json/sockets/20TEX300.json"
+  },
+
+  "SIMM" : {
+    "name" : "SIMM" ,
+    "location" : "pcb/json/sockets/SIMM.json"
+  },
+
+  "PGA15X15" : {
+    "name" : "PGA15X15" ,
+    "location" : "pcb/json/sockets/PGA15X15.json"
+  },
+
+  "PGA156" : {
+    "name" : "PGA156" ,
+    "location" : "pcb/json/sockets/PGA156.json"
+  },
+
+  "20TEX-ELL300" : {
+    "name" : "20TEX-ELL300" ,
+    "location" : "pcb/json/sockets/20TEX-ELL300.json"
+  },
+
+  "24TEXT-Ell300" : {
+    "name" : "24TEXT-Ell300" ,
+    "location" : "pcb/json/sockets/24TEXT-Ell300.json"
+  },
+
+  "SUPPORT_SO8_ZIF" : {
+    "name" : "SUPPORT_SO8_ZIF" ,
+    "location" : "pcb/json/sockets/SUPPORT_SO8_ZIF.json"
+  },
+
+  "PLCC44" : {
+    "name" : "PLCC44" ,
+    "location" : "pcb/json/sockets/PLCC44.json"
+  },
+
+  "ADSP2100" : {
+    "name" : "ADSP2100" ,
+    "location" : "pcb/json/sockets/ADSP2100.json"
+  },
+
+  "zip24" : {
+    "name" : "zip24" ,
+    "location" : "pcb/json/sockets/zip24.json"
+  },
+
+  "C7812" : {
+    "name" : "C7812" ,
+    "location" : "pcb/json/muonde/C7812.json"
+  },
+
+  "CR12CM" : {
+    "name" : "CR12CM" ,
+    "location" : "pcb/json/muonde/CR12CM.json"
+  },
+
+  "CC08ZZ" : {
+    "name" : "CC08ZZ" ,
+    "location" : "pcb/json/muonde/CC08ZZ.json"
+  },
+
+  "POS" : {
+    "name" : "POS" ,
+    "location" : "pcb/json/muonde/POS.json"
+  },
+
+  "C41485CC" : {
+    "name" : "C41485CC" ,
+    "location" : "pcb/json/muonde/C41485CC.json"
+  },
+
+  "CR12ZZ" : {
+    "name" : "CR12ZZ" ,
+    "location" : "pcb/json/muonde/CR12ZZ.json"
+  },
+
+  "CC08CM" : {
+    "name" : "CC08CM" ,
+    "location" : "pcb/json/muonde/CC08CM.json"
+  },
+
+  "ALIM" : {
+    "name" : "ALIM" ,
+    "location" : "pcb/json/muonde/ALIM.json"
+  },
+
+  "CC12ZM" : {
+    "name" : "CC12ZM" ,
+    "location" : "pcb/json/muonde/CC12ZM.json"
+  },
+
+  "CC12CC" : {
+    "name" : "CC12CC" ,
+    "location" : "pcb/json/muonde/CC12CC.json"
+  },
+
+  "RAID" : {
+    "name" : "RAID" ,
+    "location" : "pcb/json/muonde/RAID.json"
+  },
+
+  "TROU" : {
+    "name" : "TROU" ,
+    "location" : "pcb/json/muonde/TROU.json"
+  },
+
+  "CR12ZM" : {
+    "name" : "CR12ZM" ,
+    "location" : "pcb/json/muonde/CR12ZM.json"
+  },
+
+  "C41485MM" : {
+    "name" : "C41485MM" ,
+    "location" : "pcb/json/muonde/C41485MM.json"
+  },
+
+  "SMA" : {
+    "name" : "SMA" ,
+    "location" : "pcb/json/muonde/SMA.json"
+  },
+
+  "GAP" : {
+    "name" : "GAP" ,
+    "location" : "pcb/json/muonde/GAP.json"
+  },
+
+  "CC12ZZ" : {
+    "name" : "CC12ZZ" ,
+    "location" : "pcb/json/muonde/CC12ZZ.json"
+  },
+
+  "CR12CC" : {
+    "name" : "CR12CC" ,
+    "location" : "pcb/json/muonde/CR12CC.json"
+  },
+
+  "CC08CC" : {
+    "name" : "CC08CC" ,
+    "location" : "pcb/json/muonde/CC08CC.json"
+  },
+
+  "STUBCO" : {
+    "name" : "STUBCO" ,
+    "location" : "pcb/json/muonde/STUBCO.json"
+  },
+
+  "CC12CM" : {
+    "name" : "CC12CM" ,
+    "location" : "pcb/json/muonde/CC12CM.json"
+  },
+
+  "STUBCC" : {
+    "name" : "STUBCC" ,
+    "location" : "pcb/json/muonde/STUBCC.json"
+  },
+
+  "CC08ZM" : {
+    "name" : "CC08ZM" ,
+    "location" : "pcb/json/muonde/CC08ZM.json"
+  },
+
+  "HDSP-48xx" : {
+    "name" : "HDSP-48xx" ,
+    "location" : "pcb/json/display/HDSP-48xx.json"
+  },
+
+  "Dx04" : {
+    "name" : "Dx04" ,
+    "location" : "pcb/json/display/Dx04.json"
+  },
+
+  "HDSP-78xx" : {
+    "name" : "HDSP-78xx" ,
+    "location" : "pcb/json/display/HDSP-78xx.json"
+  },
+
+  "AFF_2x7SEG-DIGIT_10mm" : {
+    "name" : "AFF_2x7SEG-DIGIT_10mm" ,
+    "location" : "pcb/json/display/AFF_2x7SEG-DIGIT_10mm.json"
+  },
+
+  "ELD-426x" : {
+    "name" : "ELD-426x" ,
+    "location" : "pcb/json/display/ELD-426x.json"
+  },
+
+  "MAN3640A" : {
+    "name" : "MAN3640A" ,
+    "location" : "pcb/json/display/MAN3640A.json"
+  },
+
+  "LCD_ALPHA" : {
+    "name" : "LCD_ALPHA" ,
+    "location" : "pcb/json/display/LCD_ALPHA.json"
+  },
+
+  "LTS-69xx" : {
+    "name" : "LTS-69xx" ,
+    "location" : "pcb/json/display/LTS-69xx.json"
+  },
+
+  "VALVE-NOVAL_P" : {
+    "name" : "VALVE-NOVAL_P" ,
+    "location" : "pcb/json/valves/VALVE-NOVAL_P.json"
+  },
+
+  "VALVE-MINI_G" : {
+    "name" : "VALVE-MINI_G" ,
+    "location" : "pcb/json/valves/VALVE-MINI_G.json"
+  },
+
+  "VALVE-NOVAL_G" : {
+    "name" : "VALVE-NOVAL_G" ,
+    "location" : "pcb/json/valves/VALVE-NOVAL_G.json"
+  },
+
+  "VALVE-OCTAL" : {
+    "name" : "VALVE-OCTAL" ,
+    "location" : "pcb/json/valves/VALVE-OCTAL.json"
+  },
+
+  "VALVE-ECC-83-1" : {
+    "name" : "VALVE-ECC-83-1" ,
+    "location" : "pcb/json/valves/VALVE-ECC-83-1.json"
+  },
+
+  "VALVE-MINI_P" : {
+    "name" : "VALVE-MINI_P" ,
+    "location" : "pcb/json/valves/VALVE-MINI_P.json"
+  },
+
+  "VALVE-ECC-83-2" : {
+    "name" : "VALVE-ECC-83-2" ,
+    "location" : "pcb/json/valves/VALVE-ECC-83-2.json"
+  },
+
+  "VALVE-GLIMM" : {
+    "name" : "VALVE-GLIMM" ,
+    "location" : "pcb/json/valves/VALVE-GLIMM.json"
+  },
+
+  "VALVE-EURO" : {
+    "name" : "VALVE-EURO" ,
+    "location" : "pcb/json/valves/VALVE-EURO.json"
+  },
+
+  "SSOP-14" : {
+    "name" : "SSOP-14" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-14.json"
+  },
+
+  "SSOP-16" : {
+    "name" : "SSOP-16" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-16.json"
+  },
+
+  "SSOP-28" : {
+    "name" : "SSOP-28" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-28.json"
+  },
+
+  "MSOP-8(EP)" : {
+    "name" : "MSOP-8(EP)" ,
+    "location" : "pcb/json/smd_ssop_packages/MSOP-8%2528EP%2529.json"
+  },
+
+  "MSOP-8" : {
+    "name" : "MSOP-8" ,
+    "location" : "pcb/json/smd_ssop_packages/MSOP-8.json"
+  },
+
+  "SSOP56" : {
+    "name" : "SSOP56" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP56.json"
+  },
+
+  "SSOP-24" : {
+    "name" : "SSOP-24" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-24.json"
+  },
+
+  "SSOP-16(EP)" : {
+    "name" : "SSOP-16(EP)" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-16%2528EP%2529.json"
+  },
+
+  "SSOP-48" : {
+    "name" : "SSOP-48" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-48.json"
+  },
+
+  "MSOP-10(EP)" : {
+    "name" : "MSOP-10(EP)" ,
+    "location" : "pcb/json/smd_ssop_packages/MSOP-10%2528EP%2529.json"
+  },
+
+  "MSOP-10" : {
+    "name" : "MSOP-10" ,
+    "location" : "pcb/json/smd_ssop_packages/MSOP-10.json"
+  },
+
+  "SSOP-20" : {
+    "name" : "SSOP-20" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-20.json"
+  },
+
+  "SSOP-8" : {
+    "name" : "SSOP-8" ,
+    "location" : "pcb/json/smd_ssop_packages/SSOP-8.json"
+  },
+
+  "C1.5V8H" : {
+    "name" : "C1.5V8H" ,
+    "location" : "pcb/json/discret/C1.5V8H.json"
+  },
+
+  "TO92-123" : {
+    "name" : "TO92-123" ,
+    "location" : "pcb/json/discret/TO92-123.json"
+  },
+
+  "LM78XXV" : {
+    "name" : "LM78XXV" ,
+    "location" : "pcb/json/discret/LM78XXV.json"
+  },
+
+  "TO3" : {
+    "name" : "TO3" ,
+    "location" : "pcb/json/discret/TO3.json"
+  },
+
+  "CP6" : {
+    "name" : "CP6" ,
+    "location" : "pcb/json/discret/CP6.json"
+  },
+
+  "TO39EBC" : {
+    "name" : "TO39EBC" ,
+    "location" : "pcb/json/discret/TO39EBC.json"
+  },
+
+  "CP18" : {
+    "name" : "CP18" ,
+    "location" : "pcb/json/discret/CP18.json"
+  },
+
+  "CP36V" : {
+    "name" : "CP36V" ,
+    "location" : "pcb/json/discret/CP36V.json"
+  },
+
+  "CP4" : {
+    "name" : "CP4" ,
+    "location" : "pcb/json/discret/CP4.json"
+  },
+
+  "TO18EBC" : {
+    "name" : "TO18EBC" ,
+    "location" : "pcb/json/discret/TO18EBC.json"
+  },
+
+  "CR1220" : {
+    "name" : "CR1220" ,
+    "location" : "pcb/json/discret/CR1220.json"
+  },
+
+  "HC-18UV" : {
+    "name" : "HC-18UV" ,
+    "location" : "pcb/json/discret/HC-18UV.json"
+  },
+
+  "DO-35" : {
+    "name" : "DO-35" ,
+    "location" : "pcb/json/discret/DO-35.json"
+  },
+
+  "CR2032V" : {
+    "name" : "CR2032V" ,
+    "location" : "pcb/json/discret/CR2032V.json"
+  },
+
+  "R4-LARGE_PADS" : {
+    "name" : "R4-LARGE_PADS" ,
+    "location" : "pcb/json/discret/R4-LARGE_PADS.json"
+  },
+
+  "TO92PN" : {
+    "name" : "TO92PN" ,
+    "location" : "pcb/json/discret/TO92PN.json"
+  },
+
+  "SW_PUSH_SMALL" : {
+    "name" : "SW_PUSH_SMALL" ,
+    "location" : "pcb/json/discret/SW_PUSH_SMALL.json"
+  },
+
+  "C1.5V8V" : {
+    "name" : "C1.5V8V" ,
+    "location" : "pcb/json/discret/C1.5V8V.json"
+  },
+
+  "R3" : {
+    "name" : "R3" ,
+    "location" : "pcb/json/discret/R3.json"
+  },
+
+  "EMI_FILTER" : {
+    "name" : "EMI_FILTER" ,
+    "location" : "pcb/json/discret/EMI_FILTER.json"
+  },
+
+  "SW_PUSH-12mm" : {
+    "name" : "SW_PUSH-12mm" ,
+    "location" : "pcb/json/discret/SW_PUSH-12mm.json"
+  },
+
+  "microswitch_Nikkai" : {
+    "name" : "microswitch_Nikkai" ,
+    "location" : "pcb/json/discret/microswitch_Nikkai.json"
+  },
+
+  "R4-5" : {
+    "name" : "R4-5" ,
+    "location" : "pcb/json/discret/R4-5.json"
+  },
+
+  "LM16255" : {
+    "name" : "LM16255" ,
+    "location" : "pcb/json/discret/LM16255.json"
+  },
+
+  "LM78LXX" : {
+    "name" : "LM78LXX" ,
+    "location" : "pcb/json/discret/LM78LXX.json"
+  },
+
+  "C2V10" : {
+    "name" : "C2V10" ,
+    "location" : "pcb/json/discret/C2V10.json"
+  },
+
+  "SUBCLICK" : {
+    "name" : "SUBCLICK" ,
+    "location" : "pcb/json/discret/SUBCLICK.json"
+  },
+
+  "CP12" : {
+    "name" : "CP12" ,
+    "location" : "pcb/json/discret/CP12.json"
+  },
+
+  "LCD4" : {
+    "name" : "LCD4" ,
+    "location" : "pcb/json/discret/LCD4.json"
+  },
+
+  "SW_SPDT" : {
+    "name" : "SW_SPDT" ,
+    "location" : "pcb/json/discret/SW_SPDT.json"
+  },
+
+  "D5" : {
+    "name" : "D5" ,
+    "location" : "pcb/json/discret/D5.json"
+  },
+
+  "LM79LXX" : {
+    "name" : "LM79LXX" ,
+    "location" : "pcb/json/discret/LM79LXX.json"
+  },
+
+  "BUZ3-5" : {
+    "name" : "BUZ3-5" ,
+    "location" : "pcb/json/discret/BUZ3-5.json"
+  },
+
+  "TO220GDS" : {
+    "name" : "TO220GDS" ,
+    "location" : "pcb/json/discret/TO220GDS.json"
+  },
+
+  "TEST_POINT_2PADS" : {
+    "name" : "TEST_POINT_2PADS" ,
+    "location" : "pcb/json/discret/TEST_POINT_2PADS.json"
+  },
+
+  "TO92-INVERT" : {
+    "name" : "TO92-INVERT" ,
+    "location" : "pcb/json/discret/TO92-INVERT.json"
+  },
+
+  "SWDIP4" : {
+    "name" : "SWDIP4" ,
+    "location" : "pcb/json/discret/SWDIP4.json"
+  },
+
+  "C1V7H" : {
+    "name" : "C1V7H" ,
+    "location" : "pcb/json/discret/C1V7H.json"
+  },
+
+  "C1V7" : {
+    "name" : "C1V7" ,
+    "location" : "pcb/json/discret/C1V7.json"
+  },
+
+  "FUSE5-20" : {
+    "name" : "FUSE5-20" ,
+    "location" : "pcb/json/discret/FUSE5-20.json"
+  },
+
+  "LM79XX" : {
+    "name" : "LM79XX" ,
+    "location" : "pcb/json/discret/LM79XX.json"
+  },
+
+  "SW_PUSH" : {
+    "name" : "SW_PUSH" ,
+    "location" : "pcb/json/discret/SW_PUSH.json"
+  },
+
+  "R5" : {
+    "name" : "R5" ,
+    "location" : "pcb/json/discret/R5.json"
+  },
+
+  "RV2" : {
+    "name" : "RV2" ,
+    "location" : "pcb/json/discret/RV2.json"
+  },
+
+  "TO92-EBC" : {
+    "name" : "TO92-EBC" ,
+    "location" : "pcb/json/discret/TO92-EBC.json"
+  },
+
+  "HC-49V" : {
+    "name" : "HC-49V" ,
+    "location" : "pcb/json/discret/HC-49V.json"
+  },
+
+  "CP8" : {
+    "name" : "CP8" ,
+    "location" : "pcb/json/discret/CP8.json"
+  },
+
+  "TO92DGS" : {
+    "name" : "TO92DGS" ,
+    "location" : "pcb/json/discret/TO92DGS.json"
+  },
+
+  "CP5" : {
+    "name" : "CP5" ,
+    "location" : "pcb/json/discret/CP5.json"
+  },
+
+  "TO92GSD" : {
+    "name" : "TO92GSD" ,
+    "location" : "pcb/json/discret/TO92GSD.json"
+  },
+
+  "C1-1" : {
+    "name" : "C1-1" ,
+    "location" : "pcb/json/discret/C1-1.json"
+  },
+
+  "R3-LARGE_PADS" : {
+    "name" : "R3-LARGE_PADS" ,
+    "location" : "pcb/json/discret/R3-LARGE_PADS.json"
+  },
+
+  "C1V5H" : {
+    "name" : "C1V5H" ,
+    "location" : "pcb/json/discret/C1V5H.json"
+  },
+
+  "TO92_INVERT_H" : {
+    "name" : "TO92_INVERT_H" ,
+    "location" : "pcb/json/discret/TO92_INVERT_H.json"
+  },
+
+  "C1V5" : {
+    "name" : "C1V5" ,
+    "location" : "pcb/json/discret/C1V5.json"
+  },
+
+  "TO220" : {
+    "name" : "TO220" ,
+    "location" : "pcb/json/discret/TO220.json"
+  },
+
+  "R4" : {
+    "name" : "R4" ,
+    "location" : "pcb/json/discret/R4.json"
+  },
+
+  "VP0808" : {
+    "name" : "VP0808" ,
+    "location" : "pcb/json/discret/VP0808.json"
+  },
+
+  "PUSH_BUTT_SHAPE1" : {
+    "name" : "PUSH_BUTT_SHAPE1" ,
+    "location" : "pcb/json/discret/PUSH_BUTT_SHAPE1.json"
+  },
+
+  "MICROSWITCH_SPST" : {
+    "name" : "MICROSWITCH_SPST" ,
+    "location" : "pcb/json/discret/MICROSWITCH_SPST.json"
+  },
+
+  "D6.5" : {
+    "name" : "D6.5" ,
+    "location" : "pcb/json/discret/D6.5.json"
+  },
+
+  "HC-18UH" : {
+    "name" : "HC-18UH" ,
+    "location" : "pcb/json/discret/HC-18UH.json"
+  },
+
+  "r_pack9" : {
+    "name" : "r_pack9" ,
+    "location" : "pcb/json/discret/r_pack9.json"
+  },
+
+  "MIRE" : {
+    "name" : "MIRE" ,
+    "location" : "pcb/json/discret/MIRE.json"
+  },
+
+  "R1" : {
+    "name" : "R1" ,
+    "location" : "pcb/json/discret/R1.json"
+  },
+
+  "HC-33UV" : {
+    "name" : "HC-33UV" ,
+    "location" : "pcb/json/discret/HC-33UV.json"
+  },
+
+  "CP20" : {
+    "name" : "CP20" ,
+    "location" : "pcb/json/discret/CP20.json"
+  },
+
+  "D3" : {
+    "name" : "D3" ,
+    "location" : "pcb/json/discret/D3.json"
+  },
+
+  "LM78XX" : {
+    "name" : "LM78XX" ,
+    "location" : "pcb/json/discret/LM78XX.json"
+  },
+
+  "LM78XX-TO92" : {
+    "name" : "LM78XX-TO92" ,
+    "location" : "pcb/json/discret/LM78XX-TO92.json"
+  },
+
+  "DO-41" : {
+    "name" : "DO-41" ,
+    "location" : "pcb/json/discret/DO-41.json"
+  },
+
+  "CV3-30PF" : {
+    "name" : "CV3-30PF" ,
+    "location" : "pcb/json/discret/CV3-30PF.json"
+  },
+
+  "CPR10X16" : {
+    "name" : "CPR10X16" ,
+    "location" : "pcb/json/discret/CPR10X16.json"
+  },
+
+  "r_pack8" : {
+    "name" : "r_pack8" ,
+    "location" : "pcb/json/discret/r_pack8.json"
+  },
+
+  "CP14" : {
+    "name" : "CP14" ,
+    "location" : "pcb/json/discret/CP14.json"
+  },
+
+  "CP16" : {
+    "name" : "CP16" ,
+    "location" : "pcb/json/discret/CP16.json"
+  },
+
+  "OSC_DIP8" : {
+    "name" : "OSC_DIP8" ,
+    "location" : "pcb/json/discret/OSC_DIP8.json"
+  },
+
+  "KSA" : {
+    "name" : "KSA" ,
+    "location" : "pcb/json/discret/KSA.json"
+  },
+
+  "TO220_VERT" : {
+    "name" : "TO220_VERT" ,
+    "location" : "pcb/json/discret/TO220_VERT.json"
+  },
+
+  "CVAR3X2" : {
+    "name" : "CVAR3X2" ,
+    "location" : "pcb/json/discret/CVAR3X2.json"
+  },
+
+  "R7" : {
+    "name" : "R7" ,
+    "location" : "pcb/json/discret/R7.json"
+  },
+
+  "MICROSWITCH_SPST_H" : {
+    "name" : "MICROSWITCH_SPST_H" ,
+    "location" : "pcb/json/discret/MICROSWITCH_SPST_H.json"
+  },
+
+  "R3-5" : {
+    "name" : "R3-5" ,
+    "location" : "pcb/json/discret/R3-5.json"
+  },
+
+  "SWDIP8" : {
+    "name" : "SWDIP8" ,
+    "location" : "pcb/json/discret/SWDIP8.json"
+  },
+
+  "LM2931" : {
+    "name" : "LM2931" ,
+    "location" : "pcb/json/discret/LM2931.json"
+  },
+
+  "LEDV" : {
+    "name" : "LEDV" ,
+    "location" : "pcb/json/discret/LEDV.json"
+  },
+
+  "TO18CBE" : {
+    "name" : "TO18CBE" ,
+    "location" : "pcb/json/discret/TO18CBE.json"
+  },
+
+  "HC-33UH" : {
+    "name" : "HC-33UH" ,
+    "location" : "pcb/json/discret/HC-33UH.json"
+  },
+
+  "C1" : {
+    "name" : "C1" ,
+    "location" : "pcb/json/discret/C1.json"
+  },
+
+  "C1V8" : {
+    "name" : "C1V8" ,
+    "location" : "pcb/json/discret/C1V8.json"
+  },
+
+  "TO92H" : {
+    "name" : "TO92H" ,
+    "location" : "pcb/json/discret/TO92H.json"
+  },
+
+  "TO18GSD" : {
+    "name" : "TO18GSD" ,
+    "location" : "pcb/json/discret/TO18GSD.json"
+  },
+
+  "C2V8" : {
+    "name" : "C2V8" ,
+    "location" : "pcb/json/discret/C2V8.json"
+  },
+
+  "CR2032H" : {
+    "name" : "CR2032H" ,
+    "location" : "pcb/json/discret/CR2032H.json"
+  },
+
+  "D6" : {
+    "name" : "D6" ,
+    "location" : "pcb/json/discret/D6.json"
+  },
+
+  "C2" : {
+    "name" : "C2" ,
+    "location" : "pcb/json/discret/C2.json"
+  },
+
+  "TO92-CBE" : {
+    "name" : "TO92-CBE" ,
+    "location" : "pcb/json/discret/TO92-CBE.json"
+  },
+
+  "TO92" : {
+    "name" : "TO92" ,
+    "location" : "pcb/json/discret/TO92.json"
+  },
+
+  "QMONTRE" : {
+    "name" : "QMONTRE" ,
+    "location" : "pcb/json/discret/QMONTRE.json"
+  },
+
+  "R6" : {
+    "name" : "R6" ,
+    "location" : "pcb/json/discret/R6.json"
+  },
+
+  "D4" : {
+    "name" : "D4" ,
+    "location" : "pcb/json/discret/D4.json"
+  },
+
+  "SUPER_CAP" : {
+    "name" : "SUPER_CAP" ,
+    "location" : "pcb/json/discret/SUPER_CAP.json"
+  },
+
+  "CP10" : {
+    "name" : "CP10" ,
+    "location" : "pcb/json/discret/CP10.json"
+  },
+
+  "swdip3" : {
+    "name" : "swdip3" ,
+    "location" : "pcb/json/discret/swdip3.json"
+  },
+
+  "RV2X4" : {
+    "name" : "RV2X4" ,
+    "location" : "pcb/json/discret/RV2X4.json"
+  },
+
+  "PIN_ARRAY_30X2" : {
+    "name" : "PIN_ARRAY_30X2" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_30X2.json"
+  },
+
+  "pin_array_4x2" : {
+    "name" : "pin_array_4x2" ,
+    "location" : "pcb/json/pin_array/pin_array_4x2.json"
+  },
+
+  "PIN_ARRAY_2X2" : {
+    "name" : "PIN_ARRAY_2X2" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_2X2.json"
+  },
+
+  "pin_array_8x2" : {
+    "name" : "pin_array_8x2" ,
+    "location" : "pcb/json/pin_array/pin_array_8x2.json"
+  },
+
+  "PIN_ARRAY_2X1" : {
+    "name" : "PIN_ARRAY_2X1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_2X1.json"
+  },
+
+  "PIN_ARRAY-6X1" : {
+    "name" : "PIN_ARRAY-6X1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY-6X1.json"
+  },
+
+  "PIN_ARRAY_5x2" : {
+    "name" : "PIN_ARRAY_5x2" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_5x2.json"
+  },
+
+  "pin_array_12x2" : {
+    "name" : "pin_array_12x2" ,
+    "location" : "pcb/json/pin_array/pin_array_12x2.json"
+  },
+
+  "pin_array_3x2" : {
+    "name" : "pin_array_3x2" ,
+    "location" : "pcb/json/pin_array/pin_array_3x2.json"
+  },
+
+  "PIN_ARRAY_3X1" : {
+    "name" : "PIN_ARRAY_3X1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_3X1.json"
+  },
+
+  "PIN_ARRAY_4x1" : {
+    "name" : "PIN_ARRAY_4x1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_4x1.json"
+  },
+
+  "pin_array_13x2" : {
+    "name" : "pin_array_13x2" ,
+    "location" : "pcb/json/pin_array/pin_array_13x2.json"
+  },
+
+  "pin_array_6x2" : {
+    "name" : "pin_array_6x2" ,
+    "location" : "pcb/json/pin_array/pin_array_6x2.json"
+  },
+
+  "PIN_ARRAY_20X2" : {
+    "name" : "PIN_ARRAY_20X2" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_20X2.json"
+  },
+
+  "PIN_ARRAY_5x1" : {
+    "name" : "PIN_ARRAY_5x1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_5x1.json"
+  },
+
+  "PIN_ARRAY_28X1" : {
+    "name" : "PIN_ARRAY_28X1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_28X1.json"
+  },
+
+  "PIN_ARRAY_1" : {
+    "name" : "PIN_ARRAY_1" ,
+    "location" : "pcb/json/pin_array/PIN_ARRAY_1.json"
+  },
+
+  "Q_49U3HMS" : {
+    "name" : "Q_49U3HMS" ,
+    "location" : "pcb/json/smd_crystal%2526oscillator/Q_49U3HMS.json"
+  },
+
+  "crystal_FA238-TSX3225" : {
+    "name" : "crystal_FA238-TSX3225" ,
+    "location" : "pcb/json/smd_crystal%2526oscillator/crystal_FA238-TSX3225.json"
+  },
+
+  "PDIP-8B" : {
+    "name" : "PDIP-8B" ,
+    "location" : "pcb/json/powerint/PDIP-8B.json"
+  },
+
+  "PDIP-8" : {
+    "name" : "PDIP-8" ,
+    "location" : "pcb/json/powerint/PDIP-8.json"
+  },
+
+  "SMD-8B" : {
+    "name" : "SMD-8B" ,
+    "location" : "pcb/json/powerint/SMD-8B.json"
+  },
+
+  "eSIP-7F" : {
+    "name" : "eSIP-7F" ,
+    "location" : "pcb/json/powerint/eSIP-7F.json"
+  },
+
+  "SO-8C" : {
+    "name" : "SO-8C" ,
+    "location" : "pcb/json/powerint/SO-8C.json"
+  },
+
+  "SDIP-10C" : {
+    "name" : "SDIP-10C" ,
+    "location" : "pcb/json/powerint/SDIP-10C.json"
+  },
+
+  "eSIP-7C" : {
+    "name" : "eSIP-7C" ,
+    "location" : "pcb/json/powerint/eSIP-7C.json"
+  },
+
+  "PDIP-8C" : {
+    "name" : "PDIP-8C" ,
+    "location" : "pcb/json/powerint/PDIP-8C.json"
+  },
+
+  "TO-220-7C" : {
+    "name" : "TO-220-7C" ,
+    "location" : "pcb/json/powerint/TO-220-7C.json"
+  },
+
+  "SMD-8C" : {
+    "name" : "SMD-8C" ,
+    "location" : "pcb/json/powerint/SMD-8C.json"
+  },
+
+  "SO-8" : {
+    "name" : "SO-8" ,
+    "location" : "pcb/json/powerint/SO-8.json"
+  },
+
+  "TO-262-7C" : {
+    "name" : "TO-262-7C" ,
+    "location" : "pcb/json/powerint/TO-262-7C.json"
+  },
+
+  "TO-220" : {
+    "name" : "TO-220" ,
+    "location" : "pcb/json/powerint/TO-220.json"
+  },
+
+  "PDIP-24" : {
+    "name" : "PDIP-24" ,
+    "location" : "pcb/json/powerint/PDIP-24.json"
+  },
+
+  "TO-263-7C" : {
+    "name" : "TO-263-7C" ,
+    "location" : "pcb/json/powerint/TO-263-7C.json"
+  },
+
+  "eDIP-12" : {
+    "name" : "eDIP-12" ,
+    "location" : "pcb/json/powerint/eDIP-12.json"
+  },
+
+  "SMD-8" : {
+    "name" : "SMD-8" ,
+    "location" : "pcb/json/powerint/SMD-8.json"
+  },
+
+  "SELF-WE-PD-XXL" : {
+    "name" : "SELF-WE-PD-XXL" ,
+    "location" : "pcb/json/inductors/SELF-WE-PD-XXL.json"
+  },
+
+  "SELF-WE-PD3S" : {
+    "name" : "SELF-WE-PD3S" ,
+    "location" : "pcb/json/inductors/SELF-WE-PD3S.json"
+  },
+
+  "INDUCTOR_V" : {
+    "name" : "INDUCTOR_V" ,
+    "location" : "pcb/json/inductors/INDUCTOR_V.json"
+  },
+
+  "SELF1418" : {
+    "name" : "SELF1418" ,
+    "location" : "pcb/json/inductors/SELF1418.json"
+  },
+
+  "SELF-WE-TPC_M" : {
+    "name" : "SELF-WE-TPC_M" ,
+    "location" : "pcb/json/inductors/SELF-WE-TPC_M.json"
+  },
+
+  "SELF1408" : {
+    "name" : "SELF1408" ,
+    "location" : "pcb/json/inductors/SELF1408.json"
+  },
+
+  "self_cms_we-pd3" : {
+    "name" : "self_cms_we-pd3" ,
+    "location" : "pcb/json/inductors/self_cms_we-pd3.json"
+  },
+
+  "self_cms_we-tpc_XL" : {
+    "name" : "self_cms_we-tpc_XL" ,
+    "location" : "pcb/json/inductors/self_cms_we-tpc_XL.json"
+  },
+
+  "c64abmd" : {
+    "name" : "c64abmd" ,
+    "location" : "pcb/json/connect/c64abmd.json"
+  },
+
+  "DB9M_CI_INVERT" : {
+    "name" : "DB9M_CI_INVERT" ,
+    "location" : "pcb/json/connect/DB9M_CI_INVERT.json"
+  },
+
+  "HE10_34D" : {
+    "name" : "HE10_34D" ,
+    "location" : "pcb/json/connect/HE10_34D.json"
+  },
+
+  "GS_8x2" : {
+    "name" : "GS_8x2" ,
+    "location" : "pcb/json/connect/GS_8x2.json"
+  },
+
+  "DB25FC" : {
+    "name" : "DB25FC" ,
+    "location" : "pcb/json/connect/DB25FC.json"
+  },
+
+  "SIL-12" : {
+    "name" : "SIL-12" ,
+    "location" : "pcb/json/connect/SIL-12.json"
+  },
+
+  "BUS_AT" : {
+    "name" : "BUS_AT" ,
+    "location" : "pcb/json/connect/BUS_AT.json"
+  },
+
+  "SIL-26" : {
+    "name" : "SIL-26" ,
+    "location" : "pcb/json/connect/SIL-26.json"
+  },
+
+  "GS2" : {
+    "name" : "GS2" ,
+    "location" : "pcb/json/connect/GS2.json"
+  },
+
+  "SIL-15" : {
+    "name" : "SIL-15" ,
+    "location" : "pcb/json/connect/SIL-15.json"
+  },
+
+  "he10-16d" : {
+    "name" : "he10-16d" ,
+    "location" : "pcb/json/connect/he10-16d.json"
+  },
+
+  "JACK_ALIM" : {
+    "name" : "JACK_ALIM" ,
+    "location" : "pcb/json/connect/JACK_ALIM.json"
+  },
+
+  "bornier3" : {
+    "name" : "bornier3" ,
+    "location" : "pcb/json/connect/bornier3.json"
+  },
+
+  "DB15MD" : {
+    "name" : "DB15MD" ,
+    "location" : "pcb/json/connect/DB15MD.json"
+  },
+
+  "VASCH5x2" : {
+    "name" : "VASCH5x2" ,
+    "location" : "pcb/json/connect/VASCH5x2.json"
+  },
+
+  "DB15M_CI" : {
+    "name" : "DB15M_CI" ,
+    "location" : "pcb/json/connect/DB15M_CI.json"
+  },
+
+  "he10-16c" : {
+    "name" : "he10-16c" ,
+    "location" : "pcb/json/connect/he10-16c.json"
+  },
+
+  "DB37MD" : {
+    "name" : "DB37MD" ,
+    "location" : "pcb/json/connect/DB37MD.json"
+  },
+
+  "DB9MD" : {
+    "name" : "DB9MD" ,
+    "location" : "pcb/json/connect/DB9MD.json"
+  },
+
+  "SIL-18" : {
+    "name" : "SIL-18" ,
+    "location" : "pcb/json/connect/SIL-18.json"
+  },
+
+  "DB37FD" : {
+    "name" : "DB37FD" ,
+    "location" : "pcb/json/connect/DB37FD.json"
+  },
+
+  "SIL-9" : {
+    "name" : "SIL-9" ,
+    "location" : "pcb/json/connect/SIL-9.json"
+  },
+
+  "bornier5" : {
+    "name" : "bornier5" ,
+    "location" : "pcb/json/connect/bornier5.json"
+  },
+
+  "DB25F_CI" : {
+    "name" : "DB25F_CI" ,
+    "location" : "pcb/json/connect/DB25F_CI.json"
+  },
+
+  "SIL-13" : {
+    "name" : "SIL-13" ,
+    "location" : "pcb/json/connect/SIL-13.json"
+  },
+
+  "XLR3MC" : {
+    "name" : "XLR3MC" ,
+    "location" : "pcb/json/connect/XLR3MC.json"
+  },
+
+  "SIL-5" : {
+    "name" : "SIL-5" ,
+    "location" : "pcb/json/connect/SIL-5.json"
+  },
+
+  "RJ12_E" : {
+    "name" : "RJ12_E" ,
+    "location" : "pcb/json/connect/RJ12_E.json"
+  },
+
+  "c64acfd" : {
+    "name" : "c64acfd" ,
+    "location" : "pcb/json/connect/c64acfd.json"
+  },
+
+  "DB25M_CI" : {
+    "name" : "DB25M_CI" ,
+    "location" : "pcb/json/connect/DB25M_CI.json"
+  },
+
+  "bnc-ci" : {
+    "name" : "bnc-ci" ,
+    "location" : "pcb/json/connect/bnc-ci.json"
+  },
+
+  "TESTPOINT" : {
+    "name" : "TESTPOINT" ,
+    "location" : "pcb/json/connect/TESTPOINT.json"
+  },
+
+  "DB25MD" : {
+    "name" : "DB25MD" ,
+    "location" : "pcb/json/connect/DB25MD.json"
+  },
+
+  "SIL-7" : {
+    "name" : "SIL-7" ,
+    "location" : "pcb/json/connect/SIL-7.json"
+  },
+
+  "HE10_50D" : {
+    "name" : "HE10_50D" ,
+    "location" : "pcb/json/connect/HE10_50D.json"
+  },
+
+  "bornier4" : {
+    "name" : "bornier4" ,
+    "location" : "pcb/json/connect/bornier4.json"
+  },
+
+  "HE10_20D" : {
+    "name" : "HE10_20D" ,
+    "location" : "pcb/json/connect/HE10_20D.json"
+  },
+
+  "bnc" : {
+    "name" : "bnc" ,
+    "location" : "pcb/json/connect/bnc.json"
+  },
+
+  "GTK2400-H2" : {
+    "name" : "GTK2400-H2" ,
+    "location" : "pcb/json/connect/GTK2400-H2.json"
+  },
+
+  "SIL-6" : {
+    "name" : "SIL-6" ,
+    "location" : "pcb/json/connect/SIL-6.json"
+  },
+
+  "SOC676BR" : {
+    "name" : "SOC676BR" ,
+    "location" : "pcb/json/connect/SOC676BR.json"
+  },
+
+  "PINHEAD1-6" : {
+    "name" : "PINHEAD1-6" ,
+    "location" : "pcb/json/connect/PINHEAD1-6.json"
+  },
+
+  "DB9F_CI" : {
+    "name" : "DB9F_CI" ,
+    "location" : "pcb/json/connect/DB9F_CI.json"
+  },
+
+  "SIL-2" : {
+    "name" : "SIL-2" ,
+    "location" : "pcb/json/connect/SIL-2.json"
+  },
+
+  "CNT3BRCMS" : {
+    "name" : "CNT3BRCMS" ,
+    "location" : "pcb/json/connect/CNT3BRCMS.json"
+  },
+
+  "DB9FC" : {
+    "name" : "DB9FC" ,
+    "location" : "pcb/json/connect/DB9FC.json"
+  },
+
+  "DB25MC" : {
+    "name" : "DB25MC" ,
+    "location" : "pcb/json/connect/DB25MC.json"
+  },
+
+  "VASCH10x2" : {
+    "name" : "VASCH10x2" ,
+    "location" : "pcb/json/connect/VASCH10x2.json"
+  },
+
+  "PINTST" : {
+    "name" : "PINTST" ,
+    "location" : "pcb/json/connect/PINTST.json"
+  },
+
+  "DB15MC" : {
+    "name" : "DB15MC" ,
+    "location" : "pcb/json/connect/DB15MC.json"
+  },
+
+  "he10-26c" : {
+    "name" : "he10-26c" ,
+    "location" : "pcb/json/connect/he10-26c.json"
+  },
+
+  "QMS-1X52-FEMALE-SMD" : {
+    "name" : "QMS-1X52-FEMALE-SMD" ,
+    "location" : "pcb/json/connect/QMS-1X52-FEMALE-SMD.json"
+  },
+
+  "PCI-EXPRESS" : {
+    "name" : "PCI-EXPRESS" ,
+    "location" : "pcb/json/connect/PCI-EXPRESS.json"
+  },
+
+  "USB_A" : {
+    "name" : "USB_A" ,
+    "location" : "pcb/json/connect/USB_A.json"
+  },
+
+  "VASCH8x2" : {
+    "name" : "VASCH8x2" ,
+    "location" : "pcb/json/connect/VASCH8x2.json"
+  },
+
+  "HE10_40D" : {
+    "name" : "HE10_40D" ,
+    "location" : "pcb/json/connect/HE10_40D.json"
+  },
+
+  "HE10_60D" : {
+    "name" : "HE10_60D" ,
+    "location" : "pcb/json/connect/HE10_60D.json"
+  },
+
+  "3M-N7E50" : {
+    "name" : "3M-N7E50" ,
+    "location" : "pcb/json/connect/3M-N7E50.json"
+  },
+
+  "SIL-14" : {
+    "name" : "SIL-14" ,
+    "location" : "pcb/json/connect/SIL-14.json"
+  },
+
+  "c64abfd" : {
+    "name" : "c64abfd" ,
+    "location" : "pcb/json/connect/c64abfd.json"
+  },
+
+  "he10-14d" : {
+    "name" : "he10-14d" ,
+    "location" : "pcb/json/connect/he10-14d.json"
+  },
+
+  "AK300-2" : {
+    "name" : "AK300-2" ,
+    "location" : "pcb/json/connect/AK300-2.json"
+  },
+
+  "1pin" : {
+    "name" : "1pin" ,
+    "location" : "pcb/json/connect/1pin.json"
+  },
+
+  "SIL-10" : {
+    "name" : "SIL-10" ,
+    "location" : "pcb/json/connect/SIL-10.json"
+  },
+
+  "USB_MINI_B" : {
+    "name" : "USB_MINI_B" ,
+    "location" : "pcb/json/connect/USB_MINI_B.json"
+  },
+
+  "HE10_26D" : {
+    "name" : "HE10_26D" ,
+    "location" : "pcb/json/connect/HE10_26D.json"
+  },
+
+  "DB9FD" : {
+    "name" : "DB9FD" ,
+    "location" : "pcb/json/connect/DB9FD.json"
+  },
+
+  "DB15FC" : {
+    "name" : "DB15FC" ,
+    "location" : "pcb/json/connect/DB15FC.json"
+  },
+
+  "SOC676C" : {
+    "name" : "SOC676C" ,
+    "location" : "pcb/json/connect/SOC676C.json"
+  },
+
+  "PINHEAD1-2" : {
+    "name" : "PINHEAD1-2" ,
+    "location" : "pcb/json/connect/PINHEAD1-2.json"
+  },
+
+  "SATA-22_SMD" : {
+    "name" : "SATA-22_SMD" ,
+    "location" : "pcb/json/connect/SATA-22_SMD.json"
+  },
+
+  "he10-10d" : {
+    "name" : "he10-10d" ,
+    "location" : "pcb/json/connect/he10-10d.json"
+  },
+
+  "SOC676NY" : {
+    "name" : "SOC676NY" ,
+    "location" : "pcb/json/connect/SOC676NY.json"
+  },
+
+  "GTK2400-V2" : {
+    "name" : "GTK2400-V2" ,
+    "location" : "pcb/json/connect/GTK2400-V2.json"
+  },
+
+  "HE10_64D" : {
+    "name" : "HE10_64D" ,
+    "location" : "pcb/json/connect/HE10_64D.json"
+  },
+
+  "SIL-1" : {
+    "name" : "SIL-1" ,
+    "location" : "pcb/json/connect/SIL-1.json"
+  },
+
+  "PINHEAD1-3" : {
+    "name" : "PINHEAD1-3" ,
+    "location" : "pcb/json/connect/PINHEAD1-3.json"
+  },
+
+  "GS_6x2" : {
+    "name" : "GS_6x2" ,
+    "location" : "pcb/json/connect/GS_6x2.json"
+  },
+
+  "DB25FD" : {
+    "name" : "DB25FD" ,
+    "location" : "pcb/json/connect/DB25FD.json"
+  },
+
+  "RJ45_8" : {
+    "name" : "RJ45_8" ,
+    "location" : "pcb/json/connect/RJ45_8.json"
+  },
+
+  "HE10-10C" : {
+    "name" : "HE10-10C" ,
+    "location" : "pcb/json/connect/HE10-10C.json"
+  },
+
+  "he10-40c" : {
+    "name" : "he10-40c" ,
+    "location" : "pcb/json/connect/he10-40c.json"
+  },
+
+  "C96ABCFD" : {
+    "name" : "C96ABCFD" ,
+    "location" : "pcb/json/connect/C96ABCFD.json"
+  },
+
+  "DB9M_CI" : {
+    "name" : "DB9M_CI" ,
+    "location" : "pcb/json/connect/DB9M_CI.json"
+  },
+
+  "XLR5MC" : {
+    "name" : "XLR5MC" ,
+    "location" : "pcb/json/connect/XLR5MC.json"
+  },
+
+  "DB15F_CI" : {
+    "name" : "DB15F_CI" ,
+    "location" : "pcb/json/connect/DB15F_CI.json"
+  },
+
+  "SIL-4" : {
+    "name" : "SIL-4" ,
+    "location" : "pcb/json/connect/SIL-4.json"
+  },
+
+  "he10-20c" : {
+    "name" : "he10-20c" ,
+    "location" : "pcb/json/connect/he10-20c.json"
+  },
+
+  "BUSPCI" : {
+    "name" : "BUSPCI" ,
+    "location" : "pcb/json/connect/BUSPCI.json"
+  },
+
+  "GS3" : {
+    "name" : "GS3" ,
+    "location" : "pcb/json/connect/GS3.json"
+  },
+
+  "SIL-8" : {
+    "name" : "SIL-8" ,
+    "location" : "pcb/json/connect/SIL-8.json"
+  },
+
+  "GS_9x2" : {
+    "name" : "GS_9x2" ,
+    "location" : "pcb/json/connect/GS_9x2.json"
+  },
+
+  "he10-14c" : {
+    "name" : "he10-14c" ,
+    "location" : "pcb/json/connect/he10-14c.json"
+  },
+
+  "DB9MC" : {
+    "name" : "DB9MC" ,
+    "location" : "pcb/json/connect/DB9MC.json"
+  },
+
+  "BARREL_JACK" : {
+    "name" : "BARREL_JACK" ,
+    "location" : "pcb/json/connect/BARREL_JACK.json"
+  },
+
+  "SIL-3" : {
+    "name" : "SIL-3" ,
+    "location" : "pcb/json/connect/SIL-3.json"
+  },
+
+  "QMS-2X52-SMD" : {
+    "name" : "QMS-2X52-SMD" ,
+    "location" : "pcb/json/connect/QMS-2X52-SMD.json"
+  },
+
+  "bornier2" : {
+    "name" : "bornier2" ,
+    "location" : "pcb/json/connect/bornier2.json"
+  },
+
+  "DB15FD" : {
+    "name" : "DB15FD" ,
+    "location" : "pcb/json/connect/DB15FD.json"
+  },
+
+  "QMS-1X52-SMD" : {
+    "name" : "QMS-1X52-SMD" ,
+    "location" : "pcb/json/connect/QMS-1X52-SMD.json"
+  },
+
+  "USB_B" : {
+    "name" : "USB_B" ,
+    "location" : "pcb/json/connect/USB_B.json"
+  },
+
+  "bornier6" : {
+    "name" : "bornier6" ,
+    "location" : "pcb/json/connect/bornier6.json"
+  },
+
+  "DB37FC" : {
+    "name" : "DB37FC" ,
+    "location" : "pcb/json/connect/DB37FC.json"
+  },
+
+  "C96ABCMD" : {
+    "name" : "C96ABCMD" ,
+    "location" : "pcb/json/connect/C96ABCMD.json"
+  },
+
+  "RJ45_TRANSFO" : {
+    "name" : "RJ45_TRANSFO" ,
+    "location" : "pcb/json/connect/RJ45_TRANSFO.json"
+  },
+
+  "he10-34c" : {
+    "name" : "he10-34c" ,
+    "location" : "pcb/json/connect/he10-34c.json"
+  },
+
+  "DB9F_CI_INVERT" : {
+    "name" : "DB9F_CI_INVERT" ,
+    "location" : "pcb/json/connect/DB9F_CI_INVERT.json"
+  },
+
+  "DIP-28__300_ELL" : {
+    "name" : "DIP-28__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-28__300_ELL.json"
+  },
+
+  "DIP-28__300__600_ELL" : {
+    "name" : "DIP-28__300__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-28__300__600_ELL.json"
+  },
+
+  "DIP-64__900" : {
+    "name" : "DIP-64__900" ,
+    "location" : "pcb/json/dip_sockets/DIP-64__900.json"
+  },
+
+  "DIP-18__300_ELL" : {
+    "name" : "DIP-18__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-18__300_ELL.json"
+  },
+
+  "DIP-24__300_ELL" : {
+    "name" : "DIP-24__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-24__300_ELL.json"
+  },
+
+  "DIP-10__300" : {
+    "name" : "DIP-10__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-10__300.json"
+  },
+
+  "DIP-40__1000_ELL" : {
+    "name" : "DIP-40__1000_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-40__1000_ELL.json"
+  },
+
+  "DIP-24__600_ELL" : {
+    "name" : "DIP-24__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-24__600_ELL.json"
+  },
+
+  "DIP-22__300" : {
+    "name" : "DIP-22__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-22__300.json"
+  },
+
+  "DIP-22__300_ELL" : {
+    "name" : "DIP-22__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-22__300_ELL.json"
+  },
+
+  "DIP-64__900_ELL" : {
+    "name" : "DIP-64__900_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-64__900_ELL.json"
+  },
+
+  "DIP-48__600" : {
+    "name" : "DIP-48__600" ,
+    "location" : "pcb/json/dip_sockets/DIP-48__600.json"
+  },
+
+  "DIP-64__600" : {
+    "name" : "DIP-64__600" ,
+    "location" : "pcb/json/dip_sockets/DIP-64__600.json"
+  },
+
+  "DIP-32__600" : {
+    "name" : "DIP-32__600" ,
+    "location" : "pcb/json/dip_sockets/DIP-32__600.json"
+  },
+
+  "DIP-18__300" : {
+    "name" : "DIP-18__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-18__300.json"
+  },
+
+  "DIP-64__600_ELL" : {
+    "name" : "DIP-64__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-64__600_ELL.json"
+  },
+
+  "DIP-28__300" : {
+    "name" : "DIP-28__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-28__300.json"
+  },
+
+  "DIP-14__300" : {
+    "name" : "DIP-14__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-14__300.json"
+  },
+
+  "DIP-8__300" : {
+    "name" : "DIP-8__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-8__300.json"
+  },
+
+  "DIP-24__300" : {
+    "name" : "DIP-24__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-24__300.json"
+  },
+
+  "DIP-22__400" : {
+    "name" : "DIP-22__400" ,
+    "location" : "pcb/json/dip_sockets/DIP-22__400.json"
+  },
+
+  "DIP-40__600_ELL" : {
+    "name" : "DIP-40__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-40__600_ELL.json"
+  },
+
+  "DIP-28__600_ELL" : {
+    "name" : "DIP-28__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-28__600_ELL.json"
+  },
+
+  "DIP-8__300_ELL" : {
+    "name" : "DIP-8__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-8__300_ELL.json"
+  },
+
+  "DIP-24__600" : {
+    "name" : "DIP-24__600" ,
+    "location" : "pcb/json/dip_sockets/DIP-24__600.json"
+  },
+
+  "DIP-16__300_ELL" : {
+    "name" : "DIP-16__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-16__300_ELL.json"
+  },
+
+  "DIP-22__400_ELL" : {
+    "name" : "DIP-22__400_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-22__400_ELL.json"
+  },
+
+  "DIP-24__400_ELL" : {
+    "name" : "DIP-24__400_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-24__400_ELL.json"
+  },
+
+  "DIP-28__600" : {
+    "name" : "DIP-28__600" ,
+    "location" : "pcb/json/dip_sockets/DIP-28__600.json"
+  },
+
+  "DIP-40__1000" : {
+    "name" : "DIP-40__1000" ,
+    "location" : "pcb/json/dip_sockets/DIP-40__1000.json"
+  },
+
+  "DIP-24__400" : {
+    "name" : "DIP-24__400" ,
+    "location" : "pcb/json/dip_sockets/DIP-24__400.json"
+  },
+
+  "DIP-10__300_ELL" : {
+    "name" : "DIP-10__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-10__300_ELL.json"
+  },
+
+  "DIP-20__300" : {
+    "name" : "DIP-20__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-20__300.json"
+  },
+
+  "DIP-20__300_ELL" : {
+    "name" : "DIP-20__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-20__300_ELL.json"
+  },
+
+  "DIP-32__600_ELL" : {
+    "name" : "DIP-32__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-32__600_ELL.json"
+  },
+
+  "DIP-48__600_ELL" : {
+    "name" : "DIP-48__600_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-48__600_ELL.json"
+  },
+
+  "DIP-40__600" : {
+    "name" : "DIP-40__600" ,
+    "location" : "pcb/json/dip_sockets/DIP-40__600.json"
+  },
+
+  "DIP-16__300" : {
+    "name" : "DIP-16__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-16__300.json"
+  },
+
+  "DIP-6__300_ELL" : {
+    "name" : "DIP-6__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-6__300_ELL.json"
+  },
+
+  "DIP-14__300_ELL" : {
+    "name" : "DIP-14__300_ELL" ,
+    "location" : "pcb/json/dip_sockets/DIP-14__300_ELL.json"
+  },
+
+  "DIP-6__300" : {
+    "name" : "DIP-6__300" ,
+    "location" : "pcb/json/dip_sockets/DIP-6__300.json"
+  },
+
+  "SOIC-16_Narrow" : {
+    "name" : "SOIC-16_Narrow" ,
+    "location" : "pcb/json/smd_soic_packages/SOIC-16_Narrow.json"
+  },
+
+  "SOIC-8_N" : {
+    "name" : "SOIC-8_N" ,
+    "location" : "pcb/json/smd_soic_packages/SOIC-8_N.json"
+  },
+
+  "SOIC-8_N(EP)" : {
+    "name" : "SOIC-8_N(EP)" ,
+    "location" : "pcb/json/smd_soic_packages/SOIC-8_N%2528EP%2529.json"
+  },
+
+  "SOIC-14_Narrow" : {
+    "name" : "SOIC-14_Narrow" ,
+    "location" : "pcb/json/smd_soic_packages/SOIC-14_Narrow.json"
+  }
+}

@@ -1,0 +1,256 @@
+<html>
+
+  <meta charset='utf-8'>
+
+  <head>
+
+    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
+
+	<script src='js/lib/jquery.js'></script>
+    <script src='js/lib/jquery.mousewheel.js'/></script>
+    <script src='js/lib/jquery.capslockstate.js'/></script>
+
+    <script src='js/lib/jquery.fileDownload.js'/></script>
+
+    <script src='js/lib/numeric.js'></script>
+	<script src='js/lib/oop.js'></script>
+
+    <script src='js/core/bleepsixRender.js'></script>
+    <script src='js/sch/bleepsixSchematic.js'></script>
+    <script src='js/sch/bleepsixSchematicController.js'></script>
+
+	<script src='js/gui/guiRegion.js'></script>
+
+    <script src='js/gui/guiPalette.js'></script>
+    <script src='js/gui/guiComponentTile.js'></script>
+    <script src='js/gui/guiList.js'></script>
+    <script src='js/gui/guiScrollbar.js'></script>
+
+    <script src='js/gui/guiIcon.js'></script>
+    <script src='js/gui/guiDropIcon.js'></script>
+    <script src='js/gui/guiToolbox.js'></script>
+    <script src='js/gui/guiGrid.js'></script>
+    <script src='js/gui/guiTextbox.js'></script>
+    <script src='js/gui/guiAction.js'></script>
+
+
+    <script src='js/gui/guiLibrary.js'></script>
+
+
+
+	<script src='js/schtool/toolBase.js'></script>
+	<script src='js/schtool/toolNav.js'></script>
+	<script src='js/schtool/toolMove.js'></script>
+	<script src='js/schtool/toolSelect.js'></script>
+	<script src='js/schtool/toolWire.js'></script>
+	<script src='js/schtool/toolConn.js'></script>
+
+	<script src='js/tool/toolScrollbar.js'></script>
+
+	<script src='js/schtool/toolComponentPlace.js'></script>
+	<script src='js/schtool/toolComponentEdit.js'></script>
+
+    <script>
+
+	  var drawing = true,
+	  running = true,
+	  mouseDown = false,
+	  visible = true;
+	  
+	  var msec = 0;
+	  var frame = 0;
+	  var lastTime = new Date();
+	  
+      var g_snapgrid = null;
+	  var g_painter = null;
+      var g_controller = null ; //new bleepsixController();
+      //var g_schematic = new bleepsixSchematic();
+
+      // key is component name (unmunged, bare, without directory)
+      var g_component_cache = {};
+      var g_component_location = {};
+      var g_component_library_map = {};
+	  var g_canvas = "canvas";
+	  var g_context = null;
+
+
+
+	  function loop() {
+		
+		frame = frame + 1;
+		if ( frame >= 30 ) {
+			var d = new Date();
+			msec = (d.getTime() - lastTime ) / frame;
+			lastTime = d;
+			frame = 0;
+		}
+		var container = document.querySelector( 'section' );
+		container.innerHTML = "FPS: " + (1000.0/msec);
+
+
+				
+		g_controller.redraw();
+			
+		requestAnimationFrame( loop, 1 );		
+	  }
+
+      $(document).ready( function() {
+        console.log("ready");
+
+        var cvs = document.getElementById('canvas');
+        cvs.onselectstart = function() { return false; }
+
+
+        g_snapgrid = new snapGrid(true, "deci-mil", 50);
+
+		g_painter = new bleepsixRender( "canvas" );
+        g_painter.setGrid ( 1 );
+
+        g_controller = new bleepsixSchematicController();
+        g_controller.init( "canvas" );		
+		g_context = g_controller.context;
+
+		requestAnimationFrame( loop, 1 );
+
+        $.ajaxSetup({ cache : false });
+        var component_location_json = "json/component_location.json";
+        $.getJSON( component_location_json,
+          function(data) {
+            g_component_location = data;
+            //console.log(component_location_json + " loaded");
+            //console.log(g_component_location);
+          }
+        ).fail(
+          function(jqxhr, textStatus, error) {
+            console.log("could not load " + component_location_json + ": " + error);
+          }
+        );
+
+
+        //TEST FILE DOWNLOAD
+        /*
+        $.fileDownload( "gplv3.txt" )
+        .done( function(msg) { alert('done: ' + msg); return true; }) 
+        .fail( function(msg) { alert('fail: ' + msg); return true; }) ;
+        
+        */
+        //populateIframe( "downloadIframe" , "gplv3.txt" )
+
+      });
+	  
+	  if ( !window.requestAnimationFrame ) {
+		  window.requestAnimationFrame = ( function() {
+			
+			return window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame ||
+			window.oRequestAnimationFrame ||
+			window.msRequestAnimationFrame ||
+			function( callback, element ) {
+			  window.setTimeout( callback, 1000 );
+			};
+			
+		  } )();
+		}
+
+      //function load_component_cache_part( name )
+      function load_component_cache_part( name, location )
+      {
+        if ( !(name in g_component_cache) )
+        {
+          g_controller.schematic.queued_display_component_count++;
+
+          //part_json = "json/" + name + ".json";
+          part_json = location;
+          var schem = g_controller.schematic;
+
+          $.ajaxSetup({ cache : false });
+          $.getJSON( part_json,
+            ( function(a) {
+                return function(data) {
+                  schem.load_part(a, data);
+                }
+              }
+            )(name)
+          ).fail(
+            ( function(a) {
+              return function(jqxhr, textStatus, error) {
+                schem.load_part_error(a, jqxhr, textStatus, error);
+              }
+            }
+            )(part_json)
+          );
+
+        }
+        else 
+        {
+          console.log(" load_componet_cache_part: " + name + " already loaded");
+        }
+      }
+
+      function btn_func()
+      {
+        $.ajaxSetup({ cache: false });
+        $.getJSON( "examples/osh_heart_v2.json", 
+          function(data) { 
+            console.log("data:" + data); 
+            g_controller.schematic.load_schematic(data); 
+          });
+      }
+
+      function schJsonDlTest( json_container )
+      {
+        console.log("...");
+        console.log(json_container);
+
+        var msg_type = json_container["type"];
+        if (msg_type != "id")
+        {
+          console.log("error, expected id, got: " + msg_type);
+          return;
+        }
+
+        var id = json_container["id"];
+
+        var ifrm = document.getElementById( "downloadFrame" );
+        ifrm.src = "cgi/bleepsixDownloadManager.py?id=" + id;
+
+      }
+
+      function formSubmitTest( json_data )
+      {
+        var container = { "type" : "createJSON", data: json_data };
+        var str_data = JSON.stringify( container );
+
+        $.ajax({
+          url: "cgi/bleepsixDataManager.py",
+          type: 'POST',
+          data: str_data,
+          success: schJsonDlTest, 
+          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+          });
+      }
+
+
+      function populateIframe(id,path)
+      {
+        var ifrm = document.getElementById(id);
+        //ifrm.src = "download.php?path=" + path;
+        ifrm.src = "cgi/bleepsixDownloadManager.php?path=" + path;
+      }
+
+    </script>
+  </head>
+
+  <body>
+
+    <!-- download hacking -->
+    <iframe id='downloadFrame' style='display:none'>
+    </iframe>
+
+    <canvas id='canvas' width='1200' height='700' style='border:1px solid #111;' tabindex='0'> </canvas>
+	<section></section>
+    <button id='btn' onclick='btn_func();' >f</button>
+  </body>
+
+</html>

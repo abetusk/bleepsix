@@ -1,0 +1,113 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "height": 500.0, 
+      "width": 800.0, 
+      "shape": "rectangle", 
+      "y": 250.0, 
+      "x": -400.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "TQSMT-35", 
+  "reference": "X", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "X", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "300", 
+      "x": "0", 
+      "size": "70"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "TQSMT-35", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "0", 
+      "size": "70"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "L", 
+      "name": "VC/NC", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "150", 
+      "x": "700", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "GND", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-150", 
+      "x": "-700", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "FREQ", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "-150", 
+      "x": "700", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "+B", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "60", 
+      "y": "150", 
+      "x": "-700", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

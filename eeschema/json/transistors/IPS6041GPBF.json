@@ -1,0 +1,733 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 5.0, 
+      "y": 100.0, 
+      "x": 50.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 5.0, 
+      "y": 100.0, 
+      "x": 100.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 5.0, 
+      "y": 100.0, 
+      "x": 150.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "CTRL", 
+      "y": 0.0, 
+      "x": -90.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "45"
+    }, 
+    {
+      "line_width": "10", 
+      "height": 300.0, 
+      "width": 475.0, 
+      "shape": "rectangle", 
+      "y": 150.0, 
+      "x": -225.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "f"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -150.0
+        ], 
+        [
+          -50.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          50.0, 
+          100.0
+        ], 
+        [
+          50.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          100.0, 
+          100.0
+        ], 
+        [
+          100.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -200.0, 
+          -100.0
+        ], 
+        [
+          -125.0, 
+          -100.0
+        ], 
+        [
+          -125.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -200.0, 
+          100.0
+        ], 
+        [
+          -125.0, 
+          100.0
+        ], 
+        [
+          -125.0, 
+          75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          75.0
+        ], 
+        [
+          -50.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          100.0
+        ], 
+        [
+          200.0, 
+          100.0
+        ], 
+        [
+          200.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 5.0, 
+      "y": -50.0, 
+      "x": 150.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 5.0, 
+      "y": 50.0, 
+      "x": 150.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 150.0, 
+      "width": 175.0, 
+      "shape": "rectangle", 
+      "y": 75.0, 
+      "x": -175.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          50.0, 
+          -50.0
+        ], 
+        [
+          0.0, 
+          -50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "20", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          75.0, 
+          -40.0
+        ], 
+        [
+          75.0, 
+          -65.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "20", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          75.0, 
+          15.0
+        ], 
+        [
+          75.0, 
+          -15.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "20", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          75.0, 
+          65.0
+        ], 
+        [
+          75.0, 
+          40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          170.0, 
+          15.0
+        ], 
+        [
+          165.0, 
+          10.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          170.0, 
+          15.0
+        ], 
+        [
+          190.0, 
+          15.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          190.0, 
+          15.0
+        ], 
+        [
+          195.0, 
+          20.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "10", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          50.0, 
+          60.0
+        ], 
+        [
+          50.0, 
+          -60.0
+        ], 
+        [
+          50.0, 
+          -60.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          80.0, 
+          -50.0
+        ], 
+        [
+          150.0, 
+          -50.0
+        ], 
+        [
+          150.0, 
+          -150.0
+        ], 
+        [
+          150.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          80.0, 
+          50.0
+        ], 
+        [
+          150.0, 
+          50.0
+        ], 
+        [
+          150.0, 
+          150.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          50.0
+        ], 
+        [
+          180.0, 
+          50.0
+        ], 
+        [
+          180.0, 
+          -50.0
+        ], 
+        [
+          150.0, 
+          -50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          180.0, 
+          15.0
+        ], 
+        [
+          170.0, 
+          -10.0
+        ], 
+        [
+          190.0, 
+          -10.0
+        ], 
+        [
+          180.0, 
+          15.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          80.0, 
+          0.0
+        ], 
+        [
+          100.0, 
+          0.0
+        ], 
+        [
+          150.0, 
+          0.0
+        ], 
+        [
+          150.0, 
+          -50.0
+        ], 
+        [
+          150.0, 
+          -50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 6, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          85.0, 
+          0.0
+        ], 
+        [
+          125.0, 
+          15.0
+        ], 
+        [
+          125.0, 
+          -15.0
+        ], 
+        [
+          85.0, 
+          0.0
+        ], 
+        [
+          90.0, 
+          0.0
+        ], 
+        [
+          90.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }
+  ], 
+  "name": "IPS6041GPBF", 
+  "reference": "Q", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "Q", 
+      "hjustify": "R", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "102", 
+      "x": "340", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "IPS6041GPBF", 
+      "hjustify": "R", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-26", 
+      "x": "665", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"SO8\" 306 -74 30 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "U", 
+      "name": "GND", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "-300", 
+      "x": "-50", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "IN", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "100", 
+      "x": "-350", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "DG", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "-100", 
+      "x": "-350", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "OUT", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "-300", 
+      "x": "150", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "VCC", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "300", 
+      "x": "50", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "~", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "300", 
+      "x": "100", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "~", 
+      "number": "7", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "300", 
+      "x": "150", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "~", 
+      "number": "8", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "30", 
+      "y": "300", 
+      "x": "200", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

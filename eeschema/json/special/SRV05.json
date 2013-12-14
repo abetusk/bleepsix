@@ -1,0 +1,1145 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 10.0, 
+      "y": -25.0, 
+      "x": -225.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 10.0, 
+      "y": 25.0, 
+      "x": -125.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 10.0, 
+      "y": -25.0, 
+      "x": 125.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 10.0, 
+      "y": 25.0, 
+      "x": 225.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 400.0, 
+      "width": 600.0, 
+      "shape": "rectangle", 
+      "y": 200.0, 
+      "x": -300.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -300.0, 
+          -150.0
+        ], 
+        [
+          -125.0, 
+          -150.0
+        ], 
+        [
+          -125.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -300.0, 
+          150.0
+        ], 
+        [
+          -125.0, 
+          150.0
+        ], 
+        [
+          -125.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -250.0, 
+          -125.0
+        ], 
+        [
+          -200.0, 
+          -125.0
+        ], 
+        [
+          -200.0, 
+          -125.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -225.0, 
+          -125.0
+        ], 
+        [
+          -225.0, 
+          -150.0
+        ], 
+        [
+          -225.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -225.0, 
+          -25.0
+        ], 
+        [
+          -225.0, 
+          -75.0
+        ], 
+        [
+          -225.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -225.0, 
+          50.0
+        ], 
+        [
+          -225.0, 
+          -25.0
+        ], 
+        [
+          -225.0, 
+          -25.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -225.0, 
+          150.0
+        ], 
+        [
+          -225.0, 
+          100.0
+        ], 
+        [
+          -225.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -150.0, 
+          50.0
+        ], 
+        [
+          -100.0, 
+          50.0
+        ], 
+        [
+          -100.0, 
+          50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -125.0, 
+          -125.0
+        ], 
+        [
+          -125.0, 
+          -150.0
+        ], 
+        [
+          -125.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -125.0, 
+          25.0
+        ], 
+        [
+          -125.0, 
+          -75.0
+        ], 
+        [
+          -125.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -125.0, 
+          50.0
+        ], 
+        [
+          -125.0, 
+          25.0
+        ], 
+        [
+          -125.0, 
+          25.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -125.0, 
+          150.0
+        ], 
+        [
+          -125.0, 
+          100.0
+        ], 
+        [
+          -125.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          100.0, 
+          -125.0
+        ], 
+        [
+          150.0, 
+          -125.0
+        ], 
+        [
+          150.0, 
+          -125.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          -150.0
+        ], 
+        [
+          300.0, 
+          -150.0
+        ], 
+        [
+          300.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          -125.0
+        ], 
+        [
+          125.0, 
+          -150.0
+        ], 
+        [
+          125.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          -25.0
+        ], 
+        [
+          125.0, 
+          -75.0
+        ], 
+        [
+          125.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          50.0
+        ], 
+        [
+          125.0, 
+          -25.0
+        ], 
+        [
+          125.0, 
+          -25.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          150.0
+        ], 
+        [
+          125.0, 
+          100.0
+        ], 
+        [
+          125.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          150.0
+        ], 
+        [
+          300.0, 
+          150.0
+        ], 
+        [
+          300.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          200.0, 
+          50.0
+        ], 
+        [
+          250.0, 
+          50.0
+        ], 
+        [
+          250.0, 
+          50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          225.0, 
+          -125.0
+        ], 
+        [
+          225.0, 
+          -150.0
+        ], 
+        [
+          225.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          225.0, 
+          25.0
+        ], 
+        [
+          225.0, 
+          -75.0
+        ], 
+        [
+          225.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          225.0, 
+          50.0
+        ], 
+        [
+          225.0, 
+          25.0
+        ], 
+        [
+          225.0, 
+          25.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          225.0, 
+          150.0
+        ], 
+        [
+          225.0, 
+          100.0
+        ], 
+        [
+          225.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -300.0, 
+          0.0
+        ], 
+        [
+          -275.0, 
+          -25.0
+        ], 
+        [
+          125.0, 
+          -25.0
+        ], 
+        [
+          125.0, 
+          -25.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -250.0, 
+          100.0
+        ], 
+        [
+          -200.0, 
+          100.0
+        ], 
+        [
+          -200.0, 
+          100.0
+        ], 
+        [
+          -200.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -150.0, 
+          -75.0
+        ], 
+        [
+          -100.0, 
+          -75.0
+        ], 
+        [
+          -100.0, 
+          -75.0
+        ], 
+        [
+          -100.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          100.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          200.0, 
+          -75.0
+        ], 
+        [
+          250.0, 
+          -75.0
+        ], 
+        [
+          250.0, 
+          -75.0
+        ], 
+        [
+          250.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          300.0, 
+          0.0
+        ], 
+        [
+          275.0, 
+          25.0
+        ], 
+        [
+          -125.0, 
+          25.0
+        ], 
+        [
+          -125.0, 
+          25.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -250.0, 
+          -75.0
+        ], 
+        [
+          -200.0, 
+          -75.0
+        ], 
+        [
+          -225.0, 
+          -125.0
+        ], 
+        [
+          -250.0, 
+          -75.0
+        ], 
+        [
+          -250.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -225.0, 
+          100.0
+        ], 
+        [
+          -250.0, 
+          50.0
+        ], 
+        [
+          -200.0, 
+          50.0
+        ], 
+        [
+          -225.0, 
+          100.0
+        ], 
+        [
+          -225.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -150.0, 
+          100.0
+        ], 
+        [
+          -100.0, 
+          100.0
+        ], 
+        [
+          -125.0, 
+          50.0
+        ], 
+        [
+          -150.0, 
+          100.0
+        ], 
+        [
+          -150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -125.0, 
+          -75.0
+        ], 
+        [
+          -150.0, 
+          -125.0
+        ], 
+        [
+          -100.0, 
+          -125.0
+        ], 
+        [
+          -125.0, 
+          -75.0
+        ], 
+        [
+          -125.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          100.0, 
+          -75.0
+        ], 
+        [
+          150.0, 
+          -75.0
+        ], 
+        [
+          125.0, 
+          -125.0
+        ], 
+        [
+          100.0, 
+          -75.0
+        ], 
+        [
+          100.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          125.0, 
+          100.0
+        ], 
+        [
+          100.0, 
+          50.0
+        ], 
+        [
+          150.0, 
+          50.0
+        ], 
+        [
+          125.0, 
+          100.0
+        ], 
+        [
+          125.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          200.0, 
+          100.0
+        ], 
+        [
+          250.0, 
+          100.0
+        ], 
+        [
+          225.0, 
+          50.0
+        ], 
+        [
+          200.0, 
+          100.0
+        ], 
+        [
+          200.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          225.0, 
+          -75.0
+        ], 
+        [
+          200.0, 
+          -125.0
+        ], 
+        [
+          250.0, 
+          -125.0
+        ], 
+        [
+          225.0, 
+          -75.0
+        ], 
+        [
+          225.0, 
+          -75.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "SRV05", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "250", 
+      "x": "0", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "SRV05", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-250", 
+      "x": "0", 
+      "size": "60"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "COM1", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "30", 
+      "y": "150", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "GND", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "30", 
+      "y": "0", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "COM2", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "30", 
+      "y": "-150", 
+      "x": "-500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "COM3", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "30", 
+      "y": "-150", 
+      "x": "500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "VCC", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "30", 
+      "y": "0", 
+      "x": "500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "COM4", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "30", 
+      "y": "150", 
+      "x": "500", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

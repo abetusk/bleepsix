@@ -1,0 +1,106 @@
+{
+  "art": [
+    {
+      "line_width": "10", 
+      "height": 300.0, 
+      "width": 500.0, 
+      "shape": "rectangle", 
+      "y": 150.0, 
+      "x": -250.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "LM317MDT", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "200", 
+      "x": "-200", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "LM317MDT", 
+      "hjustify": "L", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "200", 
+      "x": "0", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"TO-252\" 0 100 30 H V C CIN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "U", 
+      "name": "ADJ", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "40", 
+      "y": "-250", 
+      "x": "0", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "OUT", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "50", 
+      "x": "400", 
+      "electrical_type": "w", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "IN", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "50", 
+      "x": "-400", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

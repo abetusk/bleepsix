@@ -1,0 +1,120 @@
+{
+  "art": [
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          0.0
+        ], 
+        [
+          0.0, 
+          40.0
+        ], 
+        [
+          0.0, 
+          40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 7, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          20.0, 
+          30.0
+        ], 
+        [
+          0.0, 
+          40.0
+        ], 
+        [
+          -20.0, 
+          30.0
+        ], 
+        [
+          -10.0, 
+          70.0
+        ], 
+        [
+          10.0, 
+          70.0
+        ], 
+        [
+          20.0, 
+          30.0
+        ], 
+        [
+          20.0, 
+          30.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "+3.3VP", 
+  "reference": "#PWR", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "#PWR", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "30", 
+      "x": "50", 
+      "size": "20"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "+3.3VP", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "90", 
+      "x": "0", 
+      "size": "30"
+    }
+  ], 
+  "power_flag": "P", 
+  "units_locked": "F", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "pin_type": "N", 
+      "direction": "U", 
+      "name": "+3.3VP", 
+      "number": "1", 
+      "shape": " N", 
+      "visible": false, 
+      "length": "0", 
+      "text_size_number": "20", 
+      "y": "0", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "0", 
+      "text_size_name": "20", 
+      "unit": "0"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

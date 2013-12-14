@@ -1,0 +1,426 @@
+Some notes on what to do.  2013-11-03 23:33:00
+All points in each section above the '^^^...' are required before a release
+can occur.
+
+parts marked as '*' are done.
+
+sch editor, sorted in order of (tentative) priority:
+
+  - add GPL headers:
+"Abram Connelly (c) 2013
+Bleepsix v2. Release under GPLv3.
+
+Parts based on Bleepsix v1. BSD license.
+By Rama Hoetzlein and Abram Connelly"
+ 
+
+
+* - component text (field text 0 and 1) editing
+* - component text (field text 0 and 1) moving
+
+  - load kicad schematic from local file
+  - load kicad schematic from url
+  - export kicad schematic
+
+  - general undo/redo
+
+  - login functionality
+
+  - automatic server side saving
+    . give UUID (or something) to anonymous schematic
+    . give permalink
+    . allow login/registration and allow schematic association 
+
+  - search part name in the library window
+
+  - not all pin types are rendered properly.  Render all pin types
+    (clock, etc.)
+
+  - component text editing bounding box not right when rotating (for some
+    parts) (e.g. CP1 electrolytic cap in palette)
+
+* - copying components inherets text properties (numbering?)
+    UPDATE: this still needs some work.  I hacked together some stuff,
+      so it's sort of working, but I suspect in not a very portable way.
+      It was copying the "name" property of the component to text field 1
+      and now it defaults to that if the text field doesn't have any text in
+      it, otherwise it inherets the text field.  Text field 0 doesn't (used
+      for auto-increment reference, so I'm not sure what to do).
+      Text inhereting assumes newly created component that the
+      toolComponentPlace uses is at position 0,0.
+
+* - brooktre BT251, F0 and F1 look to be left justified in library window
+    but are center justified when placing.
+
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  - mouse wheel on scroll bar doesn't work
+
+  - give dummy box around text fields for component editing when
+    text field blank so it can be selected and edited
+
+  - right click when placing wires to undo last placed wire (multiple
+    right clicks to multiple undos).  Have to make sure you don't conflict
+    with pan functionality (tie it to hot key?)
+
+  - wire grab/extend operations.
+
+       |                             |
+       .------------            .----.------------
+       |                        |
+   <-  |                    =>  |
+       |                        |
+       .------------            .-----------------
+
+  
+     --------|              ------------|
+             | ->     =>                |
+             |                          |
+             ------                     -------
+
+    diagonal moves of joints aren't allowed
+
+
+  - double click on a component to edit it's properties.  For now, that means
+    editing the field 0 and field 1 properties.  In the future, provide an 
+    interface to edit more general properties.  For example, add a footprint
+    icon that will bring up a footprint to edit the mapping of the component
+    to pcb footprint (that is, click on the footprint icon, bring up a dialog
+    to pick the footprint from a list)
+    For text fields which are blank, provide an empty window that the user
+    can select to start putting text into.
+
+  - allow for different options for the component palette:
+    . most frequently used (default), with the standard set
+      having a priority from 0 to 1 non-inclusive.
+    . user settable.  Allow users to just drag library components
+      into palette and not have them update otherwise.
+  * . fixed (as it is now).  Provide a fixed set of components.
+
+  - command line interface.  specifically:
+    . show component/net (highlight)
+    . add, remove, place parts
+
+  - window resizing, minimizing and moving.  Might need to add decoration
+    to allow for those functions.
+
+
+pcb editor:
+
+  BUG: need to record last _unconnected_ point for trace placement or
+       else it might have happened to land on the track in the small
+       magnet (or large magnet zone).  Pick one and be consistent.
+
+  ISSUE: when doing pours, there is sometimes a very weak connection.
+      KiCAD has a concept of minimum width, under which it doesn't
+      connect.  We need to figure out how to realize this reasonably.
+
+* - text for board and footprints
+  * . text for footprints working at least...
+  * . need to add hershey outline fonts so that what's displayed is as
+      close a representation to the gerber produced (or whatever KiCAD
+      produces) as possible
+
+* - ratsnet lines
+    . added 'shimmer'.  We might want to make this a bit nicer by doing
+      a global gradient instead of just a local one.
+
+  - pcb edges
+
+
+  - GUI tools for:
+    . track
+    . zone
+    . pcb edges
+    . ruler
+    . text
+    (. art)
+
+  - GUI element: layer pair display with current layer
+  - GUI drop down for zone queue
+  - GUI dropdowns for units and snap size
+
+  - GUI panel for components (dockable, collapseable)
+  - GUI panel for layers (dockable, collapseable)
+  - GUI panel for design rules (dockable, collapsable)
+    . would be nice to have them variable y height as well as x moveable
+
+  
+ 
+
+  - unassociated component parts should show up as a kind of blank box
+    that the user can then click/select and associate a footprint to.
+
+* - pad numbers displayed properly (need to handle rotations properly)
+  * . pads on dips (through holes) not displaying
+  * . through hole pads need to be associated with multiple layesr
+  * . text for pads needs to shrink dynamically (based on size etc., maybe?)
+   
+* - pad obround and trapeze rendering (e.g. VALVE-ECC-83-2 (and anything else
+    named ECC))
+    . trapeze still not implemented, will wait till later (mvp doesn't need
+      trapeze).  oblongs implemented.
+
+* - bounding box calculations
+    . for diagonals it gets tricky, need to figure out what to do. second
+      level pick detection?
+    DONE: bounding boxes are now calculated.  'Lines' (tracks and
+      drawsegments) are treated differently and have their own picking
+      functions associated with them so diagonals are taken care of 
+      properly.
+
+  - separate canvases for each of the layers so alpha can display properly
+
+* - don't display text if you're too far away.  don't display text that's 
+    out of frame.
+    NOTE: might need to fiddle with the actual threshold, but infrastructure
+      is there
+
+* - footprint picking
+* - trace deleting (something...simple one first, just the current line)
+    . Simple deleting is working, want whole branch and eventually whole
+      net deletion at some point.  Maybe for MVP not necessary?
+
+  - net naming/splitting/joining
+  * . joining named nets working.
+    . joining to and from anonymous nets (netcode 0)
+      = could solve this by going through and explicitely naming anonymous
+        nets, keeping an anonymous net list so we don't loose information.
+  * . splitting nets
+      Net splits are working (might need some refactoring), but we need
+      to think long and hard whether this is functionality we want.
+  * . net display for boards working...not logic set up though
+* - trace placement on different layers, vias, etc.
+  * . sort of working ('v' while toolTrace gives vias and switches from 0 to
+      15 layer).
+  - give dropdown/feedback for current/linked layer
+* - trace magnet pad functionality
+    . still needs to be tied into net splitting/joining (and still needs to
+      be tested), but this is mostly done.
+    . needs to notice self intersections
+
+  - copper pours
+    . would like to have inlets for thermal traces (from pads) 
+      connecting back to regions...
+    . BUG: moving pours when first created goes bonkers
+    . BUG: deleting pours doesn't (always?) delete the selected pour
+    . want to have inset from boundary instead of extending it
+    . when exporting, will need to be intelligent about how the boundary
+      is made so that KiCAD will not throw DRC errors.  This might
+      end up being make the czone boundaries the polyscorners...
+
+  - drc bounds (clipper lib)
+  - drc checks
+
+  - export to KiCAD
+  - export to gerber
+  - export to json
+  
+
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  BUG: when trying to connect two nets via toolTrace, if there are no
+  kinks in the trace, will not lay down.  That is, if there is a straight
+  diagonal run from one net to the other with the current trace only
+  having one line segment, will not lay down (issue with collisions and
+  such).
+
+  - 'esc' when laying down traces should back up one, but otherwise place it.
+    
+
+* - we'll need better bounds testing.  I think it would be sufficient to 
+    create a non-axis aligned bounding rectangle and do point in triangle
+    testing for the two triangles making up the rectangle.  I'm conflicted
+    as to whether this should be included in the mvp or now...
+    EDIT: this is essentially done.  There is a 'coarse' bounding box
+      which is guaranteed to encaplsulate all of the element, including text.
+      There is a 'bounding_box' which is used for picking.  Each of the
+      pads in modules also contains a bounding box.  This was needed to speed
+      up geometry intersectiosn when laying down traces.  It has the added
+      benefit of allowing us to speed up drawing by not drawing the pads
+      that are off screen.  Right now there are some flags to turn off the
+      various optimizations to speed up render.  They work for the board
+      layout proper, but the library modules (in the side window) aren't
+      rendering properly, probably due to some checks.  We also need to
+      do proper zoom level testing for the text so we don't render text that's
+      too small and don't cut off text that's large.
+
+  - export to gcode
+  - export to eagle
+
+  - some general notes on traces and nets:
+    + KiCAD rips up the trace until the branch point when deleting.  I have
+      found this to be pretty annoying in many cases.  I think it would be
+      better to delete just the edge or take a chunk out of the line, like
+      the 'erase' tool in gimp.  Users could maybe click on the trace to
+      select it up until the branch and double click to select the whole
+      net to delete.
+    + both in the schematic and the pcb editor, connecting nets (imo) should be
+      done silently and automatically, choosing one net name (maybe the lowest).
+      Eagle, I believe asks everytime you want to connect a net.  KiCAD
+      automatically connects nets in the schematic program but doesn't allow
+      you to connect them in the pcb editor.  Connecting nets in the pcb 
+      editor should be allowed and should create a rats nest connection in the
+      schematic editor.  Disconnecting nets in the pcb editor should give
+      an indication in the schematic editor as to the mismatched connection,
+      maybe by highlighting it in red?
+    + polygons need to be stored separatly from the high level information
+      of nets and such.  The polygon intersections and results of the geometry
+      operations will inform the high level representation, but needs to
+      be kept separate in order to do computations.
+      
+
+  - silk screen (?) text is wrong on parts.  sizex and sizey determine text
+    dimensional sizes, need to figure out how to render properly based on this
+    information.
+
+  - bounding box calculations are weird until we can figure out text
+    width/height properties properly
+
+  - pours with boolean operations.  For example, select a rectangle for the
+    ground pour and pour.  Select an intersecting rectangle for the power
+    pour with the (SRC - DST) set.  The resulting power pour will be the pour
+    for the power pour with the ground pour subtracted from it.
+    An ascii diagram to illustrate:
+
+      ----------------
+      |              |
+      |       --------------
+      |  VCC  |            |
+      |       |            |
+      |       |    GND     |
+      |       |            |
+      --------|            |
+              |            |
+              --------------
+            ||
+            \/
+      ---------------|
+      |      --------|
+      |      |--------------
+      |  VCC ||            |
+      |      ||            |
+      |      ||    GND     |
+      |      ||            |
+      -------||            |
+              |            |
+              --------------
+
+    I'm going to try and use the clipper library (http://www.angusj.com/delphi/clipper.php)
+    javascriptified with emscripten (https://github.com/kripken/emscripten)
+    HA!  no need!  javascriptized clipperlib:
+      http://sourceforge.net/p/jsclipper/wiki/Home/
+
+  - net/pin highlighting when mouse over in the schematic editor.  This
+    functionality will only appear when each of the schematic editor and
+    the pcb editor are open at the same time (in different windows). 
+    Via communication through cookies (using BNC or the like), send a message
+    to indicate which net is being mouseovered and highlight appropriately.
+
+    keywords: inter-tab communication, cross-window messaging:
+    http://theprivateland.com/bncconnector/home.htm
+    http://stackoverflow.com/questions/19125823/how-is-it-possible-to-share-single-js-resource-between-browser-tabs/19165781#19165781
+    http://stackoverflow.com/questions/9554896/sharing-websocket-across-browser-tabs/11458341#11458341
+    http://stackoverflow.com/questions/2236828/javascript-communication-between-tabs-windows-with-same-origin/12514384#12514384
+    http://stackoverflow.com/questions/4079280/javascript-communication-between-browser-tabs-windows
+    
+
+  - autoscale (with some minimum/maximum threshold) to fit first placed
+    component (if no board is loaded, etc)
+
+GENERAL:
+-------
+
+  - Abstract away the sync back to server, so that you can plug in polling (as
+    an initial run) with websockets at some point without worry.  Syncing will
+    poll the server for sequence numbers.  
+    Getting updates from server will update local copy.  Conflicts will have
+    to thought about carefully (split, highlight difference, ask user to
+    confirm overwrite?).
+    Updates will be sent incrementally to server.  This allows for playback
+    and also undo/redo easily.
+    If sequence numbers are too out of sync, we request a full flush.
+    
+
+  - visual diff (of gerbers)
+
+  - illuminate nearby nets
+
+  - allow for more complex modules like pre-packaged circuts that can be
+    plugged into your design
+
+  - real-time colaboration and tutorials
+
+  - real time pricing (API to osh park or something?)
+
+
+
+magnet pads:
+
+1) Do an intersection test of the current tracks (two in the jointed case),
+   call the resulting intersected pads/tracks i_pgns
+2) Do an intersection test of the source point, call it src_pngs
+3) Do an intersection test of the destination point, call it dst_pgns
+
+4a) if |i_pgns| == 0, place the track as normal
+4b) if |i_pgns| > 2, don't move the track at all
+4c) if |i_pgns| == 1
+  4c.a) if |src_pgns| == 0 and |dst_pgns| == 0, don't move
+  4c.b) if |src_pgns| == 1 
+    4a.b.a) if src_pgns is of the same net, place as normal
+    4a.b.b) if src_pngs is of a different net, "shouldn't happen", don't move
+  4c.c) if |dst_pgns| == 1
+    4a.c.a) if dst_pgns is of the same net, **MAGNET**
+    4a.c.b) if dst_pgns is of a different net, **condition magnet**
+
+4d) if |i_pgns| == 2
+  4d.a) if |src_pgns| == 1 and |dst_pgns| == 1
+    4d.a.a) if src_pgns is of a different net, "shouldn't happen", don't move
+    4d.a.b) (src_pgns same net) 
+      4d.a.b.a) if dst_pgns is of the same, **MAGNET**
+      4d.a.b.b) if dst_pgns is of a different net, **conditional magnet**
+  4d.b) (|src_pgns| or |dst_pgns| 0) else dont' move (colliding middle element)
+
+
+ok, let's try again
+
+1) do an intersection test for the current tracks
+2) do an intersection test for the source point 
+3) do an intersection test for the destination point
+
+
+CURRENT VERSION:
+
+- lay out a virtual trace
+- find all intersections for the whole trace, just the beginning point 
+  and just the end point
+- if there is any geometry in the middle that isn't intersecting the
+  beginning and end, bail out (don't update trace)
+- if there are no intersections whatsoever, just lay down/display trace
+  as normal
+- if there is a pad or track at the start, magnetize the source to the
+  pad/track
+- if there is a pad or track at the destination, 
+    - if pad/track is of the same net or within some small squre
+       -> 'magnetize': put the end track onto the pad/track (and return)
+    - else, don't move
+
+
+when sourcing from a pad/track, make sure to update the net on the trace to
+be the same as the pad/track it's being sourced from
+
+when connecting the trace to a pad/track that is of different nets, make
+sure to do a net join
+
+
+PCB Trace Net operations:
+
+If an unconnected trace is placed, label with a new net name
+If a trace is placed from a net, have it adopt the next
+  . if destination is placed unconnected, adopts the net name
+  . if destination is to an unconnected net, unconnected net adopts new net
+  . if destination is to a pre-existing net, merge nets
+
+
+ley down net with high (temporary) net code.  after it's layed down,
+  do join/merge.  

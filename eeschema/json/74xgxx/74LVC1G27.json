@@ -1,0 +1,212 @@
+{
+  "art": [
+    {
+      "line_width": 10, 
+      "start_angle": -0.6946410422937431, 
+      "end_angle": 0.6946410422937431, 
+      "shape": "arc", 
+      "r": 195.0, 
+      "counterclockwise": true, 
+      "y": 0.0, 
+      "x": -300.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 10, 
+      "start_angle": 0.2775073510670984, 
+      "end_angle": 1.2915436464758039, 
+      "shape": "arc", 
+      "r": 182.0, 
+      "counterclockwise": true, 
+      "y": -50.0, 
+      "x": -50.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 10, 
+      "start_angle": -1.2915436464758039, 
+      "end_angle": -0.2775073510670984, 
+      "shape": "arc", 
+      "r": 182.0, 
+      "counterclockwise": true, 
+      "y": 50.0, 
+      "x": -50.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "10", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          -125.0
+        ], 
+        [
+          -150.0, 
+          -125.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "10", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          125.0
+        ], 
+        [
+          -150.0, 
+          125.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "74LVC1G27", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "200", 
+      "x": "-100", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "74LVC1G27", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-200", 
+      "x": "0", 
+      "size": "40"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "190", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "-300", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "N", 
+      "direction": "D", 
+      "name": "GND", 
+      "number": "2", 
+      "shape": " N", 
+      "visible": false, 
+      "length": "0", 
+      "text_size_number": "40", 
+      "y": "-125", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "~", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "165", 
+      "text_size_number": "40", 
+      "y": "-100", 
+      "x": "-300", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "L", 
+      "name": "~", 
+      "number": "4", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "175", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "300", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "N", 
+      "direction": "U", 
+      "name": "VCC", 
+      "number": "5", 
+      "shape": " N", 
+      "visible": false, 
+      "length": "0", 
+      "text_size_number": "40", 
+      "y": "125", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "~", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "165", 
+      "text_size_number": "40", 
+      "y": "100", 
+      "x": "-300", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

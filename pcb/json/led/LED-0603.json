@@ -1,0 +1,295 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "LED-0603", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": 177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": 334.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 334.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": 334.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": -177.0, 
+      "endy": -177.0, 
+      "endx": 334.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -334.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": -334.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -334.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": -177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -177.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": -177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -334.0, 
+      "starty": -177.0, 
+      "endy": -177.0, 
+      "endx": -177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": -177.0, 
+      "endy": -118.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": -118.0, 
+      "endy": -118.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 118.0, 
+      "starty": -177.0, 
+      "endy": -118.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": -177.0, 
+      "endy": -177.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": 118.0, 
+      "endy": 177.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 118.0, 
+      "starty": 118.0, 
+      "endy": 177.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": 118.0, 
+      "endy": 118.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": -59.0, 
+      "endy": 59.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": 59.0, 
+      "endy": 59.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 118.0, 
+      "starty": -59.0, 
+      "endy": 59.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 0.0, 
+      "starty": -59.0, 
+      "endy": -59.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 177.0, 
+      "starty": -157.0, 
+      "endy": -157.0, 
+      "endx": -177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 177.0, 
+      "starty": 157.0, 
+      "endy": 157.0, 
+      "endx": -177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "LED-0603", 
+  "keyword": [
+    " LED 0603 smd package"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"LED-0603\"", 
+      "sizex": 200.0, 
+      "number": "0", 
+      "sizey": 200.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "LED-0603", 
+      "y": -400.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL***\"", 
+      "sizex": 200.0, 
+      "number": "1", 
+      "sizey": 200.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL***", 
+      "y": 400.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 314.0, 
+      "sizey": 314.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -295.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 314.0, 
+      "sizey": 314.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 295.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4E16AFB4", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

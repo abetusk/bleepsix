@@ -1,0 +1,249 @@
+{
+  "art": [
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -60.0, 
+          0.0
+        ], 
+        [
+          70.0, 
+          0.0
+        ], 
+        [
+          80.0, 
+          0.0
+        ], 
+        [
+          70.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          10.0
+        ], 
+        [
+          -50.0, 
+          -10.0
+        ], 
+        [
+          -50.0, 
+          -10.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -40.0, 
+          20.0
+        ], 
+        [
+          -40.0, 
+          -20.0
+        ], 
+        [
+          -40.0, 
+          -20.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -10.0, 
+          50.0
+        ], 
+        [
+          -10.0, 
+          -50.0
+        ], 
+        [
+          -10.0, 
+          -50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -30.0, 
+          30.0
+        ], 
+        [
+          -30.0, 
+          -30.0
+        ], 
+        [
+          -30.0, 
+          -30.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -20.0, 
+          40.0
+        ], 
+        [
+          -20.0, 
+          -40.0
+        ], 
+        [
+          -20.0, 
+          -40.0
+        ], 
+        [
+          -20.0, 
+          -40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          60.0
+        ], 
+        [
+          0.0, 
+          60.0
+        ], 
+        [
+          0.0, 
+          -60.0
+        ], 
+        [
+          0.0, 
+          -60.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          200.0, 
+          -200.0
+        ], 
+        [
+          200.0, 
+          -200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "Y_RAD", 
+  "reference": "EY", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "EY", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "120", 
+      "x": "-10", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "Y_RAD", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-120", 
+      "x": "60", 
+      "size": "40"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "10", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "L", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "118", 
+      "text_size_number": "10", 
+      "y": "0", 
+      "x": "200", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": false, 
+  "unit_count": 1
+}

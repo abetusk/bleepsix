@@ -1,0 +1,185 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SOT323", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": 100.0, 
+      "starty": 200.0, 
+      "endy": 200.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 350.0, 
+      "starty": 200.0, 
+      "endy": -200.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -350.0, 
+      "starty": -200.0, 
+      "endy": 200.0, 
+      "endx": -350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -350.0, 
+      "starty": 200.0, 
+      "endy": 200.0, 
+      "endx": -100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 100.0, 
+      "starty": 250.0, 
+      "endy": 200.0, 
+      "endx": 100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -100.0, 
+      "starty": 200.0, 
+      "endy": 250.0, 
+      "endx": -100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 350.0, 
+      "starty": -200.0, 
+      "endy": -200.0, 
+      "endx": -350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -100.0, 
+      "starty": 250.0, 
+      "endy": 250.0, 
+      "endx": 100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SOT323", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"SOT323\"", 
+      "sizex": 300.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SOT323", 
+      "y": -800.0, 
+      "x": 50.0, 
+      "rotation": "0", 
+      "penwidth": 39.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"VAL\"", 
+      "sizex": 276.0, 
+      "number": "1", 
+      "sizey": 276.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "VAL", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 39.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 236.0, 
+      "sizey": 394.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -374.0, 
+      "posx": -256.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 236.0, 
+      "sizey": 394.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -374.0, 
+      "posx": 256.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 236.0, 
+      "sizey": 394.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 374.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "450AC34A", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

@@ -1,0 +1,256 @@
+{
+  "library_name": "CPA_13x31MM", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 120.0, 
+      "startx": 6000.0, 
+      "starty": 2600.0, 
+      "endy": 2600.0, 
+      "endx": 4500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4500.0, 
+      "starty": 2600.0, 
+      "endy": 2200.0, 
+      "endx": 4500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4500.0, 
+      "starty": 2200.0, 
+      "endy": 2200.0, 
+      "endx": 4200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4200.0, 
+      "starty": 2200.0, 
+      "endy": 2600.0, 
+      "endx": 4200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4200.0, 
+      "starty": 2600.0, 
+      "endy": 2600.0, 
+      "endx": -6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -6000.0, 
+      "starty": -2600.0, 
+      "endy": -2600.0, 
+      "endx": 4200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4200.0, 
+      "starty": -2600.0, 
+      "endy": -2200.0, 
+      "endx": 4200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4200.0, 
+      "starty": -2200.0, 
+      "endy": -2200.0, 
+      "endx": 4500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4500.0, 
+      "starty": -2200.0, 
+      "endy": -2600.0, 
+      "endx": 4500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 4500.0, 
+      "starty": -2600.0, 
+      "endy": -2600.0, 
+      "endx": 6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 6000.0, 
+      "starty": -2600.0, 
+      "endy": 2600.0, 
+      "endx": 6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -5700.0, 
+      "starty": 2600.0, 
+      "endy": -2600.0, 
+      "endx": -5700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -6000.0, 
+      "starty": -2600.0, 
+      "endy": 2600.0, 
+      "endx": -6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 6100.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 7500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -6100.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -7500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -5400.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -4700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 5800.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 5200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 5500.0, 
+      "starty": 300.0, 
+      "endy": -300.0, 
+      "endx": 5500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "CPA_13x31MM", 
+  "keyword": [
+    " capacitor pol, axial 13x31mm"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"CPA_13x31MM\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "CPA_13x31MM", 
+      "y": -3200.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"VAL**\"", 
+      "sizex": 600.0, 
+      "number": "1", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 3100.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 394.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1181.0, 
+      "sizey": 1181.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 7500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 394.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1181.0, 
+      "sizey": 1181.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -7500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4B90D6C3", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

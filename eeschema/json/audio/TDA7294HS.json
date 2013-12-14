@@ -1,0 +1,257 @@
+{
+  "art": [
+    {
+      "count": 5, 
+      "line_width": "10", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -500.0, 
+          400.0
+        ], 
+        [
+          500.0, 
+          0.0
+        ], 
+        [
+          -500.0, 
+          -400.0
+        ], 
+        [
+          -500.0, 
+          400.0
+        ], 
+        [
+          -500.0, 
+          300.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "TDA7294HS", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-150", 
+      "x": "450", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "TDA7294HS", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-200", 
+      "x": "450", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"MW-15H\" -350 0 30 H V C CIN", 
+      "number": "2"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "U", 
+      "name": "STBY-GND", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "135", 
+      "text_size_number": "40", 
+      "y": "-400", 
+      "x": "-150", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "IN-", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "200", 
+      "x": "-650", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "IN+", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-200", 
+      "x": "-650", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "IN+MUTE", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "125", 
+      "text_size_number": "40", 
+      "y": "-450", 
+      "x": "-300", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "BST", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "165", 
+      "text_size_number": "40", 
+      "y": "250", 
+      "x": "300", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "Vs+", 
+      "number": "7", 
+      "shape": null, 
+      "visible": true, 
+      "length": "155", 
+      "text_size_number": "40", 
+      "y": "300", 
+      "x": "150", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "Vs-", 
+      "number": "8", 
+      "shape": null, 
+      "visible": true, 
+      "length": "155", 
+      "text_size_number": "40", 
+      "y": "-300", 
+      "x": "150", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "STBY", 
+      "number": "9", 
+      "shape": null, 
+      "visible": true, 
+      "length": "135", 
+      "text_size_number": "40", 
+      "y": "400", 
+      "x": "-150", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "MUTE", 
+      "number": "10", 
+      "shape": null, 
+      "visible": true, 
+      "length": "125", 
+      "text_size_number": "40", 
+      "y": "450", 
+      "x": "-300", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "PWVs+", 
+      "number": "13", 
+      "shape": null, 
+      "visible": true, 
+      "length": "145", 
+      "text_size_number": "40", 
+      "y": "350", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "OUT", 
+      "number": "14", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "650", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "PWVs-", 
+      "number": "15", 
+      "shape": null, 
+      "visible": true, 
+      "length": "145", 
+      "text_size_number": "40", 
+      "y": "-350", 
+      "x": "0", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

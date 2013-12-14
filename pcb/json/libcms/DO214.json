@@ -1,0 +1,254 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "DO214", 
+  "layer": "15", 
+  "art": [
+    {
+      "line_width": "50", 
+      "startx": "-300", 
+      "starty": "0", 
+      "endy": "0", 
+      "endx": "-380", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-900", 
+      "starty": "-750", 
+      "endy": "-750", 
+      "endx": "900", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "900", 
+      "starty": "-750", 
+      "endy": "-500", 
+      "endx": "900", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "260", 
+      "starty": "750", 
+      "endy": "-750", 
+      "endx": "260", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "390", 
+      "starty": "750", 
+      "endy": "-750", 
+      "endx": "390", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-900", 
+      "starty": "500", 
+      "endy": "750", 
+      "endx": "-900", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-900", 
+      "starty": "750", 
+      "endy": "750", 
+      "endx": "900", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "900", 
+      "starty": "750", 
+      "endy": "500", 
+      "endx": "900", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-900", 
+      "starty": "-500", 
+      "endy": "-750", 
+      "endx": "-900", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-50", 
+      "starty": "0", 
+      "endy": "-187", 
+      "endx": "-300", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-300", 
+      "starty": "-187", 
+      "endy": "0", 
+      "endx": "-300", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-300", 
+      "starty": "0", 
+      "endy": "187", 
+      "endx": "-300", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-300", 
+      "starty": "187", 
+      "endy": "0", 
+      "endx": "-50", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-50", 
+      "starty": "0", 
+      "endy": "-125", 
+      "endx": "-50", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-50", 
+      "starty": "-125", 
+      "endy": "-187", 
+      "endx": "-112", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-50", 
+      "starty": "0", 
+      "endy": "125", 
+      "endx": "-50", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-50", 
+      "starty": "125", 
+      "endy": "187", 
+      "endx": "12", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "50", 
+      "startx": "-50", 
+      "starty": "0", 
+      "endy": "0", 
+      "endx": "387", 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "DO214", 
+  "keyword": [
+    " DO214AC PACKAGE. MONODIRECTIONAL."
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "misc": " \"DO214\"", 
+      "sizex": "500", 
+      "number": "0", 
+      "sizey": "500", 
+      "visible": "V", 
+      "flag": "N", 
+      "text": "DO214", 
+      "y": "-1200", 
+      "x": "100", 
+      "rotation": "0", 
+      "penwidth": "35"
+    }, 
+    {
+      "layer": "21", 
+      "misc": " \"VAL**\"", 
+      "sizex": "500", 
+      "number": "1", 
+      "sizey": "500", 
+      "visible": "V", 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": "1150", 
+      "x": "100", 
+      "rotation": "0", 
+      "penwidth": "35"
+    }
+  ], 
+  "timestamp_op": "48AAA7BD", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": "0", 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 709.0, 
+      "sizey": 866.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -790.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 709.0, 
+      "sizey": 866.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 790.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "48AAA802", 
+  "units": "deci-mils", 
+  "x": "0", 
+  "rotation_cost_90": "0", 
+  "attribute1": "48AAA7BD", 
+  "orientation": "0"
+}

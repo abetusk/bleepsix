@@ -1,0 +1,163 @@
+{
+  "library_name": "C1V5H", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 150.0, 
+      "startx": -1200.0, 
+      "starty": 5000.0, 
+      "endy": 5000.0, 
+      "endx": 1200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": -1200.0, 
+      "starty": 500.0, 
+      "endy": 500.0, 
+      "endx": 1200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": -1200.0, 
+      "starty": 5000.0, 
+      "endy": 500.0, 
+      "endx": -1200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 1200.0, 
+      "starty": 500.0, 
+      "endy": 5000.0, 
+      "endx": 1200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": -500.0, 
+      "starty": 0.0, 
+      "endy": 500.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 500.0, 
+      "starty": 0.0, 
+      "endy": 500.0, 
+      "endx": 500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "C1V5H", 
+  "keyword": [
+    " Condensateur e = 1 pas"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"C1V5H\"", 
+      "sizex": 350.0, 
+      "number": "0", 
+      "sizey": 350.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "C1V5H", 
+      "y": 3000.0, 
+      "x": -500.0, 
+      "rotation": "900", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"C***\"", 
+      "sizex": 350.0, 
+      "number": "1", 
+      "sizey": 350.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "C***", 
+      "y": 3000.0, 
+      "x": 500.0, 
+      "rotation": "900", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"+\"", 
+      "sizex": 300.0, 
+      "number": "2", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "+", 
+      "y": 1000.0, 
+      "x": -500.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -500.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "47FF7B42", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

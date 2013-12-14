@@ -1,0 +1,132 @@
+{
+  "art": [
+    {
+      "line_width": 0, 
+      "start_angle": -1.551597705022959, 
+      "end_angle": 1.551597705022959, 
+      "shape": "arc", 
+      "r": 50.0, 
+      "counterclockwise": true, 
+      "y": -150.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 0, 
+      "start_angle": -1.551597705022959, 
+      "end_angle": 1.551597705022959, 
+      "shape": "arc", 
+      "r": 51.0, 
+      "counterclockwise": true, 
+      "y": -49.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 0, 
+      "start_angle": -1.551597705022959, 
+      "end_angle": 1.551597705022959, 
+      "shape": "arc", 
+      "r": 51.0, 
+      "counterclockwise": true, 
+      "y": 51.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 0, 
+      "start_angle": -1.551597705022959, 
+      "end_angle": 1.551597705022959, 
+      "shape": "arc", 
+      "r": 48.0, 
+      "counterclockwise": true, 
+      "y": 148.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "INDUCTOR", 
+  "reference": "L", 
+  "text": [
+    {
+      "orientation": "V", 
+      "reference": "L", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "-50", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "V", 
+      "reference": "INDUCTOR", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "100", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": false, 
+  "pin": [
+    {
+      "direction": "D", 
+      "name": "1", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "70", 
+      "y": "300", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "70", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "2", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "70", 
+      "y": "-300", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "70", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": false, 
+  "unit_count": 1
+}

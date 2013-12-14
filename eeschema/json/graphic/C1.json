@@ -1,0 +1,51 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "shape": "circle", 
+      "r": 40.0, 
+      "y": 0.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "C1", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "0", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "C1", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "0", 
+      "x": "0", 
+      "size": "60"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

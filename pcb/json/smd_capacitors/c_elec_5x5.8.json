@@ -1,0 +1,237 @@
+{
+  "library_name": "c_elec_5x5.8", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -900.0, 
+      "starty": -250.0, 
+      "endy": 300.0, 
+      "endx": -900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -850.0, 
+      "starty": -350.0, 
+      "endy": 350.0, 
+      "endx": -850.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -800.0, 
+      "starty": -500.0, 
+      "endy": 500.0, 
+      "endx": -800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -750.0, 
+      "starty": 550.0, 
+      "endy": -550.0, 
+      "endx": -750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -700.0, 
+      "starty": -600.0, 
+      "endy": 600.0, 
+      "endx": -700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -650.0, 
+      "starty": 650.0, 
+      "endy": -650.0, 
+      "endx": -650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -600.0, 
+      "starty": -700.0, 
+      "endy": 700.0, 
+      "endx": -600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 950.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1050.0, 
+      "starty": -1050.0, 
+      "endy": -1050.0, 
+      "endx": 750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 750.0, 
+      "starty": -1050.0, 
+      "endy": -750.0, 
+      "endx": 1050.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1050.0, 
+      "starty": -750.0, 
+      "endy": 750.0, 
+      "endx": 1050.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1050.0, 
+      "starty": 750.0, 
+      "endy": 1050.0, 
+      "endx": 750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 750.0, 
+      "starty": 1050.0, 
+      "endy": 1050.0, 
+      "endx": -1050.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1050.0, 
+      "starty": 1050.0, 
+      "endy": -1050.0, 
+      "endx": -1050.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 850.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 700.0, 
+      "starty": -150.0, 
+      "endy": 150.0, 
+      "endx": 700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "c_elec_5x5.8", 
+  "keyword": [
+    " SMT capacitor, aluminium electrolytic, 5x5.8"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"c_elec_5x5.8\"", 
+      "sizex": 197.0, 
+      "number": "0", 
+      "sizey": 197.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "c_elec_5x5.8", 
+      "y": -1250.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 47.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"C***\"", 
+      "sizex": 197.0, 
+      "number": "1", 
+      "sizey": 197.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "C***", 
+      "y": 1250.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 47.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1181.0, 
+      "sizey": 630.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 866.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1181.0, 
+      "sizey": 630.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -866.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "49F5AF88", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

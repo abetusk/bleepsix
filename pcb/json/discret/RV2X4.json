@@ -1,0 +1,211 @@
+{
+  "library_name": "RV2X4", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 120.0, 
+      "startx": -3000.0, 
+      "starty": -1500.0, 
+      "endy": -1500.0, 
+      "endx": 1500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 1500.0, 
+      "starty": -1500.0, 
+      "endy": -500.0, 
+      "endx": 2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 2500.0, 
+      "starty": -500.0, 
+      "endy": 500.0, 
+      "endx": 2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 2500.0, 
+      "starty": 500.0, 
+      "endy": 1500.0, 
+      "endx": 1500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 1500.0, 
+      "starty": 1500.0, 
+      "endy": 1500.0, 
+      "endx": -3000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -3000.0, 
+      "starty": 1500.0, 
+      "endy": -1500.0, 
+      "endx": -3000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 300.0, 
+      "starty": -1500.0, 
+      "endy": -1500.0, 
+      "endx": 750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 650.0, 
+      "starty": 1500.0, 
+      "endy": 1500.0, 
+      "endx": 300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -1000.0, 
+      "starty": -200.0, 
+      "endy": -200.0, 
+      "endx": 1950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -1000.0, 
+      "starty": 200.0, 
+      "endy": 200.0, 
+      "endx": 1950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 1520.690632574555, 
+      "y": 0.0, 
+      "x": 500.0
+    }
+  ], 
+  "name": "RV2X4", 
+  "keyword": [
+    " Resistance variable / Potentiometre"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val*\"", 
+      "sizex": 550.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "Val*", 
+      "y": -2000.0, 
+      "x": -1000.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"RV2X4\"", 
+      "sizex": 550.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "RV2X4", 
+      "y": 2150.0, 
+      "x": -650.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 500.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 800.0, 
+      "sizey": 800.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1000.0, 
+      "posx": -2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 500.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 800.0, 
+      "sizey": 800.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 500.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 800.0, 
+      "sizey": 800.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1000.0, 
+      "posx": -2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00200000", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

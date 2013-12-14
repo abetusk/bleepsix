@@ -1,0 +1,166 @@
+{
+  "library_name": "TESTPOINT", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": -750.0, 
+      "starty": -350.0, 
+      "endy": -350.0, 
+      "endx": 700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 700.0, 
+      "starty": -350.0, 
+      "endy": -150.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 900.0, 
+      "starty": -150.0, 
+      "endy": 150.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 900.0, 
+      "starty": 150.0, 
+      "endy": 350.0, 
+      "endx": 700.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 700.0, 
+      "starty": 350.0, 
+      "endy": 350.0, 
+      "endx": -750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -750.0, 
+      "starty": 350.0, 
+      "endy": 150.0, 
+      "endx": -950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -950.0, 
+      "starty": 150.0, 
+      "endy": -150.0, 
+      "endx": -950.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -950.0, 
+      "starty": -150.0, 
+      "endy": -350.0, 
+      "endx": -750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "TESTPOINT", 
+  "keyword": [
+    " Connecteurs 2 pins"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"TESTPOINT\"", 
+      "sizex": 300.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "TESTPOINT", 
+      "y": -600.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val**\"", 
+      "sizex": 300.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "Val**", 
+      "y": 600.0, 
+      "x": 50.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "45129E05", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

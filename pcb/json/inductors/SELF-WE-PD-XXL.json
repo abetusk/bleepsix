@@ -1,0 +1,216 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SELF-WE-PD-XXL", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 1969.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": 0.0, 
+      "endy": -1969.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": -1969.0, 
+      "endy": -2362.0, 
+      "endx": -1969.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1969.0, 
+      "starty": -2362.0, 
+      "endy": -2362.0, 
+      "endx": 1969.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1969.0, 
+      "starty": -2362.0, 
+      "endy": -1969.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": -1969.0, 
+      "endy": 1969.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": 1969.0, 
+      "endy": 2362.0, 
+      "endx": 1969.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1969.0, 
+      "starty": 2362.0, 
+      "endy": 2362.0, 
+      "endx": -1969.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1969.0, 
+      "starty": 2362.0, 
+      "endy": 1969.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": 1969.0, 
+      "endy": 0.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SELF-WE-PD-XXL", 
+  "keyword": [
+    " SELF- WE-PD-XXL"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"SELF-WE-PD-XXL\"", 
+      "sizex": 472.0, 
+      "number": "0", 
+      "sizey": 472.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SELF-WE-PD-XXL", 
+      "y": 39.0, 
+      "x": -669.0, 
+      "rotation": "900", 
+      "penwidth": 79.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " N \"VAL***\"", 
+      "sizex": 472.0, 
+      "number": "1", 
+      "sizey": 472.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL***", 
+      "y": 0.0, 
+      "x": 709.0, 
+      "rotation": "900", 
+      "penwidth": 79.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"\"", 
+      "sizex": 400.0, 
+      "number": "2", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"\"", 
+      "sizex": 400.0, 
+      "number": "2", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1142.0, 
+      "sizey": 2126.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1969.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1142.0, 
+      "sizey": 2126.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1969.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "50912AEB", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

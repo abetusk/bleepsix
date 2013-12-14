@@ -1,0 +1,125 @@
+{
+  "library_name": "2PIN_6mm", 
+  "layer": "15", 
+  "art": [
+    {
+      "line_width": "150", 
+      "startx": "-8500", 
+      "starty": "-2500", 
+      "endy": "-2500", 
+      "endx": "8500", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "8500", 
+      "starty": "-2500", 
+      "endy": "2500", 
+      "endx": "8500", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "8500", 
+      "starty": "2500", 
+      "endy": "2500", 
+      "endx": "-8500", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "-8500", 
+      "starty": "2500", 
+      "endy": "-2500", 
+      "endx": "-8500", 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "2PIN_6mm", 
+  "keyword": [
+    " module 2 pin (trou 6 mm)"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "misc": " \"2PIN_6mm\"", 
+      "sizex": "600", 
+      "number": "0", 
+      "sizey": "600", 
+      "visible": "V", 
+      "flag": "N", 
+      "text": "2PIN_6mm", 
+      "y": "500", 
+      "x": "0", 
+      "rotation": "0", 
+      "penwidth": "120"
+    }, 
+    {
+      "layer": "21", 
+      "misc": " \"V***\"", 
+      "sizex": "600", 
+      "number": "1", 
+      "sizey": "600", 
+      "visible": "V", 
+      "flag": "N", 
+      "text": "V***", 
+      "y": "-500", 
+      "x": "0", 
+      "rotation": "0", 
+      "penwidth": "120"
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": "3500", 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "name": "1", 
+      "drill_diam": 2400.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 4000.0, 
+      "sizey": 4000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -5900.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "name": "2", 
+      "drill_diam": 2400.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 4000.0, 
+      "sizey": 4000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 5900.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00200000", 
+  "units": "deci-mils", 
+  "x": "9500", 
+  "rotation_cost_90": "0", 
+  "attribute1": "00000000", 
+  "orientation": "0"
+}

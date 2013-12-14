@@ -1,0 +1,233 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "powermite3", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -350.0, 
+      "starty": -1400.0, 
+      "endy": -1650.0, 
+      "endx": -350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -350.0, 
+      "starty": -1650.0, 
+      "endy": -1650.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 350.0, 
+      "starty": -1650.0, 
+      "endy": -1400.0, 
+      "endx": 350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -800.0, 
+      "starty": 350.0, 
+      "endy": 350.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 800.0, 
+      "starty": 350.0, 
+      "endy": -1400.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 800.0, 
+      "starty": -1400.0, 
+      "endy": -1400.0, 
+      "endx": -800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -800.0, 
+      "starty": -1400.0, 
+      "endy": 350.0, 
+      "endx": -800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 200.0, 
+      "starty": 900.0, 
+      "endy": 900.0, 
+      "endx": 550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 550.0, 
+      "starty": 900.0, 
+      "endy": 350.0, 
+      "endx": 550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 200.0, 
+      "starty": 900.0, 
+      "endy": 350.0, 
+      "endx": 200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -550.0, 
+      "starty": 900.0, 
+      "endy": 350.0, 
+      "endx": -550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -550.0, 
+      "starty": 900.0, 
+      "endy": 900.0, 
+      "endx": -200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -200.0, 
+      "starty": 900.0, 
+      "endy": 350.0, 
+      "endx": -200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "powermite3", 
+  "keyword": [
+    " PowerMite3"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"PowerMite3\"", 
+      "sizex": 394.0, 
+      "number": "0", 
+      "sizey": 394.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "PowerMite3", 
+      "y": -330.0, 
+      "x": 20.0, 
+      "rotation": "0", 
+      "penwidth": 79.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Q***\"", 
+      "sizex": 394.0, 
+      "number": "1", 
+      "sizey": 394.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "Q***", 
+      "y": 410.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 79.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 380.0, 
+      "sizey": 500.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 750.0, 
+      "posx": -360.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1900.0, 
+      "sizey": 2100.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -750.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 380.0, 
+      "sizey": 500.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 750.0, 
+      "posx": 360.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4A81F00D", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

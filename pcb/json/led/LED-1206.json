@@ -1,0 +1,425 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "LED-1206", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 26.0, 
+      "startx": -39.0, 
+      "starty": 39.0, 
+      "endy": 39.0, 
+      "endx": 39.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 39.0, 
+      "starty": 39.0, 
+      "endy": -39.0, 
+      "endx": 39.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -39.0, 
+      "starty": -39.0, 
+      "endy": -39.0, 
+      "endx": 39.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -39.0, 
+      "starty": 39.0, 
+      "endy": -39.0, 
+      "endx": -39.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 275.0, 
+      "endy": 275.0, 
+      "endx": 314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": 275.0, 
+      "endy": 177.0, 
+      "endx": 314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": 314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 275.0, 
+      "endy": 177.0, 
+      "endx": 177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": 275.0, 
+      "endy": 275.0, 
+      "endx": 354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 354.0, 
+      "starty": 275.0, 
+      "endy": -196.0, 
+      "endx": 354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": -196.0, 
+      "endy": -196.0, 
+      "endx": 354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": 275.0, 
+      "endy": -196.0, 
+      "endx": 314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": -216.0, 
+      "endy": -216.0, 
+      "endx": 354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 354.0, 
+      "starty": -216.0, 
+      "endy": -275.0, 
+      "endx": 354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": -275.0, 
+      "endy": -275.0, 
+      "endx": 354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 314.0, 
+      "starty": -216.0, 
+      "endy": -275.0, 
+      "endx": 314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -354.0, 
+      "starty": 275.0, 
+      "endy": 275.0, 
+      "endx": -314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -314.0, 
+      "starty": 275.0, 
+      "endy": -196.0, 
+      "endx": -314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -354.0, 
+      "starty": -196.0, 
+      "endy": -196.0, 
+      "endx": -314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -354.0, 
+      "starty": 275.0, 
+      "endy": -196.0, 
+      "endx": -354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -354.0, 
+      "starty": -216.0, 
+      "endy": -216.0, 
+      "endx": -314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -314.0, 
+      "starty": -216.0, 
+      "endy": -275.0, 
+      "endx": -314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -354.0, 
+      "starty": -275.0, 
+      "endy": -275.0, 
+      "endx": -314.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": -354.0, 
+      "starty": -216.0, 
+      "endy": -275.0, 
+      "endx": -354.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 275.0, 
+      "endy": 275.0, 
+      "endx": 236.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 236.0, 
+      "starty": 275.0, 
+      "endy": 177.0, 
+      "endx": 236.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": 236.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 26.0, 
+      "startx": 177.0, 
+      "starty": 275.0, 
+      "endy": 177.0, 
+      "endx": 177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 610.0, 
+      "starty": 295.0, 
+      "endy": 295.0, 
+      "endx": -610.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -610.0, 
+      "starty": 295.0, 
+      "endy": -295.0, 
+      "endx": -610.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -610.0, 
+      "starty": -295.0, 
+      "endy": -295.0, 
+      "endx": 610.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 610.0, 
+      "starty": -295.0, 
+      "endy": 295.0, 
+      "endx": 610.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "21", 
+      "angle": 1.6650441064025905, 
+      "start_angle": 0.7368925511570648, 
+      "shape": "arc", 
+      "r": 291.67104758614624, 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "21", 
+      "angle": 1.4748032179352084, 
+      "start_angle": 2.4047001024327286, 
+      "shape": "arc", 
+      "r": 291.67104758614624, 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "21", 
+      "angle": 1.6650441064025905, 
+      "start_angle": -2.4047001024327286, 
+      "shape": "arc", 
+      "r": 291.67104758614624, 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "21", 
+      "angle": 1.4748032179352084, 
+      "start_angle": -0.7368925511570648, 
+      "shape": "arc", 
+      "r": 291.67104758614624, 
+      "y": "0", 
+      "x": "0"
+    }
+  ], 
+  "name": "LED-1206", 
+  "keyword": [
+    " LED 1206 smd package"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"LED-1206\"", 
+      "sizex": 300.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "LED-1206", 
+      "y": -600.0, 
+      "x": 100.0, 
+      "rotation": "0", 
+      "penwidth": 35.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL**\"", 
+      "sizex": 300.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 600.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 35.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 629.0, 
+      "sizey": 709.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -559.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 629.0, 
+      "sizey": 709.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 559.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "49BFA1FF", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

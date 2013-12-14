@@ -1,0 +1,166 @@
+{
+  "library_name": "SW_PUSH", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": 2500.0, 
+      "starty": -2250.0, 
+      "endy": 2250.0, 
+      "endx": 2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2500.0, 
+      "starty": 2250.0, 
+      "endy": 2500.0, 
+      "endx": 2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2250.0, 
+      "starty": 2500.0, 
+      "endy": 2500.0, 
+      "endx": -2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2250.0, 
+      "starty": 2500.0, 
+      "endy": 2250.0, 
+      "endx": -2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2500.0, 
+      "starty": 2250.0, 
+      "endy": -2250.0, 
+      "endx": -2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2250.0, 
+      "starty": -2500.0, 
+      "endy": -2500.0, 
+      "endx": 2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2250.0, 
+      "starty": -2500.0, 
+      "endy": -2250.0, 
+      "endx": 2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2500.0, 
+      "starty": -2250.0, 
+      "endy": -2500.0, 
+      "endx": -2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SW_PUSH", 
+  "keyword": [
+    " Bouton poussoir"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"BP***\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "BP***", 
+      "y": -2000.0, 
+      "x": 500.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"SW_PUSH\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SW_PUSH", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "A", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 450.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 1000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1000.0, 
+      "posx": -2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 450.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 1000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1000.0, 
+      "posx": 2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "3F9504DA", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

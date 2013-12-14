@@ -1,0 +1,80 @@
+{
+  "library_name": "TROU", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 150.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 1060.6601717798212, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "TROU", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"TROU\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "TROU", 
+      "y": 1650.0, 
+      "x": 150.0, 
+      "rotation": "0", 
+      "penwidth": 150.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"**\"", 
+      "sizex": 600.0, 
+      "number": "1", 
+      "sizey": 600.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 150.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 25750.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "GND", 
+      "angle": 0.0, 
+      "name": "", 
+      "drill_diam": 400.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1550.0, 
+      "sizey": 1550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "1", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00200000", 
+  "units": "deci-mils", 
+  "x": 44500.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

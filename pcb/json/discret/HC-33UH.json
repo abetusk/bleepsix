@@ -1,0 +1,193 @@
+{
+  "library_name": "HC-33UH", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 120.0, 
+      "startx": 6000.0, 
+      "starty": 1750.0, 
+      "endy": 1750.0, 
+      "endx": -6250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -2500.0, 
+      "starty": 0.0, 
+      "endy": 1750.0, 
+      "endx": -2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 2500.0, 
+      "starty": 0.0, 
+      "endy": 1750.0, 
+      "endx": 2500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 6000.0, 
+      "starty": 1750.0, 
+      "endy": 2500.0, 
+      "endx": 6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 6000.0, 
+      "starty": 2500.0, 
+      "endy": 2500.0, 
+      "endx": -6250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -6250.0, 
+      "starty": 2500.0, 
+      "endy": 1750.0, 
+      "endx": -6250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 5750.0, 
+      "starty": 2500.0, 
+      "endy": 12500.0, 
+      "endx": 5750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 5750.0, 
+      "starty": 12500.0, 
+      "endy": 13000.0, 
+      "endx": 5250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 5250.0, 
+      "starty": 13000.0, 
+      "endy": 13000.0, 
+      "endx": -5500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -5500.0, 
+      "starty": 13000.0, 
+      "endy": 12500.0, 
+      "endx": -6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -6000.0, 
+      "starty": 12500.0, 
+      "endy": 2500.0, 
+      "endx": -6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "HC-33UH", 
+  "keyword": [
+    " Quartz boitier HC-33U Horizontal"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"HC-33UH\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "HC-33UH", 
+      "y": 4500.0, 
+      "x": 500.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"X***\"", 
+      "sizex": 600.0, 
+      "number": "1", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "X***", 
+      "y": 7000.0, 
+      "x": 500.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 400.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 1000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -2500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 400.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 1000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 2500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "50F3FB35", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

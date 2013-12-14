@@ -1,0 +1,259 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "DO-214AC(SMA)", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -300.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -380.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -900.0, 
+      "starty": -750.0, 
+      "endy": -750.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 900.0, 
+      "starty": -750.0, 
+      "endy": -500.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 260.0, 
+      "starty": 750.0, 
+      "endy": -750.0, 
+      "endx": 260.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 390.0, 
+      "starty": 750.0, 
+      "endy": -750.0, 
+      "endx": 390.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -900.0, 
+      "starty": 500.0, 
+      "endy": 750.0, 
+      "endx": -900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -900.0, 
+      "starty": 750.0, 
+      "endy": 750.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 900.0, 
+      "starty": 750.0, 
+      "endy": 500.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -900.0, 
+      "starty": -500.0, 
+      "endy": -750.0, 
+      "endx": -900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -50.0, 
+      "starty": 0.0, 
+      "endy": -187.0, 
+      "endx": -300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -300.0, 
+      "starty": -187.0, 
+      "endy": 0.0, 
+      "endx": -300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -300.0, 
+      "starty": 0.0, 
+      "endy": 187.0, 
+      "endx": -300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -300.0, 
+      "starty": 187.0, 
+      "endy": 0.0, 
+      "endx": -50.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -50.0, 
+      "starty": 0.0, 
+      "endy": -125.0, 
+      "endx": -50.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -50.0, 
+      "starty": -125.0, 
+      "endy": -187.0, 
+      "endx": -112.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -50.0, 
+      "starty": 0.0, 
+      "endy": 125.0, 
+      "endx": -50.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -50.0, 
+      "starty": 125.0, 
+      "endy": 187.0, 
+      "endx": 12.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -50.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 387.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "DO-214AC(SMA)", 
+  "keyword": [
+    " DO-214AC (SMA)  PACKAGE."
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"DO-214AC(SMA)\"", 
+      "sizex": 394.0, 
+      "number": "0", 
+      "sizey": 394.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "DO-214AC(SMA)", 
+      "y": -1024.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 47.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL**\"", 
+      "sizex": 394.0, 
+      "number": "1", 
+      "sizey": 394.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 1102.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 47.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 630.0, 
+      "sizey": 866.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -748.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 630.0, 
+      "sizey": 866.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 748.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "50924EEA", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

@@ -1,0 +1,206 @@
+{
+  "art": [
+    {
+      "count": 2, 
+      "line_width": "5", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          -150.0
+        ], 
+        [
+          0.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          -100.0
+        ], 
+        [
+          150.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "3", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          100.0
+        ], 
+        [
+          -50.0, 
+          -100.0
+        ], 
+        [
+          -50.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          -40.0
+        ], 
+        [
+          -150.0, 
+          0.0
+        ], 
+        [
+          -50.0, 
+          40.0
+        ], 
+        [
+          -50.0, 
+          -40.0
+        ], 
+        [
+          -50.0, 
+          -40.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "FET_P", 
+  "reference": "Q", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "Q", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "250", 
+      "x": "-97", 
+      "size": "70"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "FET_P", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-247", 
+      "x": "-147", 
+      "size": "60"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": false, 
+  "pin": [
+    {
+      "direction": "D", 
+      "name": "D", 
+      "number": "D", 
+      "shape": null, 
+      "visible": true, 
+      "length": "250", 
+      "text_size_number": "40", 
+      "y": "350", 
+      "x": "150", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "G", 
+      "number": "G", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "-300", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "S", 
+      "number": "S", 
+      "shape": null, 
+      "visible": true, 
+      "length": "250", 
+      "text_size_number": "40", 
+      "y": "-350", 
+      "x": "150", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

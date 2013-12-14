@@ -1,0 +1,147 @@
+{
+  "art": [
+    {
+      "line_width": "10", 
+      "height": 700.0, 
+      "width": 2000.0, 
+      "shape": "rectangle", 
+      "y": 350.0, 
+      "x": -1000.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "ATTINY10-TS", 
+  "reference": "IC", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "IC", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "400", 
+      "x": "-900", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "ATTINY10-TS", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-400", 
+      "x": "700", 
+      "size": "60"
+    }, 
+    {
+      "text": " \"SOT23-6\" -800 -400 60 H I C CNN", 
+      "number": "2"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "PB0(AIN0/ADC0/OC0A/PCINT0/TPIDATA)", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "150", 
+      "x": "-1200", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "GND", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-250", 
+      "x": "1200", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "PB1(AIN1/ADC1/OC0B/ICP0/PCINT1/CLKI/TPICLK)", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "50", 
+      "x": "-1200", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "PB2(INT0/ADC2/T0/PCINT2/CLKO)", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-50", 
+      "x": "-1200", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "VCC", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "250", 
+      "x": "1200", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "PB3(~RESET~/ADC3/PCINT3)", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "200", 
+      "text_size_number": "50", 
+      "y": "-150", 
+      "x": "-1200", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

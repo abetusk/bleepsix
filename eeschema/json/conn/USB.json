@@ -1,0 +1,423 @@
+{
+  "art": [
+    {
+      "line_width": "10", 
+      "height": 100.0, 
+      "width": 0.0, 
+      "shape": "rectangle", 
+      "y": 200.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 0.0, 
+      "width": 0.0, 
+      "shape": "rectangle", 
+      "y": 200.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "10", 
+      "height": 0.0, 
+      "width": 150.0, 
+      "shape": "rectangle", 
+      "y": 200.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "10", 
+      "height": 0.0, 
+      "width": 150.0, 
+      "shape": "rectangle", 
+      "y": 100.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "10", 
+      "height": 100.0, 
+      "width": 0.0, 
+      "shape": "rectangle", 
+      "y": 200.0, 
+      "x": 50.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -150.0, 
+          -50.0
+        ], 
+        [
+          -250.0, 
+          -200.0
+        ], 
+        [
+          -250.0, 
+          -200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 3, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          100.0, 
+          -50.0
+        ], 
+        [
+          200.0, 
+          -200.0
+        ], 
+        [
+          200.0, 
+          -200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -100.0, 
+          -450.0
+        ], 
+        [
+          -50.0, 
+          -400.0
+        ], 
+        [
+          -50.0, 
+          -50.0
+        ], 
+        [
+          -50.0, 
+          -50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -100.0, 
+          -50.0
+        ], 
+        [
+          -100.0, 
+          -250.0
+        ], 
+        [
+          -250.0, 
+          -350.0
+        ], 
+        [
+          -250.0, 
+          -350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          -50.0
+        ], 
+        [
+          0.0, 
+          -400.0
+        ], 
+        [
+          50.0, 
+          -450.0
+        ], 
+        [
+          50.0, 
+          -450.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 4, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          50.0, 
+          -50.0
+        ], 
+        [
+          50.0, 
+          -250.0
+        ], 
+        [
+          200.0, 
+          -350.0
+        ], 
+        [
+          200.0, 
+          -350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 6, 
+      "line_width": "15", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -200.0, 
+          -50.0
+        ], 
+        [
+          150.0, 
+          -50.0
+        ], 
+        [
+          150.0, 
+          350.0
+        ], 
+        [
+          -200.0, 
+          350.0
+        ], 
+        [
+          -200.0, 
+          -50.0
+        ], 
+        [
+          -200.0, 
+          -50.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 9, 
+      "line_width": "10", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -150.0, 
+          0.0
+        ], 
+        [
+          100.0, 
+          0.0
+        ], 
+        [
+          100.0, 
+          250.0
+        ], 
+        [
+          50.0, 
+          300.0
+        ], 
+        [
+          -100.0, 
+          300.0
+        ], 
+        [
+          -150.0, 
+          250.0
+        ], 
+        [
+          -150.0, 
+          0.0
+        ], 
+        [
+          -150.0, 
+          0.0
+        ], 
+        [
+          -150.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "USB", 
+  "reference": "J", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "J", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "400", 
+      "x": "-50", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "V", 
+      "reference": "USB", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "150", 
+      "x": "-250", 
+      "size": "60"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "Vbus", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-200", 
+      "x": "-400", 
+      "electrical_type": "w", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "D-", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-350", 
+      "x": "350", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "D+", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-200", 
+      "x": "350", 
+      "electrical_type": "B", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "GND", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "40", 
+      "y": "-350", 
+      "x": "-400", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "Shield_1", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "40", 
+      "y": "-450", 
+      "x": "350", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "Shield_2", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "300", 
+      "text_size_number": "40", 
+      "y": "-450", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "30", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

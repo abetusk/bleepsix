@@ -1,0 +1,156 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SM1812L", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 70.71067811865476, 
+      "y": 800.0, 
+      "x": -1500.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 550.0, 
+      "starty": 750.0, 
+      "endy": 750.0, 
+      "endx": 1450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1450.0, 
+      "starty": 750.0, 
+      "endy": -750.0, 
+      "endx": 1450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1450.0, 
+      "starty": -750.0, 
+      "endy": -750.0, 
+      "endx": 550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -550.0, 
+      "starty": -750.0, 
+      "endy": -750.0, 
+      "endx": -1450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1450.0, 
+      "starty": -750.0, 
+      "endy": 750.0, 
+      "endx": -1450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1450.0, 
+      "starty": 750.0, 
+      "endy": 750.0, 
+      "endx": -550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SM1812L", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " \"SM1812L\"", 
+      "sizex": 350.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SM1812L", 
+      "y": 0.0, 
+      "x": -248.0, 
+      "rotation": "900", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " \"VAL**\"", 
+      "sizex": 350.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 0.0, 
+      "x": 250.0, 
+      "rotation": "900", 
+      "penwidth": 50.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 800.0, 
+      "sizey": 1400.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1000.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 800.0, 
+      "sizey": 1400.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1000.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "3D638E8B", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

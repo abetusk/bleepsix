@@ -1,0 +1,130 @@
+{
+  "library_name": "cnp_7.5mm_disc", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 98.0, 
+      "startx": -1400.0, 
+      "starty": -400.0, 
+      "endy": 400.0, 
+      "endx": -1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 98.0, 
+      "startx": -1400.0, 
+      "starty": 400.0, 
+      "endy": 400.0, 
+      "endx": 1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 98.0, 
+      "startx": 1400.0, 
+      "starty": 400.0, 
+      "endy": -400.0, 
+      "endx": 1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 98.0, 
+      "startx": 1400.0, 
+      "starty": -400.0, 
+      "endy": -400.0, 
+      "endx": -1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "cnp_7.5mm_disc", 
+  "keyword": [
+    " 7.5mm disc ceramic capacitor"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"cnp_7.5mm_disc\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "cnp_7.5mm_disc", 
+      "y": -1500.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N\"V***\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "V***", 
+      "y": -900.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 591.0, 
+      "sizey": 591.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 315.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 591.0, 
+      "sizey": 591.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4B90D4D3", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

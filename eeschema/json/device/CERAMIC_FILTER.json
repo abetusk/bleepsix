@@ -1,0 +1,179 @@
+{
+  "art": [
+    {
+      "line_width": "8", 
+      "height": 150.0, 
+      "width": 200.0, 
+      "shape": "rectangle", 
+      "y": 100.0, 
+      "x": -100.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 6, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          -150.0, 
+          100.0
+        ], 
+        [
+          -150.0, 
+          -50.0
+        ], 
+        [
+          -125.0, 
+          -50.0
+        ], 
+        [
+          -125.0, 
+          100.0
+        ], 
+        [
+          -150.0, 
+          100.0
+        ], 
+        [
+          -150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "count": 6, 
+      "line_width": "0", 
+      "convert": "1", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          -50.0
+        ], 
+        [
+          125.0, 
+          -50.0
+        ], 
+        [
+          125.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ], 
+        [
+          150.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }
+  ], 
+  "name": "CERAMIC_FILTER", 
+  "reference": "F", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "F", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "150", 
+      "x": "50", 
+      "size": "50"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "CERAMIC_FILTER", 
+      "hjustify": "L", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-100", 
+      "x": "50", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": false, 
+  "pin": [
+    {
+      "pin_type": "I", 
+      "direction": "R", 
+      "name": "P1", 
+      "number": "1", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "250", 
+      "text_size_number": "60", 
+      "y": "50", 
+      "x": "-400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "U", 
+      "name": "PM", 
+      "number": "2", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "150", 
+      "text_size_number": "20", 
+      "y": "-200", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "20", 
+      "unit": "1"
+    }, 
+    {
+      "pin_type": "I", 
+      "direction": "L", 
+      "name": "P3", 
+      "number": "3", 
+      "shape": " I", 
+      "visible": true, 
+      "length": "250", 
+      "text_size_number": "60", 
+      "y": "50", 
+      "x": "400", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "60", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

@@ -1,0 +1,72 @@
+{
+  "art": [
+    {
+      "count": 5, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -50.0, 
+          0.0
+        ], 
+        [
+          0.0, 
+          50.0
+        ], 
+        [
+          50.0, 
+          0.0
+        ], 
+        [
+          0.0, 
+          -50.0
+        ], 
+        [
+          -50.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "F"
+    }
+  ], 
+  "name": "FDIAMOND1", 
+  "reference": "~", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "~", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "100", 
+      "x": "0", 
+      "size": "90"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "FDIAMOND1", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-100", 
+      "x": "0", 
+      "size": "90"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "0", 
+  "draw_pin_name": true, 
+  "pin": [], 
+  "draw_pin_number": false, 
+  "unit_count": 0
+}

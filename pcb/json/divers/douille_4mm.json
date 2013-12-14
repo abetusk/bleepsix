@@ -1,0 +1,83 @@
+{
+  "library_name": "douille_4mm", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 150.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 2400.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "douille_4mm", 
+  "keyword": [
+    " module 1 pin (ou trou mecanique de percage 6 mm)"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"douille_4mm\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "douille_4mm", 
+      "y": -2700.0, 
+      "x": 200.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"P***\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "P***", 
+      "y": -3300.0, 
+      "x": 300.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 2400.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 4000.0, 
+      "sizey": 4000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "3FCF1F43", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

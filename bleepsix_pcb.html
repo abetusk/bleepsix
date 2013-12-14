@@ -1,0 +1,237 @@
+<html>
+
+  <meta charset='utf-8'>
+
+  <head>
+
+    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
+
+	<script src='js/lib/peg.js'></script>
+
+	<script src='js/lib/jquery.js'></script>
+    <script src='js/lib/jquery.mousewheel.js'/></script>
+    <script src='js/lib/jquery.capslockstate.js'/></script>
+    <script src='js/lib/numeric.js'></script>
+	<script src='js/lib/oop.js'></script>
+
+    <script src='js/lib/clipper.js'></script>
+
+    <script src='js/core/bleepsixRender.js'></script>
+
+    <script src='js/brd/bleepsixBoard.js'></script>
+    <script src='js/brd/bleepsixBoard_aux.js'></script>
+    <script src='js/brd/bleepsixBoard_bbox.js'></script>
+    <script src='js/brd/bleepsixBoard_netops.js'></script>
+    <script src='js/brd/bleepsixBoard_zone.js'></script>
+    <script src='js/brd/bleepsixBoard_ratsnest.js'></script>
+
+    <script src='js/brd/bleepsixBoardController.js'></script>
+
+	<script src='js/gui/guiRegion.js'></script>
+
+    <script src='js/gui/guiFootprintTile.js'></script>
+    <script src='js/gui/guiList.js'></script>
+    <script src='js/gui/guiScrollbar.js'></script>
+
+    <script src='js/gui/guiIcon.js'></script>
+    <script src='js/gui/guiDropIcon.js'></script>
+    <script src='js/gui/guiGrid.js'></script>
+    <script src='js/gui/guiTextbox.js'></script>
+    <script src='js/gui/guiAction.js'></script>
+
+
+    <script src='js/gui/guiFootprintLibrary.js'></script>
+    <script src='js/gui/guiLayer.js'></script>
+
+	<script src='js/tool/toolScrollbar.js'></script>
+
+	<script src='js/brdtool/toolBoardNav.js'></script>
+	<script src='js/brdtool/toolTrace.js'></script>
+	<script src='js/brdtool/toolFootprintPlace.js'></script>
+	<script src='js/brdtool/toolBoardMove.js'></script>
+	<script src='js/brdtool/toolBoardSelect.js'></script>
+	<script src='js/brdtool/toolBoardZone.js'></script>
+
+    <!--
+
+	<script src='js/toolBase.js'></script>
+	<script src='js/toolNav.js'></script>
+	<script src='js/toolMove.js'></script>
+	<script src='js/toolConn.js'></script>
+
+
+	<script src='js/toolComponentEdit.js'></script>
+    -->
+
+    <script>
+
+	  var drawing = true,
+	      running = true,
+	      mouseDown = false,
+	      visible = true;
+	  
+	  var g_msec = 1;
+	  var frame = 0;
+	  var lastTime = new Date();
+	  
+      var g_snapgrid = null;
+	  var g_painter = null;
+      var g_controller = null ; 
+
+      // key is module name (unmunged, bare, without directory)
+      var g_footprint_cache = {};
+      var g_footprint_location = {};
+      var g_footprint_library_map = {};
+	  var g_canvas = "canvas";
+	  var g_context = null;
+
+      var g_footprint_location_ready = false;
+
+
+
+	  function loop() {
+		
+		frame = frame + 1;
+		if ( frame >= 30 ) {
+			var d = new Date();
+			g_msec = (d.getTime() - lastTime ) / frame;
+			lastTime = d;
+			frame = 0;
+		}
+		var container = document.querySelector( 'section' );
+		container.innerHTML = "FPS: " + (1000.0/g_msec);
+
+			
+		g_controller.redraw();
+		//requestAnimationFrame( loop, 1 );		
+		requestAnimationFrame( loop );
+	  }
+
+      $(document).ready( function() {
+        console.log("ready");
+
+        var cvs = document.getElementById('canvas');
+        cvs.onselectstart = function() { return false; }
+
+
+        g_snapgrid = new snapGrid(true, "deci-mil", 50);
+
+		g_painter = new bleepsixRender( "canvas" );
+        g_painter.setGrid ( 1 );
+
+        g_controller = new bleepsixBoardController();
+        g_controller.init( "canvas" );		
+		g_context = g_controller.context;
+
+		requestAnimationFrame( loop, 1 );
+
+        $.ajaxSetup({ cache : false });
+        var footprint_location_json = "json/footprint_location.json";
+        $.getJSON( footprint_location_json,
+          function(data) {
+            g_footprint_location = data;
+            g_footprint_location_ready = true;
+
+            console.log("module location data loaded:");
+            console.log(g_footprint_location);
+
+          }
+        ).fail(
+          function(jqxhr, textStatus, error) {
+            console.log("could not load " + footprint_location_json + ": " + error);
+          }
+        );
+
+
+      });
+	  
+	  if ( !window.requestAnimationFrame ) {
+		  window.requestAnimationFrame = ( function() {
+			
+			return window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame ||
+			window.oRequestAnimationFrame ||
+			window.msRequestAnimationFrame ||
+			function( callback, element ) {
+			  window.setTimeout( callback, 1000 );
+			};
+			
+		  } )();
+		}
+
+      function load_footprint_cache_part( name, location )
+      {
+
+        console.log("load_footprint_cache_part: " + name + ", " + location);
+
+        if ( !(name in g_footprint_cache) )
+        {
+          g_controller.board.queued_display_footprint_count++;
+
+          //part_json = "json/" + name + ".json";
+          part_json = location;
+          var brd = g_controller.board;
+
+          console.log("load_footprint_cache_part: footprint " + name + " " + location );
+
+          $.ajaxSetup({ cache : false });
+          $.getJSON( part_json,
+            ( function(a) {
+                return function(data) {
+                  brd.load_part(a, data);
+                }
+              }
+            )(name)
+          ).fail(
+            ( function(a) {
+              return function(jqxhr, textStatus, error) {
+                brd.load_part_error(a, jqxhr, textStatus, error);
+              }
+            }
+            )(part_json)
+          );
+
+        }
+        else 
+        {
+          console.log(" load_footprint_cache_part: " + name + " already loaded");
+        }
+      }
+
+      function btn_func()
+      {
+        console.log("btn_func");
+
+        //var brd_file = "examples/osh_heart_v2_brd.json";
+        //var brd_file = "examples/display_test_brd.json";
+        //var brd_file = "examples/net_test_brd.json";
+        var brd_file = "examples/net_test2_brd.json";
+        //var brd_file = "examples/net_test_thermal_relief_brd.json";
+        //var brd_file = "examples/zone_test_brd.json";
+        var brd = g_controller.board;
+
+        $.ajaxSetup({ cache: false });
+        $.getJSON( brd_file,
+          function(data) { 
+            console.log("data:")
+            console.log(data); 
+            g_controller.board.load_board(data); 
+          }).fail(
+           ( function(a) {
+             return function(jqxhr, textStatus,error) {
+               brd.load_board_error(a, jqxhr, textStatus, error);
+             }
+           })(brd_file)
+          );
+      }
+
+    </script>
+  </head>
+
+  <body>
+    <canvas id='canvas' width='1200' height='700' style='border:1px solid #111;' tabindex='0'> </canvas>
+	<section></section>
+    <button id='btn' onclick='btn_func();' >f</button>
+  </body>
+
+</html>

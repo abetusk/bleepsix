@@ -1,0 +1,111 @@
+{
+  "library_name": "PIN_ARRAY_1", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": 500.0, 
+      "starty": 500.0, 
+      "endy": 500.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -500.0, 
+      "starty": -500.0, 
+      "endy": -500.0, 
+      "endx": 500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -500.0, 
+      "starty": 500.0, 
+      "endy": -500.0, 
+      "endx": -500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 500.0, 
+      "starty": -500.0, 
+      "endy": 500.0, 
+      "endx": 500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "PIN_ARRAY_1", 
+  "keyword": [
+    " 1 pin"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"PIN_ARRAY_1\"", 
+      "sizex": 300.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "PIN_ARRAY_1", 
+      "y": -750.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val**\"", 
+      "sizex": 300.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "Val**", 
+      "y": -750.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 400.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 600.0, 
+      "sizey": 600.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4E4E744E", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

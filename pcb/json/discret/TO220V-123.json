@@ -1,0 +1,161 @@
+{
+  "library_name": "TO220V-123", 
+  "layer": "15", 
+  "art": [
+    {
+      "line_width": "75", 
+      "startx": "700", 
+      "starty": "-2000", 
+      "endy": "2000", 
+      "endx": "700", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "75", 
+      "startx": "0", 
+      "starty": "-1900", 
+      "endy": "1900", 
+      "endx": "0", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "1000", 
+      "starty": "-2000", 
+      "endy": "-1900", 
+      "endx": "-700", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "-700", 
+      "starty": "-1900", 
+      "endy": "1900", 
+      "endx": "-700", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "-700", 
+      "starty": "1900", 
+      "endy": "2000", 
+      "endx": "1000", 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": "150", 
+      "startx": "1000", 
+      "starty": "-2000", 
+      "endy": "2000", 
+      "endx": "1000", 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "TO220V-123", 
+  "keyword": [
+    " Transistor VMOS Irf530, TO220"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "misc": " N\"TO220V-123\"", 
+      "sizex": "600", 
+      "number": "0", 
+      "sizey": "400", 
+      "visible": "V", 
+      "flag": "N", 
+      "text": "TO220V-123", 
+      "y": "0", 
+      "x": "-1500", 
+      "rotation": "900", 
+      "penwidth": "80"
+    }, 
+    {
+      "layer": "21", 
+      "misc": " N\"VAL*\"", 
+      "sizex": "600", 
+      "number": "1", 
+      "sizey": "400", 
+      "visible": "V", 
+      "flag": "N", 
+      "text": "VAL*", 
+      "y": "0", 
+      "x": "1500", 
+      "rotation": "900", 
+      "penwidth": "80"
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": "0", 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "name": "1", 
+      "drill_diam": 450.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 700.0, 
+      "sizey": 700.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1000.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "name": "2", 
+      "drill_diam": 450.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 700.0, 
+      "sizey": 700.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "name": "3", 
+      "drill_diam": 450.0, 
+      "deltax": "0", 
+      "deltay": "0", 
+      "sizex": 700.0, 
+      "sizey": 700.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1000.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4CF9F474", 
+  "units": "deci-mils", 
+  "x": "0", 
+  "rotation_cost_90": "0", 
+  "attribute1": "00000000", 
+  "orientation": "0"
+}

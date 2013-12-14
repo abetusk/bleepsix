@@ -1,0 +1,163 @@
+{
+  "art": [
+    {
+      "line_width": "10", 
+      "height": 600.0, 
+      "width": 600.0, 
+      "shape": "rectangle", 
+      "y": 300.0, 
+      "x": -300.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "f"
+    }
+  ], 
+  "name": "NCP1200P", 
+  "reference": "IC", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "IC", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "349", 
+      "x": "-250", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "NCP1200P", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-350", 
+      "x": "-150", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"DIP8\" 0 0 29 H V C CNN", 
+      "number": "2"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "ADJ", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "148", 
+      "text_size_number": "35", 
+      "y": "200", 
+      "x": "-450", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "FB", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "149", 
+      "text_size_number": "35", 
+      "y": "50", 
+      "x": "-450", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "CS1", 
+      "number": "3", 
+      "shape": null, 
+      "visible": true, 
+      "length": "149", 
+      "text_size_number": "35", 
+      "y": "-50", 
+      "x": "450", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "R", 
+      "name": "GND", 
+      "number": "4", 
+      "shape": null, 
+      "visible": true, 
+      "length": "149", 
+      "text_size_number": "35", 
+      "y": "-200", 
+      "x": "-450", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "DRV", 
+      "number": "5", 
+      "shape": null, 
+      "visible": true, 
+      "length": "147", 
+      "text_size_number": "35", 
+      "y": "200", 
+      "x": "450", 
+      "electrical_type": "O", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "L", 
+      "name": "VCC", 
+      "number": "6", 
+      "shape": null, 
+      "visible": true, 
+      "length": "147", 
+      "text_size_number": "35", 
+      "y": "-200", 
+      "x": "450", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "D", 
+      "name": "HV", 
+      "number": "8", 
+      "shape": null, 
+      "visible": true, 
+      "length": "148", 
+      "text_size_number": "35", 
+      "y": "450", 
+      "x": "0", 
+      "electrical_type": "I", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "35", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "units": "deci-mils", 
+  "unit_count": 1
+}

@@ -1,0 +1,208 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "self_cms_we-tpc_XL", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": 1500.0, 
+      "starty": -2000.0, 
+      "endy": -1500.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2000.0, 
+      "starty": -1500.0, 
+      "endy": 1500.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2000.0, 
+      "starty": 1500.0, 
+      "endy": 2000.0, 
+      "endx": 1500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1500.0, 
+      "starty": 2000.0, 
+      "endy": 2000.0, 
+      "endx": -1500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1500.0, 
+      "starty": 2000.0, 
+      "endy": 1500.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2000.0, 
+      "starty": 1500.0, 
+      "endy": -1500.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2000.0, 
+      "starty": -1500.0, 
+      "endy": -2000.0, 
+      "endx": -1500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1500.0, 
+      "starty": -2000.0, 
+      "endy": -2000.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 0.0, 
+      "starty": -2000.0, 
+      "endy": -2000.0, 
+      "endx": 1500.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "self_cms_we-tpc_XL", 
+  "keyword": [
+    " SELF WE-PD3L"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"self_cms_we-tpc_XL\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "self_cms_we-tpc_XL", 
+      "y": -1250.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val**\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "Val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"\"", 
+      "sizex": 400.0, 
+      "number": "2", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"\"", 
+      "sizex": 400.0, 
+      "number": "2", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 1417.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1900.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 1417.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1900.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "50C9DF29", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

@@ -1,0 +1,89 @@
+{
+  "art": [
+    {
+      "line_width": 0, 
+      "start_angle": -1.5550883635269475, 
+      "end_angle": 1.5550883635269475, 
+      "shape": "arc", 
+      "r": 80.0, 
+      "counterclockwise": true, 
+      "y": 0.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "0", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          200.0, 
+          -200.0
+        ], 
+        [
+          200.0, 
+          -200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "P_16A", 
+  "reference": "EP", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "EP", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "120", 
+      "x": "-160", 
+      "size": "40"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "P_16A", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-140", 
+      "x": "-80", 
+      "size": "40"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "10", 
+  "draw_pin_name": true, 
+  "pin": [
+    {
+      "direction": "L", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "120", 
+      "text_size_number": "10", 
+      "y": "0", 
+      "x": "200", 
+      "electrical_type": "W", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": false, 
+  "unit_count": 1
+}

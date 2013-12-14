@@ -1,0 +1,202 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "FSUPCMS", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": -800.0, 
+      "starty": 2200.0, 
+      "endy": 500.0, 
+      "endx": -800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -800.0, 
+      "starty": 500.0, 
+      "endy": 500.0, 
+      "endx": -1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 800.0, 
+      "starty": 2200.0, 
+      "endy": 500.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 800.0, 
+      "starty": 500.0, 
+      "endy": 500.0, 
+      "endx": 1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 800.0, 
+      "starty": -2150.0, 
+      "endy": -500.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 800.0, 
+      "starty": -500.0, 
+      "endy": -500.0, 
+      "endx": 1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -800.0, 
+      "starty": -2150.0, 
+      "endy": -500.0, 
+      "endx": -800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -800.0, 
+      "starty": -500.0, 
+      "endy": -500.0, 
+      "endx": -1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1000.0, 
+      "starty": -2150.0, 
+      "endy": 2200.0, 
+      "endx": -1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1000.0, 
+      "starty": 2200.0, 
+      "endy": -2150.0, 
+      "endx": 1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1000.0, 
+      "starty": 2200.0, 
+      "endy": 2200.0, 
+      "endx": -1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1000.0, 
+      "starty": -2150.0, 
+      "endy": -2150.0, 
+      "endx": 1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "FSUPCMS", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"FSUPCMS\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "FSUPCMS", 
+      "y": -200.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"VAL**\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 300.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 60.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1400.0, 
+      "sizey": 1650.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1250.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1400.0, 
+      "sizey": 1650.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1250.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "451BA9BC", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

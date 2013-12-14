@@ -1,0 +1,157 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SM0201_r", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 31.0, 
+      "startx": 79.0, 
+      "starty": -98.0, 
+      "endy": -98.0, 
+      "endx": 177.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 31.0, 
+      "startx": 177.0, 
+      "starty": -98.0, 
+      "endy": -98.0, 
+      "endx": 197.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 31.0, 
+      "startx": 197.0, 
+      "starty": -98.0, 
+      "endy": 98.0, 
+      "endx": 197.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 31.0, 
+      "startx": 197.0, 
+      "starty": 98.0, 
+      "endy": 98.0, 
+      "endx": 79.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 31.0, 
+      "startx": -79.0, 
+      "starty": -98.0, 
+      "endy": -98.0, 
+      "endx": -197.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 31.0, 
+      "startx": -197.0, 
+      "starty": -98.0, 
+      "endy": 98.0, 
+      "endx": -197.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 31.0, 
+      "startx": -197.0, 
+      "starty": 98.0, 
+      "endy": 98.0, 
+      "endx": -79.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SM0201_r", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"SM0201_r\"", 
+      "sizex": 79.0, 
+      "number": "0", 
+      "sizey": 79.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SM0201_r", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 20.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val**\"", 
+      "sizex": 79.0, 
+      "number": "1", 
+      "sizey": 79.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "Val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 20.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 118.0, 
+      "sizey": 157.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -118.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 118.0, 
+      "sizey": 157.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 118.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "5141B606", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

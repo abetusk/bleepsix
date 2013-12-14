@@ -1,0 +1,157 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SM2010", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 59.0, 
+      "startx": -1299.0, 
+      "starty": -630.0, 
+      "endy": 630.0, 
+      "endx": -1299.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 1378.0, 
+      "starty": -630.0, 
+      "endy": 630.0, 
+      "endx": 1378.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -1378.0, 
+      "starty": -630.0, 
+      "endy": 630.0, 
+      "endx": -1378.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 471.0, 
+      "starty": 632.0, 
+      "endy": 632.0, 
+      "endx": 1371.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 1371.0, 
+      "starty": -632.0, 
+      "endy": -632.0, 
+      "endx": 471.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -472.0, 
+      "starty": -630.0, 
+      "endy": -630.0, 
+      "endx": -1378.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -1378.0, 
+      "starty": 630.0, 
+      "endy": 630.0, 
+      "endx": -472.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "SM2010", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"SM2010\"", 
+      "sizex": 276.0, 
+      "number": "0", 
+      "sizey": 276.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SM2010", 
+      "y": -276.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL**\"", 
+      "sizex": 276.0, 
+      "number": "1", 
+      "sizey": 276.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 315.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 709.0, 
+      "sizey": 1063.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -945.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 709.0, 
+      "sizey": 1063.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 945.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "510157F5", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

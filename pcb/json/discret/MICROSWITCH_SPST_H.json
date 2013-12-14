@@ -1,0 +1,230 @@
+{
+  "library_name": "MICROSWITCH_SPST_H", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": 2000.0, 
+      "starty": 2700.0, 
+      "endy": 2700.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2000.0, 
+      "starty": 500.0, 
+      "endy": 500.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 200.0, 
+      "starty": 2900.0, 
+      "endy": 3700.0, 
+      "endx": 200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -600.0, 
+      "starty": 2900.0, 
+      "endy": 3700.0, 
+      "endx": -600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1400.0, 
+      "starty": 2700.0, 
+      "endy": 2900.0, 
+      "endx": -1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1400.0, 
+      "starty": 2900.0, 
+      "endy": 2900.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 800.0, 
+      "starty": 2900.0, 
+      "endy": 2700.0, 
+      "endx": 800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -600.0, 
+      "starty": 3700.0, 
+      "endy": 3700.0, 
+      "endx": 200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1000.0, 
+      "starty": 0.0, 
+      "endy": 500.0, 
+      "endx": 1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 0.0, 
+      "starty": 0.0, 
+      "endy": 500.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1000.0, 
+      "starty": 0.0, 
+      "endy": 500.0, 
+      "endx": -1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2000.0, 
+      "starty": 500.0, 
+      "endy": 2700.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2000.0, 
+      "starty": 500.0, 
+      "endy": 2700.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "MICROSWITCH_SPST_H", 
+  "keyword": [
+    " Connecteur 3 pins"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"MICROSWITCH_SPST\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "MICROSWITCH_SPST", 
+      "y": 1100.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val**\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "Val**", 
+      "y": 2000.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 100.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1000.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 550.0, 
+      "sizey": 550.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "48119E63", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

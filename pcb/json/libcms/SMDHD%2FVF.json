@@ -1,0 +1,198 @@
+{
+  "attribute": [
+    " SMD"
+  ], 
+  "library_name": "SMDHD/VF", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": -1750.0, 
+      "starty": -1350.0, 
+      "endy": -400.0, 
+      "endx": -1750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1750.0, 
+      "starty": 1400.0, 
+      "endy": 400.0, 
+      "endx": -1750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1750.0, 
+      "starty": 1750.0, 
+      "endy": 400.0, 
+      "endx": 1750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1750.0, 
+      "starty": -1750.0, 
+      "endy": -400.0, 
+      "endx": 1750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 0.0, 
+      "starty": -1750.0, 
+      "endy": -1750.0, 
+      "endx": 1750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1750.0, 
+      "starty": 1750.0, 
+      "endy": 1750.0, 
+      "endx": -1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1400.0, 
+      "starty": 1750.0, 
+      "endy": 1400.0, 
+      "endx": -1750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1750.0, 
+      "starty": -1400.0, 
+      "endy": -1750.0, 
+      "endx": -1400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1400.0, 
+      "starty": -1750.0, 
+      "endy": -1750.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 1600.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "SMDHD/VF", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"SMDHD/VF\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "SMDHD/VF", 
+      "y": 800.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 62.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"Val**\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "Val**", 
+      "y": -900.0, 
+      "x": 150.0, 
+      "rotation": "0", 
+      "penwidth": 62.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"+\"", 
+      "sizex": 600.0, 
+      "number": "2", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "+", 
+      "y": -650.0, 
+      "x": -1100.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1496.0, 
+      "sizey": 472.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1250.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1496.0, 
+      "sizey": 472.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1250.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4E4E6B62", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

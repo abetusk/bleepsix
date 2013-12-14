@@ -1,0 +1,248 @@
+{
+  "library_name": "TO3", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 120.0, 
+      "startx": -8000.0, 
+      "starty": -1000.0, 
+      "endy": 0.0, 
+      "endx": -8400.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -8400.0, 
+      "starty": 0.0, 
+      "endy": 1000.0, 
+      "endx": -8000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 8000.0, 
+      "starty": -1000.0, 
+      "endy": 0.0, 
+      "endx": 8600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 8600.0, 
+      "starty": 0.0, 
+      "endy": 1000.0, 
+      "endx": 8000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -1800.0, 
+      "starty": -4800.0, 
+      "endy": -5200.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 0.0, 
+      "starty": -5200.0, 
+      "endy": -4800.0, 
+      "endx": 1800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -1800.0, 
+      "starty": -4800.0, 
+      "endy": -1000.0, 
+      "endx": -8000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 1800.0, 
+      "starty": -4800.0, 
+      "endy": -1000.0, 
+      "endx": 8000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 1800.0, 
+      "starty": 4800.0, 
+      "endy": 1000.0, 
+      "endx": 8000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -1800.0, 
+      "starty": 4800.0, 
+      "endy": 1000.0, 
+      "endx": -8000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": 1800.0, 
+      "starty": 4800.0, 
+      "endy": 5200.0, 
+      "endx": -200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "startx": -200.0, 
+      "starty": 5200.0, 
+      "endy": 4800.0, 
+      "endx": -1800.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 120.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 4007.8048854703493, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "TO3", 
+  "keyword": [
+    " Transistor TO3"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"TO3\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "TO3", 
+      "y": -4400.0, 
+      "x": -5400.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"U***\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "U***", 
+      "y": -3600.0, 
+      "x": -5650.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 1550.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 2500.0, 
+      "sizey": 2500.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -6000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 1550.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 2500.0, 
+      "sizey": 2500.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 6000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 520.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 1000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -2000.0, 
+      "posx": -1000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 520.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 1000.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 2000.0, 
+      "posx": -1000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00200000", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

@@ -1,0 +1,182 @@
+{
+  "library_name": "CR2032V", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 150.0, 
+      "startx": -4750.0, 
+      "starty": -1300.0, 
+      "endy": -1300.0, 
+      "endx": 4750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 700.0, 
+      "starty": -700.0, 
+      "endy": -700.0, 
+      "endx": 1100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 3100.0, 
+      "starty": 900.0, 
+      "endy": 500.0, 
+      "endx": 3100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 2900.0, 
+      "starty": 700.0, 
+      "endy": 700.0, 
+      "endx": 3300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 4750.0, 
+      "starty": 1250.0, 
+      "endy": -1250.0, 
+      "endx": 4750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": 4750.0, 
+      "starty": -1050.0, 
+      "endy": -1050.0, 
+      "endx": -4750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": -4750.0, 
+      "starty": -1250.0, 
+      "endy": 1250.0, 
+      "endx": -4750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 150.0, 
+      "startx": -4750.0, 
+      "starty": 1250.0, 
+      "endy": 1250.0, 
+      "endx": 4750.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "CR2032V", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"CR2032V\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "CR2032V", 
+      "y": -2000.0, 
+      "x": -3000.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"VAL**\"", 
+      "sizex": 600.0, 
+      "number": "1", 
+      "sizey": 600.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "VAL**", 
+      "y": 2000.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 120.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 500.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 900.0, 
+      "sizey": 900.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 700.0, 
+      "posx": -2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 500.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 900.0, 
+      "sizey": 900.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 700.0, 
+      "posx": 2000.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 500.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 900.0, 
+      "sizey": 900.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -600.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "4C5E7411", 
+  "units": "mm", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

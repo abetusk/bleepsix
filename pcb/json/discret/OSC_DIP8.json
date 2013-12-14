@@ -1,0 +1,267 @@
+{
+  "library_name": "OSC_DIP8", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": -2250.0, 
+      "starty": -2350.0, 
+      "endy": -2250.0, 
+      "endx": -2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2350.0, 
+      "starty": -2250.0, 
+      "endy": 2250.0, 
+      "endx": -2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2350.0, 
+      "starty": 2250.0, 
+      "endy": 2350.0, 
+      "endx": -2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2250.0, 
+      "starty": 2350.0, 
+      "endy": 2350.0, 
+      "endx": 2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2250.0, 
+      "starty": 2350.0, 
+      "endy": 2250.0, 
+      "endx": 2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2350.0, 
+      "starty": 2250.0, 
+      "endy": -2250.0, 
+      "endx": 2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2350.0, 
+      "starty": -2250.0, 
+      "endy": -2350.0, 
+      "endx": 2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2250.0, 
+      "starty": -2350.0, 
+      "endy": -2350.0, 
+      "endx": -2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2250.0, 
+      "starty": -2600.0, 
+      "endy": -2250.0, 
+      "endx": -2600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2600.0, 
+      "starty": -2250.0, 
+      "endy": 2600.0, 
+      "endx": -2600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2600.0, 
+      "starty": 2600.0, 
+      "endy": 2600.0, 
+      "endx": 2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2250.0, 
+      "starty": 2600.0, 
+      "endy": 2250.0, 
+      "endx": 2600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2600.0, 
+      "starty": 2250.0, 
+      "endy": -2250.0, 
+      "endx": 2600.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2600.0, 
+      "starty": -2250.0, 
+      "endy": -2600.0, 
+      "endx": 2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2250.0, 
+      "starty": -2600.0, 
+      "endy": -2600.0, 
+      "endx": -2250.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "OSC_DIP8", 
+  "keyword": [
+    " Oscillateur - taille DIP8"
+  ], 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"X***\"", 
+      "sizex": 600.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "X***", 
+      "y": -500.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " N \"OSC_DIP8\"", 
+      "sizex": 600.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "OSC_DIP8", 
+      "y": 500.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 80.0
+    }
+  ], 
+  "timestamp_op": "0", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 50000.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 650.0, 
+      "sizey": 650.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "rectangle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1500.0, 
+      "posx": -1500.0, 
+      "shape_code": "R", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "8", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 650.0, 
+      "sizey": 650.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1500.0, 
+      "posx": -1500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "5", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 650.0, 
+      "sizey": 650.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": -1500.0, 
+      "posx": 1500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }, 
+    {
+      "net_name": "", 
+      "angle": 0.0, 
+      "name": "4", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 650.0, 
+      "sizey": 650.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "net_number": "0", 
+      "drill_y": 0.0, 
+      "posy": 1500.0, 
+      "posx": 1500.0, 
+      "shape_code": "C", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00200000", 
+  "units": "mm", 
+  "x": 17500.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

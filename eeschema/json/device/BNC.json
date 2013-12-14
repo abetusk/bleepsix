@@ -1,0 +1,100 @@
+{
+  "art": [
+    {
+      "line_width": "8", 
+      "shape": "circle", 
+      "r": 20.0, 
+      "y": 0.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "12", 
+      "shape": "circle", 
+      "r": 70.0, 
+      "y": 0.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "BNC", 
+  "reference": "P", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "P", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "120", 
+      "x": "10", 
+      "size": "60"
+    }, 
+    {
+      "orientation": "V", 
+      "reference": "BNC", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "-60", 
+      "x": "110", 
+      "size": "40"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": false, 
+  "pin": [
+    {
+      "direction": "R", 
+      "name": "In", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "130", 
+      "text_size_number": "40", 
+      "y": "0", 
+      "x": "-150", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "Ext", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "130", 
+      "text_size_number": "40", 
+      "y": "-200", 
+      "x": "0", 
+      "electrical_type": "P", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "40", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": true, 
+  "unit_count": 1
+}

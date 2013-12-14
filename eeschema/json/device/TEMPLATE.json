@@ -1,0 +1,134 @@
+{
+  "art": [
+    {
+      "line_width": "0", 
+      "height": 20.0, 
+      "width": 100.0, 
+      "shape": "rectangle", 
+      "y": 120.0, 
+      "x": 0.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 90.0, 
+      "width": 80.0, 
+      "shape": "rectangle", 
+      "y": 210.0, 
+      "x": 10.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }
+  ], 
+  "name": "TEMPLATE", 
+  "reference": "J", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "J", 
+      "hjustify": "L", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "210", 
+      "x": "160", 
+      "size": "50"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "TEMPLATE", 
+      "hjustify": "L", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": true, 
+      "bold": "N", 
+      "italic": "N", 
+      "y": "100", 
+      "x": "150", 
+      "size": "50"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "2"
+    }, 
+    {
+      "text": " \"~\" 0 0 60 H V C CNN", 
+      "number": "3"
+    }, 
+    {
+      "text": " \"~\" 150 25 50 H I L CNN \"Value\"", 
+      "number": "4"
+    }, 
+    {
+      "text": " \"~\" -200 -50 50 H I L CNN \"Description\"", 
+      "number": "5"
+    }, 
+    {
+      "text": " \"~\" 0 -100 50 H I R CNN \"Manu1\"", 
+      "number": "6"
+    }, 
+    {
+      "text": " \"~\" 0 -150 50 H I R CNN \"Manu2\"", 
+      "number": "7"
+    }, 
+    {
+      "text": " \"~\" 50 -100 50 H V L CNN \"Manu1#\"", 
+      "number": "8"
+    }, 
+    {
+      "text": " \"~\" 50 -150 50 H I L CNN \"Manu2#\"", 
+      "number": "9"
+    }, 
+    {
+      "text": " \"~\" -200 -200 50 H V L CNN \"Vendors\"", 
+      "number": "10"
+    }, 
+    {
+      "text": " \"~\" -200 -250 50 H I L CNN \"Price\"", 
+      "number": "11"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "F", 
+  "text_offset": "40", 
+  "draw_pin_name": false, 
+  "pin": [
+    {
+      "direction": "U", 
+      "name": "~", 
+      "number": "1", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "50", 
+      "y": "0", 
+      "x": "0", 
+      "electrical_type": "U", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }, 
+    {
+      "direction": "U", 
+      "name": "~", 
+      "number": "2", 
+      "shape": null, 
+      "visible": true, 
+      "length": "100", 
+      "text_size_number": "50", 
+      "y": "0", 
+      "x": "100", 
+      "electrical_type": "U", 
+      "de_morgan_alternate_shape": "1", 
+      "text_size_name": "50", 
+      "unit": "1"
+    }
+  ], 
+  "draw_pin_number": false, 
+  "unit_count": 1
+}
