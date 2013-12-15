@@ -27,7 +27,7 @@
 function toolBoardNav( x, y ) 
 {
   x = ( typeof x !== 'undefined' ? x : 0 );
-  y = ( typeof x !== 'undefined' ? y : 0 );
+  y = ( typeof y !== 'undefined' ? y : 0 );
 
   console.log("toolBoardNav");
 

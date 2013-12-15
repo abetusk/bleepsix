@@ -212,11 +212,19 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //populateIframe( "downloadIframe", "gplv3.txt" );
     //populateIframe( "downloadIframe", "foo.txt" );
     //formSubmitTest("testing string");
-    formSubmitTest( g_controller.schematic.kicad_sch_json );
+    //formSubmitTest( g_controller.schematic.kicad_sch_json );
+    submitSchematic( g_controller.schematic.kicad_sch_json );
 
     //var foo = document.getElementById('downloadForm');
     //foo.submit();
     console.log("..");
+  }
+  else if (ch == 'B')
+  {
+
+    //uploadSchematic( g_controller.schematic.kicad_sch_json );
+    uploadSchematic( );
+
   }
   else if (ch == 'C')
   {
