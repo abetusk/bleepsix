@@ -271,15 +271,20 @@
         ifrm.src = "cgi/bleepsixDownloadManager.php?path=" + path;
       }
 
-      var glob;
-
       function uploadComplete(x)
       {
         console.log("upload complete: ");
         //console.log(x);
         console.log(this.response);
-        glob = this.response;
-        g_controller.schematic.load_schematic( eval("(" + this.response +")") ); 
+        var json_data = eval( "(" + this.response + ")" );
+        if ( json_data["type"] == "error" )
+        {
+          console.log("error..." + json_data["message"] );
+        }
+        else
+        {
+          g_controller.schematic.load_schematic( json_data );
+        }
       }
 
       function uploadError()
@@ -345,7 +350,7 @@
 
     <div class="file_button_container" id='fileButton'>
       <!--      <input id='fileElement' type="file" onchange="handleFiles(this.files)" onselect="foo(this.files)" onfocus="foo(this.files)"  /> -->
-      <input id='fileElement' type="file" onfocus="handleFiles(this.files)"  />
+      <input id='fileElement' type="file" onchange="handleFiles(this.files)" onclick="this.value=null;"  />
     </div>
 
     <canvas 
