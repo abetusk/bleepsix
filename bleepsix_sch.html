@@ -276,7 +276,8 @@
         console.log("upload complete: ");
         //console.log(x);
         console.log(this.response);
-        var json_data = eval( "(" + this.response + ")" );
+        //var json_data = eval( "(" + this.response + ")" );
+        var json_data = JSON.parse( this.response  );
         if ( json_data["type"] == "error" )
         {
           console.log("error..." + json_data["message"] );
