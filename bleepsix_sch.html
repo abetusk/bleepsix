@@ -4,6 +4,27 @@
 
   <head>
 
+    <style>
+      .file_button_container,
+      .file_button_container input {
+        position: absolute;
+        height: 20px;
+        width: 100px;
+        z-index: 1;
+      }
+
+      .file_button_container {
+        opacity: 0.1;
+        /* background: transparent url(http://i.stack.imgur.com/BT5AB.png) left top no-repeat; */
+        background: #0000ff left top no-repeat; 
+      }
+
+      .file_button_container input {
+        opacity: 0;
+      }
+
+    </style>
+
     <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
 
 	<script src='js/lib/jquery.js'></script>
@@ -136,6 +157,10 @@
         */
         //populateIframe( "downloadIframe" , "gplv3.txt" )
 
+        var f = document.getElementById('fileButton');
+        f.style.top = '0px';
+        f.style.left = '500px';
+
       });
 	  
 	  if ( !window.requestAnimationFrame ) {
@@ -197,11 +222,9 @@
           });
       }
 
-      function schJsonDlTest( json_container )
+      //function schJsonDlTest( json_container )
+      function schJSONDownload( json_container )
       {
-        console.log("...");
-        console.log(json_container);
-
         var msg_type = json_container["type"];
         if (msg_type != "id")
         {
@@ -209,8 +232,9 @@
           return;
         }
 
+        // fiddle with iframe to send a download request
+        //
         var id = json_container["id"];
-
         var ifrm = document.getElementById( "downloadFrame" );
         ifrm.src = "cgi/bleepsixDownloadManager.py?id=" + id;
 
@@ -225,7 +249,6 @@
 
 
       function submitSchematic( json_data )
-      //function formSubmitTest( json_data )
       {
         var container = { "type" : "createJSON", data: json_data };
         var str_data = JSON.stringify( container );
@@ -234,7 +257,8 @@
           url: "cgi/bleepsixDataManager.py",
           type: 'POST',
           data: str_data,
-          success: schJsonDlTest, 
+          //success: schJsonDlTest, 
+          success: schJSONDownload,
           error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
 
           });
@@ -244,8 +268,70 @@
       function populateIframe(id,path)
       {
         var ifrm = document.getElementById(id);
-        //ifrm.src = "download.php?path=" + path;
         ifrm.src = "cgi/bleepsixDownloadManager.php?path=" + path;
+      }
+
+      var glob;
+
+      function uploadComplete(x)
+      {
+        console.log("upload complete: ");
+        //console.log(x);
+        console.log(this.response);
+        glob = this.response;
+        g_controller.schematic.load_schematic( eval("(" + this.response +")") ); 
+      }
+
+      function uploadError()
+      {
+        console.log("upload error");
+      }
+
+      function uploadAbort()
+      {
+        console.log("upload abort");
+      }
+
+      function uploadProgress()
+      {
+        console.log("upload progress");
+      }
+
+
+      function sendFile( file )
+      {
+
+        console.log("file:");
+        console.log(file);
+
+        var formData = new FormData();
+        formData.append( "fileType", "sch" );
+        formData.append( "fileData", file );
+        console.log(formData);
+
+        var uri = "cgi/bleepsixUploadManager.py";
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", uploadProgress, false );
+        xhr.addEventListener("load", uploadComplete, false );
+        xhr.addEventListener("error", uploadError, false );
+        xhr.addEventListener("abort", uploadAbort, false );
+
+        xhr.open( "POST", uri );
+        xhr.send( formData );
+
+      }
+
+      function handleFiles( files )
+      {
+        var n = files.length;
+        for (var i=0; i<n; i++)
+          sendFile(files[i]);
+      }
+
+      function foo( files)
+      {
+        console.log("foo");
+        console.log(files);
       }
 
     </script>
@@ -257,9 +343,21 @@
     <iframe id='downloadFrame' style='display:none'>
     </iframe>
 
-    <canvas id='canvas' width='1200' height='700' style='border:1px solid #111;' tabindex='0'> </canvas>
-	<section></section>
-    <button id='btn' onclick='btn_func();' >f</button>
+    <div class="file_button_container" id='fileButton'>
+      <!--      <input id='fileElement' type="file" onchange="handleFiles(this.files)" onselect="foo(this.files)" onfocus="foo(this.files)"  /> -->
+      <input id='fileElement' type="file" onfocus="handleFiles(this.files)"  />
+    </div>
+
+    <canvas 
+      id='canvas' 
+      width='1200' height='700' 
+      style='position: absolute; left: 0; top: 0; border:1px solid #111; z-index:0;' 
+      tabindex='0'> </canvas>
+
+	<section style='position: absolute; left: 20px; top: 720px; ' ></section>
+    <button 
+      style='position: absolute; left: 20px; top: 750px; '
+      id='btn' onclick='btn_func();' >f</button>
   </body>
 
 </html>
