@@ -1012,8 +1012,8 @@
       "number": 0, 
       "vjustify": "C", 
       "visible": true, 
-      "bold": "N", 
-      "italic": "N", 
+      "bold": false, 
+      "italic": false, 
       "y": "500", 
       "x": "100", 
       "size": "50"
@@ -1025,8 +1025,8 @@
       "number": 1, 
       "vjustify": "C", 
       "visible": true, 
-      "bold": "N", 
-      "italic": "N", 
+      "bold": false, 
+      "italic": false, 
       "y": "-375", 
       "x": "225", 
       "size": "50"

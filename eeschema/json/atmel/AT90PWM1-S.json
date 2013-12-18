@@ -22,8 +22,8 @@
       "number": 0, 
       "vjustify": "C", 
       "visible": true, 
-      "bold": "N", 
-      "italic": "N", 
+      "bold": false, 
+      "italic": false, 
       "y": "1150", 
       "x": "-700", 
       "size": "40"
@@ -35,8 +35,8 @@
       "number": 1, 
       "vjustify": "C", 
       "visible": true, 
-      "bold": "N", 
-      "italic": "N", 
+      "bold": false, 
+      "italic": false, 
       "y": "-1150", 
       "x": "550", 
       "size": "40"

@@ -15,6 +15,11 @@ Parts based on Bleepsix v1. BSD license.
 By Rama Hoetzlein and Abram Connelly"
  
 
+BUG: text not rendering on text fields for rotated components (display test
+     has some examples)
+BUG: rotating multiple parts selected from a schematic import get sucked
+     to zero and does weird stuff (some initialization issue?)
+
 
 * - component text (field text 0 and 1) editing
 * - component text (field text 0 and 1) moving
@@ -54,6 +59,8 @@ By Rama Hoetzlein and Abram Connelly"
     but are center justified when placing.
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  - todo: global and heirarchical labels need artwork around/next to them
 
   - mouse wheel on scroll bar doesn't work
 

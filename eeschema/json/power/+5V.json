@@ -48,8 +48,8 @@
       "number": 0, 
       "vjustify": "C", 
       "visible": false, 
-      "bold": "N", 
-      "italic": "N", 
+      "bold": false, 
+      "italic": false, 
       "y": "90", 
       "x": "0", 
       "size": "20"
@@ -61,8 +61,8 @@
       "number": 1, 
       "vjustify": "C", 
       "visible": true, 
-      "bold": "N", 
-      "italic": "N", 
+      "bold": false, 
+      "italic": false, 
       "y": "90", 
       "x": "0", 
       "size": "30"
