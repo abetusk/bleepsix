@@ -1170,7 +1170,10 @@ bleepsixRender.prototype.drawText =
   function( s, x, y, 
             color, size, angle_deg, 
             offset_flag_h, offset_flag_v,
-            flip_text_flag
+            flip_text_flag,
+            italic_flag,
+            bold_flag
+
           )
 {
   var ctx = this.context;
@@ -1181,6 +1184,8 @@ bleepsixRender.prototype.drawText =
   offset_flag_h = (( typeof offset_flag_h !== 'undefined' ) ? offset_flag_h : 'L' );
   offset_flag_v = (( typeof offset_flag_v !== 'undefined' ) ? offset_flag_v : 'C' );
   flip_text_flag= (( typeof flip_text_flag !== 'undefined' ) ? flip_text_flag : false );
+  italic_flag = (( typeof italic_flag !== 'undefined' ) ? italic_flag : false );
+  bold_flag   = (( typeof bold_flag   !== 'undefined' ) ? bold_flag   : false );
 
   var pix_font = Math.floor( (size * this.pixel_per_unit) + 0.5 );
   var pix_width = Math.floor( pix_font * 0.6 + 0.5 );
@@ -1204,7 +1209,10 @@ bleepsixRender.prototype.drawText =
   ctx.fillStyle = color;
   ctx.font = pix_font + "px Courier";
 
-
+  if (italic_flag)
+    ctx.font = "italic " + ctx.font;
+  if (bold_flag)
+    ctx.font = "bold " + ctx.font;
 
   ctx.fillText( s, 0, 0 );
 

@@ -1412,7 +1412,22 @@ bleepsixSchematic.prototype.drawComponent = function( data, x, y, transform, dra
 
 bleepsixSchematic.prototype.drawSchematicLine = function( line )
 {
-  g_painter.line( line["startx"], line["starty"], line["endx"], line["endy"] );
+  var color = "rgb(0,160,0)";
+  var line_width = 5;
+
+  if ( (line.type == "busline") ||
+       (line.type == "entrybusbus") )
+  {
+    color = "rgb(0,0,160)";
+    line_width = 10;
+  }
+  else if ( line.type == "notesline" )
+  {
+    color = "rgb(0,0,160)";
+    line_width = 5;
+  }
+
+  g_painter.line( line["startx"], line["starty"], line["endx"], line["endy"], color, line_width );
 
   if ( this.draw_bounding_box_flag )
   {
@@ -1473,9 +1488,109 @@ bleepsixSchematic.prototype.drawSchematicText = function( text )
 
   angle_deg = parseFloat(text["degree"]);
 
-  var text_color = "rgb(0,136,136)";
+  //var text_color = "rgb(0,136,136)";
+  var text_color = "rgb(0,0,160)";
 
   g_painter.drawText( s, x, y, text_color, font_height, angle_deg );
+
+}
+
+bleepsixSchematic.prototype._R = function( ang )
+{
+    return [ [ Math.cos(ang), Math.sin(ang) ], [ -Math.sin(ang), Math.cos(ang) ] ];
+}
+
+
+bleepsixSchematic.prototype.drawSchematicLabel = function( text )
+{
+
+  var s = text["text"];
+  var x = parseFloat(text["x"]);
+  var y = parseFloat(text["y"]);
+
+  var font_width = parseFloat(text["dimension"]);
+  var font_height = font_width / 0.6;
+
+  //var font_height = parseFloat(text["dimension"]);
+  //var font_width = 0.6 * font_height ;
+
+  var i_orientation = parseInt( text["orientation"] );
+  var angle_deg = 0;
+  var h_justify = "C";
+  var v_justify = "C";
+
+  if      ( text["type"] == "label" )               h_justify = "L";
+  else if ( text["type"] == "labelglobal" )         h_justify = "R";
+  else if ( text["type"] == "labelheirarchical" )   h_justify = "R";
+
+
+  if      ( text["type"] == "label" )               v_justify = "B";
+  else if ( text["type"] == "labelglobal" )         v_justify = "C";
+  else if ( text["type"] == "labelheirarchical" )   v_justify = "C";
+
+  var dv = [0,0];
+
+  if ( text.type == "labelglobal" )
+    dv[0] = -45;
+  if ( text.type == "lableheirarchical" )
+    dv[0] = -85;
+
+  var rot_rad = Math.PI/2.0;
+
+  if (i_orientation == 0)
+  {
+  }
+  else if (i_orientation == 1)
+  {
+
+    dv = numeric.dot( this._R( rot_rad ), dv );
+
+    angle_deg = -90;
+
+    if (text.type == "labelglobal")    h_justify = "L";
+  }
+  else if (i_orientation == 2)
+  {
+    dv = numeric.dot( this._R( 2*rot_rad ), dv );
+
+    if (text.type == "label")       h_justify = "R";
+    if (text.type == "labelglobal") h_justify = "L";
+  }
+  else if (i_orientation == 3)
+  {
+    dv = numeric.dot( this._R( -rot_rad ), dv );
+
+    angle_deg = -90;
+
+    if      (text.type == "label")          h_justify = "R";
+
+  }
+
+
+  var text_color = "rgb(160,0,0)";
+  if ( text.type == "label")
+    text_color = "rgb(0,0,0)";
+  if ( text.type == "labelheirarchical" )
+    text_color = "rgb(136,136,0)";
+
+  g_painter.drawText( 
+      s, 
+      x + dv[0], y + dv[1], 
+      text_color, 
+      font_height, 
+      angle_deg,
+      h_justify,
+      v_justify
+      );
+
+  if ( text.type == "labelglobal" )
+  {
+  }
+
+  if ( text.type == "labelheirarchical" )
+  {
+  }
+
 
 }
 
@@ -1506,8 +1621,19 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
   is_cache_component = ( typeof is_cache_component !== 'undefined' ? is_cache_component : false );
   debug_flag = ( typeof debug_flag !== 'undefined' ? debug_flag : false );
 
+  italic_flag = text_field.italic;
+  bold_flag = text_field.bold;
 
   if (! text_field["visible"]) { return; }
+
+  if (is_cache_component)
+  {
+    if ( /^~*$/.exec( text_field["reference"] ) ) { return; }
+  }
+  else
+  {
+    if ( /^~*$/.exec( text_field["text"] ) ) { return; }
+  }
 
   comp_x = parseFloat(comp_x);
   comp_y = parseFloat(comp_y);
@@ -1537,6 +1663,8 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
   var ty = local_text_coord_t[1] + comp_y;
 
   var text_color = "rgb(0,136,136)";
+  if (italic_flag)
+    text_color = "rgb(160,0,160)";
 
   var font_width  = text_field["size"];
   var font_height = font_width / 0.6;
@@ -1572,10 +1700,26 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
 
   if (is_cache_component)
   {
-    g_painter.drawText( text_field["reference"], tx, ty, text_color, font_height, ang, hjustify, vjustify);
+    g_painter.drawText( text_field["reference"], 
+                        tx, ty, 
+                        text_color, 
+                        font_height, 
+                        ang, 
+                        hjustify, vjustify,
+                        false,
+                        italic_flag, bold_flag );
   }
   else
-    g_painter.drawText( text_field["text"], tx, ty, text_color, font_height, ang, hjustify, vjustify);
+  {
+    g_painter.drawText( text_field["text"], 
+                        tx, ty, 
+                        text_color, 
+                        font_height, 
+                        ang, 
+                        hjustify, vjustify,
+                        false,
+                        italic_flag, bold_flag );
+  }
 
   if (this.draw_bounding_box_flag)
   {
@@ -1718,7 +1862,12 @@ bleepsixSchematic.prototype.drawSchematic = function()
     if      (type == "component")  { comp_ind.push(ind); }
     else if (type == "connection") { this.drawSchematicConnection( sch[ind] ); }
     else if (type == "noconn")     { this.drawSchematicNoconn( sch[ind] ); }
-    else if (type == "text")       { this.drawSchematicText( sch[ind] ); }
+    else if (type == "textnote")   { this.drawSchematicText( sch[ind] ); }
+    else if (type == "label")             { this.drawSchematicLabel( sch[ind] ); }
+    else if (type == "labelglobal")       { this.drawSchematicLabel( sch[ind] ); }
+    else if (type == "labelheirarchical") { this.drawSchematicLabel( sch[ind] ); }
+    else if (type == "busline")    { this.drawSchematicLine( sch[ind] ); }
+    else if (type == "entrybusbus"){ this.drawSchematicLine( sch[ind] ); }
     else                           { this.drawSchematicLine( sch[ind] ); }
 
   }
