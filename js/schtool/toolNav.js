@@ -200,6 +200,11 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   }
 
+  else if (ch == 'I')
+  {
+    console.log( g_controller.schematic.kicad_sch_json );
+  }
+
   else if (ch == 'V')
   {
     //TEST FILE DOWNLOAD

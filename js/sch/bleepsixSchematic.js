@@ -246,13 +246,22 @@ bleepsixSchematic.prototype.centerOfMass = function ( id_refs )
 
   for (var ind in id_refs)
   {
-    ref = id_refs[ind]["ref"];
+    ref  = id_refs[ind]["ref"];
     type = ref["type"];
+
+    console.log("ref:");
+    console.log(ref);
+    console.log(type);
 
     if ( (type == "component") ||
          (type == "noconn") ||
          (type == "connection") ||
-         (type == "text") )
+         (type == "text") ||
+         (type == "textnote") ||
+         (type == "label") ||
+         (type == "labelglobal") ||
+         (type == "labelheirarchical") 
+         )
     {
 
       x += parseInt( ref["x"] );
@@ -264,6 +273,8 @@ bleepsixSchematic.prototype.centerOfMass = function ( id_refs )
       x += ( parseInt( ref["startx"] ) + parseInt( ref["endx"] ) ) / 2;
       y += ( parseInt( ref["starty"] ) + parseInt( ref["endy"] ) ) / 2;
     }
+
+    console.log("x: " + x + ", y: " + y);
 
   }
 
@@ -295,7 +306,28 @@ bleepsixSchematic.prototype.rotateAboutPoint90 = function ( id_refs, x, y, ccw_f
       ref["y"] = v_t[1] + y;
 
     }
-    if ( ref["type"] == "component")
+
+    else if ( ( ref.type == "label" ) ||
+         ( ref.type == "labelglobal" ) ||
+         ( ref.type == "labelheirarchical" ) )
+    {
+      var v = [ parseInt( ref["x"] ) - x, parseInt( ref["y"] ) - y ];
+      var v_t = numeric.dot( T, v );
+
+      ref["x"] = v_t[0] + x;
+      ref["y"] = v_t[1] + y;
+    }
+
+    else if ( ref.type == "textnote" )
+    {
+      var v = [ parseInt( ref["x"] ) - x, parseInt( ref["y"] ) - y ];
+      var v_t = numeric.dot( T, v );
+
+      ref["x"] = v_t[0] + x;
+      ref["y"] = v_t[1] + y;
+    }
+
+    else if ( ref["type"] == "component")
     {
       var comp_x = parseInt( ref["x"] );
       var comp_y = parseInt( ref["y"] );
@@ -594,7 +626,12 @@ bleepsixSchematic.prototype.relativeMoveElement = function( id_ref, dx, dy )
   ref = id_ref["ref"];
 
   if ( (ref["type"] == "connection") || 
-       (ref["type"] == "noconn") )
+       (ref["type"] == "noconn") ||
+       (ref["type"] == "textnote") ||
+       (ref["type"] == "label") ||
+       (ref["type"] == "labelglobal") ||
+       (ref["type"] == "labelheirarchical") 
+       )
   {
     ref["x"] = parseInt(ref["x"]) + dx;
     ref["y"] = parseInt(ref["y"]) + dy;
@@ -2144,8 +2181,37 @@ bleepsixSchematic.prototype.drawBoundingBox = function( b )
 
 bleepsixSchematic.prototype.updateTextBoundingBox = function( text_entry ) 
 {
+  var ds = 50;
+  var x = parseFloat( text_entry.x );
+  var y = parseFloat( text_entry.x );
+
+  var bbox = [ [0,0],[0,0] ];
+
+  bbox[0][0] = x - ds;
+  bbox[0][1] = y - ds;
+  bbox[1][0] = x + ds;
+  bbox[1][1] = y + ds;
+
+  text_entry.bounding_box = bbox;
 
 }
+
+bleepsixSchematic.prototype.updateLabelBoundingBox = function( label_entry ) 
+{
+  var ds = 50;
+  var x = parseFloat( label_entry.x );
+  var y = parseFloat( label_entry.y );
+
+  var bbox = [ [0,0],[0,0] ];
+
+  bbox[0][0] = x - ds;
+  bbox[0][1] = y - ds;
+  bbox[1][0] = x + ds;
+  bbox[1][1] = y + ds;
+
+  label_entry.bounding_box = bbox;
+}
+
 
 bleepsixSchematic.prototype.updatePointBoundingBox = function( pnt_entry )
 {
@@ -2323,6 +2389,13 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
       if      ( sch[ind]["type"] == "component")  { this.updateComponentBoundingBox( sch[ind] ); }
       else if ( sch[ind]["type"] == "connection") { this.updatePointBoundingBox( sch[ind] ); }
       else if ( sch[ind]["type"] == "noconn")     { this.updatePointBoundingBox( sch[ind] ); }
+
+      else if ( sch[ind]["type"] == "textnote" )  { this.updateTextBoundingBox( sch[ind] ); }
+
+      else if ( sch[ind]["type"] == "label" )              { this.updateLabelBoundingBox( sch[ind] ); }
+      else if ( sch[ind]["type"] == "labelglobal" )        { this.updateLabelBoundingBox( sch[ind] ); }
+      else if ( sch[ind]["type"] == "labelheirarchical" )  { this.updateLabelBoundingBox( sch[ind] ); }
+
       //else if ( sch[ind]["type"] == "text")       { this.updateTextBoundingBox( sch[ind] ); }
       else                                        { this.updateWireBoundingBox( sch[ind] ); }
 
@@ -2336,6 +2409,14 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
     if      (t == "component")    this.updateComponentBoundingBox( ele );
     else if (t == "noconnect")    this.updatePointBoundingBox( ele );
     else if (t == "connection")   this.updatePointBoundingBox( ele );
+
+    else if ( t == "textnote" )  { this.updateTextBoundingBox( ele ); }
+
+    else if ( t == "label" )              { this.updateLabelBoundingBox( ele ); }
+    else if ( t == "labelglobal" )        { this.updateLabelBoundingBox( ele ); }
+    else if ( t == "labelheirarchical" )  { this.updateLabelBoundingBox( ele ); }
+
+
     //else if (t == "text")         this.updateTextBoundingBox( ele );
     else                          this.updateWireBoundingBox( ele );
   }

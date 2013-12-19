@@ -74,7 +74,8 @@ toolMove.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom ( this
 toolMove.prototype.deep_copy_back = function( op )
 {
 
-  var non_wire_type = [ "connection", "noconn", "component", "text" ];
+  var non_wire_type = [ "connection", "noconn", "component", "text", "textnote",
+     "label", "labelglobal", "labelheirarchical" ];
 
   var ref;
   var orig;
@@ -112,7 +113,9 @@ toolMove.prototype.deep_copy_back = function( op )
 
 toolMove.prototype.deep_copy_element_array = function( rop )
 {
-  var non_wire_type = [ "connection", "noconn", "component", "text" ];
+  var non_wire_type = [ "connection", "noconn", "component", "text", "textnote",
+     "label", "labelglobal", "labelheirarchical" ];
+
 
   var ref;
   for (var ind in this.selectedElement)
@@ -365,12 +368,19 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
 
     com = g_controller.schematic.centerOfMass( this.base_element_state );
 
+    console.log("got com: " );
+    console.log(com);
+
     // be careful, this might lead to 'drift' as we rotate things around
     //
     com = g_snapgrid.snapGrid(com);
 
+    console.log(this.base_element_state);
+
     g_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], false );
     this.deep_copy_back( this.base_element_state );
+
+    console.log(this.base_element_state);
 
     var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
     var wdx = world_xy["x"] - this.orig_world_xy["x"];
