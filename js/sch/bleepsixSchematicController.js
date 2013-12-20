@@ -125,6 +125,9 @@ function bleepsixSchematicController() {
 
   this.capState = "unknown";
 
+  this.display_text_flag = true;
+  this.display_text = "bleep";
+
   var controller = this;
   setInterval( function() { controller.redraw() } , 50 );
 }
@@ -165,6 +168,10 @@ bleepsixSchematicController.prototype.redraw = function ()
     //if (this.palette.displayable) this.palette.draw();
 
     //this.guiTextboxTest.drawChildren();
+
+
+    if (this.display_text_flag)
+      g_painter.drawText(this.display_text, 50, 650, "rgba(0,0,0,0.4)", 20);
 
     g_painter.dirty_flag = false;
 

@@ -224,9 +224,23 @@ bleepsixSchematic.prototype.rotate90 = function( id_ref , ccw_flag )
   ccw_flag = ( typeof ccw_flag !== 'undefined' ? ccw_flag : true );
   var comp = id_ref["ref"];
 
+  console.log("...");
+
   if ( ( comp["type"] == "noconn" ) ||
        ( comp["type"] == "connection" ) )
     return;
+
+  if ( (comp.type == "textnote") ||
+       (comp.type == "label") ||
+       (comp.type == "labelglobal") ||
+       (comp.type == "labelheirarchical") )
+  {
+    var di = ( ccw_flag ? 1 : 3 );
+    comp.orientation = (parseInt(comp.orientation) + 1)%4;
+
+    console.log(": " + comp.text + ", " + comp.orientation);
+    return;
+  }
 
   var transform = [ [0, -1], [1, 0] ];
   if (ccw_flag) transform = [ [ 0, 1], [-1, 0] ];
@@ -249,10 +263,6 @@ bleepsixSchematic.prototype.centerOfMass = function ( id_refs )
     ref  = id_refs[ind]["ref"];
     type = ref["type"];
 
-    console.log("ref:");
-    console.log(ref);
-    console.log(type);
-
     if ( (type == "component") ||
          (type == "noconn") ||
          (type == "connection") ||
@@ -273,8 +283,6 @@ bleepsixSchematic.prototype.centerOfMass = function ( id_refs )
       x += ( parseInt( ref["startx"] ) + parseInt( ref["endx"] ) ) / 2;
       y += ( parseInt( ref["starty"] ) + parseInt( ref["endy"] ) ) / 2;
     }
-
-    console.log("x: " + x + ", y: " + y);
 
   }
 
@@ -311,8 +319,17 @@ bleepsixSchematic.prototype.rotateAboutPoint90 = function ( id_refs, x, y, ccw_f
          ( ref.type == "labelglobal" ) ||
          ( ref.type == "labelheirarchical" ) )
     {
+
+      //console.log("label ... " + ref.orientation);
+      //console.log(ref);
+
       var v = [ parseInt( ref["x"] ) - x, parseInt( ref["y"] ) - y ];
       var v_t = numeric.dot( T, v );
+
+      var di = ( ccw_flag ? 1 : 3 );
+      ref.orientation = (parseInt(ref.orientation) + 1)%4;
+
+      //console.log("..." + ref.orientation);
 
       ref["x"] = v_t[0] + x;
       ref["y"] = v_t[1] + y;
@@ -322,6 +339,11 @@ bleepsixSchematic.prototype.rotateAboutPoint90 = function ( id_refs, x, y, ccw_f
     {
       var v = [ parseInt( ref["x"] ) - x, parseInt( ref["y"] ) - y ];
       var v_t = numeric.dot( T, v );
+
+      //console.log("textnote ... " + ref.orientation);
+
+      var di = ( ccw_flag ? 1 : 3 );
+      ref.orientation = (parseInt(ref.orientation) + 1)%4;
 
       ref["x"] = v_t[0] + x;
       ref["y"] = v_t[1] + y;
@@ -1469,6 +1491,7 @@ bleepsixSchematic.prototype.drawSchematicLine = function( line )
   if ( this.draw_bounding_box_flag )
   {
     this.drawBoundingBox( line["bounding_box"] );
+
   }
 
 }
@@ -1520,15 +1543,77 @@ bleepsixSchematic.prototype.drawSchematicText = function( text )
   var x = parseFloat(text["x"]);
   var y = parseFloat(text["y"]);
 
-  var font_width = parseFloat(text["size"]);
+  //var font_width = parseFloat(text["size"]);
+  var font_width = parseFloat(text["dimension"]);
   var font_height = font_width / 0.6;
 
-  angle_deg = parseFloat(text["degree"]);
+  //angle_deg = parseFloat(text["degree"]);
 
   //var text_color = "rgb(0,136,136)";
   var text_color = "rgb(0,0,160)";
 
-  g_painter.drawText( s, x, y, text_color, font_height, angle_deg );
+  //g_painter.drawText( s, x, y, text_color, font_height, angle_deg );
+
+  h_justify = "L";
+  v_justify = "C";
+
+  var a_text = s.split(/\\n/);
+
+  var ds = [ 0, parseFloat(font_height) ];
+  var ds_t = ds;
+
+  x = parseFloat(x);
+  y = parseFloat(y);
+
+  angle_deg = 0;
+
+  var rot_rad = Math.PI/2.0;
+
+  var i_orientation = parseInt( text["orientation"] );
+  if (i_orientation == 0)
+  {
+  }
+  else if (i_orientation == 1)
+  {
+    ds_t = numeric.dot( this._R( rot_rad ), ds );
+    angle_deg = -90;
+    //h_justify = "L";
+  }
+  else if (i_orientation == 2)
+  {
+    ds_t = numeric.dot( this._R( 2*rot_rad ), ds );
+    h_justify = "R";
+  }
+  else if (i_orientation == 3)
+  {
+    ds_t = numeric.dot( this._R( -rot_rad ), ds );
+    angle_deg = -90;
+    h_justify = "R";
+  }
+
+
+
+  for (var k in a_text)
+  {
+    var t = a_text[k];
+
+    g_painter.drawText( 
+        t, x, y, 
+        text_color, 
+        font_height, 
+        angle_deg, 
+        h_justify, v_justify );
+
+    x += ds_t[0];
+    y += ds_t[1];
+
+  }
+
+  if ( this.draw_bounding_box_flag )
+  {
+    this.drawBoundingBox( text["bounding_box"] );
+  }
+
 
 }
 
@@ -1551,7 +1636,6 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
   //var font_height = parseFloat(text["dimension"]);
   //var font_width = 0.6 * font_height ;
 
-  var i_orientation = parseInt( text["orientation"] );
   var angle_deg = 0;
   var h_justify = "C";
   var v_justify = "C";
@@ -1559,11 +1643,13 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
   if      ( text["type"] == "label" )               h_justify = "L";
   else if ( text["type"] == "labelglobal" )         h_justify = "R";
   else if ( text["type"] == "labelheirarchical" )   h_justify = "R";
+  else if ( text["type"] == "textnote" )            h_justify = "L";
 
 
   if      ( text["type"] == "label" )               v_justify = "B";
   else if ( text["type"] == "labelglobal" )         v_justify = "C";
   else if ( text["type"] == "labelheirarchical" )   v_justify = "C";
+  else if ( text["type"] == "textnote" )            v_justify = "C";
 
   var dv = [0,0];
 
@@ -1574,6 +1660,7 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
 
   var rot_rad = Math.PI/2.0;
 
+  var i_orientation = parseInt( text["orientation"] );
   if (i_orientation == 0)
   {
   }
@@ -1592,6 +1679,7 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
 
     if (text.type == "label")       h_justify = "R";
     if (text.type == "labelglobal") h_justify = "L";
+    if (text.type == "labelheirarchical") h_justify = "L";
   }
   else if (i_orientation == 3)
   {
@@ -1600,6 +1688,7 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
     angle_deg = -90;
 
     if      (text.type == "label")          h_justify = "R";
+    if (text.type == "labelheirarchical") h_justify = "L";
 
   }
 
@@ -1612,7 +1701,7 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
 
   g_painter.drawText( 
       s, 
-      x + dv[0], y + dv[1], 
+      x + dv[0], y - dv[1], 
       text_color, 
       font_height, 
       angle_deg,
@@ -1627,6 +1716,13 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
   if ( text.type == "labelheirarchical" )
   {
   }
+
+
+  if ( this.draw_bounding_box_flag )
+  {
+    this.drawBoundingBox( text["bounding_box"] );
+  }
+
 
 
 }
@@ -1678,6 +1774,13 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
   var orient_vector = [ 1.0, 0.0 ];
   if (text_field["orientation"] == "V") { orient_vector = [ 0.0, 1.0 ]; }
   var orient_vector_t = numeric.dot( transform, orient_vector );
+
+  var orient_hvector = [ 0.0, 1.0 ];
+  if (text_field["orientation"] == "V") { orient_hvector = [ -1.0, 0.0 ]; }
+  var orient_hvector_t = numeric.dot( transform, orient_hvector );
+
+  var det = numeric.det( transform );
+
   var ang = ( ( Math.abs(orient_vector_t[0]) < 0.5 ) ? -90.0 : 0.0 );
 
   // Even though text co-ordinates are stored in what appears to be absolute positon,
@@ -1728,10 +1831,21 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
     else if ( (vjustify == "B") && ( orient_vector_t[1] >  0.5) ) vjustify = "T";
     else if ( (vjustify == "T") && ( orient_vector_t[0] < -0.5) ) vjustify = "B";
     else if ( (vjustify == "T") && ( orient_vector_t[1] >  0.5) ) vjustify = "B";
+
+    if (det > 0)
+    {
+      //if      (hjustify == "R") hjustify = "L";
+      //else if (hjustify == "L") hjustify = "R";
+
+      if      (vjustify == "T") vjustify = "B";
+      else if (vjustify == "B") vjustify = "T";
+    }
   }
   else if (text_field["orientation"] == "V")
   {
     //still need to implement this
+    //
+
   }
 
 
@@ -1868,7 +1982,10 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
     else if (t["orientation"] == "V")
     {
       //still need to implement this
+
+      //console.log("blonk: " + comp["text"][text_ind] );
     }
+
 
     //console.log("hjustify: " + hjustify + ", vjustify: " + vjustify);
     //console.log("orieng_vector_t " + orient_vector_t[0] + " " + orient_vector_t[1] + " " + (orient_vector_t[0] < -0.5) );
@@ -1900,9 +2017,17 @@ bleepsixSchematic.prototype.drawSchematic = function()
     else if (type == "connection") { this.drawSchematicConnection( sch[ind] ); }
     else if (type == "noconn")     { this.drawSchematicNoconn( sch[ind] ); }
     else if (type == "textnote")   { this.drawSchematicText( sch[ind] ); }
+
+    /*
+    else if (type == "label")             { this.drawSchematicText( sch[ind] ); }
+    else if (type == "labelglobal")       { this.drawSchematicText( sch[ind] ); }
+    else if (type == "labelheirarchical") { this.drawSchematicText( sch[ind] ); }
+    */
+
     else if (type == "label")             { this.drawSchematicLabel( sch[ind] ); }
     else if (type == "labelglobal")       { this.drawSchematicLabel( sch[ind] ); }
     else if (type == "labelheirarchical") { this.drawSchematicLabel( sch[ind] ); }
+
     else if (type == "busline")    { this.drawSchematicLine( sch[ind] ); }
     else if (type == "entrybusbus"){ this.drawSchematicLine( sch[ind] ); }
     else                           { this.drawSchematicLine( sch[ind] ); }
@@ -2183,7 +2308,7 @@ bleepsixSchematic.prototype.updateTextBoundingBox = function( text_entry )
 {
   var ds = 50;
   var x = parseFloat( text_entry.x );
-  var y = parseFloat( text_entry.x );
+  var y = parseFloat( text_entry.y );
 
   var bbox = [ [0,0],[0,0] ];
 
@@ -2193,6 +2318,8 @@ bleepsixSchematic.prototype.updateTextBoundingBox = function( text_entry )
   bbox[1][1] = y + ds;
 
   text_entry.bounding_box = bbox;
+
+  //console.log( text_entry.text + ", " + bbox[0] + ", " + bbox[1] );
 
 }
 
@@ -2463,10 +2590,8 @@ bleepsixSchematic.prototype._decorateSchematicWithIds = function( )
   {
     sch[ind]["id"] = this._createId();
 
-
     if (sch[ind]["type"] == "component")
     {
-
       for (var t_ind in sch[ind]["text"])
       {
         sch[ind]["text"][t_ind]["id"]  = this._createId( sch[ind]["id"] );
@@ -2540,7 +2665,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
       $.getJSON( part_json,
         ( function(a) {
             return function(data) {
-              console.log("cp:" + a);
+              //console.log("cp:" + a);
               schem.load_part(a, data);
             }
           }

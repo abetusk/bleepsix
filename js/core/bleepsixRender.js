@@ -1184,8 +1184,8 @@ bleepsixRender.prototype.drawText =
   offset_flag_h = (( typeof offset_flag_h !== 'undefined' ) ? offset_flag_h : 'L' );
   offset_flag_v = (( typeof offset_flag_v !== 'undefined' ) ? offset_flag_v : 'C' );
   flip_text_flag= (( typeof flip_text_flag !== 'undefined' ) ? flip_text_flag : false );
-  italic_flag = (( typeof italic_flag !== 'undefined' ) ? italic_flag : false );
-  bold_flag   = (( typeof bold_flag   !== 'undefined' ) ? bold_flag   : false );
+  italic_flag   = (( typeof italic_flag !== 'undefined' ) ? italic_flag : false );
+  bold_flag     = (( typeof bold_flag   !== 'undefined' ) ? bold_flag   : false );
 
   var pix_font = Math.floor( (size * this.pixel_per_unit) + 0.5 );
   var pix_width = Math.floor( pix_font * 0.6 + 0.5 );

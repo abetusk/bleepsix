@@ -182,8 +182,11 @@ toolMove.prototype.addElement = function( id_array )
 
   this.snap_world_xy = g_snapgrid.snapGrid( g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y ) );
 
-  this.deep_copy_element_array( this.orig_element_state );
-  this.deep_copy_element_array( this.base_element_state );
+  //this.deep_copy_element_array( this.orig_element_state );
+  //this.deep_copy_element_array( this.base_element_state );
+
+  $.extend(true, this.orig_element_state, id_array );
+  $.extend(true, this.base_element_state, id_array );
 
   g_painter.dirty_flag = true;
 }
@@ -214,6 +217,8 @@ toolMove.prototype.drawOverlay = function()
                              10, "rgb(128,128,128)",
                              true, "rgba(0,0,0,0.25)");
   }
+
+  //g_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
 
 }
 
@@ -311,7 +316,9 @@ toolMove.prototype.mouseMove = function( x, y )
       wdy = ta["y"] - tb["y"];
     }
 
-    this.deep_copy_back( this.base_element_state );
+    //this.deep_copy_back( this.base_element_state );
+    //$.extend(true, this.base_element_state, this.selectedElement );
+    $.extend(true, this.selectedElement, this.base_element_state );
 
 
     for (var ind in this.selectedElement)
@@ -335,7 +342,8 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
   if (keycode == 27)
   {
 
-    this.deep_copy_back( this.orig_element_state );
+    //this.deep_copy_back( this.orig_element_state );
+    $.extend(true, this.selectedElement, this.orig_element_state );
 
     // pass control back to toolNav
     g_controller.tool = new toolNav();
@@ -368,19 +376,20 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
 
     com = g_controller.schematic.centerOfMass( this.base_element_state );
 
-    console.log("got com: " );
-    console.log(com);
+    //console.log("got com: " );
+    //console.log(com);
 
     // be careful, this might lead to 'drift' as we rotate things around
     //
     com = g_snapgrid.snapGrid(com);
 
-    console.log(this.base_element_state);
+    //console.log(this.base_element_state);
 
     g_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], false );
-    this.deep_copy_back( this.base_element_state );
+    //this.deep_copy_back( this.base_element_state );
+    $.extend(true, this.selectedElement, this.base_element_state );
 
-    console.log(this.base_element_state);
+    //console.log(this.base_element_state);
 
     var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
     var wdx = world_xy["x"] - this.orig_world_xy["x"];

@@ -26,7 +26,7 @@
 function toolNav( x, y ) 
 {
   x = ( typeof x !== 'undefined' ? x : 0 );
-  y = ( typeof x !== 'undefined' ? y : 0 );
+  y = ( typeof y !== 'undefined' ? y : 0 );
 
   console.log("toolNav");
 
@@ -74,6 +74,7 @@ toolNav.prototype.drawOverlay = function()
                              "rgb(128, 128, 128 )" );
   }
 
+  g_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
 
 }
 
