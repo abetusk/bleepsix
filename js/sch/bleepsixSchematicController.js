@@ -248,29 +248,30 @@ bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 {
   if ( ch == 'G' ) {      
-      this.moving = !this.moving;
+      //this.moving = !this.moving;
   }
   else if (ch == 'O')
   {
-    this.movingLibrary = !this.movingLibrary;
+    //this.movingLibrary = !this.movingLibrary;
   }
   else if (ch == 'P')
   {
-    this.movingToolbox = !this.movingToolbox;
+    //this.movingToolbox = !this.movingToolbox;
   }
   else if (ch == 'I')
   {
-    this.movingGrid = !this.movingGrid;
+    //this.movingGrid = !this.movingGrid;
   }
   else if (ch == 'U')
   {
-    this.movingAction = !this.movingAction;
+    //this.movingAction = !this.movingAction;
   }
   else if (ch == 'Y')
-    {
-      this.movingDebug = !this.movingDebug;
-    }
+  {
+    //this.movingDebug = !this.movingDebug;
+  }
 
+  /*
   else if (ch == '9')
   {
     console.log("adding 'R' component to palette");
@@ -280,6 +281,7 @@ bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 
     g_painter.dirty_flag = true;
   }
+  */
 
   var r = true;
 

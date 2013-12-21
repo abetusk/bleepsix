@@ -244,6 +244,11 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     }
   
   }
+
+  else if (ch == 'P')
+  {
+    takeSnapShotPicture();
+  }
   else if (ch == 'J')
   {
 

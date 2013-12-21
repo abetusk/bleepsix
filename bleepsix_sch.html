@@ -71,6 +71,9 @@
 	<script src='js/schtool/toolComponentPlace.js'></script>
 	<script src='js/schtool/toolComponentEdit.js'></script>
 
+	<script src='js/helperFunctions.js'></script>
+
+
     <script>
 
 	  var drawing = true,
@@ -160,6 +163,10 @@
         var f = document.getElementById('fileButton');
         f.style.top = '0px';
         f.style.left = '500px';
+
+        var f = document.getElementById('snapButton');
+        f.style.top = '0px';
+        f.style.left = '750px';
 
       });
 	  
@@ -251,7 +258,8 @@
 
       function submitSchematic( json_data )
       {
-        var container = { "type" : "createJSON", data: json_data };
+        //var container = { "type" : "createJSON", data: json_data };
+        var container = { "type" : "createKiCADSchematic", data: json_data };
         var str_data = JSON.stringify( container );
 
         $.ajax({
@@ -353,6 +361,10 @@
     <div class="file_button_container" id='fileButton'>
       <!--      <input id='fileElement' type="file" onchange="handleFiles(this.files)" onselect="foo(this.files)" onfocus="foo(this.files)"  /> -->
       <input id='fileElement' type="file" onchange="handleFiles(this.files)" onclick="this.value=null;"  />
+    </div>
+
+    <div class="file_button_container" id="snapButton">
+      <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" />
     </div>
 
     <canvas 
