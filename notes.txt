@@ -24,6 +24,17 @@ By Rama Hoetzlein and Abram Connelly"
      to zero and does weird stuff (some initialization issue?)
   fixed: wasn't updating bounding box properly
 
+  BUG: rotating text in edit component mode screws up the bounding box
+
+  - general undo/redo
+
+  - wire placement when overlaying the wire back after placement
+    KiCAD does this is in an weird (but intuitive) way that 
+    we should replicate.
+
+  - bulk select and copy.
+
+  - tool tips
 
 * - component text (field text 0 and 1) editing
 * - component text (field text 0 and 1) moving
@@ -32,7 +43,6 @@ By Rama Hoetzlein and Abram Connelly"
   - load kicad schematic from url
   - export kicad schematic
 
-  - general undo/redo
 
   - login functionality
 
@@ -42,6 +52,11 @@ By Rama Hoetzlein and Abram Connelly"
     . allow login/registration and allow schematic association 
 
   - search part name in the library window
+    . put it in it's own box, seperate from the library window.
+      results will need to be displayed, so we should have them
+      listed out below the search box.  Alternatively you can
+      add a 'tab' onto the library window to switch between search mode
+      and library view, but search should still be it's own window.
 
   - not all pin types are rendered properly.  Render all pin types
     (clock, etc.)
@@ -64,7 +79,18 @@ By Rama Hoetzlein and Abram Connelly"
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+  - copy/paste functionality, in schematic and between schematics
+
+  - header
+
+  - be able to minimize windows
+
+  - be able to add custom libraries
+
   - todo: global and heirarchical labels need artwork around/next to them
+
+  - make coarse bounding box and use it to speed up render
+  - render text differently when zoomed out to speed up render
 
   - mouse wheel on scroll bar doesn't work
 
@@ -74,6 +100,10 @@ By Rama Hoetzlein and Abram Connelly"
   - right click when placing wires to undo last placed wire (multiple
     right clicks to multiple undos).  Have to make sure you don't conflict
     with pan functionality (tie it to hot key?)
+
+  - chat functionality
+
+  - change foot print symbol
 
   - wire grab/extend operations.
 
