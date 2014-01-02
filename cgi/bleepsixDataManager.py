@@ -6,6 +6,7 @@ import cgitb
 import sys
 import json
 import uuid
+import redis
 import subprocess as sp
 
 cgitb.enable();
