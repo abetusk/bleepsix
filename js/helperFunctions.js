@@ -95,7 +95,7 @@ function takeSnapShotPicture()
 function handleSnap( clientToken ) 
 {
   console.log("snap...");
-  window.open("https://localhost/bleepsix/pic.html?clientToken=" + clientToken );
+  window.open("https://localhost/bleepsix/pic.html?action=handoff&clientToken=" + clientToken );
   window.focus();
 
 }

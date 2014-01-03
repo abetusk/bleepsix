@@ -470,3 +470,9 @@ ley down net with high (temporary) net code.  after it's layed down,
 
 file download information:
 http://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
+
+replacing url (without reloading):
+http://spoiledmilk.com/blog/html5-changing-the-browser-url-without-refreshing-page/
+https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history?redirectlocale=en-US&redirectslug=Web%2FGuide%2FDOM%2FManipulating_the_browser_history
+http://stackoverflow.com/questions/3338642/updating-address-bar-with-new-url-without-hash-or-reloading-the-page
+http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
