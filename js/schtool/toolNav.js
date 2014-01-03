@@ -214,16 +214,15 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     .done( function(msg) { alert('done: ' + msg); return true; })
     .fail( function(msg, err,c ) { alert('fail: ' + c + "," + err + "," + msg); return true; }) ;
     */
-    console.log("??");
     //populateIframe( "downloadIframe", "gplv3.txt" );
     //populateIframe( "downloadIframe", "foo.txt" );
     //formSubmitTest("testing string");
     //formSubmitTest( g_controller.schematic.kicad_sch_json );
-    submitSchematic( g_controller.schematic.kicad_sch_json );
+    //submitSchematic( g_controller.schematic.kicad_sch_json );
 
     //var foo = document.getElementById('downloadForm');
     //foo.submit();
-    console.log("..");
+    //console.log("..");
   }
   else if (ch == 'B')
   {

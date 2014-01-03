@@ -23,6 +23,58 @@
         opacity: 0;
       }
 
+      .upload_button {
+        opacity: 0.3;
+        position: absolute;
+        background: transparent url(img/upload.png) left top ; 
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        z-index: 1;
+
+        height: 32px;
+        width: 32px;
+      }
+
+      .download_button
+      {
+        opacity: 0.55;
+        position: absolute;
+        z-index: 1;
+
+        /*
+        background: transparent url(img/download.png) left top ; 
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        height: 32px;
+        width: 32px;
+        */
+      }
+
+      .upload_button input  {
+        opacity: 0.0;
+        position: absolute;
+        /* background: transparent url(http://i.stack.imgur.com/BT5AB.png) left top no-repeat; */
+        background: #0000ff left top no-repeat; 
+        z-index: 1;
+
+        height: 32px;
+        width: 32px;
+      }
+
+      .snapshot_button {
+        opacity: 0.3;
+
+        /*
+        background: transparent url(img/camera.png) left top ;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        height: 20px;
+        width: 20px;
+        */
+        z-index: 1;
+        position: absolute;
+      }
+
     </style>
 
     <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
@@ -162,9 +214,15 @@
         */
         //populateIframe( "downloadIframe" , "gplv3.txt" )
 
-        var f = document.getElementById('fileButton');
+        //var f = document.getElementById('fileButton');
+        var f = document.getElementById('uploadButton');
         f.style.top = '0px';
         f.style.left = '500px';
+
+        var f = document.getElementById('downloadButton');
+        f.style.top = '0px';
+        f.style.left = '550px';
+
 
         var f = document.getElementById('snapButton');
         f.style.top = '0px';
@@ -234,6 +292,7 @@
       //function schJsonDlTest( json_container )
       function schJSONDownload( json_container )
       {
+
         var msg_type = json_container["type"];
         if (msg_type != "id")
         {
@@ -258,8 +317,11 @@
       }
 
 
-      function submitSchematic( json_data )
+      //function submitSchematic( json_data )
+      function downloadSchematic( )
       {
+        var json_data = g_controller.schematic.kicad_sch_json ;
+
         //var container = { "type" : "createJSON", data: json_data };
         var container = { "type" : "createKiCADSchematic", data: json_data };
         var str_data = JSON.stringify( container );
@@ -360,13 +422,20 @@
     <iframe id='downloadFrame' style='display:none'>
     </iframe>
 
-    <div class="file_button_container" id='fileButton'>
-      <!--      <input id='fileElement' type="file" onchange="handleFiles(this.files)" onselect="foo(this.files)" onfocus="foo(this.files)"  /> -->
-      <input id='fileElement' type="file" onchange="handleFiles(this.files)" onclick="this.value=null;"  />
+    <!-- <div class="file_button_container" id='fileButton'>  -->
+    <!-- <div class="upload_button" id='fileButton'>  -->
+    <div class="upload_button" id='uploadButton'> 
+      <input class='upload_button' id='fileElement' type="file" onchange="handleFiles(this.files)" onclick="this.value=null;"  />
     </div>
 
-    <div class="file_button_container" id="snapButton">
-      <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" />
+    <div class="download_button" id='downloadButton'> 
+      <input class='download_button' type="image" src='img/download.png' style=' height:32px; width:32px;' value'download' onclick="downloadSchematic();"  />
+    </div>
+
+    <!-- <div class="file_button_container" id="snapButton"> -->
+    <div class="snapshot_button" id="snapButton"> 
+      <!-- <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" /> -->
+      <input id='snapElement' type='image' src='img/camera.png' style=' height: 32px; width: 32px;' value="click me" onclick="takeSnapShotPicture();" /> 
     </div>
 
     <canvas 
@@ -376,9 +445,13 @@
       tabindex='0'> </canvas>
 
 	<section style='position: absolute; left: 20px; top: 720px; ' ></section>
+
+    <!--
     <button 
       style='position: absolute; left: 20px; top: 750px; '
       id='btn' onclick='btn_func();' >f</button>
+    -->
+
   </body>
 
 </html>

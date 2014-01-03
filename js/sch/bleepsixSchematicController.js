@@ -240,6 +240,7 @@ bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
   if (typeof this.tool.keyDown !== 'undefined' )
   {
     r = this.tool.keyDown( keycode, ch, ev );
+    return r;
   }
 
 }

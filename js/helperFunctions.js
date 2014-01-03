@@ -33,6 +33,27 @@ function successSnapshotPicture(x,y,z)
 
 }
 
+/*
+function downloadFile()
+{
+  var json_data = g_controller.schematic.kicad_sch_json;
+  var container = { "type" : "createKiCADSchematic", data: json_data };
+  var str_data = JSON.stringify( container );
+
+  $.ajax({
+    url: "cgi/bleepsixDataManager.py",
+    type: 'POST',
+    data: str_data,
+    //success: schJsonDlTest,
+    success: schJSONDownload,
+    error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+    });
+
+
+}
+*/
+
 function takeSnapShotPicture()
 {
   console.log("takeSnapShotPicture");

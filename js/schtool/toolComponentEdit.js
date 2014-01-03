@@ -432,6 +432,9 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "bs" );
 
+
+      pass_key = false;
+
     }
     else if (keycode == 46)   // DEL key
     {
