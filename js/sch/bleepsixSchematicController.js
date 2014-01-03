@@ -129,7 +129,7 @@ function bleepsixSchematicController() {
   this.display_text = "bleep";
 
   var controller = this;
-  setInterval( function() { controller.redraw() } , 50 );
+  //setInterval( function() { controller.redraw() } , 50 );
 }
 
 bleepsixSchematicController.prototype.redraw = function ()
@@ -169,12 +169,14 @@ bleepsixSchematicController.prototype.redraw = function ()
 
     //this.guiTextboxTest.drawChildren();
 
+	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     if (this.display_text_flag)
       g_painter.drawText(this.display_text, 50, 650, "rgba(0,0,0,0.4)", 20);
 
     g_painter.dirty_flag = false;
 
+	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     //g_painter.dirty_flag = true;
 

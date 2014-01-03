@@ -96,7 +96,7 @@ function bleepsixBoardController() {
   this.capState = "unknown";
 
   var controller = this;
-  setInterval( function() { controller.redraw() } , 50 );
+  //setInterval( function() { controller.redraw() } , 50 );
 
   // HARD CODED FOR DEMO.  REMOVE ASAP
   //g_painter.adjustPan( -4000, -1500);

@@ -151,6 +151,7 @@
 	  var g_canvas = "canvas";
 	  var g_context = null;
 
+      var g_drawSnapArea = false;
 
 
 	  function loop() {
@@ -166,9 +167,27 @@
 		container.innerHTML = "FPS: " + (1000.0/msec);
 
 
+        var saved_dirty = g_painter.dirty_flag;
+
 				
 		g_controller.redraw();
 			
+
+        if (saved_dirty)
+        {
+          if ( g_drawSnapArea )
+          {
+            var lw = 5;
+            var ww = 900 + 2*lw;
+            var hh = 525 + 2*lw;
+            var xx = 50 - lw;
+            var yy = 50 - lw;
+
+            g_painter.drawRectangle( xx, yy, ww, hh, lw, "rgba(0,0,0,0.2)", false );
+            //g_painter.strokeRect(xx,yy,ww,hh, 5, "rgba(0,0,0,0.1)"  );
+          }
+        }
+
 		requestAnimationFrame( loop, 1 );		
 	  }
 
@@ -227,6 +246,24 @@
         var f = document.getElementById('snapButton');
         f.style.top = '0px';
         f.style.left = '750px';
+
+
+        $( "#snapElement" ).hover( 
+        function() { 
+          console.log("hoveron"); 
+
+          g_drawSnapArea = true;
+          g_painter.dirty_flag = true;
+
+        },
+        function() { 
+          console.log("hoveroff"); 
+
+          g_drawSnapArea = false;
+          g_painter.dirty_flag = true;
+
+        }
+        );
 
       });
 	  
