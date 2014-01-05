@@ -4,6 +4,10 @@
 
   <head>
 
+    <link rel="shortcut icon" href="/simpleoutline.ico" />
+    <link rel="icon" href="/simpleoutline.ico" />
+
+
     <style>
       .file_button_container,
       .file_button_container input {
@@ -59,6 +63,12 @@
 
         height: 32px;
         width: 32px;
+      }
+
+      .generic_button {
+        opacity: 0.5;
+        z-index: 1;
+        position: absolute;
       }
 
       .snapshot_button {
@@ -246,6 +256,10 @@
         var f = document.getElementById('snapButton');
         f.style.top = '0px';
         f.style.left = '750px';
+
+        var f = document.getElementById('homeButton');
+        f.style.top = '4px';
+        f.style.left = '900px';
 
 
         $( "#snapElement" ).hover( 
@@ -473,6 +487,10 @@
     <div class="snapshot_button" id="snapButton"> 
       <!-- <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" /> -->
       <input id='snapElement' type='image' src='img/camera.png' style=' height: 32px; width: 32px;' value="click me" onclick="takeSnapShotPicture();" /> 
+    </div>
+
+    <div class="generic_button" id='homeButton'> 
+      <input class='generic_button' type="image" src='img/kitty_head_black_outline_p32.png' style=' height:26px; width:26px;' value'download' onclick="goHome();"  />
     </div>
 
     <canvas 

@@ -121,3 +121,11 @@ function handleSnap( clientToken )
 
 }
 
+
+function goHome( )
+{
+
+  window.open("https://localhost/bleepsix/cgi/portfolio");
+  window.focus();
+
+}
