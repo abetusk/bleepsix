@@ -32,7 +32,7 @@
  *
  */
 
-function bleepsixSchematicRouter( serverURL )
+function bleepsixSchematicNetwork( serverURL )
 {
 
   serverURL = ( (typeof serverURL === 'undefined') ? 'https://localhost' : serverURL );
@@ -80,7 +80,7 @@ function bleepsixSchematicRouter( serverURL )
 
 }
 
-bleepsixSchematicRouter.prototype.init = function( userId, sessionId )
+bleepsixSchematicNetwork.prototype.init = function( userId, sessionId )
 {
 
   console.log("init..." + userId + ", " + sessionId );
@@ -91,13 +91,13 @@ bleepsixSchematicRouter.prototype.init = function( userId, sessionId )
   this.socket.emit( "meow", { userId : this.userId, sessionId: this.sessionId  });
 }
 
-bleepsixSchematicRouter.prototype.handleSchgetResponse = function( data )
+bleepsixSchematicNetwork.prototype.handleSchgetResponse = function( data )
 {
   console.log("schget response, got:");
   console.log(data);
 }
 
-bleepsixSchematicRouter.prototype.handleSchupdateResponse = function( data )
+bleepsixSchematicNetwork.prototype.handleSchupdateResponse = function( data )
 {
   console.log("schupdate response, got:");
   console.log(data);
@@ -105,7 +105,7 @@ bleepsixSchematicRouter.prototype.handleSchupdateResponse = function( data )
 
 // Failed authentication tracer message
 //
-bleepsixSchematicRouter.prototype.handleMeowResponse = function( data )
+bleepsixSchematicNetwork.prototype.handleMeowResponse = function( data )
 {
   console.log("meow failure, got:");
   console.log(data);
@@ -115,7 +115,7 @@ bleepsixSchematicRouter.prototype.handleMeowResponse = function( data )
 // worked.  This tells us the session is authenticated (that is, we are
 // connected) and we can send update requests to the server
 //
-bleepsixSchematicRouter.prototype.handleMewResponse = function( data )
+bleepsixSchematicNetwork.prototype.handleMewResponse = function( data )
 {
   if (!data)
   {
@@ -137,13 +137,13 @@ bleepsixSchematicRouter.prototype.handleMewResponse = function( data )
 }
 
 
-bleepsixSchematicRouter.prototype.update = function( msg )
+bleepsixSchematicNetwork.prototype.update = function( msg )
 {
   this.messageq.push( msg );
 
   if (!this.connected)
   {
-    console.log("bleepsixSchematicRouter.update: not connected, returning");
+    console.log("bleepsixSchematicNetwork.update: not connected, returning");
     return;
   }
 
@@ -155,11 +155,11 @@ bleepsixSchematicRouter.prototype.update = function( msg )
 
 }
 
-bleepsixSchematicRouter.prototype.load = function( schematicId )
+bleepsixSchematicNetwork.prototype.load = function( schematicId )
 {
   if (!this.connected)
   {
-    console.log("bleepsixSchematicRouter.load: not connected, cannot load");
+    console.log("bleepsixSchematicNetwork.load: not connected, cannot load");
     return;
   }
 
