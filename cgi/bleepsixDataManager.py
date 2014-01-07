@@ -9,6 +9,10 @@ import uuid
 import redis
 import subprocess as sp
 
+#print "Content-Type: text/html; charset=utf-8;"
+#print
+
+
 cgitb.enable();
 
 jsonsch_exec = "/tmp/pykicad/jsonsch.py"
@@ -42,7 +46,7 @@ def makeKiCADSchematic( json_message ):
     kicad_sch = sp.check_output( [jsonsch_exec, sch_json_fn ] );
     u_id, fn  = dumpToFile( kicad_sch )
   except Exception as e:
-    error_and_quit(e)
+    error_and_quit(e, sch_json_fn)
 
   obj = { "type" : "id", "id" : str(u_id), "notes" : "KiCAD Schematic File ID"  }
   return obj
@@ -74,7 +78,7 @@ def makePNG( json_message ):
 try:
   json_container = json.load(sys.stdin);
 except Exception as e:
-  error_and_quit(e)
+  error_and_quit(e, "stdin")
 
 
 userid = uuid.uuid4()

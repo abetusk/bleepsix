@@ -8,6 +8,7 @@ import json
 import uuid
 cgitb.enable();
 
+
 staging_base    = "/tmp/stage"
 logfile         = "/tmp/bleepsixDownloadManager.log"
 
@@ -47,7 +48,10 @@ try:
       print_header()
       first = False
 
-    print content_file.read()
+    #print content_file.read()
+
+    # get rid of trailing newline
+    sys.stdout.write( content_file.read() )
 
 except IOError:
   print_error()
