@@ -47,8 +47,15 @@ function guiGrid( name )
 
 
 
+  // DISABLED FOR NOW
+  // Units are not that important when drawing schematics, so for
+  // simplicit, let's just take it out for now.
+  // For the PCB portion, this will be important, so maybe we
+  // should add a flag to turn it on or no.
+  //
   // grouped wire functions (wire, bus, etc)
   //
+  /*
   var w = new guiDropIcon( this.name + ":dropunit", 20, 20, true );
   w.addIcon( this.name + ":imperial", this._make_text_draw_function("in") );
   w.addIcon( this.name + ":metric" , this._make_text_draw_function("mm") );
@@ -58,6 +65,7 @@ function guiGrid( name )
   this.addChild( w );
 
   cur_x += w.width;
+  */
 
 
 
@@ -141,35 +149,42 @@ guiGrid.prototype._handleSpacingEvent = function(ev)
   if (ev.owner == this.name + ":50") 
   {
     console.log("50");
+    g_snapgrid = new snapGrid(true, "deci-mil", 50);
   }
   else if (ev.owner == this.name + ":25") 
   {
     console.log("25");
+    g_snapgrid = new snapGrid(true, "deci-mil", 25);
   }
 
   else if (ev.owner == this.name + ":20") 
   {
     console.log("20");
+    g_snapgrid = new snapGrid(true, "deci-mil", 20);
   }
 
   else if (ev.owner == this.name + ":10") 
   {
     console.log("10");
+    g_snapgrid = new snapGrid(true, "deci-mil", 10);
   }
 
   else if (ev.owner == this.name + ":5") 
   {
     console.log("5");
+    g_snapgrid = new snapGrid(true, "deci-mil", 5);
   }
 
   else if (ev.owner == this.name + ":2") 
   {
     console.log("2");
+    g_snapgrid = new snapGrid(true, "deci-mil", 2);
   }
 
   else if (ev.owner == this.name + ":1") 
   {
     console.log("1");
+    g_snapgrid = new snapGrid(true, "deci-mil", 1);
   }
 
 }

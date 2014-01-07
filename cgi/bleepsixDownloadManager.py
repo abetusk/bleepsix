@@ -11,8 +11,11 @@ cgitb.enable();
 staging_base    = "/tmp/stage"
 logfile         = "/tmp/bleepsixDownloadManager.log"
 
+g_filename = "download.file"
+
 def print_header():
-  print "Content-Disposition: attachment; filename=\"foo.txt\""
+#  print "Content-Disposition: attachment; filename=\"foo.txt\""
+  print "Content-Disposition: attachment; filename=\"" + g_filename + "\""
   print "Content-Type: application/octet-stream"
   print
 
@@ -26,6 +29,13 @@ form = cgi.FieldStorage()
 if "id" not in form:
   print_error()
   sys.exit(0)
+
+
+if "name" in form:
+  g_filename = re.sub( "[^0-9a-zA-Z._-]", "", form["name"].value)
+  if not g_filename:
+    g_filename = "download.file"
+
 
 file_id = form["id"].value
 

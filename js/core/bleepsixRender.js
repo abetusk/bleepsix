@@ -181,6 +181,8 @@ bleepsixRender.prototype.drawGrid = function()
 	}
 	if ( this.gridMode == 2 ) {
 		// Lines
+
+        ctx.lineWidth = 2.0 / (10.0 * this.zoom);
 		ctx.beginPath();
 		for (var x=x_start; x < x_stop; x += gridstep ) {
 		  ctx.moveTo ( x, view.y1 );

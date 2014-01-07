@@ -4,6 +4,62 @@
 
   <head>
 
+    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
+
+    <!-- <script src='/socket.io/socket.io.js'></script> -->
+    <script src='js/lib/socket.io.js'></script>
+
+	<script src='js/lib/jquery.js'></script>
+    <script src='js/lib/jquery.mousewheel.js'/></script>
+    <script src='js/lib/jquery.capslockstate.js'/></script>
+
+    <script src='js/lib/jquery.fileDownload.js'/></script>
+
+    <script src='js/lib/numeric.js'></script>
+	<script src='js/lib/oop.js'></script>
+	<script src='js/lib/aux.js'></script>
+	<script src='js/lib/jquery.cookie.js'></script>
+
+    <script src='js/core/bleepsixRender.js'></script>
+    <script src='js/sch/bleepsixSchematic.js'></script>
+    <script src='js/sch/bleepsixSchematicController.js'></script>
+    <script src='js/sch/bleepsixSchematicRouter.js'></script>
+
+	<script src='js/gui/guiRegion.js'></script>
+
+    <script src='js/gui/guiPalette.js'></script>
+    <script src='js/gui/guiComponentTile.js'></script>
+    <script src='js/gui/guiList.js'></script>
+    <script src='js/gui/guiScrollbar.js'></script>
+
+    <script src='js/gui/guiIcon.js'></script>
+    <script src='js/gui/guiDropIcon.js'></script>
+    <script src='js/gui/guiToolbox.js'></script>
+    <script src='js/gui/guiGrid.js'></script>
+    <script src='js/gui/guiTextbox.js'></script>
+    <script src='js/gui/guiAction.js'></script>
+
+
+    <script src='js/gui/guiLibrary.js'></script>
+
+
+
+	<script src='js/schtool/toolBase.js'></script>
+	<script src='js/schtool/toolNav.js'></script>
+	<script src='js/schtool/toolMove.js'></script>
+	<script src='js/schtool/toolSelect.js'></script>
+	<script src='js/schtool/toolWire.js'></script>
+	<script src='js/schtool/toolConn.js'></script>
+
+	<script src='js/tool/toolScrollbar.js'></script>
+
+	<script src='js/schtool/toolComponentPlace.js'></script>
+	<script src='js/schtool/toolComponentEdit.js'></script>
+
+	<script src='js/helperFunctions.js'></script>
+
+
+
     <link rel="shortcut icon" href="/simpleoutline.ico" />
     <link rel="icon" href="/simpleoutline.ico" />
 
@@ -87,57 +143,6 @@
 
     </style>
 
-    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
-
-	<script src='js/lib/jquery.js'></script>
-    <script src='js/lib/jquery.mousewheel.js'/></script>
-    <script src='js/lib/jquery.capslockstate.js'/></script>
-
-    <script src='js/lib/jquery.fileDownload.js'/></script>
-
-    <script src='js/lib/numeric.js'></script>
-	<script src='js/lib/oop.js'></script>
-	<script src='js/lib/aux.js'></script>
-	<script src='js/lib/jquery.cookie.js'></script>
-
-    <script src='js/core/bleepsixRender.js'></script>
-    <script src='js/sch/bleepsixSchematic.js'></script>
-    <script src='js/sch/bleepsixSchematicController.js'></script>
-
-	<script src='js/gui/guiRegion.js'></script>
-
-    <script src='js/gui/guiPalette.js'></script>
-    <script src='js/gui/guiComponentTile.js'></script>
-    <script src='js/gui/guiList.js'></script>
-    <script src='js/gui/guiScrollbar.js'></script>
-
-    <script src='js/gui/guiIcon.js'></script>
-    <script src='js/gui/guiDropIcon.js'></script>
-    <script src='js/gui/guiToolbox.js'></script>
-    <script src='js/gui/guiGrid.js'></script>
-    <script src='js/gui/guiTextbox.js'></script>
-    <script src='js/gui/guiAction.js'></script>
-
-
-    <script src='js/gui/guiLibrary.js'></script>
-
-
-
-	<script src='js/schtool/toolBase.js'></script>
-	<script src='js/schtool/toolNav.js'></script>
-	<script src='js/schtool/toolMove.js'></script>
-	<script src='js/schtool/toolSelect.js'></script>
-	<script src='js/schtool/toolWire.js'></script>
-	<script src='js/schtool/toolConn.js'></script>
-
-	<script src='js/tool/toolScrollbar.js'></script>
-
-	<script src='js/schtool/toolComponentPlace.js'></script>
-	<script src='js/schtool/toolComponentEdit.js'></script>
-
-	<script src='js/helperFunctions.js'></script>
-
-
     <script>
 
 	  var drawing = true,
@@ -162,6 +167,8 @@
 	  var g_context = null;
 
       var g_drawSnapArea = false;
+
+      var g_schrouter = null;
 
 
 	  function loop() {
@@ -278,6 +285,25 @@
 
         }
         );
+
+
+        console.log("starting router");
+        g_schrouter = new bleepsixSchematicRouter();
+
+        if ( $.cookie("userId") && $.cookie("sessionId") )
+        {
+
+          var userId = $.cookie("userId");
+          var sessionId = $.cookie("sessionId");
+
+          console.log("userId: " + userId + ", sessionId: " + sessionId );
+        }
+        else
+        {
+          // anonymous login 
+          console.log("userId and/or sessionId cookie not set, anonymous?");
+        }
+
 
       });
 	  
@@ -480,7 +506,7 @@
     </div>
 
     <div class="download_button" id='downloadButton'> 
-      <input class='download_button' type="image" src='img/download.png' style=' height:32px; width:32px;' value'download' onclick="downloadSchematic();"  />
+      <input class='download_button' type="image" src='img/download.png' style=' height:32px; width:32px;' value='download' onclick="downloadSchematic();"  />
     </div>
 
     <!-- <div class="file_button_container" id="snapButton"> -->
