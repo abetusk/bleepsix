@@ -206,6 +206,12 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     console.log( g_controller.schematic.kicad_sch_json );
   }
 
+  else if (ch == 'L')
+  {
+    console.log("logging out!");
+    g_schnetwork.logout();
+    
+  }
   else if (ch == 'V')
   {
     //TEST FILE DOWNLOAD
@@ -223,12 +229,27 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //var foo = document.getElementById('downloadForm');
     //foo.submit();
     //console.log("..");
+
+    // DUMMY (DEBUG) TESTS
+    //
+    //window.location.href = "https://google.com";
+    //return;
+
+    //g_schnetwork.schfullpush();
+
+    console.log("LOADING (schsnapshot)");
+    g_schnetwork.schsnapshot();
+
   }
   else if (ch == 'B')
   {
 
     //uploadSchematic( g_controller.schematic.kicad_sch_json );
     uploadSchematic( );
+
+    console.log("SAVING (schfullpush)");
+    g_schnetwork.schfullpush();
+
 
   }
   else if (ch == 'C')

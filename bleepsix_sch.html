@@ -4,7 +4,7 @@
 
   <head>
 
-    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" />  -->
 
     <!-- <script src='/socket.io/socket.io.js'></script> -->
     <script src='js/lib/socket.io.js'></script>
@@ -12,6 +12,7 @@
 	<script src='js/lib/jquery.js'></script>
     <script src='js/lib/jquery.mousewheel.js'/></script>
     <script src='js/lib/jquery.capslockstate.js'/></script>
+    <script src='js/lib/jquery.getUrlParam.js'/></script>
 
     <script src='js/lib/jquery.fileDownload.js'/></script>
 
@@ -23,7 +24,7 @@
     <script src='js/core/bleepsixRender.js'></script>
     <script src='js/sch/bleepsixSchematic.js'></script>
     <script src='js/sch/bleepsixSchematicController.js'></script>
-    <script src='js/sch/bleepsixSchematicRouter.js'></script>
+    <script src='js/sch/bleepsixSchematicNetwork.js'></script>
 
 	<script src='js/gui/guiRegion.js'></script>
 
@@ -168,7 +169,7 @@
 
       var g_drawSnapArea = false;
 
-      var g_schrouter = null;
+      var g_schnetwork = null;
 
 
 	  function loop() {
@@ -287,23 +288,8 @@
         );
 
 
-        console.log("starting router");
-        g_schrouter = new bleepsixSchematicRouter();
-
-        if ( $.cookie("userId") && $.cookie("sessionId") )
-        {
-
-          var userId = $.cookie("userId");
-          var sessionId = $.cookie("sessionId");
-
-          console.log("userId: " + userId + ", sessionId: " + sessionId );
-        }
-        else
-        {
-          // anonymous login 
-          console.log("userId and/or sessionId cookie not set, anonymous?");
-        }
-
+        console.log("starting network");
+        g_schnetwork = new bleepsixSchematicNetwork();
 
       });
 	  
@@ -389,8 +375,6 @@
 
       function uploadSchematic( )
       {
-
-
       }
 
 
