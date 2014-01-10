@@ -70,6 +70,10 @@ function toolWire( x, y, initialPlaceFlag )
   }
   
 
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "url('/bleepsix/img/cursor_custom_wire_s24.png') 4 3, cursor";
+
+
 }
 
 toolWire.prototype._isHorizontalWire = function( wire )
@@ -237,6 +241,11 @@ toolWire.prototype.placeWire = function()
 
   g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_painter.dirty_flag = true;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
+
 
 }
 
@@ -449,6 +458,11 @@ toolWire.prototype.doubleClick = function( button, x, y )
     //
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
+
+    var ele = document.getElementById("canvas");
+    ele.style.cursor = "auto";
+
+
   }
 }
 
@@ -612,6 +626,10 @@ toolWire.prototype.keyDown = function( keycode, ch, ev )
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
 
     g_painter.dirty_flag = true;
+
+    var ele = document.getElementById("canvas");
+    ele.style.cursor = "auto";
+
   }
 
 }

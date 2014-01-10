@@ -177,6 +177,29 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   //console.log("toolNav keyDown: " + keycode + " " + ch );
   //console.log(ev);
 
+  if ( keycode == 188 )
+  {
+
+    var ele = document.getElementById("canvas");
+
+    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_test_s24.png') 4 3, cursor";
+    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_wire_s24.png') 4 3, cursor";
+    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_bus_s24.png') 4 3, cursor";
+    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_noconn_s24.png') 4 3, cursor";
+    ele.style.cursor = "url('/bleepsix/img/cursor_custom_conn_s24.png') 4 3, cursor";
+
+    //$("#canvas").css(" cursor: url('/bleepsix/img/cursor_custom_test_s24.png') 3 2 , auto; ");
+    
+    console.log("<??");
+  }
+  else if ( keycode == 190 )
+  {
+
+    var ele = document.getElementById("canvas");
+    ele.style.cursor = " auto ";
+    console.log(">??");
+  }
+
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
   var wc = g_painter.devToWorld(x, y);

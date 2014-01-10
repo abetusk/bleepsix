@@ -50,6 +50,20 @@ function toolConn( x, y, type, placeOption )
 
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
+  var ele = document.getElementById("canvas");
+
+  console.log(type);
+
+  if (type == "noconn")
+  {
+    ele.style.cursor = "url('/bleepsix/img/cursor_custom_noconn_s24.png') 4 3, cursor";
+  }
+  else if ( (type == "conn") || (type == "connection") )
+  {
+    ele.style.cursor = "url('/bleepsix/img/cursor_custom_conn_s24.png') 4 3, cursor";
+  }
+
+
 }
 
 //-----------------------------
@@ -121,6 +135,12 @@ toolConn.prototype.mouseDown = function( button, x, y )
     {
       g_controller.tool = new toolNav(x, y);
       g_painter.dirty_flag = true;
+
+
+      var ele = document.getElementById("canvas");
+      ele.style.cursor = "auto";
+
+
       return;
     }
 
@@ -206,6 +226,9 @@ toolConn.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("handing back to toolNav");
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+
+    var ele = document.getElementById("canvas");
+    ele.style.cursor = "auto";
 
     g_painter.dirty_flag = true;
   }

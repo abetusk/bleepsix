@@ -232,7 +232,7 @@ bleepsixSchematicController.prototype.redraw = function ()
       //g_painter.drawText(this.display_text, 750, 650, "rgba(0,0,0,0.4)", 15);
 
     if (this.schematic_name_text_flag)
-      g_painter.drawText(this.schematic_name_text, 50, 10, "rgba(0,0,0,0.4)", 15);
+      g_painter.drawText(this.schematic_name_text, 30, 10, "rgba(0,0,0,0.4)", 15);
 
 
     if (action_text_touched)

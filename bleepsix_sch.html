@@ -342,6 +342,7 @@
         }
       }
 
+      /*
       function btn_func()
       {
         $.ajaxSetup({ cache: false });
@@ -349,8 +350,10 @@
           function(data) { 
             console.log("data:" + data); 
             g_controller.schematic.load_schematic(data); 
+            g_controller.schematicUpdate = true;
           });
       }
+      */
 
       //function schJsonDlTest( json_container )
       function schJSONDownload( json_container )
@@ -419,6 +422,7 @@
         else
         {
           g_controller.schematic.load_schematic( json_data );
+          g_controller.schematicUpdate = true;
         }
       }
 

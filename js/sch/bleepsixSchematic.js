@@ -37,6 +37,8 @@ function bleepsixSchematic()
   this.kicad_sch_json = { "element":[] };
   this.displayable = true;
 
+  this.eventStack = [];
+
   this.queued_display_component_count = 0;
 
   //this.draw_bounding_box_flag = true;
