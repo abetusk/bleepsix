@@ -344,6 +344,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
           this.edit_text_orig = ref.text[ind].text;
 
           g_painter.dirty_flag = true;  // draw cursor
+          g_controller.schematicUpdate = true;
         }
 
       }
@@ -396,6 +397,7 @@ toolComponentEdit.prototype.mouseMove = function( x, y )
     //ref.text[ind].x = snapxy.x;
     //ref.text[ind].y = snapxy.y;
     g_painter.dirty_flag = true;
+    g_controller.schematicUpdate = true;
 
   }
 
@@ -427,7 +429,6 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
     if (keycode == 8) // backspace
     {
       console.log("bs");
-
       console.log("??");
 
       this._addch( "", "bs" );
@@ -495,6 +496,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
         ref.text[ind].orientation = "V";
 
       g_painter.dirty_flag = true;
+      g_controller.schematicUpdate = true;
 
     }
   
@@ -521,6 +523,8 @@ toolComponentEdit.prototype._clamp_add_edit_pos = function( ds )
 
 toolComponentEdit.prototype._addch = function( ch, indicator )
 {
+  g_controller.schematicUpdate = true;
+
   indicator = ( typeof indicator !== 'undefined' ? indicator : "none" );
 
   var id_ref = this.picked_id_ref;
@@ -553,7 +557,7 @@ toolComponentEdit.prototype._addch = function( ch, indicator )
 
   }
 
-  console.log("p: " + p + ", lpos: " + lpos + ", rpos: " + rpos);
+  //console.log("p: " + p + ", lpos: " + lpos + ", rpos: " + rpos);
 
 
   var new_s = s.slice(0, lpos) + ch + s.slice(rpos, s.length);
@@ -583,6 +587,7 @@ toolComponentEdit.prototype.keyPress = function( keycode, ch, ev  )
     console.log("editing text: " + ch);
 
     this._addch( ch );
+    g_controller.schematicUpdated = true;
 
   }
 

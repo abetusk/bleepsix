@@ -25,8 +25,14 @@ By Rama Hoetzlein and Abram Connelly"
   fixed: wasn't updating bounding box properly
 
   BUG: rotating text in edit component mode screws up the bounding box
+  - component text editing bounding box not right when rotating (for some
+    parts) (e.g. CP1 electrolytic cap in palette)
+    ?? is this the same issue?
 
   - general undo/redo
+
+  - cursor needs to change depending on tool type selected
+  - tool choice needs to be highlighted when active
 
   - wire placement when overlaying the wire back after placement
     KiCAD does this is in an weird (but intuitive) way that 
@@ -39,16 +45,18 @@ By Rama Hoetzlein and Abram Connelly"
 * - component text (field text 0 and 1) editing
 * - component text (field text 0 and 1) moving
 
-*  - load kicad schematic from local file
-  - load kicad schematic from url
-  - export kicad schematic
+* - load kicad schematic from local file
+* - load kicad schematic from url
+* - export kicad schematic
 
 
   - login functionality
 
-  - automatic server side saving
+* - automatic server side saving
     . give UUID (or something) to anonymous schematic
     . give permalink
+
+  still unimplemented:
     . allow login/registration and allow schematic association 
 
   - search part name in the library window
@@ -60,9 +68,6 @@ By Rama Hoetzlein and Abram Connelly"
 
   - not all pin types are rendered properly.  Render all pin types
     (clock, etc.)
-
-  - component text editing bounding box not right when rotating (for some
-    parts) (e.g. CP1 electrolytic cap in palette)
 
 * - copying components inherets text properties (numbering?)
     UPDATE: this still needs some work.  I hacked together some stuff,

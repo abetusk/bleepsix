@@ -68,6 +68,7 @@ bleepsixSchematicNetwork.prototype.clear  = function ( )
   this.initialized = false;
   this.connected = false;
 
+  this.dirty_flag = false;
 
 }
 
@@ -133,6 +134,10 @@ function bleepsixSchematicNetwork( serverURL )
   this.socket.on( "anonymous", 
       function(data) { p.anonymousResponse( data ); } );
 
+
+
+  setInterval( function() { p.slowSync(); }, 3000 );
+
   /*
 
   console.log("testing");
@@ -158,6 +163,25 @@ function bleepsixSchematicNetwork( serverURL )
   this.socket.on( "schupdate", 
       function(data) { p.handleSchupdateResponse( data ); } );
       */
+
+}
+
+bleepsixSchematicNetwork.prototype.slowSync = function()
+{
+  console.log("bleepsixSchematicNetwork.slowSync called");
+  //g_controller.fadeMessage("bloop");
+  //g_painter.dirty_flag = true;
+
+  if (g_controller.schematicUpdate)
+  //if (this.dirty_flag)
+  {
+    console.log("  bleepsixSchematicNetwork.slowSync syncing!");
+
+    this.schfullpush();
+
+    g_controller.fadeMessage( "saved" );
+    g_controller.schematicUpdate = false;
+  }
 
 }
 
@@ -249,10 +273,6 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
     return;
   }
 
-  //$.cookie("schematicId",   schId,  { path: '/', secure: true } );
-  //$.cookie("boardId",       schId,  { path: '/', secure: true } );
-  //$.cookie("projectId",     projId, { path: '/', secure: true } );
-
   this.projectId    = projId;
   this.schematicId  = schId;
   this.boardId      = brdId;
@@ -274,6 +294,9 @@ bleepsixSchematicNetwork.prototype.schauthResponse = function( data )
   console.log("userId: " + this.userId);
   console.log("sessionid: " + this.sessionId);
   console.log("schematicId: " + this.schematicId);
+
+  this.schematicName = data.projectName + " / " + data.schematicName;
+  g_controller.schematic_name_text = this.schematicName;
 
   this.schsnapshot();
   //this.socket.emit("schsnapshot", { userId: this.userId, sessionId : this.sessionId, schematicId: this.schematicId });
@@ -380,31 +403,27 @@ bleepsixSchematicNetwork.prototype.logout = function()
 
 // Handle schauth response
 //
+/*
 bleepsixSchematicNetwork.prototype.handleSchauthResponse = function( data )
 {
-
   if (!data)
   {
     console.log("error on schauth (null data)");
     return;
   }
-
   if ( data.type == "response" && data.status == "success" )
   {
     console.log("schauth successfull!");
-
     this.autheneticated = true;
     this.initialized = true;
-
   }
   else
   {
     console.log("schauth failed!  generate anonymous user");
-
     this.socket.emit("schanonymous");
   }
-
 }
+*/
 
 // Handle schget response
 //

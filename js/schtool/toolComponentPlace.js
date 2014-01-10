@@ -107,6 +107,7 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
                                              this.world_xy["x"], 
                                              this.world_xy["y"], 
                                              this.transform );
+    g_controller.schematicUpdate = true;
 
     console.log("toolComponentPlace: passing back to toolNav");
 

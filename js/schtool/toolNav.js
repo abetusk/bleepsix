@@ -193,11 +193,13 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   } else if ( ch == '3' ) {
     g_painter.setGrid ( 2 );
   } else if (ch == 'A') {
+    /*
     comp_name = "C";
     console.log("adding component '" + comp_name + 
                 "' " + wc["x"] + " " + wc["y"] + 
                 " (mouse: " + this.mouse_cur_x + " " + this.mouse_cur_y + ")");
     g_controller.schematic.addComponent( comp_name, wx, wy );
+    */
 
   }
 
@@ -275,6 +277,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     console.log("connection? " + wx + " " + wy );
     g_controller.schematic.addConnection( wx, wy );
     g_painter.dirty_flag = true;
+
+    g_controller.schematicUpdate = true;
   }
   else if (ch == 'X')
   {
@@ -283,6 +287,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
     g_controller.schematic.addNoconn( wx, wy );
     g_painter.dirty_flag = true;
+
+    g_controller.schematicUpdate = true;
   }
   else if (ch == 'S')
   {
@@ -306,6 +312,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   {
 
     g_controller.tool = new toolWire(x, y);
+
+    g_controller.schematicUpdate = true;
     return true;
 
   }
@@ -313,13 +321,21 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   {
     var id = g_controller.schematic.pick( wx, wy );
     if ( id && (id["ref"]["type"] == "component") )
+    {
       g_controller.schematic.rotate90( id, true );
+
+      g_controller.schematicUpdate = true;
+    }
   }
   else if (ch == 'E')
   {
     var id = g_controller.schematic.pick( wx, wy );
     if ( id && (id["ref"]["type"] == "component") )
+    {
       g_controller.schematic.rotate90( id, false );
+
+      g_controller.schematicUpdate = true;
+    }
 
   }
   else if (ch == 'Y')
@@ -329,6 +345,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     {
       g_controller.schematic.rotate90( id, false );
       g_controller.schematic.rotate90( id, false );
+
+      g_controller.schematicUpdate = true;
     }
 
   }
@@ -343,6 +361,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
     if (id_ref_ar.length > 0)
     {
+      g_controller.schematicUpdate = true;
+
       for (var ind in id_ref_ar)
       {
         var ref = id_ref_ar[ind]["ref"];

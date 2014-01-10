@@ -215,7 +215,6 @@ bleepsixSchematic.prototype.remove = function( id_ref )
     }
 
   }
-
 }
 
 bleepsixSchematic.prototype.rotate90 = function( id_ref , ccw_flag )

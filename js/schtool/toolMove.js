@@ -86,7 +86,9 @@ toolMove.prototype.deep_copy_back = function( op )
     orig = op[ind]["ref"];
 
     if (ref["type"] == "component")
+    {
       g_controller.schematic.setComponentTransform( ref, orig["transform"] );
+    }
     if ( $.inArray( ref["type"], non_wire_type ) >= 0 )
     {
       g_controller.schematic.setNonWirePosition( ref, orig["x"], orig["y"] );
@@ -102,7 +104,9 @@ toolMove.prototype.deep_copy_back = function( op )
       }
     }
     else
+    {
       g_controller.schematic.setWire( ref, orig["startx"], orig["starty"], orig["endx"], orig["endy"] );
+    }
 
     g_painter.dirty_flag = true;
 
@@ -258,6 +262,8 @@ toolMove.prototype.doubleClick = function( button, x, y )
     {
       g_controller.tool = new toolComponentEdit(x, y, id_ref);
       g_painter.dirty_flag = true;
+
+      g_controller.schematicUpdate = true;
     }
 
   }
@@ -283,6 +289,8 @@ toolMove.prototype.mouseUp = function( button, x, y )
       g_controller.tool = new toolNav(x, y);
       //g_controller.tool.mouseMove( x, y );  // easy way to setup?
       g_painter.dirty_flag = true;
+
+      g_controller.schematicUpdate = true;
     }
   }
 
@@ -350,6 +358,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     g_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
     g_painter.dirty_flag = true;
 
+    g_controller.schematicUpdate = true;
 
   }
   else if (ch == 'I')
@@ -367,8 +376,11 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     for (var ind in this.selectedElement)
       g_controller.schematic.remove( this.selectedElement[ind] );
 
+
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
+
+    g_controller.schematicUpdate = true;
 
   }
   else if (ch == 'R')

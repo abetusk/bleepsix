@@ -128,12 +128,68 @@ function bleepsixSchematicController() {
   this.display_text_flag = true;
   this.display_text = "bleep";
 
+  this.schematicUpdated = false;
+
+  this.schematic_name_text_flag = true;
+  this.schematic_name_text = "no name";
+
+  var d = new Date();
+  var curt = d.getTime();
+
+  this.action_text_flag = true;
+  this.action_text = "init";
+  this.action_text_fade  = { sustainDur : 1500, dropoffDur : 500, T : 0, lastT: curt };
+
   var controller = this;
   //setInterval( function() { controller.redraw() } , 50 );
 }
 
+bleepsixSchematicController.prototype.fadeMessage = function ( msg )
+{
+  var d = new Date();
+  var curt = d.getTime();
+
+  this.action_text = msg;
+  this.action_text_fade.T = 0;
+  this.action_text_fade.lastT = curt;
+}
+
 bleepsixSchematicController.prototype.redraw = function ()
 {
+  var action_text_touched = false;
+  var action_text_val = 0.0;
+
+  var at_s = 0.4;
+
+
+  if (this.action_text_flag)
+  {
+    if ( this.action_text_fade.T < this.action_text_fade.sustainDur ) 
+    {
+      action_text_val = at_s ;
+      action_text_touched = true;
+    }
+    else if (this.action_text_fade.T < ( this.action_text_fade.sustainDur + this.action_text_fade.dropoffDur) )
+    {
+      var t = this.action_text_fade.sustainDur + this.action_text_fade.dropoffDur - this.action_text_fade.T;
+      action_text_val = at_s * t / this.action_text_fade.dropoffDur;
+      action_text_touched = true;
+    }
+    else
+      action_text_touched = false;
+
+    if (action_text_touched)
+    {
+      g_painter.dirty_flag = true;
+      var d = new Date();
+      var curt = d.getTime();
+      var dt = curt - this.action_text_fade.lastT;
+      this.action_text_fade.T += dt;
+      this.action_text_fade.lastT = curt;
+    }
+
+  }
+
 
   if ( g_painter.dirty_flag )
   {
@@ -169,10 +225,18 @@ bleepsixSchematicController.prototype.redraw = function ()
 
     //this.guiTextboxTest.drawChildren();
 
-	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
+	g_painter.context.setTransform ( 1, 0, 0,  1, 0, 0 );
 
     if (this.display_text_flag)
-      g_painter.drawText(this.display_text, 750, 650, "rgba(0,0,0,0.4)", 20);
+      g_painter.drawText(this.display_text, 10, 680, "rgba(0,0,0,0.4)", 15);
+      //g_painter.drawText(this.display_text, 750, 650, "rgba(0,0,0,0.4)", 15);
+
+    if (this.schematic_name_text_flag)
+      g_painter.drawText(this.schematic_name_text, 50, 10, "rgba(0,0,0,0.4)", 15);
+
+
+    if (action_text_touched)
+      g_painter.drawText(this.action_text, 10, 650, "rgba(0,0,0," + action_text_val + ")", 15);
 
     g_painter.dirty_flag = false;
 

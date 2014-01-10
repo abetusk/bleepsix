@@ -184,6 +184,7 @@ toolWire.prototype.placeWire = function()
 {
   var non_wire_type = ["component", "connection", "noconn", "text" ];
 
+  g_controller.schematicUpdate = true;
 
   // checking to see if we need to add a source connection
   //
