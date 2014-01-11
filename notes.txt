@@ -31,7 +31,7 @@ By Rama Hoetzlein and Abram Connelly"
 
   - general undo/redo
 
-  - cursor needs to change depending on tool type selected
+* - cursor needs to change depending on tool type selected
   - tool choice needs to be highlighted when active
 
   - wire placement when overlaying the wire back after placement
