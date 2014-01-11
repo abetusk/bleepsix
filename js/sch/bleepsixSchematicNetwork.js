@@ -168,7 +168,7 @@ function bleepsixSchematicNetwork( serverURL )
 
 bleepsixSchematicNetwork.prototype.slowSync = function()
 {
-  console.log("bleepsixSchematicNetwork.slowSync called");
+  //console.log("bleepsixSchematicNetwork.slowSync called");
   //g_controller.fadeMessage("bloop");
   //g_painter.dirty_flag = true;
 

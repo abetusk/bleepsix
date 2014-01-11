@@ -2648,10 +2648,10 @@ bleepsixSchematic.prototype.load_schematic = function( json )
         return;
       }
 
-      console.log(g_component_location[name]);
+      //console.log(g_component_location[name]);
       var part_json = g_component_location[name].location;
 
-      console.log("trying to load " + part_json);
+      //console.log("trying to load " + part_json);
 
 
       // A litle fancy footing here.
