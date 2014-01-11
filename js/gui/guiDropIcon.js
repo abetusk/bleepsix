@@ -87,6 +87,9 @@ guiDropIcon.prototype._icon_tab_draw_right = function()
   var path = [ [0, 0], [x+w, y], [x+w, y+h] , [0, y+h] ];
   g_painter.drawBarePolygon( path, 0, 0, color );
 
+  var l = (y+h)/5;
+  g_painter.line( 0, l, 0, 4*l, "rgba(0,0,0,0.2)", 1 );
+
 }
 
 guiDropIcon.prototype._icon_tab_draw_bottom = function()
@@ -101,6 +104,9 @@ guiDropIcon.prototype._icon_tab_draw_bottom = function()
 
   var path = [ [0, 0], [x+w, 0], [x+w-of, y+h] , [x+of, y+h] ];
   g_painter.drawBarePolygon( path, 0, 0, color );
+
+  var l = (x+w)/5;
+  g_painter.line( l, y, 4*l, y, "rgba(0,0,0,0.2)", 1 );
 
 }
 
@@ -284,9 +290,8 @@ guiDropIcon.prototype.handleEvent = function(ev)
 
 guiDropIcon.prototype.draw = function()
 {
-  if (this.showDropdown)
+  if (this.showDropdown || this.selected )
    g_painter.drawRectangle( 0, 0, this.width, this.height,  
-
                            1, "rgb(0,0,0)")
                            //true, this.bgColor );
 }

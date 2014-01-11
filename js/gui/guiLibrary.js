@@ -188,6 +188,7 @@ guiLibrary.prototype.mouseDown = function(button, x, y )
     {
       console.log("guiLibrary: got tile hit " + this.guiChildren[1].component_name );
       g_controller.tool = new toolComponentPlace( x, y, this.guiChildren[1].component_name );
+      g_controller.guiToolbox.defaultSelect();
       return true;
     }
 

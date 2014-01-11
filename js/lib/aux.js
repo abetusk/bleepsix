@@ -97,9 +97,9 @@ imageCache.prototype.draw = function( name, x, y, w, h )
     return;
   }
 
-  if ( !this.image.ready )
+  if ( !this.image[name].ready )
   {
-    console.log("WARNING: " + name + " not in ready");
+    console.log("WARNING: " + name + " not ready");
     return;
   }
 

@@ -72,6 +72,8 @@ function toolComponentEdit( mouse_x, mouse_y, id_ref )
   {
     console.log("ERROR: in toolComponentEdit constructor.  pickElement returned null");
     g_controller.tool = new toolNav(mouse_x, mouse_y);
+    g_controller.guiToolbox.defaultSelect();
+
     return;
   }
 
@@ -91,6 +93,8 @@ toolComponentEdit.prototype._handoff = function(x, y)
 { 
   g_controller.tool = new toolNav();
   g_controller.tool.mouseMove( x, y );  // easy way to setup?
+  g_controller.guiToolbox.defaultSelect();
+
   g_painter.dirty_flag = true;
 }
 
@@ -416,6 +420,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
+    g_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
 

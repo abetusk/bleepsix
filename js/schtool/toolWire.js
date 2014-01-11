@@ -240,6 +240,7 @@ toolWire.prototype.placeWire = function()
   }
 
   g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+  g_controller.guiToolbox.defaultSelect();
   g_painter.dirty_flag = true;
 
   var ele = document.getElementById("canvas");
@@ -457,6 +458,7 @@ toolWire.prototype.doubleClick = function( button, x, y )
     // do nothing but give control back to toolNav
     //
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
     var ele = document.getElementById("canvas");
@@ -624,6 +626,7 @@ toolWire.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("handing back to toolNav");
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
 

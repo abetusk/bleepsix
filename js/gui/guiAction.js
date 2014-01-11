@@ -31,6 +31,8 @@ function guiAction( name )
 
   this.width = 100;
   this.height = 20;
+  //this.width = 120;
+  //this.height = 32;
 
   this.move(10, 100);
 
@@ -151,7 +153,7 @@ guiAction.prototype._eventMouseDown = function( ev )
 {
   if (ev.owner == this.name + ":nav")
   {
-    console.log("  handing over to toolNav");
+    console.log("  handing over to toolNav (1)");
     g_controller.tool = new toolNav();
     return;
   }

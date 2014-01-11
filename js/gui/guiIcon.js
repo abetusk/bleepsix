@@ -25,6 +25,7 @@
 function guiIcon( name )
 {
   this.constructor(name);
+  this.selected = false;
 
   // debugging...
   this.uniq = parseInt(256.0*Math.random());
@@ -64,9 +65,18 @@ guiIcon.prototype.doubleClick = function(ev, x, y)
 
 guiIcon.prototype.draw = function()
 {
-   g_painter.drawRectangle( 0, 0, this.width, this.height,  
+
+  g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
+
+  if (this.selected)
+  {
+    g_painter.drawRectangle( 0, 0, this.width, this.height,  
+                             1, "rgb(0,0,0)" );
+  }
+
+
 
   if (this.drawShape)
     this.drawShape();

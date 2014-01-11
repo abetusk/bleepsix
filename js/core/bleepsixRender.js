@@ -1223,3 +1223,21 @@ bleepsixRender.prototype.drawText =
   ctx.translate( -x, -y );
 
 }
+
+// rotate text angle_deg clockwise
+//
+bleepsixRender.prototype.drawImage = 
+  function( img, x, y, w, h )
+{
+  var ctx = this.context;
+  //var angle_radian = 0.0;
+
+  ctx.translate( x, y );
+  //ctx.rotate( angle_radian );
+
+  ctx.drawImage( img, x, y, w, h );
+
+  //ctx.rotate( -angle_radian );
+  ctx.translate( -x, -y );
+
+}

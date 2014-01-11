@@ -22,7 +22,8 @@
 
 */
 
-var __icon_width = 20;
+//var __icon_width = 20;
+var __icon_width = 24;
 
 function guiToolbox( name ) 
 {
@@ -31,8 +32,10 @@ function guiToolbox( name )
   //this.bgColor = "rgba( 255, 0, 0, 0.2 )";
   this.bgColor = "rgba( 0, 0, 255, 0.2 )";
 
-  this.width = 25;
-  this.iconWidth = 20;
+  //this.width = 25;
+  //this.iconWidth = 20;
+  this.iconWidth = __icon_width;
+  this.width = this.iconWdith + 5;
 
   this.height = 4* this.iconWidth;
   this.iconHeight = this.iconWidth;
@@ -40,7 +43,8 @@ function guiToolbox( name )
   this.tabHeight = this.iconWidth;
   this.tabWidth = this.width - this.iconWidth;
 
-  this.move(10, 100);
+  //this.move(10, 100);
+  //this.move(100, 200);
 
   var cur_y = 0;
   var sz = this.iconWidth;
@@ -50,7 +54,9 @@ function guiToolbox( name )
   //
   this.iconNav = new guiIcon( name + ":nav" );
   this.iconNav.init( 0, cur_y, sz, sz);
-  this.iconNav.draw = _draw_nav_icon;
+  //this.iconNav.draw = _draw_nav_icon;
+  this.iconNav.drawShape = _draw_nav_icon;
+  this.iconNav.bgColor = "rgba(0,0,0, 0.0)";
   this.addChild( this.iconNav );
 
   cur_y += this.iconNav.height;
@@ -58,7 +64,8 @@ function guiToolbox( name )
 
   // grouped wire functions (wire, bus, etc)
   //
-  var w = new guiDropIcon( this.name + ":dropwire", 20, 20 );
+  //var w = new guiDropIcon( this.name + ":dropwire", 20, 20 );
+  var w = new guiDropIcon( this.name + ":dropwire", this.iconWidth , this.iconWidth );
   w.addIcon( this.name + ":wire", _draw_wire_icon );
   w.addIcon( this.name + ":bus" , _draw_bus_icon );
   w.move(0, cur_y);
@@ -70,7 +77,8 @@ function guiToolbox( name )
 
 
 
-  var u = new guiDropIcon( this.name + ":dropconn", 20, 20 );
+  //var u = new guiDropIcon( this.name + ":dropconn", 20, 20 );
+  var u = new guiDropIcon( this.name + ":dropconn", this.iconWidth , this.iconWidth );
   u.addIcon( this.name + ":noconn", _draw_noconn_icon );
   u.addIcon( this.name + ":conn", _draw_conn_icon );
   u.move(0, cur_y);
@@ -79,8 +87,12 @@ function guiToolbox( name )
   this.addChild( u );
 
 
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = true;
 
-  this.move(20,30);
+  //this.move(20,30);
+  //this.move(40,100);
 
 }
 
@@ -89,8 +101,13 @@ function _draw_nav_icon()
   var sz = 10;
   var sx = __icon_width/2-sz/2, sy = __icon_width/2-sz/2;
 
-  g_painter.drawRectangle( sx, sy, sz, sz, 0, "rgb(0,0,0)", true, "rgb(128,128,128)");
-  g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,255,0.2)");
+  var r = parseInt(8 * __icon_width /10);
+  g_imgcache.draw( "cursor", 3, 1, r, r );
+
+  //g_painter.drawRectangle( sx, sy, sz, sz, 0, "rgb(0,0,0)", true, "rgb(128,128,128)");
+  g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
+
+
 }
 
 function _draw_grid_tab_icon()
@@ -112,7 +129,7 @@ function _draw_gridinch_icon()
   g_painter.drawText("in", 3, 3, "rgba(0,0,0,0.5)", 12, 0, "L", "T");
   //g_painter.drawRectangle( 0, 0, 30, 30, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.1)");
   //g_painter.drawRectangle( 1, 1, 29, 29, 1, "rgba(0,0,0,0.5)");
-  g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,255,0.2)");
+  g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
 }
 
 function _draw_gridmm_icon()
@@ -159,7 +176,8 @@ function _draw_noconn_icon()
 
 function _draw_conn_icon()
 {
-  var mx = 10, my = 10, r = 3;
+  //var mx = 10, my = 10, r = 3;
+  var mx = 12, my = 12, r = 3;
   var color = "rgba(0,138,0, 0.5)";
   var width = 2;
 
@@ -181,6 +199,59 @@ function _draw_conn_tab_icon()
 }
 
 guiToolbox.inherits ( guiRegion );
+
+guiToolbox.prototype.defaultSelect = function()
+{
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = true;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+}
+
+/*
+guiToolbox.prototype.wireSelect = function()
+{
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = true;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+}
+
+guiToolbox.prototype.busSelect = function()
+{
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = true;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+}
+
+guiToolbox.prototype.connSelect = function()
+{
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = true;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+}
+
+guiToolbox.prototype.noconnSelect = function()
+{
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = true;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+}
+*/
+
 
 // children will be in weird places, so don't confine it to the box of the
 // guiToolbox.
@@ -225,11 +296,21 @@ guiToolbox.prototype._handleWireEvent = function(ev)
     console.log("  handing over to toolWire (grid)");
     g_controller.tool = new toolWire(0, 0, false);
 
+    this.dropWire.selected = true;
+
+    this.dropConn.selected = false;
+    this.iconNav.selected = false;
+
+
+    g_painter.dirty_flag = true;
+
   }
   else if (ev.owner == this.name + ":bus")
   {
     console.log("  handing over to toolWire (grid)");
     //g_controller.tool = new toolWire();
+    //this.dropWire.selected = true;
+    g_painter.dirty_flag = true;
   }
 
 }
@@ -241,11 +322,26 @@ guiToolbox.prototype._handleConnEvent = function(ev)
   {
     console.log("  handing over to toolConn");
     g_controller.tool = new toolConn(0, 0, "connection");
+
+    this.dropConn.selected = true;
+
+    this.dropWire.selected = false;
+    this.iconNav.selected = false;
+
+    g_painter.dirty_flag = true;
   }
   else if (ev.owner == this.name + ":noconn")
   {
     console.log("  handing over to toolConn");
     g_controller.tool = new toolConn(0, 0, "noconn");
+
+    this.dropConn.selected = true;
+
+    this.dropWire.selected = false;
+    this.iconNav.selected = false;
+
+    g_painter.dirty_flag = true;
+
   }
 
 }
@@ -255,8 +351,21 @@ guiToolbox.prototype._eventMouseDown = function( ev )
 {
   if (ev.owner == this.name + ":nav")
   {
-    console.log("  handing over to toolNav");
+    console.log("  handing over to toolNav (2)");
+
+    var ele = document.getElementById("canvas");
+    ele.style.cursor = "auto";
+
+
     g_controller.tool = new toolNav();
+
+    this.iconNav.selected = true;
+
+    this.dropConn.selected = false;
+    this.dropWire.selected = false;
+
+    g_painter.dirty_flag = true;
+
     return;
   }
 

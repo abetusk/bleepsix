@@ -134,6 +134,7 @@ toolConn.prototype.mouseDown = function( button, x, y )
     if (this.placeOption == "once")
     {
       g_controller.tool = new toolNav(x, y);
+      g_controller.guiToolbox.defaultSelect();
       g_painter.dirty_flag = true;
 
 
@@ -226,6 +227,7 @@ toolConn.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("handing back to toolNav");
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_controller.guiToolbox.defaultSelect();
 
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";

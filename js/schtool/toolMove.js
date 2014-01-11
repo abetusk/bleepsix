@@ -261,6 +261,7 @@ toolMove.prototype.doubleClick = function( button, x, y )
     if (id_ref.ref.type == "component")
     {
       g_controller.tool = new toolComponentEdit(x, y, id_ref);
+      g_controller.guiToolbox.defaultSelect();
       g_painter.dirty_flag = true;
 
       g_controller.schematicUpdate = true;
@@ -287,6 +288,8 @@ toolMove.prototype.mouseUp = function( button, x, y )
     if (button == 1)
     {
       g_controller.tool = new toolNav(x, y);
+      g_controller.guiToolbox.defaultSelect();
+
       //g_controller.tool.mouseMove( x, y );  // easy way to setup?
       g_painter.dirty_flag = true;
 
@@ -356,6 +359,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     // pass control back to toolNav
     g_controller.tool = new toolNav();
     g_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
+    g_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
     g_controller.schematicUpdate = true;
@@ -378,6 +382,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
 
 
     g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
     g_controller.schematicUpdate = true;

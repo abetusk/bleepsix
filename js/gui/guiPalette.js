@@ -26,7 +26,7 @@ function guiPalette( name )
 {
   this.constructor ( name )   
 
-  this.bgColor = "rgba( 0, 0, 255, 0.2 )";
+  this.bgColor = "rgba( 0, 0, 0, 0.2 )";
 
 
   this.component_row = 2;
@@ -157,6 +157,8 @@ guiPalette.prototype.hitTest = function(x, y)
       {
         console.log("guiPalette: got child hit " + this.guiChildren[ind].component_name );
         g_controller.tool = new toolComponentPlace( x, y, this.guiChildren[ind].component_name );
+
+        g_controller.guiToolbox.defaultSelect();
         return true;
       }
 

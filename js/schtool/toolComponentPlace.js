@@ -113,6 +113,7 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
 
     g_controller.tool = new toolNav();
     g_controller.tool.mouseMove( x, y );  // easy way to setup?
+    g_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
   }
   else if (button == 3)
@@ -160,6 +161,7 @@ toolComponentPlace.prototype.keyDown = function( keycode, ch, ev )
     // pass control back to toolNav
     g_controller.tool = new toolNav();
     g_controller.tool.mouseMove( this.mouse_x, this.mouse_y );  // easy way to setup?
+    g_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
 

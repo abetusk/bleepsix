@@ -30,10 +30,14 @@ function guiGrid( name )
   this.bgColor = "rgba( 0, 0, 255, 0.2 )";
 
   //this.width = 25;
-  this.width = 20;
-  this.iconWidth = 20;
+  //this.width = 20;
+  //this.iconWidth = 20;
+  this.width = 24;
+  this.iconWidth = 24;
 
-  this.height = 20;
+  //this.height = 20;
+  this.height = 24;
+
   //this.height = 4* this.iconWidth;
   this.iconHeight = this.iconWidth;
 
@@ -70,7 +74,8 @@ function guiGrid( name )
 
 
   var c = this;
-  var u = new guiDropIcon( this.name + ":dropgrid", 20, 20, true );
+  //var u = new guiDropIcon( this.name + ":dropgrid", 20, 20, true );
+  var u = new guiDropIcon( this.name + ":dropgrid", this.iconWidth, this.iconWidth, true );
   u.addIcon( this.name + ":50", this._make_text_draw_function("50") );
   u.addIcon( this.name + ":25", this._make_text_draw_function("25") );
   u.addIcon( this.name + ":10", this._make_text_draw_function("10") );
@@ -78,6 +83,7 @@ function guiGrid( name )
   u.addIcon( this.name + ":2" , this._make_text_draw_function("2") );
   u.addIcon( this.name + ":1" , this._make_text_draw_function("1") );
   u.move(cur_x, 0);
+  //u.move(0, 0);
 
   this.dropGrid = u;
   this.addChild( u );
