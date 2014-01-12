@@ -262,8 +262,30 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
     //g_schnetwork.schfullpush();
 
-    console.log("LOADING (schsnapshot)");
-    g_schnetwork.schsnapshot();
+    //console.log("LOADING (schsnapshot)");
+    //g_schnetwork.schsnapshot();
+
+    console.log("SAVING");
+    g_controller.schematic.eventSave();
+    g_controller.schematic.eventPrint();
+
+  }
+  else if (ch == 'U')
+  {
+
+    console.log("UNDO");
+    g_controller.schematic.eventUndo();
+    g_controller.schematic.eventPrint();
+
+
+  }
+  else if (ch == 'K')
+  {
+
+    console.log("REDO");
+    g_controller.schematic.eventRedo();
+    g_controller.schematic.eventPrint();
+
 
   }
   else if (ch == 'B')

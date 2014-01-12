@@ -37,7 +37,7 @@ function bleepsixSchematic()
   this.kicad_sch_json = { "element":[] };
   this.displayable = true;
 
-  this.eventStack = [];
+  this.eventStack = { n : 0, pos : 0, stack : [] };
 
   this.queued_display_component_count = 0;
 
