@@ -242,6 +242,7 @@ toolWire.prototype.placeWire = function()
   g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_controller.guiToolbox.defaultSelect();
   g_painter.dirty_flag = true;
+  g_controller.schematic.eventSave();
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";

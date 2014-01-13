@@ -304,9 +304,15 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
   //if (this.mouse_drag_button)
   else if (this.edit_state == "textmove")
   {
+
     if (button == 1)
+    {
       //this.mouse_drag_button = false;
       this.edit_state = "none";
+
+      g_controller.schematic.eventSave();
+    }
+
   }
   else if (this.edit_state == "textintermediate")
   {
@@ -438,6 +444,8 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "bs" );
 
+      g_controller.schematic.eventSave();
+
 
       pass_key = false;
 
@@ -447,6 +455,8 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
       console.log("DEL");
 
       this._addch( "", "del" );
+
+      g_controller.schematic.eventSave();
 
     }
     else if (keycode == 16)
@@ -466,6 +476,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
     {
       this.edit_state = "none";
       console.log(" locking in change...");
+
     }
     else if ((keycode == 40) || (keycode == 39)) // 38 - up, 39 - right
     {
@@ -502,6 +513,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       g_painter.dirty_flag = true;
       g_controller.schematicUpdate = true;
+      g_controller.schematic.eventSave();
 
     }
   
@@ -593,6 +605,7 @@ toolComponentEdit.prototype.keyPress = function( keycode, ch, ev  )
 
     this._addch( ch );
     g_controller.schematicUpdated = true;
+    g_controller.schematic.eventSave();
 
   }
 

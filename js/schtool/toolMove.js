@@ -294,6 +294,7 @@ toolMove.prototype.mouseUp = function( button, x, y )
       g_painter.dirty_flag = true;
 
       g_controller.schematicUpdate = true;
+      g_controller.schematic.eventSave();
     }
   }
 
@@ -386,6 +387,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
 
     g_controller.schematicUpdate = true;
+    g_controller.schematic.eventSave();
 
   }
   else if (ch == 'R')
@@ -424,6 +426,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
       g_controller.schematic.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
     g_painter.dirty_flag = true;
+    g_controller.schematic.eventSave();
 
   }
 

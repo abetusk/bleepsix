@@ -124,11 +124,17 @@ toolConn.prototype.mouseDown = function( button, x, y )
       {
         g_controller.schematic.addNoconn( this.mouse_world_xy.x, this.mouse_world_xy.y );
         g_controller.schematicUpdate = true;
+
+        g_controller.schematic.eventSave();
+
       }
       else if (this.connType == "connection")
       {
         g_controller.schematic.addConnection( this.mouse_world_xy.x, this.mouse_world_xy.y );
         g_controller.schematicUpdate = true;
+
+        g_controller.schematic.eventSave();
+
       }
 
     if (this.placeOption == "once")

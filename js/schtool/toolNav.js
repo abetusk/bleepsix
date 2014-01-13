@@ -180,6 +180,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   if ( keycode == 188 )
   {
 
+    /*
     var ele = document.getElementById("canvas");
 
     //ele.style.cursor = "url('/bleepsix/img/cursor_custom_test_s24.png') 4 3, cursor";
@@ -191,13 +192,24 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //$("#canvas").css(" cursor: url('/bleepsix/img/cursor_custom_test_s24.png') 3 2 , auto; ");
     
     console.log("<??");
+    */
+    console.log("< UNDO");
+    g_controller.schematic.eventUndo();
+    g_controller.schematic.eventPrint();
+
   }
   else if ( keycode == 190 )
   {
 
+    /*
     var ele = document.getElementById("canvas");
     ele.style.cursor = " auto ";
     console.log(">??");
+    */
+
+    console.log("> REDO");
+    g_controller.schematic.eventRedo();
+    g_controller.schematic.eventPrint();
   }
 
   var x = this.mouse_cur_x;
@@ -209,11 +221,11 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   var wx = wc["x"];
   var wy = wc["y"];
 
-  if ( ch == '1' ) {
+  if ( ch == '1' ) {  // no grid
     g_painter.setGrid ( 0 );
-  } else if ( ch == '2' ) {
+  } else if ( ch == '2' ) {  // point grid
     g_painter.setGrid ( 1 );
-  } else if ( ch == '3' ) {
+  } else if ( ch == '3' ) {  // line grid
     g_painter.setGrid ( 2 );
   } else if (ch == 'A') {
     /*
@@ -265,41 +277,49 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //console.log("LOADING (schsnapshot)");
     //g_schnetwork.schsnapshot();
 
+    /*
     console.log("SAVING");
     g_controller.schematic.eventSave();
     g_controller.schematic.eventPrint();
+    */
 
   }
   else if (ch == 'U')
   {
 
+    /*
     console.log("UNDO");
     g_controller.schematic.eventUndo();
     g_controller.schematic.eventPrint();
+    */
 
 
   }
   else if (ch == 'K')
   {
 
+    /*
     console.log("REDO");
     g_controller.schematic.eventRedo();
     g_controller.schematic.eventPrint();
+    */
 
 
   }
   else if (ch == 'B')
   {
 
+    /*
     //uploadSchematic( g_controller.schematic.kicad_sch_json );
     uploadSchematic( );
 
     console.log("SAVING (schfullpush)");
     g_schnetwork.schfullpush();
+    */
 
 
   }
-  else if (ch == 'C')
+  else if (ch == 'C')  // copy
   {
     var id_ref = g_controller.schematic.pick( wx, wy );
 
@@ -314,7 +334,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'P')
   {
-    takeSnapShotPicture();
+    //takeSnapShotPicture();
   }
   else if (ch == 'J')
   {
@@ -324,6 +344,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
 
     g_controller.schematicUpdate = true;
+    g_controller.schematic.eventSave();
   }
   else if (ch == 'X')
   {
@@ -334,6 +355,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
 
     g_controller.schematicUpdate = true;
+    g_controller.schematic.eventSave();
   }
   else if (ch == 'S')
   {
@@ -362,7 +384,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     return true;
 
   }
-  else if (ch == 'R')
+  else if (ch == 'R') // rotate
   {
     var id = g_controller.schematic.pick( wx, wy );
     if ( id && (id["ref"]["type"] == "component") )
@@ -370,9 +392,10 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       g_controller.schematic.rotate90( id, true );
 
       g_controller.schematicUpdate = true;
+      g_controller.schematic.eventSave();
     }
   }
-  else if (ch == 'E')
+  else if (ch == 'E')  // etator
   {
     var id = g_controller.schematic.pick( wx, wy );
     if ( id && (id["ref"]["type"] == "component") )
@@ -380,6 +403,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       g_controller.schematic.rotate90( id, false );
 
       g_controller.schematicUpdate = true;
+      g_controller.schematic.eventSave();
     }
 
   }
@@ -392,6 +416,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       g_controller.schematic.rotate90( id, false );
 
       g_controller.schematicUpdate = true;
+      g_controller.schematic.eventSave();
     }
 
   }
@@ -415,6 +440,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         {
           g_controller.schematic.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
+          g_controller.schematic.eventSave();
           return true;
         }
       }
@@ -426,6 +452,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         {
           g_controller.schematic.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
+          g_controller.schematic.eventSave();
           return true;
         }
       }
@@ -437,12 +464,14 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         {
           g_controller.schematic.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
+          g_controller.schematic.eventSave();
           return true;
         }
       }
 
       g_controller.schematic.remove( id_ref_ar[0] );
       g_painter.dirty_flag = true;
+      g_controller.schematic.eventSave();
       return true;
 
     }

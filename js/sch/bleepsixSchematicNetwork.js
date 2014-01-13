@@ -343,8 +343,7 @@ bleepsixSchematicNetwork.prototype.schsnapshotResponse = function( data )
   console.log(json_data);
 
   g_controller.schematic.load_schematic(json_data);
-
-  //g_controller.schematic
+  g_controller.schematic.eventSave();
 
 }
 
