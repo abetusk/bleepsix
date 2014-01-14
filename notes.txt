@@ -29,7 +29,7 @@ By Rama Hoetzlein and Abram Connelly"
     parts) (e.g. CP1 electrolytic cap in palette)
     ?? is this the same issue?
 
-  - general undo/redo
+* - general undo/redo
 
 * - cursor needs to change depending on tool type selected
   - tool choice needs to be highlighted when active
@@ -40,7 +40,6 @@ By Rama Hoetzlein and Abram Connelly"
 
   - bulk select and copy.
 
-  - tool tips
 
 * - component text (field text 0 and 1) editing
 * - component text (field text 0 and 1) moving
@@ -53,11 +52,11 @@ By Rama Hoetzlein and Abram Connelly"
   - login functionality
 
 * - automatic server side saving
-    . give UUID (or something) to anonymous schematic
+*   . give UUID (or something) to anonymous schematic
     . give permalink
 
   still unimplemented:
-    . allow login/registration and allow schematic association 
+*   . allow login/registration and allow schematic association 
 
   - search part name in the library window
     . put it in it's own box, seperate from the library window.
@@ -83,6 +82,25 @@ By Rama Hoetzlein and Abram Connelly"
     but are center justified when placing.
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  - clipboard functionality (copy from another diagram to put into yours)
+    - send to 'clipboard' over the wire
+    - retrieve clipboard in your schematic.
+    - have a list of patterns that you can add to, search and use in your
+      schematic/board (snippet? snip? fragment? plumb? morsel? morceau?
+      fragment?)
+
+  - implement intelligent delta updates (delta updates rather than bulk copies
+    for state save) when saving over the wire
+
+  - implement undo/redo functionality so that history comes from database delta
+    updates 
+
+  - command pattern
+
+  - command line interface
+
+  - tool tips
 
   - copy/paste functionality, in schematic and between schematics
 
