@@ -222,7 +222,8 @@ toolMove.prototype.drawOverlay = function()
                              true, "rgba(0,0,0,0.25)");
   }
 
-  //g_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
+  g_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
+  //g_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
 
 }
 
@@ -311,6 +312,10 @@ toolMove.prototype.mouseMove = function( x, y )
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
+
+  this.snap_world_xy = 
+    g_snapgrid.snapGrid( g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y ) );
+
 
   if (this.mouse_drag_button == false)
   {

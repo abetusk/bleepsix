@@ -92,6 +92,9 @@ toolComponentPlace.prototype.drawOverlay = function()
                                         parseFloat(this.world_xy["y"]), 
                                         this.transform, true );
 
+
+  g_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
+
 }
 
 toolComponentPlace.prototype.mouseDown = function( button, x, y )

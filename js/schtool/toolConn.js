@@ -91,6 +91,8 @@ toolConn.prototype.drawOverlay = function()
                            "rgb(128, 128, 128 )" );
 
 
+  g_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
+
 }
 
 //-----------------------------

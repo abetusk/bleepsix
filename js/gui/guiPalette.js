@@ -135,9 +135,10 @@ guiPalette.prototype.draw = function()
                            true, this.bgColor );
 
 
-  g_painter.line( this.border_pos_x, 0, this.border_pos_x, this.height,
+  //g_painter.line( this.border_pos_x, 0, this.border_pos_x, this.height,
+  g_painter.line( this.border_pos_x, 5, this.border_pos_x, this.height-5,
                   "rgba(0,0,0, 0.2)",
-                  this.tile_border/2 );
+                  this.tile_border/4 );
 }
 
 // override hitTest and change tool if we've picked a component
