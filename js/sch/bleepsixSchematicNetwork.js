@@ -340,7 +340,8 @@ bleepsixSchematicNetwork.prototype.schsnapshotResponse = function( data )
   //console.log(data);
 
   var json_data = JSON.parse(data);
-  console.log(json_data);
+
+  //console.log(json_data);
 
   g_controller.schematic.load_schematic(json_data);
   g_controller.schematic.eventSave();

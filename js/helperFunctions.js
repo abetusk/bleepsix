@@ -81,7 +81,12 @@ function takeSnapShotPicture()
     type: 'POST',
     data: str_data,
     success: successSnapshotPicture,
-    error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+    error: function(jqxhr, status, err) { 
+      console.log("meowDataManager ERROR"); 
+      console.log(jqxhr); 
+      console.log(status); 
+      console.log(err); 
+    }
   });
 
   handleSnap( clientToken );
