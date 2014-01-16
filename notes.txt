@@ -43,6 +43,8 @@ By Rama Hoetzlein and Abram Connelly"
 
   - bulk select and copy.
 
+  - text tool
+  - render labels properly
 
 * - component text (field text 0 and 1) editing
 * - component text (field text 0 and 1) moving
