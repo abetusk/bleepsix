@@ -29,7 +29,8 @@ By Rama Hoetzlein and Abram Connelly"
     parts) (e.g. CP1 electrolytic cap in palette)
     ?? is this the same issue?
 
-  BUG: loading schematic doesn't push onto 'undo' list
+* BUG: loading schematic doesn't push onto 'undo' list
+  fixed: in bleepsix_sch.html, eventSave after load_schematic
 
 * - general undo/redo
 

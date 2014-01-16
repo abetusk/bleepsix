@@ -424,10 +424,6 @@
 
       function uploadComplete(x)
       {
-        console.log("upload complete: ");
-        //console.log(x);
-        console.log(this.response);
-        //var json_data = eval( "(" + this.response + ")" );
         var json_data = JSON.parse( this.response  );
         if ( json_data["type"] == "error" )
         {
@@ -436,6 +432,7 @@
         else
         {
           g_controller.schematic.load_schematic( json_data );
+          g_controller.schematic.eventSave();
           g_controller.schematicUpdate = true;
         }
       }

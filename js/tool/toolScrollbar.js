@@ -75,7 +75,20 @@ toolScrollbar.prototype.drawOverlay = function()
 toolScrollbar.prototype.mouseDown = function( button, x, y ) 
 {
 
-  console.log("toolScrollbar.mouseDown: ignoring mousedown");
+  console.log("toolScrollbar.mouseDown: handing back control ");
+
+  if (typeof this.orig_tool === 'undefined' )
+  {
+    g_controller.tool = new toolNav(x, y);
+    g_painter.dirty_flag = true;
+  }
+  else
+  {
+    g_controller.tool = this.orig_tool;
+    g_controller.tool.update(x,y);
+    g_painter.dirty_flag = true;
+  }
+
 
   // ignore
   return;
