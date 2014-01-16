@@ -29,10 +29,12 @@ By Rama Hoetzlein and Abram Connelly"
     parts) (e.g. CP1 electrolytic cap in palette)
     ?? is this the same issue?
 
+  BUG: loading schematic doesn't push onto 'undo' list
+
 * - general undo/redo
 
 * - cursor needs to change depending on tool type selected
-  - tool choice needs to be highlighted when active
+* - tool choice needs to be highlighted when active
 
   - wire placement when overlaying the wire back after placement
     KiCAD does this is in an weird (but intuitive) way that 
@@ -49,13 +51,15 @@ By Rama Hoetzlein and Abram Connelly"
 * - export kicad schematic
 
 
-  - login functionality
+* - login functionality
+  - anonymous use functionality 
+    . only 1 portfolio that is private.
+    . only public snapshots allowed to be taken
+    . allow for easy upgrade path
 
 * - automatic server side saving
 *   . give UUID (or something) to anonymous schematic
-    . give permalink
-
-  still unimplemented:
+*   . give permalink
 *   . allow login/registration and allow schematic association 
 
   - search part name in the library window
@@ -65,7 +69,7 @@ By Rama Hoetzlein and Abram Connelly"
       add a 'tab' onto the library window to switch between search mode
       and library view, but search should still be it's own window.
 
-  - not all pin types are rendered properly.  Render all pin types
+* - not all pin types are rendered properly.  Render all pin types
     (clock, etc.)
 
 * - copying components inherets text properties (numbering?)
@@ -82,6 +86,8 @@ By Rama Hoetzlein and Abram Connelly"
     but are center justified when placing.
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  - visual diff between revs
 
   - clipboard functionality (copy from another diagram to put into yours)
     - send to 'clipboard' over the wire

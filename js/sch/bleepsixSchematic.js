@@ -1193,8 +1193,10 @@ bleepsixSchematic.prototype.drawComponentPinLine = function( pin_entry, x, y, tr
   var electrical_type = pin_entry["electrical_type"];
   var pin_type = pin_entry["pin_type"]
 
-  if      (pin_entry["direction"] == "D" ) { cy =  elec_I_diam; }
-  else if (pin_entry["direction"] == "U" ) { cy = -elec_I_diam; }
+  //if      (pin_entry["direction"] == "D" ) { cy =  elec_I_diam; }
+  //else if (pin_entry["direction"] == "U" ) { cy = -elec_I_diam; }
+  if      (pin_entry["direction"] == "D" ) { cy = -elec_I_diam; }
+  else if (pin_entry["direction"] == "U" ) { cy =  elec_I_diam; }
   else if (pin_entry["direction"] == "L" ) { cx = -elec_I_diam; }
   else if (pin_entry["direction"] == "R" ) { cx =  elec_I_diam; }
 
@@ -1212,17 +1214,45 @@ bleepsixSchematic.prototype.drawComponentPinLine = function( pin_entry, x, y, tr
   var x1 = p_t[1][0] ;
   var y1 = p_t[1][1] ;
 
+  var dx = x1 - x0;
+  var dy = y1 - y0;
+  var dirx = 1;
+  var diry = 1;
+
   var r = 12.5;
+
+  var subx = 0;
+  var suby = 0;
 
   if ( pin_type && pin_type.match(/I/) ) 
   {
     g_painter.circle( x1 - c_t[0]/2, y1 - c_t[1]/2, elec_I_diam/2, line_width, color );
-    g_painter.line( x0, y0, x1 - c_t[0], y1 - c_t[1], color, line_width );
+    subx = c_t[0];
+    suby = c_t[1];
   }
-  else
+  
+  if ( pin_type && pin_type.match(/C/) )  // clock
   {
-    g_painter.line( x0, y0, x1, y1, color, line_width );
+    var path = [ [ 0, 0], [0, 40], [40, 0], [0, -40] ];
+    var path_r = numeric.transpose( numeric.dot( transform, numeric.transpose(path) ) );
+    g_painter.drawPolygon( path_r , x1, y1, color, false, line_width );
   }
+
+  if ( pin_type && pin_type.match(/V/) )  // clock
+  {
+    var path = [ [0,0], [80, 0], [0, 40] ];
+    var path_r = numeric.transpose( numeric.dot( transform, numeric.transpose(path) ) );
+    g_painter.drawPolygon( path_r , x1, y1, color, false, line_width );
+  }
+
+  if ( pin_type && pin_type.match(/L/) )  // clock
+  {
+    var path = [ [-80,0], [-80, 40], [0, 0] ];
+    var path_r = numeric.transpose( numeric.dot( transform, numeric.transpose(path) ) );
+    g_painter.drawPolygon( path_r , x1, y1, color, false, line_width );
+  }
+
+  g_painter.line( x0, y0, x1 - subx, y1 - suby, color, line_width );
 
   if (pin_entry["visible"])
     g_painter.circle( x0, y0, r, 1, color );
