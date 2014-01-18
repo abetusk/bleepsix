@@ -194,7 +194,7 @@ bleepsixBoard.prototype._ratsnest_make_endpoint_hash = function( endpoint_hash, 
 // 4) Connect disparate airwire clusters, remove duplicates, populate
 //    this.kiacd_bard_json.net_code_airwire_map with new airwires
 //
-bleepsixBoard.prototype._update_single_ratsnest = function( netcode )
+bleepsixBoard.prototype._update_single_ratsnest_old = function( netcode )
 {
 
   var net_id_ref = this._filter_copper_elements( netcode );
@@ -752,12 +752,7 @@ bleepsixBoard.prototype._ratsnest_decorate_coarse_group_with_group_name = functi
  
 }
 
-
-// Access function
-// Not specifying netcode will update all netcodes
-// Will update this.kicad_brd_json.net_code_airwire_map
-//
-bleepsixBoard.prototype.updateRatsNest = function( netcode )
+bleepsixBoard.prototype.updateRatsNest_old = function( netcode )
 {
   if (typeof netcode !== 'undefined')
   {
@@ -781,4 +776,119 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode )
   g_painter.dirty_flag = true;
 
 }
+
+function distance_metric(a,b)
+{
+  return (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]);
+}
+
+
+// Access function
+// Not specifying netcode will update all netcodes
+// Updates this.kicad_brd_json.net_code_airwire_map
+//
+bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds )
+{
+  // anything below this and it'll probably just bog down too much.
+  //
+  ds = ( (typeof ds === 'undefined') ? 100 : ds );
+  if (ds <=  0) ds = 100;
+
+  var net_id_ref = this._filter_copper_elements( netcode );
+
+  var verts = [];
+
+  for (var ind in net_id_ref)
+  {
+    var ele = net_id_ref[ind];
+    var type = ele.type;
+    var ref = ele.ref;
+    
+    if (type == "pad")
+    {
+      var pad_ref = ele.pad_ref;
+      var cx = parseFloat( ref.x );
+      var cy = parseFloat( ref.y );
+      var ma = parseFloat( ref.angle );
+
+      var px = parseFloat( pad_ref.posx );
+      var py = parseFloat( pad_ref.posy );
+      var pa = parseFloat( pad_ref.angle );
+
+      var u = numeric.dot( this._R( ma ), [ px, py ] );
+
+      verts.push( [ cx + u[0], cy + u[1] ] );
+    }
+    else if (type == "track")
+    {
+      var x0 = parseFloat(ref.x0);
+      var y0 = parseFloat(ref.y0);
+
+      verts.push( [ x0, y0 ] );
+      if (ref.shape == "track")
+      {
+
+        var x1 = parseFloat(ref.x1);
+        var y1 = parseFloat(ref.y1);
+        verts.push( [ x1, y1 ] );
+
+        var dx = x1 - x0;
+        var dy = y1 - y0;
+        var dl = Math.sqrt( (dx*dx) + (dy*dy) );
+
+        if (dl == 0) continue;
+
+        for (var dt=ds; dt < dl; dt += ds)
+          verts.push( [ x0 + (dx*dt/dl), y0 + (dy*dt/dl) ] );
+
+      }
+    }
+  }
+
+  var edges = EuclideanMST.euclideanMST( verts, distance_metric );
+
+  var min_seg_len_sq = (ds+1)*(ds+1);
+
+  for (var ind in edges)
+  {
+    var u =  edges[ind][0];
+    var v =  edges[ind][1];
+    var seg = { x0 : verts[u][0], y0 : verts[u][1], x1 : verts[v][0], y1 : verts[v][1] };
+
+    var l2 = (seg.x0 - seg.x1)*(seg.x0 - seg.x1) + (seg.y0 - seg.y1)*(seg.y0 - seg.y1);
+    if (l2 <= min_seg_len_sq)
+      continue;
+
+    this.kicad_brd_json.net_code_airwire_map[ netcode ].push( seg );
+  }
+
+}
+
+bleepsixBoard.prototype.updateRatsNest = function( netcode )
+{
+  if (typeof netcode !== 'undefined')
+  {
+
+    if (!("net_code_airwire_map" in this.kicad_brd_json))
+      this.kicad_brd_json.net_code_airwire_map = {};
+
+    this.kicad_brd_json.net_code_airwire_map[netcode] = [];
+    this._update_single_ratsnest(netcode);
+
+    g_painter.dirty_flag = true;
+    return;
+  }
+
+  this.kicad_brd_json.net_code_airwire_map = {};
+  for (var nc in this.kicad_brd_json.net_code_map)
+  {
+    this.kicad_brd_json.net_code_airwire_map[nc] = [];
+    this._update_single_ratsnest(nc);
+  }
+
+  g_painter.dirty_flag = true;
+
+
+}
+
 

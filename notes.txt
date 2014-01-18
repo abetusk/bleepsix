@@ -15,6 +15,28 @@ Parts based on Bleepsix v1. BSD license.
 By Rama Hoetzlein and Abram Connelly"
  
 
+== OTHER
+
+  - qna site
+  - issue tracking/ranking
+  - community forums
+    (it would be nice for all three of these to use the same authentication)
+
+  - feedback forms
+  - project/schematic/board searching 
+
+== BOTH
+
+  - schematic board communication:
+  Add a copy of it's sister structure.  So the schematic will have a board and
+  the board will have a schematic.  Keep a sequence number for both.  When
+  updating the schematic, update the sequence number and update the local copy
+  of the board.  Push the change over the network.  Have the server push the
+  change to all open connections.  If the received change has a higher
+  sequence number than what's available, replace it.
+
+== SCH
+
 * BUG: text not rendering on text fields for rotated components (display test
      has some examples)
   fixed: when component was 'flipped' (determinant changed) didn't take it
@@ -179,7 +201,7 @@ By Rama Hoetzlein and Abram Connelly"
     to allow for those functions.
 
 
-pcb editor:
+== PCB
 
   BUG: need to record last _unconnected_ point for trace placement or
        else it might have happened to land on the track in the small
@@ -188,6 +210,8 @@ pcb editor:
   ISSUE: when doing pours, there is sometimes a very weak connection.
       KiCAD has a concept of minimum width, under which it doesn't
       connect.  We need to figure out how to realize this reasonably.
+
+  ISSUE: rat's nest is very slow.
 
 * - text for board and footprints
   * . text for footprints working at least...
@@ -200,7 +224,6 @@ pcb editor:
       a global gradient instead of just a local one.
 
   - pcb edges
-
 
   - GUI tools for:
     . track
