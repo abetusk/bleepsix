@@ -52,7 +52,7 @@ imageCache.prototype.add = function( name, path )
   var obj = {};
 
   //DEBUG
-  console.log("add: " + name + " " + path);
+  //console.log("add: " + name + " " + path);
 
   obj.path = path;
   obj.ready = 0;
@@ -61,7 +61,7 @@ imageCache.prototype.add = function( name, path )
   obj.image.onload = function() { 
 
     //DEBUG
-    console.log("image " + name + " " + path + " ready");
+    //console.log("image " + name + " " + path + " ready");
 
     obj.ready = 1; 
 
@@ -76,13 +76,13 @@ imageCache.prototype.remove = function( name )
 {
 
   //DEBUG
-  console.log("remove " + name);
+  //console.log("remove " + name);
 
   if (name in this.image)
   {
 
     //DEBUG
-    console.log(" found it, deleting " + name);
+    //console.log(" found it, deleting " + name);
 
 
     delete this.image[name];

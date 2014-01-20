@@ -68,6 +68,9 @@ bleepsixSchematicNetwork.prototype.clear  = function ( )
   this.initialized = false;
   this.connected = false;
 
+  this.usingRecentSchematiFlag = false;
+  this.usingUrlSchematiFlag = false;
+
   this.dirty_flag = false;
 
 }
@@ -131,8 +134,10 @@ function bleepsixSchematicNetwork( serverURL )
   this.socket.on( "schfullpush", 
       function(data) { p.schfullpushResponse( data ); } );
 
-  this.socket.on( "anonymous", 
-      function(data) { p.anonymousResponse( data ); } );
+  //this.socket.on( "projectrecent", function(data) { p.projectrecentResponse( data ); } );
+
+  this.socket.on( "anonymouscreate", 
+      function(data) { p.anonymousCreateResponse( data ); } );
 
 
 
@@ -190,6 +195,7 @@ bleepsixSchematicNetwork.prototype.slowSync = function()
 // If we have a schematicId, use it, else create a new one
 // If we have a userId and sessionId, use it, else
 //   try to get an anonymous account
+//
 bleepsixSchematicNetwork.prototype.init = function()
 {
   this.connected = true;
@@ -214,13 +220,13 @@ bleepsixSchematicNetwork.prototype.init = function()
     //this.sessionId = -1;
     this.anonymous = true;
 
-    console.log("getting anonymous credentials");
+    console.log("getting anonymous credentials (emitting 'anonymouscreate')");
 
     // this will create an anonymous user, create a sessionId for the
     // anonymous user and create a new project with a schematicId 
     // for us to use.
     //
-    this.socket.emit( "anonymous" );
+    this.socket.emit( "anonymouscreate" );
     return;
   }
 
@@ -236,15 +242,73 @@ bleepsixSchematicNetwork.prototype.init = function()
   //
   if ( typeof this.schematicId === 'undefined')
   {
-    console.log("no schematicId, emitting meow");
-    this.socket.emit( "meow", { userId : this.userId, sessionId: this.sessionId  });
+    if ($.cookie("recentSchematicId"))
+    {
+
+      console.log("authentication most recent schematic id");
+
+      this.usingRecentSchematicFlag = true;
+
+      this.schematicId = $.cookie("recentSchematicId");
+      this.socket.emit("schauth", { userId: this.userId, sessionId:this.sessionId, schematicId: this.schematicId });
+      return;
+    }
+
+    // get the most recent project
+    // if no most recent project, create a random one
+    //
+
+    console.log("CHECKPOINT");
+
+    var container = {
+      type : "startupProject",
+      userId : this.userId,
+      sessionId : this.sessionId,
+      data: "nop"
+    };
+
+    var xx = this;
+    var str_data = JSON.stringify( container );
+    $.ajax({
+      type: "POST",
+      url: "cgi/meowDataManager.py",
+      data: str_data,
+      success: function(data) { xx.loadStartupProject(data); },
+      error: function( jqxhr, status, err) {
+        console.log("error posting load recent project");
+        console.log(jqxhr);
+        console.log(status);
+        console.log(err);
+      }
+    });
+
+
+    //console.log("no schematicId, emitting meow");
+    //this.socket.emit( "meow", { userId : this.userId, sessionId: this.sessionId  });
   }
   else
   {
     console.log("emitting schauth");
+
+    this.usingUrlSchematicFlag = true;
     this.socket.emit("schauth", { userId: this.userId, sessionId:this.sessionId, schematicId: this.schematicId });
   }
 
+}
+
+bleepsixSchematicNetwork.prototype.loadStartupProject = function( data )
+{
+  console.log("loadStartupProject");
+  console.log(data);
+
+  if ((data) && (data.type == "success"))
+  {
+
+    console.log("emitting schauth from loadStartupProject");
+
+    this.schematicId = data.schematicId;
+    this.socket.emit("schauth", { userId: this.userId, sessionId:this.sessionId, schematicId: this.schematicId });
+  }
 }
 
 
@@ -263,9 +327,13 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
   var typ = data.type;
   var stat = data.status;
   var msg = data.message;
-  var projId = data.projId;
-  var schId = data.schId;
-  var brdId = data.brdId;
+  var projId = data.projectId;
+  var schId = data.schematicId;
+  var brdId = data.boardId;
+
+  //var projId = data.projId;
+  //var schId = data.schId;
+  //var brdId = data.brdId;
 
   if ((typ != "response") || (stat != "success"))
   {
@@ -276,6 +344,11 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
   this.projectId    = projId;
   this.schematicId  = schId;
   this.boardId      = brdId;
+
+  $.cookie("recentProjectId",   this.projectId,   {expires:365, path:'/', secure:true });
+  $.cookie("recentSchematicId", this.schematicId, {expires:365, path:'/', secure:true });
+  $.cookie("recentBoardId",     this.boardId,     {expires:365, path:'/', secure:true });
+
 
   var msg = {};
   msg.userId        = this.userId;
@@ -291,15 +364,58 @@ bleepsixSchematicNetwork.prototype.schauthResponse = function( data )
   console.log("authschResponse:");
   console.log(data);
 
-  console.log("userId: " + this.userId);
-  console.log("sessionid: " + this.sessionId);
-  console.log("schematicId: " + this.schematicId);
+  if (data && (data.type == "response") && (data.status == "success") )
+  {
 
-  this.schematicName = data.projectName + " / " + data.schematicName;
-  g_controller.schematic_name_text = this.schematicName;
+    console.log("userId: " + this.userId);
+    console.log("sessionid: " + this.sessionId);
+    console.log("schematicId: " + this.schematicId);
 
-  this.schsnapshot();
-  //this.socket.emit("schsnapshot", { userId: this.userId, sessionId : this.sessionId, schematicId: this.schematicId });
+    $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
+    $.cookie("recentSchematicId",   this.schematicId, {expires:365, path:'/', secure:true });
+    $.cookie("recentBoardId",       data.boardId, {expires:365, path:'/', secure:true });
+    //$.cookie("recentBoardId",       this.boardId,     {expires:365, path:'/', secure:true });
+
+    this.schematicName = data.projectName + " / " + data.schematicName;
+    g_controller.schematic_name_text = this.schematicName;
+
+    this.schsnapshot();
+    //this.socket.emit("schsnapshot", { userId: this.userId, sessionId : this.sessionId, schematicId: this.schematicId });
+
+  }
+  else if ( (this.usingRecentSchematicFlag) ||
+            (this.usingUrlSchematicFlag) )
+  {
+
+    if (this.usingUrlSchematicFlag)
+    {
+      window.history.replaceState( {}, 'title', '/bleepsix/bleepsix_sch' );
+    }
+
+    var container = {
+      type : "startupProject",
+      userId : this.userId,
+      sessionId : this.sessionId,
+      data: "nop"
+    };
+
+    var xx = this;
+    var str_data = JSON.stringify( container );
+    $.ajax({
+      type: "POST",
+      url: "cgi/meowDataManager.py",
+      data: str_data,
+      success: function(data) { xx.loadStartupProject(data); },
+      error: function( jqxhr, status, err) {
+        console.log("error posting load recent project");
+        console.log(jqxhr);
+        console.log(status);
+        console.log(err);
+      }
+    });
+
+  }
+
 }
 
 bleepsixSchematicNetwork.prototype.schsnapshot = function()
@@ -330,7 +446,7 @@ bleepsixSchematicNetwork.prototype.schsnapshotResponse = function( data )
   var rmsg = data.message;
   var data = data.data;
 
-  if ( (typ != "response") && (stat != "success") )
+  if ( (typ != "response") || (stat != "success") )
   {
     console.log("schsnapshot response error, got data:");
     console.log(data);
@@ -370,10 +486,44 @@ bleepsixSchematicNetwork.prototype.schfullpush = function( data )
   this.socket.emit( "schfullpush", msg );
 }
 
-bleepsixSchematicNetwork.prototype.anonymousResponse = function( data )
+bleepsixSchematicNetwork.prototype.anonymousCreateResponse = function( data )
 {
-  console.log("anonymousResponse:");
+  console.log("anonymousCreateResponse:");
   console.log(data);
+
+  if (!data) { console.log("bleepsixSchematicNetwork.anonymouseCreateResponse: ERROR: data NULL!"); return; }
+
+  if ( (data.type == "response") && 
+       (data.status == "success") )
+  {
+    console.log("anonymous create success!");
+
+    this.userId = data.userId;
+    this.sessionId = data.sessionId;
+    this.schematicId = data.schematicId;
+    this.boardId = data.boardId;
+    this.projectId = data.projectId;
+
+    console.log("setting cookies");
+    $.cookie("userId",      this.userId,    {expires:365, path:'/', secure:true });
+    $.cookie("sessionId",   this.sessionId, {expires:365, path:'/', secure:true });
+    $.cookie("userName", "anonymous", {expires:365, path:'/', secure:true });
+
+    $.cookie("recentProjectId",     this.projectId,   {expires:365, path:'/', secure:true });
+    $.cookie("recentSchematicId",   this.schematicId, {expires:365, path:'/', secure:true });
+    $.cookie("recentBoardId",       this.boardId,     {expires:365, path:'/', secure:true });
+
+    this.socket.emit("schauth", { userId: this.userId, sessionId:this.sessionId, schematicId: this.schematicId });
+
+
+  }
+  else
+  {
+    console.log("bleepsixSchematicNetwork.anonymousCreateResponse: ERROR: got data:");
+    console.log(data);
+  }
+
+
 }
 
 // push a 'keyframe'
@@ -452,7 +602,7 @@ bleepsixSchematicNetwork.prototype.meowResponse = function( data )
   // So, authentication failed...should we create a new anonymous
   // account?
   //
-  this.socket.emit( "anonymous" );
+  this.socket.emit( "anonymouscreate" );
 
   return;
 
