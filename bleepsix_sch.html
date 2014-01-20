@@ -174,6 +174,11 @@
 
       var g_schnetwork = null;
 
+      function canvasFocus()
+      {
+        var c = document.getElementById("canvas");
+        c.focus();
+      }
 
 	  function loop() {
 		
@@ -481,6 +486,8 @@
         var n = files.length;
         for (var i=0; i<n; i++)
           sendFile(files[i]);
+
+        canvasFocus();
       }
 
       function foo( files)
@@ -501,21 +508,21 @@
     <!-- <div class="file_button_container" id='fileButton'>  -->
     <!-- <div class="upload_button" id='fileButton'>  -->
     <div class="upload_button" id='uploadButton'> 
-      <input class='upload_button' id='fileElement' type="file" onchange="handleFiles(this.files)" onclick="this.value=null;"  />
+      <input class='upload_button' id='fileElement' type="file" onchange="handleFiles(this.files); canvasFocus();" onclick="this.value=null;"  />
     </div>
 
     <div class="download_button" id='downloadButton'> 
-      <input class='download_button' type="image" src='img/download.png' style=' height:32px; width:32px;' value='download' onclick="downloadSchematic();"  />
+      <input class='download_button' type="image" src='img/download.png' style=' height:32px; width:32px;' value='download' onclick="downloadSchematic(); canvasFocus();"  />
     </div>
 
     <!-- <div class="file_button_container" id="snapButton"> -->
     <div class="snapshot_button" id="snapButton"> 
       <!-- <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" /> -->
-      <input id='snapElement' type='image' src='img/camera.png' style=' height: 32px; width: 32px;' value="click me" onclick="takeSnapShotPicture();" /> 
+      <input id='snapElement' type='image' src='img/camera.png' style=' height: 32px; width: 32px;' value="click me" onclick="canvasFocus(); takeSnapShotPicture();" /> 
     </div>
 
     <div class="generic_button" id='homeButton'> 
-      <input class='generic_button' type="image" src='img/kitty_head_black_outline_p32.png' style=' height:26px; width:26px;' value'download' onclick="goHome();"  />
+      <input class='generic_button' type="image" src='img/kitty_head_black_outline_p32.png' style=' height:26px; width:26px;' value'download' onclick="canvasFocus(); goHome();"  />
     </div>
 
     <canvas 
