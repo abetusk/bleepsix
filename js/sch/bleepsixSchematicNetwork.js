@@ -271,7 +271,7 @@ bleepsixSchematicNetwork.prototype.init = function()
     var str_data = JSON.stringify( container );
     $.ajax({
       type: "POST",
-      url: "cgi/meowDataManager.py",
+      url: "meowDataManager.py",
       data: str_data,
       success: function(data) { xx.loadStartupProject(data); },
       error: function( jqxhr, status, err) {
@@ -403,7 +403,7 @@ bleepsixSchematicNetwork.prototype.schauthResponse = function( data )
     var str_data = JSON.stringify( container );
     $.ajax({
       type: "POST",
-      url: "cgi/meowDataManager.py",
+      url: "meowDataManager.py",
       data: str_data,
       success: function(data) { xx.loadStartupProject(data); },
       error: function( jqxhr, status, err) {
@@ -548,7 +548,7 @@ bleepsixSchematicNetwork.prototype.fullpush = function()
 //
 bleepsixSchematicNetwork.prototype.logout = function()
 {
-  window.location.href = 'https://localhost/bleepsix/cgi/login';
+  window.location.href = 'login';
 }
 
 // Handle schauth response

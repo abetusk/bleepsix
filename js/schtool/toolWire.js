@@ -71,7 +71,7 @@ function toolWire( x, y, initialPlaceFlag )
   
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('/bleepsix/img/cursor_custom_wire_s24.png') 4 3, cursor";
+  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 
 
 }

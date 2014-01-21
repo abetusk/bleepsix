@@ -240,7 +240,8 @@
 
         // setup image cache and preload some generic items
         //
-        var img_base = "/bleepsix/img";
+        //var img_base = "/bleepsix/img";
+        var img_base = "img";
         g_imgcache = new imageCache();
         g_imgcache.add( "cursor", img_base + "/cursor_custom_base_s24.png" );
         g_imgcache.add( "cursor:wire", img_base + "/cursor_custom_wire_s24.png" );
@@ -400,7 +401,7 @@
         //
         var id = json_container["id"];
         var ifrm = document.getElementById( "downloadFrame" );
-        ifrm.src = "cgi/bleepsixDownloadManager.py?id=" + id;
+        ifrm.src = "bleepsixDownloadManager.py?id=" + id;
 
       }
 
@@ -420,7 +421,7 @@
         var str_data = JSON.stringify( container );
 
         $.ajax({
-          url: "cgi/bleepsixDataManager.py",
+          url: "bleepsixDataManager.py",
           type: 'POST',
           data: str_data,
           //success: schJsonDlTest, 
@@ -434,7 +435,7 @@
       function populateIframe(id,path)
       {
         var ifrm = document.getElementById(id);
-        ifrm.src = "cgi/bleepsixDownloadManager.php?path=" + path;
+        ifrm.src = "bleepsixDownloadManager.php?path=" + path;
       }
 
       function uploadComplete(x)
@@ -479,7 +480,7 @@
         formData.append( "fileData", file );
         console.log(formData);
 
-        var uri = "cgi/bleepsixUploadManager.py";
+        var uri = "bleepsixUploadManager.py";
         var xhr = new XMLHttpRequest();
         xhr.upload.addEventListener("progress", uploadProgress, false );
         xhr.addEventListener("load", uploadComplete, false );

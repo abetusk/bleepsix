@@ -76,8 +76,7 @@ function takeSnapShotPicture()
   var str_data = JSON.stringify( container );
 
   $.ajax({
-    //url: "cgi/bleepsixDataManager.py?foo=bar&baz=blah",
-    url: "cgi/meowDataManager.py",
+    url: "meowDataManager.py",
     type: 'POST',
     data: str_data,
     success: successSnapshotPicture,
@@ -121,8 +120,7 @@ function takeSnapShotPicture()
 function handleSnap( clientToken ) 
 {
   console.log("snap...");
-  //window.open("https://localhost/bleepsix/pic.html?action=handoff&clientToken=" + clientToken );
-  window.open("https://localhost/bleepsix/cgi/pic?action=handoff&clientToken=" + clientToken );
+  window.open("pic?action=handoff&clientToken=" + clientToken );
   window.focus();
 
 }
@@ -131,7 +129,7 @@ function handleSnap( clientToken )
 function goHome( )
 {
 
-  window.open("https://localhost/bleepsix/cgi/portfolio");
+  window.open("portfolio");
   window.focus();
 
 }
