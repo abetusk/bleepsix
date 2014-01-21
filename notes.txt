@@ -78,8 +78,8 @@ By Rama Hoetzlein and Abram Connelly"
 
 * - login functionality
   - anonymous use functionality 
-    . only 1 portfolio that is private.
-    . only public snapshots allowed to be taken
+  * . only 1 portfolio that is private.
+  * . only public snapshots allowed to be taken
     . allow for easy upgrade path
 
 * - automatic server side saving
@@ -211,7 +211,17 @@ By Rama Hoetzlein and Abram Connelly"
       KiCAD has a concept of minimum width, under which it doesn't
       connect.  We need to figure out how to realize this reasonably.
 
-  ISSUE: rat's nest is very slow.
+* ISSUE: rat's nest is very slow.
+  update: rat's nest is now done via Delaunay triangulation with a Kruskal
+          algorithm to find the minimum spanning tree of the pads + 
+          'interpolated' tracks.  This is both much simpler code wise
+          and also much faster.
+          Track interpolation is taken to be 100 (deci-mils) 
+          and seems to work reasonably well for the small tests
+          I've done (interpolated parameter can be tuned if needed).
+          It's still a little slow for the BGA1168_1mm, but it's at least
+          being rendered real-time (~7 fps).  We'll consider this closed
+          for now.
 
 * - text for board and footprints
   * . text for footprints working at least...
