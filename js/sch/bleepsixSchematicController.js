@@ -140,6 +140,8 @@ function bleepsixSchematicController() {
   this.action_text = "init";
   this.action_text_fade  = { sustainDur : 1500, dropoffDur : 500, T : 0, lastT: curt };
 
+  this.drawSnapArea = false;
+
   var controller = this;
   //setInterval( function() { controller.redraw() } , 50 );
 }
@@ -243,6 +245,19 @@ bleepsixSchematicController.prototype.redraw = function ()
 	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     //g_painter.dirty_flag = true;
+
+
+    if (this.drawSnapArea)
+    {
+      var lw = 5;
+      var ww = 900 + 2*lw;
+      var hh = 525 + 2*lw;
+      var xx = 50 - lw;
+      var yy = 50 - lw;
+
+      g_painter.drawRectangle( xx, yy, ww, hh, lw, "rgba(0,0,0,0.2)", false );
+    }
+
 
   }
 

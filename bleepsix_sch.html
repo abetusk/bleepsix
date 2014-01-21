@@ -170,12 +170,14 @@
 	  var g_canvas = "canvas";
 	  var g_context = null;
 
-      var g_drawSnapArea = false;
+      //var g_drawSnapArea = false;
 
       var g_schnetwork = null;
 
       function canvasFocus()
       {
+        console.log("canvas focus");
+
         var c = document.getElementById("canvas");
         c.focus();
       }
@@ -199,6 +201,7 @@
 		g_controller.redraw();
 			
 
+        /*
         if (saved_dirty)
         {
           if ( g_drawSnapArea )
@@ -213,6 +216,7 @@
             //g_painter.strokeRect(xx,yy,ww,hh, 5, "rgba(0,0,0,0.1)"  );
           }
         }
+        */
 
 		requestAnimationFrame( loop, 1 );		
 	  }
@@ -293,14 +297,18 @@
         function() { 
           console.log("hoveron"); 
 
-          g_drawSnapArea = true;
+          //g_drawSnapArea = true;
+          g_controller.drawSnapArea = true;
+
           g_painter.dirty_flag = true;
 
         },
         function() { 
           console.log("hoveroff"); 
 
-          g_drawSnapArea = false;
+          //g_drawSnapArea = false;
+          g_controller.drawSnapArea = false;
+
           g_painter.dirty_flag = true;
 
         }
@@ -309,6 +317,8 @@
 
         console.log("starting network");
         g_schnetwork = new bleepsixSchematicNetwork();
+
+        canvasFocus();
 
       });
 	  
