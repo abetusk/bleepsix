@@ -541,3 +541,65 @@ http://spoiledmilk.com/blog/html5-changing-the-browser-url-without-refreshing-pa
 https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history?redirectlocale=en-US&redirectslug=Web%2FGuide%2FDOM%2FManipulating_the_browser_history
 http://stackoverflow.com/questions/3338642/updating-address-bar-with-new-url-without-hash-or-reloading-the-page
 http://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
+
+
+------------
+
+command pattern:
+The controllers now have both a schematic and board class in them, so they'll
+be in charge of controlling both and which messages get passed to which.
+
+So, current thought is to provide an 'op' command that implements a command
+pattern like interface.  'op' will take data of the form:
+  - "sch"/"brd"
+  - "create"/"update"/"del"
+  - type (e.g. conn, noconn, etc.)
+  - data ( other data, x, y, transform, etc.)
+
+op will be in charge of calling the proper schematic and board routines.
+
+There is a bit of trickiness involved with component moving and editing.
+Right now, this operates on the data within the schematic.  I think ideally
+this should operate on a  copy, which then gets discarded after an 'op'
+command to place or lock in the edit.  We need a 'visible' flag on the data,
+so that it's hidden while the tool operates and the tool will then need to be
+in charge of drawing the overlay.  I think this won't be too bad.  just make
+a copy of the relevant data and make the explicit call to the schematic (or
+board) draw command.
+
+schematic controller will have an op command that mostly updates the schematic
+but will know when to update it's local copy of the board, via a component
+place (create) and edit.  Updates will encapsulate both the schematic and
+board updates/snapshots.  Reading data back will update both as well.  The
+schematic controller will need to read the board state in order to know
+whether to do an automatic place or use the pre-existing position.
+
+The analogous operations will be done for the board controller as well.
+
+Schematic update flags can be encapsulated in the 'op' command.  This will
+also allow for easier wire transmission, as we need only transmit the op
+data command rather than the snapshot.  As long as the same copy of bleepsix
+is running on the host, updates should be similar.  
+
+Some care needs to be taken with the IDs.  "update" commands should be given
+an ID, which will be sent over the wire as well.  "create" commands should
+also be given IDs?  If so, we can conflate the update and create into a 'set'
+command that takes an ID.
+
+We have id_refs, so we have the ID along with the reference for speedy
+updates (not that it matters).
+
+We need to store IDs in the data and thus on the data that's stored in the
+server.
+
+Remember, IDs are not numbers, they're text and heirarchical.
+
+We also need to make sure not to trample on the IDs received from the server.
+Either provide a new function that doesn't trample on the IDs, or have the
+tools that create the json schematic decorate the IDs themselves.
+
+We'll need to think about how to tie the board elements to the schematic
+elements.  They should be linked by the reference names, so maybe it's enough
+to do that.  Maybe have an auxiliary structure that links IDs together, but
+it seems like extra bookkeeping.
+
