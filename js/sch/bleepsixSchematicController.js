@@ -22,47 +22,13 @@
 
 */
 
-/*
-function snapGrid(active_flag , unit, spacing)
+var schControllerHeadless = false;
+if ( typeof module !== 'undefined')
 {
-  this.active = active_flag;
-  this.unit = unit;
-  this.spacing = parseFloat(spacing);
-  this.cursorSize = 6;
-  this.cursorWidth = 1;
-  this.color = "rgb(128,128,128)";
+  schControllerHeadless = true;
+  var bleepsixSchematic = require("./bleepsixSchematicNode.js");
+  var bleepsixBoard = require("../brd/bleepsixBoardNode.js");
 }
-
-snapGrid.prototype.snapGrid = function( xy )
-{
-  var snap_pos = {};
-
-  snap_pos["x"] = parseFloat( xy["x"] );
-  snap_pos["y"] = parseFloat( xy["y"] );
-
-  if ( this.active )
-  {
-    snap_pos["x"] = this.spacing * Math.round( snap_pos["x"] / this.spacing );
-    snap_pos["y"] = this.spacing * Math.round( snap_pos["y"] / this.spacing );
-  }
-
-  return snap_pos;
-}
-
-snapGrid.prototype.drawCursor = function( xy )
-{
-  var s = this.cursorSize / 2;
-
-  g_painter.drawRectangle( xy.x - s,
-                           xy.y - s,
-                           this.cursorSize ,
-                           this.cursorSize ,
-                           this.cursorWidth ,
-                           this.color );
-
-}
-*/
-
 
 function bleepsixSchematicController() {
   this.canvas = null;
@@ -89,7 +55,10 @@ function bleepsixSchematicController() {
 
   this.queued_display_component = 0;
 
-  this.tool = new toolNav ();
+  if (!schControllerHeadless)
+  {
+    this.tool = new toolNav ();
+  }
   
   /*
    *
@@ -145,7 +114,7 @@ function bleepsixSchematicController() {
 
   this.drawSnapArea = false;
 
-  var controller = this;
+  //var controller = this;
   //setInterval( function() { controller.redraw() } , 50 );
 }
 
@@ -696,4 +665,7 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   this.schematic.init ( g_painter );
 }
 
-
+if (typeof module !== 'undefined')
+{
+  module.exports = bleepsixSchematicController;
+}

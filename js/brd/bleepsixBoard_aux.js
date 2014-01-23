@@ -22,7 +22,11 @@
 
 */
 
-
+if (typeof module !== 'undefined')
+{
+  var bleepsixBoard = require("./bleepsixBoard.js");
+  module.exports = bleepsixBoard;
+}
 
 // Get a list of possible intersections by considering bounding box intersections.
 // This gives us a shorter list of possible connections that's faster than

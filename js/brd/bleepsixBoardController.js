@@ -22,50 +22,14 @@
 
 */
 
-/*
-function snapGrid(active_flag , unit, spacing)
+var brdControllerHeadless = false;
+if (typeof module !== 'undefined')
 {
-  this.active = active_flag;
-  this.unit = unit;
-  this.spacing = parseFloat(spacing);
-  this.cursorSize = 6;
-  this.cursorWidth = 1;
-  this.color = "rgb(128,128,128)";
-
-  this.guiFootprintLibary = null;
-  this.guiLayer = null;
-
+  brdControllerHeadless = true;
+  var bleepsixSchematic = require("../sch/bleepsixSchematicNode.js");
+  var bleepsixBoard = require("./bleepsixBoardNode.js");
 }
 
-snapGrid.prototype.snapGrid = function( xy )
-{
-  var snap_pos = {};
-
-  snap_pos["x"] = parseFloat( xy["x"] );
-  snap_pos["y"] = parseFloat( xy["y"] );
-
-  if ( this.active )
-  {
-    snap_pos["x"] = this.spacing * Math.round( snap_pos["x"] / this.spacing );
-    snap_pos["y"] = this.spacing * Math.round( snap_pos["y"] / this.spacing );
-  }
-
-  return snap_pos;
-}
-
-snapGrid.prototype.drawCursor = function( xy )
-{
-  var s = this.cursorSize / 2;
-
-  g_painter.drawRectangle( xy.x - s,
-                           xy.y - s,
-                           this.cursorSize ,
-                           this.cursorSize ,
-                           this.cursorWidth ,
-                           this.color );
-
-}
-*/
 
 
 function bleepsixBoardController() {
@@ -86,7 +50,10 @@ function bleepsixBoardController() {
 
   this.queued_display_module = 0;
 
-  this.tool = new toolBoardNav ();
+  if (!brdControllerHeadless)
+  {
+    this.tool = new toolBoardNav ();
+  }
   
   this.moving = false;
   this.movingFootprintLibrary = false;
@@ -103,7 +70,10 @@ function bleepsixBoardController() {
 
   // HARD CODED FOR DEMO.  REMOVE ASAP
   //g_painter.adjustPan( -4000, -1500);
-  g_painter.adjustPan( 0, 0);
+  if (!brdControllerHeadless)
+  {
+    g_painter.adjustPan( 0, 0);
+  }
 
   this.display_text_flag = true;
   this.display_text = "bloop";
@@ -1139,4 +1109,7 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.board.init ( g_painter );
 }
 
-
+if (typeof module !== 'undefined')
+{
+  module.exports = bleepsixBoardController;
+}

@@ -26,6 +26,12 @@
 // TODO: arcs still need implementing
 //
 
+var headless = false;
+if (typeof module !== 'undefined')
+{
+  headless = true;
+}
+
 function bleepsixBoard()
 {
   this.net          = {};
@@ -99,8 +105,11 @@ function bleepsixBoard()
   this.highlight_net = [];
   this.highlight_net_flag = false;
 
-  this.initBGL();
-  this._initBoardNet();
+  if (!headless)
+  {
+    this.initBGL();
+    this._initBoardNet();
+  }
 
   this.boardProperties = { zoneDisplayable : true };
 }
@@ -2851,4 +2860,7 @@ bleepsixBoard.prototype.load_board = function( json )
 }
 
 
-
+if (typeof module !== 'undefined')
+{
+  module.exports = bleepsixBoard;
+}

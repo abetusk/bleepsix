@@ -22,6 +22,12 @@
 
 */
 
+if (typeof module !== 'undefined')
+{
+  var bleepsixBoard = require("./bleepsixBoard_bbox.js");
+  module.exports = bleepsixBoard;
+}
+
 
 // Go through and collect points into a hash where
 // tracks end or pads are centered.  'Flood fill'

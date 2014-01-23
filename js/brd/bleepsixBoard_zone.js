@@ -22,6 +22,12 @@
 
 */
 
+if (typeof module !== 'undefined')
+{
+  var bleepsixBoard = require("./bleepsixBoard_ratsnest.js");
+  module.exports = bleepsixBoard;
+}
+
 
 // zone functions for bleepsixBoard
 //

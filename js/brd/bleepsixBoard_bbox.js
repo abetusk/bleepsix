@@ -22,6 +22,14 @@
 
 */
 
+if (typeof module !== 'undefined')
+{
+  var bleepsixBoard = require("./bleepsixBoard_aux.js");
+  module.exports = bleepsixBoard;
+}
+
+
+
 // ------
 // footprint art bbox calculations
 // ------

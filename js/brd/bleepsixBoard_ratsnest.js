@@ -22,6 +22,13 @@
 
 */
 
+if (typeof module !== 'undefined')
+{
+  var bleepsixBoard = require("./bleepsixBoard_netops.js");
+  module.exports = bleepsixBoard;
+}
+
+
 
 // auxiliary functions for rat's nest calculations
 //
