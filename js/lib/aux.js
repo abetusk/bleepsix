@@ -29,6 +29,116 @@
  *
  */
 
+var g_footprint_cache = {};
+var g_footprint_location = {};
+var g_footprint_library_map = {};
+
+var g_footprint_location_ready = false;
+
+
+var g_component_cache = {};
+var g_component_location = {};
+var g_component_library_map = {};
+
+
+function load_footprint_location( footprint_location_json )
+{
+
+  console.log("load_footprint_location");
+
+  $.ajaxSetup({ cache : false });
+  $.getJSON( footprint_location_json,
+    function(data) {
+      g_footprint_location = data;
+      g_footprint_location_ready = true;
+
+     console.log("module location data loaded:");
+     console.log(g_footprint_location);
+
+    }
+  ).fail(
+    function(jqxhr, textStatus, error) {
+      console.log("could not load " + footprint_location_json + ": " + error);
+  });
+
+}
+
+function load_footprint_cache_part( name, location )
+{
+
+  console.log("load_footprint_cache_part: " + name + ", " + location);
+
+  if ( !(name in g_footprint_cache) )
+  {
+    g_board_controller.board.queued_display_footprint_count++;
+
+    //part_json = "json/" + name + ".json";
+    part_json = location;
+    var brd = g_board_controller.board;
+
+    console.log("load_footprint_cache_part: footprint " + name + " " + location );
+
+    $.ajaxSetup({ cache : false });
+    $.getJSON( part_json,
+      ( function(a) {
+          return function(data) {
+            brd.load_part(a, data);
+          }
+        }
+      )(name)
+    ).fail(
+      ( function(a) {
+        return function(jqxhr, textStatus, error) {
+          brd.load_part_error(a, jqxhr, textStatus, error);
+        }
+      }
+      )(part_json)
+    );
+
+  }
+  else 
+  {
+    console.log(" load_footprint_cache_part: " + name + " already loaded");
+  }
+}
+
+
+function load_component_cache_part( name, location )
+{
+  if ( !(name in g_component_cache) )
+  {
+    g_schematic_controller.schematic.queued_display_component_count++;
+
+    //part_json = "json/" + name + ".json";
+    part_json = location;
+    var schem = g_schematic_controller.schematic;
+
+    $.ajaxSetup({ cache : false });
+    $.getJSON( part_json,
+      ( function(a) {
+          return function(data) {
+            schem.load_part(a, data);
+          }
+        }
+      )(name)
+    ).fail(
+      ( function(a) {
+        return function(jqxhr, textStatus, error) {
+          schem.load_part_error(a, jqxhr, textStatus, error);
+        }
+      }
+      )(part_json)
+    );
+
+  }
+  else 
+  {
+    console.log(" load_componet_cache_part: " + name + " already loaded");
+  }
+}
+
+
+
 function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
                .toString(16)

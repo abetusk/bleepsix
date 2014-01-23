@@ -22,6 +22,7 @@
 
 */
 
+/*
 function snapGrid(active_flag , unit, spacing)
 {
   this.active = active_flag;
@@ -60,6 +61,7 @@ snapGrid.prototype.drawCursor = function( xy )
                            this.color );
 
 }
+*/
 
 
 function bleepsixSchematicController() {
@@ -72,6 +74,7 @@ function bleepsixSchematicController() {
   //this.palette = null;
 
   this.schematic = new bleepsixSchematic();
+  this.board = new bleepsixBoard();
 
   //this.palette = new guiPalette();
 

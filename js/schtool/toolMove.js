@@ -87,11 +87,11 @@ toolMove.prototype.deep_copy_back = function( op )
 
     if (ref["type"] == "component")
     {
-      g_controller.schematic.setComponentTransform( ref, orig["transform"] );
+      g_schematic_controller.schematic.setComponentTransform( ref, orig["transform"] );
     }
     if ( $.inArray( ref["type"], non_wire_type ) >= 0 )
     {
-      g_controller.schematic.setNonWirePosition( ref, orig["x"], orig["y"] );
+      g_schematic_controller.schematic.setNonWirePosition( ref, orig["x"], orig["y"] );
 
       if (ref["type"] == "component")
       {
@@ -105,7 +105,7 @@ toolMove.prototype.deep_copy_back = function( op )
     }
     else
     {
-      g_controller.schematic.setWire( ref, orig["startx"], orig["starty"], orig["endx"], orig["endy"] );
+      g_schematic_controller.schematic.setWire( ref, orig["startx"], orig["starty"], orig["endx"], orig["endy"] );
     }
 
     g_painter.dirty_flag = true;
@@ -222,8 +222,8 @@ toolMove.prototype.drawOverlay = function()
                              true, "rgba(0,0,0,0.25)");
   }
 
-  g_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
-  //g_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
+  g_schematic_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
+  //g_schematic_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
 
 }
 
@@ -235,8 +235,8 @@ toolMove.prototype.mouseDown = function( button, x, y )
   /*
   if (button == 1)
   {
-    g_controller.tool = new toolNav(x, y);
-    //g_controller.tool.mouseMove( x, y );  // easy way to setup?
+    g_schematic_controller.tool = new toolNav(x, y);
+    //g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
     g_painter.dirty_flag = true;
   }
   else 
@@ -254,18 +254,18 @@ toolMove.prototype.doubleClick = function( button, x, y )
   console.log("toolMove.doubleClick");
 
   var world_coord = g_painter.devToWorld( x, y );
-  var id_ref =  g_controller.schematic.pick( world_coord["x"], world_coord["y"] );
+  var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
 
   if (id_ref)
   {
 
     if (id_ref.ref.type == "component")
     {
-      g_controller.tool = new toolComponentEdit(x, y, id_ref);
-      g_controller.guiToolbox.defaultSelect();
+      g_schematic_controller.tool = new toolComponentEdit(x, y, id_ref);
+      g_schematic_controller.guiToolbox.defaultSelect();
       g_painter.dirty_flag = true;
 
-      g_controller.schematicUpdate = true;
+      g_schematic_controller.schematicUpdate = true;
     }
 
   }
@@ -288,14 +288,14 @@ toolMove.prototype.mouseUp = function( button, x, y )
 
     if (button == 1)
     {
-      g_controller.tool = new toolNav(x, y);
-      g_controller.guiToolbox.defaultSelect();
+      g_schematic_controller.tool = new toolNav(x, y);
+      g_schematic_controller.guiToolbox.defaultSelect();
 
-      //g_controller.tool.mouseMove( x, y );  // easy way to setup?
+      //g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
       g_painter.dirty_flag = true;
 
-      g_controller.schematicUpdate = true;
-      g_controller.schematic.eventSave();
+      g_schematic_controller.schematicUpdate = true;
+      g_schematic_controller.schematic.eventSave();
     }
   }
 
@@ -341,7 +341,7 @@ toolMove.prototype.mouseMove = function( x, y )
     for (var ind in this.selectedElement)
     {
 
-      g_controller.schematic.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+      g_schematic_controller.schematic.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
       g_painter.dirty_flag = true;
 
     }
@@ -363,12 +363,12 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     $.extend(true, this.selectedElement, this.orig_element_state );
 
     // pass control back to toolNav
-    g_controller.tool = new toolNav();
-    g_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav();
+    g_schematic_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
+    g_schematic_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
-    g_controller.schematicUpdate = true;
+    g_schematic_controller.schematicUpdate = true;
 
   }
   else if (ch == 'I')
@@ -384,21 +384,21 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'D')
   {
     for (var ind in this.selectedElement)
-      g_controller.schematic.remove( this.selectedElement[ind] );
+      g_schematic_controller.schematic.remove( this.selectedElement[ind] );
 
 
-    g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_schematic_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
-    g_controller.schematicUpdate = true;
-    g_controller.schematic.eventSave();
+    g_schematic_controller.schematicUpdate = true;
+    g_schematic_controller.schematic.eventSave();
 
   }
   else if (ch == 'R')
   {
 
-    com = g_controller.schematic.centerOfMass( this.base_element_state );
+    com = g_schematic_controller.schematic.centerOfMass( this.base_element_state );
 
     //console.log("got com: " );
     //console.log(com);
@@ -409,7 +409,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
 
     //console.log(this.base_element_state);
 
-    g_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], false );
+    g_schematic_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], false );
     //this.deep_copy_back( this.base_element_state );
     $.extend(true, this.selectedElement, this.base_element_state );
 
@@ -428,10 +428,10 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     }
 
     for (var ind in this.selectedElement)
-      g_controller.schematic.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+      g_schematic_controller.schematic.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
     g_painter.dirty_flag = true;
-    g_controller.schematic.eventSave();
+    g_schematic_controller.schematic.eventSave();
 
   }
 

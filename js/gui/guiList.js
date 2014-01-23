@@ -241,7 +241,7 @@ guiList.prototype.mouseDown = function( button, x, y)
 
   if (r == this.guiChildren[0])
   {
-    g_controller.tool = new toolScrollbar(x, y, this.guiChildren[0], g_controller.tool);
+    g_schematic_controller.tool = new toolScrollbar(x, y, this.guiChildren[0], g_schematic_controller.tool);
     return true;
   }
 

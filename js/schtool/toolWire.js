@@ -105,7 +105,7 @@ toolWire.prototype._initWireState = function()
   // the wire is committed to being placed.
   //
   var non_wire_type = ["component", "connection", "noconn", "text" ];
-  var id_ref_ar = g_controller.schematic.pickAll( x, y );
+  var id_ref_ar = g_schematic_controller.schematic.pickAll( x, y );
   for (var ind in id_ref_ar)
   {
 
@@ -168,7 +168,7 @@ toolWire.prototype.drawOverlay = function()
                            "rgb(128, 128, 128 )" );
 
 
-  g_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
+  g_schematic_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
 
 }
 
@@ -190,14 +190,14 @@ toolWire.prototype.placeWire = function()
 {
   var non_wire_type = ["component", "connection", "noconn", "text" ];
 
-  g_controller.schematicUpdate = true;
+  g_schematic_controller.schematicUpdate = true;
 
   // checking to see if we need to add a source connection
   //
   var x = this.wire[0].x;
   var y = this.wire[0].y;
 
-  var id_ref_ar = g_controller.schematic.pickAll( x, y );
+  var id_ref_ar = g_schematic_controller.schematic.pickAll( x, y );
 
   for (var ind in id_ref_ar)
   {
@@ -207,7 +207,7 @@ toolWire.prototype.placeWire = function()
 
     if (this.isConnection(ref, x, y))
     {
-      g_controller.schematic.addConnection(x, y);
+      g_schematic_controller.schematic.addConnection(x, y);
       break;
     }
 
@@ -216,7 +216,7 @@ toolWire.prototype.placeWire = function()
 
   for (var ind=1; ind < this.wire.length; ind++)
   {
-    g_controller.schematic.addWire( this.wire[ind-1]["x"], this.wire[ind-1]["y"],
+    g_schematic_controller.schematic.addWire( this.wire[ind-1]["x"], this.wire[ind-1]["y"],
                                     this.wire[ind]["x"], this.wire[ind]["y"] );
   }
 
@@ -232,7 +232,7 @@ toolWire.prototype.placeWire = function()
 
       if (this.dist1( this.cur_wire[ind-1], this.cur_wire[ind] ) > 1 )
       {
-        g_controller.schematic.addWire( this.cur_wire[ind-1]["x"], this.cur_wire[ind-1]["y"],
+        g_schematic_controller.schematic.addWire( this.cur_wire[ind-1]["x"], this.cur_wire[ind-1]["y"],
                                         this.cur_wire[ind]["x"],   this.cur_wire[ind]["y"] );
 
       }
@@ -241,10 +241,10 @@ toolWire.prototype.placeWire = function()
     }
   }
 
-  g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-  g_controller.guiToolbox.defaultSelect();
+  g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+  g_schematic_controller.guiToolbox.defaultSelect();
   g_painter.dirty_flag = true;
-  g_controller.schematic.eventSave();
+  g_schematic_controller.schematic.eventSave();
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
@@ -287,7 +287,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
   // first check schematic to see if we hit any wires
   //
-  var id_ref_ar = g_controller.schematic.pickAll( ex, ey );
+  var id_ref_ar = g_schematic_controller.schematic.pickAll( ex, ey );
 
   for (var ind in id_ref_ar)
   {
@@ -299,7 +299,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
       //pin returned, as it apperas in the cache, so co-ords are relative 
       //  to part origin (and transform).
       //
-      var pin = g_controller.schematic.pickComponentPin( ref, ex, ey );
+      var pin = g_schematic_controller.schematic.pickComponentPin( ref, ex, ey );
 
       if (pin)
       {
@@ -314,7 +314,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
     if ( this.isConnection( ref, ex, ey ) )
     {
-      g_controller.schematic.addConnection( ex, ey );
+      g_schematic_controller.schematic.addConnection( ex, ey );
       this.placeWire();
       return true;
     }
@@ -334,7 +334,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
     if (this.isConnection( wire, ex, ey ))
     {
-      g_controller.schematic.addConnection( ex, ey );
+      g_schematic_controller.schematic.addConnection( ex, ey );
       this.placeWire();
       return true;
     }
@@ -460,8 +460,8 @@ toolWire.prototype.doubleClick = function( button, x, y )
     // (and we receive a doubleClick event),
     // do nothing but give control back to toolNav
     //
-    g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_schematic_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
     var ele = document.getElementById("canvas");
@@ -628,8 +628,8 @@ toolWire.prototype.keyDown = function( keycode, ch, ev )
   if ((ch == 'Q') || (keycode == 27))
   {
     console.log("handing back to toolNav");
-    g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_schematic_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
 

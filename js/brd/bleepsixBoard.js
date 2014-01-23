@@ -1072,7 +1072,6 @@ bleepsixBoard.prototype.addVia = function(x, y, width, layer0, layer1, netcode)
   return id;
 }
 
-//bleepsixBoard.prototype.addFootprintData = function( json_component, x, y, angle )
 bleepsixBoard.prototype.addFootprintData = function( json_module, x, y )
 {
   //angle = ( typeof angle !== 'undefined' ? angle : 0.0 );

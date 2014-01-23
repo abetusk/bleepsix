@@ -154,7 +154,7 @@ guiAction.prototype._eventMouseDown = function( ev )
   if (ev.owner == this.name + ":nav")
   {
     console.log("  handing over to toolNav (1)");
-    g_controller.tool = new toolNav();
+    g_schematic_controller.tool = new toolNav();
     return;
   }
 

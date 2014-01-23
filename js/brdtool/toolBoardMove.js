@@ -40,9 +40,9 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   if ( typeof id_ref_array === 'undefined' )
   {
     console.log("toolBoardMove: WARNING: id_ref_ar, empty, handing back control to toolBoardNav");
-    g_controller.tool = new toolBoardNav(mouse_x, mouse_y);
+    g_board_controller.tool = new toolBoardNav(mouse_x, mouse_y);
 
-    return g_controller.tool;  // iffy, be careful
+    return g_board_controller.tool;  // iffy, be careful
   }
 
   console.log("toolBoardMove starting");
@@ -118,7 +118,7 @@ toolBoardMove.prototype.drawOverlay = function()
 {
 
   //TESTING
-  //g_controller.board.updateRatsNest();
+  //g_board_controller.board.updateRatsNest();
   //TESTING
 
   var s = this.cursorSize / 2;
@@ -168,8 +168,8 @@ toolBoardMove.prototype.mouseDown = function( button, x, y )
   /*
   if (button == 1)
   {
-    g_controller.tool = new toolNav(x, y);
-    //g_controller.tool.mouseMove( x, y );  // easy way to setup?
+    g_board_controller.tool = new toolNav(x, y);
+    //g_board_controller.tool.mouseMove( x, y );  // easy way to setup?
     g_painter.dirty_flag = true;
   }
   else 
@@ -187,7 +187,7 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
   console.log("toolBoardMove.doubleClick");
 
   var world_coord = g_painter.devToWorld( x, y );
-  var id_ref =  g_controller.board.pick( world_coord["x"], world_coord["y"] );
+  var id_ref =  g_board_controller.board.pick( world_coord["x"], world_coord["y"] );
 
   if (id_ref)
   {
@@ -195,7 +195,7 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
     if (id_ref.ref.type == "component")
     {
       console.log("toolBoardMove.doubleClick: editing not implemented (not passing control), passing off to toolBoardNav instead");
-      g_controller.tool = new toolBoardNav(x, y);
+      g_board_controller.tool = new toolBoardNav(x, y);
 
       g_painter.dirty_flag = true;
     }
@@ -219,7 +219,7 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
 
     if (button == 1)
     {
-      g_controller.tool = new toolBoardNav(x, y);
+      g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
     }
   }
@@ -228,6 +228,18 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
 
 
 }
+
+
+// Move is a bit slow.  I think it's jquery's extend.
+// We probably want to do our own deep copy.
+// We can probably expect roughly 4x improvement. extend is soaking 
+// up about 10-20% (maybe more) cpu when doing a toolmove.
+// for future refernce:
+// http://stackoverflow.com/questions/122102/most-efficient-way-to-clone-an-object/5344074#5344074
+// http://jsperf.com/cloning-an-object/2
+// http://stackoverflow.com/questions/122102/most-efficient-way-to-clone-an-object
+//
+//
 
 toolBoardMove.prototype.mouseMove = function( x, y )
 {
@@ -261,7 +273,7 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
     for (var ind in this.selectedElement)
     {
-      g_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+      g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
       g_painter.dirty_flag = true;
     }
 
@@ -270,7 +282,7 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
 
     //TESTING
-    g_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest();
     //TESTING
 
 
@@ -287,10 +299,10 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     //$.extend(true, this.selectedElement, this.base_element_state);
     $.extend(true, this.selectedElement, this.orig_element_state);
 
-    g_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
+    g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
 
 
-    g_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest();
 
     g_painter.dirty_flag = true;
 
@@ -309,9 +321,9 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'D')
   {
     for (var ind in this.selectedElement)
-      g_controller.board.remove( this.selectedElement[ind] );
+      g_board_controller.board.remove( this.selectedElement[ind] );
 
-    g_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
 
   }
@@ -319,7 +331,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   {
 
 
-    com = g_controller.board.centerOfMass( this.base_element_state );
+    com = g_board_controller.board.centerOfMass( this.base_element_state );
     console.log("com:");
     console.log(com);
 
@@ -328,7 +340,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     com = g_snapgrid.snapGrid(com);
 
     var ccw = ( (ch == 'R') ? true : false );
-    g_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
+    g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
     $.extend(true, this.selectedElement, this.base_element_state);
 
 
@@ -345,9 +357,9 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     }
 
     for (var ind in this.selectedElement)
-      g_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+      g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
-    g_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest();
 
     g_painter.dirty_flag = true;
 
@@ -362,7 +374,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
       var ele = this.selectedElement[i];
       if (ele.type == "czone")
       {
-        g_controller.board.fillCZone( ele.ref );
+        g_board_controller.board.fillCZone( ele.ref );
         $.extend(true, this.base_element_state, this.selectedElement );
         $.extend(true, this.orig_element_state, this.selectedElement );
 

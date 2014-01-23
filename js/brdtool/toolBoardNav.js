@@ -76,7 +76,7 @@ toolBoardNav.prototype.drawOverlay = function()
                              this.cursorWidth ,
                              "rgb(128, 128, 128 )" );
 
-    g_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
+    g_board_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
   }
 
 
@@ -95,7 +95,7 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
   {
     var world_coord = g_painter.devToWorld( x, y );
 
-    var id_ref_ar = g_controller.board.pickAll( world_coord.x, world_coord.y );
+    var id_ref_ar = g_board_controller.board.pickAll( world_coord.x, world_coord.y );
 
     if (id_ref_ar && (id_ref_ar.length > 0))
     {
@@ -105,33 +105,33 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
         picked_id_ref = id_ref_ar[ind];
         if ( picked_id_ref.ref.type == "track" )
         {
-          g_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+          g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
           g_painter.dirty_flag = true;
           return;
         }
       }
 
-      g_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+      g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
       g_painter.dirty_flag = true;
       return;
 
     }
 
-    //var id_ref =  g_controller.board.pick( world_coord["x"], world_coord["y"] );
+    //var id_ref =  g_board_controller.board.pick( world_coord["x"], world_coord["y"] );
     /*
     if (id_ref)
     {
       console.log("handing to toolBoardMove");
       console.log(id_ref);
-      g_controller.tool = new toolBoardMove(x, y, [ id_ref ], false);
-      //g_controller.tool.addElement( [ id_ref ] );
+      g_board_controller.tool = new toolBoardMove(x, y, [ id_ref ], false);
+      //g_board_controller.tool.addElement( [ id_ref ] );
       g_painter.dirty_flag = true;
     }
    */
 
     else
     {
-      g_controller.tool = new toolBoardSelect(x, y);
+      g_board_controller.tool = new toolBoardSelect(x, y);
     }
 
   }
@@ -145,20 +145,20 @@ toolBoardNav.prototype.doubleClick = function(button, x, y)
   var world_coord = g_painter.devToWorld( x, y );
 
   /*
-  var id_ref =  g_controller.board.pick( world_coord["x"], world_coord["y"] );
+  var id_ref =  g_board_controller.board.pick( world_coord["x"], world_coord["y"] );
   if (id_ref)
   {
 
     if (id_ref.ref.type == "component")
     {
-      g_controller.tool = new toolComponentEdit(x, y, id_ref);
+      g_board_controller.tool = new toolComponentEdit(x, y, id_ref);
       g_painter.dirty_flag = true;
     }
 
   }
   else
   {
-    //g_controller.tool = new toolSelect(x, y);
+    //g_board_controller.tool = new toolSelect(x, y);
   }
  */
 
@@ -187,7 +187,7 @@ toolBoardNav.prototype.mouseMove = function( x, y )
   this.mouse_world_xy["y"] = world_xy["y"];
 
 
-  var ida = g_controller.board.pickAll( world_xy.x, world_xy.y );
+  var ida = g_board_controller.board.pickAll( world_xy.x, world_xy.y );
   if (ida.length == 1)
   {
 
@@ -204,13 +204,13 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
     if (netcode >= 0)
     {
-      var net_name = g_controller.board.kicad_brd_json.net_code_map[ netcode ];
-      g_controller.board.highlightNet( net_name );
+      var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
+      g_board_controller.board.highlightNet( net_name );
     }
   }
   else 
   {
-    g_controller.board.unhighlightNet();
+    g_board_controller.board.unhighlightNet();
   }
 
   g_painter.dirty_flag = true;
@@ -285,7 +285,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     console.log("adding component '" + comp_name + 
                 "' " + wc["x"] + " " + wc["y"] + 
                 " (mouse: " + this.mouse_cur_x + " " + this.mouse_cur_y + ")");
-    g_controller.board.addComponent( comp_name, wx, wy );
+    g_board_controller.board.addComponent( comp_name, wx, wy );
    */
 
   }
@@ -295,18 +295,18 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'I')
   {
     console.log("info (board state):");
-    console.log( g_controller.board );
+    console.log( g_board_controller.board );
     //console.log( g_painter.zoom );
     //console.log( g_painter.view );
   }
   else if (ch == 'C')
   {
     /*
-    var id_ref = g_controller.board.pick( wx, wy );
+    var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref &&
          (id_ref.ref.type == "component") )
     {
-      g_controller.tool = new toolComponentPlace( this.mouse_cur_x, this.mouse_cur_y, id_ref.ref.name, id_ref.ref );
+      g_board_controller.tool = new toolComponentPlace( this.mouse_cur_x, this.mouse_cur_y, id_ref.ref.name, id_ref.ref );
       return;
     }
    */
@@ -316,14 +316,14 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("zone...");
 
-    g_controller.tool = new toolBoardZone(x, y);
+    g_board_controller.tool = new toolBoardZone(x, y);
   }
   else if (ch == 'J')
   {
 
     console.log("J " + wx + " " + wy );
 
-    //g_controller.board.addConnection( wx, wy );
+    //g_board_controller.board.addConnection( wx, wy );
     //g_painter.dirty_flag = true;
   }
   else if (ch == 'X')
@@ -331,18 +331,18 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("X " + wx + " " + wy );
 
-    g_controller.tool = new toolTrace(x, y, true);
+    g_board_controller.tool = new toolTrace(x, y, true);
 
   }
   else if (ch == 'S')
   {
 
-    var ida = g_controller.board.pickAll( wx, wy );
+    var ida = g_board_controller.board.pickAll( wx, wy );
     if (ida.length > 0) 
     {
       var t = g_painter.devToWorld(x, y);
-      g_controller.tool = new toolBoardMove(x, y, ida);
-      //g_controller.tool.addElement( ida );
+      g_board_controller.tool = new toolBoardMove(x, y, ida);
+      //g_board_controller.tool.addElement( ida );
       return true;
     }
     else
@@ -354,7 +354,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'W')
   {
 
-    //g_controller.tool = new toolWire(x, y);
+    //g_board_controller.tool = new toolWire(x, y);
     return true;
 
   }
@@ -363,10 +363,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     var ccw = ( (ch == 'R') ? true : false );
 
-    var id_ref = g_controller.board.pick( wx, wy );
+    var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
     {
-      g_controller.board.rotate90( id_ref, ccw );
+      g_board_controller.board.rotate90( id_ref, ccw );
     }
 
     g_painter.dirty_flag = true;
@@ -377,7 +377,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("Y");
 
-    var id_ref = g_controller.board.pick( wx, wy );
+    var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
     {
 
@@ -387,17 +387,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var x = id_ref.ref.x;
       var y = id_ref.ref.y;
 
-      g_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
+      g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
     }
-
-    /*
-    var id = g_controller.schematic.pick( wx, wy );
-    if ( id && (id["ref"]["type"] == "component") )
-    {
-      g_controller.schematic.rotate90( id, false );
-      g_controller.schematic.rotate90( id, false );
-    }
-   */
 
   }
 
@@ -405,8 +396,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("TESTING RATS NEST FUNCTIONALITY");
 
-    //g_controller.board.updateRatsNest();
-    g_controller.board.updateRatsNest();
+    //g_board_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest();
+
+    console.log("update rat's nest done");
 
   }
   else if ( ch == 'L')
@@ -421,9 +414,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     var pnts = [];
     var czone = null;
-    for (var i in g_controller.board.kicad_brd_json.element)
+    for (var i in g_board_controller.board.kicad_brd_json.element)
     {
-      var ele = g_controller.board.kicad_brd_json.element[i];
+      var ele = g_board_controller.board.kicad_brd_json.element[i];
       if ( ele.type == "czone") 
       {
         console.log("czone ...");
@@ -443,16 +436,16 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
       console.log(pnts);
 
-      //if (pc.length > 0) g_controller.board.debug_geom.push( pnts );
+      //if (pc.length > 0) g_board_controller.board.debug_geom.push( pnts );
 
-      //var pgns = g_controller.board._make_pwh_from_pnts( pnts );
-      var pgns = g_controller.board._make_pgns_from_pnts ( pnts );
+      //var pgns = g_board_controller.board._make_pwh_from_pnts( pnts );
+      var pgns = g_board_controller.board._make_pgns_from_pnts ( pnts );
 
       console.log("got pgns:");
       console.log(pgns);
 
       for (var i in pgns)
-        g_controller.board.debug_pgns.push( pgns[i] );
+        g_board_controller.board.debug_pgns.push( pgns[i] );
 
 
 
@@ -464,7 +457,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("(D)elete: wxy: " + wx + " " + wy );
 
-    var id_ref_ar = g_controller.board.pickAll( wx, wy );
+    var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
 
     console.log("got:");
     console.log(id_ref_ar);
@@ -476,7 +469,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] == "drawsegment")
         {
-          g_controller.board.remove( id_ref_ar[ind] );
+          g_board_controller.board.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
           return true;
         }
@@ -487,7 +480,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] == "track")
         {
-          g_controller.board.remove( id_ref_ar[ind] );
+          g_board_controller.board.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
 
 
@@ -500,7 +493,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
                   "x0: " + ref.x0 + ", y0: " + ref.y0 + ", " +
                   "x1: " + ref.x1 + ", y1: " + ref.y1 );
 
-      g_controller.board.splitNet( ref.netcode );
+      g_board_controller.board.splitNet( ref.netcode );
 
 
       console.log("toolBoardNav.keyDown: testing netsplit done...");
@@ -518,13 +511,13 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] != "module")
         {
-          g_controller.board.remove( id_ref_ar[ind] );
+          g_board_controller.board.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
           return true;
         }
       }
 
-      g_controller.board.remove( id_ref_ar[0] );
+      g_board_controller.board.remove( id_ref_ar[0] );
       g_painter.dirty_flag = true;
 
       return true;

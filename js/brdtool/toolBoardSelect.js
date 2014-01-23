@@ -82,37 +82,37 @@ toolBoardSelect.prototype.mouseUp = function( button, x, y )
       var Mx = Math.max( this.cur_world_coord["x"], this.orig_world_coord["x"] );
       var My = Math.max( this.cur_world_coord["y"], this.orig_world_coord["y"] );
 
-      var id_ref_ar = g_controller.board.pickBox( mx, my, Mx, My );
+      var id_ref_ar = g_board_controller.board.pickBox( mx, my, Mx, My );
 
       if (id_ref_ar.length > 0)
       {
-        g_controller.tool = new toolBoardMove(x, y, id_ref_ar );
-        //g_controller.tool.addElement( id_ref_ar );
+        g_board_controller.tool = new toolBoardMove(x, y, id_ref_ar );
+        //g_board_controller.tool.addElement( id_ref_ar );
 
         g_painter.dirty_flag = true;
       }
       else
       {
-        g_controller.tool = new toolBoardNav(x,y);
+        g_board_controller.tool = new toolBoardNav(x,y);
         g_painter.dirty_flag = true;
       }
 
     }
     else
     {
-      var id_ref_ele = g_controller.board.pick( world_coord["x"], world_coord["y"] );
+      var id_ref_ele = g_board_controller.board.pick( world_coord["x"], world_coord["y"] );
 
       if (id_ref_ele)
       {
 
-        g_controller.tool = new toolBoardMove(x, y, [ id_ref_ele ]);
-        //g_controller.tool.addElement( [ id_ref_ele ] );
+        g_board_controller.tool = new toolBoardMove(x, y, [ id_ref_ele ]);
+        //g_board_controller.tool.addElement( [ id_ref_ele ] );
 
         g_painter.dirty_flag = true;
       }
       else
       {
-        g_controller.tool = new toolBoardNav(x, y);
+        g_board_controller.tool = new toolBoardNav(x, y);
         g_painter.dirty_flag = true;
       }
 

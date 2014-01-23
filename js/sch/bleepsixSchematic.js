@@ -35,6 +35,20 @@ function bleepsixSchematic()
   this.connection   = {};
 
   this.kicad_sch_json = { "element":[] };
+
+  //this.brd = new bleepsixBoard();
+
+  // update sister board structure
+  //
+  /*
+  var dummy_painter = {};
+  this.brd.init( dummy_painter );
+  var footprint_location_json = "json/footprint_location.json";
+  load_footprint_location( footprint_location_json );
+  */
+
+
+  this.kicad_brd_json = { "element":[] };
   this.displayable = true;
 
   this.eventStack = { n : 0, pos : 0, stack : [] };
@@ -671,6 +685,12 @@ bleepsixSchematic.prototype.relativeMoveElement = function( id_ref, dx, dy )
       ref["text"][ind]["y"] = parseInt( ref["text"][ind]["y"] ) + dy ;
     }
 
+    if ("unknown_text_field" in ref)
+    {
+      ref["unknown_text_field"]["x"] = parseInt( ref["unknown_text_field"]["x"] ) + dx ;
+      ref["unknown_text_field"]["y"] = parseInt( ref["unknown_text_field"]["y"] ) + dy ;
+    }
+
   }
 
   // else if (ref["type"] == "text") { } 
@@ -755,7 +775,11 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
   if ( !(comp_name in g_component_cache) )
   {
     console.log("bleepsixSchematic.addComponent: ERROR: " + comp_name + " not in component cache");
-    return;
+
+    comp_name = "unknown";
+
+    //return;
+
   }
 
   //json_component = g_component_cache[comp_name];
@@ -1925,16 +1949,30 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
   var name = raw_name;
 
 
+  /*
   if ( !(name in g_component_cache) )
   {
     console.log("ERROR: controller.drawSchematicComponent " + name + " not in component cache ");
     return;
   }
+  */
 
   var comp_x = parseFloat(comp["x"]);
   var comp_y = parseFloat(comp["y"]);
 
-  this.drawComponent( g_component_cache[ name ], comp["x"], comp["y"], comp["transform"]  );
+  if ( name in g_component_cache )
+  {
+    this.drawComponent( g_component_cache[ name ], comp["x"], comp["y"], comp["transform"]  );
+  }
+  else
+  {
+
+    //console.log(" couldn't find " + name + ", drawing uknown");
+
+    this.drawComponent( g_component_cache[ "unknown" ], comp["x"], comp["y"], comp["transform"]  );
+    this.drawComponentTextField( comp["unknown_text_field"], comp_x, comp_y, comp["transform"] );
+    return;
+  }
 
   if (this.draw_bounding_box_flag)
   {
@@ -2501,7 +2539,15 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
   //console.log("updateComponentBoundingBox name: " + name);
   //console.log(g_component_cache[name]);
 
-  var bbox = g_component_cache[name]["bounding_box"];
+  var bbox = [ [0,0],[0,0] ];
+  if (name in g_component_cache)
+  {
+    bbox = g_component_cache[name]["bounding_box"];
+  }
+  else
+  {
+    bbox = g_component_cache["unknown"]["bounding_box"];
+  }
 
   var xl = bbox[0][0];
   var yb = bbox[0][1];
@@ -2586,6 +2632,8 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
 bleepsixSchematic.prototype.load_part = function(name, data)
 {
 
+  console.log("load_part: " + name);
+
   // component_cache is the cache of unique parts
   g_component_cache[name] = data;
 
@@ -2657,7 +2705,6 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
     if (sch[ind]["type"] != "component") continue;
 
-
     var comp = sch[ind];
 
     //var name = comp["name"];
@@ -2669,14 +2716,38 @@ bleepsixSchematic.prototype.load_schematic = function( json )
     }
     else
     {
-      this.displayable = false;
 
       //var part_json = "json/" + name + ".json";
       if ( !(name in g_component_location)) 
       {
-        console.log("ERROR: bleepsixSchematic.schematic_load: " + name + " not in g_component_location");
-        return;
+        console.log("ERROR: bleepsixSchematic.load_schematic: " + name + " not in g_component_location");
+
+        sch[ind]["unknown_text_field"] = 
+        {
+          "bounding_box" : [ [ -50, -50] , [50,50] ],
+          "text" : "??",
+          "orientation": "H",
+          "reference": "??",
+          "hjustify": "C",
+          "number": 0,
+          "vjustify": "C",
+          "visible": true,
+          "bold": false,
+          "italic": true,
+          "x": comp["x"],
+          "y": comp["y"],
+          "size": "100",
+          "transform" : [ [ 1, 0 ], [ 0, -1 ] ],
+          "flags" : "0000 C CNN"
+        };
+
+
+        // it's an unknown part, so display the 'unknown' special symbol
+        //
+        continue;
       }
+
+      this.displayable = false;
 
       //console.log(g_component_location[name]);
       var part_json = g_component_location[name].location;
@@ -2722,4 +2793,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
 }
 
-
+if (typeof module !== 'undefined')
+{
+  module.exports = bleepsixSchematic;
+}

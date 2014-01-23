@@ -37,7 +37,7 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
 
   this.transform = [ [ 1, 0], [0, -1] ];
 
-  var ref_name = g_controller.schematic.getReferenceName( g_component_cache[ component_name ] );
+  var ref_name = g_schematic_controller.schematic.getReferenceName( g_component_cache[ component_name ] );
 
   this.cloned_component = {};
   if ( typeof component_data === 'undefined' )
@@ -47,7 +47,7 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
   else
   {
     $.extend(true, this.cloned_component, g_component_cache[ component_name ] );
-    g_controller.schematic.extendComponentText( this.cloned_component, component_data );
+    g_schematic_controller.schematic.extendComponentText( this.cloned_component, component_data );
 
     this.cloned_component.name = component_data.name;
 
@@ -87,13 +87,13 @@ toolComponentPlace.prototype.drawOverlay = function()
   var s = this.cursorSize / 2;
 
 
-  g_controller.schematic.drawComponent( this.cloned_component,
+  g_schematic_controller.schematic.drawComponent( this.cloned_component,
                                         parseFloat(this.world_xy["x"]), 
                                         parseFloat(this.world_xy["y"]), 
                                         this.transform, true );
 
 
-  g_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
+  g_schematic_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
 
 }
 
@@ -105,19 +105,19 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
 
     console.log("toolComponentPlace: placing component: " + this.component_name);
 
-    //g_controller.schematic.addComponent( this.component_name, this.world_xy["x"], this.world_xy["y"], this.transform );
-    g_controller.schematic.addComponentData( this.cloned_component, 
+    //g_schematic_controller.schematic.addComponent( this.component_name, this.world_xy["x"], this.world_xy["y"], this.transform );
+    g_schematic_controller.schematic.addComponentData( this.cloned_component, 
                                              this.world_xy["x"], 
                                              this.world_xy["y"], 
                                              this.transform );
-    g_controller.schematicUpdate = true;
+    g_schematic_controller.schematicUpdate = true;
 
     console.log("toolComponentPlace: passing back to toolNav");
 
-    g_controller.tool = new toolNav();
-    g_controller.tool.mouseMove( x, y );  // easy way to setup?
-    g_controller.guiToolbox.defaultSelect();
-    g_controller.schematic.eventSave();
+    g_schematic_controller.tool = new toolNav();
+    g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
+    g_schematic_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.schematic.eventSave();
 
     g_painter.dirty_flag = true;
   }
@@ -164,10 +164,10 @@ toolComponentPlace.prototype.keyDown = function( keycode, ch, ev )
     console.log("toolComponentPlace: passing back to toolNav");
 
     // pass control back to toolNav
-    g_controller.tool = new toolNav();
-    g_controller.tool.mouseMove( this.mouse_x, this.mouse_y );  // easy way to setup?
-    g_controller.guiToolbox.defaultSelect();
-    //g_controller.schematic.eventSave();
+    g_schematic_controller.tool = new toolNav();
+    g_schematic_controller.tool.mouseMove( this.mouse_x, this.mouse_y );  // easy way to setup?
+    g_schematic_controller.guiToolbox.defaultSelect();
+    //g_schematic_controller.schematic.eventSave();
     g_painter.dirty_flag = true;
 
 

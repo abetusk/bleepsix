@@ -134,58 +134,29 @@ function bleepsixSchematicNetwork( serverURL )
   this.socket.on( "schfullpush", 
       function(data) { p.schfullpushResponse( data ); } );
 
-  //this.socket.on( "projectrecent", function(data) { p.projectrecentResponse( data ); } );
-
   this.socket.on( "anonymouscreate", 
       function(data) { p.anonymousCreateResponse( data ); } );
+
+
+  this.socket.on( "debug", 
+      function(data) { console.log("got debug message:"); console.log(data); });
 
 
 
   setInterval( function() { p.slowSync(); }, 3000 );
 
-  /*
-
-  console.log("testing");
-
-  var msg = { 
-    userId : $.cookie("userId"),
-    sessionId : $.cookie("sessionId"),
-    schematicId: "d59281cf-1e74-4b65-f1b4-dc65f6d08e95",
-    json_sch : "{ element: [ ] }"
-  };
-
-  */
-
-  //console.log(msg);
-  //this.socket.emit( "anonymous", msg );
-  //this.socket.emit( "newproject", msg );
-  //this.socket.emit( "schauth", msg );
-  //this.socket.emit( "schfullpush", msg );
-
-  /*
-  this.socket.on( "schget", 
-      function(data) { p.handleSchgetResponse( data ); } );
-  this.socket.on( "schupdate", 
-      function(data) { p.handleSchupdateResponse( data ); } );
-      */
-
 }
 
 bleepsixSchematicNetwork.prototype.slowSync = function()
 {
-  //console.log("bleepsixSchematicNetwork.slowSync called");
-  //g_controller.fadeMessage("bloop");
-  //g_painter.dirty_flag = true;
-
-  if (g_controller.schematicUpdate)
-  //if (this.dirty_flag)
+  if (g_schematic_controller.schematicUpdate)
   {
     console.log("  bleepsixSchematicNetwork.slowSync syncing!");
 
     this.schfullpush();
 
-    g_controller.fadeMessage( "saved" );
-    g_controller.schematicUpdate = false;
+    g_schematic_controller.fadeMessage( "saved" );
+    g_schematic_controller.schematicUpdate = false;
   }
 
 }
@@ -282,9 +253,6 @@ bleepsixSchematicNetwork.prototype.init = function()
       }
     });
 
-
-    //console.log("no schematicId, emitting meow");
-    //this.socket.emit( "meow", { userId : this.userId, sessionId: this.sessionId  });
   }
   else
   {
@@ -374,14 +342,11 @@ bleepsixSchematicNetwork.prototype.schauthResponse = function( data )
     $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
     $.cookie("recentSchematicId",   this.schematicId, {expires:365, path:'/', secure:true });
     $.cookie("recentBoardId",       data.boardId, {expires:365, path:'/', secure:true });
-    //$.cookie("recentBoardId",       this.boardId,     {expires:365, path:'/', secure:true });
 
     this.schematicName = data.projectName + " / " + data.schematicName;
-    g_controller.schematic_name_text = this.schematicName;
+    g_schematic_controller.schematic_name_text = this.schematicName;
 
     this.schsnapshot();
-    //this.socket.emit("schsnapshot", { userId: this.userId, sessionId : this.sessionId, schematicId: this.schematicId });
-
   }
   else if ( (this.usingRecentSchematicFlag) ||
             (this.usingUrlSchematicFlag) )
@@ -453,14 +418,10 @@ bleepsixSchematicNetwork.prototype.schsnapshotResponse = function( data )
     return;
   }
 
-  //console.log(data);
-
   var json_data = JSON.parse(data);
 
-  //console.log(json_data);
-
-  g_controller.schematic.load_schematic(json_data);
-  g_controller.schematic.eventSave();
+  g_schematic_controller.schematic.load_schematic(json_data);
+  g_schematic_controller.schematic.eventSave();
 
 }
 
@@ -478,7 +439,7 @@ bleepsixSchematicNetwork.prototype.schfullpush = function( data )
   msg.userId = this.userId;
   msg.sessionId = this.sessionId;
   msg.schematicId = this.schematicId;
-  msg.json_sch = JSON.stringify( g_controller.schematic.kicad_sch_json ); 
+  msg.json_sch = JSON.stringify( g_schematic_controller.schematic.kicad_sch_json ); 
 
   console.log("emitting schfullpush, msg:");
   console.log(msg);
@@ -536,7 +497,7 @@ bleepsixSchematicNetwork.prototype.fullpush = function()
     sessionId: this.sessionId,
     schematicId: this.schematicId,
     type:"fullpush",
-    sch_json: g_controller.kicad_sch_json
+    sch_json: g_schematic_controller.kicad_sch_json
   };
 
   this.socket.emit( "schfullopush", container );

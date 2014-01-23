@@ -181,7 +181,7 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
     if (r)
     {
       console.log("guiFootprintLibrary: got tile hit " + this.guiChildren[1].footprint_name );
-      g_controller.tool = new toolFootprintPlace( x, y, this.guiChildren[1].footprint_name );
+      g_board_controller.tool = new toolFootprintPlace( x, y, this.guiChildren[1].footprint_name );
       return true;
     }
 

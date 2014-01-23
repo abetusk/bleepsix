@@ -294,7 +294,7 @@ guiToolbox.prototype._handleWireEvent = function(ev)
   {
 
     console.log("  handing over to toolWire (grid)");
-    g_controller.tool = new toolWire(0, 0, false);
+    g_schematic_controller.tool = new toolWire(0, 0, false);
 
     this.dropWire.selected = true;
 
@@ -308,7 +308,7 @@ guiToolbox.prototype._handleWireEvent = function(ev)
   else if (ev.owner == this.name + ":bus")
   {
     console.log("  handing over to toolWire (grid)");
-    //g_controller.tool = new toolWire();
+    //g_schematic_controller.tool = new toolWire();
     //this.dropWire.selected = true;
     g_painter.dirty_flag = true;
   }
@@ -321,7 +321,7 @@ guiToolbox.prototype._handleConnEvent = function(ev)
   if (ev.owner == this.name + ":conn")
   {
     console.log("  handing over to toolConn");
-    g_controller.tool = new toolConn(0, 0, "connection");
+    g_schematic_controller.tool = new toolConn(0, 0, "connection");
 
     this.dropConn.selected = true;
 
@@ -333,7 +333,7 @@ guiToolbox.prototype._handleConnEvent = function(ev)
   else if (ev.owner == this.name + ":noconn")
   {
     console.log("  handing over to toolConn");
-    g_controller.tool = new toolConn(0, 0, "noconn");
+    g_schematic_controller.tool = new toolConn(0, 0, "noconn");
 
     this.dropConn.selected = true;
 
@@ -357,7 +357,7 @@ guiToolbox.prototype._eventMouseDown = function( ev )
     ele.style.cursor = "auto";
 
 
-    g_controller.tool = new toolNav();
+    g_schematic_controller.tool = new toolNav();
 
     this.iconNav.selected = true;
 
@@ -408,13 +408,13 @@ guiToolbox.prototype._eventDoubleClick = function( ev )
   if (ev.owner == this.name + ":conn")
   {
     console.log("  handing over to toolConn('connection', 'persist')");
-    g_controller.tool = new toolConn( 0, 0, "connection", "persist");
+    g_schematic_controller.tool = new toolConn( 0, 0, "connection", "persist");
     return;
   }
   else if (ev.owner == this.name + ":noconn")
   {
     console.log("  handing over to toolConn('noconn', 'persist')");
-    g_controller.tool = new toolConn( 0, 0, "noconn", "persist");
+    g_schematic_controller.tool = new toolConn( 0, 0, "noconn", "persist");
     return;
   }
 }

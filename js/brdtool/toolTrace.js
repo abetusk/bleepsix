@@ -81,7 +81,7 @@ function toolTrace( x, y, initialPlaceFlag )
   this.small_magnet_size = 50;
   this.small_trace_magnet_size = 15;
 
-  this.color = g_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
+  this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
   this.cur_layer = this.layer[ this.cur_layer_ind ];
 
   this.ghost_color = "rgba(255,255,255,0.1)";
@@ -144,7 +144,7 @@ toolTrace.prototype._initTraceState = function()
 toolTrace.prototype.drawOverlay = function()
 {
 
-  //g_controller.board.updateRatsNest( 0 );
+  //g_board_controller.board.updateRatsNest( 0 );
 
   var th = this.trace_history;
   for ( var ind in th )
@@ -239,7 +239,7 @@ toolTrace.prototype.placeTrack = function()
   //
   if ( nc <= 0 )
   {
-    var net_obj = g_controller.board.addNet();
+    var net_obj = g_board_controller.board.addNet();
     nc = net_obj.net_number;
   }
 
@@ -253,7 +253,7 @@ toolTrace.prototype.placeTrack = function()
   {
     if ( th[ind].shape == "through" )
     {
-      g_controller.board.addVia( th[ind].x, th[ind].y, 
+      g_board_controller.board.addVia( th[ind].x, th[ind].y, 
                                 th[ind].width,
                                  this.layer[0], 
                                  this.layer[1],
@@ -261,7 +261,7 @@ toolTrace.prototype.placeTrack = function()
     }
     else if (th[ind].shape == "track" )
     {
-      g_controller.board.addTrack( th[ind].x0, th[ind].y0,
+      g_board_controller.board.addTrack( th[ind].x0, th[ind].y0,
                                    th[ind].x1, th[ind].y1,
                                    th[ind].width,
                                    th[ind].layer, 
@@ -281,7 +281,7 @@ toolTrace.prototype.placeTrack = function()
 
       if (this.dist1( ctp[ind-1], ctp[ind] ) > this.dist1_trace_eps )
       {
-        g_controller.board.addTrack( ctp[ind-1].x, ctp[ind-1].y,
+        g_board_controller.board.addTrack( ctp[ind-1].x, ctp[ind-1].y,
                                      ctp[ind].x,   ctp[ind].y,
                                      this.trace_width, 
                                      this.cur_layer,
@@ -302,7 +302,7 @@ toolTrace.prototype.placeTrack = function()
       dst_netcode = this.ele_dst.ref.netcode;
 
     if (dst_netcode > 0)
-      g_controller.board.mergeNets( dst_netcode, nc );
+      g_board_controller.board.mergeNets( dst_netcode, nc );
     else
     {
       console.log("dest join anonymous net");
@@ -320,7 +320,7 @@ toolTrace.prototype.placeTrack = function()
 
 
     if (src_netcode > 0)
-      g_controller.board.mergeNets( src_netcode, nc );
+      g_board_controller.board.mergeNets( src_netcode, nc );
     else if (src_netcode)
     {
       console.log("source join anonymous net");
@@ -330,7 +330,7 @@ toolTrace.prototype.placeTrack = function()
 
 
 
-  g_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+  g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
   g_painter.dirty_flag = true;
 
 }
@@ -372,7 +372,7 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey )
   var n = this.cur_trace_point.length;
   var  dst_track = {};
   this._make_point_track( dst_track, this.cur_trace_point[n-1] );
-  var hit_ele_dst = g_controller.board.trackBoardIntersect( [ dst_track ] );
+  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] );
 
   var dst_hit = this._choose_hit_element( hit_ele_dst );
 
@@ -381,7 +381,7 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey )
     if (dst_hit.type == "pad" )
     {
 
-      var pad_center = g_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
+      var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
 
       this._magnet_pad( this.cur_trace_point[n-1], dst_hit.ref, dst_hit.pad_ref );
       this.cur_trace_point = this._make_joint_trace( this.cur_trace_point );
@@ -389,7 +389,7 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey )
       this.placeTrack();
 
       //if (this.netcode <= 0)
-      //g_controller.board.connectNets( 
+      //g_board_controller.board.connectNets( 
 
     
 
@@ -548,7 +548,7 @@ toolTrace.prototype.doubleClick = function( button, x, y )
     // (and we receive a doubleClick event),
     // do nothing but give control back to toolBoardNav
     //
-    g_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
   }
 }
@@ -753,7 +753,7 @@ toolTrace.prototype._choose_hit_element = function( hit_ele_list )
 //
 toolTrace.prototype._magnet_pad = function( trace_point, mod, pad )
 {
-  var pad_center = g_controller.board.getPadCenter( mod, pad );
+  var pad_center = g_board_controller.board.getPadCenter( mod, pad );
   var snap_point = g_snapgrid.snapGrid( pad_center );
   trace_point.x = snap_point.x;
   trace_point.y = snap_point.y;
@@ -846,9 +846,9 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
   this._make_point_track( src_track, virtual_trace[0] );
   this._make_point_track( dst_track, virtual_trace[n-1] );
 
-  var hit_ele_list = g_controller.board.trackBoardIntersect( tracks );
-  var hit_ele_src = g_controller.board.trackBoardIntersect( [ src_track ] );
-  var hit_ele_dst = g_controller.board.trackBoardIntersect( [ dst_track ] );
+  var hit_ele_list = g_board_controller.board.trackBoardIntersect( tracks );
+  var hit_ele_src = g_board_controller.board.trackBoardIntersect( [ src_track ] );
+  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] );
 
   if (this._hitlist_has_middle_geometry( hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
@@ -897,7 +897,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
       // end it there.
       // Else, just return without updating anything.
       //
-      var pad_center = g_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
+      var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
       if ( (parseInt( dst_hit.pad_ref.net_number ) == this.netcode ) ||
            (this.dist1( virtual_trace[n-1], pad_center ) < this.small_magnet_size) )
       {
@@ -987,7 +987,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
   // Otherwise, commit the change.
   //
   var fin_tracks = this._make_tracks_from_points( virtual_trace );
-  var fin_hit_ele_list = g_controller.board.trackBoardIntersect( fin_tracks );
+  var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks );
   if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
     this.allow_place_flag = false;
@@ -1079,7 +1079,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
   if ((ch == 'Q') || (keycode == 27))
   {
     console.log("handing back to toolBoardNav");
-    g_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
 
     g_painter.dirty_flag = true;
   }
@@ -1143,7 +1143,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
     this.cur_layer_ind = 1-this.cur_layer_ind;
     this.cur_layer = this.layer[ this.cur_layer_ind ];
-    this.color = g_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
+    this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
 
     g_painter.dirty_flag = true;
   }

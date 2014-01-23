@@ -21,11 +21,23 @@
 	<script src='js/lib/aux.js'></script>
 	<script src='js/lib/jquery.cookie.js'></script>
 
+    <script src='js/lib/peg.js'></script>
+
+    <script src='js/lib/snapGrid.js'></script>
+
     <script src='js/core/bleepsixRender.js'></script>
     <script src='js/sch/bleepsixSchematic.js'></script>
     <script src='js/sch/bleepsixSchematic_event.js'></script>
     <script src='js/sch/bleepsixSchematicController.js'></script>
     <script src='js/sch/bleepsixSchematicNetwork.js'></script>
+
+    <script src='js/brd/bleepsixBoard.js'></script>
+    <script src='js/brd/bleepsixBoard_aux.js'></script>
+    <script src='js/brd/bleepsixBoard_bbox.js'></script>
+    <script src='js/brd/bleepsixBoard_netops.js'></script>
+    <script src='js/brd/bleepsixBoard_zone.js'></script>
+    <script src='js/brd/bleepsixBoard_ratsnest.js'></script>
+
 
 	<script src='js/gui/guiRegion.js'></script>
 
@@ -158,15 +170,19 @@
 	  
       var g_snapgrid = null;
 	  var g_painter = null;
-      var g_controller = null ; //new bleepsixController();
+      var g_schematic_controller = null ; //new bleepsixController();
 
       var g_imgcache = null;
       //var g_schematic = new bleepsixSchematic();
 
       // key is component name (unmunged, bare, without directory)
+
+      /*
       var g_component_cache = {};
       var g_component_location = {};
       var g_component_library_map = {};
+      */
+
 	  var g_canvas = "canvas";
 	  var g_context = null;
 
@@ -198,7 +214,7 @@
         var saved_dirty = g_painter.dirty_flag;
 
 				
-		g_controller.redraw();
+		g_schematic_controller.redraw();
 			
 
         /*
@@ -227,15 +243,85 @@
         var cvs = document.getElementById('canvas');
         cvs.onselectstart = function() { return false; }
 
+        // load g_component_cache with 'unknown' part
+        //
+        g_component_cache['unknown'] = {
+          "name": "unknown",
+          "reference" : "Z",
+          "bounding_box" : [ [ -250, -250], [250, 250] ],
+          "type" : "component",
+          "timestamp" : "52566B9A",
+          "transform" : [ [1,0],[0,-1] ],
+          "mm" : 1,
+          "nn" : 1,
+
+          "text" : [
+            {
+              "bounding_box" : [ [ -50, -50] , [50,50] ],
+              "text" : "??",
+              "orientation": "H",
+              "reference": "Z",
+              "hjustify": "C",
+              "number": 0,
+              "vjustify": "C",
+              "visible": false,
+              "bold": false,
+              "italic": false,
+              "y": "0",
+              "x": "0",
+              "size": "60",
+              "flags" : "0000 C CNN"
+            },
+
+            {
+              "bounding_box" : [ [ -50, -50] , [50,50] ],
+              "text" : "??",
+              "orientation": "H",
+              "reference": "??",
+              "hjustify": "C",
+              "number": 1,
+              "vjustify": "C",
+              "visible": true,
+              "bold": true,
+              "italic": true,
+              "y": "0",
+              "x": "0",
+              "size": "60",
+              "flags" : "0000 C CNN"
+            }
+
+          ],
+
+          "art" : [
+            {
+              "count" : 5,
+              "line_width" : 0,
+              "shape" : "path",
+              "path" : [
+                [  250,  250 ],
+                [ -250,  250 ],
+                [ -250, -250 ],
+                [  250, -250 ],
+                [  250,  250 ]
+                ],
+              "de_morgan_alternate_shape" : "1",
+              "unit" : "0",
+              "fill" : "N"
+            }
+          ]
+
+        };
+
 
         g_snapgrid = new snapGrid(true, "deci-mil", 50);
 
 		g_painter = new bleepsixRender( "canvas" );
         g_painter.setGrid ( 1 );
 
-        g_controller = new bleepsixSchematicController();
-        g_controller.init( "canvas" );		
-		g_context = g_controller.context;
+        g_schematic_controller = new bleepsixSchematicController();
+        g_schematic_controller.init( "canvas" );		
+		g_context = g_schematic_controller.context;
+
 
 
         // setup image cache and preload some generic items
@@ -299,7 +385,7 @@
           console.log("hoveron"); 
 
           //g_drawSnapArea = true;
-          g_controller.drawSnapArea = true;
+          g_schematic_controller.drawSnapArea = true;
 
           g_painter.dirty_flag = true;
 
@@ -308,7 +394,7 @@
           console.log("hoveroff"); 
 
           //g_drawSnapArea = false;
-          g_controller.drawSnapArea = false;
+          g_schematic_controller.drawSnapArea = false;
 
           g_painter.dirty_flag = true;
 
@@ -338,15 +424,17 @@
 		}
 
       //function load_component_cache_part( name )
+      /*
+
       function load_component_cache_part( name, location )
       {
         if ( !(name in g_component_cache) )
         {
-          g_controller.schematic.queued_display_component_count++;
+          g_schematic_controller.schematic.queued_display_component_count++;
 
           //part_json = "json/" + name + ".json";
           part_json = location;
-          var schem = g_controller.schematic;
+          var schem = g_schematic_controller.schematic;
 
           $.ajaxSetup({ cache : false });
           $.getJSON( part_json,
@@ -372,6 +460,8 @@
         }
       }
 
+      */
+
       /*
       function btn_func()
       {
@@ -379,8 +469,8 @@
         $.getJSON( "examples/osh_heart_v2.json", 
           function(data) { 
             console.log("data:" + data); 
-            g_controller.schematic.load_schematic(data); 
-            g_controller.schematicUpdate = true;
+            g_schematic_controller.schematic.load_schematic(data); 
+            g_schematic_controller.schematicUpdate = true;
           });
       }
       */
@@ -414,7 +504,7 @@
       //function submitSchematic( json_data )
       function downloadSchematic( )
       {
-        var json_data = g_controller.schematic.kicad_sch_json ;
+        var json_data = g_schematic_controller.schematic.kicad_sch_json ;
 
         //var container = { "type" : "createJSON", data: json_data };
         var container = { "type" : "createKiCADSchematic", data: json_data };
@@ -447,9 +537,9 @@
         }
         else
         {
-          g_controller.schematic.load_schematic( json_data );
-          g_controller.schematic.eventSave();
-          g_controller.schematicUpdate = true;
+          g_schematic_controller.schematic.load_schematic( json_data );
+          g_schematic_controller.schematic.eventSave();
+          g_schematic_controller.schematicUpdate = true;
         }
       }
 

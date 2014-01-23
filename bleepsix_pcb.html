@@ -25,6 +25,9 @@
     <script src='js/lib/numeric.js'></script>
 	<script src='js/lib/oop.js'></script>
 
+	<script src='js/lib/aux.js'></script>
+	<script src='js/lib/snapGrid.js'></script>
+
     <script src='js/lib/clipper.js'></script>
 
     <script src='js/core/bleepsixRender.js'></script>
@@ -37,6 +40,10 @@
     <script src='js/brd/bleepsixBoard_ratsnest.js'></script>
 
     <script src='js/brd/bleepsixBoardController.js'></script>
+
+    <script src='js/sch/bleepsixSchematic.js'></script>
+    <script src='js/sch/bleepsixSchematic_event.js'></script>
+
 
 	<script src='js/gui/guiRegion.js'></script>
 
@@ -87,9 +94,10 @@
 	  
       var g_snapgrid = null;
 	  var g_painter = null;
-      var g_controller = null ; 
+      var g_board_controller = null ; 
 
       // key is module name (unmunged, bare, without directory)
+      /*
       var g_footprint_cache = {};
       var g_footprint_location = {};
       var g_footprint_library_map = {};
@@ -97,6 +105,7 @@
 	  var g_context = null;
 
       var g_footprint_location_ready = false;
+      */
 
 
 
@@ -113,7 +122,7 @@
 		container.innerHTML = "FPS: " + (1000.0/g_msec);
 
 			
-		g_controller.redraw();
+		g_board_controller.redraw();
 		//requestAnimationFrame( loop, 1 );		
 		requestAnimationFrame( loop );
 	  }
@@ -130,14 +139,17 @@
 		g_painter = new bleepsixRender( "canvas" );
         g_painter.setGrid ( 1 );
 
-        g_controller = new bleepsixBoardController();
-        g_controller.init( "canvas" );		
-		g_context = g_controller.context;
+        g_board_controller = new bleepsixBoardController();
+        g_board_controller.init( "canvas" );		
+		g_context = g_board_controller.context;
 
 		requestAnimationFrame( loop, 1 );
 
-        $.ajaxSetup({ cache : false });
         var footprint_location_json = "json/footprint_location.json";
+        load_footprint_location( footprint_location_json );
+
+        /*
+        $.ajaxSetup({ cache : false });
         $.getJSON( footprint_location_json,
           function(data) {
             g_footprint_location = data;
@@ -152,6 +164,7 @@
             console.log("could not load " + footprint_location_json + ": " + error);
           }
         );
+        */
 
 
       });
@@ -170,6 +183,8 @@
 		  } )();
 		}
 
+        /*
+
       function load_footprint_cache_part( name, location )
       {
 
@@ -177,11 +192,11 @@
 
         if ( !(name in g_footprint_cache) )
         {
-          g_controller.board.queued_display_footprint_count++;
+          g_board_controller.board.queued_display_footprint_count++;
 
           //part_json = "json/" + name + ".json";
           part_json = location;
-          var brd = g_controller.board;
+          var brd = g_board_controller.board;
 
           console.log("load_footprint_cache_part: footprint " + name + " " + location );
 
@@ -209,6 +224,8 @@
         }
       }
 
+      */
+
       function btn_func()
       {
         console.log("btn_func");
@@ -219,14 +236,14 @@
         //var brd_file = "examples/net_test2_brd.json";
         //var brd_file = "examples/net_test_thermal_relief_brd.json";
         //var brd_file = "examples/zone_test_brd.json";
-        var brd = g_controller.board;
+        var brd = g_board_controller.board;
 
         $.ajaxSetup({ cache: false });
         $.getJSON( brd_file,
           function(data) { 
             console.log("data:")
             console.log(data); 
-            g_controller.board.load_board(data); 
+            g_board_controller.board.load_board(data); 
           }).fail(
            ( function(a) {
              return function(jqxhr, textStatus,error) {

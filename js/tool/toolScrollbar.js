@@ -79,13 +79,13 @@ toolScrollbar.prototype.mouseDown = function( button, x, y )
 
   if (typeof this.orig_tool === 'undefined' )
   {
-    g_controller.tool = new toolNav(x, y);
+    g_schematic_controller.tool = new toolNav(x, y);
     g_painter.dirty_flag = true;
   }
   else
   {
-    g_controller.tool = this.orig_tool;
-    g_controller.tool.update(x,y);
+    g_schematic_controller.tool = this.orig_tool;
+    g_schematic_controller.tool.update(x,y);
     g_painter.dirty_flag = true;
   }
 
@@ -101,13 +101,13 @@ toolScrollbar.prototype.mouseUp = function( button, x, y )
 
   if (typeof this.orig_tool === 'undefined' )
   {
-    g_controller.tool = new toolNav(x, y);
+    g_schematic_controller.tool = new toolNav(x, y);
     g_painter.dirty_flag = true;
   }
   else
   {
-    g_controller.tool = this.orig_tool;
-    g_controller.tool.update(x,y);
+    g_schematic_controller.tool = this.orig_tool;
+    g_schematic_controller.tool.update(x,y);
     g_painter.dirty_flag = true;
   }
 

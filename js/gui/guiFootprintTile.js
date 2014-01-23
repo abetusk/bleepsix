@@ -120,7 +120,7 @@ guiFootprintTile.prototype.draw = function()
       g_painter.context.transform( r, 0, 0, r, s-com_x, s+com_y );
       //g_controller.schematic.drawComponent( g_footprint_cache[this.footprint_name], 0, 0, identity, true );
       //g_controller.board.drawComponent( g_footprint_cache[this.footprint_name], 0, 0, identity, true );
-      g_controller.board.drawFootprint( g_footprint_cache[this.footprint_name], 0, 0, orientation, true );
+      g_board_controller.board.drawFootprint( g_footprint_cache[this.footprint_name], 0, 0, orientation, true );
       g_painter.context.restore();
 
 

@@ -2,6 +2,12 @@
 //   - do incremental updates instead of wholesale copies
 //   - read and store history from database so undo isn't tied to the session
 
+if (typeof module !== 'undefined')
+{
+  var bleepsixSchematic = require("./bleepsixSchematic.js");
+  module.exports = bleepsixSchematic;
+}
+
 bleepsixSchematic.prototype.eventInit = function()
 {
   this.eventStack = { n : 0, pos : 0, stack : [] };
@@ -53,7 +59,7 @@ bleepsixSchematic.prototype.eventUndo = function()
   this.eventStack.pos--;
 
   g_painter.dirty_flag = true;
-  g_controller.schematicUpdate = true;
+  g_schematic_controller.schematicUpdate = true;
 }
 
 bleepsixSchematic.prototype.eventRedo = function()
@@ -72,7 +78,7 @@ bleepsixSchematic.prototype.eventRedo = function()
   this.eventStack.pos++;
 
   g_painter.dirty_flag = true;
-  g_controller.schematicUpdate = true;
+  g_schematic_controller.schematicUpdate = true;
 
 }
 

@@ -77,9 +77,9 @@ toolConn.prototype.drawOverlay = function()
 
 
   if (this.connType == "noconn")
-    g_controller.schematic.drawSchematicNoconn( tconn );
+    g_schematic_controller.schematic.drawSchematicNoconn( tconn );
   else if (this.connType == "connection")
-    g_controller.schematic.drawSchematicConnection( tconn );
+    g_schematic_controller.schematic.drawSchematicConnection( tconn );
 
 
   var s = this.cursorSize / 2;
@@ -91,7 +91,7 @@ toolConn.prototype.drawOverlay = function()
                            "rgb(128, 128, 128 )" );
 
 
-  g_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
+  g_schematic_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
 
 }
 
@@ -124,25 +124,25 @@ toolConn.prototype.mouseDown = function( button, x, y )
 
       if (this.connType == "noconn")
       {
-        g_controller.schematic.addNoconn( this.mouse_world_xy.x, this.mouse_world_xy.y );
-        g_controller.schematicUpdate = true;
+        g_schematic_controller.schematic.addNoconn( this.mouse_world_xy.x, this.mouse_world_xy.y );
+        g_schematic_controller.schematicUpdate = true;
 
-        g_controller.schematic.eventSave();
+        g_schematic_controller.schematic.eventSave();
 
       }
       else if (this.connType == "connection")
       {
-        g_controller.schematic.addConnection( this.mouse_world_xy.x, this.mouse_world_xy.y );
-        g_controller.schematicUpdate = true;
+        g_schematic_controller.schematic.addConnection( this.mouse_world_xy.x, this.mouse_world_xy.y );
+        g_schematic_controller.schematicUpdate = true;
 
-        g_controller.schematic.eventSave();
+        g_schematic_controller.schematic.eventSave();
 
       }
 
     if (this.placeOption == "once")
     {
-      g_controller.tool = new toolNav(x, y);
-      g_controller.guiToolbox.defaultSelect();
+      g_schematic_controller.tool = new toolNav(x, y);
+      g_schematic_controller.guiToolbox.defaultSelect();
       g_painter.dirty_flag = true;
 
 
@@ -234,8 +234,8 @@ toolConn.prototype.keyDown = function( keycode, ch, ev )
   if ((ch == 'Q') || (keycode == 27))
   {
     console.log("handing back to toolNav");
-    g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_schematic_controller.guiToolbox.defaultSelect();
 
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";

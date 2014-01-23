@@ -118,7 +118,7 @@ guiComponentTile.prototype.draw = function()
 
       g_painter.context.save();
       g_painter.context.transform( r, 0, 0, r, s-com_x, s+com_y );
-      g_controller.schematic.drawComponent( g_component_cache[this.component_name], 0, 0, identity, true );
+      g_schematic_controller.schematic.drawComponent( g_component_cache[this.component_name], 0, 0, identity, true );
       g_painter.context.restore();
 
 

@@ -30,7 +30,7 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
 
   this.angle = 0.0;
 
-  var ref_name = g_controller.board.getReferenceName( g_footprint_cache[ footprint_name ] );
+  var ref_name = g_board_controller.board.getReferenceName( g_footprint_cache[ footprint_name ] );
 
   this.cloned_footprint = {};
   if ( typeof footprint_data === 'undefined' )
@@ -40,7 +40,7 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
   else
   {
     $.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
-    //g_controller.board.extendComponentText( this.cloned_footprint, footprint_data );
+    //g_board_controller.board.extendComponentText( this.cloned_footprint, footprint_data );
 
     this.cloned_footprint.name = footprint_data.name;
     this.angle = 0.0;
@@ -76,7 +76,7 @@ toolFootprintPlace.prototype.drawOverlay = function()
   var s = this.cursorSize / 2;
 
 
-  g_controller.board.drawFootprint( this.cloned_footprint,
+  g_board_controller.board.drawFootprint( this.cloned_footprint,
                                     parseFloat(this.world_xy["x"]), 
                                     parseFloat(this.world_xy["y"]), 
                                     0, true );
@@ -92,7 +92,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
     console.log("toolFootprintPlace: placing footprint: " + this.footprint_name);
 
-    g_controller.board.addFootprintData( this.cloned_footprint, 
+    g_board_controller.board.addFootprintData( this.cloned_footprint, 
                                              this.world_xy["x"], 
                                              this.world_xy["y"] );
                                              //0);
@@ -100,8 +100,8 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
     console.log("toolFootprintPlace: passing back to toolBoardNav");
 
-    g_controller.tool = new toolBoardNav(x, y);
-    //g_controller.tool.mouseMove( x, y );  // easy way to setup?
+    g_board_controller.tool = new toolBoardNav(x, y);
+    //g_board_controller.tool.mouseMove( x, y );  // easy way to setup?
     g_painter.dirty_flag = true;
   }
   else if (button == 3)
@@ -146,7 +146,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("toolFootprintPlace: passing back to toolNav");
 
-    g_controller.tool = new toolBoardNav( this.mouse_x, this.mouse_y );
+    g_board_controller.tool = new toolBoardNav( this.mouse_x, this.mouse_y );
     g_painter.dirty_flag = true;
 
   }
@@ -157,7 +157,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
        this.angle -= 2.0 * Math.PI;
 
     var id_ref = { id: this.cloned_footprint.id, ref : this.cloned_footprint };
-    g_controller.board.rotate90( id_ref, true );
+    g_board_controller.board.rotate90( id_ref, true );
 
     console.log(" (r) angle now: " + this.cloned_footprint.angle );
 
@@ -172,7 +172,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
       this.angle += 2.0 * Math.PI;
 
     var id_ref = { id: this.cloned_footprint.id, ref : this.cloned_footprint };
-    g_controller.board.rotate90( id_ref, false );
+    g_board_controller.board.rotate90( id_ref, false );
 
     console.log(" (e) angle now: " + this.cloned_footprint.angle );
 

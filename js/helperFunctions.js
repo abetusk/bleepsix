@@ -36,7 +36,7 @@ function successSnapshotPicture(x,y,z)
 /*
 function downloadFile()
 {
-  var json_data = g_controller.schematic.kicad_sch_json;
+  var json_data = g_schematic_controller.schematic.kicad_sch_json;
   var container = { "type" : "createKiCADSchematic", data: json_data };
   var str_data = JSON.stringify( container );
 

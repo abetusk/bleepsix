@@ -64,15 +64,15 @@ function toolComponentEdit( mouse_x, mouse_y, id_ref )
   this.snap_world_xy = g_snapgrid.snapGrid (this.prev_world_xy);
 
   this.picked_id_ref = 
-    g_controller.schematic.pickElement( id_ref.ref, 
+    g_schematic_controller.schematic.pickElement( id_ref.ref, 
                                         this.cur_world_xy.x, 
                                         this.cur_world_xy.y );
 
   if (! this.picked_id_ref )
   {
     console.log("ERROR: in toolComponentEdit constructor.  pickElement returned null");
-    g_controller.tool = new toolNav(mouse_x, mouse_y);
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav(mouse_x, mouse_y);
+    g_schematic_controller.guiToolbox.defaultSelect();
 
     return;
   }
@@ -91,9 +91,9 @@ toolComponentEdit.prototype.mouseWheel = function( delta )  { g_painter.adjustZo
 
 toolComponentEdit.prototype._handoff = function(x, y)  
 { 
-  g_controller.tool = new toolNav();
-  g_controller.tool.mouseMove( x, y );  // easy way to setup?
-  g_controller.guiToolbox.defaultSelect();
+  g_schematic_controller.tool = new toolNav();
+  g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
+  g_schematic_controller.guiToolbox.defaultSelect();
 
   g_painter.dirty_flag = true;
 }
@@ -215,7 +215,7 @@ toolComponentEdit.prototype.mouseDown = function( button, x, y )
 
 
     var wc = g_painter.devToWorld(x, y);
-    var id_ref = g_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
 
     // if we clicked anywhere else other than this component, 
     // hand it back to toolNav
@@ -288,7 +288,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
   if (this.edit_state == "none")
   {
     var wc = g_painter.devToWorld(x,y);
-    var id_ref = g_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
 
     if ( (!id_ref) ||
          (id_ref.ref.id != this.picked_id_ref.ref.id) )
@@ -310,7 +310,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
       //this.mouse_drag_button = false;
       this.edit_state = "none";
 
-      g_controller.schematic.eventSave();
+      g_schematic_controller.schematic.eventSave();
     }
 
   }
@@ -318,7 +318,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
   {
 
     var wc = g_painter.devToWorld(x,y);
-    var id_ref = g_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
 
     if (id_ref &&
         id_ref.ref.id == this.picked_id_ref.ref.id)
@@ -354,7 +354,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
           this.edit_text_orig = ref.text[ind].text;
 
           g_painter.dirty_flag = true;  // draw cursor
-          g_controller.schematicUpdate = true;
+          g_schematic_controller.schematicUpdate = true;
         }
 
       }
@@ -402,12 +402,12 @@ toolComponentEdit.prototype.mouseMove = function( x, y )
 
     var snapxy = g_snapgrid.snapGrid( this.prev_world_xy );
 
-    g_controller.schematic.moveComponentTextField( ref, ind, snapxy.x, snapxy.y );
+    g_schematic_controller.schematic.moveComponentTextField( ref, ind, snapxy.x, snapxy.y );
 
     //ref.text[ind].x = snapxy.x;
     //ref.text[ind].y = snapxy.y;
     g_painter.dirty_flag = true;
-    g_controller.schematicUpdate = true;
+    g_schematic_controller.schematicUpdate = true;
 
   }
 
@@ -424,9 +424,9 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
     this._handoff( this.mouse_cur_x, this.mouse_cur_y );
     return;
 
-    g_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
-    g_controller.guiToolbox.defaultSelect();
+    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_schematic_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
+    g_schematic_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
 
@@ -444,7 +444,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "bs" );
 
-      g_controller.schematic.eventSave();
+      g_schematic_controller.schematic.eventSave();
 
 
       pass_key = false;
@@ -456,7 +456,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "del" );
 
-      g_controller.schematic.eventSave();
+      g_schematic_controller.schematic.eventSave();
 
     }
     else if (keycode == 16)
@@ -496,7 +496,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'R')
   {
     var wc = g_painter.devToWorld(this.mouse_cur_x,this.mouse_cur_y);
-    var id_ref = g_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
 
     if (  id_ref &&
          (id_ref.ref.id == this.picked_id_ref.ref.id) &&
@@ -512,8 +512,8 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
         ref.text[ind].orientation = "V";
 
       g_painter.dirty_flag = true;
-      g_controller.schematicUpdate = true;
-      g_controller.schematic.eventSave();
+      g_schematic_controller.schematicUpdate = true;
+      g_schematic_controller.schematic.eventSave();
 
     }
   
@@ -540,7 +540,7 @@ toolComponentEdit.prototype._clamp_add_edit_pos = function( ds )
 
 toolComponentEdit.prototype._addch = function( ch, indicator )
 {
-  g_controller.schematicUpdate = true;
+  g_schematic_controller.schematicUpdate = true;
 
   indicator = ( typeof indicator !== 'undefined' ? indicator : "none" );
 
@@ -604,8 +604,8 @@ toolComponentEdit.prototype.keyPress = function( keycode, ch, ev  )
     console.log("editing text: " + ch);
 
     this._addch( ch );
-    g_controller.schematicUpdated = true;
-    g_controller.schematic.eventSave();
+    g_schematic_controller.schematicUpdated = true;
+    g_schematic_controller.schematic.eventSave();
 
   }
 

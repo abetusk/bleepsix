@@ -108,13 +108,13 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       //var pnts = [ [mx, my], [mx, My], [Mx, My], [Mx, my] ];
       var pnts = [ [mx, my], [Mx, my], [Mx, My], [mx, My] ];
-      g_controller.board.addCZone( pnts, this.netcode, this.layer );
+      g_board_controller.board.addCZone( pnts, this.netcode, this.layer );
 
       console.log("...");
 
     }
 
-    g_controller.tool = new toolBoardNav(x, y);
+    g_board_controller.tool = new toolBoardNav(x, y);
     g_painter.dirty_flag = true;
 
   }
@@ -177,8 +177,8 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
     console.log("Z!");
     this.netcode ++;
 
-    if (this.netcode in g_controller.board.kicad_brd_json.net_code_map)
-      this.netname = g_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+    if (this.netcode in g_board_controller.board.kicad_brd_json.net_code_map)
+      this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
 
     this.debug_print();
   }
@@ -187,14 +187,14 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
     console.log("A.");
     this.netcode--;
 
-    if (this.netcode in g_controller.board.kicad_brd_json.net_code_map)
-      this.netname = g_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+    if (this.netcode in g_board_controller.board.kicad_brd_json.net_code_map)
+      this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
 
     this.debug_print();
   }
   else if (keycode == 27)
   {
-    g_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
+    g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
     g_painter.dirty_flag = true;
   }
 }
