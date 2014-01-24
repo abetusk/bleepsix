@@ -36,6 +36,9 @@ function bleepsixSchematic()
 
   this.kicad_sch_json = { "element":[] };
 
+  // reference by id
+  this.ref_lookup = {};
+
   //this.brd = new bleepsixBoard();
 
   // update sister board structure
@@ -48,7 +51,7 @@ function bleepsixSchematic()
   */
 
 
-  this.kicad_brd_json = { "element":[] };
+  //this.kicad_brd_json = { "element":[] };
   this.displayable = true;
 
   this.eventStack = { n : 0, pos : 0, stack : [] };
@@ -103,6 +106,64 @@ bleepsixSchematic.prototype._createId = function( parent_id )
   return id_str;
 
 }
+
+bleepsixSchematic.prototype.refLookup = function( id )
+{
+
+  console.log("refLookup: looking up id " + id );
+
+  if (id in this.ref_lookup)
+  {
+
+    console.log("  found!  returning:");
+    console.log( this.ref_lookup[id] );
+
+    return this.ref_lookup[ id ];
+  }
+
+  var sch = this.kicad_sch_json["element"];
+  var ind;
+
+  for (ind in sch)
+  {
+
+    this.ref_lookup[ sch[ind].id ] = sch[ind];
+
+    console.log("added " + sch[ind].id + " to ref_lookup:");
+    console.log( this.ref_lookup[ sch[ind].id ] );
+
+    if ( id == sch[ind].id )
+    {
+      console.log("  found!  returning:");
+      console.log( this.ref_lookup[id] );
+
+      return this.ref_lookup[id];
+    }
+
+    if (sch[ind].type == "component")
+    {
+      for (var t_ind in sch[ind].text)
+      {
+        this.ref_lookup[ sch[ind].text[t_ind].id ] = sch[ind].text[t_ind];
+        if ( id == sch[ind].text[t_ind].id )
+        {
+          console.log("  found!  returning:");
+          console.log( this.ref_lookup[id] );
+
+          return this.ref_lookup[ id ];
+        }
+      }
+    }
+
+  }
+
+  console.log("ERROR: id " + id + " not found!");
+
+  return null;
+
+}
+
+
 
 bleepsixSchematic.prototype.extendComponentText = function( dst_comp_ref, src_comp_ref )
 {
@@ -212,7 +273,8 @@ bleepsixSchematic.prototype.findElement = function( id )
 bleepsixSchematic.prototype.remove = function( id_ref )
 {
   var ele;
-  var id = id_ref["id"];
+  var id = id_ref.id;
+  var ref = id_ref.ref;
 
   for (var ind in this.kicad_sch_json["element"] )
   {
@@ -224,6 +286,20 @@ bleepsixSchematic.prototype.remove = function( id_ref )
       var e = this.kicad_sch_json["element"].pop();
       if ( ind < this.kicad_sch_json["element"].length )
         this.kicad_sch_json["element"][ind] = e;
+
+      console.log("deleting id:" + id);
+      delete this.ref_lookup[id];
+      if (ref.type == "component")
+      {
+        for (var t_ind in ref.text)
+        {
+          if ( ref.text[t_ind].id in this.ref_lookup )
+          {
+            console.log("deleting sub id:" + ref.text[t_ind].id );
+            delete this.ref_lookup[ ref.text[t_ind].id ];
+          }
+        }
+      }
 
       g_painter.dirty_flag = true;
       return;
@@ -704,9 +780,9 @@ bleepsixSchematic.prototype.relativeMoveElement = function( id_ref, dx, dy )
 }
 
 
-bleepsixSchematic.prototype.addWire = function(x0, y0, x1, y1)
+bleepsixSchematic.prototype.addWire = function(x0, y0, x1, y1, id)
 {
-  var id = this._createId();
+  id  = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   var line = {};
   line["startx"] = x0;
@@ -725,28 +801,30 @@ bleepsixSchematic.prototype.addWire = function(x0, y0, x1, y1)
   return id;
 }
 
-bleepsixSchematic.prototype.addConnection = function( x, y )
+bleepsixSchematic.prototype.addConnection = function( x, y, id )
 {
+  id  = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   var conn = {};
   conn["type"] = "connection";
   conn["x"] = x;
   conn["y"] = y;
-  conn["id"] = this._createId();
+  conn["id"] = id;
   
   this.updateBoundingBox( conn );
 
   this.kicad_sch_json["element"].push(conn);
 }
 
-bleepsixSchematic.prototype.addNoconn = function( x, y )
+bleepsixSchematic.prototype.addNoconn = function( x, y, id )
 {
+  id  = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   var noconn = {};
   noconn["type"] = "noconn";
   noconn["x"] = x;
   noconn["y"] = y;
-  noconn["id"] = this._createId();
+  noconn["id"] = id;
   
   this.updateBoundingBox( noconn );
 
@@ -764,7 +842,7 @@ bleepsixSchematic.prototype.addNoconn = function( x, y )
 // 2) I think the schematic is adding a few more text fields for one reason or
 //   another...should we add a few just for consistency with KiCAD's sake?
 // 3) timestamp???
-bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, transform )
+bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, transform, id )
 {
 
   transform = ( typeof transform !== 'undefined' ? transform : [ [1, 0], [0, 1] ] );
@@ -787,20 +865,20 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
   $.extend(true, json_component, g_component_cache[comp_name] );
   json_component.text[0].reference = json_component.text[0].reference + "?";
 
-  this.addComponentData( json_component, x, y, transform );
+  this.addComponentData( json_component, x, y, transform, id );
 
 }
 
 
-bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, transform )
+bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, transform, id, text_ids )
 {
+  id  = ( (typeof id !== 'undefined') ? id : this._createId() );
+  text_ids = ( (typeof text_ids !== 'undefined') ? text_ids : [ this._createId(), this._createId() ] );
 
   transform = ( typeof transform !== 'undefined' ? transform : [ [1, 0], [0, 1] ] );
 
   x = parseFloat(x);
   y = parseFloat(y);
-
-  var id = this._createId();
 
   var comp_entry = {}
 
@@ -829,6 +907,7 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   comp_entry["text"][0]["y"] = Math.floor(fy + y);
   comp_entry["text"][0]["number"] = 0;
   comp_entry["text"][0]["text"] = json_component.text[0].reference ;
+  comp_entry["text"][0]["id"] = id + "," + text_ids[0]
 
   for ( var key in json_component["text"][1] )
   {
@@ -839,6 +918,7 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   comp_entry["text"][1]["x"] = Math.floor(fx + x);
   comp_entry["text"][1]["y"] = Math.floor(fy + y);
   comp_entry["text"][1]["number"] = 1;
+  comp_entry["text"][1]["id"] = id + "," + text_ids[1]
 
   //comp_entry["text"][1]["text"] = json_component["name"] ;
 
