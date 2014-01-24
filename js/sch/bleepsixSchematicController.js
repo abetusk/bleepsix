@@ -42,6 +42,9 @@ function bleepsixSchematicController() {
   this.schematic = new bleepsixSchematic();
   this.board = new bleepsixBoard();
 
+  this.opHistoryIndex = -1;
+  this.opHistory = [];
+
   //this.palette = new guiPalette();
 
   this.mouse_left_down = false;
@@ -117,6 +120,149 @@ function bleepsixSchematicController() {
   //var controller = this;
   //setInterval( function() { controller.redraw() } , 50 );
 }
+
+
+bleepsixSchematicController.prototype.opSchAdd = function ( op )
+{
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+
+  if ( !( "id" in op ) )
+    op.id = this.schematic._createId();
+
+  if      ( type == "connection" )
+  {
+    this.schematic.addConnection( data.x, data.y, op.id );  //
+  }
+  else if ( type == "noconn" )
+  {
+    this.schematic.addNoconn( data.x, data.y, op.id ); //
+  }
+  else if ( type == "componentData" )
+  {
+    this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, op.id );
+  }
+  else if ( type == "component" )
+  {
+    this.schematic.addComponent( data.name, data.x, data.y, data.transform, op.id );
+  }
+  else if ( type == "wireline" )
+  {
+    this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, op.id ); //
+  }
+  else if ( type == "busline" )
+  {
+    console.log("bleepsixSchematicController.opSchAdd busline not implemented\n");
+  }
+  else if ( type == "entrybusbus" )
+  {
+    console.log("bleepsixSchematicController.opSchAdd entrybusbus not implemented\n");
+  }
+  else if ( type == "textnote" )
+  {
+    console.log("bleepsixSchematicController.opSchAdd textnote not implemented\n");
+  }
+  else if ( type == "label" )
+  {
+    console.log("bleepsixSchematicController.opSchAdd label not implemented\n");
+  }
+  else if ( type == "labelglobal" )
+  {
+    console.log("bleepsixSchematicController.opSchAdd labelglobal not implemented\n");
+  }
+  else if ( type == "labelheirarchical" )
+  {
+    console.log("bleepsixSchematicController.opSchAdd labelheirarchical not implemented\n");
+  }
+
+}
+
+bleepsixSchematicController.prototype.opSchUpdate = function ( op )
+{
+
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+  var id = op.id;
+
+  if      ( type == "componentRotate90" )
+  {
+    var ref = this.schematic.refLookup( id );
+    this.schematic.rotate90( { id: id, ref : ref } , op.ccw );
+  }
+  else if ( type == "componentRotate180" )
+  {
+    var ref = this.schematic.refLookup( id );
+    this.schematic.rotate90( { id: id, ref : ref } , op.ccw );
+    this.schematic.rotate90( { id: id, ref : ref } , op.ccw );
+  }
+  else if ( type == "componentFlip" )
+  {
+    var ref = this.schematic.refLookup( id );
+    this.schematic.flip( { id: id, ref: ref } );
+  }
+
+}
+
+bleepsixSchematicController.prototype.opSchDelete = function ( op )
+{
+
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+  var id = op.id;
+
+  if      ( type == "group" )
+  {
+
+    for (var ind in id )
+    {
+      var ref = this.schematic.refLookup( id[ind] );
+      this.schematic.remove( { id: id[ind], ref: ref } );
+    }
+
+  }
+
+}
+
+bleepsixSchematicController.prototype.opCommand = function ( op )
+{
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+
+  this.opHistory.push( op );
+  if (this.opHistoryIndex >= 0)
+    this.opHistoryIndex++;
+
+  if ( source == "sch" )
+  {
+    if      ( action == "add" )    { this.opSchAdd( op ); }
+    else if ( action == "update" ) { this.opSchUpdate( op ); }
+    else if ( action == "delete" ) { this.opSchDelete( op ); }
+  }
+
+  else if (source == "brd" )
+  {
+    if      ( action == "add" )    { this.opBrdAdd( op ); }
+    else if ( action == "update" ) { this.opBrdUpdate( op ); }
+    else if ( action == "delete" ) { this.opBrdDelete( op ); }
+  }
+
+  // Some of this will need to change...
+  // 
+  g_painter.dirty_flag = true;
+  this.schematicUpdate = true;
+  this.schematic.eventSave();
+
+
+}
+
 
 bleepsixSchematicController.prototype.fadeMessage = function ( msg )
 {

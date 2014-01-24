@@ -164,6 +164,11 @@ bleepsixSchematic.prototype.refLookup = function( id )
 }
 
 
+// Set default values for the name and reference of the component,
+// taken from the library components two text fields.
+// If there aren't two (but one?) we have to shove values in
+// that might not be appropriate.  Revist when we get a chance...
+//
 
 bleepsixSchematic.prototype.extendComponentText = function( dst_comp_ref, src_comp_ref )
 {
@@ -315,8 +320,6 @@ bleepsixSchematic.prototype.rotate90 = function( id_ref , ccw_flag )
   ccw_flag = ( typeof ccw_flag !== 'undefined' ? ccw_flag : true );
   var comp = id_ref["ref"];
 
-  console.log("...");
-
   if ( ( comp["type"] == "noconn" ) ||
        ( comp["type"] == "connection" ) )
     return;
@@ -328,13 +331,30 @@ bleepsixSchematic.prototype.rotate90 = function( id_ref , ccw_flag )
   {
     var di = ( ccw_flag ? 1 : 3 );
     comp.orientation = (parseInt(comp.orientation) + 1)%4;
-
-    console.log(": " + comp.text + ", " + comp.orientation);
     return;
   }
 
   var transform = [ [0, -1], [1, 0] ];
   if (ccw_flag) transform = [ [ 0, 1], [-1, 0] ];
+
+  comp["transform"] = numeric.dot( transform, comp["transform"] );
+  this.updateBoundingBox( comp );
+
+  g_painter.dirty_flag = true;
+
+}
+
+bleepsixSchematic.prototype.flip = function( id_ref )
+{
+
+  var comp = id_ref["ref"];
+
+  if ( comp.type != 'component' )
+  {
+    console.log("WARNING: bleepsixSchematic.flip: trying to flip non component");
+  }
+
+  var transform = [ [-1, 0], [0, 1] ];
 
   comp["transform"] = numeric.dot( transform, comp["transform"] );
   this.updateBoundingBox( comp );

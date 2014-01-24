@@ -148,7 +148,7 @@ toolWire.prototype.drawOverlay = function()
   {
     g_painter.line( w[ind-1]["x"], w[ind-1]["y"], 
                     w[ind]["x"],   w[ind]["y"], 
-                    "rgb(0,132,0)", 5 );
+                    "rgb(0,160,0)", 5 );
 
   }
 
@@ -156,7 +156,7 @@ toolWire.prototype.drawOverlay = function()
   {
     g_painter.line( this.cur_wire[ind-1]["x"], this.cur_wire[ind-1]["y"],
                     this.cur_wire[ind]["x"],   this.cur_wire[ind]["y"],
-                    "rgb(0,132,0)", 5);
+                    "rgb(0,160,0)", 5);
   }
 
   var s = this.cursorSize / 2;
@@ -207,7 +207,13 @@ toolWire.prototype.placeWire = function()
 
     if (this.isConnection(ref, x, y))
     {
-      g_schematic_controller.schematic.addConnection(x, y);
+      var op = { source: "sch" };
+      op.action = "add";
+      op.type = "connection";
+      op.data = { x: x, y: y };
+      g_schematic_controller.opCommand( op );
+
+      //g_schematic_controller.schematic.addConnection(x, y);
       break;
     }
 
@@ -216,8 +222,18 @@ toolWire.prototype.placeWire = function()
 
   for (var ind=1; ind < this.wire.length; ind++)
   {
+
+    var op = { source: "sch" };
+    op.action = "add";
+    op.type = "wireline";
+    op.data = { x0: this.wire[ind-1].x, y0: this.wire[ind-1].y,
+                x1: this.wire[ind].x,   y1: this.wire[ind].y   };
+    g_schematic_controller.opCommand( op );
+
+    /*
     g_schematic_controller.schematic.addWire( this.wire[ind-1]["x"], this.wire[ind-1]["y"],
                                     this.wire[ind]["x"], this.wire[ind]["y"] );
+                                    */
   }
 
 
@@ -232,19 +248,32 @@ toolWire.prototype.placeWire = function()
 
       if (this.dist1( this.cur_wire[ind-1], this.cur_wire[ind] ) > 1 )
       {
+
+        var op = { source: "sch" };
+        op.action = "add";
+        op.type = "wireline";
+        op.data = { x0: this.cur_wire[ind-1].x, y0: this.cur_wire[ind-1].y,
+                    x1: this.cur_wire[ind].x,   y1: this.cur_wire[ind].y   };
+        g_schematic_controller.opCommand( op );
+
+        /*
         g_schematic_controller.schematic.addWire( this.cur_wire[ind-1]["x"], this.cur_wire[ind-1]["y"],
                                         this.cur_wire[ind]["x"],   this.cur_wire[ind]["y"] );
+                                        */
 
       }
-      else console.log("skipping cause too close");
+      else console.log("wire points too close, skipping");
 
     }
   }
 
   g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_schematic_controller.guiToolbox.defaultSelect();
+
+  /*
   g_painter.dirty_flag = true;
   g_schematic_controller.schematic.eventSave();
+  */
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
@@ -314,7 +343,13 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
     if ( this.isConnection( ref, ex, ey ) )
     {
-      g_schematic_controller.schematic.addConnection( ex, ey );
+      var op = { source: "sch" };
+      op.action = "add";
+      op.type = "connection";
+      op.data = { x: ex, y: ey };
+      g_schematic_controller.opCommand( op );
+      //g_schematic_controller.schematic.addConnection( ex, ey );
+
       this.placeWire();
       return true;
     }
@@ -334,7 +369,13 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
     if (this.isConnection( wire, ex, ey ))
     {
-      g_schematic_controller.schematic.addConnection( ex, ey );
+      var op = { source: "sch" };
+      op.action = "add";
+      op.type = "connection";
+      op.data = { x: ex, y : ey };
+      g_schematic_controller.opCommand( op );
+      //g_schematic_controller.schematic.addConnection( ex, ey );
+
       this.placeWire();
       return true;
     }

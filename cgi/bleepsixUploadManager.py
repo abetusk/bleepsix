@@ -10,8 +10,11 @@ import subprocess as sp
 
 cgitb.enable();
 
-schjson_exec = "/tmp/pykicad/schjson.py"
-staging_base = "/tmp/stage"
+#schjson_exec = "/tmp/pykicad/schjson.py"
+#staging_base = "/tmp/stage"
+
+schjson_exec = "/home/meow/pykicad/schjson.py"
+staging_base = "/home/meow/stage"
 
 u_id = -1
 
@@ -19,9 +22,9 @@ print "Content-Type: application/json"
 print
 print 
 
-flog = open( "/tmp/bleepsix.log", "a")
-flog.write("cp\n")
-flog.close()
+#flog = open( "/tmp/bleepsix.log", "a")
+#flog.write("cp\n")
+#flog.close()
 
 form = cgi.FieldStorage()
 if "fileData" in form:

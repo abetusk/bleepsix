@@ -15,8 +15,11 @@ import subprocess as sp
 
 cgitb.enable();
 
-jsonsch_exec = "/tmp/pykicad/jsonsch.py"
-staging_base = "/tmp/stage"
+#jsonsch_exec = "/tmp/pykicad/jsonsch.py"
+#staging_base = "/tmp/stage"
+
+jsonsch_exec = "/home/meow/pykicad/jsonsch.py"
+staging_base = "/home/meow/stage"
 
 def error_and_quit(err, notes):
   print "Content-Type: application/json"

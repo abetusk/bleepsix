@@ -9,8 +9,11 @@ import uuid
 cgitb.enable();
 
 
-staging_base    = "/tmp/stage"
-logfile         = "/tmp/bleepsixDownloadManager.log"
+#staging_base    = "/tmp/stage"
+#logfile         = "/tmp/bleepsixDownloadManager.log"
+
+staging_base    = "/home/meow/stage"
+logfile         = "/home/meow/log/bleepsixDownloadManager.log"
 
 g_filename = "download.file"
 

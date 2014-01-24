@@ -210,17 +210,17 @@ guiToolbox.prototype.defaultSelect = function()
   ele.style.cursor = "auto";
 }
 
-/*
 guiToolbox.prototype.wireSelect = function()
 {
   this.dropConn.selected = false;
-  this.dropWire.selected = false;
-  this.iconNav.selected = true;
+  this.dropWire.selected = true;
+  this.iconNav.selected = false;
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "auto";
+  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 }
 
+/*
 guiToolbox.prototype.busSelect = function()
 {
   this.dropConn.selected = false;
