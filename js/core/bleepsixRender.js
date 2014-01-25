@@ -615,6 +615,61 @@ bleepsixRender.prototype.oblongHoleOblong = function( x, y, obx, oby, ibx, iby, 
 // - *************************************
 
 
+// drawEllipseByCenter and drawEllipse
+// based of off Steve Tranby answer to 
+// http://stackoverflow.com/questions/2172798/how-to-draw-an-oval-in-html5-canvas
+//
+//
+bleepsixRender.prototype.drawEllipseByCenter = function(cx, cy, w, h) 
+{
+  var ctx = this.context;
+  this.drawEllipse(cx - w/2.0, cy - h/2.0, w, h);
+}
+
+bleepsixRender.prototype.drawEllipse = 
+function(x, y, w, h, 
+    line_width, line_color, 
+    fill_flag, fill_color) 
+{
+
+  var line_width = ( typeof line_width !== 'undefined' ? line_width : this.default_line_width );
+  var line_color = ( typeof line_color !== 'undefined' ? line_color : this.default_line_color );
+
+  var fill_flag  = ( typeof fill_flag  !== 'undefined' ? fill_flag : false );
+  var fill_color = ( typeof fill_color !== 'undefined' ? fill_color : this.default_fill_color );
+
+  var ctx = this.context;
+  var kappa = .5522848,
+      ox = (w / 2) * kappa, // control point offset horizontal
+      oy = (h / 2) * kappa, // control point offset vertical
+      xe = x + w,           // x-end
+      ye = y + h,           // y-end
+      xm = x + w / 2,       // x-middle
+      ym = y + h / 2;       // y-middle
+
+  ctx.beginPath();
+  ctx.moveTo(x, ym);
+  ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+  ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+  ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+  ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+  ctx.closePath();
+
+  if (fill_flag)
+  {
+    ctx.fillStyle = fill_color; 
+    ctx.fill();
+  }
+
+  if (line_width > 0)
+  {
+    ctx.lineWidth = line_width;
+    ctx.strokeStyle = line_color;
+    ctx.stroke();
+  }
+}
+
+
 bleepsixRender.prototype.circle = function( x, y, r, line_width, line_color, fill_flag, fill_color )
 {
   var ctx = this.context;

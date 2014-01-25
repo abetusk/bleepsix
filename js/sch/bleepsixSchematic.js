@@ -554,6 +554,7 @@ bleepsixSchematic.prototype.pickComponentPin = function( comp, x, y)
 }
 
 // might not be needed anymore
+/*
 bleepsixSchematic.prototype.pickComponent = function( comp, x, y )
 {
   var bbox = comp["bounding_box"];
@@ -593,7 +594,9 @@ bleepsixSchematic.prototype.pickComponent = function( comp, x, y )
   }
 
 }
+*/
 
+/*
 
 bleepsixSchematic.prototype.pickLine = function( comp, x, y )
 {
@@ -611,6 +614,7 @@ bleepsixSchematic.prototype.pickText = function( comp, x, y )
 {
 }
 
+*/
 
 bleepsixSchematic.prototype.pickElement = function( ele, x, y )
 {
@@ -2170,6 +2174,26 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
 
 }
 
+bleepsixSchematic.prototype.drawElement = function( ele )
+{
+  type = ele.type;
+
+  if      (type == "component")  { this.drawSchematicComponent( ele ); }
+  else if (type == "connection") { this.drawSchematicConnection( ele ); }
+  else if (type == "noconn")     { this.drawSchematicNoconn( ele ); }
+  else if (type == "textnote")   { this.drawSchematicText( ele ); }
+
+  else if (type == "label")             { this.drawSchematicLabel( ele ); }
+  else if (type == "labelglobal")       { this.drawSchematicLabel( ele ); }
+  else if (type == "labelheirarchical") { this.drawSchematicLabel( ele ); }
+
+  else if (type == "busline")    { this.drawSchematicLine( ele ); }
+  else if (type == "entrybusbus"){ this.drawSchematicLine( ele ); }
+  else                           { this.drawSchematicLine( ele ); }
+
+
+}
+
 // we might have to worry about order...
 bleepsixSchematic.prototype.drawSchematic = function()
 {
@@ -2181,6 +2205,12 @@ bleepsixSchematic.prototype.drawSchematic = function()
   for (var ind in sch)
   {
     type = sch[ind]["type"];
+
+    if ( ( "hideFlag" in sch[ind] ) &&
+         sch[ind].hideFlag )
+    {
+      continue;
+    }
 
     if      (type == "component")  { comp_ind.push(ind); }
     else if (type == "connection") { this.drawSchematicConnection( sch[ind] ); }

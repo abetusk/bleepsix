@@ -41,14 +41,16 @@ function toolMove( mouse_x, mouse_y, processInitialMouseUp  )
   this.mouse_cur_x = mouse_x;
   this.mouse_cur_y = mouse_y;
 
+  this.rotateCount = 0;
   this.selectedElement = null;
+  this.origElements = null;
 
   this.orig_element_state = [];  // so we can go back to our original state when we 'esc'
   this.base_element_state = [];  // so we can use absolute world delta position, instead of incremental ones
 
   this.mouse_drag_button = false;
-  
   this.drawHighlightRect = true;
+  this.hasMoved = false;
 
   this.orig_world_xy = g_painter.devToWorld( mouse_x, mouse_y );
   this.prev_world_xy = g_painter.devToWorld( mouse_x, mouse_y );
@@ -171,7 +173,15 @@ toolMove.prototype.deep_copy_element_array = function( rop )
 toolMove.prototype.addElement = function( id_array )
 {
 
-  this.selectedElement = id_array;
+  //this.selectedElement = id_array;
+  this.origElements = id_array;
+  this.selectedElement = {};
+  $.extend( true, this.selectedElement, id_array );
+
+  for (var ind in this.origElements)
+  {
+    this.origElements[ind].ref.hideFlag = true;
+  }
 
   var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
 
@@ -208,6 +218,10 @@ toolMove.prototype.drawOverlay = function()
 
   for (var ind in this.selectedElement )
   {
+
+    g_schematic_controller.schematic.updateBoundingBox( this.selectedElement[ind].ref );
+    g_schematic_controller.schematic.drawElement( this.selectedElement[ind].ref );
+
     var ref = this.selectedElement[ind]["ref"];
     var bbox = ref["bounding_box"];
 
@@ -253,24 +267,40 @@ toolMove.prototype.doubleClick = function( button, x, y )
 {
   console.log("toolMove.doubleClick");
 
-  var world_coord = g_painter.devToWorld( x, y );
-  var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
-
-  if (id_ref)
+  if ( !this.hasMoved )
   {
 
-    if (id_ref.ref.type == "component")
+    var world_coord = g_painter.devToWorld( x, y );
+    var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
+
+    if (id_ref)
     {
-      g_schematic_controller.tool = new toolComponentEdit(x, y, id_ref);
-      g_schematic_controller.guiToolbox.defaultSelect();
-      g_painter.dirty_flag = true;
 
-      g_schematic_controller.schematicUpdate = true;
+      if (id_ref.ref.type == "component")
+      {
+
+        // passing control, we haven't altered any of the elements but we need to
+        // unhide them.
+        //
+        for (var ind in this.origElements)
+        {
+          this.origElements[ind].ref.hideFlag = false;
+        }
+
+        console.log("toolMove handing control over to toolComponentEdit");
+
+        g_schematic_controller.tool = new toolComponentEdit(x, y, id_ref);
+        g_schematic_controller.guiToolbox.defaultSelect();
+        g_painter.dirty_flag = true;
+
+        g_schematic_controller.schematicUpdate = true;
+      }
+
     }
+    else
+    {
 
-  }
-  else
-  {
+    }
 
   }
 
@@ -288,15 +318,67 @@ toolMove.prototype.mouseUp = function( button, x, y )
 
     if (button == 1)
     {
+      //g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
+
+      
+      var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
+      var wdx = world_xy["x"] - this.orig_world_xy["x"];
+      var wdy = world_xy["y"] - this.orig_world_xy["y"];
+      if ( g_snapgrid.active )
+      {
+        var ta = g_snapgrid.snapGrid( world_xy );
+        var tb = g_snapgrid.snapGrid( this.orig_world_xy );
+        wdx = ta["x"] - tb["x"];
+        wdy = ta["y"] - tb["y"];
+      }
+
+      var com = g_schematic_controller.schematic.centerOfMass( this.base_element_state );
+      com = g_snapgrid.snapGrid(com);
+
+
+      if ( (wdx != 0) || (wdy != 0) || 
+           (this.rotateCount != 0) )
+      {
+
+        var op = { "source" : "sch" };
+        op.action = "update";
+        op.type = "moveGroup";
+        op.id = [];
+        op.data = { dx: wdx, dy: wdy, 
+          rotateCount : this.rotateCount,
+          cx : com.x, cy: com.y };
+
+        console.log("rotateCount: " + this.rotateCount);
+
+        for (var ind in this.selectedElement)
+        {
+          op.id.push( this.selectedElement[ind].id );
+          /*
+          g_painter.dirty_flag = true;
+          g_schematic_controller.schematicUpdate = true;
+          g_schematic_controller.schematic.eventSave();
+          */
+        }
+
+        g_schematic_controller.opCommand( op );
+
+      }
+
+      console.log("toolMove handing control back to toolNav (1)");
+
       g_schematic_controller.tool = new toolNav(x, y);
       g_schematic_controller.guiToolbox.defaultSelect();
 
-      //g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
-      g_painter.dirty_flag = true;
+      // make original elements visible again
+      //
+      for ( var ind in this.origElements )
+      {
+        this.origElements[ind].ref.hideFlag = false;
+      }
 
-      g_schematic_controller.schematicUpdate = true;
-      g_schematic_controller.schematic.eventSave();
+
     }
+
   }
 
   this.processMouseUp = true;
@@ -319,6 +401,7 @@ toolMove.prototype.mouseMove = function( x, y )
 
   if (this.mouse_drag_button == false)
   {
+    this.hasMoved = true;
 
     var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
 
@@ -359,8 +442,18 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
   if (keycode == 27)
   {
 
+    // make original elements visible again
+    //
+    for ( var ind in this.origElements )
+    {
+      this.origElements[ind].ref.hideFlag = false;
+    }
+
+
     //this.deep_copy_back( this.orig_element_state );
-    $.extend(true, this.selectedElement, this.orig_element_state );
+    //$.extend(true, this.selectedElement, this.orig_element_state );
+
+    console.log("toolMove handing back control to toolNav (2)");
 
     // pass control back to toolNav
     g_schematic_controller.tool = new toolNav();
@@ -368,7 +461,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     g_schematic_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
 
-    g_schematic_controller.schematicUpdate = true;
+    //g_schematic_controller.schematicUpdate = true;
 
   }
   else if (ch == 'I')
@@ -383,22 +476,42 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'D')
   {
+    var op = { "source" : "sch" };
+    op.action = "delete";
+    op.type = "group";
+    op.id = [];
+    op.data = { element: [] };
+
     for (var ind in this.selectedElement)
-      g_schematic_controller.schematic.remove( this.selectedElement[ind] );
+    {
+      var clonedData = {};
+      $.extend( true, clonedData, this.selectedElement[ind].ref );
+      op.data.element.push( { type:"generic", componentData: clonedData } );
+
+      op.id.push( this.selectedElement[ind].id );
+      //g_schematic_controller.schematic.remove( this.selectedElement[ind] );
+    }
+
+    g_schematic_controller.opCommand( op );
+
+
+    //g_schematic_controller.schematicUpdate = true;
+    //g_schematic_controller.schematic.eventSave();
+
+    console.log("toolMove handing back control to toolNav (3)");
 
 
     g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_schematic_controller.guiToolbox.defaultSelect();
-    g_painter.dirty_flag = true;
 
-    g_schematic_controller.schematicUpdate = true;
-    g_schematic_controller.schematic.eventSave();
+    g_painter.dirty_flag = true;
 
   }
   else if (ch == 'R')
   {
+    this.rotateCount = (this.rotateCount+1)%4;
 
-    com = g_schematic_controller.schematic.centerOfMass( this.base_element_state );
+    var com = g_schematic_controller.schematic.centerOfMass( this.base_element_state );
 
     //console.log("got com: " );
     //console.log(com);

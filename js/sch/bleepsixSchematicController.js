@@ -135,22 +135,32 @@ bleepsixSchematicController.prototype.opSchAdd = function ( op )
   if      ( type == "connection" )
   {
     this.schematic.addConnection( data.x, data.y, op.id );  //
+    var ref = this.schematic.refLookup( op.id );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "noconn" )
   {
     this.schematic.addNoconn( data.x, data.y, op.id ); //
+    var ref = this.schematic.refLookup( op.id );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "componentData" )
   {
     this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, op.id );
+    var ref = this.schematic.refLookup( op.id );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "component" )
   {
     this.schematic.addComponent( data.name, data.x, data.y, data.transform, op.id );
+    var ref = this.schematic.refLookup( op.id );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "wireline" )
   {
     this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, op.id ); //
+    var ref = this.schematic.refLookup( op.id );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "busline" )
   {
@@ -192,17 +202,58 @@ bleepsixSchematicController.prototype.opSchUpdate = function ( op )
   {
     var ref = this.schematic.refLookup( id );
     this.schematic.rotate90( { id: id, ref : ref } , op.ccw );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "componentRotate180" )
   {
     var ref = this.schematic.refLookup( id );
     this.schematic.rotate90( { id: id, ref : ref } , op.ccw );
     this.schematic.rotate90( { id: id, ref : ref } , op.ccw );
+    this.schematic.updateBoundingBox( ref );
   }
   else if ( type == "componentFlip" )
   {
     var ref = this.schematic.refLookup( id );
     this.schematic.flip( { id: id, ref: ref } );
+    this.schematic.updateBoundingBox( ref );
+  }
+  else if ( type == "edit" )
+  {
+
+    for (var ind=0; ind<id.length; ind++)
+    {
+      var ref = this.schematic.refLookup( id[ind] );
+      $.extend( true, ref, data.element[ind] );
+    }
+
+  }
+  else if ( type == "moveGroup" )
+  {
+
+    var id_ref_ar = [];
+    for (var ind in id)
+    {
+      var ref = this.schematic.refLookup( id[ind] );
+      id_ref_ar.push( { id: id[ind], ref: ref } );
+    }
+
+    var cx = op.data.cx;
+    var cy = op.data.cy;
+    var dx = op.data.dx;
+    var dy = op.data.dy;
+    var rotateCount = op.data.rotateCount;
+
+    for (var i=0; (i<4) && (i<rotateCount); i++)
+    {
+      this.schematic.rotateAboutPoint90( id_ref_ar, cx, cy, false );
+    }
+
+    for (var ind in id_ref_ar)
+    {
+      this.schematic.relativeMoveElement( id_ref_ar[ind], dx, dy );
+      this.schematic.updateBoundingBox( id_ref_ar[ind].ref );
+    }
+
   }
 
 }

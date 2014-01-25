@@ -23,6 +23,51 @@
 */
 
 
+/*
+ *
+ * The end result should be doubleclick to get into toolComponentEdit in the
+ * first place.
+ *
+ * Click and drag text field to reposition.
+ *
+ * Single click to edit text field.
+ *
+ * All other clicks (including clicking on the component, but not a text field)
+ * will hand control back to toolNav.
+ *
+ * --
+ *
+ * The basic idea is that users want to edit and move text fields 
+ * on thec omponent.  This tool does both of these functions.
+ *
+ * 'edit_state' is one of:
+ *   none, textintermediate, textmove, textedit
+ *
+ * Initially none, it transitions on a mouse down.  If the mouse
+ * down hits a text field (of this component) it transitions to
+ * textintermediate.  Otherwise, it hands control back to toolNav.
+ *
+ * Assuming a text field owned by the component picked was hit,
+ * the mouse button is currently depressed.  If the mouse moves
+ * while the button is depressed, edit_state transitions to 
+ * textmove and the text is moved appropriately.
+ *
+ * If instead, while in textintermediate, the button is let go,
+ * generating a mouseUp event before a mouseMove (and thus a textmove
+ * transition), edit_state transitions to textedit, and text can be
+ * edited via keyboard signals.
+ *
+ * From textmove, a mouseUp will transition back to the none edit_state.
+ *
+ * From textedit, a mouseDown will try to pick an element.  If anything
+ * other than a text field the component owns is picked (including nothing),
+ * hand control back to toolNav.  If a text field is picked which is owned
+ * by the component, transition to textintermediate.
+ *
+ *
+ */
+
+
 // Need to figure out if we keep the type specific component operations here
 // or move them somewhere else.
 // Yeah, it's pretty bad.  We'll have to figure out a way to make it more consistent
@@ -42,6 +87,7 @@ function toolComponentEdit( mouse_x, mouse_y, id_ref )
   this.id_ref = id_ref;
 
   this.selectedElement = null;
+  this.origElement = null;
 
   this.orig_element_state = [];  // so we can go back to our original state when we 'esc'
   this.base_element_state = [];  // so we can use absolute world delta position, instead of incremental ones
@@ -63,12 +109,13 @@ function toolComponentEdit( mouse_x, mouse_y, id_ref )
 
   this.snap_world_xy = g_snapgrid.snapGrid (this.prev_world_xy);
 
-  this.picked_id_ref = 
+  this.dirty = false;
+  this.origElement = 
     g_schematic_controller.schematic.pickElement( id_ref.ref, 
                                         this.cur_world_xy.x, 
                                         this.cur_world_xy.y );
 
-  if (! this.picked_id_ref )
+  if (! this.origElement )
   {
     console.log("ERROR: in toolComponentEdit constructor.  pickElement returned null");
     g_schematic_controller.tool = new toolNav(mouse_x, mouse_y);
@@ -77,9 +124,10 @@ function toolComponentEdit( mouse_x, mouse_y, id_ref )
     return;
   }
 
-  //console.log("toolComponentEdit constructor:");
-  //console.log(this.picked_id_ref);
-  
+  this.origElement.ref.hideFlag = true;
+
+  this.picked_id_ref = {};
+  $.extend( true, this.picked_id_ref, this.origElement );
 
 
   this.cursorSize = 6;
@@ -89,8 +137,36 @@ function toolComponentEdit( mouse_x, mouse_y, id_ref )
 toolComponentEdit.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
 toolComponentEdit.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta ); }
 
+
+toolComponentEdit.prototype._commitChange = function( )
+{
+
+  console.log("CP");
+
+  if (this.dirty)
+  {
+
+  console.log("CP2");
+
+    var op = { "source" : "sch" };
+    op.action = "update";
+    op.type = "edit";
+    op.id = [ this.picked_id_ref.id ];
+    op.data = { element: [] };
+
+    var clonedData = {};
+    $.extend( true, clonedData, this.picked_id_ref.ref );
+    op.data.element.push( clonedData );
+
+    g_schematic_controller.opCommand( op );
+  }
+}
+
 toolComponentEdit.prototype._handoff = function(x, y)  
 { 
+
+  this.origElement.ref.hideFlag = false;
+
   g_schematic_controller.tool = new toolNav();
   g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
   g_schematic_controller.guiToolbox.defaultSelect();
@@ -121,21 +197,30 @@ toolComponentEdit.prototype._drawPaw = function()
   var cx = bbox[1][0] + paw_offset;
   var cy = bbox[1][1] - paw_offset;
   var r = 50;
-  var rr = 22;
+  //var rr = 22;
+  var rr = [ 18, 20, 20, 18 ];
   var fudge = 0.4;
-  var ang = [-(1.0 + 0)*Math.PI/6.0, 
-             -(2.0 + fudge)*Math.PI/6.0, 
-             -(4.0 - fudge)*Math.PI/6.0, 
-             -(5.0 - 0)*Math.PI/6.0 ];
-  var d = r + rr + 10;
+  var ang = [-(1.4 + 0)*Math.PI/6.0, 
+             -(2.1 + fudge)*Math.PI/6.0, 
+             -(3.9 - fudge)*Math.PI/6.0, 
+             -(4.6 - 0)*Math.PI/6.0 ];
+  //var d = r + rr + 10;
 
   g_painter.circle( cx, cy, r, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.4)");
-  for (var ind in ang)
+  for (var ind=0; ind<ang.length; ind++)
+  //for (var ind in ang)
   {
+    var d = r + rr[ind] + 10;
     lcx = d*Math.cos( ang[ind] ) + cx;
     lcy = d*Math.sin( ang[ind] ) + cy;
-    g_painter.circle( lcx, lcy, rr,  0, "rgb(0,0,0)", true, "rgba(0,0,0,0.4)");
+    //g_painter.circle( lcx, lcy, rr,  0, "rgb(0,0,0)", true, "rgba(0,0,0,0.4)");
+
+    g_painter.circle( lcx, lcy, rr[ind],  0, "rgb(0,0,0)", true, "rgba(0,0,0,0.4)");
   }
+
+  var ew = r + 120;
+  var eh = r + 120;
+  g_painter.drawEllipse( cx - ew/2, cy - eh/2 - 30, ew, eh, 0, "rgb(0,0,0)", true, "rgb(0,0,0,0.4)"  );
 
 }
 
@@ -201,6 +286,9 @@ toolComponentEdit.prototype.drawOverlay = function()
 
   this._drawPaw( );
 
+  g_schematic_controller.schematic.drawElement( this.picked_id_ref.ref );
+  g_schematic_controller.schematic.updateBoundingBox( this.picked_id_ref.ref );
+
 }
 
 toolComponentEdit.prototype.mouseDown = function( button, x, y )
@@ -213,19 +301,27 @@ toolComponentEdit.prototype.mouseDown = function( button, x, y )
     //this.mouse_drag_button = true;
     this.edit_state = "textintermediate";
 
+    console.log("edit_state: " + this.edit_state);
 
     var wc = g_painter.devToWorld(x, y);
-    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    //var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pickElement( this.picked_id_ref.ref, wc.x, wc.y );
 
     // if we clicked anywhere else other than this component, 
     // hand it back to toolNav
     if (!id_ref || id_ref.ref.id != this.picked_id_ref.ref.id)
+    {
+      this._commitChange();
       return this._handoff(x, y);
+    }
 
     // if we haven't selected a text field, hand it back to toolNav
     //
     if ( (!("type" in id_ref)) || (id_ref.type != "text") )
+    {
+      this._commitChange();
       return this._handoff(x,y);
+    }
 
     this.picked_id_ref = id_ref;
 
@@ -285,18 +381,27 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
   }
 
 
+  // This should really never happen...just here for sanity
+  //
   if (this.edit_state == "none")
   {
     var wc = g_painter.devToWorld(x,y);
-    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    //var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pickElement( this.picked_id_ref.ref, wc.x, wc.y );
 
     if ( (!id_ref) ||
          (id_ref.ref.id != this.picked_id_ref.ref.id) )
+    {
+      this._commitChange();
       return this._handoff(x,y);
+    }
 
     if ( (this.edit_state == "none") &&
          ( (!("type" in id_ref)) || (id_ref.type != "text") ) )
+    {
+      this._commitChange();
       return this._handoff(x,y);
+    }
 
     console.log("WARNING: reached toolComponentEdit.mouseUp state while in none (shouldn't have happened)");
   }
@@ -310,7 +415,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
       //this.mouse_drag_button = false;
       this.edit_state = "none";
 
-      g_schematic_controller.schematic.eventSave();
+      //g_schematic_controller.schematic.eventSave();
     }
 
   }
@@ -318,7 +423,8 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
   {
 
     var wc = g_painter.devToWorld(x,y);
-    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    //var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pickElement( this.picked_id_ref.ref, wc.x, wc.y );
 
     if (id_ref &&
         id_ref.ref.id == this.picked_id_ref.ref.id)
@@ -326,40 +432,34 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
       if (("type" in id_ref) && 
           (id_ref.type == "text"))
       {
-
         var ref = id_ref.ref;
         var ind = id_ref.index;
         var ep = this._get_edit_pos( id_ref, wc );
 
-        /*
-        var text_bbox = ref.text[ind].bounding_box;
-
-        var ds = wc.x - text_bbox[0][0];
-        var sz = ref.text[ind].size;
-        var f = (ds/sz) ;
-        var ep = Math.floor( f + 0.4 ); 
-
-        */
         var l = ref.text[ind].length;
-
 
         if ((ep < 0) || (ep > l))
         {
-          //console.log("nope");
         }
         else
         {
+          console.log("dirty (1)");
+          this.dirty = true;
+
           this.edit_state = "textedit";
           this.edit_pos = ep;
           this.edit_text_orig = ref.text[ind].text;
 
           g_painter.dirty_flag = true;  // draw cursor
-          g_schematic_controller.schematicUpdate = true;
+          //g_schematic_controller.schematicUpdate = true;
         }
 
       }
     }
-    else { this._handoff( x, y); }
+    else { 
+      this._commitChange();
+      this._handoff( x, y); 
+    }
 
   }
 
@@ -378,6 +478,8 @@ toolComponentEdit.prototype.mouseMove = function( x, y )
 
   if (this.edit_state == "textintermediate")
   {
+          console.log("dirty (2)");
+    this.dirty = true;
     this.edit_state = "textmove";
   }
 
@@ -394,6 +496,10 @@ toolComponentEdit.prototype.mouseMove = function( x, y )
   //if (this.mouse_drag_button)
   if (this.edit_state == "textmove")
   {
+
+          console.log("dirty (3)");
+    this.dirty = true;
+
     var ref = this.picked_id_ref.ref;
     if ( !("type" in this.picked_id_ref)) return;
     var type = this.picked_id_ref.type;
@@ -403,11 +509,8 @@ toolComponentEdit.prototype.mouseMove = function( x, y )
     var snapxy = g_snapgrid.snapGrid( this.prev_world_xy );
 
     g_schematic_controller.schematic.moveComponentTextField( ref, ind, snapxy.x, snapxy.y );
-
-    //ref.text[ind].x = snapxy.x;
-    //ref.text[ind].y = snapxy.y;
     g_painter.dirty_flag = true;
-    g_schematic_controller.schematicUpdate = true;
+    //g_schematic_controller.schematicUpdate = true;
 
   }
 
@@ -424,12 +527,6 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
     this._handoff( this.mouse_cur_x, this.mouse_cur_y );
     return;
 
-    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_schematic_controller.tool.mouseMove( this.mouse_cur_x, this.mouse_cur_y );  // easy way to setup?
-    g_schematic_controller.guiToolbox.defaultSelect();
-    g_painter.dirty_flag = true;
-
-
   }
 
   if (this.edit_state == "textedit")
@@ -444,7 +541,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "bs" );
 
-      g_schematic_controller.schematic.eventSave();
+      //g_schematic_controller.schematic.eventSave();
 
 
       pass_key = false;
@@ -456,7 +553,7 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "del" );
 
-      g_schematic_controller.schematic.eventSave();
+      //g_schematic_controller.schematic.eventSave();
 
     }
     else if (keycode == 16)
@@ -496,7 +593,8 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'R')
   {
     var wc = g_painter.devToWorld(this.mouse_cur_x,this.mouse_cur_y);
-    var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    //var id_ref = g_schematic_controller.schematic.pick( wc.x, wc.y );
+    var id_ref = g_schematic_controller.schematic.pickElement( this.picked_id_ref.ref, wc.x, wc.y );
 
     if (  id_ref &&
          (id_ref.ref.id == this.picked_id_ref.ref.id) &&
@@ -512,8 +610,8 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
         ref.text[ind].orientation = "V";
 
       g_painter.dirty_flag = true;
-      g_schematic_controller.schematicUpdate = true;
-      g_schematic_controller.schematic.eventSave();
+      //g_schematic_controller.schematicUpdate = true;
+      //g_schematic_controller.schematic.eventSave();
 
     }
   
@@ -595,7 +693,8 @@ toolComponentEdit.prototype.keyPress = function( keycode, ch, ev  )
 
   if (keycode == 13)
   {
-    console.log("skipping return");
+    this._commitChange();
+    this._handoff( this.mouse_cur_x, this.mouse_cur_y );
     return;
   }
 
@@ -604,8 +703,9 @@ toolComponentEdit.prototype.keyPress = function( keycode, ch, ev  )
     console.log("editing text: " + ch);
 
     this._addch( ch );
-    g_schematic_controller.schematicUpdated = true;
-    g_schematic_controller.schematic.eventSave();
+
+    //g_schematic_controller.schematicUpdated = true;
+    //g_schematic_controller.schematic.eventSave();
 
   }
 

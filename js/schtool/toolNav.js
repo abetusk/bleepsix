@@ -116,6 +116,13 @@ toolNav.prototype.doubleClick = function(button, x, y)
 
   //console.log(id_ref);
 
+  // There is minor bug whereby if somone cliks, then immediately clicks again, but
+  // doesn't unlick (the second time), it will put the selected component into 
+  // toolMove mode.  When the second click releases, it will fire this doubleclick
+  // function and will put it into toolComponentEdit.  This is a little counter
+  // intuitive but isn't very major.  Either consider it a feature or get to it
+  // later.
+  //
   if (id_ref)
   {
 
