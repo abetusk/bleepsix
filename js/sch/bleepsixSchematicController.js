@@ -122,6 +122,7 @@ function bleepsixSchematicController() {
 }
 
 
+/*
 bleepsixSchematicController.prototype.opSchAdd = function ( op )
 {
   var source = op.source;
@@ -313,6 +314,8 @@ bleepsixSchematicController.prototype.opCommand = function ( op )
 
 
 }
+
+*/
 
 
 bleepsixSchematicController.prototype.fadeMessage = function ( msg )

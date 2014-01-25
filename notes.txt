@@ -603,3 +603,15 @@ elements.  They should be linked by the reference names, so maybe it's enough
 to do that.  Maybe have an auxiliary structure that links IDs together, but
 it seems like extra bookkeeping.
 
+
+FIXED:
+  BUG: There's a lurking bug which happens (I believe) when the system saves
+  when you're in a moving state.  It saves the snapshot, along with the
+  'hideFlag' property (set to true) and for whatever reason doesn't update
+  properly (either because of a bug, or you refreshed too soon, whatever).
+  This should go away when everythings working and when the command pattern
+  is sending delta updates rather than having the network send full snapshots,
+  but it's something to be aware of.
+  UPDATE: ok, it's when you refresh while in one of the tools that sets the flag.
+  onload you should explicitely set everything to be not hidden.
+

@@ -65,6 +65,18 @@
  * by the component, transition to textintermediate.
  *
  *
+ * ----
+ *
+ *  Some things to consider:
+ *  Spaces aren't allowed (aren't implemented yet).  I think care needs to be taken
+ *    as spaces are tildes ('~') in KiCAD?
+ *  Blank fields might not be handles properly (we'll take a look at the bounding box
+ *    calculation and makes ure there is a minimum width/height for the bbox for
+ *    blank visible fields).
+ *  You can rotate text elements while dragging them.  Not sure if there's a better
+ *    way to do it.
+ *
+ *
  */
 
 
@@ -141,22 +153,22 @@ toolComponentEdit.prototype.mouseWheel = function( delta )  { g_painter.adjustZo
 toolComponentEdit.prototype._commitChange = function( )
 {
 
-  console.log("CP");
-
   if (this.dirty)
   {
-
-  console.log("CP2");
 
     var op = { "source" : "sch" };
     op.action = "update";
     op.type = "edit";
     op.id = [ this.picked_id_ref.id ];
-    op.data = { element: [] };
+    op.data = { element: [], oldElement: [] };
 
     var clonedData = {};
     $.extend( true, clonedData, this.picked_id_ref.ref );
     op.data.element.push( clonedData );
+    
+    var clonedOrigData = {};
+    $.extend( true, clonedOrigData, this.origElement );
+    op.data.oldElement.push( clonedOrigData );
 
     g_schematic_controller.opCommand( op );
   }
@@ -273,6 +285,9 @@ toolComponentEdit.prototype.drawOverlay = function()
 
   var ref = this.picked_id_ref.ref;
 
+  g_schematic_controller.schematic.updateBoundingBox( this.picked_id_ref.ref );
+  g_schematic_controller.schematic.drawElement( this.picked_id_ref.ref );
+
   if (ref.text[0].visible)
     this._drawBBoxOverlay( ref.text[0].bounding_box );
 
@@ -285,9 +300,6 @@ toolComponentEdit.prototype.drawOverlay = function()
     this._drawCursor();
 
   this._drawPaw( );
-
-  g_schematic_controller.schematic.drawElement( this.picked_id_ref.ref );
-  g_schematic_controller.schematic.updateBoundingBox( this.picked_id_ref.ref );
 
 }
 
@@ -541,9 +553,6 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
 
       this._addch( "", "bs" );
 
-      //g_schematic_controller.schematic.eventSave();
-
-
       pass_key = false;
 
     }
@@ -552,8 +561,6 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
       console.log("DEL");
 
       this._addch( "", "del" );
-
-      //g_schematic_controller.schematic.eventSave();
 
     }
     else if (keycode == 16)
@@ -572,20 +579,17 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
     else if (keycode == 13)
     {
       this.edit_state = "none";
-      console.log(" locking in change...");
-
+      console.log(" committing change...");
     }
     else if ((keycode == 40) || (keycode == 39)) // 38 - up, 39 - right
     {
       this._clamp_add_edit_pos(+1);
       pass_key = false;
-      g_painter.dirty_flag = true;
     }
     else if ((keycode == 37) || (keycode == 38)) // 37 - left, 40 - down
     {
       this._clamp_add_edit_pos(-1);
       pass_key = false;
-      g_painter.dirty_flag = true;
     }
 
   }
@@ -638,7 +642,7 @@ toolComponentEdit.prototype._clamp_add_edit_pos = function( ds )
 
 toolComponentEdit.prototype._addch = function( ch, indicator )
 {
-  g_schematic_controller.schematicUpdate = true;
+  //g_schematic_controller.schematicUpdate = true;
 
   indicator = ( typeof indicator !== 'undefined' ? indicator : "none" );
 

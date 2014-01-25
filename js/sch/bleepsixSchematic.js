@@ -2833,6 +2833,8 @@ bleepsixSchematic.prototype.load_schematic = function( json )
   for (var ind in sch)
   {
 
+    sch[ind].hideFlag = false;
+
     if (sch[ind]["type"] != "component") continue;
 
     var comp = sch[ind];
