@@ -200,9 +200,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     
     console.log("<??");
     */
-    console.log("< UNDO");
-    g_schematic_controller.schematic.eventUndo();
-    g_schematic_controller.schematic.eventPrint();
 
   }
   else if ( keycode == 190 )
@@ -214,9 +211,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     console.log(">??");
     */
 
-    console.log("> REDO");
-    g_schematic_controller.schematic.eventRedo();
-    g_schematic_controller.schematic.eventPrint();
   }
 
   if ( keycode == 219 ) // '['
@@ -294,32 +288,14 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //console.log("LOADING (schsnapshot)");
     //g_schnetwork.schsnapshot();
 
-    /*
-    console.log("SAVING");
-    g_schematic_controller.schematic.eventSave();
-    g_schematic_controller.schematic.eventPrint();
-    */
-
   }
   else if (ch == 'U')
   {
-
-    /*
-    console.log("UNDO");
-    g_schematic_controller.schematic.eventUndo();
-    g_schematic_controller.schematic.eventPrint();
-    */
 
 
   }
   else if (ch == 'K')
   {
-
-    /*
-    console.log("REDO");
-    g_schematic_controller.schematic.eventRedo();
-    g_schematic_controller.schematic.eventPrint();
-    */
 
     g_schematic_controller._opDebugPrint();
 
@@ -378,13 +354,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     op.data = { x:wx, y:wy };
     g_schematic_controller.opCommand( op );
 
-    /*
-    g_schematic_controller.schematic.addConnection( wx, wy );
-    g_painter.dirty_flag = true;
-
-    g_schematic_controller.schematicUpdate = true;
-    g_schematic_controller.schematic.eventSave();
-    */
   }
   else if (ch == 'X')
   {
@@ -396,14 +365,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     op.type = "noconn";
     op.data = { x:wx, y:wy };
     g_schematic_controller.opCommand( op );
-
-    /*c
-    g_schematic_controller.schematic.addNoconn( wx, wy );
-    g_painter.dirty_flag = true;
-
-    g_schematic_controller.schematicUpdate = true;
-    g_schematic_controller.schematic.eventSave();
-    */
 
   }
   else if (ch == 'S')
@@ -451,12 +412,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       g_schematic_controller.opCommand( op );
 
 
-      /*
-      g_schematic_controller.schematic.rotate90( id, true );
-      g_schematic_controller.schematicUpdate = true;
-      g_schematic_controller.schematic.eventSave();
-      */
-
     }
   }
   else if (ch == 'E')  // etator
@@ -475,11 +430,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       op.data = { ccw : false };
       g_schematic_controller.opCommand( op );
 
-      /*
-      g_schematic_controller.schematic.rotate90( id, false );
-      g_schematic_controller.schematicUpdate = true;
-      g_schematic_controller.schematic.eventSave();
-      */
     }
 
   }
@@ -530,7 +480,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       op.action = "delete";
       op.type = "group";
       op.id = [ ];
-      op.data = { element : [ ] };
+      op.data = { element : [] };
 
       g_schematic_controller.schematicUpdate = true;
 
@@ -542,18 +492,11 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
           op.id.push( id_ref_ar[ind].id );
 
-          //op.data.element.push( { type: "noconn", x: ref.x, y: ref.y } );
           var clonedData = {};
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
 
           g_schematic_controller.opCommand( op );
-
-          /*
-          g_schematic_controller.schematic.remove( id_ref_ar[ind] );
-          g_painter.dirty_flag = true;
-          g_schematic_controller.schematic.eventSave();
-          */
 
           return true;
         }
@@ -566,14 +509,13 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         {
 
           op.id.push( id_ref_ar[ind].id );
-          op.data.element.push( { type: "connection", x: ref.x, y: ref.y } );
+          //op.data.element.push( { type: "connection", x: ref.x, y: ref.y } );
+          var clonedData = {};
+          $.extend( true, clonedData, id_ref_ar[ind].ref );
+          op.data.element.push( clonedData );
+
           g_schematic_controller.opCommand( op );
 
-          /*
-          g_schematic_controller.schematic.remove( id_ref_ar[ind] );
-          g_painter.dirty_flag = true;
-          g_schematic_controller.schematic.eventSave();
-          */
           return true;
         }
       }
@@ -583,35 +525,28 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] != "component")
         {
+          op.id.push( id_ref_ar[ind].id );
+
           var clonedData = {};
           $.extend(true, clonedData, ref );
+          op.data.element.push( clonedData );
 
-          op.id.push( id_ref_ar[ind].id );
-          op.data.element.push( { type: "generic", componentData: clonedData } );
+          console.log("pushing ref for removal:");
+          console.log(ref);
+
           g_schematic_controller.opCommand( op );
-
-          /*
-          g_schematic_controller.schematic.remove( id_ref_ar[ind] );
-          g_painter.dirty_flag = true;
-          g_schematic_controller.schematic.eventSave();
-          */
 
           return true;
         }
       }
 
+      op.id.push( id_ref_ar[ind].id );
+
       var clonedData = {};
       $.extend(true, clonedData, ref );
+      op.data.element.push( clonedData );
 
-      op.id.push( id_ref_ar[ind].id );
-      op.data.element.push( { type: "component", componentData: clonedData } );
       g_schematic_controller.opCommand( op );
-
-      /*
-      g_schematic_controller.schematic.remove( id_ref_ar[0] );
-      g_painter.dirty_flag = true;
-      g_schematic_controller.schematic.eventSave();
-      */
 
       return true;
 

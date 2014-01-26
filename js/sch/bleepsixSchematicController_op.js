@@ -79,7 +79,8 @@ bleepsixSchematicController.prototype._opAddSingle = function ( type, id, data )
 
   else if ( type == "wireline" )
   {
-    this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, id );
+    //this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, id );
+    this.schematic.addWire( data.startx, data.starty, data.endx, data.endy, id );
     var ref = this.schematic.refLookup( id );
     this.schematic.updateBoundingBox( ref );
   }
@@ -162,7 +163,8 @@ bleepsixSchematicController.prototype.opSchAdd = function ( op, inverseFlag )
 
   else if ( type == "wireline" )
   {
-    this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, op.id );
+    //this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, op.id );
+    this.schematic.addWire( data.startx, data.stary, data.endx, data.endy, op.id );
     var ref = this.schematic.refLookup( op.id );
     this.schematic.updateBoundingBox( ref );
   }
@@ -339,6 +341,10 @@ bleepsixSchematicController.prototype.opSchDelete = function ( op, inverseFlag )
       for (var ind in id )
       {
         var ref = data.element[ind];
+
+        console.log("DEBUG:");
+        console.log(ref);
+
         this._opAddSingle( ref.type, ref.id, ref );
       }
 
@@ -426,7 +432,6 @@ bleepsixSchematicController.prototype.opCommand = function ( op, inverseFlag, re
   // 
   g_painter.dirty_flag = true;
   this.schematicUpdate = true;
-  this.schematic.eventSave();
 
 
 }

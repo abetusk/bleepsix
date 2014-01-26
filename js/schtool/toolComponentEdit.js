@@ -426,10 +426,7 @@ toolComponentEdit.prototype.mouseUp = function( button, x, y )
 
     if (button == 1)
     {
-      //this.mouse_drag_button = false;
       this.edit_state = "none";
-
-      //g_schematic_controller.schematic.eventSave();
     }
 
   }
@@ -616,8 +613,6 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
         ref.text[ind].orientation = "V";
 
       g_painter.dirty_flag = true;
-      //g_schematic_controller.schematicUpdate = true;
-      //g_schematic_controller.schematic.eventSave();
 
     }
   
@@ -709,9 +704,6 @@ toolComponentEdit.prototype.keyPress = function( keycode, ch, ev  )
     console.log("editing text: " + ch);
 
     this._addch( ch );
-
-    //g_schematic_controller.schematicUpdated = true;
-    //g_schematic_controller.schematic.eventSave();
 
   }
 

@@ -109,6 +109,15 @@ toolConn.prototype.dist1 = function( xy0, xy1 )
 
 //-----------------------------
 
+toolConn.prototype._addConnType = function( conntype, x, y )
+{
+  var op = { source: "sch" };
+  op.action = "add";
+  if      (conntype == "noconn")      { op.type = "noconn"; }
+  else if (conntype == "connection" ) { op.type = "connection"; }
+  op.data = { x : x, y : y };
+  g_schematic_controller.opCommand( op );
+}
 
 toolConn.prototype.mouseDown = function( button, x, y ) 
 {
@@ -124,19 +133,11 @@ toolConn.prototype.mouseDown = function( button, x, y )
 
       if (this.connType == "noconn")
       {
-        g_schematic_controller.schematic.addNoconn( this.mouse_world_xy.x, this.mouse_world_xy.y );
-        g_schematic_controller.schematicUpdate = true;
-
-        g_schematic_controller.schematic.eventSave();
-
+        this._addConnType( "noconn", this.mouse_world_xy.x, this.mouse_world_xy.y );
       }
       else if (this.connType == "connection")
       {
-        g_schematic_controller.schematic.addConnection( this.mouse_world_xy.x, this.mouse_world_xy.y );
-        g_schematic_controller.schematicUpdate = true;
-
-        g_schematic_controller.schematic.eventSave();
-
+        this._addConnType( "connection", this.mouse_world_xy.x, this.mouse_world_xy.y );
       }
 
     if (this.placeOption == "once")

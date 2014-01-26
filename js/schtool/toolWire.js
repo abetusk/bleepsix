@@ -226,8 +226,12 @@ toolWire.prototype.placeWire = function()
     var op = { source: "sch" };
     op.action = "add";
     op.type = "wireline";
+    op.data = { startx: this.wire[ind-1].x, starty: this.wire[ind-1].y,
+                endx: this.wire[ind].x,     endy: this.wire[ind].y   };
+    /*
     op.data = { x0: this.wire[ind-1].x, y0: this.wire[ind-1].y,
                 x1: this.wire[ind].x,   y1: this.wire[ind].y   };
+                */
     g_schematic_controller.opCommand( op );
 
     /*
@@ -252,8 +256,13 @@ toolWire.prototype.placeWire = function()
         var op = { source: "sch" };
         op.action = "add";
         op.type = "wireline";
+
+        op.data = { startx: this.cur_wire[ind-1].x, starty: this.cur_wire[ind-1].y,
+                    endx: this.cur_wire[ind].x,     endy: this.cur_wire[ind].y   };
+        /*
         op.data = { x0: this.cur_wire[ind-1].x, y0: this.cur_wire[ind-1].y,
                     x1: this.cur_wire[ind].x,   y1: this.cur_wire[ind].y   };
+                    */
         g_schematic_controller.opCommand( op );
 
         /*
@@ -269,11 +278,6 @@ toolWire.prototype.placeWire = function()
 
   g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_schematic_controller.guiToolbox.defaultSelect();
-
-  /*
-  g_painter.dirty_flag = true;
-  g_schematic_controller.schematic.eventSave();
-  */
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";

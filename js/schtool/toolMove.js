@@ -353,11 +353,6 @@ toolMove.prototype.mouseUp = function( button, x, y )
         for (var ind in this.selectedElement)
         {
           op.id.push( this.selectedElement[ind].id );
-          /*
-          g_painter.dirty_flag = true;
-          g_schematic_controller.schematicUpdate = true;
-          g_schematic_controller.schematic.eventSave();
-          */
         }
 
         g_schematic_controller.opCommand( op );
@@ -486,18 +481,12 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     {
       var clonedData = {};
       $.extend( true, clonedData, this.selectedElement[ind].ref );
-      //op.data.element.push( { type:"generic", componentData: clonedData } );
       op.data.element.push( clonedData );
 
       op.id.push( this.selectedElement[ind].id );
-      //g_schematic_controller.schematic.remove( this.selectedElement[ind] );
     }
 
     g_schematic_controller.opCommand( op );
-
-
-    //g_schematic_controller.schematicUpdate = true;
-    //g_schematic_controller.schematic.eventSave();
 
     console.log("toolMove handing back control to toolNav (3)");
 
@@ -545,7 +534,6 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
       g_schematic_controller.schematic.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
     g_painter.dirty_flag = true;
-    g_schematic_controller.schematic.eventSave();
 
   }
 
