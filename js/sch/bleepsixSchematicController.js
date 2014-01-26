@@ -42,7 +42,16 @@ function bleepsixSchematicController() {
   this.schematic = new bleepsixSchematic();
   this.board = new bleepsixBoard();
 
-  this.opHistoryIndex = -1;
+  // Global index.  Will be updated by communcation back to central DB. 
+  // Initially set to -1 to indicate we don't know what the absolute index is.
+  //
+  this.opHistoryIndex = -1;  
+
+  // local parameters for unde/redo history.
+  //
+  this.opHistoryStart = 0;
+  this.opHistoryEnd = -1;
+
   this.opHistory = [];
 
   //this.palette = new guiPalette();

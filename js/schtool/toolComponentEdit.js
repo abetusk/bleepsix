@@ -164,10 +164,12 @@ toolComponentEdit.prototype._commitChange = function( )
 
     var clonedData = {};
     $.extend( true, clonedData, this.picked_id_ref.ref );
+    clonedData.hideFlag = false;
     op.data.element.push( clonedData );
     
     var clonedOrigData = {};
-    $.extend( true, clonedOrigData, this.origElement );
+    $.extend( true, clonedOrigData, this.origElement.ref );
+    clonedOrigData.hideFlag = false;
     op.data.oldElement.push( clonedOrigData );
 
     g_schematic_controller.opCommand( op );

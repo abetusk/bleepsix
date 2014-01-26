@@ -486,7 +486,8 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     {
       var clonedData = {};
       $.extend( true, clonedData, this.selectedElement[ind].ref );
-      op.data.element.push( { type:"generic", componentData: clonedData } );
+      //op.data.element.push( { type:"generic", componentData: clonedData } );
+      op.data.element.push( clonedData );
 
       op.id.push( this.selectedElement[ind].id );
       //g_schematic_controller.schematic.remove( this.selectedElement[ind] );

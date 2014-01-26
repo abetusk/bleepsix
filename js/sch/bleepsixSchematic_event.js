@@ -22,6 +22,10 @@ bleepsixSchematic.prototype.eventPrint = function()
 
 bleepsixSchematic.prototype.eventSave = function()
 {
+
+  console.log("bleepsixSchematic.eventSave neutered!");
+  return;
+
   var n = this.eventStack.n;
   var p = this.eventStack.pos;
 

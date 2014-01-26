@@ -219,6 +219,16 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_schematic_controller.schematic.eventPrint();
   }
 
+  if ( keycode == 219 ) // '['
+  {
+    g_schematic_controller.opUndo();
+  }
+  else if (keycode == 221 ) // ']'
+  {
+    g_schematic_controller.opRedo();
+  }
+
+
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
   var wc = g_painter.devToWorld(x, y);
@@ -311,8 +321,15 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_schematic_controller.schematic.eventPrint();
     */
 
+    g_schematic_controller._opDebugPrint();
+
+    /*
     console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
+    console.log( "  opHistoryIndex: " + g_schematic_controller.opHistoryIndex );
+    console.log( "  opHistoryStart: " + g_schematic_controller.opHistoryStart );
+    console.log( "  opHistoryEnd: " + g_schematic_controller.opHistoryEnd );
     console.log( g_schematic_controller.opHistory );
+    */
 
 
   }
@@ -524,7 +541,12 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         {
 
           op.id.push( id_ref_ar[ind].id );
-          op.data.element.push( { type: "noconn", x: ref.x, y: ref.y } );
+
+          //op.data.element.push( { type: "noconn", x: ref.x, y: ref.y } );
+          var clonedData = {};
+          $.extend( true, clonedData, id_ref_ar[ind].ref );
+          op.data.element.push( clonedData );
+
           g_schematic_controller.opCommand( op );
 
           /*

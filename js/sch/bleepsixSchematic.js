@@ -107,6 +107,18 @@ bleepsixSchematic.prototype._createId = function( parent_id )
 
 }
 
+bleepsixSchematic.prototype.refUpdate = function( oldId, newId )
+{
+  if (oldId == newId)
+    return;
+
+  if ( oldId in this.ref_lookup )
+  {
+    this.ref_lookup[ newId ] = this.ref_lookup[ oldId ];
+    delete this.ref_lookup[ oldId ];
+  }
+}
+
 bleepsixSchematic.prototype.refLookup = function( id )
 {
 
