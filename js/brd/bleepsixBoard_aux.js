@@ -28,6 +28,65 @@ if (typeof module !== 'undefined')
   module.exports = bleepsixBoard;
 }
 
+bleepsixBoard.prototype.makeUnknownModule = function( size )
+{
+  size = ( (typeof size !== 'undefined') ? size : 1000 );
+
+  var unknownModule = {
+    name : "unknown",
+    library_name : "unknown",
+    layer : 15,
+    text : "??",
+    bounding_box : [[-50,-50],[50,50]],
+
+    unknownFlag : true,
+    unknownText : 
+      { layer: 21, sizex: 550, sizey: 500, number: 0, visible : true, flag:"N", text:"??", x:0, y:0 ,
+        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" },
+
+    art : [
+      { line_width : 60, startx : -size, starty: -size, endx:  size, endy: -size, layer: 21, shape:"segment" },
+      { line_width : 60, startx :  size, starty: -size, endx:  size, endy:  size, layer: 21, shape:"segment" },
+      { line_width : 60, startx :  size, starty:  size, endx: -size, endy:  size, layer: 21, shape:"segment" },
+      { line_width : 60, startx : -size, starty:  size, endx: -size, endy: -size, layer: 21, shape:"segment" }
+    ],
+
+    text : [
+      { layer: 21, sizex: 250, sizey: 200, number: 0, visible : false, flag:"N", text:"??", x:-700, y:-700 ,
+        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" },
+      { layer: 21, sizex: 250, sizey: 200, number: 1, visible : false, flag:"N", text:"??", x: 700, y: 700 ,
+        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" }
+    ],
+
+      /*
+    text : [
+      { layer: 21, sizex: 550, sizey: 500, number: 0, visible : false, flag:"N", text:"??", x:0, y:0 ,
+        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" },
+      { layer: 21, sizex: 550, sizey: 500, number: 1, visible : false, flag:"N", text:"??", x:0, y:0 ,
+        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" }
+    ],
+    */
+
+    x : 0, y : 0,
+    rotation_cost_90 : "0",
+    angle : 0,
+    type : "module",
+    orientation : "0",
+
+    timestamp_op : "5213CBFA",
+    rotation_cost_180 : "0",
+    rotation_cost_misc : "0",
+    attribute1 : "??",
+    attribute2 : "~~"
+
+
+  };
+
+  return unknownModule;
+
+}
+
+
 // Get a list of possible intersections by considering bounding box intersections.
 // This gives us a shorter list of possible connections that's faster than
 // doing complex boolean intersection operations for all of the geometry 

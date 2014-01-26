@@ -244,15 +244,25 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   var wx = wc["x"];
   var wy = wc["y"];
 
+
+
   if ( ch == '1' ) {
-    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, 1 );
-    //g_painter.setGrid ( 0 );
+    g_painter.setGrid ( 0 );
   } else if ( ch == '2' ) {
-    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, -1 );
-    //g_painter.setGrid ( 1 );
+    g_painter.setGrid ( 1 );
   } else if ( ch == '3' ) {
-    //g_painter.setGrid ( 2 );
+    g_painter.setGrid ( 2 );
   } 
+
+  else if ( keycode == 188 )
+  {
+    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, 1 );
+  }
+  else if ( keycode == 190 )
+  {
+    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, -1 );
+  }
+
   else if (keycode == 37)
   {
     g_painter.adjustPan( -50, 0 );
@@ -389,6 +399,15 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
       g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
     }
+
+  }
+
+  else if ( ch == 'U' )
+  {
+    console.log("adding 'unknown' part");
+
+    var k = g_board_controller.board.makeUnknownModule( );
+    g_board_controller.board.addFootprintData( k , 0, 0 );
 
   }
 

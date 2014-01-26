@@ -228,10 +228,57 @@ bleepsixSchematic.prototype.extendComponentText = function( dst_comp_ref, src_co
 
 }
 
+// When loading in a new schematic, if we don't update the internal
+// reference_number hash that's used to allocate new hashes,
+// we'll get reference collsions.
+// Update the reference_number hash based on what's in the schematic
+// here.
+//
+bleepsixSchematic.prototype._updateReference = function()
+{
+
+  var sch = this.kicad_sch_json.element;
+  for (var ind=0; ind<sch.length; ind++)
+  {
+    var ref = sch[ind];
+
+    if (ref.type != "component")
+      continue;
+
+
+    var ref_name = ref.reference.replace( /[\d+\?]+$/, '' );
+    var ref_num = ref.reference.match( /[\d+]+$/, '' )[0];
+    if ( ref_num.length == 0 )
+      ref_num = 1;
+
+    ref_num = parseInt(ref_num);
+
+    if (ref_name in this.reference_number)
+    {
+      if ( parseInt(this.reference_number[ref_name]) < ref_num )
+        this.reference_number[ref_name] = ref_num;
+    }
+    else
+    {
+      this.reference_number[ref_name] = ref_num;
+    }
+
+  }
+
+}
+
+// Allocate and return a new reference identification based on the
+// reference from the part data passed in.
+//
 bleepsixSchematic.prototype.getReferenceName = function( comp_ref )
 {
-  var ref_name = comp_ref.text[0].reference;
+  var ref_name = comp_ref.reference;
   var ref_num = 1;
+
+  //console.log("getReferenceName: " + ref_name );
+  //console.log( comp_ref );
+
+  ref_name = ref_name.replace( /[\d+\?]+$/, '' );
 
   if (ref_name in this.reference_number)
   {
@@ -2809,8 +2856,19 @@ bleepsixSchematic.prototype._decorateSchematicWithIds = function( )
 
   for (ind in sch)
   {
-    sch[ind]["id"] = this._createId();
 
+    //ID already assigned, just skip
+    //
+    if ( ("id" in sch[ind]) && 
+         (sch[ind].id >= 0)) 
+      continue;
+
+    // Otherwise, give an ID to the element
+    // and all of it's children.
+    // Currently, text elements of components
+    // are the only children.
+    //
+    sch[ind]["id"] = this._createId();
     if (sch[ind]["type"] == "component")
     {
       for (var t_ind in sch[ind]["text"])
@@ -2823,6 +2881,42 @@ bleepsixSchematic.prototype._decorateSchematicWithIds = function( )
 
 }
 
+// Change all references that have a trailing question
+// mark to be numbered.
+//
+// This function changes components 'reference' property
+// and their 'text[0].text' property.
+//
+bleepsixSchematic.prototype._annoteSchematic = function( )
+{
+
+  var sch = this.kicad_sch_json["element"];
+  var ind;
+
+  for (ind in sch)
+  {
+    var ref = sch[ind];
+    if (ref.type == "component")
+    {
+
+      // If either has a question mark at the end,
+      // allocate a new reference.
+      //
+      if ( !(ref.reference.match( /\?$/ ) ||
+             ref.text[0].text.match( /\?$/ ) ) )
+      {
+        continue;
+      }
+
+      var ref_name = this.getReferenceName( ref );
+      ref.reference = ref_name;
+      ref.text[0].text = ref_name;
+
+    }
+
+  }
+
+}
 
 
 bleepsixSchematic.prototype.load_schematic = function( json )
@@ -2838,7 +2932,9 @@ bleepsixSchematic.prototype.load_schematic = function( json )
   // we have full information and can decorate each relevant item
   // with an id.
 
+  this._updateReference();
   this._decorateSchematicWithIds();
+  this._annoteSchematic();
 
   sch = this.kicad_sch_json["element"];
 

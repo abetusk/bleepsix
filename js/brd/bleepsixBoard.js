@@ -1890,6 +1890,11 @@ bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f0
     this.drawFootprintTextField( data["text"][1], 0, 0, -ang );
   }
 
+  if ( data.unknownFlag )
+  {
+    this.drawFootprintTextField( data.unknownText, 0, 0, -ang );
+
+  }
   
   var text_offset = parseInt( data["text_offset"] );
 

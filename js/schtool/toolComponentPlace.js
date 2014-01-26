@@ -60,6 +60,7 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
 
   }
 
+  this.cloned_component.reference = ref_name;
   this.cloned_component.text[0].reference = ref_name;
 
   this.mouse_x = mouse_x;
