@@ -140,6 +140,22 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   g_painter.dirty_flag = true;
 }
 
+bleepsixSchematicController.prototype.opUndo = function ( )
+{
+  this.op.opUndo();
+  this.schematicUpdate = true;
+  g_painter.dirty_flag = true;
+}
+
+bleepsixSchematicController.prototype.opRedo = function ( )
+{
+  this.op.opRedo();
+  this.schematicUpdate = true;
+  g_painter.dirty_flag = true;
+}
+
+
+
 bleepsixSchematicController.prototype.fadeMessage = function ( msg )
 {
   var d = new Date();
