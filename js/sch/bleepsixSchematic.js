@@ -92,14 +92,17 @@ bleepsixSchematic.prototype.clear = function()
 bleepsixSchematic.prototype._createId = function( parent_id )
 {
   var id_str;
+  var id = String( guid() );
 
   if ( typeof parent_id !== 'undefined' ) 
   {
-    id_str = parent_id + "," + String(this.id);
+    //id_str = parent_id + "," + String(this.id);
+    id_str = parent_id + "," + id;
   }
   else
   {
-    id_str = String(this.id);
+    //id_str = String(this.id);
+    id_str = id;
   }
 
   this.id++;
@@ -122,13 +125,13 @@ bleepsixSchematic.prototype.refUpdate = function( oldId, newId )
 bleepsixSchematic.prototype.refLookup = function( id )
 {
 
-  console.log("refLookup: looking up id " + id );
+  //console.log("refLookup: looking up id " + id );
 
   if (id in this.ref_lookup)
   {
 
-    console.log("  found!  returning:");
-    console.log( this.ref_lookup[id] );
+    //console.log("  found!  returning:");
+    //console.log( this.ref_lookup[id] );
 
     return this.ref_lookup[ id ];
   }
@@ -141,13 +144,13 @@ bleepsixSchematic.prototype.refLookup = function( id )
 
     this.ref_lookup[ sch[ind].id ] = sch[ind];
 
-    console.log("added " + sch[ind].id + " to ref_lookup:");
-    console.log( this.ref_lookup[ sch[ind].id ] );
+    //console.log("added " + sch[ind].id + " to ref_lookup:");
+    //console.log( this.ref_lookup[ sch[ind].id ] );
 
     if ( id == sch[ind].id )
     {
-      console.log("  found!  returning:");
-      console.log( this.ref_lookup[id] );
+      //console.log("  found!  returning:");
+      //console.log( this.ref_lookup[id] );
 
       return this.ref_lookup[id];
     }
@@ -159,8 +162,8 @@ bleepsixSchematic.prototype.refLookup = function( id )
         this.ref_lookup[ sch[ind].text[t_ind].id ] = sch[ind].text[t_ind];
         if ( id == sch[ind].text[t_ind].id )
         {
-          console.log("  found!  returning:");
-          console.log( this.ref_lookup[id] );
+          //console.log("  found!  returning:");
+          //console.log( this.ref_lookup[id] );
 
           return this.ref_lookup[ id ];
         }
@@ -266,6 +269,7 @@ bleepsixSchematic.prototype._updateReference = function()
   }
 
 }
+
 
 // Allocate and return a new reference identification based on the
 // reference from the part data passed in.
