@@ -22,19 +22,35 @@
 
 */
 
-/* Encapsulates the 'command pattern' portion of bleepsixSchematicController.
+/* Encapsulates the 'command pattern' portion of bleepsixSchBrdOp.
  */
 
-var schControllerHeadless = false;
+var schBrdOpHeadless = false;
 if ( typeof module !== 'undefined')
 {
-  schControllerHeadless = true;
-  var bleepsixSchematicController = require("./bleepsixSchematicController.js");
-  module.exports = bleepsixSchematicController;
+  schBrdOpHeadless = true;
 }
 
+function bleepsixSchBrdOp( schematic, board )
+{
+  this.schematic = schematic;
+  this.board = board;
 
-bleepsixSchematicController.prototype._opDebugPrint = function ( )
+  // Global index.  Will be updated by communcation back to central DB. 
+  // Initially set to -1 to indicate we don't know what the absolute index is.
+  //
+  this.opHistoryIndex = -1;
+
+  // local parameters for unde/redo history.
+  //
+  this.opHistoryStart = 0;
+  this.opHistoryEnd = -1;
+
+  this.opHistory = [];
+
+}
+
+bleepsixSchBrdOp.prototype._opDebugPrint = function ( )
 {
   console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
   console.log( "  opHistoryIndex: " + this.opHistoryIndex );
@@ -46,7 +62,7 @@ bleepsixSchematicController.prototype._opDebugPrint = function ( )
 }
 
 
-bleepsixSchematicController.prototype._opAddSingle = function ( type, id, data )
+bleepsixSchBrdOp.prototype._opAddSingle = function ( type, id, data )
 {
 
   if      ( type == "connection" )
@@ -87,32 +103,32 @@ bleepsixSchematicController.prototype._opAddSingle = function ( type, id, data )
 
   else if ( type == "busline" )
   {
-    console.log("bleepsixSchematicController.opSchAdd busline not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd busline not implemented\n");
   }
   else if ( type == "entrybusbus" )
   {
-    console.log("bleepsixSchematicController.opSchAdd entrybusbus not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd entrybusbus not implemented\n");
   }
   else if ( type == "textnote" )
   {
-    console.log("bleepsixSchematicController.opSchAdd textnote not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd textnote not implemented\n");
   }
   else if ( type == "label" )
   {
-    console.log("bleepsixSchematicController.opSchAdd label not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd label not implemented\n");
   }
   else if ( type == "labelglobal" )
   {
-    console.log("bleepsixSchematicController.opSchAdd labelglobal not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd labelglobal not implemented\n");
   }
   else if ( type == "labelheirarchical" )
   {
-    console.log("bleepsixSchematicController.opSchAdd labelheirarchical not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd labelheirarchical not implemented\n");
   }
 
 }
 
-bleepsixSchematicController.prototype.opSchAdd = function ( op, inverseFlag )
+bleepsixSchBrdOp.prototype.opSchAdd = function ( op, inverseFlag )
 {
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
   var source = op.source;
@@ -171,32 +187,32 @@ bleepsixSchematicController.prototype.opSchAdd = function ( op, inverseFlag )
 
   else if ( type == "busline" )
   {
-    console.log("bleepsixSchematicController.opSchAdd busline not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd busline not implemented\n");
   }
   else if ( type == "entrybusbus" )
   {
-    console.log("bleepsixSchematicController.opSchAdd entrybusbus not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd entrybusbus not implemented\n");
   }
   else if ( type == "textnote" )
   {
-    console.log("bleepsixSchematicController.opSchAdd textnote not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd textnote not implemented\n");
   }
   else if ( type == "label" )
   {
-    console.log("bleepsixSchematicController.opSchAdd label not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd label not implemented\n");
   }
   else if ( type == "labelglobal" )
   {
-    console.log("bleepsixSchematicController.opSchAdd labelglobal not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd labelglobal not implemented\n");
   }
   else if ( type == "labelheirarchical" )
   {
-    console.log("bleepsixSchematicController.opSchAdd labelheirarchical not implemented\n");
+    console.log("bleepsixSchBrdOp.opSchAdd labelheirarchical not implemented\n");
   }
 
 }
 
-bleepsixSchematicController.prototype.opSchUpdate = function ( op, inverseFlag )
+bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 {
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
 
@@ -322,7 +338,7 @@ bleepsixSchematicController.prototype.opSchUpdate = function ( op, inverseFlag )
 
 }
 
-bleepsixSchematicController.prototype.opSchDelete = function ( op, inverseFlag )
+bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
 {
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
 
@@ -366,7 +382,7 @@ bleepsixSchematicController.prototype.opSchDelete = function ( op, inverseFlag )
 
 }
 
-bleepsixSchematicController.prototype.opCommand = function ( op, inverseFlag, replayFlag )
+bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
 {
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
   replayFlag = ( (typeof replayFlag !== 'undefined') ? replayFlag : false );
@@ -437,7 +453,7 @@ bleepsixSchematicController.prototype.opCommand = function ( op, inverseFlag, re
 }
 
 
-bleepsixSchematicController.prototype.opUndo = function()
+bleepsixSchBrdOp.prototype.opUndo = function()
 {
   console.log("opUndo");
 
@@ -456,7 +472,7 @@ bleepsixSchematicController.prototype.opUndo = function()
 
 }
 
-bleepsixSchematicController.prototype.opRedo = function()
+bleepsixSchBrdOp.prototype.opRedo = function()
 {
   console.log("opRedo");
 
@@ -471,4 +487,10 @@ bleepsixSchematicController.prototype.opRedo = function()
   }
 
 }
+
+if ( typeof module !== 'undefined')
+{
+  module.exports = bleepsixSchBrdOp ;
+}
+
 

@@ -172,7 +172,7 @@ toolComponentEdit.prototype._commitChange = function( )
     clonedOrigData.hideFlag = false;
     op.data.oldElement.push( clonedOrigData );
 
-    g_schematic_controller.opCommand( op );
+    g_schematic_controller.op.opCommand( op );
   }
 }
 

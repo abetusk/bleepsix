@@ -116,7 +116,7 @@ toolConn.prototype._addConnType = function( conntype, x, y )
   if      (conntype == "noconn")      { op.type = "noconn"; }
   else if (conntype == "connection" ) { op.type = "connection"; }
   op.data = { x : x, y : y };
-  g_schematic_controller.opCommand( op );
+  g_schematic_controller.op.opCommand( op );
 }
 
 toolConn.prototype.mouseDown = function( button, x, y ) 

@@ -211,7 +211,7 @@ toolWire.prototype.placeWire = function()
       op.action = "add";
       op.type = "connection";
       op.data = { x: x, y: y };
-      g_schematic_controller.opCommand( op );
+      g_schematic_controller.op.opCommand( op );
 
       //g_schematic_controller.schematic.addConnection(x, y);
       break;
@@ -232,7 +232,7 @@ toolWire.prototype.placeWire = function()
     op.data = { x0: this.wire[ind-1].x, y0: this.wire[ind-1].y,
                 x1: this.wire[ind].x,   y1: this.wire[ind].y   };
                 */
-    g_schematic_controller.opCommand( op );
+    g_schematic_controller.op.opCommand( op );
 
     /*
     g_schematic_controller.schematic.addWire( this.wire[ind-1]["x"], this.wire[ind-1]["y"],
@@ -263,7 +263,7 @@ toolWire.prototype.placeWire = function()
         op.data = { x0: this.cur_wire[ind-1].x, y0: this.cur_wire[ind-1].y,
                     x1: this.cur_wire[ind].x,   y1: this.cur_wire[ind].y   };
                     */
-        g_schematic_controller.opCommand( op );
+        g_schematic_controller.op.opCommand( op );
 
         /*
         g_schematic_controller.schematic.addWire( this.cur_wire[ind-1]["x"], this.cur_wire[ind-1]["y"],
@@ -351,7 +351,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
       op.action = "add";
       op.type = "connection";
       op.data = { x: ex, y: ey };
-      g_schematic_controller.opCommand( op );
+      g_schematic_controller.op.opCommand( op );
       //g_schematic_controller.schematic.addConnection( ex, ey );
 
       this.placeWire();
@@ -377,7 +377,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
       op.action = "add";
       op.type = "connection";
       op.data = { x: ex, y : ey };
-      g_schematic_controller.opCommand( op );
+      g_schematic_controller.op.opCommand( op );
       //g_schematic_controller.schematic.addConnection( ex, ey );
 
       this.placeWire();
