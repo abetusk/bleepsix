@@ -115,7 +115,7 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
     op.data = { componentData : this.cloned_component, 
                 x : this.world_xy.x, y: this.world_xy.y,
                 transform: this.transform };
-    g_schematic_controller.op.opCommand( op );
+    g_schematic_controller.opCommand( op );
 
     console.log("toolComponentPlace: passing back to toolNav");
 

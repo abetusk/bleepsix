@@ -355,7 +355,7 @@ toolMove.prototype.mouseUp = function( button, x, y )
           op.id.push( this.selectedElement[ind].id );
         }
 
-        g_schematic_controller.op.opCommand( op );
+        g_schematic_controller.opCommand( op );
 
       }
 
@@ -486,7 +486,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
       op.id.push( this.selectedElement[ind].id );
     }
 
-    g_schematic_controller.op.opCommand( op );
+    g_schematic_controller.opCommand( op );
 
     console.log("toolMove handing back control to toolNav (3)");
 

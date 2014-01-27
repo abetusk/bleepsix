@@ -62,7 +62,7 @@ bleepsixSchBrdOp.prototype._opDebugPrint = function ( )
 }
 
 
-bleepsixSchBrdOp.prototype._opAddSingle = function ( type, id, data )
+bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data )
 {
 
   if      ( type == "connection" )
@@ -146,7 +146,7 @@ bleepsixSchBrdOp.prototype.opSchAdd = function ( op, inverseFlag )
     return;
   }
 
-  this._opAddSingle( type, op.id, data );
+  this._opSchAddSingle( type, op.id, data );
   return;
 
   if      ( type == "connection" )
@@ -358,10 +358,10 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
       {
         var ref = data.element[ind];
 
-        console.log("DEBUG:");
-        console.log(ref);
+        //console.log("DEBUG:");
+        //console.log(ref);
 
-        this._opAddSingle( ref.type, ref.id, ref );
+        this._opSchAddSingle( ref.type, ref.id, ref );
       }
 
 
@@ -392,38 +392,16 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
   var type = op.type;
   var data = op.data;
 
-  /*
-  if ( this.opHistoryEnd < 0 )  //special case for beginning of history
-  {
-    if (this.opHistory.length > 0)
-      this.opHistory[ this.opHistoryEnd ] = op;
-    else
-      this.opHistory.push( op );
-  }
-  else if ( this.opHistoryEnd >= this.opHistory.length )
-  {
-    this.opHistory.push( op );
-  }
-  else
-  {
-    this.opHistory[ this.opHistoryEnd ] = op;
-  }
-  */
-
   if (!replayFlag)
   {
-
     this.opHistoryEnd++;
-    if ( this.opHistoryEnd < this.opHistory.length )
-    {
-      this.opHistory[ this.opHistoryEnd ] = op;
-    }
-    else
-    {
-      this.opHistory.push( op );
-    }
+    var end = this.opHistoryEnd;
+    var hist = this.opHistory;
 
-    this.opHistory = this.opHistory.slice(0, this.opHistoryEnd+1);
+    if ( end < hist.length ) { hist[ end ] = op; }
+    else                     { hist.push( op ); }
+
+    this.opHistory = hist.slice(0, end+1);
 
   }
 
@@ -446,8 +424,8 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
 
   // Some of this will need to change...
   // 
-  g_painter.dirty_flag = true;
-  this.schematicUpdate = true;
+  //g_painter.dirty_flag = true;
+  //this.schematicUpdate = true;
 
 
 }

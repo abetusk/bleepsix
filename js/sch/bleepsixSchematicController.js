@@ -115,7 +115,7 @@ function bleepsixSchematicController() {
   this.display_text_flag = true;
   this.display_text = "bleep";
 
-  this.schematicUpdated = false;
+  this.schematicUpdate = false;
 
   this.schematic_name_text_flag = true;
   this.schematic_name_text = "no name";
@@ -131,6 +131,13 @@ function bleepsixSchematicController() {
 
   //var controller = this;
   //setInterval( function() { controller.redraw() } , 50 );
+}
+
+bleepsixSchematicController.prototype.opCommand = function ( msg )
+{
+  this.op.opCommand( msg );
+  this.schematicUpdate = true;
+  g_painter.dirty_flag = true;
 }
 
 bleepsixSchematicController.prototype.fadeMessage = function ( msg )

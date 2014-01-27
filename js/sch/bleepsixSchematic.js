@@ -355,7 +355,7 @@ bleepsixSchematic.prototype.remove = function( id_ref )
       if ( ind < this.kicad_sch_json["element"].length )
         this.kicad_sch_json["element"][ind] = e;
 
-      console.log("deleting id:" + id);
+      //console.log("deleting id:" + id);
       delete this.ref_lookup[id];
       if (ref.type == "component")
       {
@@ -363,7 +363,7 @@ bleepsixSchematic.prototype.remove = function( id_ref )
         {
           if ( ref.text[t_ind].id in this.ref_lookup )
           {
-            console.log("deleting sub id:" + ref.text[t_ind].id );
+            //console.log("deleting sub id:" + ref.text[t_ind].id );
             delete this.ref_lookup[ ref.text[t_ind].id ];
           }
         }

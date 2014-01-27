@@ -215,11 +215,11 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   if ( keycode == 219 ) // '['
   {
-    g_schematic_controller.op.opUndo();
+    g_schematic_controller.opUndo();
   }
   else if (keycode == 221 ) // ']'
   {
-    g_schematic_controller.op.opRedo();
+    g_schematic_controller.opRedo();
   }
 
 
@@ -352,7 +352,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     op.action = "add";
     op.type = "connection";
     op.data = { x:wx, y:wy };
-    g_schematic_controller.op.opCommand( op );
+    g_schematic_controller.opCommand( op );
 
   }
   else if (ch == 'X')
@@ -364,7 +364,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     op.action = "add";
     op.type = "noconn";
     op.data = { x:wx, y:wy };
-    g_schematic_controller.op.opCommand( op );
+    g_schematic_controller.opCommand( op );
 
   }
   else if (ch == 'S')
@@ -409,7 +409,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       op.type = "componentRotate90";
       op.id = id.id;
       op.data = { ccw : true };
-      g_schematic_controller.op.opCommand( op );
+      g_schematic_controller.opCommand( op );
 
 
     }
@@ -428,7 +428,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       op.type = "componentRotate90";
       op.id = id.id;
       op.data = { ccw : false };
-      g_schematic_controller.op.opCommand( op );
+      g_schematic_controller.opCommand( op );
 
     }
 
@@ -444,7 +444,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       op.type = "componentRotate180";
       op.id = id.id;
       op.data = { ccw : false };
-      g_schematic_controller.op.opCommand( op );
+      g_schematic_controller.opCommand( op );
 
     }
 
@@ -459,7 +459,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       op.action = "update";
       op.type = "componentFlip";
       op.id = id.id;
-      g_schematic_controller.op.opCommand( op );
+      g_schematic_controller.opCommand( op );
 
     }
 
@@ -496,7 +496,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
 
-          g_schematic_controller.op.opCommand( op );
+          g_schematic_controller.opCommand( op );
 
           return true;
         }
@@ -514,7 +514,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
 
-          g_schematic_controller.op.opCommand( op );
+          g_schematic_controller.opCommand( op );
 
           return true;
         }
@@ -534,7 +534,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
           console.log("pushing ref for removal:");
           console.log(ref);
 
-          g_schematic_controller.op.opCommand( op );
+          g_schematic_controller.opCommand( op );
 
           return true;
         }
@@ -546,7 +546,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       $.extend(true, clonedData, ref );
       op.data.element.push( clonedData );
 
-      g_schematic_controller.op.opCommand( op );
+      g_schematic_controller.opCommand( op );
 
       return true;
 
