@@ -251,7 +251,12 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'I')
   {
+    console.log("schematic:");
     console.log( g_schematic_controller.schematic.kicad_sch_json );
+    console.log( g_schematic_controller.schematic.ref_lookup );
+
+    console.log("board:");
+    console.log( g_schematic_controller.board.kicad_brd_json );
   }
 
   else if (ch == 'L')
@@ -297,7 +302,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'K')
   {
 
-    g_schematic_controller._opDebugPrint();
+    g_schematic_controller.op._opDebugPrint();
 
     /*
     console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
@@ -348,7 +353,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("connection? " + wx + " " + wy );
 
-    var op = { source: "sch" };
+    var op = { source: "sch", destination : "sch"  };
     op.action = "add";
     op.type = "connection";
     op.data = { x:wx, y:wy };
@@ -360,7 +365,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("connection? " + wx + " " + wy );
 
-    var op = { source: "sch" };
+    var op = { source: "sch", destination: "sch" };
     op.action = "add";
     op.type = "noconn";
     op.data = { x:wx, y:wy };
@@ -404,7 +409,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       console.log("R id:");
       console.log(id);
 
-      var op = { source: "sch" }
+      var op = { source: "sch", destination: "sch"  }
       op.action = "update";
       op.type = "componentRotate90";
       op.id = id.id;
@@ -423,7 +428,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       console.log("E id:");
       console.log(id);
 
-      var op = { source: "sch" }
+      var op = { source: "sch", destination : "sch" }
       op.action = "update";
       op.type = "componentRotate90";
       op.id = id.id;
@@ -439,7 +444,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     if ( id && (id["ref"]["type"] == "component") )
     {
 
-      var op = { source: "sch" }
+      var op = { source: "sch", destination : "sch" }
       op.action = "update";
       op.type = "componentRotate180";
       op.id = id.id;
@@ -455,7 +460,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     if ( id && (id.ref.type == "component") )
     {
 
-      var op = { source: "sch" }
+      var op = { source: "sch", destination : "sch" }
       op.action = "update";
       op.type = "componentFlip";
       op.id = id.id;
@@ -476,7 +481,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     if (id_ref_ar.length > 0)
     {
 
-      var op = { source: "sch" };
+      var op = { source: "sch", destination : "sch" };
       op.action = "delete";
       op.type = "group";
       op.id = [ ];

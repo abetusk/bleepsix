@@ -109,7 +109,7 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
     //g_schematic_controller.schematic.addComponent( this.component_name, this.world_xy["x"], this.world_xy["y"], this.transform );
 
 
-    var op = { source : "sch" };
+    var op = { source : "sch", destination: "sch" };
     op.action = "add";
     op.type = "componentData";
     op.data = { componentData : this.cloned_component, 

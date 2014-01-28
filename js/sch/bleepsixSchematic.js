@@ -960,7 +960,7 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
 bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, transform, id, text_ids )
 {
   id  = ( (typeof id !== 'undefined') ? id : this._createId() );
-  text_ids = ( (typeof text_ids !== 'undefined') ? text_ids : [ this._createId(), this._createId() ] );
+  text_ids = ( (typeof text_ids !== 'undefined') ? text_ids : [ this._createId(id), this._createId(id) ] );
 
   transform = ( typeof transform !== 'undefined' ? transform : [ [1, 0], [0, 1] ] );
 
@@ -994,7 +994,8 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   comp_entry["text"][0]["y"] = Math.floor(fy + y);
   comp_entry["text"][0]["number"] = 0;
   comp_entry["text"][0]["text"] = json_component.text[0].reference ;
-  comp_entry["text"][0]["id"] = id + "," + text_ids[0]
+  //comp_entry["text"][0]["id"] = id + "," + text_ids[0]
+  comp_entry["text"][0]["id"] = text_ids[0]
 
   for ( var key in json_component["text"][1] )
   {
@@ -1005,7 +1006,8 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   comp_entry["text"][1]["x"] = Math.floor(fx + x);
   comp_entry["text"][1]["y"] = Math.floor(fy + y);
   comp_entry["text"][1]["number"] = 1;
-  comp_entry["text"][1]["id"] = id + "," + text_ids[1]
+  //comp_entry["text"][1]["id"] = id + "," + text_ids[1]
+  comp_entry["text"][1]["id"] = text_ids[1]
 
   //comp_entry["text"][1]["text"] = json_component["name"] ;
 
@@ -2825,7 +2827,7 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
 bleepsixSchematic.prototype.load_part = function(name, data)
 {
 
-  console.log("load_part: " + name);
+  //console.log("load_part: " + name);
 
   // component_cache is the cache of unique parts
   g_component_cache[name] = data;
@@ -2863,21 +2865,23 @@ bleepsixSchematic.prototype._decorateSchematicWithIds = function( )
 
     //ID already assigned, just skip
     //
-    if ( ("id" in sch[ind]) && 
-         (sch[ind].id >= 0)) 
-      continue;
+    if ( (!("id" in sch[ind])) ||
+         (String(sch[ind].id).length == 0)) 
+      sch[ind]["id"] = this._createId();
 
     // Otherwise, give an ID to the element
     // and all of it's children.
     // Currently, text elements of components
     // are the only children.
     //
-    sch[ind]["id"] = this._createId();
     if (sch[ind]["type"] == "component")
     {
       for (var t_ind in sch[ind]["text"])
       {
-        sch[ind]["text"][t_ind]["id"]  = this._createId( sch[ind]["id"] );
+
+        if ( (!("id" in sch[ind].text[t_ind])) ||
+               (String(sch[ind].text[t_ind].id).length == 0)) 
+          sch[ind].text[t_ind].id  = this._createId( sch[ind].id );
       }
     }
 

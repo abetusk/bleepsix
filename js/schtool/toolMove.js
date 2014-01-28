@@ -340,7 +340,7 @@ toolMove.prototype.mouseUp = function( button, x, y )
            (this.rotateCount != 0) )
       {
 
-        var op = { "source" : "sch" };
+        var op = { "source" : "sch", "destination" : "sch" };
         op.action = "update";
         op.type = "moveGroup";
         op.id = [];
@@ -471,7 +471,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'D')
   {
-    var op = { "source" : "sch" };
+    var op = { "source" : "sch", "destination" : "sch" };
     op.action = "delete";
     op.type = "group";
     op.id = [];

@@ -111,7 +111,7 @@ toolConn.prototype.dist1 = function( xy0, xy1 )
 
 toolConn.prototype._addConnType = function( conntype, x, y )
 {
-  var op = { source: "sch" };
+  var op = { source: "sch", destination:"sch" };
   op.action = "add";
   if      (conntype == "noconn")      { op.type = "noconn"; }
   else if (conntype == "connection" ) { op.type = "connection"; }

@@ -117,8 +117,11 @@ function bleepsixSchematicController() {
 
   this.schematicUpdate = false;
 
-  this.schematic_name_text_flag = true;
-  this.schematic_name_text = "no name";
+  //this.schematic_name_text_flag = true;
+  //this.schematic_name_text = "no name";
+
+  this.project_name_text_flag = true;
+  this.project_name_text = "no name";
 
   var d = new Date();
   var curt = d.getTime();
@@ -138,6 +141,48 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   this.op.opCommand( msg );
   this.schematicUpdate = true;
   g_painter.dirty_flag = true;
+
+  if (   ((msg.action == "add") ||
+          (msg.action == "delete"))
+      && ((msg.type == "componentData") ||
+          (msg.type == "component")) )
+  {
+    console.log("ref_lookup:");
+    console.log( this.schematic.ref_lookup );
+    console.log( this.schematic.kicad_sch_json );
+    console.log("  returned id " + msg.id + ", got ref:");
+
+    var comp_ref = this.schematic.refLookup( msg.id );
+    console.log(comp_ref);
+
+    var module = 
+      this.board.makeUnknownModule( 1000, 
+                                    comp_ref.id, 
+                                    [ comp_ref.text[0].id, comp_ref.text[1].id ] );
+    console.log("created unknown module:");
+    console.log(module);
+
+    module.text[0].text = comp_ref.text[0].text;
+    module.text[0].visible = comp_ref.text[0].visible;
+
+    module.text[1].text = comp_ref.text[1].text;
+    module.text[1].visible = comp_ref.text[1].visible;
+
+    var brdop = { source: "sch", destination: "brd" };
+    brdop.action = msg.action;
+    brdop.type = "footprintData";
+    brdop.data = { footprintData: module , x: 0, y: 0 };
+    brdop.id = comp_ref.id;
+    brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
+    this.op.opCommand( brdop );
+
+    console.log("finishing up controller opCommand, checking module existence");
+    console.log( this.board.refLookup( comp_ref.id ) );
+    console.log( this.board.refLookup( module.id ) );
+
+
+  }
+
 }
 
 bleepsixSchematicController.prototype.opUndo = function ( )
@@ -243,8 +288,11 @@ bleepsixSchematicController.prototype.redraw = function ()
       g_painter.drawText(this.display_text, 10, 680, "rgba(0,0,0,0.4)", 15);
       //g_painter.drawText(this.display_text, 750, 650, "rgba(0,0,0,0.4)", 15);
 
-    if (this.schematic_name_text_flag)
-      g_painter.drawText(this.schematic_name_text, 30, 10, "rgba(0,0,0,0.4)", 15);
+    //if (this.schematic_name_text_flag)
+    //  g_painter.drawText(this.schematic_name_text, 30, 10, "rgba(0,0,0,0.4)", 15);
+
+    if (this.project_name_text_flag)
+      g_painter.drawText(this.project_name_text, 30, 10, "rgba(0,0,0,0.4)", 15);
 
 
     if (action_text_touched)

@@ -156,7 +156,7 @@ toolComponentEdit.prototype._commitChange = function( )
   if (this.dirty)
   {
 
-    var op = { "source" : "sch" };
+    var op = { "source" : "sch", "destination" : "sch" };
     op.action = "update";
     op.type = "edit";
     op.id = [ this.picked_id_ref.id ];

@@ -208,9 +208,9 @@ guiList.prototype.hitTest = function(x, y)
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
   var r = null;
 
-  console.log("guiList.hitTest: debugging");
-  console.log("u:" + u);
-  console.log("child:" + this.guiChildren[0].width + " " + this.guiChildren[0].height );
+  //console.log("guiList.hitTest: debugging");
+  //console.log("u:" + u);
+  //console.log("child:" + this.guiChildren[0].width + " " + this.guiChildren[0].height );
 
   var sx = this.guiChildren[0].x;
   var sy = this.guiChildren[0].y;

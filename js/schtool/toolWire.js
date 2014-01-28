@@ -207,7 +207,7 @@ toolWire.prototype.placeWire = function()
 
     if (this.isConnection(ref, x, y))
     {
-      var op = { source: "sch" };
+      var op = { source: "sch", destination : "sch"  };
       op.action = "add";
       op.type = "connection";
       op.data = { x: x, y: y };
@@ -223,7 +223,7 @@ toolWire.prototype.placeWire = function()
   for (var ind=1; ind < this.wire.length; ind++)
   {
 
-    var op = { source: "sch" };
+    var op = { source: "sch", destination : "sch" };
     op.action = "add";
     op.type = "wireline";
     op.data = { startx: this.wire[ind-1].x, starty: this.wire[ind-1].y,
@@ -253,7 +253,7 @@ toolWire.prototype.placeWire = function()
       if (this.dist1( this.cur_wire[ind-1], this.cur_wire[ind] ) > 1 )
       {
 
-        var op = { source: "sch" };
+        var op = { source: "sch", destination : "sch"  };
         op.action = "add";
         op.type = "wireline";
 
@@ -347,7 +347,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
     if ( this.isConnection( ref, ex, ey ) )
     {
-      var op = { source: "sch" };
+      var op = { source: "sch", destination : "sch"  };
       op.action = "add";
       op.type = "connection";
       op.data = { x: ex, y: ey };
@@ -373,7 +373,7 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
     if (this.isConnection( wire, ex, ey ))
     {
-      var op = { source: "sch" };
+      var op = { source: "sch", destination : "sch"  };
       op.action = "add";
       op.type = "connection";
       op.data = { x: ex, y : ey };

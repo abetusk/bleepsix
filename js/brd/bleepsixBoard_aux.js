@@ -28,11 +28,66 @@ if (typeof module !== 'undefined')
   module.exports = bleepsixBoard;
 }
 
-bleepsixBoard.prototype.makeUnknownModule = function( size )
+
+bleepsixBoard.prototype.refUpdate = function( oldId, newId )
+{
+  if (oldId == newId)
+    return;
+
+  if ( oldId in this.ref_lookup )
+  {
+    this.ref_lookup[ newId ] = this.ref_lookup[ oldId ];
+    delete this.ref_lookup[ oldId ];
+  }
+
+}
+
+
+bleepsixBoard.prototype.refLookup = function( id )
+{
+  if (id in this.ref_lookup)
+    return this.ref_lookup[ id ];
+
+  var brd = this.kicad_brd_json.element;
+  var ind;
+
+  for (ind=0; ind<brd.length; ind++)
+  {
+    this.ref_lookup[ brd[ind].id ] = brd[ind];
+
+    if ( id == brd[ind].id )
+      return this.ref_lookup[id];
+
+    if (brd[ind].type == "module")
+    {
+      var t_ind;
+      for (t_ind=0; t_ind<brd[ind].text.length; t_ind++)
+      {
+        this.ref_lookup[ brd[ind].text[t_ind].id ] = brd[ind].text[t_ind];
+        if ( id == brd[ind].text[t_ind].id )
+          return this.ref_lookup[ id ];
+      }
+
+    }
+  }
+
+  console.log("ERROR: id " + id + " not found!");
+  return null;
+
+}
+
+bleepsixBoard.prototype.makeUnknownModule = function( size, id, text_ids )
 {
   size = ( (typeof size !== 'undefined') ? size : 1000 );
+  id = ((typeof id !== 'undefined') ? id : this._createId());
+  text_ids = ((typeof text_ids !== 'undefined') ? text_ids : [ this._createId(id), this._createId(id) ] );
+
+
+  //DEBUG
+  console.log("makeUnknownModule: " + id );
 
   var unknownModule = {
+    id : id,
     name : "unknown",
     library_name : "unknown",
     layer : 15,
@@ -52,20 +107,13 @@ bleepsixBoard.prototype.makeUnknownModule = function( size )
     ],
 
     text : [
-      { layer: 21, sizex: 250, sizey: 200, number: 0, visible : false, flag:"N", text:"??", x:-700, y:-700 ,
+      { id : text_ids[0],
+        layer: 21, sizex: 250, sizey: 200, number: 0, visible : false, flag:"N", text:"??", x:-700, y:-700 ,
         angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" },
-      { layer: 21, sizex: 250, sizey: 200, number: 1, visible : false, flag:"N", text:"??", x: 700, y: 700 ,
+      { id : text_ids[1],
+        layer: 21, sizex: 250, sizey: 200, number: 1, visible : false, flag:"N", text:"??", x: 700, y: 700 ,
         angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" }
     ],
-
-      /*
-    text : [
-      { layer: 21, sizex: 550, sizey: 500, number: 0, visible : false, flag:"N", text:"??", x:0, y:0 ,
-        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" },
-      { layer: 21, sizex: 550, sizey: 500, number: 1, visible : false, flag:"N", text:"??", x:0, y:0 ,
-        angle:0, rotation: 0, penwidth: 80, misc: " N \"??\"" }
-    ],
-    */
 
     x : 0, y : 0,
     rotation_cost_90 : "0",

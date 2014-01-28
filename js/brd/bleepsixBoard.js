@@ -43,6 +43,7 @@ function bleepsixBoard()
   this.queued_display_footprint_count = 0;
 
   this.reference_number = {};
+  this.ref_lookup = {};
 
   this.log = [];
   this._id = 1;
@@ -205,19 +206,19 @@ bleepsixBoard.prototype.clear = function()
 bleepsixBoard.prototype._createId = function( parent_id )
 {
   var id_str;
+  var id = String( guid() );
 
   if ( typeof parent_id !== 'undefined' ) 
   {
-    id_str = parent_id + "," + String(this._id);
+    id_str = parent_id + "," + id;
   }
   else
   {
-    id_str = String(this._id);
+    id_str = id;
   }
 
-  this._id++;
+  this.id++;
   return id_str;
-
 }
 
 bleepsixBoard.prototype.getReferenceName = function( comp_ref )
@@ -1081,8 +1082,12 @@ bleepsixBoard.prototype.addVia = function(x, y, width, layer0, layer1, netcode)
   return id;
 }
 
-bleepsixBoard.prototype.addFootprintData = function( json_module, x, y )
+bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text_ids, pad_ids )
 {
+  id = ( (typeof id !== 'undefined') ? id : this._createId() );
+  text_ids = ((typeof text_ids !== 'undefined') ? text_ids : [ this._createId(id), this._createId(id) ] );
+  var use_pad_id = ((typeof pad_ids !== 'undefined') ? true : false );
+
   //angle = ( typeof angle !== 'undefined' ? angle : 0.0 );
 
   angle = parseFloat( json_module.angle );
@@ -1093,7 +1098,7 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y )
   x = parseFloat(x);
   y = parseFloat(y);
 
-  var id = this._createId();
+  //var id = this._createId();
 
   var footprint_entry = {}
   $.extend( true, footprint_entry, json_module );
@@ -1107,7 +1112,16 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y )
 
   if ("pad" in footprint_entry)
     for (var pad_ind in footprint_entry["pad"])
-      footprint_entry.pad[pad_ind].id = this._createId();
+    {
+      if (use_pad_id)
+      {
+        footprint_entry.pad[pad_ind].id = pad_ids[pad_ind];
+      }
+      else 
+      {
+        footprint_entry.pad[pad_ind].id = this._createId(id);
+      }
+    }
 
   var R = this._R( angle );
   var bbox = 
@@ -2709,7 +2723,10 @@ bleepsixBoard.prototype._decorateBoardWithIds = function( )
 
   for (ind in brd)
   {
-    brd[ind]["id"] = this._createId();
+
+    if ( (!("id" in brd[ind])) ||
+         ( String(brd[ind].id).length == 0 ) )
+      brd[ind].id = this._createId();
 
 
     if (brd[ind]["type"] == "module")
@@ -2717,12 +2734,17 @@ bleepsixBoard.prototype._decorateBoardWithIds = function( )
 
       for (var t_ind in brd[ind]["text"])
       {
-        brd[ind]["text"][t_ind]["id"]  = this._createId( brd[ind]["id"] );
+
+        if ( (!("id" in brd[ind].text[t_ind])) ||
+             ( String(brd[ind].text[t_ind].id) == 0) )
+          brd[ind]["text"][t_ind].id  = this._createId( brd[ind].id );
       }
 
       for (var p_ind in brd[ind]["pad"])
       {
-        brd[ind].pad[p_ind]["id"] = this._createId( brd[ind].id );
+        if ( (!("id" in brd[ind].pad[p_ind])) ||
+             ( String(brd[ind].pad[p_ind].id) == 0) )
+          brd[ind].pad[p_ind].id = this._createId( brd[ind].id );
       }
     }
 
@@ -2810,11 +2832,17 @@ bleepsixBoard.prototype.load_board = function( json )
       //this.displayable = false;
 
       //var part_json = "json/" + name + ".json";
-      if ( !(name in g_footprint_location)) 
+      if ( (!(name in g_footprint_location)) &&
+           ( name != 'unknown' ) )
       {
         console.log("ERROR: bleepsixBoard.load_board: " + name + " not in g_footprint_location");
         continue;
         //return;
+      }
+      else if (name == 'unknown')
+      {
+        console.log("footprint of special type 'unknown'");
+        continue;
       }
 
       //console.log(g_footprint_location[name]);

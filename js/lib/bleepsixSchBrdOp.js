@@ -61,72 +61,139 @@ bleepsixSchBrdOp.prototype._opDebugPrint = function ( )
 
 }
 
+//-- ADD (single)
 
-bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data )
+bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 {
+
+  var updateBBox = true;
+  op = ((typeof op !== 'undefined') ? op : {} );
+
+  if      ( type == "net" )
+  {
+    this.board.addNet( data.netcode, data.netname, id );
+  }
+
+  else if ( type == "via" )
+  {
+    this.board.addVia( data.x, data.y, data.width, data.layer0, data.layer1, data.netcode, id );
+  }
+
+  else if ( type == "track" )
+  {
+    this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.netcode, id );
+  }
+
+  else if ( type == "footprint" )
+  {
+    this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText );
+  }
+
+  else if ( type == "footprintData" )
+  {
+    //DEBUG
+    console.log("adding footprintData: " + id);
+    console.log( data.footprintData );
+
+    this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText );
+  }
+  else if ( type == "czone" )
+  {
+    this.board.addCZone( data.points, data.netcode, data.layer, data.polyscorners, id );
+  }
+  else
+  {
+    updateBBox = false;
+  }
+
+  if (updateBBox)
+  {
+    var ref = this.board.refLookup( id );
+    if (ref)
+      this.board.updateBoundingBox( ref );
+    else
+      console.log("bleepsixSchBrdOp._opBrdAdd: ERROR: refLookup for id " + id + " failed.  Not updating bounding box");
+  }
+
+}
+
+bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
+{
+  var updateBBox = true;
+  op = ((typeof op !== 'undefined') ? op : {} );
 
   if      ( type == "connection" )
   {
     this.schematic.addConnection( data.x, data.y, id ); 
-    var ref = this.schematic.refLookup( id );
-    this.schematic.updateBoundingBox( ref );
   }
 
   else if ( type == "noconn" )
   {
     this.schematic.addNoconn( data.x, data.y, id ); 
-    var ref = this.schematic.refLookup( id );
-    this.schematic.updateBoundingBox( ref );
   }
 
   else if ( type == "componentData" )
   {
-    this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, id );
-    var ref = this.schematic.refLookup( id );
-    this.schematic.updateBoundingBox( ref );
+    this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, id, op.idText  );
   }
 
   else if ( type == "component" )
   {
-    this.schematic.addComponent( data.name, data.x, data.y, data.transform, id );
-    var ref = this.schematic.refLookup( id );
-    this.schematic.updateBoundingBox( ref );
+    this.schematic.addComponent( data.name, data.x, data.y, data.transform, id, op.idText );
   }
 
   else if ( type == "wireline" )
   {
-    //this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, id );
     this.schematic.addWire( data.startx, data.starty, data.endx, data.endy, id );
-    var ref = this.schematic.refLookup( id );
-    this.schematic.updateBoundingBox( ref );
   }
 
   else if ( type == "busline" )
   {
     console.log("bleepsixSchBrdOp.opSchAdd busline not implemented\n");
+    updateBBox = false;
   }
   else if ( type == "entrybusbus" )
   {
     console.log("bleepsixSchBrdOp.opSchAdd entrybusbus not implemented\n");
+    updateBBox = false;
   }
   else if ( type == "textnote" )
   {
     console.log("bleepsixSchBrdOp.opSchAdd textnote not implemented\n");
+    updateBBox = false;
   }
   else if ( type == "label" )
   {
     console.log("bleepsixSchBrdOp.opSchAdd label not implemented\n");
+    updateBBox = false;
   }
   else if ( type == "labelglobal" )
   {
     console.log("bleepsixSchBrdOp.opSchAdd labelglobal not implemented\n");
+    updateBBox = false;
   }
   else if ( type == "labelheirarchical" )
   {
     console.log("bleepsixSchBrdOp.opSchAdd labelheirarchical not implemented\n");
+    updateBBox = false;
+  }
+  else
+  {
+    updateBBox = false;
+  }
+
+  if (updateBBox)
+  {
+    var ref = this.schematic.refLookup( id );
+    if (ref)
+      this.schematic.updateBoundingBox( ref );
+    else
+      console.log("bleepsixSchBrdOp._opSchAdd: ERROR: refLookup for id " + id + " failed.  Not updating bounding box");
   }
 
 }
+
+//-- ADD
 
 bleepsixSchBrdOp.prototype.opSchAdd = function ( op, inverseFlag )
 {
@@ -146,71 +213,33 @@ bleepsixSchBrdOp.prototype.opSchAdd = function ( op, inverseFlag )
     return;
   }
 
-  this._opSchAddSingle( type, op.id, data );
-  return;
-
-  if      ( type == "connection" )
-  {
-    this.schematic.addConnection( data.x, data.y, op.id ); 
-    var ref = this.schematic.refLookup( op.id );
-    this.schematic.updateBoundingBox( ref );
-  }
-
-  else if ( type == "noconn" )
-  {
-    this.schematic.addNoconn( data.x, data.y, op.id ); 
-    var ref = this.schematic.refLookup( op.id );
-    this.schematic.updateBoundingBox( ref );
-  }
-
-  else if ( type == "componentData" )
-  {
-    this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, op.id );
-    var ref = this.schematic.refLookup( op.id );
-    this.schematic.updateBoundingBox( ref );
-  }
-
-  else if ( type == "component" )
-  {
-    this.schematic.addComponent( data.name, data.x, data.y, data.transform, op.id );
-    var ref = this.schematic.refLookup( op.id );
-    this.schematic.updateBoundingBox( ref );
-  }
-
-  else if ( type == "wireline" )
-  {
-    //this.schematic.addWire( data.x0, data.y0, data.x1, data.y1, op.id );
-    this.schematic.addWire( data.startx, data.stary, data.endx, data.endy, op.id );
-    var ref = this.schematic.refLookup( op.id );
-    this.schematic.updateBoundingBox( ref );
-  }
-
-  else if ( type == "busline" )
-  {
-    console.log("bleepsixSchBrdOp.opSchAdd busline not implemented\n");
-  }
-  else if ( type == "entrybusbus" )
-  {
-    console.log("bleepsixSchBrdOp.opSchAdd entrybusbus not implemented\n");
-  }
-  else if ( type == "textnote" )
-  {
-    console.log("bleepsixSchBrdOp.opSchAdd textnote not implemented\n");
-  }
-  else if ( type == "label" )
-  {
-    console.log("bleepsixSchBrdOp.opSchAdd label not implemented\n");
-  }
-  else if ( type == "labelglobal" )
-  {
-    console.log("bleepsixSchBrdOp.opSchAdd labelglobal not implemented\n");
-  }
-  else if ( type == "labelheirarchical" )
-  {
-    console.log("bleepsixSchBrdOp.opSchAdd labelheirarchical not implemented\n");
-  }
+  this._opSchAddSingle( type, op.id, data, op );
 
 }
+
+bleepsixSchBrdOp.prototype.opBrdAdd = function ( op, inverseFlag )
+{
+  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+
+  if ( !( "id" in op ) )
+    op.id = this.board._createId();
+
+  if (inverseFlag)
+  {
+    var ref = this.board.refLookup( op.id );
+    this.board.remove( { id: op.id, ref: ref } );
+    return;
+  }
+
+  this._opBrdAddSingle( type, op.id, data, op );
+
+}
+
+//-- UPDATE 
 
 bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 {
@@ -338,6 +367,26 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
 }
 
+
+bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
+{
+  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
+
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+  var id = op.id;
+
+  if      ( type == "mycommandhere" )
+  {
+  }
+
+}
+
+
+//-- DELETE
+
 bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
 {
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
@@ -357,13 +406,8 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
       for (var ind in id )
       {
         var ref = data.element[ind];
-
-        //console.log("DEBUG:");
-        //console.log(ref);
-
         this._opSchAddSingle( ref.type, ref.id, ref );
       }
-
 
     }
 
@@ -382,12 +426,54 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
 
 }
 
+bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
+{
+  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
+
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+  var id = op.id;
+
+  if      ( type == "group" )
+  {
+
+    if (inverseFlag)
+    {
+
+      for (var ind in id )
+      {
+        var ref = data.element[ind];
+        this._opBrdAddSingle( ref.type, ref.id, ref );
+      }
+
+    }
+
+    else
+    {
+
+      for (var ind in id )
+      {
+        var ref = this.board.refLookup( id[ind] );
+        this.board.remove( { id: id[ind], ref: ref } );
+      }
+
+    }
+
+  }
+
+}
+
+
+
 bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
 {
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
   replayFlag = ( (typeof replayFlag !== 'undefined') ? replayFlag : false );
 
   var source = op.source;
+  var dest = op.destination;
   var action = op.action;
   var type = op.type;
   var data = op.data;
@@ -408,30 +494,24 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
   if (this.opHistoryIndex >= 0)
     this.opHistoryIndex++;
 
-  if ( source == "sch" )
+  if ( dest == "sch" )
   {
     if      ( action == "add" )    { this.opSchAdd( op, inverseFlag ); }
     else if ( action == "update" ) { this.opSchUpdate( op, inverseFlag ); }
     else if ( action == "delete" ) { this.opSchDelete( op, inverseFlag ); }
   }
 
-  else if (source == "brd" )
+  else if ( dest == "brd" )
   {
     if      ( action == "add" )    { this.opBrdAdd( op, inverseFlag ); }
     else if ( action == "update" ) { this.opBrdUpdate( op, inverseFlag ); }
     else if ( action == "delete" ) { this.opBrdDelete( op, inverseFlag ); }
   }
 
-  // Some of this will need to change...
-  // 
-  //g_painter.dirty_flag = true;
-  //this.schematicUpdate = true;
-
-
 }
 
 
-bleepsixSchBrdOp.prototype.opUndo = function()
+bleepsixSchBrdOp.prototype.opUndo = function( src )
 {
   console.log("opUndo");
 
@@ -450,7 +530,7 @@ bleepsixSchBrdOp.prototype.opUndo = function()
 
 }
 
-bleepsixSchBrdOp.prototype.opRedo = function()
+bleepsixSchBrdOp.prototype.opRedo = function( src )
 {
   console.log("opRedo");
 
