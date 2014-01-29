@@ -29,6 +29,7 @@
 	<script src='js/lib/snapGrid.js'></script>
 
     <script src='js/lib/clipper.js'></script>
+    <script src='js/lib/bleepsixSchBrdOp.js'></script>
 
     <script src='js/core/bleepsixRender.js'></script>
 
@@ -59,6 +60,7 @@
 
 
     <script src='js/gui/guiFootprintLibrary.js'></script>
+    <script src='js/gui/guiBoardToolbox.js'></script>
     <script src='js/gui/guiLayer.js'></script>
 
 	<script src='js/tool/toolScrollbar.js'></script>
@@ -81,6 +83,83 @@
 	<script src='js/toolComponentEdit.js'></script>
     -->
 
+    <script src='js/helperFunctions.js'></script>
+
+    <style>
+      .file_button_container,
+      .file_button_container input {
+        position: absolute;
+        height: 20px;
+        width: 100px;
+        z-index: 1;
+      }
+
+      .file_button_container {
+        opacity: 0.1;
+        /* background: transparent url(http://i.stack.imgur.com/BT5AB.png) left top no-repeat; */
+        background: #0000ff left top no-repeat;
+      }
+
+      .file_button_container input {
+        opacity: 0;
+      }
+
+      .upload_button {
+        opacity: 0.3;
+        position: absolute;
+        background: transparent url(img/upload_white.png) left top ;
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        z-index: 1;
+
+        height: 32px;
+        width: 32px;
+      }
+
+      .download_button
+      {
+        opacity: 0.55;
+        position: absolute;
+        z-index: 1;
+      }
+
+      .upload_button input  {
+        opacity: 0.0;
+        position: absolute;
+        /* background: transparent url(http://i.stack.imgur.com/BT5AB.png) left top no-repeat; */
+        background: #0000ff left top no-repeat;
+        z-index: 1;
+
+        height: 32px;
+        width: 32px;
+      }
+
+      .generic_button {
+        opacity: 0.55;
+        z-index: 1;
+        position: absolute;
+      }
+
+      .snapshot_button {
+        opacity: 0.3;
+
+        /*
+        background: transparent url(img/camera.png) left top ;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        height: 20px;
+        width: 20px;
+        */
+        z-index: 1;
+        position: absolute;
+      }
+
+    </style>
+
+
+
+
+
     <script>
 
 	  var drawing = true,
@@ -95,6 +174,8 @@
       var g_snapgrid = null;
 	  var g_painter = null;
       var g_board_controller = null ; 
+
+      var g_imgcache = null;
 
       // key is module name (unmunged, bare, without directory)
       /*
@@ -149,6 +230,15 @@
         g_board_controller.init( "canvas" );		
 		g_context = g_board_controller.context;
 
+        var img_base = "img";
+        g_imgcache = new imageCache();
+        g_imgcache.add( "cursor", img_base + "/cursor_custom_base_s24.png" );
+        g_imgcache.add( "cursor:wire", img_base + "/cursor_custom_wire_s24.png" );
+        g_imgcache.add( "cursor:bus", img_base + "/cursor_custom_bus_s24.png" );
+        g_imgcache.add( "cursor:conn", img_base + "/cursor_custom_conn_s24.png" );
+        g_imgcache.add( "cursor:noconn", img_base + "/cursor_custom_noconn_s24.png" );
+
+
 		requestAnimationFrame( loop, 1 );
 
         var footprint_location_json = "json/footprint_location.json";
@@ -171,6 +261,45 @@
           }
         );
         */
+
+        var f = document.getElementById('uploadButton');
+        f.style.top = '0px';
+        f.style.left = '500px';
+
+        var f = document.getElementById('downloadButton');
+        f.style.top = '0px';
+        f.style.left = '550px';
+
+
+        var f = document.getElementById('snapButton');
+        f.style.top = '0px';
+        f.style.left = '750px';
+
+        var f = document.getElementById('homeButton');
+        f.style.top = '4px';
+        f.style.left = '900px';
+
+
+        $( "#snapElement" ).hover(
+        function() {
+          console.log("hoveron");
+          //g_board_controller.drawSnapArea = true;
+          g_painter.dirty_flag = true;
+
+        },
+        function() {
+          console.log("hoveroff");
+          //g_schematic_controller.drawSnapArea = false;
+          g_painter.dirty_flag = true;
+
+        }
+        );
+
+
+        //console.log("starting network");
+        //g_brdnetwork = new bleepsixBoardNetwork();
+
+
 
         canvasFocus();
 
@@ -260,11 +389,68 @@
           );
       }
 
+      //function submitSchematic( json_data )
+      function downloadSchematic( )
+      {
+        var json_data = g_schematic_controller.schematic.kicad_sch_json ;
+
+        //var container = { "type" : "createJSON", data: json_data };
+        var container = { "type" : "createKiCADSchematic", data: json_data };
+        var str_data = JSON.stringify( container );
+
+        $.ajax({
+          url: "bleepsixDataManager.py",
+          type: 'POST',
+          data: str_data,
+          //success: schJsonDlTest,
+          success: schJSONDownload,
+          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+          });
+      }
+
+      function populateIframe(id,path)
+      {
+        var ifrm = document.getElementById(id);
+        ifrm.src = "bleepsixDownloadManager.php?path=" + path;
+      }
+
+
     </script>
   </head>
 
+    <!-- download hacking -->
+    <iframe id='downloadFrame' style='display:none'>
+    </iframe>
+
+    <!-- <div class="file_button_container" id='fileButton'>  -->
+    <!-- <div class="upload_button" id='fileButton'>  -->
+    <div class="upload_button" id='uploadButton'>
+      <input class='upload_button' id='fileElement' type="file" onchange="handleFiles(this.files); canvasFocus();" onclick="this.value=null;"  />
+    </div>
+
+    <div class="download_button" id='downloadButton'>
+      <input class='download_button' type="image" src='img/download_white.png' style=' height:32px; width:32px;' value='download' onclick="downloadSchematic(); canvasFocus();"  />
+    </div>
+
+    <!-- <div class="file_button_container" id="snapButton"> -->
+    <div class="snapshot_button" id="snapButton">
+      <!-- <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" /> -->
+      <input id='snapElement' type='image' src='img/camera_white.png' style=' height: 32px; width: 32px;' value="click me" onclick="canvasFocus(); takeSnapShotPicture();" />
+    </div>
+
+    <div class="generic_button" id='homeButton'>
+      <input class='generic_button' type="image" src='img/kitty_head_white_outline_p32.png' style=' height:26px; width:26px;' value'download' onclick="canvasFocus(); goHome();"  />
+    </div>
+
+
+
   <body>
-    <canvas id='canvas' width='1200' height='700' style='border:1px solid #111;' tabindex='0'> </canvas>
+    <canvas 
+      id='canvas' 
+      width='1200' height='700' 
+      style='position:absolute; left: 0; top: 0; border:1px solid #111; z-index:0;' 
+      tabindex='0'> </canvas>
 	<section></section>
     <button id='btn' onclick='btn_func();' >f</button>
   </body>

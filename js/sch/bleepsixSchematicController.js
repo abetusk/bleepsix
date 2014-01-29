@@ -473,11 +473,13 @@ bleepsixSchematicController.prototype.mouseDown = function( button, x, y )
     return;
   }
 
+  /*
   if (this.guiAction.hitTest(x,y))
   {
     this.guiAction.mouseDown(button, x, y);
     return;
   }
+  */
 
   //DEBUGGING
   /*
@@ -542,8 +544,10 @@ bleepsixSchematicController.prototype.mouseMove = function( x, y )
   if (this.movingGrid)
     this.guiGrid.move(x,y);
   
+  /*
   if (this.movingAction)
     this.guiAction.move(x,y);
+    */
 
   //if (this.movingDebug) this.guiTextboxTest.move(x,y);
 
@@ -589,14 +593,16 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   this.guiToolbox.move( 0, 200);
   this.guiToolbox.defaultSelect();
 
-  this.guiGrid = new guiGrid( "grid" );
+  this.guiGrid = new guiGrid( "grid", "rgba(0,0,0,0.2)" );
   this.guiGrid.move(0,0);
 
   this.guiLibrary = new guiLibrary( "library" );
   this.guiLibrary.move( g_painter.width - this.guiLibrary.width, 0);
 
+  /*
   this.guiAction= new guiAction( "action" );
   this.guiAction.move( g_painter.width/2, 0);
+  */
 
   //this.guiTextboxTest = new guiTextbox( "test" );
   //this.guiTextboxTest.move( g_painter.width/2, g_painter.height/2);

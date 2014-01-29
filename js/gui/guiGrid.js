@@ -22,12 +22,14 @@
 
 */
 
-function guiGrid( name ) 
+function guiGrid( name , bgColor ) 
 {
+  bgColor = ( (typeof bgColor === 'undefined') ? "rgba(0, 0, 255, 0.2)" : bgColor );
   this.constructor ( name )   
 
   //this.bgColor = "rgba( 255, 0, 0, 0.2 )";
-  this.bgColor = "rgba( 0, 0, 255, 0.2 )";
+  //this.bgColor = "rgba( 0, 0, 255, 0.2 )";
+  this.bgColor = bgColor;
 
   //this.width = 25;
   //this.width = 20;
@@ -76,6 +78,7 @@ function guiGrid( name )
   var c = this;
   //var u = new guiDropIcon( this.name + ":dropgrid", 20, 20, true );
   var u = new guiDropIcon( this.name + ":dropgrid", this.iconWidth, this.iconWidth, true );
+  u.bgColor = this.bgColor;
   u.addIcon( this.name + ":50", this._make_text_draw_function("50") );
   u.addIcon( this.name + ":25", this._make_text_draw_function("25") );
   u.addIcon( this.name + ":10", this._make_text_draw_function("10") );
@@ -201,7 +204,15 @@ guiGrid.prototype._eventMouseDown = function( ev )
   if (ev.owner == this.name + ":nav")
   {
     console.log("  handing over to toolNav");
-    g_schematic_controller.tool = new toolNav();
+
+
+    // DISABLED!
+    // this needs to be registered by the instanstiator
+    // to make sure the proper controller gets the tool
+    // depending on whether it's in the schematic or
+    // pcb portion, not just the schematic portion.
+    //
+    //g_schematic_controller.tool = new toolNav();
     return;
   }
 

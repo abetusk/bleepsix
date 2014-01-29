@@ -34,6 +34,7 @@ function guiDropIcon( name, width, height, verticalFlag )
   //this.bgColor = "rgba(0,0," + this.uniq +",0.7)";
   //this.bgColor = "rgba(0," + this.uniq +",0,0.5)";
   this.bgColor = "rgba(0,0,0,0.2)";
+  this.fgColor = "rgb(0,0,0)";
 
   this.width = width;
   this.height = height;
@@ -82,7 +83,8 @@ guiDropIcon.prototype._icon_tab_draw_right = function()
   var w = this.iconWidth/3;
   var h = this.iconWidth - y;
 
-  var color = "rgba(0,0,0, 0.2)";
+  //var color = "rgba(0,0,0, 0.2)";
+  var color = this.bgColor;
 
   var path = [ [0, 0], [x+w, y], [x+w, y+h] , [0, y+h] ];
   g_painter.drawBarePolygon( path, 0, 0, color );
@@ -100,7 +102,8 @@ guiDropIcon.prototype._icon_tab_draw_bottom = function()
   var h = this.tabHeight;
   var of = this.tabHeight;
 
-  var color = "rgba(0,0,0, 0.2)";
+  //var color = "rgba(0,0,0, 0.2)";
+  var color = this.bgColor;
 
   var path = [ [0, 0], [x+w, 0], [x+w-of, y+h] , [x+of, y+h] ];
   g_painter.drawBarePolygon( path, 0, 0, color );
@@ -129,7 +132,8 @@ guiDropIcon.prototype.addIcon = function(name, draw )
   ic.init( x, y, this.iconWidth, this.iconHeight );
   ic.visible = false;
   ic.drawShape = draw;
-  ic.bgColor = "rgba(0,0,0,0.2)";
+  //ic.bgColor = "rgba(0,0,0,0.2)";
+  ic.bgColor = this.bgColor;
 
   if (this.iconList.length == 0)
   {
@@ -137,7 +141,8 @@ guiDropIcon.prototype.addIcon = function(name, draw )
     this.mainIcon.init( 0, 0, this.width, this.height );
     this.mainIcon.visible = true;
     this.mainIcon.drawShape = draw;
-    this.mainIcon.bgColor = "rgba(0,0,0,0.2)";
+    //this.mainIcon.bgColor = "rgba(0,0,0,0.2)";
+    this.mainIcon.bgColor = this.bgColor;
     this.addChild( this.mainIcon );
 
     //this.iconTab = new guiIcon(name + ":tab" );
@@ -292,7 +297,8 @@ guiDropIcon.prototype.draw = function()
 {
   if (this.showDropdown || this.selected )
    g_painter.drawRectangle( 0, 0, this.width, this.height,  
-                           1, "rgb(0,0,0)")
+                           1, this.fgColor ); 
+                           //1, "rgb(0,0,0)")
                            //true, this.bgColor );
 }
 

@@ -32,6 +32,8 @@ function guiIcon( name )
   //this.bgColor = "rgba(" + this.uniq + ",0,0," + "0.2)";
   //this.bgColor = "rgba(0,0," + this.uniq +",0.7)";
   this.bgColor = "rgba(0," + this.uniq +",0,0.5)";
+  //this.fgColor = "rgb(0,0,0)";
+  this.fgColor = "rgb(0,0,0)";
 
   this.drawShape = null;
 
@@ -65,7 +67,6 @@ guiIcon.prototype.doubleClick = function(ev, x, y)
 
 guiIcon.prototype.draw = function()
 {
-
   g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
@@ -73,7 +74,8 @@ guiIcon.prototype.draw = function()
   if (this.selected)
   {
     g_painter.drawRectangle( 0, 0, this.width, this.height,  
-                             1, "rgb(0,0,0)" );
+                             1, this.fgColor );
+                             //1, "rgb(0,0,0)" );
   }
 
 
