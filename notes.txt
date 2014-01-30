@@ -223,6 +223,11 @@ By Rama Hoetzlein and Abram Connelly"
           being rendered real-time (~7 fps).  We'll consider this closed
           for now.
 
+  BUG: some parts aren't rendering in the preview window.  I think it
+       has to do with the art and circles not being calculated in the
+       bounding box calculation.  Look at parts in the 'socket' sub-dir
+       (specifically PGA84, PLC44).
+
 * - text for board and footprints
   * . text for footprints working at least...
   * . need to add hershey outline fonts so that what's displayed is as

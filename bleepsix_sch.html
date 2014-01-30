@@ -4,10 +4,8 @@
 
   <head>
 
-    <!-- <link href="css/simple.css" rel="stylesheet" type="text/css" />  -->
-
-    <!-- <script src='/socket.io/socket.io.js'></script> -->
-    <script src='js/lib/socket.io.js'></script>
+    <!-- we don't want it pausing while loading if the server is down -->
+    <script src='js/lib/socket.io.js'></script>  
 
 	<script src='js/lib/jquery.js'></script>
     <script src='js/lib/jquery.mousewheel.js'/></script>
@@ -31,7 +29,6 @@
     <script src='js/lib/bleepsixSchBrdOp.js'></script>
 
     <script src='js/sch/bleepsixSchematicController.js'></script>
-    <!-- <script src='js/sch/bleepsixSchematicController_op.js'></script> -->
 
     <script src='js/sch/bleepsixSchematicNetwork.js'></script>
 
@@ -93,7 +90,6 @@
 
       .file_button_container {
         opacity: 0.1;
-        /* background: transparent url(http://i.stack.imgur.com/BT5AB.png) left top no-repeat; */
         background: #0000ff left top no-repeat; 
       }
 
@@ -542,7 +538,7 @@
         else
         {
           g_schematic_controller.schematic.load_schematic( json_data );
-          g_schematic_controller.schematic.eventSave();
+          //g_schematic_controller.schematic.eventSave();
           g_schematic_controller.schematicUpdate = true;
         }
       }

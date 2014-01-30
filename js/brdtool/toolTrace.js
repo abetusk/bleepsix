@@ -24,7 +24,7 @@
 
 function toolTrace( x, y, initialPlaceFlag ) 
 {
-  console.log("toolTrace");
+  console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
@@ -64,6 +64,7 @@ function toolTrace( x, y, initialPlaceFlag )
 
   this.initialPlaceFlag = initialPlaceFlag;
 
+  this.startedFlag = false;
   if (this.initialPlaceFlag)
   {
     this._initTraceState();
@@ -107,6 +108,8 @@ function toolTrace( x, y, initialPlaceFlag )
 toolTrace.prototype._initTraceState = function()
 {
   var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
+
+  this.startedFlag = true;
 
   //var x = this.mouse_world_xy.x;
   //var y = this.mouse_world_xy.y;
@@ -427,6 +430,17 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 
   if (button == 1)
   {
+
+    // If we haven't started placing, setup state and return
+    //
+    if (!this.startedFlag)
+    {
+
+      console.log("calling _initTraceState() (" + this.laydownFormat + ")" );
+
+      this._initTraceState();
+      return;
+    }
 
     if (this.laydownFormat == 'F' )
     {
@@ -1020,7 +1034,14 @@ toolTrace.prototype.mouseMove = function( x, y )
 
   g_painter.dirty_flag = true;
 
-  //if (this.trace.length == 0) { return; }
+  // If we haven't started, just return
+  // We need to wait for a mouseDown (or
+  // an escape)
+  //
+  if (!this.startedFlag)
+  { 
+    return; 
+  }
 
   if ( ! this.mouse_drag_flag ) 
   {

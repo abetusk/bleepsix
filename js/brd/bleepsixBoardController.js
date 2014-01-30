@@ -79,11 +79,73 @@ function bleepsixBoardController() {
 
   this.display_text_flag = true;
   this.display_text = "bloop";
+
+  this.boardUpdate = false;
+
+  this.project_name_text_flag = true;
+  this.project_name_text = "no name";
+
+  var d = new Date();
+  var curt = d.getTime();
+
+  this.action_text_flag = true;
+  this.action_text = "init";
+  this.action_text_fade = { sustainDur : 1500, dropoffDur : 500, T :0 , lastT : curt };
+
+  this.drawSnapArea = false;
 }
+
+
+
+bleepsixBoardController.prototype.fadeMessage = function ( msg )
+{
+  var d = new Date();
+  var curt = d.getTime();
+
+  this.action_text = msg;
+  this.action_text_fade.T = 0;
+  this.action_text_fade.lastT = curt;
+}
+
 
 
 bleepsixBoardController.prototype.redraw = function ()
 {
+
+  var action_text_touched = false;
+  var action_text_val = 0.0;
+
+  var at_s = 0.4;
+
+  if (this.action_text_flag)
+  {
+    if ( this.action_text_fade.T < this.action_text_fade.sustainDur )
+    {
+      action_text_val = at_s ;
+      action_text_touched = true;
+    }
+  else if (this.action_text_fade.T < ( this.action_text_fade.sustainDur + this.action_text_fade.dropoffDur) )
+  {
+    var t = this.action_text_fade.sustainDur + this.action_text_fade.dropoffDur - this.action_text_fade.T;
+    action_text_val = at_s * t / this.action_text_fade.dropoffDur;
+    action_text_touched = true;
+  }
+  else
+    action_text_touched = false;
+
+    if (action_text_touched)
+    {
+      g_painter.dirty_flag = true;
+      var d = new Date();
+      var curt = d.getTime();
+      var dt = curt - this.action_text_fade.lastT;
+      this.action_text_fade.T += dt;
+      this.action_text_fade.lastT = curt;
+    }
+
+  }
+
+
 
   if (this.board.displayable)
     this.board.tick();
@@ -114,26 +176,60 @@ bleepsixBoardController.prototype.redraw = function ()
 	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
 
-	//this.root.drawChildren ();
-    //this.guiBoardPalette.drawChildren();
-
+    // One of these drawChildren calls doesn't clean up after themselves
+    // leading me to clean up after them and reset the transform.
+    //
     this.guiToolbox.drawChildren();
-
-    //this.guiModule.drawChildren();
-
-    //this.guiGrid.drawChildren();
-    //this.guiAction.drawChildren();
-
     this.guiGrid.drawChildren();
 
 
+	//this.root.drawChildren ();
+    //this.guiBoardPalette.drawChildren();
     //this.guiLayer.drawChildren();
+    //this.guiModule.drawChildren();
+    //this.guiGrid.drawChildren();
+    //this.guiAction.drawChildren();
+
+
+
+
+    //
+    //------------------------
+    //
+    // Draw text graphics
+    //
+
+	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     if (this.display_text_flag )
+      g_painter.drawText(this.display_text, 10, 680, "rgba(255,255,255,0.5)", 15);
+
+    if (this.project_name_text_flag)
+      g_painter.drawText(this.project_name_text, 30, 10, "rgba(255,255,255,0.5)", 15);
+
+
+    if (action_text_touched)
+      g_painter.drawText(this.action_text, 10, 650, "rgba(255,255,255," + action_text_val + ")", 15);
+
+
+    if (this.drawSnapArea)
     {
-      g_painter.drawText(this.display_text, 10, 650, "rgba(255,255,255,0.4)", 15);
+      var lw = 5;
+      var ww = 900 + 2*lw;
+      var hh = 525 + 2*lw;
+      var xx = 50 - lw;
+      var yy = 50 - lw;
+
+      g_painter.drawRectangle( xx, yy, ww, hh, lw, "rgba(255,255,255,0.4)", false );
     }
 
+    //
+    //------------------------
+    //
+
+
+
+	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     // guiFootprintLibrary leaves the transform matrix (I think)
     // in a bad state.  Need to look at this to make sure it plays
@@ -411,7 +507,8 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiToolbox = new guiBoardToolbox( "toolbox" );
   this.guiToolbox.move( 0, 200);
 
-  this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.4)" );
+  //this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.4)", undefined, "rgba(255,255,255,0.2)" );
+  this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)" );
   this.guiGrid.move(0,0);
 
   this.guiFootprintLibrary = new guiFootprintLibrary( "library" );

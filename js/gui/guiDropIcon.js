@@ -35,6 +35,7 @@ function guiDropIcon( name, width, height, verticalFlag )
   //this.bgColor = "rgba(0," + this.uniq +",0,0.5)";
   this.bgColor = "rgba(0,0,0,0.2)";
   this.fgColor = "rgb(0,0,0)";
+  this.divColor = "rgba(0,0,0,0.2)";
 
   this.width = width;
   this.height = height;
@@ -90,7 +91,8 @@ guiDropIcon.prototype._icon_tab_draw_right = function()
   g_painter.drawBarePolygon( path, 0, 0, color );
 
   var l = (y+h)/5;
-  g_painter.line( 0, l, 0, 4*l, "rgba(0,0,0,0.2)", 1 );
+  //g_painter.line( 0, l, 0, 4*l, "rgba(0,0,0,0.2)", 1 );
+  g_painter.line( 0, l, 0, 4*l, this.divColor, 1 );
 
 }
 
@@ -109,7 +111,8 @@ guiDropIcon.prototype._icon_tab_draw_bottom = function()
   g_painter.drawBarePolygon( path, 0, 0, color );
 
   var l = (x+w)/5;
-  g_painter.line( l, y, 4*l, y, "rgba(0,0,0,0.2)", 1 );
+  //g_painter.line( l, y, 4*l, y, "rgba(0,0,0,0.2)", 1 );
+  g_painter.line( l, y, 4*l, y, this.divColor, 1 );
 
 }
 

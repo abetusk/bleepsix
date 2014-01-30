@@ -49,9 +49,7 @@ function guiBoardToolbox( name, bgColor  )
   //
   this.iconNav = new guiIcon( name + ":nav" );
   this.iconNav.init( 0, cur_y, sz, sz);
-  //this.iconNav.draw = _draw_nav_icon;
   this.iconNav.drawShape = _draw_nav_icon;
-  //this.iconNav.bgColor = "rgba(0,0,0, 0.0)";
   this.iconNav.bgColor = bgColor;
   this.iconNav.fgColor = "rgb(255,255,255)";
   this.addChild( this.iconNav );
@@ -59,11 +57,12 @@ function guiBoardToolbox( name, bgColor  )
   cur_y += this.iconNav.height;
 
 
-  // grouped wire functions (wire, bus, etc)
+  // grouped trace functions (trace, via, etc(?))
   //
   var w = new guiDropIcon( this.name + ":droptrace", this.iconWidth , this.iconWidth );
   w.bgColor = bgColor;
   w.fgColor = "rgb(255,255,255)";
+  w.divColor = "rgba(255,255,255,0.2)";
   w.addIcon( this.name + ":trace", _draw_trace_icon );
   w.addIcon( this.name + ":via" , _draw_via_icon );
   w.move(0, cur_y);
@@ -75,23 +74,39 @@ function guiBoardToolbox( name, bgColor  )
 
 
 
+  // grouped art functions (edge, box, arcs, circles, etc.)
+  //
   var u = new guiDropIcon( this.name + ":dropedge", this.iconWidth , this.iconWidth );
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
-  u.addIcon( this.name + ":edge", _draw_noconn_icon );
-  u.addIcon( this.name + ":conn", _draw_conn_icon );
+  u.divColor = "rgba(255,255,255,0.2)";
+  u.addIcon( this.name + ":edge", _draw_edge_icon );
+  u.addIcon( this.name + ":box", _draw_box_icon );
+  u.addIcon( this.name + ":circle", _draw_circle_icon );
+  u.addIcon( this.name + ":arc", _draw_arc_icon );
+  u.addIcon( this.name + ":roundedbox", _draw_roundedbox_icon );
+  u.addIcon( this.name + ":inroundedbox", _draw_inroundedbox_icon );
   u.move(0, cur_y);
 
   this.dropEdge = u;
   this.addChild( u );
 
+  cur_y += u.height;
+
+  // zone
+  //
+
+  // text
+  //
+
+
+  // dimension
+  //
+
 
   this.dropEdge.selected = false;
   this.dropTrace.selected = false;
   this.iconNav.selected = true;
-
-  //this.move(20,30);
-  //this.move(40,100);
 
 }
 
@@ -103,23 +118,6 @@ function _draw_nav_icon()
   var r = parseInt(8 * __icon_width /10);
   g_imgcache.draw( "cursor", 3, 1, r, r );
 
-  //g_painter.drawRectangle( sx, sy, sz, sz, 0, "rgb(0,0,0)", true, "rgb(128,128,128)");
-  //g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
-
-
-}
-
-function _draw_grid_tab_icon()
-{
-  var x = 0;
-  var y = __icon_width/3;
-  var w = __icon_width/3;
-  var h = __icon_width - y;
-
-  var color = "rgba(0, 0, 255, 0.2)";
-
-  var path = [ [0, 0], [x+w, y], [x+w, y+h] , [0, y+h] ];
-  g_painter.drawBarePolygon( path, 0, 0, color );
 }
 
 
@@ -139,63 +137,89 @@ function _draw_gridmm_icon()
 
 function _draw_trace_icon()
 {
-  var sx = __icon_width/6, sy = __icon_width/3, dx = __icon_width/3, dy = __icon_width/3;
-  var color = "rgba(0,138,0,0.6)", width = 2;
-  var bgColor = "rgb(255,255,255,0.1)";
+  var sx = __icon_width/5, sy = __icon_width/3;
+  var dx = __icon_width/5, dy = __icon_width/3;
+  var color = "rgba(0,255,0,0.45)", width = 4;
 
-  g_painter.line( sx,    sy,    sx+dx,    sy,    color, width);
-  g_painter.line( sx+dx, sy,    sx+dx,    sy+dy, color, width);
-  g_painter.line( sx+dx, sy+dy, sx+2*dx,  sy+dy, color, width);
+  var p = [ [ 0,     0 ], 
+            [ dx,    0 ],
+            [ 2*dx, dy ],
+            [ 3*dx, dy ] ];
+
+  g_painter.drawPath( p, sx, sy, color, width, false);
+
 }
 
 function _draw_via_icon()
 {
-  var sx = __icon_width/3, sy = __icon_width/3, dx = __icon_width/3, dy = __icon_width/3;
-  var dx0 = __icon_width/6;
-  var color = "rgb(0,0,138)";
-  var width = 2;
-  var bgColor = "rgb(255,255,255,0.1)";
+  var sx = __icon_width/2, sy = __icon_width/2;
+  var color = "rgba(255,255,255,0.4)";
+  var r = __icon_width/4;
 
-  g_painter.line( sx,    sy,    sx+dx0,    sy,    color, width);
-  g_painter.line( sx+dx0, sy,    sx+dx0,    sy+dy, color, width);
-  g_painter.line( sx+dx0, sy+dy, sx+dx + dx0,  sy+dy, color, width);
+  g_painter.circle( sx, sy, r, 0, color, true, color );
+
 }
 
-function _draw_noconn_icon()
+function _draw_edge_icon()
 {
-  //var mx = 15, my = 15, dx = 5, dy = 5;
-  var mx = __icon_width/2, my = __icon_width/2, dx = __icon_width/6, dy = __icon_width/6;
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/5, dy = __icon_width/5;
+  var color = "rgba(255,255,0,0.6)";
+  var width = 4;
+
+  g_painter.line( mx+dx, my-dy, mx-dx, my+dy, color, width );
+}
+
+function _draw_box_icon()
+{
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/6, dy = __icon_width/6;
   var color = "rgba(0,0,138,0.6)";
   var width = 2;
 
-  g_painter.line( mx-dx, my-dy, mx+dx, my+dy, color, width );
-  g_painter.line( mx-dx, my+dy, mx+dx, my-dy, color, width );
-
+  g_painter.line( mx, my-dy, mx, my+dy, color, width );
 }
 
-function _draw_conn_icon()
+function _draw_circle_icon()
 {
-  //var mx = 10, my = 10, r = 3;
-  var mx = 12, my = 12, r = 3;
-  var color = "rgba(0,138,0, 0.5)";
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/6, dy = __icon_width/6;
+  var color = "rgba(0,0,138,0.6)";
   var width = 2;
 
-  g_painter.circle( mx, my, r, width, color, true, color);
-
+  g_painter.line( mx, my-dy, mx, my+dy, color, width );
 }
 
-function _draw_conn_tab_icon()
+function _draw_arc_icon()
 {
-  var x = 0;
-  var y = __icon_width/3;
-  var w = __icon_width/3;
-  var h = __icon_width - y;
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/6, dy = __icon_width/6;
+  var color = "rgba(0,0,138,0.6)";
+  var width = 2;
 
-  var color = "rgba(0, 0, 255, 0.2)";
-
-  var path = [ [0, 0], [x+w, y], [x+w, y+h] , [0, y+h] ];
-  g_painter.drawBarePolygon( path, 0, 0, color );
+  g_painter.line( mx, my-dy, mx, my+dy, color, width );
 }
+
+function _draw_roundedbox_icon()
+{
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/6, dy = __icon_width/6;
+  var color = "rgba(0,0,138,0.6)";
+  var width = 2;
+
+  g_painter.line( mx, my-dy, mx, my+dy, color, width );
+}
+
+function _draw_inroundedbox_icon()
+{
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/6, dy = __icon_width/6;
+  var color = "rgba(0,0,138,0.6)";
+  var width = 2;
+
+  g_painter.line( mx, my-dy, mx, my+dy, color, width );
+}
+
 
 guiBoardToolbox.inherits ( guiRegion );
 
@@ -209,7 +233,7 @@ guiBoardToolbox.prototype.defaultSelect = function()
   ele.style.cursor = "auto";
 }
 
-guiBoardToolbox.prototype.wireSelect = function()
+guiBoardToolbox.prototype.traceSelect = function()
 {
   this.dropEdge.selected = false;
   this.dropTrace.selected = true;
@@ -219,37 +243,15 @@ guiBoardToolbox.prototype.wireSelect = function()
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 }
 
-/*
-guiBoardToolbox.prototype.busSelect = function()
+guiBoardToolbox.prototype.edgeSelect = function()
 {
-  this.dropEdge.selected = false;
+  this.dropEdge.selected = true;
   this.dropTrace.selected = false;
-  this.iconNav.selected = true;
+  this.iconNav.selected = false;
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "auto";
+  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 }
-
-guiBoardToolbox.prototype.connSelect = function()
-{
-  this.dropEdge.selected = false;
-  this.dropTrace.selected = false;
-  this.iconNav.selected = true;
-
-  var ele = document.getElementById("canvas");
-  ele.style.cursor = "auto";
-}
-
-guiBoardToolbox.prototype.noconnSelect = function()
-{
-  this.dropEdge.selected = false;
-  this.dropTrace.selected = false;
-  this.iconNav.selected = true;
-
-  var ele = document.getElementById("canvas");
-  ele.style.cursor = "auto";
-}
-*/
 
 
 // children will be in weird places, so don't confine it to the box of the
@@ -283,16 +285,15 @@ guiBoardToolbox.prototype.hitTest = function(x, y)
   return null;
 }
 
-guiBoardToolbox.prototype._handleWireEvent = function(ev)
+guiBoardToolbox.prototype._handleTraceEvent = function(ev)
 {
 
-  //this.iconConnTab.visible = true;
   this.dropEdge.iconTab.visible = true;
 
-  if (ev.owner == this.name + ":wire")
+  if (ev.owner == this.name + ":trace")
   {
 
-    console.log("  handing over to toolWire (grid)");
+    console.log("  handing over to toolTrace (grid)");
     g_board_controller.tool = new toolTrace(0, 0, false);
 
     this.dropTrace.selected = true;
@@ -304,17 +305,16 @@ guiBoardToolbox.prototype._handleWireEvent = function(ev)
     g_painter.dirty_flag = true;
 
   }
-  else if (ev.owner == this.name + ":bus")
+  else if (ev.owner == this.name + ":via")
   {
-    console.log("  handing over to toolWire (grid)");
-    //this.dropTrace.selected = true;
+    console.log("  handing over to toolTrace (grid)");
     g_painter.dirty_flag = true;
   }
 
 }
 
 
-guiBoardToolbox.prototype._handleConnEvent = function(ev)
+guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
 {
   if (ev.owner == this.name + ":conn")
   {
@@ -349,13 +349,13 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 {
   if (ev.owner == this.name + ":nav")
   {
-    console.log("  handing over to toolNav (2)");
+    console.log("  handing over to toolBoardNav (2)");
 
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
 
 
-    g_board_controller.tool = new toolNav();
+    g_board_controller.tool = new toolBoardNav();
 
     this.iconNav.selected = true;
 
@@ -367,18 +367,18 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     return;
   }
 
-  else if ( ev.owner.match(/:(wire|bus)$/) )
+  else if ( ev.owner.match(/:(trace|via)$/) )
   {
-    this._handleWireEvent(ev);
+    this._handleTraceEvent(ev);
   }
-  else if ( ev.owner.match(/:(conn|noconn)$/) )
+  else if ( ev.owner.match(/:(edge|box|circle|arc|roundedbox|inroundedbox)$/) )
   {
-    this._handleConnEvent(ev);
+    this._handleEdgeEvent(ev);
   }
 
-  else if (ev.owner == this.name + ":dropwire:tab")
+  else if (ev.owner == this.name + ":droptrace:tab")
   {
-    console.log("  wire tab!");
+    console.log("  trace tab!");
 
     // hide (or show) the tabs from other tools that stick out below it
     //
@@ -389,9 +389,9 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
   }
 
-  else if (ev.owner == this.name + ":dropconn:tab")
+  else if (ev.owner == this.name + ":dropedge:tab")
   {
-    console.log("  conn tab");
+    console.log("  edge tab");
 
     if ( this.dropTrace.showDropdown )
       this.dropTrace.toggleList();
@@ -406,13 +406,13 @@ guiBoardToolbox.prototype._eventDoubleClick = function( ev )
   if (ev.owner == this.name + ":conn")
   {
     console.log("  handing over to toolConn('connection', 'persist')");
-    g_board_controller.tool = new toolConn( 0, 0, "connection", "persist");
+    //g_board_controller.tool = new toolConn( 0, 0, "connection", "persist");
     return;
   }
   else if (ev.owner == this.name + ":noconn")
   {
     console.log("  handing over to toolConn('noconn', 'persist')");
-    g_board_controller.tool = new toolConn( 0, 0, "noconn", "persist");
+    //g_board_controller.tool = new toolConn( 0, 0, "noconn", "persist");
     return;
   }
 }
