@@ -59,6 +59,8 @@ By Rama Hoetzlein and Abram Connelly"
 * - cursor needs to change depending on tool type selected
 * - tool choice needs to be highlighted when active
 
+  - make unknown component part method function
+
   - wire placement when overlaying the wire back after placement
     KiCAD does this is in an weird (but intuitive) way that 
     we should replicate.
@@ -228,6 +230,22 @@ By Rama Hoetzlein and Abram Connelly"
        bounding box calculation.  Look at parts in the 'socket' sub-dir
        (specifically PGA84, PLC44).
 
+  BUG: zone net cycling not working unless there is a board loaded.
+
+  - provide interface to cycle through nets and layers for zones.
+  - provide interface to alter global parameters
+
+  - tracks need to be not run intersection tests for tracks on different
+    layers
+  - laying down track should do self intersection tests
+  - implement track safe distance 
+
+  - undo/redo 
+  - save/load on startup
+  - receive op commands from network
+
+  - try to automatically associate components properly from brd load?
+
 * - text for board and footprints
   * . text for footprints working at least...
   * . need to add hershey outline fonts so that what's displayed is as
@@ -237,11 +255,15 @@ By Rama Hoetzlein and Abram Connelly"
 * - ratsnet lines
     . added 'shimmer'.  We might want to make this a bit nicer by doing
       a global gradient instead of just a local one.
+      UPDATE: don't like it.  implement global gradient
+    . ratsnest must take in a list of other components to calculate
+      as well as filter out non-visible components (needed for tool
+      integration with op command pattern)
 
-  - pcb edges
+* - pcb edges
 
   - GUI tools for:
-    . track
+  * . track
     . zone
     . pcb edges
     . ruler
@@ -249,6 +271,8 @@ By Rama Hoetzlein and Abram Connelly"
     (. art)
 
   - GUI element: layer pair display with current layer
+    . started.  Needs to be hooked up to relevant control code.
+
   - GUI drop down for zone queue
   - GUI dropdowns for units and snap size
 
@@ -260,8 +284,10 @@ By Rama Hoetzlein and Abram Connelly"
   
  
 
-  - unassociated component parts should show up as a kind of blank box
+* - unassociated component parts should show up as a kind of blank box
     that the user can then click/select and associate a footprint to.
+    UPDATE: there is a special 'unknown' part that renders as a blank box
+      with question marks in it.
 
 * - pad numbers displayed properly (need to handle rotations properly)
   * . pads on dips (through holes) not displaying
@@ -382,11 +408,12 @@ By Rama Hoetzlein and Abram Connelly"
       be kept separate in order to do computations.
       
 
-  - silk screen (?) text is wrong on parts.  sizex and sizey determine text
+* - silk screen (?) text is wrong on parts.  sizex and sizey determine text
     dimensional sizes, need to figure out how to render properly based on this
     information.
+    UPDATE: fixed with hershey font loading.
 
-  - bounding box calculations are weird until we can figure out text
+* - bounding box calculations are weird until we can figure out text
     width/height properties properly
 
   - pours with boolean operations.  For example, select a rectangle for the
@@ -534,7 +561,7 @@ If a trace is placed from a net, have it adopt the next
   . if destination is to a pre-existing net, merge nets
 
 
-ley down net with high (temporary) net code.  after it's layed down,
+lay down net with high (temporary) net code.  after it's layed down,
   do join/merge.  
 
 
