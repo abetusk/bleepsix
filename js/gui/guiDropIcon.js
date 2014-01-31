@@ -240,14 +240,47 @@ guiDropIcon.prototype.toggleList = function()
   console.log(" toggleList..?");
 
   this.showDropdown = !this.showDropdown;
+
   for (var ind in this.iconList)
+  {
     this.iconList[ind].visible = !this.iconList[ind].visible;
+  }
 
   this._positionTab();
 
   g_painter.dirty_flag = true;
 
 }
+
+guiDropIcon.prototype.expand = function()
+{
+  this.showDropdown = true;
+  for (var ind in this.iconList)
+    this.iconList[ind].visible = true;
+  this._positionTab();
+  g_painter.dirty_flag = true;
+}
+
+guiDropIcon.prototype.contract = function()
+{
+  this.showDropdown = false;
+  this.iconTab.visible = true;
+  for (var ind in this.iconList)
+    this.iconList[ind].visible = false;
+  this._positionTab();
+  g_painter.dirty_flag = true;
+}
+
+guiDropIcon.prototype.contractSlim = function()
+{
+  this.showDropdown = false;
+  this.iconTab.visible = false;
+  for (var ind in this.iconList)
+    this.iconList[ind].visible = false;
+  this._positionTab();
+  g_painter.dirty_flag = true;
+}
+
 
 guiDropIcon.prototype.activateList = function()
 {

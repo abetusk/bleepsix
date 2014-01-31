@@ -1230,7 +1230,8 @@ bleepsixRender.prototype.drawText =
             offset_flag_h, offset_flag_v,
             flip_text_flag,
             italic_flag,
-            bold_flag
+            bold_flag,
+            font
 
           )
 {
@@ -1244,6 +1245,7 @@ bleepsixRender.prototype.drawText =
   flip_text_flag= (( typeof flip_text_flag !== 'undefined' ) ? flip_text_flag : false );
   italic_flag   = (( typeof italic_flag !== 'undefined' ) ? italic_flag : false );
   bold_flag     = (( typeof bold_flag   !== 'undefined' ) ? bold_flag   : false );
+  font          = (( typeof font !== 'undefined' ) ? font : 'Courier' );
 
   var pix_font = Math.floor( (size * this.pixel_per_unit) + 0.5 );
   var pix_width = Math.floor( pix_font * 0.6 + 0.5 );
@@ -1265,7 +1267,8 @@ bleepsixRender.prototype.drawText =
   else if (offset_flag_v == 'B') { ctx.textBaseline = "bottom"; }
 
   ctx.fillStyle = color;
-  ctx.font = pix_font + "px Courier";
+  ctx.font = pix_font + "px " + font;
+  //ctx.font = pix_font + "px Calibri";
 
   if (italic_flag)
     ctx.font = "italic " + ctx.font;
@@ -1278,6 +1281,17 @@ bleepsixRender.prototype.drawText =
   ctx.rotate( -angle_radian );
   ctx.translate( -x, -y );
 
+}
+
+bleepsixRender.prototype.drawTextSimpleFont = 
+  function( s, x, y, 
+            color, size,
+            font
+          )
+{
+  this.drawText( s, x, y, color, size, 
+    undefined , "C", "C",
+    undefined , undefined, undefined, font );
 }
 
 // rotate text angle_deg clockwise

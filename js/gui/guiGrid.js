@@ -22,11 +22,12 @@
 
 */
 
-function guiGrid( name , bgColor, fgColor, divColor ) 
+function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag ) 
 {
   bgColor = ( (typeof bgColor === 'undefined') ? "rgba(0, 0, 255, 0.2)" : bgColor );
   fgColor = ( (typeof bgColor === 'undefined') ? "rgba(0, 0, 255, 0.2)" : fgColor );
   divColor = ( (typeof divColor === 'undefined') ? "rgba(0, 0, 255, 0.2)" : divColor );
+  displayUnitFlag = ( (typeof displayUnitFlag === 'undefined') ? false : displayUnitFlag );
   this.constructor ( name )   
 
   //this.bgColor = "rgba( 255, 0, 0, 0.2 )";
@@ -65,19 +66,6 @@ function guiGrid( name , bgColor, fgColor, divColor )
   //
   // grouped wire functions (wire, bus, etc)
   //
-  /*
-  var w = new guiDropIcon( this.name + ":dropunit", 20, 20, true );
-  w.addIcon( this.name + ":imperial", this._make_text_draw_function("in") );
-  w.addIcon( this.name + ":metric" , this._make_text_draw_function("mm") );
-  w.move(cur_x, 0);
-
-  this.dropUnit = w;
-  this.addChild( w );
-
-  cur_x += w.width;
-  */
-
-
 
   var c = this;
   //var u = new guiDropIcon( this.name + ":dropgrid", 20, 20, true );
@@ -93,8 +81,26 @@ function guiGrid( name , bgColor, fgColor, divColor )
   u.move(cur_x, 0);
   //u.move(0, 0);
 
+  cur_x += u.width;
+
   this.dropGrid = u;
   this.addChild( u );
+
+  if (displayUnitFlag)
+  {
+
+    var w = new guiDropIcon( this.name + ":dropunit", this.iconWidth, this.iconWidth, true );
+    w.bgColor = this.bgColor;
+    w.divColor = this.divColor;
+    w.addIcon( this.name + ":imperial", this._make_text_draw_function("in") );
+    //w.addIcon( this.name + ":metric" , this._make_text_draw_function("mm") );
+    w.move(cur_x, 0);
+
+    this.dropUnit = w;
+    this.addChild( w );
+    cur_x += w.width;
+
+  }
 
 
   this.move(5,5);

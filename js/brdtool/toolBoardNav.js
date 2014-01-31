@@ -256,16 +256,16 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if ( keycode == 188 )
   {
-    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, 1 );
+    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, -1 );
   }
   else if ( keycode == 190 )
   {
-    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, -1 );
+    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, 1 );
   }
 
   else if (keycode == 37)
   {
-    g_painter.adjustPan( -50, 0 );
+    g_painter.adjustPan( 50, 0 );
     return false;
   }
   else if (keycode == 38)
@@ -275,7 +275,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (keycode == 39)
   {
-    g_painter.adjustPan( 50, 0 );
+    g_painter.adjustPan( -50, 0 );
     return false;
   }
   else if (keycode == 40)
@@ -377,7 +377,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     if ( id_ref )
     {
       g_board_controller.board.rotate90( id_ref, ccw );
+
     }
+
+    g_board_controller.board.updateRatsNest();
 
     g_painter.dirty_flag = true;
 
@@ -399,6 +402,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
       g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
     }
+
+    g_board_controller.board.updateRatsNest();
+
 
   }
 
@@ -490,6 +496,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         {
           g_board_controller.board.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
+
+
+          g_board_controller.board.updateRatsNest();
+
           return true;
         }
       }
@@ -520,6 +530,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
 
 
+          g_board_controller.board.updateRatsNest();
 
           return true;
         }
@@ -532,12 +543,18 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         {
           g_board_controller.board.remove( id_ref_ar[ind] );
           g_painter.dirty_flag = true;
+
+          g_board_controller.board.updateRatsNest();
+
           return true;
+
         }
       }
 
       g_board_controller.board.remove( id_ref_ar[0] );
       g_painter.dirty_flag = true;
+
+      g_board_controller.board.updateRatsNest();
 
       return true;
 

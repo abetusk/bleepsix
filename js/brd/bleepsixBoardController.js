@@ -180,6 +180,7 @@ bleepsixBoardController.prototype.redraw = function ()
     // leading me to clean up after them and reset the transform.
     //
     this.guiToolbox.drawChildren();
+    this.guiLayer.drawChildren();
     this.guiGrid.drawChildren();
 
 
@@ -205,7 +206,7 @@ bleepsixBoardController.prototype.redraw = function ()
       g_painter.drawText(this.display_text, 10, 680, "rgba(255,255,255,0.5)", 15);
 
     if (this.project_name_text_flag)
-      g_painter.drawText(this.project_name_text, 30, 10, "rgba(255,255,255,0.5)", 15);
+      g_painter.drawText(this.project_name_text, 60, 10, "rgba(255,255,255,0.5)", 15);
 
 
     if (action_text_touched)
@@ -366,6 +367,12 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
     return;
   }
 
+  if (this.guiLayer.hitTest(x,y))
+  {
+    this.guiLayer.mouseDown(button, x, y);
+    return;
+  }
+
   if (this.guiGrid.hitTest(x,y))
   {
     this.guiGrid.mouseDown(button, x, y);
@@ -415,6 +422,12 @@ bleepsixBoardController.prototype.doubleClick = function( e )
   if (this.guiToolbox.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
   {
     this.guiToolbox.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y  );
+    return;
+  }
+
+  if (this.guiLayer.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
+  {
+    this.guiLayer.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y  );
     return;
   }
 
@@ -507,8 +520,11 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiToolbox = new guiBoardToolbox( "toolbox" );
   this.guiToolbox.move( 0, 200);
 
+  this.guiLayer = new guiBoardLayer( "layer" );
+  this.guiLayer.move( 0, 450 );
+
   //this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.4)", undefined, "rgba(255,255,255,0.2)" );
-  this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)" );
+  this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid.move(0,0);
 
   this.guiFootprintLibrary = new guiFootprintLibrary( "library" );
