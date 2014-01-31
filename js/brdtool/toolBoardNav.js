@@ -436,7 +436,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
 
     console.log("k");
+    g_board_controller.op._opDebugPrint();
 
+    /*
     var pnts = [];
     var czone = null;
     for (var i in g_board_controller.board.kicad_brd_json.element)
@@ -475,6 +477,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
 
     }
+    */
 
 
   }

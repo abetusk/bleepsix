@@ -480,7 +480,15 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     for (var ind in this.selectedElement)
     {
       var clonedData = {};
-      $.extend( true, clonedData, this.selectedElement[ind].ref );
+
+      //$.extend( true, clonedData, this.selectedElement[ind].ref );
+      var ref = g_schematic_controller.schematic.refLookup( this.selectedElement[ind].id );
+
+      console.log("wtf:");
+      console.log(ref);
+
+      $.extend( true, clonedData, ref );
+
       op.data.element.push( clonedData );
 
       op.id.push( this.selectedElement[ind].id );

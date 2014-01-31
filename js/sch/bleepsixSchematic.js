@@ -250,11 +250,20 @@ bleepsixSchematic.prototype._updateReference = function()
 
 
     var ref_name = ref.reference.replace( /[\d+\?]+$/, '' );
-    var ref_num = ref.reference.match( /[\d+]+$/, '' )[0];
+
+    var ref_num = '?';
+    if ( ref.reference.match( /[\d+]+$/) )
+    {
+      ref_num = ref.reference.match( /[\d+]+$/ )[0];
+    }
+
     if ( ref_num.length == 0 )
       ref_num = 1;
 
-    ref_num = parseInt(ref_num);
+    if (ref_num != '?')
+    {
+      ref_num = parseInt(ref_num);
+    }
 
     if (ref_name in this.reference_number)
     {

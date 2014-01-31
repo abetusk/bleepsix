@@ -39,6 +39,8 @@ function bleepsixBoardController() {
   this.board = new bleepsixBoard();
   this.schematic = new bleepsixSchematic();
 
+  this.op = new bleepsixSchBrdOp( this.schematic, this.board );
+
   this.mouse_left_down = false;
   this.mouse_center_down = false;
   this.mouse_right_down = false;
@@ -95,6 +97,45 @@ function bleepsixBoardController() {
   this.drawSnapArea = false;
 }
 
+bleepsixBoardController.prototype.opCommand = function( msg )
+{
+  this.op.opCommand( msg );
+  this.boardUpdate = true;
+  g_painter.dirty_flag = true;
+
+  if (   (( msg.action == "add") ||
+          ( msg.action == "delete"))
+      && (( msg.type == "footprintData") |
+          ( msg.type == "footprint")) )
+  {
+    console.log("need to add to schematic sister structure");
+
+    /*
+    var mod_ref = this.board.refLookup( msg.id );
+
+    var comp = 
+      this.schematic.makeUnknownComponent( 1000,
+                                           mod_ref.id,
+                                           [ mod_ref.text[0].id, mod_ref.text[1].id ] );
+    comp.text[0].text = mod_ref.text[0].text;
+    comp.text[0].visible = mod_ref.text[0].visible;
+
+    comp.text[1].text = mod_ref.text[1].text;
+    comp.text[1].visible = mod_ref.text[1].visible;
+
+    var schop = { source: "brd", destination: "sch" };
+    schop.action = msg.action;
+    schop.type = "componentData";
+    schop.data = { componentData: comp, x: 0, y: 0 };
+    schop.id = mod_ref.id;
+    schop.idText = [ mod_ref.text[0].id, mod_ref.text[1].id ];
+    this.op.opCommand( schop );
+    */
+
+  }
+
+
+}
 
 
 bleepsixBoardController.prototype.fadeMessage = function ( msg )

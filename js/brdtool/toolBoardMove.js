@@ -320,10 +320,25 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   } 
   else if (ch == 'D')
   {
-    for (var ind in this.selectedElement)
-      g_board_controller.board.remove( this.selectedElement[ind] );
+    var op = { source: "brd", destination: "brd" };
+    op.action = "delete";
+    op.type = "group";
+    op.id = [];
+    op.data = { element: [] };
 
-      g_board_controller.board.updateRatsNest();
+    for (var ind in this.selectedElement)
+    {
+      op.id.push( this.selectedElement[ind].id );
+      var clonedData = {};
+      $.extend( true, clonedData, this.selectedElement[ind].ref );
+      op.data.element.push( clonedData );
+
+      //g_board_controller.board.remove( this.selectedElement[ind] );
+    }
+
+    g_board_controller.opCommand( op );
+
+    g_board_controller.board.updateRatsNest();
 
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;

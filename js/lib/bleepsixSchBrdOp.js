@@ -117,6 +117,26 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 
 }
 
+bleepsixSchBrdOp.prototype._undeleteComponent = function ( ref )
+{
+  this.schematic.addComponentData( 
+      ref, 
+      ref.x, ref.y, 
+      ref.transform, 
+      ref.id, 
+      [ ref.text[0].id, ref.text[1].id ] );
+
+  var comp = this.schematic.refLookup( ref.id );
+  comp.text[0].text = ref.text[0].text;
+  comp.text[0].x = ref.text[0].x;
+  comp.text[0].y = ref.text[0].y;
+
+  comp.text[1].text = ref.text[1].text;
+  comp.text[1].x = ref.text[1].x;
+  comp.text[1].y = ref.text[1].y;
+}
+
+
 bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
 {
   var updateBBox = true;
@@ -139,6 +159,10 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
 
   else if ( type == "component" )
   {
+
+    console.log("adding component (op)");
+    console.log(ref);
+
     this.schematic.addComponent( data.name, data.x, data.y, data.transform, id, op.idText );
   }
 
@@ -403,10 +427,25 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
     if (inverseFlag)
     {
 
+      console.log("INVERSE OF DELETE GROUP");
+
+
       for (var ind in id )
       {
         var ref = data.element[ind];
-        this._opSchAddSingle( ref.type, ref.id, ref );
+
+        console.log(op);
+        console.log(ref);
+        console.log(data);
+
+        if ( ref.type == "component" )
+        {
+          this._undeleteComponent( ref );
+        }
+        else
+        {
+          this._opSchAddSingle( ref.type, ref.id, ref );
+        }
       }
 
     }
