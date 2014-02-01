@@ -22,12 +22,15 @@
 
 */
 
-function toolTrace( x, y, initialPlaceFlag ) 
+function toolTrace( x, y, layerPair, initialPlaceFlag ) 
 {
   console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
+
+  layerPair = ( (typeof layerPair !== 'undefined') ? layerPair : [ 0, 15 ] );
+
   initialPlaceFlag = ( typeof initialPlaceFlag !== 'undefined' ? initialPlaceFlag : true );
 
   this.dist1_trace_eps = 10;
@@ -76,14 +79,27 @@ function toolTrace( x, y, initialPlaceFlag )
   //
   this.trace_width = 100;
   this.via_width = 472;
-  this.layer = [ 0, 15 ] ;
-  this.cur_layer_ind = 0;
 
   this.small_magnet_size = 50;
   this.small_trace_magnet_size = 15;
 
-  this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
-  this.cur_layer = this.layer[ this.cur_layer_ind ];
+  // DEPENDENCE ON guiBoardLayer
+  // FIGURE OUT HOW TO TAKE OUT
+
+  this.layer = g_board_controller.guiLayer.layer ;
+  this.cur_layer = g_board_controller.guiLayer.selectedLayer;
+  this.color = g_board_controller.board.layer_color[ this.cur_layer ];
+
+  this.cur_layer_ind = 0;
+  for (var ind in this.layer)
+  {
+    if ( this.cur_layer == this.layer[ this.cur_layer_ind ])
+      break;
+    this.cur_layer_ind++;
+  }
+
+  console.log("toolTrace " + this.cur_layer_ind + ": " + this.cur_layer );
+
 
   this.ghost_color = "rgba(255,255,255,0.1)";
 
@@ -1162,7 +1178,10 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
       ];
     }
 
-    this.cur_layer_ind = 1-this.cur_layer_ind;
+
+    g_board_controller.guiLayer.toggleLayer();
+
+    this.cur_layer_ind = (this.cur_layer_ind+1)%2;
     this.cur_layer = this.layer[ this.cur_layer_ind ];
     this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
 

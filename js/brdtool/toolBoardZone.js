@@ -108,7 +108,15 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       //var pnts = [ [mx, my], [mx, My], [Mx, My], [Mx, my] ];
       var pnts = [ [mx, my], [Mx, my], [Mx, My], [mx, My] ];
-      g_board_controller.board.addCZone( pnts, this.netcode, this.layer );
+
+      var op = { source : "brd", destination: "brd" };
+      op.action = "add";
+      op.type = "czone";
+      op.data  = { points : pnts, netcode: this.netcode, layer : this.layer };
+      g_board_controller.opCommand( op );
+
+      //g_board_controller.board.addCZone( pnts, this.netcode, this.layer );
+
 
       console.log("...");
 
@@ -175,10 +183,40 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'Z')
   {
     console.log("Z!");
-    this.netcode ++;
 
+    var cur_netcode = parseInt(this.netcode);
+    var t = -1;
+    var min_netcode = cur_netcode;
+
+    var ncm = g_board_controller.board.kicad_brd_json.net_code_map;
+    var nnm = g_board_controller.board.kicad_brd_json.net_name_map;
+    for (var ind in nnm)
+    {
+      var nc = parseInt(nnm[ind]);
+
+      //console.log("ind: " + ind + ", nnm: " + nnm[ind]);
+      //console.log("nc: " + nc + ", t: " + t + ", cur_netcode: " + cur_netcode + ", min_netcode: " + min_netcode);
+
+      if (nc > cur_netcode)
+      {
+        if ( (t == -1) || (nc < t) )
+          t = nc;
+      }
+
+      if ( min_netcode > nc )
+        min_netcode = nc;
+    }
+
+    this.netcode = ( (t >= 0) ? t : min_netcode );
+    this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+
+    console.log(" current netcode/name: " + this.netcode + " " + this.netname );
+
+    /*
+    this.netcode ++;
     if (this.netcode in g_board_controller.board.kicad_brd_json.net_code_map)
       this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+      */
 
     this.debug_print();
   }

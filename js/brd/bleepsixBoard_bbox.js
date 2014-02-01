@@ -509,12 +509,13 @@ bleepsixBoard.prototype.updateBoundingBox = function( ele )
   {
     var t = ele["type"];
 
-    if      (t == "module")       this._find_footprint_bbox( ele );
-    else if (t == "track")        this._find_line_bbox( ele );
-    else if (t == "drawsegment")  this._find_line_bbox( ele );
-    else if (t == "text")         this._find_text_bbox( ele );
+    if      (t == "module")       { this._find_footprint_bbox( ele ); }
+    else if (t == "track")        { this._find_line_bbox( ele ); }
+    else if (t == "drawsegment")  { this._find_line_bbox( ele ); }
+    else if (t == "text")         { this._find_text_bbox( ele ); }
+    else if (t == "czone")        { this._find_czone_bbox( ele );  }
 
-    else                          console.log("udpateBoundingBox: " + t + " unknown");
+    else                          { console.log("udpateBoundingBox: " + t + " unknown"); }
   }
 
 }

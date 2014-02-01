@@ -76,7 +76,10 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   //
   this.processMouseUp = processInitialMouseUp;
 
+  this.rotateCount = 0;
   this.selectedElement = null;
+  this.origElements = null;
+
   this.addElement( id_ref_array );
 
   //console.log( this.orig_element_state );
@@ -90,10 +93,19 @@ toolBoardMove.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom (
 
 
 
-toolBoardMove.prototype.addElement = function( id_array )
+toolBoardMove.prototype.addElement = function( id_ref_array )
 {
 
-  this.selectedElement = id_array;
+  //this.selectedElement = id_array;
+  this.origElements = id_ref_array;
+
+  this.selectedElement = {};
+  $.extend( true, this.selectedElement, id_ref_array);
+
+  for (var ind in this.origElements)
+  {
+    this.origElements[ind].ref.hideFlag = true;
+  }
 
   var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
 
@@ -108,8 +120,8 @@ toolBoardMove.prototype.addElement = function( id_array )
 
   this.snap_world_xy = g_snapgrid.snapGrid( g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y ) );
 
-  $.extend(true, this.orig_element_state, id_array );
-  $.extend(true, this.base_element_state, id_array );
+  $.extend(true, this.orig_element_state, id_ref_array );
+  $.extend(true, this.base_element_state, id_ref_array );
 
   g_painter.dirty_flag = true;
 }
@@ -134,6 +146,9 @@ toolBoardMove.prototype.drawOverlay = function()
   {
     var ref = this.selectedElement[ind]["ref"];
 
+    g_board_controller.board.updateBoundingBox( ref );
+    g_board_controller.board.drawElement( ref );
+
     if ( (ref.type == "track") || (ref.type == "drawsegment") )
     {
       var w = parseFloat( ref.width );
@@ -155,6 +170,8 @@ toolBoardMove.prototype.drawOverlay = function()
     }
 
   }
+
+  g_board_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
 
 }
 
@@ -192,9 +209,15 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
   if (id_ref)
   {
 
-    if (id_ref.ref.type == "component")
+    for (var ind in this.origElements)
     {
-      console.log("toolBoardMove.doubleClick: editing not implemented (not passing control), passing off to toolBoardNav instead");
+      this.origElements[ind].ref.hideFlag = false;
+    }
+
+    if (id_ref.ref.type == "module")
+    {
+      console.log("toolBoardMove.doubleClick: editing not implemented " +
+          "(not passing control), passing off to toolBoardNav instead");
       g_board_controller.tool = new toolBoardNav(x, y);
 
       g_painter.dirty_flag = true;
@@ -219,8 +242,53 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
 
     if (button == 1)
     {
+      var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
+      var wdx = world_xy["x"] - this.orig_world_xy["x"];
+      var wdy = world_xy["y"] - this.orig_world_xy["y"];
+      if ( g_snapgrid.active )
+      {
+        var ta = g_snapgrid.snapGrid( world_xy );
+        var tb = g_snapgrid.snapGrid( this.orig_world_xy );
+        wdx = ta["x"] - tb["x"];
+        wdy = ta["y"] - tb["y"];
+      }
+
+      var com = g_board_controller.board.centerOfMass( this.base_element_state );
+      com = g_snapgrid.snapGrid(com);
+
+
+      if ( (wdx != 0) || (wdy != 0) ||
+           (this.rotateCount != 0) )
+      {
+
+        var op = { "source" : "brd", "destination" : "brd" };
+        op.action = "update";
+        op.type = "moveGroup";
+        op.id = [];
+        op.data = { dx: wdx, dy: wdy,
+        rotateCount : this.rotateCount,
+        cx : com.x, cy: com.y };
+
+        console.log("rotateCount: " + this.rotateCount);
+
+        for (var ind in this.selectedElement)
+        {
+          op.id.push( this.selectedElement[ind].id );
+        }
+
+        g_board_controller.opCommand( op );
+
+      }
+
+
+      for (var ind in this.origElements )
+      {
+        this.origElements[ind].ref.hideFlag = false;
+      }
+
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
+
     }
   }
 
@@ -282,7 +350,8 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
 
     //TESTING
-    g_board_controller.board.updateRatsNest();
+    //g_board_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
     //TESTING
 
 
@@ -296,13 +365,18 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   if (keycode == 27)
   {
 
+    for (var ind in this.origElements)
+    {
+      this.origElements[ind].ref.hideFlag = false;
+    }
+
     //$.extend(true, this.selectedElement, this.base_element_state);
-    $.extend(true, this.selectedElement, this.orig_element_state);
+    //$.extend(true, this.selectedElement, this.orig_element_state);
 
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
 
-
-    g_board_controller.board.updateRatsNest();
+    //g_board_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
 
     g_painter.dirty_flag = true;
 
@@ -339,6 +413,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.opCommand( op );
 
     g_board_controller.board.updateRatsNest();
+    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
 
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
@@ -347,6 +422,8 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   else if ( (ch == 'R') || (ch == 'E') )
   {
 
+    var drot = ( (ch == 'R') ? 1 : 3 );
+    this.rotateCount = (this.rotateCount+drot)%4;
 
     com = g_board_controller.board.centerOfMass( this.base_element_state );
     console.log("com:");
@@ -356,7 +433,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     //
     com = g_snapgrid.snapGrid(com);
 
-    var ccw = ( (ch == 'R') ? true : false );
+    var ccw = ( (ch == 'R') ? false : true );
     g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
     $.extend(true, this.selectedElement, this.base_element_state);
 
@@ -376,7 +453,8 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     for (var ind in this.selectedElement)
       g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
-    g_board_controller.board.updateRatsNest();
+    //g_board_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
 
     g_painter.dirty_flag = true;
 
@@ -391,9 +469,70 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
       var ele = this.selectedElement[i];
       if (ele.type == "czone")
       {
-        g_board_controller.board.fillCZone( ele.ref );
-        $.extend(true, this.base_element_state, this.selectedElement );
-        $.extend(true, this.orig_element_state, this.selectedElement );
+
+        //-------------------- 
+        //  move command
+        //
+        var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
+        var wdx = world_xy["x"] - this.orig_world_xy["x"];
+        var wdy = world_xy["y"] - this.orig_world_xy["y"];
+        if ( g_snapgrid.active )
+        {
+          var ta = g_snapgrid.snapGrid( world_xy );
+          var tb = g_snapgrid.snapGrid( this.orig_world_xy );
+          wdx = ta["x"] - tb["x"];
+          wdy = ta["y"] - tb["y"];
+        }
+
+        var com = g_board_controller.board.centerOfMass( this.base_element_state );
+        com = g_snapgrid.snapGrid(com);
+
+
+        if ( (wdx != 0) || (wdy != 0) ||
+             (this.rotateCount != 0) )
+        {
+
+          var op = { "source" : "brd", "destination" : "brd" };
+          op.action = "update";
+          op.type = "moveGroup";
+          op.id = [ ele.id ];
+          op.data = { dx: wdx, dy: wdy,
+          rotateCount : this.rotateCount,
+          cx : com.x, cy: com.y };
+          g_board_controller.opCommand( op );
+        }
+
+        //------------------------
+        //  fill CZone command
+        //
+
+        var op = { source : "brd", destination: "brd" };
+        op.action = "update";
+        op.type = "fillczone";
+        op.id = [ ele.id ];
+        op.data = { element : [ ele.ref ] };
+
+        g_board_controller.opCommand( op );
+
+        //g_board_controller.board.fillCZone( ele.ref );
+        //$.extend(true, this.base_element_state, this.selectedElement );
+        //$.extend(true, this.orig_element_state, this.selectedElement );
+
+
+        for (var j in this.origElements)
+        {
+          this.origElements[j].ref.hideFlag = false;
+          console.log("unhiding? " + j + " " + this.origElements[j].ref.hideFlag );
+
+          //var r = g_board_controller.board.refLookup( this.origElements[j].id );
+          //r.hideFlag = false;
+        }
+
+        console.log("filling czone, handing back to toolBoardNav");
+        g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+        g_painter.dirty_flag = true;
+
+        return;
 
       }
     }

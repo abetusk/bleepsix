@@ -320,6 +320,12 @@ bleepsixBoard.prototype.fillCZone = function( czone )
     var ele = brd[brd_ind];
     var type = ele.type;
 
+    if ( ("hideFlag" in ele) && 
+          ele.hideFlag )
+    {
+      continue;
+    }
+
     // Collect geometry for the net so we can do intersection tests.
     // Construct thermal geometry if appropriate.
     //

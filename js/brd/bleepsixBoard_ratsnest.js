@@ -34,6 +34,50 @@ if (typeof module !== 'undefined')
 //
 
 
+bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, netcode, layer )
+{
+  var type = ele.type;
+
+  if (type == "track")
+  {
+
+    if ((netcode >= 0) &&
+        (netcode != parseInt(ele.netcode)) )
+      return false;
+
+    if ((layer >= 0) &&
+        (layer != parseInt(ele.layer)))
+      return false;
+
+    res.push( { id: ele.id, ref: ele, type : "track" } );
+
+  }
+
+  else if (type == "module")
+  {
+
+    var pads = ele.pad;
+    for (var p_ind in pads)
+    {
+      var pad = pads[p_ind];
+
+      if ((netcode >= 0) &&
+          (netcode != parseInt(pad.net_number)) )
+        return false;
+
+      if ((layer >= 0) &&
+          ( (parseInt(pad.layer_mask, 16) & (1<<layer)) == 0 ) )
+        return false;
+
+      res.push( { id: pad.id, ref: ele, pad_ref: pad, type :"pad" } );
+
+    }
+
+  }
+
+}
+
+
 // Get all elements from this.kicad_brd_json that are of the same netcode
 // and layer.  If netcode and/or layer aren't specified, grab all copper
 // elements from from the appropriate necode/layer.
@@ -43,10 +87,11 @@ if (typeof module !== 'undefined')
 // Returns an id_ref_array.
 //
 //
-bleepsixBoard.prototype._filter_copper_elements = function( netcode, layer )
+bleepsixBoard.prototype._filter_copper_elements = function( netcode, layer, id_ref_array )
 {
   netcode = ( (typeof netcode === 'undefined') ? -1 : netcode );
   layer   = ( (typeof layer === 'undefined') ? -1 : layer );
+  id_ref_array = ( (typeof id_ref_array === 'undefined') ? [] : id_ref_array );
 
 
   var res = [];
@@ -54,6 +99,14 @@ bleepsixBoard.prototype._filter_copper_elements = function( netcode, layer )
   var brd = this.kicad_brd_json.element;
   for (var ind in brd)
   {
+
+    if ( ("hideFlag" in brd[ind]) &&
+         brd[ind].hideFlag )
+      continue;
+
+    this._filter_copper_element_single( res, brd[ind], netcode, layer );
+
+    /*
     var ele = brd[ind];
     var type = ele.type;
 
@@ -94,6 +147,7 @@ bleepsixBoard.prototype._filter_copper_elements = function( netcode, layer )
       }
 
     }
+    */
 
     /*
     else if (type == "czone")
@@ -112,6 +166,11 @@ bleepsixBoard.prototype._filter_copper_elements = function( netcode, layer )
     }
     */
 
+  }
+
+  for (var ind in id_ref_array)
+  {
+    this._filter_copper_element_single( res, id_ref_array[ind].ref, netcode, layer );
   }
 
   return res;
@@ -186,74 +245,6 @@ bleepsixBoard.prototype._ratsnest_make_endpoint_hash = function( endpoint_hash, 
 
   }
 
-
-}
-
-// 1) Make coarse group by connecting elements by endpoints.
-//    This is a quicker operation as we're looking up connectivity
-//    via their endpoints.
-//      1a) if coarse group is 0 or 1, we're done
-// 2) Merge coarse groups by seeing which elements are connected
-//    by making calls to ClipperLib for intersection tests.  This
-//    is where the big slow down comes in, as we're doing an O(N^2)
-//    operation on the linearized polygons of the geometry.
-// 3) Make initial airwires from connected groups
-// 4) Connect disparate airwire clusters, remove duplicates, populate
-//    this.kiacd_bard_json.net_code_airwire_map with new airwires
-//
-bleepsixBoard.prototype._update_single_ratsnest_old = function( netcode )
-{
-
-  var net_id_ref = this._filter_copper_elements( netcode );
-
-  //console.log("_update_single_ratsnest: " + this.kicad_brd_json.net_code_map[netcode] );
-
-  var endpoint_hash = {};
-  this._ratsnest_make_endpoint_hash( endpoint_hash, net_id_ref );
-
-  var coarse_graph = {};
-  this._ratsnest_decorate_coarse_group_with_group_name( endpoint_hash );
-
-  group_list = this._ratsnest_group_elements( endpoint_hash, net_id_ref );
-
-  // net_id_ref now has group_names that are real
-  // group_list has list by group if needed
-
-  group_points = this._ratsnest_create_group_points( net_id_ref );
-
-  var airwire = [];
-  this._connect_airwires( airwire, group_points );
-
-
-  var uniq_airwire = {};
-  for (var a in airwire)
-  {
-    var lin = airwire[a];
-    var ekey = this._make_edge_key( lin.x0, lin.y0, lin.x1, lin.y1 );
-    uniq_airwire[ekey] = airwire[a];
-  }
-
-  airwire.length = 0;
-  for (var k in uniq_airwire)
-  {
-    airwire.push( uniq_airwire[k] );
-  }
-
-  this.kicad_brd_json.net_code_airwire_map[ netcode ] = airwire;
-  /*
-  //DEBUGGING
-  //debug
-  for (var a in airwire)
-  {
-    var pnt = [ ];
-    pnt.push( [ airwire[a].x0, airwire[a].y0 ] );
-    pnt.push( [ airwire[a].x1, airwire[a].y1 ] );
-    pnt.push( [ airwire[a].x1, airwire[a].y1 + 10 ] );
-    pnt.push( [ airwire[a].x0, airwire[a].y0 + 10 ] );
-    this.debug_geom.push(pnt);
-  }
-  //DEBUGGING
-  */
 
 }
 
@@ -759,31 +750,6 @@ bleepsixBoard.prototype._ratsnest_decorate_coarse_group_with_group_name = functi
  
 }
 
-bleepsixBoard.prototype.updateRatsNest_old = function( netcode )
-{
-  if (typeof netcode !== 'undefined')
-  {
-    //console.log("updating single rat's nest (" + netcode + ")");
-
-    if (!("net_code_airwire_map" in this.kicad_brd_json))
-      this.kicad_brd_json.net_code_airwire_map = {};
-
-    this.kicad_brd_json.net_code_airwire_map[netcode] = [];
-    this._update_single_ratsnest(netcode);
-
-    g_painter.dirty_flag = true;
-    return;
-  }
-
-
-  this.kicad_brd_json.net_code_airwire_map = {};
-  for (var nc in this.kicad_brd_json.net_code_map)
-    this._update_single_ratsnest(nc);
-
-  g_painter.dirty_flag = true;
-
-}
-
 function distance_metric(a,b)
 {
   return (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]);
@@ -794,14 +760,14 @@ function distance_metric(a,b)
 // Not specifying netcode will update all netcodes
 // Updates this.kicad_brd_json.net_code_airwire_map
 //
-bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds )
+bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_array )
 {
   // anything below this and it'll probably just bog down too much.
   //
   ds = ( (typeof ds === 'undefined') ? 100 : ds );
   if (ds <=  0) ds = 100;
 
-  var net_id_ref = this._filter_copper_elements( netcode );
+  var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array );
 
   var verts = [];
 
@@ -871,7 +837,7 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds )
 
 }
 
-bleepsixBoard.prototype.updateRatsNest = function( netcode )
+bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array )
 {
   if (typeof netcode !== 'undefined')
   {
@@ -880,7 +846,7 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode )
       this.kicad_brd_json.net_code_airwire_map = {};
 
     this.kicad_brd_json.net_code_airwire_map[netcode] = [];
-    this._update_single_ratsnest(netcode);
+    this._update_single_ratsnest( netcode, undefined, id_ref_array );
 
     g_painter.dirty_flag = true;
     return;
@@ -890,7 +856,7 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode )
   for (var nc in this.kicad_brd_json.net_code_map)
   {
     this.kicad_brd_json.net_code_airwire_map[nc] = [];
-    this._update_single_ratsnest(nc);
+    this._update_single_ratsnest( nc, undefined , id_ref_array );
   }
 
   g_painter.dirty_flag = true;

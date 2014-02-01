@@ -1027,8 +1027,8 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   else
     comp_entry["text"][1]["text"] = json_component.text[1].text;
 
-  console.log("adding component");
-  console.log(json_component);
+  //console.log("adding component");
+  //console.log(json_component);
 
   this.updateComponentBoundingBox( comp_entry );
   this.kicad_sch_json["element"].push( comp_entry );
@@ -2250,7 +2250,7 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
 
 bleepsixSchematic.prototype.drawElement = function( ele )
 {
-  type = ele.type;
+  var type = ele.type;
 
   if      (type == "component")  { this.drawSchematicComponent( ele ); }
   else if (type == "connection") { this.drawSchematicConnection( ele ); }
@@ -2286,16 +2286,17 @@ bleepsixSchematic.prototype.drawSchematic = function()
       continue;
     }
 
+    this.drawElement( sch[ind] );
+
+    /*
     if      (type == "component")  { comp_ind.push(ind); }
     else if (type == "connection") { this.drawSchematicConnection( sch[ind] ); }
     else if (type == "noconn")     { this.drawSchematicNoconn( sch[ind] ); }
     else if (type == "textnote")   { this.drawSchematicText( sch[ind] ); }
 
-    /*
-    else if (type == "label")             { this.drawSchematicText( sch[ind] ); }
-    else if (type == "labelglobal")       { this.drawSchematicText( sch[ind] ); }
-    else if (type == "labelheirarchical") { this.drawSchematicText( sch[ind] ); }
-    */
+    //else if (type == "label")             { this.drawSchematicText( sch[ind] ); }
+    //else if (type == "labelglobal")       { this.drawSchematicText( sch[ind] ); }
+    //else if (type == "labelheirarchical") { this.drawSchematicText( sch[ind] ); }
 
     else if (type == "label")             { this.drawSchematicLabel( sch[ind] ); }
     else if (type == "labelglobal")       { this.drawSchematicLabel( sch[ind] ); }
@@ -2304,6 +2305,7 @@ bleepsixSchematic.prototype.drawSchematic = function()
     else if (type == "busline")    { this.drawSchematicLine( sch[ind] ); }
     else if (type == "entrybusbus"){ this.drawSchematicLine( sch[ind] ); }
     else                           { this.drawSchematicLine( sch[ind] ); }
+    */
 
   }
 

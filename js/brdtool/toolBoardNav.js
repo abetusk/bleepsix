@@ -283,11 +283,13 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_painter.adjustPan( 0, -50 );
     return false;
   }
-  else if (keycode == 192)
+
+  else if ((keycode == 186) || (ch == ':'))
   {
     console.log("cli");
-
   }
+
+  //else if (keycode == 192) { console.log("cli"); }
 
   else if (ch == 'A') {
     /*
@@ -341,7 +343,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("X " + wx + " " + wy );
 
-    g_board_controller.tool = new toolTrace(x, y, true);
+    g_board_controller.tool = new toolTrace(x, y, [0, 15], true);
 
   }
   else if (ch == 'S')
@@ -370,19 +372,24 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if ( (ch == 'R') || (ch == 'E') )
   {
-
     var ccw = ( (ch == 'R') ? true : false );
 
     var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
     {
-      g_board_controller.board.rotate90( id_ref, ccw );
 
+      var op = { source: "brd", destination: "brd" };
+      op.action = "update";
+      op.type = "rotate90";
+      op.id = id_ref.id;
+      op.data = { ccw : ccw };
+      g_board_controller.opCommand( op );
+
+      //g_board_controller.board.rotate90( id_ref, ccw );
+      //g_painter.dirty_flag = true;
+
+      g_board_controller.board.updateRatsNest();
     }
-
-    g_board_controller.board.updateRatsNest();
-
-    g_painter.dirty_flag = true;
 
   }
   else if (ch == 'Y')
@@ -393,14 +400,21 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
     {
-
-      console.log("y pick (10deg rot), got:");
+      console.log("y pick (15deg rot), got:");
       console.log(id_ref);
 
+      var ang_rad =  15 * Math.PI / 180;
       var x = id_ref.ref.x;
       var y = id_ref.ref.y;
 
-      g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
+      var op = { source: "brd", destination: "brd" };
+      op.action = "update";
+      op.type = "rotate";
+      op.id = id_ref.id;
+      op.data = { ccw : ccw, cx : x, cy: y, angle : ang_rad, ccw: true };
+      g_board_controller.opCommand( op );
+
+      //g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
     }
 
     g_board_controller.board.updateRatsNest();
@@ -413,8 +427,15 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     console.log("adding 'unknown' part");
 
     var k = g_board_controller.board.makeUnknownModule( );
-    g_board_controller.board.addFootprintData( k , 0, 0 );
 
+    var op = { source: "brd", destination: "brd" };
+    op.action = "add";
+    op.type = "footprintData";
+    op.data = { footprintData : k,
+                x : 0, y: 0 };
+    g_board_controller.opCommand( op );
+
+    //g_board_controller.board.addFootprintData( k , 0, 0 );
   }
 
   else if ( ch == 'M')
@@ -492,13 +513,27 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     if (id_ref_ar.length > 0)
     {
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "delete";
+      op.type = "group";
+      op.id = [];
+      op.data = { element: [] };
+
       for (var ind in id_ref_ar)
       {
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] == "drawsegment")
         {
-          g_board_controller.board.remove( id_ref_ar[ind] );
-          g_painter.dirty_flag = true;
+
+          op.id.push( id_ref_ar[ind].id );
+          var clonedData = {};
+          $.extend( true, clonedData, id_ref_ar[ind].ref );
+          op.data.element.push( clonedData );
+          g_board_controller.opCommand( op );
+
+          //g_board_controller.board.remove( id_ref_ar[ind] );
+          //g_painter.dirty_flag = true;
 
 
           g_board_controller.board.updateRatsNest();
@@ -512,8 +547,16 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] == "track")
         {
-          g_board_controller.board.remove( id_ref_ar[ind] );
-          g_painter.dirty_flag = true;
+
+          op.id.push( id_ref_ar[ind].id );
+          var clonedData = {};
+          $.extend( true, clonedData, id_ref_ar[ind].ref );
+          op.data.element.push( clonedData );
+          g_board_controller.opCommand( op );
+
+          //g_board_controller.board.remove( id_ref_ar[ind] );
+          //g_painter.dirty_flag = true;
+
 
 
       // TESTING
@@ -544,8 +587,16 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         var ref = id_ref_ar[ind]["ref"];
         if (ref["type"] != "module")
         {
-          g_board_controller.board.remove( id_ref_ar[ind] );
-          g_painter.dirty_flag = true;
+
+          op.id.push( id_ref_ar[ind].id );
+          var clonedData = {};
+          $.extend( true, clonedData, id_ref_ar[ind].ref );
+          op.data.element.push( clonedData );
+          g_board_controller.opCommand( op );
+
+          //g_board_controller.board.remove( id_ref_ar[ind] );
+          //g_painter.dirty_flag = true;
+
 
           g_board_controller.board.updateRatsNest();
 
@@ -554,8 +605,16 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         }
       }
 
-      g_board_controller.board.remove( id_ref_ar[0] );
-      g_painter.dirty_flag = true;
+      op.id.push( id_ref_ar[ind].id );
+      var clonedData = {};
+      $.extend( true, clonedData, id_ref_ar[ind].ref );
+      op.data.element.push( clonedData );
+      g_board_controller.opCommand( op );
+
+      //g_board_controller.board.remove( id_ref_ar[0] );
+      //g_painter.dirty_flag = true;
+
+
 
       g_board_controller.board.updateRatsNest();
 

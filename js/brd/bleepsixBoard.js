@@ -2329,6 +2329,21 @@ bleepsixBoard.prototype.tick = function()
 
 }
 
+bleepsixBoard.prototype.drawElement = function( ele )
+{
+  var type = ele.type;
+
+  if      ( type == "track" )         { this.drawBoardTrack( ele ); }
+  else if ( type == "drawsegment" )   { this.drawBoardSegment( ele ); }
+  else if ( type == "module" )        { this.drawBoardModule( ele ); }
+  else if ( type == "text" )          { this.drawBoardText( ele ); }
+  else if ( type == "czone" )         { this.drawBoardCZone( ele ); }
+  else {
+    console.log("unhandled draw type: " + type);
+  }
+
+}
+
 bleepsixBoard.prototype.drawBoard = function()
 {
   this.updateBoundingBox();
@@ -2344,6 +2359,12 @@ bleepsixBoard.prototype.drawBoard = function()
 
     type = ele_list[ind]["type"];
 
+    if ( ("hideFlag" in ele_list[ind]) &&
+         ele_list[ind].hideFlag )
+    {
+      continue;
+    }
+
     if ( this.flag_bounding_box_speedup)
     {
       if ( "coarse_bounding_box" in ele_list[ind])
@@ -2355,6 +2376,8 @@ bleepsixBoard.prototype.drawBoard = function()
       }
     }
 
+    this.drawElement( ele_list[ind] );
+    /*
     if      ( type == "track" )         { this.drawBoardTrack( ele_list[ind] ); }
     else if ( type == "drawsegment" )   { this.drawBoardSegment( ele_list[ind] ); }
     else if ( type == "module" )        { this.drawBoardModule( ele_list[ind] ); }
@@ -2363,6 +2386,7 @@ bleepsixBoard.prototype.drawBoard = function()
     else {
       console.log("unhandled draw type: " + type);
     }
+    */
 
   }
 
@@ -2797,6 +2821,8 @@ bleepsixBoard.prototype.load_board = function( json )
   {
     var type = brd[vind].type;
     var ref = brd[vind];
+
+    brd[vind].hideFlag = false;
 
     if      ( type == "module" )
     {

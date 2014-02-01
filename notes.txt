@@ -54,6 +54,8 @@ By Rama Hoetzlein and Abram Connelly"
 * BUG: loading schematic doesn't push onto 'undo' list
   fixed: in bleepsix_sch.html, eventSave after load_schematic
 
+  BUG: undo/redo needs to skip over board operations.
+
 * - general undo/redo
 
 * - cursor needs to change depending on tool type selected
@@ -647,3 +649,11 @@ FIXED:
   UPDATE: ok, it's when you refresh while in one of the tools that sets the flag.
   onload you should explicitely set everything to be not hidden.
 
+
+
+---
+
+keycodes:
+
+http://jsbin.com/uyorip/10/quiet#k_8
+http://stackoverflow.com/questions/5603195/full-list-of-javascript-keycodes

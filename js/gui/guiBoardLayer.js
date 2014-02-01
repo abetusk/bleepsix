@@ -42,7 +42,6 @@ function guiBoardLayer( name, bgColor  )
   var cur_y = 0;
   var sz = this.iconWidth;
 
-
   // "top" layer
   //
   var u = new guiDropIcon( this.name + ":droplayertop", this.iconWidth , this.iconWidth );
@@ -75,6 +74,10 @@ function guiBoardLayer( name, bgColor  )
   this.dropLayerTop.selected = true;
   this.dropLayerBottom.selected = false;
 
+  this.layer = [ 0, 15 ];
+  this.layerIndex = 0;
+  this.selectedLayer = this.layer[ this.layerIndex ] ;
+
 }
 
 guiBoardLayer.inherits ( guiRegion );
@@ -90,7 +93,8 @@ guiBoardLayer.prototype._draw_top_icon = function()
   var fgColor = "rgba(0,255,0,0.3)";
 
   g_painter.drawRectangle( d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, fgColor );
-  g_painter.drawTextSimpleFont( "0", sx, sy, textColor, 15, "Calibri");
+  //g_painter.drawTextSimpleFont( "0", sx, sy, textColor, 15, "Calibri");
+  g_painter.drawTextSimpleFont( this.layer[0], sx, sy, textColor, 15, "Calibri");
 }
 
 guiBoardLayer.prototype._draw_bottom_icon = function()
@@ -102,7 +106,8 @@ guiBoardLayer.prototype._draw_bottom_icon = function()
   var fgColor = "rgba(255,0,0,0.3)";
 
   g_painter.drawRectangle( d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, fgColor );
-  g_painter.drawTextSimpleFont( "15", sx, sy, textColor, 15, "Calibri");
+  //g_painter.drawTextSimpleFont( "15", sx, sy, textColor, 15, "Calibri");
+  g_painter.drawTextSimpleFont( this.layer[1], sx, sy, textColor, 15, "Calibri");
 }
 
 // children will be in weird places, so don't confine it to the box of the
@@ -158,6 +163,8 @@ guiBoardLayer.prototype._eventMouseDown = function( ev )
     this.dropLayerBottom.contract();
     this.dropLayerTop.selected = true;
     this.dropLayerBottom.selected = false;
+
+    this.selectedLayer = this.layer[0];
   }
 
   else if ( ev.owner.match(/:layerbottom$/) )
@@ -167,6 +174,8 @@ guiBoardLayer.prototype._eventMouseDown = function( ev )
     this.dropLayerBottom.contract();
     this.dropLayerTop.selected = false;
     this.dropLayerBottom.selected = true;
+
+    this.selectedLayer = this.layer[1];
   }
 
   else if (ev.owner == this.name + ":droplayertop:tab")
@@ -204,6 +213,16 @@ guiBoardLayer.prototype.handleEvent = function(ev)
   else if ( ev.type == "doubleClick" )
     return this._eventDoubleClick(ev);
 
+
+}
+
+guiBoardLayer.prototype.toggleLayer = function()
+{
+  this.dropLayerTop.selected = !this.dropLayerTop.selected ; 
+  this.dropLayerBottom.selected = !this.dropLayerBottom.selected ;
+
+  this.layerIndex = (this.layerIndex + 1)%2;
+  this.selectedLayer = this.layer[ this.layerIndex ] ;
 
 }
 

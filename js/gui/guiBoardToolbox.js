@@ -412,7 +412,7 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
   if (ev.owner == this.name + ":trace")
   {
     console.log("  handing over to toolTrace (grid)");
-    g_board_controller.tool = new toolTrace(0, 0, false);
+    g_board_controller.tool = new toolTrace(0, 0, [0, 15], false);
   }
 
   else if (ev.owner == this.name + ":via")

@@ -92,11 +92,19 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
     console.log("toolFootprintPlace: placing footprint: " + this.footprint_name);
 
+    var op = { source : "brd" , destination: "brd" };
+    op.action = "add";
+    op.type = "footprintData";
+    op.data = { footprintData : this.cloned_footprint, x: this.world_xy.x, y: this.world_xy.y };
+    g_board_controller.opCommand( op );
+
+    /*
     g_board_controller.board.addFootprintData( this.cloned_footprint, 
                                              this.world_xy["x"], 
                                              this.world_xy["y"] );
                                              //0);
                                              //this.angle );
+                                             */
 
     console.log("toolFootprintPlace: passing back to toolBoardNav");
 

@@ -219,10 +219,11 @@ toolMove.prototype.drawOverlay = function()
   for (var ind in this.selectedElement )
   {
 
-    g_schematic_controller.schematic.updateBoundingBox( this.selectedElement[ind].ref );
-    g_schematic_controller.schematic.drawElement( this.selectedElement[ind].ref );
+    var ref = this.selectedElement[ind].ref;
 
-    var ref = this.selectedElement[ind]["ref"];
+    g_schematic_controller.schematic.updateBoundingBox( ref );
+    g_schematic_controller.schematic.drawElement( ref );
+
     var bbox = ref["bounding_box"];
 
     var x = bbox[0][0];
@@ -484,9 +485,6 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
       //$.extend( true, clonedData, this.selectedElement[ind].ref );
       var ref = g_schematic_controller.schematic.refLookup( this.selectedElement[ind].id );
 
-      console.log("wtf:");
-      console.log(ref);
-
       $.extend( true, clonedData, ref );
 
       op.data.element.push( clonedData );
@@ -505,9 +503,10 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
 
   }
-  else if (ch == 'R')
+  else if ( (ch == 'R') || (ch == 'E') )
   {
-    this.rotateCount = (this.rotateCount+1)%4;
+    var drot = ( (ch == 'R') ? 1 : 3 );
+    this.rotateCount = (this.rotateCount+drot)%4;
 
     var com = g_schematic_controller.schematic.centerOfMass( this.base_element_state );
 
@@ -520,7 +519,9 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
 
     //console.log(this.base_element_state);
 
-    g_schematic_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], false );
+    var ccw = ( (ch == 'R') ? false : true );
+    //g_schematic_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], false );
+    g_schematic_controller.schematic.rotateAboutPoint90( this.base_element_state , com["x"], com["y"], ccw);
     //this.deep_copy_back( this.base_element_state );
     $.extend(true, this.selectedElement, this.base_element_state );
 

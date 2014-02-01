@@ -112,7 +112,8 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
     if (ref)
       this.board.updateBoundingBox( ref );
     else
-      console.log("bleepsixSchBrdOp._opBrdAdd: ERROR: refLookup for id " + id + " failed.  Not updating bounding box");
+      console.log("bleepsixSchBrdOp._opBrdAdd: ERROR: refLookup for id " + id + 
+          " failed.  Not updating bounding box");
   }
 
 }
@@ -159,10 +160,6 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
 
   else if ( type == "component" )
   {
-
-    console.log("adding component (op)");
-    console.log(ref);
-
     this.schematic.addComponent( data.name, data.x, data.y, data.transform, id, op.idText );
   }
 
@@ -402,9 +399,91 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
   var data = op.data;
   var id = op.id;
 
-  if      ( type == "mycommandhere" )
+  if      ( type == "moveGroup" )
   {
+    var id_ref_ar = [];
+    for (var ind in id)
+    {
+      var ref = this.board.refLookup( id[ind] );
+      id_ref_ar.push( { id: id[ind], ref: ref } );
+    }
+
+    var cx = op.data.cx;
+    var cy = op.data.cy;
+    var dx = op.data.dx;
+    var dy = op.data.dy;
+    var rotateCount = op.data.rotateCount;
+
+    if (inverseFlag)
+    {
+      for (var ind in id_ref_ar)
+      {
+        this.board.relativeMoveElement( id_ref_ar[ind], -dx, -dy );
+        this.board.updateBoundingBox( id_ref_ar[ind].ref );
+      }
+
+      for (var i=0; (i<4) && (i<rotateCount); i++)
+      {
+        this.board.rotateAboutPoint90( id_ref_ar, cx, cy, true );
+      }
+
+    }
+    else
+    {
+
+      for (var i=0; (i<4) && (i<rotateCount); i++)
+      {
+        this.board.rotateAboutPoint90( id_ref_ar, cx, cy, false );
+      }
+
+      for (var ind in id_ref_ar)
+      {
+        this.board.relativeMoveElement( id_ref_ar[ind], dx, dy );
+        this.board.updateBoundingBox( id_ref_ar[ind].ref );
+      }
+
+    }
   }
+  else if (type == "rotate90")
+  {
+
+    console.log("board rotate90");
+
+    var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
+    var ref = this.board.refLookup( id );
+    this.board.rotate90( { id: id, ref : ref } , ccw_flag );
+    this.board.updateBoundingBox( ref );
+  }
+  else if (type == "rotate" )
+  {
+    console.log("board rotate");
+
+    var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
+    var ref = this.board.refLookup( id );
+
+    console.log("id:" + id);
+    console.log(ref);
+
+    this.board.rotateAboutPoint( 
+        [ { id: id, ref : ref } ] , 
+        data.cx, data.cy,
+        data.angle,
+        ccw_flag );
+    this.board.updateBoundingBox( ref );
+  }
+  else if (type == "fillczone")
+  {
+    console.log("fillczone");
+
+    for (var ind in id)
+    {
+      var ref = this.board.refLookup( id[ind] );
+      this.board.fillCZone( ref );
+    }
+
+  }
+
+     
 
 }
 
@@ -427,16 +506,9 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
     if (inverseFlag)
     {
 
-      console.log("INVERSE OF DELETE GROUP");
-
-
       for (var ind in id )
       {
         var ref = data.element[ind];
-
-        console.log(op);
-        console.log(ref);
-        console.log(data);
 
         if ( ref.type == "component" )
         {
