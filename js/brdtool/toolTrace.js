@@ -939,7 +939,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
     this.allow_place_flag = false;
     this.netcode_dst = -1;
     this.ele_dst = null;
-    return
+    return;
   }
   else if (hit_ele_dst.length == 0)
   {
@@ -1079,7 +1079,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
     this.allow_place_flag = false;
-    return
+    return;
   }
 
   this.allow_place_flag = true;
@@ -1090,6 +1090,29 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 
 }
 
+toolTrace.prototype._via_intersect_test = function( virtual_trace, layer )
+{
+  var clearance = 100;
+
+  //add the via
+  var p = virtual_trace[ virtual_trace.length-1 ];
+  var tracks = [];
+  tracks.push( { x0: p.x, x1: p.x, y0: p.y, y1 : p.y, shape: "through",
+    shape_code : "0", width: 2*clearance + this.via_width,
+    layer0: 0, layer1: 15 } );
+
+  var hit_ele_list0 = g_board_controller.board.trackBoardIntersect( tracks, 0 );
+  var hit_ele_list1 = g_board_controller.board.trackBoardIntersect( tracks, 15 );
+
+  if ( (hit_ele_list0.length > 0) ||
+       (hit_ele_list1.length > 0) )
+  {
+    return true;
+  }
+
+  return false;
+
+}
 
 toolTrace.prototype.mouseMove = function( x, y ) 
 {
@@ -1187,7 +1210,14 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
     }
 
 
+
     var ctp = this.cur_trace_point;
+
+    if ( this._via_intersect_test( ctp, 0 ) )
+    {
+      console.log("via interects, ignoring via place request");
+      return;
+    }
 
     for (var ind = 1; ind < ctp.length; ind++ )
     {
