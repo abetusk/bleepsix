@@ -188,6 +188,12 @@ function _draw_trace_icon()
   var dx = __icon_width/5, dy = __icon_width/3;
   var color = "rgba(0,255,0,0.45)", width = 4;
 
+  var layer = g_board_controller.guiLayer.selectedLayer;
+  if (typeof g_board_controller.board.layer_color[layer] !== 'undefined')
+  {
+    color = g_board_controller.board.layer_color[layer];
+  }
+
   var p = [ [ 0,     0 ], 
             [ dx,    0 ],
             [ 2*dx, dy ],
@@ -412,7 +418,8 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
   if (ev.owner == this.name + ":trace")
   {
     console.log("  handing over to toolTrace (grid)");
-    g_board_controller.tool = new toolTrace(0, 0, [0, 15], false);
+    //g_board_controller.tool = new toolTrace(0, 0, [0, 15], false);
+    g_board_controller.tool = new toolTrace(0, 0, g_board_controller.guiLayer.layer, false);
   }
 
   else if (ev.owner == this.name + ":via")
