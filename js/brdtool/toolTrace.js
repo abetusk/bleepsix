@@ -1122,6 +1122,12 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch =='V')
   {
+    if (!this.allow_place_flag)
+    {
+      console.log("intermediate state, ignoring via place request");
+      return;
+    }
+
 
     var ctp = this.cur_trace_point;
 
