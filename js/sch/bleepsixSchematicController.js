@@ -34,6 +34,8 @@ function bleepsixSchematicController() {
   this.canvas = null;
   this.context = null;
 
+  this.type = "schematic";
+
   // classes controlled
   this.toolKit = null;
   this.toolLibrary = null;

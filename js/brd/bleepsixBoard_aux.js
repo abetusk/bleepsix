@@ -140,8 +140,11 @@ bleepsixBoard.prototype.makeUnknownModule = function( size, id, text_ids )
 // doing complex boolean intersection operations for all of the geometry 
 // in the board.
 //
-bleepsixBoard.prototype._find_possible_track_intersections = function( tracks )
+bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, layer )
 {
+  var ilayer = parseInt(layer);
+  var bit_layer = (1<<ilayer);
+
   var brd = this.kicad_brd_json["element"];
 
   var hit_element_list = [];
@@ -194,10 +197,15 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks )
         {
           if (this._box_box_intersect( track_bbox_list[t_ind], ref.pad[pad_ind].bounding_box))
           {
-            var hit_ele = { ref: ref, type: "pad", name: ref.pad[pad_ind].name, pad_ref: ref.pad[pad_ind],
-                            id: ref.pad[pad_ind].id  };
-            hit_element_list.push( hit_ele );
-            break;
+
+            if ( parseInt( ref.pad[pad_ind].layer_mask, 16 ) & bit_layer )
+            {
+              var hit_ele = { ref: ref, type: "pad", name: ref.pad[pad_ind].name, pad_ref: ref.pad[pad_ind],
+                              id: ref.pad[pad_ind].id  };
+              hit_element_list.push( hit_ele );
+              break;
+            }
+
           }
         }
 
@@ -217,9 +225,13 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks )
 
         if (this._box_box_intersect( track_bbox_list[t_ind], tbbox ))
         {
-           var hit_ele = { ref:ref, type: "track", id: ref.id };
-           hit_element_list.push( hit_ele );
-           break;
+
+          if ( parseInt( ref.layer ) == ilayer )
+          {
+            var hit_ele = { ref:ref, type: "track", id: ref.id };
+            hit_element_list.push( hit_ele );
+            break;
+          }
         }
 
       }
@@ -364,7 +376,8 @@ bleepsixBoard.prototype._build_non_net_polygons = function( net_code, net_name, 
 //
 // 
 //
-bleepsixBoard.prototype.trackBoardIntersect = function( tracks, debug_flag )
+//bleepsixBoard.prototype.trackBoardIntersect = function( tracks, debug_flag )
+bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
 {
   debug_flag = ( (typeof debug_flag !== 'undefined') ? debug_flag : false );
   //console.log("bleepsixBoard.trackIntersect:");
@@ -373,7 +386,8 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, debug_flag )
     return false;
 
   // first test for bounding box intersection
-  var hit_ele_list = this._find_possible_track_intersections( tracks, debug_flag );
+  //var hit_ele_list = this._find_possible_track_intersections( tracks, debug_flag );
+  var hit_ele_list = this._find_possible_track_intersections( tracks, layer );
 
   if (debug_flag)
   {

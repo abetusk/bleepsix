@@ -62,6 +62,7 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
   this.allow_place_flag = true;
 
   this.prev_trace_point = [];
+  this.non_intersect_trace_point = [];
 
   this.state = "init";
 
@@ -118,6 +119,10 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
   this.ele_dst = null;
 
   this.netname = "N/A";
+
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 
 }
 
@@ -350,6 +355,8 @@ toolTrace.prototype.placeTrack = function()
 
 
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+  g_board_controller.guiToolbox.defaultSelect();
+
   g_painter.dirty_flag = true;
 
 }
@@ -579,6 +586,8 @@ toolTrace.prototype.doubleClick = function( button, x, y )
     // do nothing but give control back to toolBoardNav
     //
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_board_controller.guiToolbox.defaultSelect();
+
     g_painter.dirty_flag = true;
   }
 }
@@ -673,6 +682,14 @@ toolTrace.prototype._createAngledJoint = function( s_point, e_point )
 
 //------------
 
+toolTrace.prototype._debug_print_v = function( v )
+{
+  for (var ind in v)
+  {
+    console.log( ind + ": " + v[ind].x + " " + v[ind].y );
+  }
+}
+
 toolTrace.prototype._copy_trace = function( dst_trace, src_trace )
 {
   for (var ind in src_trace )
@@ -726,6 +743,8 @@ toolTrace.prototype._make_point_track = function( pnt_track, track )
 
   pnt_track["x1"] = track.x;
   pnt_track["y1"] = track.y;
+
+  pnt_track["layer"] = track.layer;
 
   pnt_track["width"] = this.trace_width;
   pnt_track["shape"] = track;
@@ -845,8 +864,11 @@ toolTrace.prototype._make_joint_trace = function( virtual_trace )
 
 // Convert point array into list of tracks
 //
-toolTrace.prototype._make_tracks_from_points = function( virtual_trace )
+// Inflate the width by clearance to make sure tracks don't get too close.
+//
+toolTrace.prototype._make_tracks_from_points = function( virtual_trace, layer, clearance )
 {
+  clearance = ( (typeof clearance !== 'undefined') ? parseInt(clearance) : 0 );
   var tracks = [];
 
   for (var ind=1; ind < virtual_trace.length; ind++)
@@ -856,7 +878,9 @@ toolTrace.prototype._make_tracks_from_points = function( virtual_trace )
     var track =
     { x0 : u.x, y0 : u.y,
       x1 : v.x, y1 : v.y,
-      shape : "track", shape_code : "0", width : this.trace_width };
+      shape : "track", shape_code : "0", width : parseFloat(this.trace_width) + parseFloat(clearance) ,
+      layer : layer
+    };
     tracks.push(track);
 
   }
@@ -864,10 +888,37 @@ toolTrace.prototype._make_tracks_from_points = function( virtual_trace )
 }
 
 
-toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
+// This function does all the heavy lifting of figuring out if the track
+// can be placed or not.
+//
+// We can start from a track or pad and end on a track or pad, as long as
+// they are of the same net.  This is why we have start and end
+// geometry considerations, to take into account the start and end pad/track.
+//
+// If there is middle geometry, regardless of whether it is of the same net,
+// don't allow a placement (if this is desired, force the user to explicitely
+// make a connection to bridge the pad/track).
+//
+// If the destination pad is of the same net, then 'suck' the trace point
+// to the center.  If not of the same net, then 'suck' when it's within a small
+// window (net joins will happen later).
+//
+// Finally, since we could have moved the trace, we might have introduced
+// some extra collisions, so do a final check at the end.  If it fails, don't
+// allow the placement, if it succeeds, then allow the placement.
+//
+// Populate non_intersect_trace_point if there is no intersecting middle 
+// geometry and if there is no destination pad/track collision.  This
+// will allow us to go back to a known good state.
+//
+// 
+toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 {
 
-  var tracks = this._make_tracks_from_points( virtual_trace );
+  // clearance as last value (in deci-mils)
+  //
+  var tracks = this._make_tracks_from_points( virtual_trace, layer, 2*100 );  // WIDTH, not radius
+  //var tracks = this._make_tracks_from_points( virtual_trace, layer, 0);
 
   var n = virtual_trace.length;
   //virtual_trace[n-1] = g_snapgrid.snapGrid( virtual_trace[n-1] );
@@ -876,21 +927,31 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
   this._make_point_track( src_track, virtual_trace[0] );
   this._make_point_track( dst_track, virtual_trace[n-1] );
 
-  var hit_ele_list = g_board_controller.board.trackBoardIntersect( tracks );
-  var hit_ele_src = g_board_controller.board.trackBoardIntersect( [ src_track ] );
-  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] );
+  var hit_ele_list = g_board_controller.board.trackBoardIntersect( tracks, layer );
+  var hit_ele_src = g_board_controller.board.trackBoardIntersect( [ src_track ], layer );
+  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ], layer );
 
   if (this._hitlist_has_middle_geometry( hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
+
+    this._load_prev_trace();
+
     this.allow_place_flag = false;
     this.netcode_dst = -1;
     this.ele_dst = null;
     return
   }
+  else if (hit_ele_dst.length == 0)
+  {
+    this._save_current_trace();
+  }
 
   var src_hit = this._choose_hit_element( hit_ele_src );
   var dst_hit = this._choose_hit_element( hit_ele_dst );
 
+  // If we're starting out at a pad or track, suck the start 
+  // to the element
+  //
   if (this.trace_history.length == 0)
   {
     if (src_hit)
@@ -913,8 +974,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
         this.ele_src = src_hit;
       }
 
-      //console.log("track netcode: " + this.netcode);
-
     }
   }
 
@@ -932,13 +991,14 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
            (this.dist1( virtual_trace[n-1], pad_center ) < this.small_magnet_size) )
       {
 
-        console.log("dst magnet activated");
-
         this._magnet_pad( virtual_trace[n-1], dst_hit.ref, dst_hit.pad_ref );
         virtual_trace = this._make_joint_trace( virtual_trace );
 
         if (this.state != "destination_magnet_pad")
-          this._save_current_trace();
+        {
+          //this._save_current_trace();
+        }
+
         this._load_current_trace( virtual_trace );
 
         this.state = "destination_magnet_pad";
@@ -952,8 +1012,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
       }
       else
       {
-        console.log("pad repel");
-
         this.state = "destination_repel_pad";
         this._load_prev_trace();
 
@@ -976,13 +1034,15 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
         virtual_trace = this._make_joint_trace( virtual_trace );
 
         if (this.state != "destination_magnet_trace")
-          this._save_current_trace();
+        {
+          //this._save_current_trace();
+        }
         this._load_current_trace( virtual_trace );
 
         this.state = "destination_magnet_trace";
         this.allow_place_flag = true;
 
-        console.log("track magnet activated");
+        //console.log("track magnet activated");
         this.netcode_dst = parseInt(dst_hit.ref.netcode);
         this.ele_dst = dst_hit;
 
@@ -991,8 +1051,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
       }
       else
       {
-        console.log("track repel");
-
         this.state = "destination_repel_trace";
         this._load_prev_trace();
 
@@ -1006,7 +1064,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
     }
 
     virtual_trace = this._make_joint_trace( virtual_trace );
-  }
+  } // if (dst_hit)
 
   this.netcode_dst = -1;
   this.ele_dst = null;
@@ -1016,8 +1074,8 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
   // If the fiddled track does intersect something, , just don't move.
   // Otherwise, commit the change.
   //
-  var fin_tracks = this._make_tracks_from_points( virtual_trace );
-  var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks );
+  var fin_tracks = this._make_tracks_from_points( virtual_trace, layer );
+  var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks, layer );
   if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
     this.allow_place_flag = false;
@@ -1026,7 +1084,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace )
 
   this.allow_place_flag = true;
   this._load_current_trace( virtual_trace );
-  this._save_current_trace();
 
   return;
 
@@ -1084,7 +1141,7 @@ toolTrace.prototype.mouseMove = function( x, y )
       }
 
       this._copy_trace( this.ghost_trace_point, virtual_trace_point );
-      this.handleMagnetPoint( virtual_trace_point );
+      this.handleMagnetPoint( virtual_trace_point, this.cur_layer );
 
     }
 
@@ -1117,6 +1174,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
   }

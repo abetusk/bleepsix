@@ -51,7 +51,6 @@ function toolBoardZone( x, y, initialPlaceFlag )
 
   //this.layer = 15;
   this.layer = g_board_controller.guiLayer.selectedLayer;
-  console.log(" CZone layer: " + this.layer);
 
   this.initialPlaceFlag = initialPlaceFlag;
   this.ready = false;
@@ -61,6 +60,10 @@ function toolBoardZone( x, y, initialPlaceFlag )
   {
     this._initZoneState( x, y );
   }
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+
 
 }
 
@@ -145,9 +148,8 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
       var My = Math.max( this.cur_world_coord["y"], this.orig_world_coord["y"] );
 
 
-      console.log("bang: " + mx + " " + my + " " + Mx + " " + My );
-
-      console.log("  trying to add czone:");
+      //console.log("bang: " + mx + " " + my + " " + Mx + " " + My );
+      //console.log("  trying to add czone:");
 
       //var pnts = [ [mx, my], [mx, My], [Mx, My], [Mx, my] ];
       var pnts = [ [mx, my], [Mx, my], [Mx, My], [mx, My] ];
@@ -161,11 +163,13 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
       //g_board_controller.board.addCZone( pnts, this.netcode, this.layer );
 
 
-      console.log("...");
+      //console.log("...");
 
     }
 
     g_board_controller.tool = new toolBoardNav(x, y);
+    g_board_controller.guiToolbox.defaultSelect();
+
     g_painter.dirty_flag = true;
 
   }
@@ -351,6 +355,8 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
   else if (keycode == 27)
   {
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
+    g_board_controller.guiToolbox.defaultSelect();
+
     g_painter.dirty_flag = true;
   }
 

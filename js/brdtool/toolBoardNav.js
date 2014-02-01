@@ -322,6 +322,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       return;
     }
    */
+
+    g_board_controller.board.debug_geom = [];
   
   }
   else if (ch == 'Z')

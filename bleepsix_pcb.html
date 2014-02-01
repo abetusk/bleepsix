@@ -151,6 +151,7 @@
       var g_snapgrid = null;
 	  var g_painter = null;
       var g_board_controller = null ; 
+      var g_controller = null;
 
       var g_imgcache = null;
 
@@ -197,6 +198,8 @@
         g_board_controller = new bleepsixBoardController();
         g_board_controller.init( "canvas" );		
 		g_context = g_board_controller.context;
+
+        g_controller = g_board_controller;
 
         var img_base = "img";
         g_imgcache = new imageCache();

@@ -358,9 +358,6 @@ guiBoardToolbox.prototype.defaultSelect = function()
   this.dropZone.selected = false;
   this.dropText.selected = false;
   this.iconNav.selected = true;
-
-
-
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
 }

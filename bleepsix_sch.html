@@ -171,6 +171,7 @@
       var g_snapgrid = null;
 	  var g_painter = null;
       var g_schematic_controller = null ; //new bleepsixController();
+      var g_controller = null;
 
       var g_imgcache = null;
       //var g_schematic = new bleepsixSchematic();
@@ -321,6 +322,8 @@
         g_schematic_controller = new bleepsixSchematicController();
         g_schematic_controller.init( "canvas" );		
 		g_context = g_schematic_controller.context;
+
+        g_controller = g_schematic_controller;
 
 
 

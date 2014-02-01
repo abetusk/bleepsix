@@ -36,6 +36,8 @@ function bleepsixBoardController() {
   this.canvas = null;
   this.context = null;
 
+  this.type = "board";
+
   this.board = new bleepsixBoard();
   this.schematic = new bleepsixSchematic();
 
