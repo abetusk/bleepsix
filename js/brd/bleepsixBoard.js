@@ -2228,6 +2228,9 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
   {
     var pgn = [];
     var pc = ele.polyscorners;
+    var layer = parseInt(ele.layer);
+
+    var color = ( ( typeof this.layer_color[layer] !== 'undefined' ) ? this.layer_color[layer] : "rgba(255,0,0,0.3)" );
 
     if (pc.length > 0 )
     {
@@ -2235,7 +2238,8 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
       {
         pgn.push( [ pc[i].x0, pc[i].y0 ] );
       }
-      g_painter.drawBarePolygon( pgn, 0, 0, "rgba(255,0,0,0.3)" );
+      //g_painter.drawBarePolygon( pgn, 0, 0, "rgba(255,0,0,0.3)" );
+      g_painter.drawBarePolygon( pgn, 0, 0, color );
 
       //g_painter.drawPolygon( pgn, 0, 0, 
       //                       "rgba(255,0,0,0.3)", true,

@@ -300,6 +300,8 @@ bleepsixBoard.prototype.fillCZone = function( czone )
   var layer = parseInt(czone.layer);
   var ds = 10;
 
+  console.log("CZONE FILLCZONE LAYER " + layer);
+
   // I for 'solid', 
   // T for X (th) or + (smd), 
   // H for THT (through thermal, solid smd),
@@ -360,7 +362,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
     {
       if ( parseInt(ele.layer) == 28 )
       {
-
         // add the offsetted pcb edges to the geometry list to remove from the zone
         //
         var pgn = this._build_element_polygon( { type: "drawsegment", ref: ele, id: ele.id } );

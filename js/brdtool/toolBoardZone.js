@@ -43,7 +43,9 @@ function toolBoardZone( x, y)
   this.netcode = 1;
   this.netname = "GND";
 
-  this.layer = 15;
+  //this.layer = 15;
+  this.layer = g_board_controller.guiLayer.selectedLayer;
+  console.log(" CZone layer: " + this.layer);
 }
 
 toolBoardZone.prototype.debug_print = function()
