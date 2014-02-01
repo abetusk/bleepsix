@@ -452,8 +452,10 @@ guiBoardToolbox.prototype._handleZoneEvent = function(ev)
 {
   if (ev.owner == this.name + ":zone")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool zone not implmeneted yet");
+    //console.log("  IN DEVELOPMENT, sorry, tool zone not implmeneted yet");
     //g_board_controller.tool = new toolZone(0, 0, "connection");
+
+    g_board_controller.tool = new toolBoardZone( 0, 0, false );
 
     this.iconNav.selected = false;
     this.dropTrace.selected = false;

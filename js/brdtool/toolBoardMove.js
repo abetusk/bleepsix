@@ -376,7 +376,8 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
 
     //g_board_controller.board.updateRatsNest();
-    g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+    g_board_controller.board.updateRatsNest( );
 
     g_painter.dirty_flag = true;
 

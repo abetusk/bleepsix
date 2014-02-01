@@ -22,11 +22,14 @@
 
 */
 
-function toolBoardZone( x, y) 
+function toolBoardZone( x, y, initialPlaceFlag ) 
 {
 
-  console.log("toolBoardZone");
+  x = ((typeof x !== 'undefined') ? x : 0 );
+  y = ((typeof y !== 'undefined') ? y : 0 );
+  initialPlaceFlag = ((typeof initialPlaceFlag !== 'undefined') ? initialPlaceFlag : true );
 
+  console.log("toolBoardZone");
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
@@ -34,18 +37,43 @@ function toolBoardZone( x, y)
   this.orig_world_coord = g_painter.devToWorld( x, y );
   this.cur_world_coord = g_painter.devToWorld( x, y );
 
+
   this.region_box_threshold_size = 50;
   this.drawing_box_flag = false;
 
   this.mouse_drag_flag = false;
 
   //DUMMY!!
-  this.netcode = 1;
-  this.netname = "GND";
+  //this.netcode = 1;
+  //this.netname = "GND";
+  this.netcode = 0;
+  this.netname = "";
 
   //this.layer = 15;
   this.layer = g_board_controller.guiLayer.selectedLayer;
   console.log(" CZone layer: " + this.layer);
+
+  this.initialPlaceFlag = initialPlaceFlag;
+  this.ready = false;
+  this.ignoreMouseUp = true;
+
+  if (this.initialPlaceFlag)
+  {
+    this._initZoneState( x, y );
+  }
+
+}
+
+toolBoardZone.prototype._initZoneState = function( x, y )
+{
+  this.mouse_cur_x = x;
+  this.mouse_cur_y = y;
+
+  this.orig_world_coord = g_painter.devToWorld( x, y );
+  this.cur_world_coord = g_painter.devToWorld( x, y );
+
+  this.ready = true;
+  this.ignoreMouseUp = false;
 }
 
 toolBoardZone.prototype.debug_print = function()
@@ -95,6 +123,19 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
   if (button == 1)
   {
+
+    if (this.ignoreMouseUp)
+    {
+      this.ignoreMouseUp = false;
+      return;
+    }
+
+    if (!this.ready)
+    {
+      this._initZoneState(x, y);
+      return;
+    }
+
     if (this.drawing_box_flag)
     {
       var mx = Math.min( this.cur_world_coord["x"], this.orig_world_coord["x"] );
@@ -142,6 +183,8 @@ toolBoardZone.prototype.mouseMove = function( x, y )
 
   if (!this.mouse_drag_flag)
   {
+    if (!this.ready)
+      return;
 
     this.cur_world_coord = g_painter.devToWorld( x, y );
 
@@ -154,8 +197,10 @@ toolBoardZone.prototype.mouseMove = function( x, y )
     var dx = Math.abs( this.cur_world_coord["x"] - this.orig_world_coord["x"]) ;
     var dy = Math.abs( this.cur_world_coord["y"] - this.orig_world_coord["y"]) ;
 
-    if ( ( Math.abs( this.cur_world_coord["x"] - this.orig_world_coord["x"]) > this.region_box_threshold_size ) ||
-         ( Math.abs( this.cur_world_coord["y"] - this.orig_world_coord["y"]) > this.region_box_threshold_size ) )
+    //if ( ( Math.abs( this.cur_world_coord["x"] - this.orig_world_coord["x"]) > this.region_box_threshold_size ) ||
+     //    ( Math.abs( this.cur_world_coord["y"] - this.orig_world_coord["y"]) > this.region_box_threshold_size ) )
+    if ( ( Math.abs( dx ) > this.region_box_threshold_size ) ||
+         ( Math.abs( dy ) > this.region_box_threshold_size ) )
       this.drawing_box_flag = true;
 
   }
@@ -176,6 +221,60 @@ toolBoardZone.prototype.mouseWheel = function( delta )
   g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
 
+toolBoardZone.prototype._setNextNetcode = function()
+{
+  var cur_netcode = parseInt(this.netcode);
+  var t = -1;
+  var min_netcode = cur_netcode;
+
+  var ncm = g_board_controller.board.kicad_brd_json.net_code_map;
+  var nnm = g_board_controller.board.kicad_brd_json.net_name_map;
+  for (var ind in nnm)
+  {
+    var nc = parseInt(nnm[ind]);
+
+    if (nc > cur_netcode)
+    {
+      if ( (t == -1) || (nc < t) )
+        t = nc;
+    }
+
+    if ( min_netcode > nc )
+      min_netcode = nc;
+  }
+
+  this.netcode = ( (t >= 0) ? t : min_netcode );
+  this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+
+}
+
+toolBoardZone.prototype._setPrevNetcode = function()
+{
+  var cur_netcode = parseInt(this.netcode);
+  var t = -1;
+  var max_netcode = cur_netcode;
+
+  var ncm = g_board_controller.board.kicad_brd_json.net_code_map;
+  var nnm = g_board_controller.board.kicad_brd_json.net_name_map;
+  for (var ind in nnm)
+  {
+    var nc = parseInt(nnm[ind]);
+
+    if (nc < cur_netcode)
+    {
+      if ( (t == -1) || (nc > t) )
+        t = nc;
+    }
+
+    if ( max_netcode < nc )
+      max_netcode = nc;
+  }
+
+  this.netcode = ( (t >= 0) ? t : max_netcode );
+  this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+
+}
+
 toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 {
   if (ch == 'I')
@@ -185,6 +284,12 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'Z')
   {
     console.log("Z!");
+
+    this._setNextNetcode();
+
+    console.log("netcode now : " + this.netcode + " " + this.netname );
+
+    return;
 
     var cur_netcode = parseInt(this.netcode);
     var t = -1;
@@ -222,9 +327,19 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 
     this.debug_print();
   }
+
+
   else if (ch == 'A')
   {
     console.log("A.");
+
+    this._setPrevNetcode();
+
+    console.log("netcode now : " + this.netcode + " " + this.netname );
+
+    return;
+
+
     this.netcode--;
 
     if (this.netcode in g_board_controller.board.kicad_brd_json.net_code_map)
@@ -232,11 +347,13 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 
     this.debug_print();
   }
+
   else if (keycode == 27)
   {
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
     g_painter.dirty_flag = true;
   }
+
 }
 
 toolBoardZone.prototype.keyUp = function( keycode, ch, ev  )
