@@ -229,12 +229,116 @@ toolTrace.prototype.dist1 = function( xy0, xy1 )
 
 //-----------------------------
 
+toolTrace.prototype._giveElementNetName = function( ele_id_ref )
+{
+  if (!ele_id_ref)
+    return ele_id_ref;
+
+  console.log("CP");
+
+  var type = ele_id_ref.type;
+  var giveNetName = false;
+
+  if (type == "pad")
+  {
+    if (parseFloat(ele_id_ref.pad_ref.net_number) <= 0)
+    {
+      giveNetName = true;
+    }
+  }
+  else if (type == "track")
+  {
+    if (parseFloat(ele_id_ref.ref.netcode) <= 0)
+    {
+      giveNetName = true;
+    }
+  }
+
+  console.log("giveNetName: " + giveNetName);
+
+  if (!giveNetName)
+    return ele_id_ref;
+
+  if (giveNetName)
+  {
+    var new_net = g_board_controller.board.genNet();
+
+    var op = { source: "brd", destination: "brd" };
+    op.action = "add";
+    op.type = "net";
+    op.data = { net_number : new_net.net_number,
+                net_name : new_net.net_name };
+    g_board_controller.opCommand( op );
+
+    this.netcode = new_net.net_number;
+
+    if (type == "pad")
+    {
+      var old_pad = {};
+      var new_pad = {};
+
+      var pad_ref = g_board_controller.board.refLookup( ele_id_ref.pad_ref.id );
+
+      $.extend( true, old_pad, pad_ref );
+      $.extend( true, new_pad, pad_ref );
+
+      new_pad.net_number = this.netcode;
+      new_pad.net_name = g_board_controller.board.getNetName( this.netcode );
+
+      var op2 = { source: "brd", destination: "brd" };
+      op2.action = "update";
+      op2.type = "edit";
+      op2.id = [ pad_ref.id ];
+      op2.data = { element : [ new_pad ], oldElement : [ old_pad ] };
+
+      g_board_controller.opCommand( op2 );
+
+      var dummy_pad_ref = g_board_controller.board.refLookup( ele_id_ref.pad_ref.id );
+      var dummy_ref = g_board_controller.board.refLookup( ele_id_ref.id );
+
+      return { type : "pad", ref: dummy_ref, id : dummy_ref.id, 
+                      pad_ref : dummy_pad_ref, name: dummy_pad_ref.name };
+
+    }
+    else if (type == "track")
+    {
+      var old_track = {};
+      var new_track = {};
+
+      var track_ref = g_board_controller.board.refLookup( ele_id_ref.ref.id );
+
+      $.extend( true, old_track, track_ref );
+      $.extend( true, new_track, track_ref );
+
+      new_track.net_number = this.netcode;
+      new_track.net_name = g_board_controller.board.getNetName( this.netcode );
+
+      var op2 = { source: "brd", destination: "brd" };
+      op2.action = "update";
+      op2.type = "edit";
+      op2.id = [ pad_ref.id ];
+      op2.data = { element : [ new_track ], oldElement : [ old_track ] };
+
+      g_board_controller.opCommand( op2 );
+
+    }
+
+  }
+
+  return ele_id_ref;
+
+}
+
 toolTrace.prototype.placeTrack = function()
 {
 
   var inheritDestNetFlag = false;
   var curNetCode = -1;
 
+  this.ele_src = this._giveElementNetName( this.ele_src );
+  this.ele_dst = this._giveElementNetName( this.ele_dst );
+
+  /*
   if (this.ele_src)
   {
     var type = this.ele_src.type;
@@ -324,6 +428,7 @@ toolTrace.prototype.placeTrack = function()
 
 
   }
+*/
 
   //var nc = this.netcode;
   //if (nc <= 0)
