@@ -234,7 +234,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
   if (!ele_id_ref)
     return ele_id_ref;
 
-  console.log("CP");
+  //console.log("CP");
 
   var type = ele_id_ref.type;
   var giveNetName = false;
@@ -254,7 +254,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
     }
   }
 
-  console.log("giveNetName: " + giveNetName);
+  //console.log("giveNetName: " + giveNetName);
 
   if (!giveNetName)
     return ele_id_ref;
@@ -558,8 +558,8 @@ toolTrace.prototype.placeTrack = function()
 
     var ctp = this.cur_trace_point;
 
-    console.log("ctp:");
-    console.log(ctp);
+    //console.log("ctp:");
+    //console.log(ctp);
 
     for (var ind=1; ind < ctp.length; ind++)
     {
@@ -711,7 +711,8 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey, layer )
   this._make_point_track( dst_track, this.cur_trace_point[n-1] );
   var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] , layer );
 
-  var dst_hit = this._choose_hit_element( hit_ele_dst );
+  //var dst_hit = this._choose_hit_element( hit_ele_dst );
+  var dst_hit = this._choose_hit_element( hit_ele_dst, this.cur_trace_point[n-1]  );
 
   if (dst_hit)
   {
@@ -797,8 +798,8 @@ toolTrace.prototype.mouseDown = function( button, x, y )
           //check for special case when direction blah blah blah
           console.log("skipping extra add trace event (traces too close) [J]");
 
-          console.log(this.cur_trace_point);
-          console.log(this.trace);
+          //console.log(this.cur_trace_point);
+          //console.log(this.trace);
           return;
         }
 
@@ -1034,7 +1035,7 @@ toolTrace.prototype._load_current_trace = function( virtual_trace )
   this._copy_trace( this.ghost_trace_point, virtual_trace );
 }
 
-toolTrace.prototype._make_point_track = function( pnt_track, track )
+toolTrace.prototype._make_point_track = function( pnt_track, track, width )
 {
   pnt_track["x0"] = track.x;
   pnt_track["y0"] = track.y;
@@ -1044,7 +1045,8 @@ toolTrace.prototype._make_point_track = function( pnt_track, track )
 
   pnt_track["layer"] = track.layer;
 
-  pnt_track["width"] = this.trace_width;
+  //pnt_track["width"] = this.trace_width;
+  pnt_track["width"] = width;
   pnt_track["shape"] = track;
   pnt_track["shape_code"] = "0";
 }
@@ -1062,10 +1064,22 @@ toolTrace.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_e
     var id = hit_ele_list[ind].id;
 
     for (var s_ind in hit_ele_src)
-      if (hit_ele_src[ s_ind ].id == id) { c++; }
+    {
+      //console.log("comparing list id " + id + " to src " + hit_ele_src[ s_ind ].id );
+      if (hit_ele_src[ s_ind ].id == id) { 
+        //console.log("  found");
+        c++; 
+      }
+    }
 
     for (var d_ind in hit_ele_dst)
-      if (hit_ele_dst[ d_ind ].id == id) { c++; }
+    {
+      //console.log("comparing list id " + id + " to dst " + hit_ele_dst[ d_ind ].id );
+      if (hit_ele_dst[ d_ind ].id == id) { 
+        //console.log("  found");
+        c++; 
+      }
+    }
 
     //console.log("id: " + id + ", c: " + c);
 
@@ -1073,25 +1087,46 @@ toolTrace.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_e
     // of the path, don't update, return
     //
     if (c==0) 
+    {
+
+      //console.log("HIT\n\n");
+
       return 1;
+    }
   }
+
+  //console.log("nohit\n\n");
 
   return 0;
 
 }
 
-toolTrace.prototype._choose_hit_element = function( hit_ele_list )
+toolTrace.prototype._choose_hit_element = function( hit_ele_list, pnt )
 {
   var hit_ele = null;
+  var min_d ;
+  var track_hit_ele;
 
   for (var ind in hit_ele_list)
   {
     hit_ele = hit_ele_list[ind];
     if (hit_ele_list[ind].type == "pad")
       return hit_ele_list[ind];
+    else 
+    {
+      var d = this._point_trace_distance( hit_ele_list[ind], pnt );
+
+      if ( (ind == 0)  || ( d < min_d ))
+      {
+        track_hit_ele = hit_ele;
+        min_d = d;
+      }
+
+    }
   }
 
-  return hit_ele;
+  //return hit_ele;
+  return track_hit_ele;
 
 }
 
@@ -1212,25 +1247,34 @@ toolTrace.prototype._make_tracks_from_points = function( virtual_trace, layer, c
 // 
 toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 {
+  var clearance = 100;
 
   // clearance as last value (in deci-mils)
   //
-  var tracks = this._make_tracks_from_points( virtual_trace, layer, 2*100 );  // WIDTH, not radius
+  var tracks = this._make_tracks_from_points( virtual_trace, layer, 2*clearance );  // WIDTH, not radius
   //var tracks = this._make_tracks_from_points( virtual_trace, layer, 0);
 
   var n = virtual_trace.length;
   //virtual_trace[n-1] = g_snapgrid.snapGrid( virtual_trace[n-1] );
 
   var src_track = {}, dst_track = {};
-  this._make_point_track( src_track, virtual_trace[0] );
-  this._make_point_track( dst_track, virtual_trace[n-1] );
+  this._make_point_track( src_track, virtual_trace[0], this.trace_width + 2*clearance );
+  this._make_point_track( dst_track, virtual_trace[n-1], this.trace_width + 2*clearance );
 
   var hit_ele_list = g_board_controller.board.trackBoardIntersect( tracks, layer );
   var hit_ele_src = g_board_controller.board.trackBoardIntersect( [ src_track ], layer );
   var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ], layer );
 
+  //console.log("cp");
+  //console.log( hit_ele_list );
+  //console.log( hit_ele_src );
+  //console.log( hit_ele_dst );
+
+
   if (this._hitlist_has_middle_geometry( hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
+
+    //console.log("has_middle_geometry");
 
     this._load_prev_trace();
 
@@ -1244,8 +1288,11 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
     this._save_current_trace();
   }
 
-  var src_hit = this._choose_hit_element( hit_ele_src );
-  var dst_hit = this._choose_hit_element( hit_ele_dst );
+  //var src_hit = this._choose_hit_element( hit_ele_src );
+  //var dst_hit = this._choose_hit_element( hit_ele_dst );
+
+  var src_hit = this._choose_hit_element( hit_ele_src, virtual_trace[0]  );
+  var dst_hit = this._choose_hit_element( hit_ele_dst, virtual_trace[n-1]  );
 
   // If we're starting out at a pad or track, suck the start 
   // to the element
@@ -1367,18 +1414,26 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   this.netcode_dst = -1;
   this.ele_dst = null;
 
+  //console.log("CP");
+
   // final check to make sure 'magnetized' track doesn't also
   // interect anything else.  
   // If the fiddled track does intersect something, , just don't move.
   // Otherwise, commit the change.
   //
-  var fin_tracks = this._make_tracks_from_points( virtual_trace, layer );
+  //var fin_tracks = this._make_tracks_from_points( virtual_trace, layer );
+  var fin_tracks = this._make_tracks_from_points( virtual_trace, layer,  2*clearance );
   var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks, layer );
   if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
+
+    //console.log("FINAL CHECK FAILED");
+
     this.allow_place_flag = false;
     return;
   }
+
+  //console.log("END");
 
   this.allow_place_flag = true;
   this._load_current_trace( virtual_trace );

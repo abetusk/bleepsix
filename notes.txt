@@ -248,12 +248,24 @@ By Rama Hoetzlein and Abram Connelly"
         to need to be refactored in toolTrace.
   ISSUE: pads on the same net, when disconnected, keep net name.
     The implications of this are not clear.  Need to think about it.
-    Hmm, looks like I was wrong about that.  Maybe a lurking bug?
+    UPDATE: Hmm, looks like I was wrong about that.  Maybe a lurking bug?
     We'll need to patch up net names properly, but I think net
     splits when disconnecting is the 'proper' way
       
   BUG: moving traces over pads/traces is allowed and doesn't update
     nets.  To fix, just don't allow moves to an intersection state?
+    Current thought is to allow move only when endpoints line up.
+    In that case, join all nets as appropriate.
+
+  BUG: toolTrace: when connecting to a joint, it ghosts if it's in
+    within a certain region.  On the joint proper, it doesn't, and
+    far enough away it doesn't either.  There's this middle region
+    where it does.
+
+  BUG: toolTrace: when connection to an endpoint, it will connect
+    at tip ends instead of straight on.  KiCAD actually can do
+    the same, so I'm not sure if this is a bug we should worry
+    about.
 
 * BUG: zone net cycling not working unless there is a board loaded.
       fixed: rolls over properly now.
