@@ -248,6 +248,9 @@ By Rama Hoetzlein and Abram Connelly"
         to need to be refactored in toolTrace.
   ISSUE: pads on the same net, when disconnected, keep net name.
     The implications of this are not clear.  Need to think about it.
+    Hmm, looks like I was wrong about that.  Maybe a lurking bug?
+    We'll need to patch up net names properly, but I think net
+    splits when disconnecting is the 'proper' way
       
 
 * BUG: zone net cycling not working unless there is a board loaded.
