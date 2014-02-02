@@ -246,6 +246,8 @@ By Rama Hoetzlein and Abram Connelly"
       UPDATE: updates source pads takes care of both of the issues.  
         looks to be working.  It's clunky and the code is going 
         to need to be refactored in toolTrace.
+  ISSUE: pads on the same net, when disconnected, keep net name.
+    The implications of this are not clear.  Need to think about it.
       
 
 * BUG: zone net cycling not working unless there is a board loaded.
