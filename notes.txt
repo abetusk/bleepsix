@@ -252,6 +252,8 @@ By Rama Hoetzlein and Abram Connelly"
     We'll need to patch up net names properly, but I think net
     splits when disconnecting is the 'proper' way
       
+  BUG: moving traces over pads/traces is allowed and doesn't update
+    nets.  To fix, just don't allow moves to an intersection state?
 
 * BUG: zone net cycling not working unless there is a board loaded.
       fixed: rolls over properly now.
