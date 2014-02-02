@@ -262,8 +262,20 @@ toolTrace.prototype.placeTrack = function()
   //
   if ( nc <= 0 )
   {
-    var net_obj = g_board_controller.board.addNet();
-    nc = net_obj.net_number;
+
+    var new_net = g_board_controller.board.genNet();
+
+    var op = { source: "brd", destination: "brd" };
+    op.action = "add";
+    op.type = "net";
+    op.data = { net_number : new_net.net_number,
+                net_name : new_net.net_nam };
+    g_board_controller.opCommand( op );
+
+    nc = new_net.net_number;
+
+    //var net_obj = g_board_controller.board.addNet();
+    //nc = net_obj.net_number;
   }
 
 
@@ -272,24 +284,51 @@ toolTrace.prototype.placeTrack = function()
   //
   var th = this.trace_history;
 
+
   for ( var ind in th )
   {
     if ( th[ind].shape == "through" )
     {
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "add";
+      op.type = "via";
+      op.data = { x : th[ind].x, y : th[ind].y,
+                  width: th[ind].width,
+                  layer0 : this.layer[0],
+                  layer1 : this.layer[1], 
+                  net_number: nc };
+      g_board_controller.opCommand( op );
+
+      /*
       g_board_controller.board.addVia( th[ind].x, th[ind].y, 
                                 th[ind].width,
                                  this.layer[0], 
                                  this.layer[1],
                                  nc );
+                                 */
     }
     else if (th[ind].shape == "track" )
     {
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "add";
+      op.type = "track";
+      op.data = { x0 : th[ind].x0, y0 : th[ind].y0,
+                  x1 : th[ind].x1, y1 : th[ind].y1,
+                  width: th[ind].width,
+                  layer : th[ind].layer,
+                  net_number: nc };
+      g_board_controller.opCommand( op );
+
+      /*
       g_board_controller.board.addTrack( th[ind].x0, th[ind].y0,
                                    th[ind].x1, th[ind].y1,
                                    th[ind].width,
                                    th[ind].layer, 
                                    nc );
                                    //this.netcode );
+                                   */
     }
   }
 
@@ -304,11 +343,25 @@ toolTrace.prototype.placeTrack = function()
 
       if (this.dist1( ctp[ind-1], ctp[ind] ) > this.dist1_trace_eps )
       {
+
+        var op = { source: "brd", destination: "brd" };
+        op.action = "add";
+        op.type = "track";
+        op.data = { x0 : th[ind-1].x, y0 : th[ind-1].y,
+                    x1 : th[ind].x, y1 : th[ind].y,
+                    width: th[ind].width,
+                    layer : this.cur_layer,
+                    net_number: nc };
+        g_board_controller.opCommand( op );
+
+
+        /*
         g_board_controller.board.addTrack( ctp[ind-1].x, ctp[ind-1].y,
                                      ctp[ind].x,   ctp[ind].y,
                                      this.trace_width, 
                                      this.cur_layer,
                                      nc );
+                                     */
 
       }
       else console.log("skipping addTrack: points are too close");

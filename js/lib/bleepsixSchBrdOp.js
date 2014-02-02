@@ -71,17 +71,19 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 
   if      ( type == "net" )
   {
-    this.board.addNet( data.netcode, data.netname, id );
+    //this.board.addNet( data.netcode, data.netname, id );
+    this.board.addNet( data.net_number, this.board.getNetName( data.net_number ) );
+    updateBBox = false;
   }
 
   else if ( type == "via" )
   {
-    this.board.addVia( data.x, data.y, data.width, data.layer0, data.layer1, data.netcode, id );
+    this.board.addVia( data.x, data.y, data.width, data.layer0, data.layer1, data.net_number, id );
   }
 
   else if ( type == "track" )
   {
-    this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.netcode, id );
+    this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.net_number, id );
   }
 
   else if ( type == "footprint" )
@@ -101,6 +103,15 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
   {
     this.board.addCZone( data.points, data.netcode, data.layer, data.polyscorners, id );
   }
+
+  else if ( type == "drawsegment" )
+  {
+    this.board.addDrawSegment( 
+        data.x0, data.y0, 
+        data.x1, data.y1, 
+        data.width, data.layer, id );
+  }
+
   else
   {
     updateBBox = false;

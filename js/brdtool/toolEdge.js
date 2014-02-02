@@ -157,10 +157,23 @@ toolEdge.prototype.placeEdge = function()
   {
     if (eh[ind].shape == "drawsegment" )
     {
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "add";
+      op.type = "drawsegment";
+      op.data = { x0 : eh[ind].x0, y0: eh[ind].y0,
+                  x1 : eh[ind].x1, y1: eh[ind].y1,
+                  width: eh[ind].width,
+                  layer: eh[ind].layer };
+      g_board_controller.opCommand( op );
+
+      /*
       g_board_controller.board.addDrawSegment( eh[ind].x0, eh[ind].y0,
                                    eh[ind].x1, eh[ind].y1,
                                    eh[ind].width,
                                    eh[ind].layer );
+                                   */
+
     }
   }
 
@@ -169,10 +182,21 @@ toolEdge.prototype.placeEdge = function()
   {
     if (this.dist1( cep[ind-1], cep[ind] ) > this.dist1_edge_eps )
     {
+      var op = { source: "brd", destination: "brd" };
+      op.action = "add";
+      op.type = "drawsegment";
+      op.data = { x0 : cep[ind-1].x, y0: cep[ind-1].y,
+                  x1 : cep[ind].x, y1: cep[ind].y,
+                  width: this.edge_width,
+                  layer: this.layer };
+      g_board_controller.opCommand( op );
+
+      /*
       g_board_controller.board.addDrawSegment( cep[ind-1].x, cep[ind-1].y,
                                    cep[ind].x,   cep[ind].y,
                                    this.edge_width, 
                                    this.layer );
+                                   */
 
     }
     else console.log("skipping addEdge: points are too close");

@@ -719,6 +719,18 @@ bleepsixBoard.prototype._initBoardNet = function()
 
 }
 
+bleepsixBoard.prototype.getNetName = function( netcode )
+{
+  if ( !( "equipot" in this.kicad_brd_json ) )
+  {
+    this._initBoardNet();
+  }
+
+  if ( netcode in this.kicad_brd_json["net_code_map"] )
+    return this.kicad_brd_json["net_code_map"];
+
+  return undefined;
+}
 
 
 bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
@@ -931,9 +943,37 @@ bleepsixBoard.prototype._genNetName = function()
   return this.default_net_prefix + z + String(new_base_net_name);
 }
 
+bleepsixBoard.prototype.genNet = function( netcode, netname )
+{
+
+  this.default_net_prefix = "N-";
+
+  if (typeof netcode === 'undefined' )
+  {
+    if (!("equipot" in this.kicad_brd_json ))
+      this._initBoardNet();
+
+    var equipot = this.kicad_brd_json.equipot;
+
+    var new_net_code = -1;
+    for (var ind in equipot)
+      if ( parseInt( equipot[ind].net_number ) > new_net_code )
+        new_net_code = parseInt( equipot[ind].net_number ) 
+
+    netcode = new_net_code + 1;
+    netname = this._genNetName();
+  }
+
+  if (typeof netname === 'undefined')
+    netname = this._genNetName();
+
+  return { net_number: netcode, net_name: netname };
+}
+
 bleepsixBoard.prototype.addNet = function( netcode, netname )
 {
 
+  /*
   this.default_net_prefix = "N-";
 
   if (typeof netcode === 'undefined' )
@@ -960,7 +1000,15 @@ bleepsixBoard.prototype.addNet = function( netcode, netname )
   this.kicad_brd_json.net_name_map[netname] = netcode;
 
   return { net_name: netname, net_number: netcode } ;
+    */
  
+  var netinfo = this.genNet( netcode, netname );
+
+  this.kicad_brd_json.equipot.push( netinfo );
+  this.kicad_brd_json.net_code_map[ netinfo.net_number ] = netinfo.net_name;
+  this.kicad_brd_json.net_name_map[ netinfo.net_name   ] = netinfo.net_number;
+
+  return netinfo;
 }
 
 bleepsixBoard.prototype.addCZone = function( pnts, netcode, layer, polyscorners, id )
