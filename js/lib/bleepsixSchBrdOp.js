@@ -494,7 +494,48 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   }
 
-     
+  else if (type == "mergenet")
+  {
+    var res = 
+      g_board_controller.board.mergeNets( data.net_number0, data.net_number1 );
+    op.result = res;
+  }
+
+  else if (type == "edit")
+  {
+
+    if (inverseFlag)
+    {
+
+      console.log("opBrdUpdate edit inverse: length: " + data.oldElement.length);
+      console.log( data.oldElement );
+
+      for (var ind=0; ind< data.oldElement.length; ind++)
+      {
+        var ref = this.board.refLookup( data.element[ind].id );
+        //$.extend( true, ref, data.oldElement[ind].ref );
+        $.extend( true, ref, data.oldElement[ind] );
+        this.board.refUpdate( id[ind], data.oldElement[ind].id );
+      }
+
+    }
+    else
+    {
+
+      // id holds array of _new_ ids.  oldElement has old id.
+      // array lengths of oldelement, id and element must match.
+      //
+      for (var ind=0; ind<id.length; ind++)
+      {
+        var ref = this.board.refLookup( data.oldElement[ind].id );
+        $.extend( true, ref, data.element[ind] );
+        this.board.refUpdate( data.oldElement[ind].id, id[ind] );
+      }
+
+    }
+
+    
+  }
 
 }
 
@@ -599,6 +640,8 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
   var action = op.action;
   var type = op.type;
   var data = op.data;
+
+  op.result = {};
 
   if (!replayFlag)
   {

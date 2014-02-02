@@ -348,6 +348,14 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.tool = new toolTrace(x, y, [0, 15], true);
 
   }
+
+  else if (ch == 'V')
+  {
+    console.log("V ");
+    g_board_controller.guiLayer.toggleLayer();
+    g_painter.dirty_flag = true;
+  }
+
   else if (ch == 'S')
   {
 

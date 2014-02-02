@@ -232,18 +232,120 @@ toolTrace.prototype.dist1 = function( xy0, xy1 )
 toolTrace.prototype.placeTrack = function()
 {
 
-  var nc = this.netcode;
-  if (nc <= 0)
+  var inheritDestNetFlag = false;
+  var curNetCode = -1;
+
+  if (this.ele_src)
+  {
+    var type = this.ele_src.type;
+    var giveSrcNetName = false;
+
+    if (type == "pad")
+    {
+      if (parseFloat(this.ele_src.pad_ref.net_number) <= 0)
+      {
+        giveSrcNetName = true;
+      }
+    }
+    else if (type == "track")
+    {
+      if (parseFloat(this.ele_src.ref.netcode) <= 0)
+      {
+        giveSrcNetName = true;
+      }
+    }
+
+
+    if (giveSrcNetName)
+    {
+      var new_net = g_board_controller.board.genNet();
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "add";
+      op.type = "net";
+      op.data = { net_number : new_net.net_number,
+                  net_name : new_net.net_name };
+      g_board_controller.opCommand( op );
+
+      this.netcode = new_net.net_number;
+
+      if (type == "pad")
+      {
+        var old_pad = {};
+        var new_pad = {};
+
+        var pad_ref = g_board_controller.board.refLookup( this.ele_src.pad_ref.id );
+
+        $.extend( true, old_pad, pad_ref );
+        $.extend( true, new_pad, pad_ref );
+
+        new_pad.net_number = this.netcode;
+        new_pad.net_name = g_board_controller.board.getNetName( this.netcode );
+
+        var op2 = { source: "brd", destination: "brd" };
+        op2.action = "update";
+        op2.type = "edit";
+        op2.id = [ pad_ref.id ];
+        op2.data = { element : [ new_pad ], oldElement : [ old_pad ] };
+
+        g_board_controller.opCommand( op2 );
+
+        var dummy_pad_ref = g_board_controller.board.refLookup( this.ele_src.pad_ref.id );
+        var dummy_ref = g_board_controller.board.refLookup( this.ele_src.id );
+
+        this.ele_src = { type : "pad", ref: dummy_ref, id : dummy_ref.id, 
+                        pad_ref : dummy_pad_ref, name: dummy_pad_ref.name };
+
+      }
+      else if (type == "track")
+      {
+        var old_track = {};
+        var new_track = {};
+
+        var track_ref = g_board_controller.board.refLookup( this.ele_src.ref.id );
+
+        $.extend( true, old_track, track_ref );
+        $.extend( true, new_track, track_ref );
+
+        new_track.net_number = this.netcode;
+        new_track.net_name = g_board_controller.board.getNetName( this.netcode );
+
+        var op2 = { source: "brd", destination: "brd" };
+        op2.action = "update";
+        op2.type = "edit";
+        op2.id = [ pad_ref.id ];
+        op2.data = { element : [ new_track ], oldElement : [ old_track ] };
+
+        g_board_controller.opCommand( op2 );
+
+      }
+
+    }
+
+
+  }
+
+  //var nc = this.netcode;
+  //if (nc <= 0)
+  if ( this.netcode <= 0 )
   {
     if (this.ele_dst)
     {
 
       if ( (this.ele_dst.type == "pad") &&
            (parseFloat(this.ele_dst.pad_ref.netcode) > 0) )
-        nc = parseFloat( this.ele_dst.pad_ref.net_number );
+      {
+        //nc = parseFloat( this.ele_dst.pad_ref.net_number );
+        //finalNetCode = parseFloat( this.ele_dst.pad_ref.net_number );
+        inheritDestNetFlag = true;
+      }
       else if ( (this.ele_dst.type == "track") &&
                 (parseFloat(this.ele_dst.ref.netcode) > 0) )
-        nc = parseFloat( this.ele_dst.ref.netcode );
+      {
+        //nc = parseFloat( this.ele_dst.ref.netcode );
+        //finalNetCode = parseFloat( this.ele_dst.ref.netcode );
+        inheritDestNetFlag = true;
+      }
 
     }
 
@@ -252,6 +354,7 @@ toolTrace.prototype.placeTrack = function()
     //
     else if (this.ele_src)
     {
+      inheritDestNetFlag = false;
     }
 
   }
@@ -260,7 +363,14 @@ toolTrace.prototype.placeTrack = function()
   // they existed), so we need to allocate a new one and assign
   // it to the tracks being laid down.
   //
-  if ( nc <= 0 )
+  //if ( nc <= 0 )
+  // If we either don't have a netcode or we inherit from the Destination
+  // net name (as opposed to inherting from the source), create a 
+  // new net.  If we inherit from the destination, this net will
+  // be temporary and will be merged at the end.
+  //
+  if ( ( this.netcode <= 0 ) ||
+       inheritDestNetFlag )
   {
 
     var new_net = g_board_controller.board.genNet();
@@ -269,16 +379,19 @@ toolTrace.prototype.placeTrack = function()
     op.action = "add";
     op.type = "net";
     op.data = { net_number : new_net.net_number,
-                net_name : new_net.net_nam };
+                net_name : new_net.net_name };
     g_board_controller.opCommand( op );
 
-    nc = new_net.net_number;
+    //nc = new_net.net_number;
+    curNetCode = new_net.net_number;
 
     //var net_obj = g_board_controller.board.addNet();
     //nc = net_obj.net_number;
   }
-
-
+  else
+  {
+    curNetCode = this.netcode; 
+  }
 
   // checking to see if we need to add a source connection
   //
@@ -297,7 +410,8 @@ toolTrace.prototype.placeTrack = function()
                   width: th[ind].width,
                   layer0 : this.layer[0],
                   layer1 : this.layer[1], 
-                  net_number: nc };
+                  net_number: curNetCode };
+                  //net_number: nc };
       g_board_controller.opCommand( op );
 
       /*
@@ -318,7 +432,8 @@ toolTrace.prototype.placeTrack = function()
                   x1 : th[ind].x1, y1 : th[ind].y1,
                   width: th[ind].width,
                   layer : th[ind].layer,
-                  net_number: nc };
+                  net_number: curNetCode };
+                  //net_number: nc };
       g_board_controller.opCommand( op );
 
       /*
@@ -338,6 +453,9 @@ toolTrace.prototype.placeTrack = function()
 
     var ctp = this.cur_trace_point;
 
+    console.log("ctp:");
+    console.log(ctp);
+
     for (var ind=1; ind < ctp.length; ind++)
     {
 
@@ -347,11 +465,13 @@ toolTrace.prototype.placeTrack = function()
         var op = { source: "brd", destination: "brd" };
         op.action = "add";
         op.type = "track";
-        op.data = { x0 : th[ind-1].x, y0 : th[ind-1].y,
-                    x1 : th[ind].x, y1 : th[ind].y,
-                    width: th[ind].width,
+        op.data = { x0 : ctp[ind-1].x, y0 : ctp[ind-1].y,
+                    x1 : ctp[ind].x, y1 : ctp[ind].y,
+                    //width: ctp[ind].width,
+                    width: this.trace_width,
                     layer : this.cur_layer,
-                    net_number: nc };
+                    net_number: curNetCode };
+                    //net_number: nc };
         g_board_controller.opCommand( op );
 
 
@@ -378,7 +498,25 @@ toolTrace.prototype.placeTrack = function()
       dst_netcode = this.ele_dst.ref.netcode;
 
     if (dst_netcode > 0)
-      g_board_controller.board.mergeNets( dst_netcode, nc );
+    {
+      //g_board_controller.board.mergeNets( dst_netcode, nc );
+
+      if ( dst_netcode != curNetCode )
+      {
+
+        var op = { source: "brd", destination: "brd" };
+        op.action = "update";
+        op.type = "mergenet";
+        op.data = { net_number0 : dst_netcode, net_number1 : curNetCode };
+
+        g_board_controller.opCommand( op );
+
+        //g_board_controller.board.mergeNets( dst_netcode, curNetCode );
+        //curNetCode = dst_netcode;
+        curNetCode = op.result.net_number ;
+      }
+
+    }
     else
     {
       console.log("dest join anonymous net");
@@ -396,14 +534,28 @@ toolTrace.prototype.placeTrack = function()
 
 
     if (src_netcode > 0)
-      g_board_controller.board.mergeNets( src_netcode, nc );
+    {
+      //g_board_controller.board.mergeNets( src_netcode, nc );
+
+      if ( src_netcode != curNetCode )
+      {
+
+        var op = { source: "brd", destination: "brd" };
+        op.action = "update";
+        op.type = "mergenet";
+        op.data = { net_number0 : src_netcode, net_number1 : curNetCode };
+        g_board_controller.opCommand( op );
+
+        curNetCode = op.result.net_number ;
+        //curNetCode = src_netcode;
+      }
+    }
     else if (src_netcode)
     {
       console.log("source join anonymous net");
     }
 
   }
-
 
 
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );

@@ -207,9 +207,10 @@ By Rama Hoetzlein and Abram Connelly"
 
 == PCB
 
-  BUG: need to record last _unconnected_ point for trace placement or
+* BUG: need to record last _unconnected_ point for trace placement or
        else it might have happened to land on the track in the small
        magnet (or large magnet zone).  Pick one and be consistent.
+       fixed: reverts to a last known good position if you're ghosting.
 
   ISSUE: when doing pours, there is sometimes a very weak connection.
       KiCAD has a concept of minimum width, under which it doesn't
@@ -232,15 +233,34 @@ By Rama Hoetzlein and Abram Connelly"
        bounding box calculation.  Look at parts in the 'socket' sub-dir
        (specifically PGA84, PLC44).
 
-  BUG: zone net cycling not working unless there is a board loaded.
+  BUG: traces that have a join that collides with the source pad/track
+      get garbled.  Detect and don't allow placement.
 
-  - provide interface to cycle through nets and layers for zones.
+* BUG: placing components down (e.g. libcms/ST23AK#1 ) and taking
+      pads as source 
+  * - 1) doesn't update source pad with new net and
+  * - 2) doesn't update shared tracks.  Shared tracks not updating
+      because it takes only one colliding source element (preferntially
+      pads?) and so doesn't know to take the source net.
+      Update source pads?
+      UPDATE: updates source pads takes care of both of the issues.  
+        looks to be working.  It's clunky and the code is going 
+        to need to be refactored in toolTrace.
+      
+
+* BUG: zone net cycling not working unless there is a board loaded.
+      fixed: rolls over properly now.
+
+* - provide interface to cycle through nets and layers for zones.
+  * . layers (partial fix): has layer 0 and 15.  need to include others
+    . zones.  No indication rightnow
+
   - provide interface to alter global parameters
 
-  - tracks need to be not run intersection tests for tracks on different
+* - tracks need to be not run intersection tests for tracks on different
     layers
   - laying down track should do self intersection tests
-  - implement track safe distance 
+* - implement track safe distance 
 
   - undo/redo 
   - save/load on startup
@@ -266,17 +286,19 @@ By Rama Hoetzlein and Abram Connelly"
 
   - GUI tools for:
   * . track
-    . zone
-    . pcb edges
+  * . zone
+  * . pcb edges (only edges, others still not implemented)
     . ruler
-    . text
+    . text (there but unconnectd)
     (. art)
 
-  - GUI element: layer pair display with current layer
-    . started.  Needs to be hooked up to relevant control code.
+* - GUI element: layer pair display with current layer
+  * . started.  Needs to be hooked up to relevant control code.
 
   - GUI drop down for zone queue
-  - GUI dropdowns for units and snap size
+* - GUI dropdowns for units and snap size
+  * . dropdown for snap size
+    . dropdown for units.  "In" there, just as an indicator.  Need "mm"
 
   - GUI panel for components (dockable, collapseable)
   - GUI panel for layers (dockable, collapseable)
@@ -309,8 +331,6 @@ By Rama Hoetzlein and Abram Connelly"
       functions associated with them so diagonals are taken care of 
       properly.
 
-  - separate canvases for each of the layers so alpha can display properly
-
 * - don't display text if you're too far away.  don't display text that's 
     out of frame.
     NOTE: might need to fiddle with the actual threshold, but infrastructure
@@ -339,11 +359,11 @@ By Rama Hoetzlein and Abram Connelly"
       be tested), but this is mostly done.
     . needs to notice self intersections
 
-  - copper pours
-    . would like to have inlets for thermal traces (from pads) 
+* - copper pours
+  * . would like to have inlets for thermal traces (from pads) 
       connecting back to regions...
-    . BUG: moving pours when first created goes bonkers
-    . BUG: deleting pours doesn't (always?) delete the selected pour
+  * . BUG: moving pours when first created goes bonkers
+  * . BUG: deleting pours doesn't (always?) delete the selected pour
     . want to have inset from boundary instead of extending it
     . when exporting, will need to be intelligent about how the boundary
       is made so that KiCAD will not throw DRC errors.  This might
@@ -358,6 +378,9 @@ By Rama Hoetzlein and Abram Connelly"
   
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  - separate canvases for each of the layers so alpha can display properly
+
 
   BUG: when trying to connect two nets via toolTrace, if there are no
   kinks in the trace, will not lay down.  That is, if there is a straight
@@ -451,6 +474,9 @@ By Rama Hoetzlein and Abram Connelly"
     javascriptified with emscripten (https://github.com/kripken/emscripten)
     HA!  no need!  javascriptized clipperlib:
       http://sourceforge.net/p/jsclipper/wiki/Home/
+    UPDATE: order of pours matters.  This seems pretty natural to me, but it
+      might lead to some confusion.  I think Eagle has an idea of z-order
+      which we might want to implement.
 
   - net/pin highlighting when mouse over in the schematic editor.  This
     functionality will only appear when each of the schematic editor and

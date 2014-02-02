@@ -727,7 +727,7 @@ bleepsixBoard.prototype.getNetName = function( netcode )
   }
 
   if ( netcode in this.kicad_brd_json["net_code_map"] )
-    return this.kicad_brd_json["net_code_map"];
+    return this.kicad_brd_json["net_code_map"][netcode];
 
   return undefined;
 }
@@ -736,6 +736,7 @@ bleepsixBoard.prototype.getNetName = function( netcode )
 bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
 {
   var new_netname = this.kicad_brd_json.net_code_map[ new_netcode ];
+  var renamed_ids = [];
 
   console.log("new_netname: " + new_netname);
 
@@ -753,6 +754,8 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
         //console.log(ele);
 
         ele.netcode = new_netcode;
+
+        renamed_ids.push( ele.id );
       }
     }
     else if (ele.type == "module")
@@ -769,11 +772,15 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
 
           pad.net_number = new_netcode;
           pad.net_name = new_netname;
+
+          renamed_ids.push( pad.id );
         }
       }
     }
 
   }
+
+  return renamed_ids;
 
 }
 
@@ -907,9 +914,9 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
 
   console.log("stale_netcode: " + stale_netcode +", new_netcode: " + new_netcode);
 
-  this.renameNet( stale_netcode, new_netcode );
+  var renamed_ids = this.renameNet( stale_netcode, new_netcode );
 
-  return new_netcode;
+  return { net_number: new_netcode, renamed_ids : renamed_ids } ;
 
 }
 

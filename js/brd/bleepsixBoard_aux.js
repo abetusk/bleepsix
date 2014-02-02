@@ -68,6 +68,14 @@ bleepsixBoard.prototype.refLookup = function( id )
           return this.ref_lookup[ id ];
       }
 
+      var p_ind;
+      for (p_ind=0; p_ind<brd[ind].pad.length; p_ind++)
+      {
+        this.ref_lookup[ brd[ind].pad[p_ind].id ] = brd[ind].pad[p_ind];
+        if ( id == brd[ind].pad[p_ind].id )
+          return this.ref_lookup[ id ];
+      }
+
     }
   }
 
