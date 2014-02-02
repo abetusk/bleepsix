@@ -22,18 +22,16 @@
 
 */
 
-function toolTrace( x, y, layerPair, initialPlaceFlag ) 
+function toolEdge( x, y, initialPlaceFlag ) 
 {
-  console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
+  console.log("toolEdge " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
 
-  layerPair = ( (typeof layerPair !== 'undefined') ? layerPair : [ 0, 15 ] );
-
   initialPlaceFlag = ( typeof initialPlaceFlag !== 'undefined' ? initialPlaceFlag : true );
 
-  this.dist1_trace_eps = 10;
+  this.dist1_edge_eps = 10;
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -47,77 +45,33 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
 
   this.mouse_drag_flag = false;
 
-  this.laydownFormat = "J";  // F for free, J for jointed
-  //this.laydownFormat = "F";  // F for free, J for jointed
-  this.traceType = "traceline";
-
   this.mouse_world_xy = g_snapgrid.snapGrid( g_painter.devToWorld(x,y) );
   this.raw_mouse_world_xy = g_painter.devToWorld(x,y);
 
-  this.trace_history = [];
-  this.cur_trace_point = [];
-  this.ghost_trace_point = [];
+  this.edge_history = [];
+  this.prev_edge_point = [];
+  this.cur_edge_point = [];
+  this.ghost_edge_point = [];
 
-  this.show_ghost_trace_flag = true;
-  this.allow_place_flag = true;
-
-  this.prev_trace_point = [];
 
   this.state = "init";
-
+  this.allow_place_flag = true;
   this.initialPlaceFlag = initialPlaceFlag;
-
   this.startedFlag = false;
   if (this.initialPlaceFlag)
   {
-    this._initTraceState();
+    this._initEdgeState();
   }
-  
 
   // Needs to be taken from board design constraints.
   // Hardcoded for now.
   //
-  this.trace_width = 100;
-  this.via_width = 472;
+  this.edge_width = 200;
 
-  this.small_magnet_size = 50;
-  this.small_trace_magnet_size = 15;
+  this.layer = 28;
+  this.color = "rgba(255,255,0,0.4)";
 
-  // DEPENDENCE ON guiBoardLayer
-  // FIGURE OUT HOW TO TAKE OUT
-
-  this.layer = g_board_controller.guiLayer.layer ;
-  this.cur_layer = g_board_controller.guiLayer.selectedLayer;
-  this.color = g_board_controller.board.layer_color[ this.cur_layer ];
-
-  this.cur_layer_ind = 0;
-  for (var ind in this.layer)
-  {
-    if ( this.cur_layer == this.layer[ this.cur_layer_ind ])
-      break;
-    this.cur_layer_ind++;
-  }
-
-  console.log("toolTrace " + this.cur_layer_ind + ": " + this.cur_layer );
-
-
-  this.ghost_color = "rgba(255,255,255,0.1)";
-
-  this.jointStateAngled = false;
-
-  this.netcode = -1;
-  this.netcode_src = -1;
-  this.netcode_dst = -1;
-
-  // If the source or destinationg pad/track
-  // has no net (net 0,), then we need to 
-  // keep a reference to them in order to update
-  // them when we create our new net.
-  //
-  this.ele_src = null;
-  this.ele_dst = null;
-
-  this.netname = "N/A";
+  console.log("toolEdge : " + this.layer );
 
 
   var ele = document.getElementById("canvas");
@@ -125,60 +79,46 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
 
 }
 
-toolTrace.prototype._initTraceState = function()
+toolEdge.prototype._initEdgeState = function()
 {
   var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   this.startedFlag = true;
 
-  //var x = this.mouse_world_xy.x;
-  //var y = this.mouse_world_xy.y;
-
   var x = xy.x;
   var y = xy.y;
 
-  this.cur_trace_point.push( { x : x, y : y } );
-  this.prev_trace_point.push( { x : x, y : y } );
-  this.ghost_trace_point.push( { x : x, y : y } );
+  this.cur_edge_point.push( { x : x, y : y } );
+  this.prev_edge_point.push( { x : x, y : y } );
 
   if (this.laydownFormat == 'F')
   {
-    this.cur_trace_point.push( { x : x, y : y } );
-    this.prev_trace_point.push( { x : x, y : y } );
-    this.ghost_trace_point.push( { x : x, y : y } );
+    this.cur_edge_point.push( { x : x, y : y } );
+    this.prev_edge_point.push( { x : x, y : y } );
   }
 
   else if (this.laydownFormat == 'J')
   {
-    this.cur_trace_point.push( { x : x, y : y } );
-    this.cur_trace_point.push( { x : x, y : y } );
+    this.cur_edge_point.push( { x : x, y : y } );
+    this.cur_edge_point.push( { x : x, y : y } );
 
-    this.prev_trace_point.push( { x : x, y : y } );
-    this.prev_trace_point.push( { x : x, y : y } );
-
-    this.ghost_trace_point.push( { x : x, y : y } );
-    this.ghost_trace_point.push( { x : x, y : y } );
+    this.prev_edge_point.push( { x : x, y : y } );
+    this.prev_edge_point.push( { x : x, y : y } );
   }
 
 }
 
 //-----------------------------
 
-toolTrace.prototype.drawOverlay = function()
+toolEdge.prototype.drawOverlay = function()
 {
 
-  //g_board_controller.board.updateRatsNest( 0 );
-
-  var th = this.trace_history;
+  // what we've already laid down
+  //
+  var th = this.edge_history;
   for ( var ind in th )
   {
-    if (th[ind].shape == 'through')
-    {
-      g_painter.circle( th[ind].x, th[ind].y, th[ind].width/2,
-                        0, null, true, "rgba(255,255,255, 0.4)" );
-
-    }
-    else if (th[ind].shape == 'track' )
+    if (th[ind].shape == 'segment' )
     {
       g_painter.line( th[ind].x0, th[ind].y0,
                       th[ind].x1, th[ind].y1,
@@ -186,24 +126,17 @@ toolTrace.prototype.drawOverlay = function()
     }
   }
 
-  for (var ind=1; ind < this.cur_trace_point.length; ind++)
+  // current end of segment
+  //
+  for (var ind=1; ind < this.cur_edge_point.length; ind++)
   {
-    g_painter.line( this.cur_trace_point[ind-1]["x"], this.cur_trace_point[ind-1]["y"],
-                    this.cur_trace_point[ind]["x"],   this.cur_trace_point[ind]["y"],
-                    this.color, this.trace_width);
+    g_painter.line( this.cur_edge_point[ind-1]["x"], this.cur_edge_point[ind-1]["y"],
+                    this.cur_edge_point[ind]["x"],   this.cur_edge_point[ind]["y"],
+                    this.color, this.edge_width);
   }
 
-  if ( this.show_ghost_trace_flag  )
-  {
-    for (var ind=1; ind < this.ghost_trace_point.length; ind++)
-    {
-      g_painter.line( this.ghost_trace_point[ind-1]["x"], this.ghost_trace_point[ind-1]["y"],
-                      this.ghost_trace_point[ind]["x"],   this.ghost_trace_point[ind]["y"],
-                      this.ghost_color, this.trace_width);
-    }
-  }
-
-
+  // cursor
+  //
   var s = this.cursorSize / 2;
   g_painter.drawRectangle( this.mouse_world_xy["x"] - s,
                            this.mouse_world_xy["y"] - s,
@@ -217,7 +150,7 @@ toolTrace.prototype.drawOverlay = function()
 
 //-----------------------------
 
-toolTrace.prototype.dist1 = function( xy0, xy1 )
+toolEdge.prototype.dist1 = function( xy0, xy1 )
 {
 
   var dx = Math.abs( xy0["x"] - xy1["x"] );
@@ -229,7 +162,7 @@ toolTrace.prototype.dist1 = function( xy0, xy1 )
 
 //-----------------------------
 
-toolTrace.prototype.placeTrack = function()
+toolEdge.prototype.placeEdge = function()
 {
 
   var nc = this.netcode;
@@ -270,92 +203,40 @@ toolTrace.prototype.placeTrack = function()
 
   // checking to see if we need to add a source connection
   //
-  var th = this.trace_history;
+  var eh = this.edge_history;
 
-  for ( var ind in th )
+  for ( var ind in eh )
   {
-    if ( th[ind].shape == "through" )
+    if (eh[ind].shape == "drawsegment" )
     {
-      g_board_controller.board.addVia( th[ind].x, th[ind].y, 
-                                th[ind].width,
-                                 this.layer[0], 
-                                 this.layer[1],
-                                 nc );
+      g_board_controller.board.addDrawSegment( eh[ind].x0, eh[ind].y0,
+                                   eh[ind].x1, eh[ind].y1,
+                                   eh[ind].width,
+                                   eh[ind].layer );
     }
-    else if (th[ind].shape == "track" )
+  }
+
+  var cep = this.cur_edge_point;
+
+  for (var ind=1; ind < cep.length; ind++)
+  {
+
+    if (this.dist1( cep[ind-1], cep[ind] ) > this.dist1_edge_eps )
     {
-      g_board_controller.board.addTrack( th[ind].x0, th[ind].y0,
-                                   th[ind].x1, th[ind].y1,
-                                   th[ind].width,
-                                   th[ind].layer, 
+      g_board_controller.board.addDrawSegment( cep[ind-1].x, cep[ind-1].y,
+                                   cep[ind].x,   cep[ind].y,
+                                   this.edge_width, 
+                                   this.cur_layer,
                                    nc );
-                                   //this.netcode );
-    }
-  }
-
-  // also need to add the cur_trace
-  if (this.laydownFormat == 'J')
-  {
-
-    var ctp = this.cur_trace_point;
-
-    for (var ind=1; ind < ctp.length; ind++)
-    {
-
-      if (this.dist1( ctp[ind-1], ctp[ind] ) > this.dist1_trace_eps )
-      {
-        g_board_controller.board.addTrack( ctp[ind-1].x, ctp[ind-1].y,
-                                     ctp[ind].x,   ctp[ind].y,
-                                     this.trace_width, 
-                                     this.cur_layer,
-                                     nc );
-
-      }
-      else console.log("skipping addTrack: points are too close");
 
     }
-  }
-
-  if (this.ele_dst)
-  {
-    var dst_netcode = -1;
-    if (this.ele_dst.type == "pad")
-      dst_netcode = this.ele_dst.pad_ref.net_number;
-    else if (this.ele_dst.type == "track")
-      dst_netcode = this.ele_dst.ref.netcode;
-
-    if (dst_netcode > 0)
-      g_board_controller.board.mergeNets( dst_netcode, nc );
-    else
-    {
-      console.log("dest join anonymous net");
-    }
+    else console.log("skipping addEdge: points are too close");
 
   }
-
-  if (this.ele_src)
-  {
-    var src_netcode = -1;
-    if (this.ele_src.type == "pad")
-      src_netcode = this.ele_src.pad_ref.net_number;
-    else if (this.ele_src.type == "track")
-      src_netcode = this.ele_src.ref.netcode;
-
-
-    if (src_netcode > 0)
-      g_board_controller.board.mergeNets( src_netcode, nc );
-    else if (src_netcode)
-    {
-      console.log("source join anonymous net");
-    }
-
-  }
-
 
 
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
   g_board_controller.guiToolbox.defaultSelect();
-
   g_painter.dirty_flag = true;
 
 }
@@ -363,19 +244,19 @@ toolTrace.prototype.placeTrack = function()
 //-----------------------------
 
 /*
-toolTrace.prototype.isConnection = function( trace, ex, ey)
+toolEdge.prototype.isConnection = function( edge, ex, ey)
 {
-  var trace_startx = parseInt( trace["startx"] );
-  var trace_starty = parseInt( trace["starty"] );
+  var edge_startx = parseInt( edge["startx"] );
+  var edge_starty = parseInt( edge["starty"] );
 
-  var trace_endx = parseInt( trace["endx"] );
-  var trace_endy = parseInt( trace["endy"] );
+  var edge_endx = parseInt( edge["endx"] );
+  var edge_endy = parseInt( edge["endy"] );
 
-  var mx = Math.min( trace_startx, trace_endx );
-  var my = Math.min( trace_starty, trace_endy );
+  var mx = Math.min( edge_startx, edge_endx );
+  var my = Math.min( edge_starty, edge_endy );
 
-  var Mx = Math.max( trace_startx, trace_endx );
-  var My = Math.max( trace_starty, trace_endy );
+  var Mx = Math.max( edge_startx, edge_endx );
+  var My = Math.max( edge_starty, edge_endy );
 
   if ( ( mx == ex) && (Mx == ex) && 
        ( my <= ey) && (My >= ey) )
@@ -393,13 +274,13 @@ toolTrace.prototype.isConnection = function( trace, ex, ey)
 // Returns true if it hanlded the connection.  
 // placeTrack and handoff back to toolBoardNav is done here.
 //
-toolTrace.prototype.handlePossibleConnection = function( ex, ey, layer )
+toolEdge.prototype.handlePossibleConnection = function( ex, ey )
 {
 
-  var n = this.cur_trace_point.length;
+  var n = this.cur_edge_point.length;
   var  dst_track = {};
-  this._make_point_track( dst_track, this.cur_trace_point[n-1] );
-  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] , layer );
+  this._make_point_track( dst_track, this.cur_edge_point[n-1] );
+  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] );
 
   var dst_hit = this._choose_hit_element( hit_ele_dst );
 
@@ -407,10 +288,11 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey, layer )
   {
     if (dst_hit.type == "pad" )
     {
+
       var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
 
-      this._magnet_pad( this.cur_trace_point[n-1], dst_hit.ref, dst_hit.pad_ref );
-      this.cur_trace_point = this._make_joint_trace( this.cur_trace_point );
+      this._magnet_pad( this.cur_edge_point[n-1], dst_hit.ref, dst_hit.pad_ref );
+      this.cur_edge_point = this._make_joint_edge( this.cur_edge_point );
 
       this.placeTrack();
 
@@ -418,20 +300,24 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey, layer )
     }
     else if (dst_hit.type == "track")
     {
-      this._magnet_trace( this.cur_trace_point[n-1], dst_hit.ref );
-      this.cur_trace_point = this._make_joint_trace( this.cur_trace_point );
+
+      this._magnet_edge( this.cur_edge_point[n-1], dst_hit.ref );
+      this.cur_edge_point = this._make_joint_edge( this.cur_edge_point );
       this.placeTrack();
 
       return true;
+
     }
   }
 
+
   return false;
+
 }
 
 //-----------------------------
 
-toolTrace.prototype.mouseDown = function( button, x, y ) 
+toolEdge.prototype.mouseDown = function( button, x, y ) 
 {
   //var dist1_trace_eps = 5;
   this.mouse_down = true;
@@ -470,7 +356,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
         this.cur_trace_point.shift();
         this.cur_trace_point.push( { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } );
 
-        if (this.handlePossibleConnection( ex, ey, this.cur_layer ))
+        if (this.handlePossibleConnection( ex, ey ))
           return;
 
       }
@@ -498,7 +384,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
         var ex = this.mouse_world_xy["x"];
         var ey = this.mouse_world_xy["y"];
 
-        if ( this.handlePossibleConnection( ex, ey, this.cur_layer ) )
+        if ( this.handlePossibleConnection( ex, ey ) )
         {
           return;
         }
@@ -549,7 +435,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 //-----------------------------
 
 
-toolTrace.prototype.doubleClick = function( button, x, y )
+toolEdge.prototype.doubleClick = function( button, x, y )
 {
 
   // if we in a weird state, don't let the user place the track
@@ -569,7 +455,7 @@ toolTrace.prototype.doubleClick = function( button, x, y )
   }
   else
   {
-    // If we've selected the toolTrace tool but haven't started placing a trace
+    // If we've selected the toolEdge tool but haven't started placing a trace
     // (and we receive a doubleClick event),
     // do nothing but give control back to toolBoardNav
     //
@@ -582,7 +468,7 @@ toolTrace.prototype.doubleClick = function( button, x, y )
 
 //-----------------------------
 
-toolTrace.prototype.mouseUp = function( button, x, y ) 
+toolEdge.prototype.mouseUp = function( button, x, y ) 
 {
   this.mouse_down = false;
 
@@ -593,8 +479,8 @@ toolTrace.prototype.mouseUp = function( button, x, y )
 
 //-----------------------------
 
-//toolTrace.prototype._createAlignedJoint = function( start_point, end_point )
-toolTrace.prototype._createAlignedJoint = function( s_point, e_point )
+//toolEdge.prototype._createAlignedJoint = function( start_point, end_point )
+toolEdge.prototype._createAlignedJoint = function( s_point, e_point )
 {
   var start_point = g_snapgrid.snapGrid( s_point );
   var end_point = g_snapgrid.snapGrid( e_point );
@@ -632,8 +518,8 @@ toolTrace.prototype._createAlignedJoint = function( s_point, e_point )
 
 //------------
 
-//toolTrace.prototype._createAngledJoint = function( start_point, end_point )
-toolTrace.prototype._createAngledJoint = function( s_point, e_point )
+//toolEdge.prototype._createAngledJoint = function( start_point, end_point )
+toolEdge.prototype._createAngledJoint = function( s_point, e_point )
 {
   var start_point = g_snapgrid.snapGrid( s_point );
   var end_point = g_snapgrid.snapGrid( e_point );
@@ -670,7 +556,7 @@ toolTrace.prototype._createAngledJoint = function( s_point, e_point )
 
 //------------
 
-toolTrace.prototype._debug_print_v = function( v )
+toolEdge.prototype._debug_print_v = function( v )
 {
   for (var ind in v)
   {
@@ -678,7 +564,7 @@ toolTrace.prototype._debug_print_v = function( v )
   }
 }
 
-toolTrace.prototype._copy_trace = function( dst_trace, src_trace )
+toolEdge.prototype._copy_trace = function( dst_trace, src_trace )
 {
   for (var ind in src_trace )
   {
@@ -688,7 +574,7 @@ toolTrace.prototype._copy_trace = function( dst_trace, src_trace )
 
 }
 
-toolTrace.prototype._load_prev_trace = function()
+toolEdge.prototype._load_prev_trace = function()
 {
 
   for (var ind in this.cur_trace_point)
@@ -700,7 +586,7 @@ toolTrace.prototype._load_prev_trace = function()
 }
 
 
-toolTrace.prototype._save_current_trace = function( )
+toolEdge.prototype._save_current_trace = function( )
 {
   for (var ind in this.cur_trace_point)
   {
@@ -710,7 +596,7 @@ toolTrace.prototype._save_current_trace = function( )
 
 }
 
-toolTrace.prototype._load_current_trace = function( virtual_trace )
+toolEdge.prototype._load_current_trace = function( virtual_trace )
 {
   for (var ind in this.cur_trace_point)
   {
@@ -724,7 +610,7 @@ toolTrace.prototype._load_current_trace = function( virtual_trace )
   this._copy_trace( this.ghost_trace_point, virtual_trace );
 }
 
-toolTrace.prototype._make_point_track = function( pnt_track, track )
+toolEdge.prototype._make_point_track = function( pnt_track, track )
 {
   pnt_track["x0"] = track.x;
   pnt_track["y0"] = track.y;
@@ -740,7 +626,7 @@ toolTrace.prototype._make_point_track = function( pnt_track, track )
 }
 
 
-toolTrace.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_ele_src, hit_ele_dst )
+toolEdge.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_ele_src, hit_ele_dst )
 {
 
   //console.log("_hitlist_has_middle_geometry");
@@ -770,7 +656,7 @@ toolTrace.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_e
 
 }
 
-toolTrace.prototype._choose_hit_element = function( hit_ele_list )
+toolEdge.prototype._choose_hit_element = function( hit_ele_list )
 {
   var hit_ele = null;
 
@@ -788,7 +674,7 @@ toolTrace.prototype._choose_hit_element = function( hit_ele_list )
 
 // "suck" trace point into pad
 //
-toolTrace.prototype._magnet_pad = function( trace_point, mod, pad )
+toolEdge.prototype._magnet_pad = function( trace_point, mod, pad )
 {
   var pad_center = g_board_controller.board.getPadCenter( mod, pad );
   var snap_point = g_snapgrid.snapGrid( pad_center );
@@ -798,7 +684,7 @@ toolTrace.prototype._magnet_pad = function( trace_point, mod, pad )
 
 // "suck" users trace point into board's trace point
 // 
-toolTrace.prototype._magnet_trace = function( trace_point, track_ref )
+toolEdge.prototype._magnet_trace = function( trace_point, track_ref )
 {
   var u = [ parseFloat( track_ref.x0 ), parseFloat( track_ref.y0 ) ];
   var v = [ parseFloat( track_ref.x1 ), parseFloat( track_ref.y1 ) ];
@@ -820,7 +706,7 @@ toolTrace.prototype._magnet_trace = function( trace_point, track_ref )
 
 // get distance between the trace_point and the line implied by track_ref
 //
-toolTrace.prototype._point_trace_distance = function( trace_point, track_ref )
+toolEdge.prototype._point_trace_distance = function( trace_point, track_ref )
 {
   var dummy_point = {  x: trace_point.x, y: trace_point.y };
 
@@ -837,7 +723,7 @@ toolTrace.prototype._point_trace_distance = function( trace_point, track_ref )
 // Figure out what the joint should be from current jointStateAngled
 // and return it.
 //
-toolTrace.prototype._make_joint_trace = function( virtual_trace )
+toolEdge.prototype._make_joint_trace = function( virtual_trace )
 {
   var n = virtual_trace.length;
   var fiddled_trace;
@@ -854,7 +740,7 @@ toolTrace.prototype._make_joint_trace = function( virtual_trace )
 //
 // Inflate the width by clearance to make sure tracks don't get too close.
 //
-toolTrace.prototype._make_tracks_from_points = function( virtual_trace, layer, clearance )
+toolEdge.prototype._make_tracks_from_points = function( virtual_trace, layer, clearance )
 {
   clearance = ( (typeof clearance !== 'undefined') ? parseInt(clearance) : 0 );
   var tracks = [];
@@ -900,7 +786,7 @@ toolTrace.prototype._make_tracks_from_points = function( virtual_trace, layer, c
 // will allow us to go back to a known good state.
 //
 // 
-toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
+toolEdge.prototype.handleMagnetPoint = function( virtual_trace, layer )
 {
 
   // clearance as last value (in deci-mils)
@@ -1078,7 +964,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 
 }
 
-toolTrace.prototype._via_intersect_test = function( virtual_trace, layer )
+toolEdge.prototype._via_intersect_test = function( virtual_trace, layer )
 {
   var clearance = 100;
 
@@ -1102,7 +988,7 @@ toolTrace.prototype._via_intersect_test = function( virtual_trace, layer )
 
 }
 
-toolTrace.prototype.mouseMove = function( x, y ) 
+toolEdge.prototype.mouseMove = function( x, y ) 
 {
 
   if ( this.mouse_drag_flag ) 
@@ -1162,14 +1048,14 @@ toolTrace.prototype.mouseMove = function( x, y )
 
 //-----------------------------
 
-toolTrace.prototype.mouseDrag = function( dx, dy ) 
+toolEdge.prototype.mouseDrag = function( dx, dy ) 
 {
   g_painter.adjustPan ( dx, dy );
 }
 
 //-----------------------------
 
-toolTrace.prototype.mouseWheel = function( delta )
+toolEdge.prototype.mouseWheel = function( delta )
 {
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
@@ -1177,9 +1063,9 @@ toolTrace.prototype.mouseWheel = function( delta )
 //-----------------------------
 // TESTING
 
-toolTrace.prototype.keyDown = function( keycode, ch, ev )
+toolEdge.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolTrace keyDown: " + keycode + " " + ch );
+  console.log("toolEdge keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
@@ -1274,9 +1160,9 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
 //-----------------------------
 
-toolTrace.prototype.keyUp = function( keycode, ch, ev )
+toolEdge.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolTrace keyUp: " + keycode + " " + ch );
+  console.log("toolEdge keyUp: " + keycode + " " + ch );
 }
 
 

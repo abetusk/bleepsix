@@ -963,14 +963,16 @@ bleepsixBoard.prototype.addNet = function( netcode, netname )
  
 }
 
-bleepsixBoard.prototype.addCZone = function( pnts, netcode, layer, polyscorners )
+bleepsixBoard.prototype.addCZone = function( pnts, netcode, layer, polyscorners, id )
 {
   polyscorners = ((typeof polyscorners !== 'undefined' ) ? polyscorners : null );
 
   //var id = this._createId();
+  id = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   var czone = {};
-  czone.id = this._createId();
+  //czone.id = this._createId();
+  czone.id = id;
   czone.netcode = netcode;
   czone.layer = layer;
   czone.name = this.kicad_brd_json.net_name_map[ netcode ];
@@ -1009,9 +1011,10 @@ bleepsixBoard.prototype.addCZone = function( pnts, netcode, layer, polyscorners 
 
 }
 
-bleepsixBoard.prototype.addTrack = function(x0, y0, x1, y1, width, layer, netcode)
+bleepsixBoard.prototype.addTrack = function(x0, y0, x1, y1, width, layer, netcode, id)
 {
-  var id = this._createId();
+  //var id = this._createId();
+  id = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   netcode = ( (typeof netcode !== 'undefined') ? netcode : 0 );
   if (netcode <= 0) netcode = 0;
@@ -1043,12 +1046,46 @@ bleepsixBoard.prototype.addTrack = function(x0, y0, x1, y1, width, layer, netcod
   return id;
 }
 
-bleepsixBoard.prototype.addVia = function(x, y, width, layer0, layer1, netcode)
+bleepsixBoard.prototype.addDrawSegment = function(x0, y0, x1, y1, width, layer, id )
 {
+  //var id = this._createId();
+  id = ( (typeof id !== 'undefined') ? id : this._createId() );
+
+  var drawsegment = {};
+
+  drawsegment["id"] = id;
+  drawsegment["type"] = "drawsegment";
+
+  drawsegment["x0"] = x0;
+  drawsegment["y0"] = y0;
+  drawsegment["x1"] = x1;
+  drawsegment["y1"] = y1;
+
+  drawsegment["status"] = "0";
+  drawsegment["layer"] = layer;
+
+  drawsegment["shape_code"] = "0";
+  drawsegment["shape"] = "line";
+  drawsegment["angle"] = "900";
+  drawsegment["timestamp"] = "0";
+  drawsegment["width"] = width;
+
+  //this.updateTrackBoundingBox( drawsegment );
+  this.updateLineBoundingBox( drawsegment );
+
+  this.kicad_brd_json["element"].push(drawsegment);
+
+  return id;
+}
+
+bleepsixBoard.prototype.addVia = function(x, y, width, layer0, layer1, netcode, id)
+{
+
   netcode = ( (typeof netcode !== 'undefined') ? netcode : 0 );
   if (netcode <= 0) netcode = 0;
 
-  var id = this._createId();
+  //var id = this._createId();
+  id = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   var track = {};
 
