@@ -470,9 +470,9 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
   var handoff = true;
   if (ev.owner == this.name + ":edge")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
-    //console.log("  handing over to toolBoardEdge");
-    //g_board_controller.tool = new toolBoardEdge(0, 0, "connection");
+    //console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
+    console.log("  handing over to toolBoardEdge");
+    g_board_controller.tool = new toolEdge( 0, 0, false );
 
   }
 

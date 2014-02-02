@@ -49,13 +49,10 @@ function toolEdge( x, y, initialPlaceFlag )
   this.raw_mouse_world_xy = g_painter.devToWorld(x,y);
 
   this.edge_history = [];
-  this.prev_edge_point = [];
   this.cur_edge_point = [];
-  this.ghost_edge_point = [];
 
 
   this.state = "init";
-  this.allow_place_flag = true;
   this.initialPlaceFlag = initialPlaceFlag;
   this.startedFlag = false;
   if (this.initialPlaceFlag)
@@ -81,6 +78,10 @@ function toolEdge( x, y, initialPlaceFlag )
 
 toolEdge.prototype._initEdgeState = function()
 {
+
+  //DEBUG
+  console.log("_initEdgeState");
+
   var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   this.startedFlag = true;
@@ -89,23 +90,7 @@ toolEdge.prototype._initEdgeState = function()
   var y = xy.y;
 
   this.cur_edge_point.push( { x : x, y : y } );
-  this.prev_edge_point.push( { x : x, y : y } );
-
-  if (this.laydownFormat == 'F')
-  {
-    this.cur_edge_point.push( { x : x, y : y } );
-    this.prev_edge_point.push( { x : x, y : y } );
-  }
-
-  else if (this.laydownFormat == 'J')
-  {
-    this.cur_edge_point.push( { x : x, y : y } );
-    this.cur_edge_point.push( { x : x, y : y } );
-
-    this.prev_edge_point.push( { x : x, y : y } );
-    this.prev_edge_point.push( { x : x, y : y } );
-  }
-
+  this.cur_edge_point.push( { x : x, y : y } );
 }
 
 //-----------------------------
@@ -118,7 +103,7 @@ toolEdge.prototype.drawOverlay = function()
   var th = this.edge_history;
   for ( var ind in th )
   {
-    if (th[ind].shape == 'segment' )
+    if (th[ind].shape == 'drawsegment' )
     {
       g_painter.line( th[ind].x0, th[ind].y0,
                       th[ind].x1, th[ind].y1,
@@ -165,46 +150,9 @@ toolEdge.prototype.dist1 = function( xy0, xy1 )
 toolEdge.prototype.placeEdge = function()
 {
 
-  var nc = this.netcode;
-  if (nc <= 0)
-  {
-    if (this.ele_dst)
-    {
-
-      if ( (this.ele_dst.type == "pad") &&
-           (parseFloat(this.ele_dst.pad_ref.netcode) > 0) )
-        nc = parseFloat( this.ele_dst.pad_ref.net_number );
-      else if ( (this.ele_dst.type == "track") &&
-                (parseFloat(this.ele_dst.ref.netcode) > 0) )
-        nc = parseFloat( this.ele_dst.ref.netcode );
-
-    }
-
-    // if src_dst is non-null, then current net code should already be 
-    // set (this.netcode).
-    //
-    else if (this.ele_src)
-    {
-    }
-
-  }
-
-  // We didn't pick up a netcode from source or destination (if
-  // they existed), so we need to allocate a new one and assign
-  // it to the tracks being laid down.
-  //
-  if ( nc <= 0 )
-  {
-    var net_obj = g_board_controller.board.addNet();
-    nc = net_obj.net_number;
-  }
-
-
-
   // checking to see if we need to add a source connection
   //
   var eh = this.edge_history;
-
   for ( var ind in eh )
   {
     if (eh[ind].shape == "drawsegment" )
@@ -217,57 +165,25 @@ toolEdge.prototype.placeEdge = function()
   }
 
   var cep = this.cur_edge_point;
-
   for (var ind=1; ind < cep.length; ind++)
   {
-
     if (this.dist1( cep[ind-1], cep[ind] ) > this.dist1_edge_eps )
     {
       g_board_controller.board.addDrawSegment( cep[ind-1].x, cep[ind-1].y,
                                    cep[ind].x,   cep[ind].y,
                                    this.edge_width, 
-                                   this.cur_layer,
-                                   nc );
+                                   this.layer );
 
     }
     else console.log("skipping addEdge: points are too close");
 
   }
 
-
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
   g_board_controller.guiToolbox.defaultSelect();
   g_painter.dirty_flag = true;
 
 }
-
-//-----------------------------
-
-/*
-toolEdge.prototype.isConnection = function( edge, ex, ey)
-{
-  var edge_startx = parseInt( edge["startx"] );
-  var edge_starty = parseInt( edge["starty"] );
-
-  var edge_endx = parseInt( edge["endx"] );
-  var edge_endy = parseInt( edge["endy"] );
-
-  var mx = Math.min( edge_startx, edge_endx );
-  var my = Math.min( edge_starty, edge_endy );
-
-  var Mx = Math.max( edge_startx, edge_endx );
-  var My = Math.max( edge_starty, edge_endy );
-
-  if ( ( mx == ex) && (Mx == ex) && 
-       ( my <= ey) && (My >= ey) )
-    return true;
-  else if ( (my == ey) && (My == ey) &&
-            (mx <= ex) && (Mx >= ex) )
-    return true; 
-
-  return false;
-}
-*/
 
 //-----------------------------
 
@@ -278,48 +194,31 @@ toolEdge.prototype.handlePossibleConnection = function( ex, ey )
 {
 
   var n = this.cur_edge_point.length;
-  var  dst_track = {};
-  this._make_point_track( dst_track, this.cur_edge_point[n-1] );
-  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] );
+  var  dst_edge = {};
+  this._make_point_edge( dst_edge, this.cur_edge_point[n-1] );
+  var hit_ele_dst = g_board_controller.board.edgeBoardIntersect( [ dst_edge ] );
 
   var dst_hit = this._choose_hit_element( hit_ele_dst );
 
   if (dst_hit)
   {
-    if (dst_hit.type == "pad" )
+    if (dst_hit.type == "drawsegment")
     {
-
-      var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
-
-      this._magnet_pad( this.cur_edge_point[n-1], dst_hit.ref, dst_hit.pad_ref );
-      this.cur_edge_point = this._make_joint_edge( this.cur_edge_point );
-
-      this.placeTrack();
-
-      return true;
-    }
-    else if (dst_hit.type == "track")
-    {
-
       this._magnet_edge( this.cur_edge_point[n-1], dst_hit.ref );
       this.cur_edge_point = this._make_joint_edge( this.cur_edge_point );
       this.placeTrack();
 
       return true;
-
     }
   }
 
-
   return false;
-
 }
 
 //-----------------------------
 
 toolEdge.prototype.mouseDown = function( button, x, y ) 
 {
-  //var dist1_trace_eps = 5;
   this.mouse_down = true;
 
   if (button == 3)
@@ -332,99 +231,47 @@ toolEdge.prototype.mouseDown = function( button, x, y )
     //
     if (!this.startedFlag)
     {
-
-      console.log("calling _initTraceState() (" + this.laydownFormat + ")" );
-
-      this._initTraceState();
+      this._initEdgeState();
       return;
     }
 
-    if (this.laydownFormat == 'F' )
+    if ( this.dist1( this.cur_edge_point[1], this.cur_edge_point[0] ) < this.dist1_edge_eps )
     {
+      console.log("skipping extra add edge event (edges too close)");
 
-      if ( this.dist1( this.cur_trace_point[1], this.cur_trace_point[0] ) < this.dist1_trace_eps )
-      {
-        console.log("skipping extra add trace event (traces too close) [F]");
-      }
-      else
-      {
-
-        var ex = this.mouse_world_xy["x"];
-        var ey = this.mouse_world_xy["y"];
-
-        this.trace.push( { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } );
-        this.cur_trace_point.shift();
-        this.cur_trace_point.push( { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } );
-
-        if (this.handlePossibleConnection( ex, ey ))
-          return;
-
-      }
-
+      console.log(this.cur_edge_point);
+      console.log(this.edge);
+      return;
     }
-    else if (this.laydownFormat == 'J' )
+    else
     {
+      var ex = this.mouse_world_xy["x"];
+      var ey = this.mouse_world_xy["y"];
 
-      if ( this.dist1( this.cur_trace_point[1], this.cur_trace_point[0] ) < this.dist1_trace_eps )
-      {
+      //if ( this.handlePossibleConnection( ex, ey ) ) { return; }
 
-        if ( this.dist1( this.cur_trace_point[2], this.cur_trace_point[1] ) < this.dist1_trace_eps )
-        {
-          //check for special case when direction blah blah blah
-          console.log("skipping extra add trace event (traces too close) [J]");
+      var drawsegment = { x0 : this.cur_edge_point[0].x,
+                    y0 : this.cur_edge_point[0].y,
+                    x1 : this.cur_edge_point[1].x,
+                    y1 : this.cur_edge_point[1].y,
+                    width: this.edge_width,
+                    layer : this.layer,
+                    color : this.color,
+                    shape : "drawsegment" };
+                  
+      this.edge_history.push(drawsegment);
 
-          console.log(this.cur_trace_point);
-          console.log(this.trace);
-          return;
-        }
+      this.cur_edge_point.shift();
 
-      }
-      else
-      {
-        var ex = this.mouse_world_xy["x"];
-        var ey = this.mouse_world_xy["y"];
-
-        if ( this.handlePossibleConnection( ex, ey ) )
-        {
-          return;
-        }
-
-        // if we in a weird state, don't let the user place the track
-        //
-        if (!this.allow_place_flag)
-        {
-          console.log("intermediate state, not allowing placement");
-          return;
-        }
-
-        /*
-        for (var ind in this.cur_trace_point)
-          if (this.dist1( this.cur_trace_point[ind], this.ghost_trace_point[ind] ) >= 1 )
-            return;
-           */
-
-        var track = { x0 : this.cur_trace_point[0].x,
-                      y0 : this.cur_trace_point[0].y,
-                      x1 : this.cur_trace_point[1].x,
-                      y1 : this.cur_trace_point[1].y,
-                      width: this.trace_width,
-                      layer : this.cur_layer,
-                      color : this.color,
-                      netcode: this.netcode,
-                      shape : "track" };
-                    
-        this.trace_history.push(track);
-
-        this.cur_trace_point.shift();
-
-        //this.cur_trace_point.push( { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } );
-        var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
-        this.cur_trace_point.push( { x : xy.x, y : xy.y } );
+      //this.cur_edge_point.push( { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } );
+      var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
+      this.cur_edge_point.push( { x : xy.x, y : xy.y } );
 
 
-        this.jointStateAngled = !this.jointStateAngled;
+      this.jointStateAngled = !this.jointStateAngled;
 
-      }
+      console.log("edge_history");
+      console.log(this.edge_history);
 
     }
 
@@ -438,20 +285,9 @@ toolEdge.prototype.mouseDown = function( button, x, y )
 toolEdge.prototype.doubleClick = function( button, x, y )
 {
 
-  // if we in a weird state, don't let the user place the track
-  //
-  if (!this.allow_place_flag)
+  if (this.edge_history.length > 0)
   {
-    console.log("intermediate state, not allowing placement (doublclick)");
-    return;
-  }
-
-
-  if (this.trace_history.length > 0)
-  {
-
-
-    this.placeTrack();
+    this.placeEdge();
   }
   else
   {
@@ -477,83 +313,6 @@ toolEdge.prototype.mouseUp = function( button, x, y )
 
 }
 
-//-----------------------------
-
-//toolEdge.prototype._createAlignedJoint = function( start_point, end_point )
-toolEdge.prototype._createAlignedJoint = function( s_point, e_point )
-{
-  var start_point = g_snapgrid.snapGrid( s_point );
-  var end_point = g_snapgrid.snapGrid( e_point );
-
-  var tracks = [];
-
-  tracks.push( { x: start_point.x, y: start_point.y } );
-
-  var cx = end_point.x;
-  var cy = end_point.y;
-
-  var dx = cx - start_point.x;
-  var dy = cy - start_point.y;
-
-  var mid_point = { x:0, y:0 };
-  if ( Math.abs(dy) > Math.abs(dx) )
-  {
-    mid_point.x = start_point.x;
-    if (dy > 0) mid_point.y = cy - Math.abs(dx);
-    else        mid_point.y = cy + Math.abs(dx);
-  }
-  else
-  {
-    mid_point.y = start_point.y;
-    if (dx > 0) mid_point.x = cx - Math.abs(dy);
-    else        mid_point.x = cx + Math.abs(dy);
-  }
-
-  tracks.push(mid_point);
-  tracks.push( { x : cx, y : cy } );
-
-  return tracks;
-
-}
-
-//------------
-
-//toolEdge.prototype._createAngledJoint = function( start_point, end_point )
-toolEdge.prototype._createAngledJoint = function( s_point, e_point )
-{
-  var start_point = g_snapgrid.snapGrid( s_point );
-  var end_point = g_snapgrid.snapGrid( e_point );
-
-  var tracks = [];
-
-  tracks.push( { x : start_point.x, y: start_point.y } );
-
-  var cx = end_point.x;
-  var cy = end_point.y;
-
-  var dx = cx - start_point.x;
-  var dy = cy - start_point.y;
-
-  var mid_point = { x:0,y:0 };
-  if ( Math.abs(dy) > Math.abs(dx) )
-  {
-    mid_point.x = cx; 
-    if (dy > 0) mid_point.y = start_point.y + Math.abs(dx);
-    else        mid_point.y = start_point.y - Math.abs(dx);
-  }
-  else
-  {
-    mid_point.y = cy;
-    if (dx > 0) mid_point.x = start_point.x + Math.abs(dy);
-    else        mid_point.x = start_point.x - Math.abs(dy);
-  }
-
-  tracks.push( mid_point );
-  tracks.push( { x : cx, y : cy } );
-  
-  return tracks;
-}
-
 //------------
 
 toolEdge.prototype._debug_print_v = function( v )
@@ -564,97 +323,22 @@ toolEdge.prototype._debug_print_v = function( v )
   }
 }
 
-toolEdge.prototype._copy_trace = function( dst_trace, src_trace )
+toolEdge.prototype._make_point_edge = function( pnt_edge, edge )
 {
-  for (var ind in src_trace )
-  {
-    dst_trace[ind].x = src_trace[ind].x;
-    dst_trace[ind].y = src_trace[ind].y;
-  }
+  pnt_edge["x0"] = edge.x;
+  pnt_edge["y0"] = edge.y;
 
-}
+  pnt_edge["x1"] = edge.x;
+  pnt_edge["y1"] = edge.y;
 
-toolEdge.prototype._load_prev_trace = function()
-{
+  pnt_edge["layer"] = edge.layer;
 
-  for (var ind in this.cur_trace_point)
-  {
-    this.cur_trace_point[ind].x = this.prev_trace_point[ind].x ;
-    this.cur_trace_point[ind].y = this.prev_trace_point[ind].y ;
-  }
-
+  pnt_edge["width"] = this.edge_width;
+  pnt_edge["shape"] = "drawsegment";
+  pnt_edge["shape_code"] = "0";
 }
 
 
-toolEdge.prototype._save_current_trace = function( )
-{
-  for (var ind in this.cur_trace_point)
-  {
-    this.prev_trace_point[ind].x = this.cur_trace_point[ind].x;
-    this.prev_trace_point[ind].y = this.cur_trace_point[ind].y;
-  }
-
-}
-
-toolEdge.prototype._load_current_trace = function( virtual_trace )
-{
-  for (var ind in this.cur_trace_point)
-  {
-    //this.prev_trace_point[ind].x = this.cur_trace_point[ind].x;
-    //this.prev_trace_point[ind].y = this.cur_trace_point[ind].y;
-
-    this.cur_trace_point[ind].x = virtual_trace[ind].x;
-    this.cur_trace_point[ind].y = virtual_trace[ind].y;
-  }
-
-  this._copy_trace( this.ghost_trace_point, virtual_trace );
-}
-
-toolEdge.prototype._make_point_track = function( pnt_track, track )
-{
-  pnt_track["x0"] = track.x;
-  pnt_track["y0"] = track.y;
-
-  pnt_track["x1"] = track.x;
-  pnt_track["y1"] = track.y;
-
-  pnt_track["layer"] = track.layer;
-
-  pnt_track["width"] = this.trace_width;
-  pnt_track["shape"] = track;
-  pnt_track["shape_code"] = "0";
-}
-
-
-toolEdge.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_ele_src, hit_ele_dst )
-{
-
-  //console.log("_hitlist_has_middle_geometry");
-  //console.log(hit_ele_list);
-
-  for ( var ind in hit_ele_list)
-  {
-    var c=0;
-    var id = hit_ele_list[ind].id;
-
-    for (var s_ind in hit_ele_src)
-      if (hit_ele_src[ s_ind ].id == id) { c++; }
-
-    for (var d_ind in hit_ele_dst)
-      if (hit_ele_dst[ d_ind ].id == id) { c++; }
-
-    //console.log("id: " + id + ", c: " + c);
-
-    // There is geometry somewhere in the middle 
-    // of the path, don't update, return
-    //
-    if (c==0) 
-      return 1;
-  }
-
-  return 0;
-
-}
 
 toolEdge.prototype._choose_hit_element = function( hit_ele_list )
 {
@@ -663,7 +347,7 @@ toolEdge.prototype._choose_hit_element = function( hit_ele_list )
   for (var ind in hit_ele_list)
   {
     hit_ele = hit_ele_list[ind];
-    if (hit_ele_list[ind].type == "pad")
+    if (hit_ele_list[ind].type == "drawsegment")
       return hit_ele_list[ind];
   }
 
@@ -672,320 +356,20 @@ toolEdge.prototype._choose_hit_element = function( hit_ele_list )
 }
 
 
-// "suck" trace point into pad
-//
-toolEdge.prototype._magnet_pad = function( trace_point, mod, pad )
-{
-  var pad_center = g_board_controller.board.getPadCenter( mod, pad );
-  var snap_point = g_snapgrid.snapGrid( pad_center );
-  trace_point.x = snap_point.x;
-  trace_point.y = snap_point.y;
-}
-
-// "suck" users trace point into board's trace point
-// 
-toolEdge.prototype._magnet_trace = function( trace_point, track_ref )
-{
-  var u = [ parseFloat( track_ref.x0 ), parseFloat( track_ref.y0 ) ];
-  var v = [ parseFloat( track_ref.x1 ), parseFloat( track_ref.y1 ) ];
-  var p = [ parseFloat( trace_point.x ), parseFloat( trace_point.y ) ];
-
-  var L = numeric.sub(v, u);
-  var L_2 = numeric.norm2Squared( L );
-
-  var P = numeric.sub(p, u);
-  var t = numeric.dot( P, L ) / L_2;
-
-  var alpha = numeric.add( u, numeric.mul(t, L) );
-
-  var snap_point = g_snapgrid.snapGrid( { x: alpha[0], y: alpha[1] } );
-  trace_point.x = snap_point.x;
-  trace_point.y = snap_point.y;
-
-}
-
-// get distance between the trace_point and the line implied by track_ref
-//
-toolEdge.prototype._point_trace_distance = function( trace_point, track_ref )
-{
-  var dummy_point = {  x: trace_point.x, y: trace_point.y };
-
-  this._magnet_trace( dummy_point, track_ref );
-
-  var dx = dummy_point.x - trace_point.x;
-  var dy = dummy_point.y - trace_point.y;
-
-  var d = Math.sqrt(dx*dx + dy*dy);
-  return d;
-
-}
-
 // Figure out what the joint should be from current jointStateAngled
 // and return it.
 //
-toolEdge.prototype._make_joint_trace = function( virtual_trace )
+toolEdge.prototype._make_joint_edge = function( virtual_edge )
 {
-  var n = virtual_trace.length;
-  var fiddled_trace;
+  var n = virtual_edge.length;
+  var fiddled_edge;
   if (this.jointStateAngled)
-    fiddled_trace = 
-      this._createAngledJoint( virtual_trace[0], virtual_trace[n-1] );
+    fiddled_edge = 
+      this._createAngledJoint( virtual_edge[0], virtual_edge[n-1] );
   else
-    fiddled_trace =
-      this._createAlignedJoint( virtual_trace[0], virtual_trace[n-1]);
-  return fiddled_trace;
-}
-
-// Convert point array into list of tracks
-//
-// Inflate the width by clearance to make sure tracks don't get too close.
-//
-toolEdge.prototype._make_tracks_from_points = function( virtual_trace, layer, clearance )
-{
-  clearance = ( (typeof clearance !== 'undefined') ? parseInt(clearance) : 0 );
-  var tracks = [];
-
-  for (var ind=1; ind < virtual_trace.length; ind++)
-  {
-    var u = g_snapgrid.snapGrid( virtual_trace[ind-1] );
-    var v = g_snapgrid.snapGrid( virtual_trace[ind] );
-    var track =
-    { x0 : u.x, y0 : u.y,
-      x1 : v.x, y1 : v.y,
-      shape : "track", shape_code : "0", width : parseFloat(this.trace_width) + parseFloat(clearance) ,
-      layer : layer
-    };
-    tracks.push(track);
-
-  }
-  return tracks;
-}
-
-
-// This function does all the heavy lifting of figuring out if the track
-// can be placed or not.
-//
-// We can start from a track or pad and end on a track or pad, as long as
-// they are of the same net.  This is why we have start and end
-// geometry considerations, to take into account the start and end pad/track.
-//
-// If there is middle geometry, regardless of whether it is of the same net,
-// don't allow a placement (if this is desired, force the user to explicitely
-// make a connection to bridge the pad/track).
-//
-// If the destination pad is of the same net, then 'suck' the trace point
-// to the center.  If not of the same net, then 'suck' when it's within a small
-// window (net joins will happen later).
-//
-// Finally, since we could have moved the trace, we might have introduced
-// some extra collisions, so do a final check at the end.  If it fails, don't
-// allow the placement, if it succeeds, then allow the placement.
-//
-// Populate non_intersect_trace_point if there is no intersecting middle 
-// geometry and if there is no destination pad/track collision.  This
-// will allow us to go back to a known good state.
-//
-// 
-toolEdge.prototype.handleMagnetPoint = function( virtual_trace, layer )
-{
-
-  // clearance as last value (in deci-mils)
-  //
-  var tracks = this._make_tracks_from_points( virtual_trace, layer, 2*100 );  // WIDTH, not radius
-  //var tracks = this._make_tracks_from_points( virtual_trace, layer, 0);
-
-  var n = virtual_trace.length;
-  //virtual_trace[n-1] = g_snapgrid.snapGrid( virtual_trace[n-1] );
-
-  var src_track = {}, dst_track = {};
-  this._make_point_track( src_track, virtual_trace[0] );
-  this._make_point_track( dst_track, virtual_trace[n-1] );
-
-  var hit_ele_list = g_board_controller.board.trackBoardIntersect( tracks, layer );
-  var hit_ele_src = g_board_controller.board.trackBoardIntersect( [ src_track ], layer );
-  var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ], layer );
-
-  if (this._hitlist_has_middle_geometry( hit_ele_list, hit_ele_src, hit_ele_dst ))
-  {
-
-    this._load_prev_trace();
-
-    this.allow_place_flag = false;
-    this.netcode_dst = -1;
-    this.ele_dst = null;
-    return;
-  }
-  else if (hit_ele_dst.length == 0)
-  {
-    this._save_current_trace();
-  }
-
-  var src_hit = this._choose_hit_element( hit_ele_src );
-  var dst_hit = this._choose_hit_element( hit_ele_dst );
-
-  // If we're starting out at a pad or track, suck the start 
-  // to the element
-  //
-  if (this.trace_history.length == 0)
-  {
-    if (src_hit)
-    {
-      if ( src_hit.type == "pad" )
-      {
-
-        this._magnet_pad( virtual_trace[0], src_hit.ref, src_hit.pad_ref  );
-
-        this.netcode = parseInt(src_hit.pad_ref.net_number);
-        this.netcode_src = this.netcode;
-        this.ele_src = src_hit;
-      }
-      else if (src_hit.type == "track")
-      {
-        this._magnet_trace( virtual_trace[0], src_hit.ref );
-
-        this.netcode = parseInt(src_hit.ref.netcode);
-        this.netcode_src = this.netcode;
-        this.ele_src = src_hit;
-      }
-
-    }
-  }
-
-  if (dst_hit)
-  {
-    if (dst_hit.type == "pad" )
-    {
-
-      // If it's the same net, or within the small square window of the center, 
-      // end it there.
-      // Else, just return without updating anything.
-      //
-      var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
-      if ( (parseInt( dst_hit.pad_ref.net_number ) == this.netcode ) ||
-           (this.dist1( virtual_trace[n-1], pad_center ) < this.small_magnet_size) )
-      {
-
-        this._magnet_pad( virtual_trace[n-1], dst_hit.ref, dst_hit.pad_ref );
-        virtual_trace = this._make_joint_trace( virtual_trace );
-
-        if (this.state != "destination_magnet_pad")
-        {
-          //this._save_current_trace();
-        }
-
-        this._load_current_trace( virtual_trace );
-
-        this.state = "destination_magnet_pad";
-        this.allow_place_flag = true;
-
-        this.netcode_dst = parseInt(dst_hit.pad_ref.netcode);
-        this.ele_dst = dst_hit;
-
-        return;
-
-      }
-      else
-      {
-        this.state = "destination_repel_pad";
-        this._load_prev_trace();
-
-        this.allow_place_flag = false;
-        this.netcode_dst = -1;
-        this.ele_dst = dst_hit;
-
-        return;
-      }
-
-    }
-    else if (dst_hit.type == "track")
-    {
-
-      var d = this._point_trace_distance( virtual_trace[n-1], dst_hit.ref);
-      if ( (parseInt( dst_hit.ref.netcode ) == this.netcode ) ||
-           (d < this.small_trace_magnet_size) )
-      {
-        this._magnet_trace( virtual_trace[n-1], dst_hit.ref );
-        virtual_trace = this._make_joint_trace( virtual_trace );
-
-        if (this.state != "destination_magnet_trace")
-        {
-          //this._save_current_trace();
-        }
-        this._load_current_trace( virtual_trace );
-
-        this.state = "destination_magnet_trace";
-        this.allow_place_flag = true;
-
-        //console.log("track magnet activated");
-        this.netcode_dst = parseInt(dst_hit.ref.netcode);
-        this.ele_dst = dst_hit;
-
-        return;
-
-      }
-      else
-      {
-        this.state = "destination_repel_trace";
-        this._load_prev_trace();
-
-        this.allow_place_flag = false;
-        this.netcode_dst = -1;
-        this.ele_dst = null;
-
-        return;
-
-      }
-    }
-
-    virtual_trace = this._make_joint_trace( virtual_trace );
-  } // if (dst_hit)
-
-  this.netcode_dst = -1;
-  this.ele_dst = null;
-
-  // final check to make sure 'magnetized' track doesn't also
-  // interect anything else.  
-  // If the fiddled track does intersect something, , just don't move.
-  // Otherwise, commit the change.
-  //
-  var fin_tracks = this._make_tracks_from_points( virtual_trace, layer );
-  var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks, layer );
-  if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
-  {
-    this.allow_place_flag = false;
-    return;
-  }
-
-  this.allow_place_flag = true;
-  this._load_current_trace( virtual_trace );
-
-  return;
-
-
-}
-
-toolEdge.prototype._via_intersect_test = function( virtual_trace, layer )
-{
-  var clearance = 100;
-
-  //add the via
-  var p = virtual_trace[ virtual_trace.length-1 ];
-  var tracks = [];
-  tracks.push( { x0: p.x, x1: p.x, y0: p.y, y1 : p.y, shape: "through",
-    shape_code : "0", width: 2*clearance + this.via_width,
-    layer0: 0, layer1: 15 } );
-
-  var hit_ele_list0 = g_board_controller.board.trackBoardIntersect( tracks, 0 );
-  var hit_ele_list1 = g_board_controller.board.trackBoardIntersect( tracks, 15 );
-
-  if ( (hit_ele_list0.length > 0) ||
-       (hit_ele_list1.length > 0) )
-  {
-    return true;
-  }
-
-  return false;
-
+    fiddled_edge =
+      this._createAlignedJoint( virtual_edge[0], virtual_edge[n-1]);
+  return fiddled_edge;
 }
 
 toolEdge.prototype.mouseMove = function( x, y ) 
@@ -1016,31 +400,10 @@ toolEdge.prototype.mouseMove = function( x, y )
   if ( ! this.mouse_drag_flag ) 
   {
 
-    if      (this.laydownFormat == 'F')
-    {
-      this.cur_trace_point[1]["x"] = this.mouse_world_xy["x"];
-      this.cur_trace_point[1]["y"] = this.mouse_world_xy["y"];
+    this.cur_edge_point[1]["x"] = this.mouse_world_xy["x"];
+    this.cur_edge_point[1]["y"] = this.mouse_world_xy["y"];
 
-      g_painter.dirty_flag = true;
-    }
-    else if (this.laydownFormat == 'J')
-    {
-
-      if (this.jointStateAngled)
-      {
-        var virtual_trace_point = 
-          this._createAngledJoint( this.cur_trace_point[0], this.raw_mouse_world_xy );
-      }
-      else
-      {
-        var virtual_trace_point = 
-          this._createAlignedJoint( this.cur_trace_point[0], this.raw_mouse_world_xy );
-      }
-
-      this._copy_trace( this.ghost_trace_point, virtual_trace_point );
-      this.handleMagnetPoint( virtual_trace_point, this.cur_layer );
-
-    }
+    g_painter.dirty_flag = true;
 
   }
 
@@ -1072,86 +435,6 @@ toolEdge.prototype.keyDown = function( keycode, ch, ev )
     console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
-
-    g_painter.dirty_flag = true;
-  }
-  else if (ch =='V')
-  {
-    if (!this.allow_place_flag)
-    {
-      console.log("intermediate state, ignoring via place request");
-      return;
-    }
-
-
-
-    var ctp = this.cur_trace_point;
-
-    if ( this._via_intersect_test( ctp, 0 ) )
-    {
-      console.log("via interects, ignoring via place request");
-      return;
-    }
-
-    for (var ind = 1; ind < ctp.length; ind++ )
-    {
-
-      var track = { x0 : ctp[ind-1].x,
-                    y0 : ctp[ind-1].y,
-                    x1 : ctp[ind].x,
-                    y1 : ctp[ind].y,
-                    width : this.trace_width,
-                    layer : this.cur_layer,
-                    color : this.color,
-                    shape : "track" };
-
-      this.trace_history.push( track );
-
-    }
-
-    var via = { x : this.mouse_world_xy.x,
-                y : this.mouse_world_xy.y,
-                width : this.via_width,
-                shape : "through",
-                layer0 : this.layer[0],
-                layer1 : this.layer[1] };
-
-    this.trace_history.push( via );
-
-    var x = this.mouse_world_xy.x;
-    var y = this.mouse_world_xy.y;
-
-    if ( this.laydownFormat == 'J' )
-    {
-      this.cur_trace_point = [ 
-        { x : x, y : y },
-        { x : x, y : y },
-        { x : x, y : y } 
-      ];
-
-      // deferring to how KiCAD does it...
-      // Since we're laying down two tracks and starting
-      // ont a third, state would be shifted if we didn't
-      // explicitely change it.  This way, tracks can
-      // extend straight, but it also means they can
-      // run at right angles to each other (at a via 'joint')...
-      //
-      this.jointStateAngled = !this.jointStateAngled;
-    }
-    else
-    {
-      this.cur_trace_point = [ 
-        { x : x, y : y }, 
-        { x : x, y : y } 
-      ];
-    }
-
-
-    g_board_controller.guiLayer.toggleLayer();
-
-    this.cur_layer_ind = (this.cur_layer_ind+1)%2;
-    this.cur_layer = this.layer[ this.cur_layer_ind ];
-    this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
 
     g_painter.dirty_flag = true;
   }
