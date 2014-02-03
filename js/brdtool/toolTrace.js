@@ -708,7 +708,8 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey, layer )
 
   var n = this.cur_trace_point.length;
   var  dst_track = {};
-  this._make_point_track( dst_track, this.cur_trace_point[n-1] );
+
+  this._make_point_track( dst_track, this.cur_trace_point[n-1], this.trace_width );
   var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] , layer );
 
   //var dst_hit = this._choose_hit_element( hit_ele_dst );
@@ -811,6 +812,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 
         if ( this.handlePossibleConnection( ex, ey, this.cur_layer ) )
         {
+          console.log("handlePossibleConnection returned (J)");
           return;
         }
 
@@ -1055,9 +1057,6 @@ toolTrace.prototype._make_point_track = function( pnt_track, track, width )
 toolTrace.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_ele_src, hit_ele_dst )
 {
 
-  //console.log("_hitlist_has_middle_geometry");
-  //console.log(hit_ele_list);
-
   for ( var ind in hit_ele_list)
   {
     var c=0;
@@ -1065,37 +1064,26 @@ toolTrace.prototype._hitlist_has_middle_geometry = function( hit_ele_list, hit_e
 
     for (var s_ind in hit_ele_src)
     {
-      //console.log("comparing list id " + id + " to src " + hit_ele_src[ s_ind ].id );
       if (hit_ele_src[ s_ind ].id == id) { 
-        //console.log("  found");
         c++; 
       }
     }
 
     for (var d_ind in hit_ele_dst)
     {
-      //console.log("comparing list id " + id + " to dst " + hit_ele_dst[ d_ind ].id );
       if (hit_ele_dst[ d_ind ].id == id) { 
-        //console.log("  found");
         c++; 
       }
     }
-
-    //console.log("id: " + id + ", c: " + c);
 
     // There is geometry somewhere in the middle 
     // of the path, don't update, return
     //
     if (c==0) 
     {
-
-      //console.log("HIT\n\n");
-
       return 1;
     }
   }
-
-  //console.log("nohit\n\n");
 
   return 0;
 
@@ -1114,7 +1102,8 @@ toolTrace.prototype._choose_hit_element = function( hit_ele_list, pnt )
       return hit_ele_list[ind];
     else 
     {
-      var d = this._point_trace_distance( hit_ele_list[ind], pnt );
+      //var d = this._point_trace_distance( hit_ele_list[ind], pnt );
+      var d = this._point_trace_distance( pnt, hit_ele_list[ind].ref );
 
       if ( (ind == 0)  || ( d < min_d ))
       {
