@@ -99,6 +99,21 @@ function bleepsixBoardController() {
   this.drawSnapArea = false;
 }
 
+bleepsixBoardController.prototype.opUndo = function( )
+{
+  this.op.opUndo();
+  this.boardUpdate = true;
+  g_painter.dirty_flag = true;
+}
+
+bleepsixBoardController.prototype.opRedo = function( )
+{
+  this.op.opRedo();
+  this.boardUpdate = true;
+  g_painter.dirty_flag = true;
+}
+
+
 bleepsixBoardController.prototype.opCommand = function( msg )
 {
   this.op.opCommand( msg );

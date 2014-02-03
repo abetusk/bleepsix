@@ -412,6 +412,8 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   if      ( type == "moveGroup" )
   {
+
+
     var id_ref_ar = [];
     for (var ind in id)
     {
@@ -449,7 +451,12 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       for (var ind in id_ref_ar)
       {
+
         this.board.relativeMoveElement( id_ref_ar[ind], dx, dy );
+
+        //var rr = this.board.refLookup( id_ref_ar[ind].id );
+        //this.board.relativeMoveElement( { id: id_ref_ar[ind].id, ref: rr }, dx, dy );
+
         this.board.updateBoundingBox( id_ref_ar[ind].ref );
       }
 

@@ -254,6 +254,15 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_painter.setGrid ( 2 );
   } 
 
+  else if ( keycode == 219 )  // left bracket ('[')
+  {
+    g_board_controller.opUndo();
+  }
+  else if ( keycode == 221 ) // right bracket (']')
+  {
+    g_board_controller.opRedo();
+  }
+
   else if ( keycode == 188 )
   {
     g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, -1 );

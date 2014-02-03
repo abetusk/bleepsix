@@ -269,6 +269,26 @@ bleepsixBoard.prototype.remove = function( id_ref )
       if ( ind < this.kicad_brd_json["element"].length )
         this.kicad_brd_json["element"][ind] = e;
 
+      delete this.ref_lookup[id];
+      if (ref.type == "module")
+      {
+        for (var t_ind in ref.text)
+        {
+          if (ref.text[t_ind].id in this.ref_lookup)
+          {
+            delete this.ref_lookup[ ref.text[t_ind].id ];
+          }
+        }
+
+        for (var p_ind in ref.pad)
+        {
+          if (ref.pad[p_ind].id in this.ref_lookup)
+          {
+            delete this.ref_lookup[ ref.pad[p_ind].id ];
+          }
+        }
+      }
+
       g_painter.dirty_flag = true;
       return;
 
