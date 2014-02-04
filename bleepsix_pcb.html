@@ -9,6 +9,9 @@
     <link rel="icon" href="/simpleoutline.ico" />
 
 
+    <!-- we don't want it pausing while loading if the server is down -->
+    <script src='js/lib/socket.io.js'></script>
+
 	<script src='js/lib/union-find.js'></script>
 	<script src='js/lib/delaunay.js'></script>
 	<script src='js/lib/kruskal.js'></script>
@@ -20,6 +23,8 @@
     <script src='js/lib/jquery.mousewheel.js'/></script>
     <script src='js/lib/jquery.capslockstate.js'/></script>
     <script src='js/lib/jquery.cookie.js'/></script>
+    <script src='js/lib/jquery.getUrlParam.js'/></script>
+
     <script src='js/lib/numeric.js'></script>
 	<script src='js/lib/oop.js'></script>
 
@@ -39,6 +44,8 @@
     <script src='js/brd/bleepsixBoard_ratsnest.js'></script>
 
     <script src='js/brd/bleepsixBoardController.js'></script>
+
+    <script src='js/brd/bleepsixBoardNetwork.js'></script>
 
     <script src='js/sch/bleepsixSchematic.js'></script>
     <script src='js/sch/bleepsixSchematic_event.js'></script>
@@ -151,13 +158,17 @@
 	  
       var g_snapgrid = null;
 	  var g_painter = null;
-      var g_board_controller = null ; 
+      var g_board_controller = null; 
+
+      var g_brdnetwork = null;
+
       var g_controller = null;
 
       var g_imgcache = null;
 
       var g_canvas = "canvas";
       var g_context = null;
+
 
       function canvasFocus()
       {
@@ -268,10 +279,8 @@
         );
 
 
-        //console.log("starting network");
-        //g_brdnetwork = new bleepsixBoardNetwork();
-
-
+        console.log("starting network");
+        g_brdnetwork = new bleepsixBoardNetwork();
 
         canvasFocus();
 

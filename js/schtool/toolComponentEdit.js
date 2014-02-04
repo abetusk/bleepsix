@@ -584,11 +584,13 @@ toolComponentEdit.prototype.keyDown = function( keycode, ch, ev )
     {
       this._clamp_add_edit_pos(+1);
       pass_key = false;
+      g_painter.dirty_flag = true;
     }
     else if ((keycode == 37) || (keycode == 38)) // 37 - left, 40 - down
     {
       this._clamp_add_edit_pos(-1);
       pass_key = false;
+      g_painter.dirty_flag = true;
     }
 
   }
