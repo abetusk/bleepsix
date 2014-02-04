@@ -61,7 +61,18 @@ bleepsixSchBrdOp.prototype._opDebugPrint = function ( )
 
 }
 
-//-- ADD (single)
+// **************************************************************
+//
+//
+//  Board ops
+//
+//
+// **************************************************************
+
+
+// -----------------------
+//        BRD ADD
+// ----------------------- 
 
 bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 {
@@ -86,18 +97,25 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
     this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.net_number, id );
   }
 
-  else if ( type == "footprint" )
+  else if ( ( type == "footprintData" ) || (type == "footprintData" ) )
   {
-    this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText );
-  }
 
-  else if ( type == "footprintData" )
-  {
-    //DEBUG
-    console.log("adding footprintData: " + id);
-    console.log( data.footprintData );
+    this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
 
-    this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText );
+    var ref = this.board.refLookup( id );
+
+    op.idText = [];
+    for (var ind=0; ind<2; ind++)
+    {
+      op.idText.push( ref.text[ind].id );
+    }
+
+    op.idPad = [];
+    for (var ind in ref.pad)
+    {
+      op.idPad.push( ref.pad[ind].id );
+    }
+
   }
   else if ( type == "czone" )
   {
@@ -128,6 +146,276 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
   }
 
 }
+
+
+bleepsixSchBrdOp.prototype.opBrdAdd = function ( op, inverseFlag )
+{
+  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+
+  if ( !( "id" in op ) )
+    op.id = this.board._createId();
+
+  if (inverseFlag)
+  {
+
+    //console.log("opBrdAdd inverse add (remove): " + op.id );
+
+    if ( type == "net" )
+    {
+      //console.log("  removing net (" + op.data.net_number + ") NOT YET IMPLEMENTED for now");
+      this.board.removeNet( op.data.net_number );
+    }
+    else
+    {
+      var ref = this.board.refLookup( op.id );
+
+      //console.log(ref);
+      //console.log("  removing part");
+
+      this.board.remove( { id: op.id, ref: ref } );
+    }
+    return;
+  }
+
+  //console.log("  opBrdAdd: " + type + ", " + action + ", " + op.id );
+
+  this._opBrdAddSingle( type, op.id, data, op );
+
+}
+
+
+// ----------------------- 
+//       BRD UPDATE 
+// ----------------------- 
+
+bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
+{
+  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
+
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+  var id = op.id;
+
+  if      ( type == "moveGroup" )
+  {
+
+
+    var id_ref_ar = [];
+    for (var ind in id)
+    {
+      var ref = this.board.refLookup( id[ind] );
+      id_ref_ar.push( { id: id[ind], ref: ref } );
+    }
+
+    var cx = op.data.cx;
+    var cy = op.data.cy;
+    var dx = op.data.dx;
+    var dy = op.data.dy;
+    var rotateCount = op.data.rotateCount;
+
+    if (inverseFlag)
+    {
+      for (var ind in id_ref_ar)
+      {
+        this.board.relativeMoveElement( id_ref_ar[ind], -dx, -dy );
+        this.board.updateBoundingBox( id_ref_ar[ind].ref );
+      }
+
+      for (var i=0; (i<4) && (i<rotateCount); i++)
+      {
+        this.board.rotateAboutPoint90( id_ref_ar, cx, cy, true );
+      }
+
+    }
+    else
+    {
+
+      for (var i=0; (i<4) && (i<rotateCount); i++)
+      {
+        this.board.rotateAboutPoint90( id_ref_ar, cx, cy, false );
+      }
+
+      for (var ind in id_ref_ar)
+      {
+
+        this.board.relativeMoveElement( id_ref_ar[ind], dx, dy );
+
+        //var rr = this.board.refLookup( id_ref_ar[ind].id );
+        //this.board.relativeMoveElement( { id: id_ref_ar[ind].id, ref: rr }, dx, dy );
+
+        this.board.updateBoundingBox( id_ref_ar[ind].ref );
+      }
+
+    }
+  }
+  else if (type == "rotate90")
+  {
+
+    //console.log("board rotate90");
+
+    var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
+    var ref = this.board.refLookup( id );
+    this.board.rotate90( { id: id, ref : ref } , ccw_flag );
+    this.board.updateBoundingBox( ref );
+  }
+  else if (type == "rotate" )
+  {
+    //console.log("board rotate");
+
+    var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
+    var ref = this.board.refLookup( id );
+
+    //console.log("id:" + id);
+    //console.log(ref);
+
+    this.board.rotateAboutPoint( 
+        [ { id: id, ref : ref } ] , 
+        data.cx, data.cy,
+        data.angle,
+        ccw_flag );
+    this.board.updateBoundingBox( ref );
+  }
+
+  else if (type == "fillczone")
+  {
+
+    if (inverseFlag)
+    {
+
+      for (var ind in id)
+      {
+        var ref = this.board.refLookup( id[ind] );
+
+        // extend doesn't work the way I though it did:
+        // var objA = { data: ['foo', 'bar'] };  
+        // var objB = { data: [] };  
+        // $.extend(true, objA, objB); 
+        // console.log(objA.data); ----> ["foo", "bar"]  // Not [] !
+        //
+        // var objA = { data: ['foo', 'bar'] };  
+        // var objB = { data: [ 'baz' ] };  
+        // $.extend(true, objA, objB); 
+        // console.log(objA.data); ----> ["baz", "bar"]  // Not [ "baz" ] !
+        //
+        ref.polyscorners = [];  
+
+        $.extend( true, ref, data.element[ind] );
+      }
+
+    }
+    else
+    {
+
+      for (var ind in id)
+      {
+        var ref = this.board.refLookup( id[ind] );
+        ref.polyscorners = [];
+        this.board.fillCZone( ref );
+      }
+
+    }
+
+  }
+
+  else if (type == "mergenet")
+  {
+    var res = 
+      g_board_controller.board.mergeNets( data.net_number0, data.net_number1 );
+    op.result = res;
+  }
+
+  else if (type == "edit")
+  {
+
+    if (inverseFlag)
+    {
+
+      for (var ind=0; ind< data.oldElement.length; ind++)
+      {
+        var ref = this.board.refLookup( data.element[ind].id );
+        $.extend( true, ref, data.oldElement[ind] );
+        this.board.refUpdate( id[ind], data.oldElement[ind].id );
+      }
+
+    }
+    else
+    {
+
+      // id holds array of _new_ ids.  oldElement has old id.
+      // array lengths of oldelement, id and element must match.
+      //
+      for (var ind=0; ind<id.length; ind++)
+      {
+        var ref = this.board.refLookup( data.oldElement[ind].id );
+        $.extend( true, ref, data.element[ind] );
+        this.board.refUpdate( data.oldElement[ind].id, id[ind] );
+      }
+
+    }
+
+    
+  }
+
+}
+
+// ----------------------- 
+//       BRD DELETE
+// ----------------------- 
+
+
+bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
+{
+  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
+
+  var source = op.source;
+  var action = op.action;
+  var type = op.type;
+  var data = op.data;
+  var id = op.id;
+
+  if      ( type == "group" )
+  {
+
+    if (inverseFlag)
+    {
+
+      for (var ind in id )
+      {
+        var ref = data.element[ind];
+        this._opBrdAddSingle( ref.type, ref.id, ref );
+      }
+
+    }
+
+    else
+    {
+
+      for (var ind in id )
+      {
+        var ref = this.board.refLookup( id[ind] );
+        this.board.remove( { id: id[ind], ref: ref } );
+      }
+
+    }
+
+  }
+
+}
+
+
+// **************************************************************
+//
+//
+//  Schematic ops
+//
+//
+// **************************************************************
 
 bleepsixSchBrdOp.prototype._undeleteComponent = function ( ref )
 {
@@ -225,6 +513,8 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
 
 }
 
+//
+
 //-- ADD
 
 bleepsixSchBrdOp.prototype.opSchAdd = function ( op, inverseFlag )
@@ -248,29 +538,6 @@ bleepsixSchBrdOp.prototype.opSchAdd = function ( op, inverseFlag )
   this._opSchAddSingle( type, op.id, data, op );
 
 }
-
-bleepsixSchBrdOp.prototype.opBrdAdd = function ( op, inverseFlag )
-{
-  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
-  var source = op.source;
-  var action = op.action;
-  var type = op.type;
-  var data = op.data;
-
-  if ( !( "id" in op ) )
-    op.id = this.board._createId();
-
-  if (inverseFlag)
-  {
-    var ref = this.board.refLookup( op.id );
-    this.board.remove( { id: op.id, ref: ref } );
-    return;
-  }
-
-  this._opBrdAddSingle( type, op.id, data, op );
-
-}
-
 //-- UPDATE 
 
 bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
@@ -321,8 +588,8 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
     if (inverseFlag)
     {
 
-      console.log("opSchUpdate edit inverse: length: " + data.oldElement.length);
-      console.log( data.oldElement );
+      //console.log("opSchUpdate edit inverse: length: " + data.oldElement.length);
+      //console.log( data.oldElement );
 
       for (var ind=0; ind< data.oldElement.length; ind++)
       {
@@ -400,153 +667,6 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 }
 
 
-bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
-{
-  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
-
-  var source = op.source;
-  var action = op.action;
-  var type = op.type;
-  var data = op.data;
-  var id = op.id;
-
-  if      ( type == "moveGroup" )
-  {
-
-
-    var id_ref_ar = [];
-    for (var ind in id)
-    {
-      var ref = this.board.refLookup( id[ind] );
-      id_ref_ar.push( { id: id[ind], ref: ref } );
-    }
-
-    var cx = op.data.cx;
-    var cy = op.data.cy;
-    var dx = op.data.dx;
-    var dy = op.data.dy;
-    var rotateCount = op.data.rotateCount;
-
-    if (inverseFlag)
-    {
-      for (var ind in id_ref_ar)
-      {
-        this.board.relativeMoveElement( id_ref_ar[ind], -dx, -dy );
-        this.board.updateBoundingBox( id_ref_ar[ind].ref );
-      }
-
-      for (var i=0; (i<4) && (i<rotateCount); i++)
-      {
-        this.board.rotateAboutPoint90( id_ref_ar, cx, cy, true );
-      }
-
-    }
-    else
-    {
-
-      for (var i=0; (i<4) && (i<rotateCount); i++)
-      {
-        this.board.rotateAboutPoint90( id_ref_ar, cx, cy, false );
-      }
-
-      for (var ind in id_ref_ar)
-      {
-
-        this.board.relativeMoveElement( id_ref_ar[ind], dx, dy );
-
-        //var rr = this.board.refLookup( id_ref_ar[ind].id );
-        //this.board.relativeMoveElement( { id: id_ref_ar[ind].id, ref: rr }, dx, dy );
-
-        this.board.updateBoundingBox( id_ref_ar[ind].ref );
-      }
-
-    }
-  }
-  else if (type == "rotate90")
-  {
-
-    console.log("board rotate90");
-
-    var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
-    var ref = this.board.refLookup( id );
-    this.board.rotate90( { id: id, ref : ref } , ccw_flag );
-    this.board.updateBoundingBox( ref );
-  }
-  else if (type == "rotate" )
-  {
-    console.log("board rotate");
-
-    var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
-    var ref = this.board.refLookup( id );
-
-    console.log("id:" + id);
-    console.log(ref);
-
-    this.board.rotateAboutPoint( 
-        [ { id: id, ref : ref } ] , 
-        data.cx, data.cy,
-        data.angle,
-        ccw_flag );
-    this.board.updateBoundingBox( ref );
-  }
-  else if (type == "fillczone")
-  {
-    console.log("fillczone");
-
-    for (var ind in id)
-    {
-      var ref = this.board.refLookup( id[ind] );
-      this.board.fillCZone( ref );
-    }
-
-  }
-
-  else if (type == "mergenet")
-  {
-    var res = 
-      g_board_controller.board.mergeNets( data.net_number0, data.net_number1 );
-    op.result = res;
-  }
-
-  else if (type == "edit")
-  {
-
-    if (inverseFlag)
-    {
-
-      console.log("opBrdUpdate edit inverse: length: " + data.oldElement.length);
-      console.log( data.oldElement );
-
-      for (var ind=0; ind< data.oldElement.length; ind++)
-      {
-        var ref = this.board.refLookup( data.element[ind].id );
-        //$.extend( true, ref, data.oldElement[ind].ref );
-        $.extend( true, ref, data.oldElement[ind] );
-        this.board.refUpdate( id[ind], data.oldElement[ind].id );
-      }
-
-    }
-    else
-    {
-
-      // id holds array of _new_ ids.  oldElement has old id.
-      // array lengths of oldelement, id and element must match.
-      //
-      for (var ind=0; ind<id.length; ind++)
-      {
-        var ref = this.board.refLookup( data.oldElement[ind].id );
-        $.extend( true, ref, data.element[ind] );
-        this.board.refUpdate( data.oldElement[ind].id, id[ind] );
-      }
-
-    }
-
-    
-  }
-
-}
-
-
 //-- DELETE
 
 bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
@@ -588,45 +708,6 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
       {
         var ref = this.schematic.refLookup( id[ind] );
         this.schematic.remove( { id: id[ind], ref: ref } );
-      }
-
-    }
-
-  }
-
-}
-
-bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
-{
-  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
-
-  var source = op.source;
-  var action = op.action;
-  var type = op.type;
-  var data = op.data;
-  var id = op.id;
-
-  if      ( type == "group" )
-  {
-
-    if (inverseFlag)
-    {
-
-      for (var ind in id )
-      {
-        var ref = data.element[ind];
-        this._opBrdAddSingle( ref.type, ref.id, ref );
-      }
-
-    }
-
-    else
-    {
-
-      for (var ind in id )
-      {
-        var ref = this.board.refLookup( id[ind] );
-        this.board.remove( { id: id[ind], ref: ref } );
       }
 
     }
@@ -690,14 +771,14 @@ bleepsixSchBrdOp.prototype.opUndo = function( src )
   if ( this.opHistoryEnd >= 0 )
   {
 
-    console.log(this.opHistory[ this.opHistoryEnd ] );
+    //console.log(this.opHistory[ this.opHistoryEnd ] );
 
     this.opCommand( this.opHistory[ this.opHistoryEnd ], true, true );
     this.opHistoryEnd--;
   }
   else
   {
-    console.log("bleepsixSchematic.opUndo: already at first element, can't undo any further");
+    console.log("bleepsixSchBrdOp.opUndo: already at first element, can't undo any further");
   }
 
 }
@@ -713,7 +794,7 @@ bleepsixSchBrdOp.prototype.opRedo = function( src )
   }
   else
   {
-    console.log("bleepsixSchematic.opRedo: already at last element, can't redo any further");
+    console.log("bleepsixSchBrdOp.opRedo: already at last element, can't redo any further");
   }
 
 }

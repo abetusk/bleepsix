@@ -256,7 +256,8 @@ bleepsixBoard.prototype.findElement = function( id )
 bleepsixBoard.prototype.remove = function( id_ref )
 {
   var ele;
-  var id = id_ref["id"];
+  var id = id_ref.id;
+  var ref = id_ref.ref;
 
   for (var ind in this.kicad_brd_json["element"] )
   {
@@ -936,6 +937,9 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
 
   var renamed_ids = this.renameNet( stale_netcode, new_netcode );
 
+  console.log("removing netcode: " + stale_netcode);
+  this.removeNet( stale_netcode );
+
   return { net_number: new_netcode, renamed_ids : renamed_ids } ;
 
 }
@@ -995,6 +999,56 @@ bleepsixBoard.prototype.genNet = function( netcode, netname )
     netname = this._genNetName();
 
   return { net_number: netcode, net_name: netname };
+}
+
+bleepsixBoard.prototype.removeNet = function( netcode, netname )
+{
+  var net_name;
+  var net_ind;
+  var n ;
+
+  var brd = this.kicad_brd_json;
+
+  var eqp = brd.equipot;
+  n = eqp.length;
+  for (net_ind=0; net_ind < n; net_ind++)
+  {
+    if ( eqp[net_ind].net_number == netcode )
+      break;
+  }
+
+  if (net_ind == n)
+  {
+    console.log("ERROR: bleepsixBoard.removeNet: could not find netocde " + netcode + " in equipot");
+    return false;
+  }
+
+  if ( netcode in brd.net_code_map )
+  {
+    net_name = brd.net_code_map[ netcode ];
+  }
+  else
+  {
+    console.log("ERROR: bleepsixBoard.removeNet: could not find netocde " + netcode + " in net_code_map");
+    return false;
+  }
+
+  if ( !(net_name in brd.net_name_map) )
+  {
+    console.log("ERROR: bleepsixBoard.removeNet: could not find name " + net_name + " in net_code_map");
+    return false;
+  }
+
+  var e = eqp.pop();
+  if ( net_ind < eqp.length )
+  {
+    eqp[net_ind] = e;
+  }
+
+  delete brd.net_code_map[ netcode ];
+  delete brd.net_name_map[ net_name ];
+
+  return true;
 }
 
 bleepsixBoard.prototype.addNet = function( netcode, netname )
@@ -1221,6 +1275,9 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
   footprint_entry["x"] = x;
   footprint_entry["y"] = y;
   footprint_entry["type"] = "module";
+
+  footprint_entry.text[0].id = text_ids[0];
+  footprint_entry.text[1].id = text_ids[1];
 
   if ("pad" in footprint_entry)
     for (var pad_ind in footprint_entry["pad"])

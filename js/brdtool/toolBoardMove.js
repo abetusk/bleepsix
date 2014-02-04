@@ -511,7 +511,11 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         op.action = "update";
         op.type = "fillczone";
         op.id = [ ele.id ];
-        op.data = { element : [ ele.ref ] };
+
+        //op.data = { element : [ ele.ref ] };
+        var clonedCZone = {};
+        $.extend( true, clonedCZone, ele.ref );
+        op.data = { element : [ clonedCZone ] };
 
         g_board_controller.opCommand( op );
 

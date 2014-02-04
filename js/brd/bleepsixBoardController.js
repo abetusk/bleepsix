@@ -386,7 +386,7 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 
 bleepsixBoardController.prototype.keyPress = function( keycode, ch, ev )
 {
-  console.log( "keyPress: " + keycode + " " + ch  );
+  //console.log( "keyPress: " + keycode + " " + ch  );
 
   if (typeof this.tool.keyPress !== 'undefined' )
     this.tool.keyPress( keycode, ch, ev );

@@ -232,8 +232,8 @@ toolBoardNav.prototype.mouseWheel = function( delta )
 
 toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolBoardNav keyDown: " + keycode + " " + ch );
-  console.log(ev);
+  //console.log("toolBoardNav keyDown: " + keycode + " " + ch );
+  //console.log(ev);
 
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
