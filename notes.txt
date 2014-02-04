@@ -25,6 +25,10 @@ By Rama Hoetzlein and Abram Connelly"
   - feedback forms
   - project/schematic/board searching 
 
+  BUG: meowDataManager.py:  when an anonymous user deletes their project,
+    trying to reload from the schematic portion results in a 502...something
+    went wrong in the script.
+
 == BOTH
 
   - schematic board communication:
