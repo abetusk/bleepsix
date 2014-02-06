@@ -227,23 +227,7 @@
         var footprint_location_json = "json/footprint_location.json";
         load_footprint_location( footprint_location_json );
 
-        /*
-        $.ajaxSetup({ cache : false });
-        $.getJSON( footprint_location_json,
-          function(data) {
-            g_footprint_location = data;
-            g_footprint_location_ready = true;
-
-            console.log("module location data loaded:");
-            console.log(g_footprint_location);
-
-          }
-        ).fail(
-          function(jqxhr, textStatus, error) {
-            console.log("could not load " + footprint_location_json + ": " + error);
-          }
-        );
-        */
+        load_component_location( "json/component_location.json" );
 
         var f = document.getElementById('uploadButton');
         f.style.top = '0px';
@@ -299,49 +283,6 @@
 			
 		  } )();
 		}
-
-        /*
-
-      function load_footprint_cache_part( name, location )
-      {
-
-        console.log("load_footprint_cache_part: " + name + ", " + location);
-
-        if ( !(name in g_footprint_cache) )
-        {
-          g_board_controller.board.queued_display_footprint_count++;
-
-          //part_json = "json/" + name + ".json";
-          part_json = location;
-          var brd = g_board_controller.board;
-
-          console.log("load_footprint_cache_part: footprint " + name + " " + location );
-
-          $.ajaxSetup({ cache : false });
-          $.getJSON( part_json,
-            ( function(a) {
-                return function(data) {
-                  brd.load_part(a, data);
-                }
-              }
-            )(name)
-          ).fail(
-            ( function(a) {
-              return function(jqxhr, textStatus, error) {
-                brd.load_part_error(a, jqxhr, textStatus, error);
-              }
-            }
-            )(part_json)
-          );
-
-        }
-        else 
-        {
-          console.log(" load_footprint_cache_part: " + name + " already loaded");
-        }
-      }
-
-      */
 
       function btn_func()
       {
@@ -420,7 +361,6 @@
         else
         {
           g_board_controller.board.load_board( json_data );
-          //g_board_controller.board.eventSave();
           g_board_controller.boardUpdate = true;
         }
       }

@@ -26,10 +26,12 @@
 // TODO: arcs still need implementing
 //
 
-var headless = false;
+//var headless = false;
+var bleepsixBoardHeadless = false;
 if (typeof module !== 'undefined')
 {
-  headless = true;
+  //headless = true;
+  bleepsixBoardHeadless = true;
 }
 
 function bleepsixBoard()
@@ -106,7 +108,8 @@ function bleepsixBoard()
   this.highlight_net = [];
   this.highlight_net_flag = false;
 
-  if (!headless)
+  //if (!headless)
+  if (!bleepsixBoardHeadless)
   {
     this.initBGL();
     this._initBoardNet();
@@ -2988,7 +2991,9 @@ bleepsixBoard.prototype.load_board = function( json )
   this._setupNetMappings();
 
   var brd = this.kicad_brd_json["element"];
-  g_painter.dirty_flag = true;
+
+  if (!bleepsixBoardHeadless)
+    g_painter.dirty_flag = true;
 
   for (var vind in brd)
   {
@@ -3058,6 +3063,9 @@ bleepsixBoard.prototype.load_board = function( json )
       //   http://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
 
       //console.log("bleepsixBoard.load_board: fetching footprint: " + name +" from " + part_json);
+
+      if (bleepsixBoardHeadless)
+        continue;
 
       var Board = this;
       $.ajaxSetup({ cache : false });

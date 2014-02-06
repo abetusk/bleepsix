@@ -28,6 +28,7 @@ if ( typeof module !== 'undefined')
   schControllerHeadless = true;
   var bleepsixSchematic = require("./bleepsixSchematicNode.js");
   var bleepsixBoard = require("../brd/bleepsixBoardNode.js");
+  var bleepsixSchBrdOp = require("../lib/bleepsixSchBrdOp.js");
 }
 
 function bleepsixSchematicController() {
@@ -144,6 +145,18 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   this.schematicUpdate = true;
   g_painter.dirty_flag = true;
 
+  if (!("scope" in msg))
+    msg.scope = "network";
+
+  if (g_schnetwork && (msg.scope == "network") )
+  {
+
+    //DEBUG
+    console.log("bleepsixSchematicController.opCommand sending to g_schnetwork");
+
+    g_schnetwork.projectop( msg );
+  }
+
   if (   ((msg.action == "add") ||
           (msg.action == "delete"))
       && ((msg.type == "componentData") ||
@@ -171,12 +184,18 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     module.text[1].visible = comp_ref.text[1].visible;
 
     var brdop = { source: "sch", destination: "brd" };
+    brdop.scope = msg.scope;
     brdop.action = msg.action;
     brdop.type = "footprintData";
     brdop.data = { footprintData: module , x: 0, y: 0 };
     brdop.id = comp_ref.id;
     brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
     this.op.opCommand( brdop );
+
+    if ( g_schnetwork && (msg.scope == "network") )
+    {
+      g_schnetwork.projectop( brdop );
+    }
 
     console.log("finishing up controller opCommand, checking module existence");
     console.log( this.board.refLookup( comp_ref.id ) );

@@ -170,31 +170,20 @@
 	  
       var g_snapgrid = null;
 	  var g_painter = null;
-      var g_schematic_controller = null ; //new bleepsixController();
+      var g_schematic_controller = null ; 
       var g_controller = null;
 
       var g_imgcache = null;
-      //var g_schematic = new bleepsixSchematic();
 
-      // key is component name (unmunged, bare, without directory)
-
-      /*
-      var g_component_cache = {};
-      var g_component_location = {};
-      var g_component_library_map = {};
-      */
 
 	  var g_canvas = "canvas";
 	  var g_context = null;
-
-      //var g_drawSnapArea = false;
 
       var g_schnetwork = null;
 
       function canvasFocus()
       {
         console.log("canvas focus");
-
         var c = document.getElementById("canvas");
         c.focus();
       }
@@ -211,30 +200,9 @@
 		var container = document.querySelector( 'section' );
 		container.innerHTML = "FPS: " + (1000.0/msec);
 
-
         var saved_dirty = g_painter.dirty_flag;
 
-				
 		g_schematic_controller.redraw();
-			
-
-        /*
-        if (saved_dirty)
-        {
-          if ( g_drawSnapArea )
-          {
-            var lw = 5;
-            var ww = 900 + 2*lw;
-            var hh = 525 + 2*lw;
-            var xx = 50 - lw;
-            var yy = 50 - lw;
-
-            g_painter.drawRectangle( xx, yy, ww, hh, lw, "rgba(0,0,0,0.2)", false );
-            //g_painter.strokeRect(xx,yy,ww,hh, 5, "rgba(0,0,0,0.1)"  );
-          }
-        }
-        */
-
 		requestAnimationFrame( loop, 1 );		
 	  }
 
@@ -246,6 +214,7 @@
 
         // load g_component_cache with 'unknown' part
         //
+        /*
         g_component_cache['unknown'] = {
           "name": "unknown",
           "reference" : "Z",
@@ -312,6 +281,7 @@
           ]
 
         };
+        */
 
 
         g_snapgrid = new snapGrid(true, "deci-mil", 50);
@@ -329,7 +299,6 @@
 
         // setup image cache and preload some generic items
         //
-        //var img_base = "/bleepsix/img";
         var img_base = "img";
         g_imgcache = new imageCache();
         g_imgcache.add( "cursor", img_base + "/cursor_custom_base_s24.png" );
@@ -340,31 +309,10 @@
 
 		requestAnimationFrame( loop, 1 );
 
-        $.ajaxSetup({ cache : false });
-        var component_location_json = "json/component_location.json";
-        $.getJSON( component_location_json,
-          function(data) {
-            g_component_location = data;
-            //console.log(component_location_json + " loaded");
-            //console.log(g_component_location);
-          }
-        ).fail(
-          function(jqxhr, textStatus, error) {
-            console.log("could not load " + component_location_json + ": " + error);
-          }
-        );
+        load_component_location( "json/component_location.json" );
+        load_footprint_location( "json/footprint_location.json" );
 
 
-        //TEST FILE DOWNLOAD
-        /*
-        $.fileDownload( "gplv3.txt" )
-        .done( function(msg) { alert('done: ' + msg); return true; }) 
-        .fail( function(msg) { alert('fail: ' + msg); return true; }) ;
-        
-        */
-        //populateIframe( "downloadIframe" , "gplv3.txt" )
-
-        //var f = document.getElementById('fileButton');
         var f = document.getElementById('uploadButton');
         f.style.top = '0px';
         f.style.left = '500px';
@@ -413,72 +361,17 @@
       });
 	  
 	  if ( !window.requestAnimationFrame ) {
-		  window.requestAnimationFrame = ( function() {
-			
-			return window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.oRequestAnimationFrame ||
-			window.msRequestAnimationFrame ||
-			function( callback, element ) {
-			  window.setTimeout( callback, 1000 );
-			};
-			
-		  } )();
-		}
-
-      //function load_component_cache_part( name )
-      /*
-
-      function load_component_cache_part( name, location )
-      {
-        if ( !(name in g_component_cache) )
-        {
-          g_schematic_controller.schematic.queued_display_component_count++;
-
-          //part_json = "json/" + name + ".json";
-          part_json = location;
-          var schem = g_schematic_controller.schematic;
-
-          $.ajaxSetup({ cache : false });
-          $.getJSON( part_json,
-            ( function(a) {
-                return function(data) {
-                  schem.load_part(a, data);
-                }
-              }
-            )(name)
-          ).fail(
-            ( function(a) {
-              return function(jqxhr, textStatus, error) {
-                schem.load_part_error(a, jqxhr, textStatus, error);
-              }
-            }
-            )(part_json)
-          );
-
-        }
-        else 
-        {
-          console.log(" load_componet_cache_part: " + name + " already loaded");
-        }
+        window.requestAnimationFrame = ( function() {
+          return window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame ||
+          window.oRequestAnimationFrame ||
+          window.msRequestAnimationFrame ||
+          function( callback, element ) {
+            window.setTimeout( callback, 1000 );
+          };
+        } )();
       }
 
-      */
-
-      /*
-      function btn_func()
-      {
-        $.ajaxSetup({ cache: false });
-        $.getJSON( "examples/osh_heart_v2.json", 
-          function(data) { 
-            console.log("data:" + data); 
-            g_schematic_controller.schematic.load_schematic(data); 
-            g_schematic_controller.schematicUpdate = true;
-          });
-      }
-      */
-
-      //function schJsonDlTest( json_container )
       function schJSONDownload( json_container )
       {
 
@@ -504,12 +397,10 @@
       }
 
 
-      //function submitSchematic( json_data )
       function downloadSchematic( )
       {
         var json_data = g_schematic_controller.schematic.kicad_sch_json ;
 
-        //var container = { "type" : "createJSON", data: json_data };
         var container = { "type" : "createKiCADSchematic", data: json_data };
         var str_data = JSON.stringify( container );
 
@@ -517,7 +408,6 @@
           url: "bleepsixDataManager.py",
           type: 'POST',
           data: str_data,
-          //success: schJsonDlTest, 
           success: schJSONDownload,
           error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
 
@@ -541,7 +431,6 @@
         else
         {
           g_schematic_controller.schematic.load_schematic( json_data );
-          //g_schematic_controller.schematic.eventSave();
           g_schematic_controller.schematicUpdate = true;
         }
       }
@@ -609,24 +498,45 @@
     <iframe id='downloadFrame' style='display:none'>
     </iframe>
 
-    <!-- <div class="file_button_container" id='fileButton'>  -->
-    <!-- <div class="upload_button" id='fileButton'>  -->
     <div class="upload_button" id='uploadButton'> 
-      <input class='upload_button' id='fileElement' type="file" onchange="handleFiles(this.files); canvasFocus();" onclick="this.value=null;"  />
+      <input 
+        class='upload_button' 
+        id='fileElement' 
+        type="file" 
+        onchange="handleFiles(this.files); canvasFocus();" 
+        onclick="this.value=null;"  />
     </div>
 
     <div class="download_button" id='downloadButton'> 
-      <input class='download_button' type="image" src='img/download.png' style=' height:32px; width:32px;' value='download' onclick="downloadSchematic(); canvasFocus();"  />
+      <input 
+        class='download_button' 
+        type="image" 
+        src='img/download.png' 
+        style=' height:32px; width:32px;' 
+        value='download' 
+        onclick="downloadSchematic(); canvasFocus();"  />
     </div>
 
     <!-- <div class="file_button_container" id="snapButton"> -->
     <div class="snapshot_button" id="snapButton"> 
       <!-- <input id='snapElement' type='button' value="click me" onclick="takeSnapShotPicture();" /> -->
-      <input id='snapElement' type='image' src='img/camera.png' style=' height: 32px; width: 32px;' value="click me" onclick="canvasFocus(); takeSnapShotPicture();" /> 
+      <input 
+        id='snapElement' 
+        type='image' 
+        src='img/camera.png' 
+        style=' height: 32px; width: 32px;' 
+        value="click me" 
+        onclick="canvasFocus(); takeSnapShotPicture();" /> 
     </div>
 
     <div class="generic_button" id='homeButton'> 
-      <input class='generic_button' type="image" src='img/kitty_head_black_outline_p32.png' style=' height:26px; width:26px;' value'download' onclick="canvasFocus(); goHome();"  />
+      <input 
+        class='generic_button' 
+        type="image" 
+        src='img/kitty_head_black_outline_p32.png' 
+        style=' height:26px; width:26px;' 
+        value'download' 
+        onclick="canvasFocus(); goHome();"  />
     </div>
 
     <canvas 
@@ -636,12 +546,6 @@
       tabindex='0'> </canvas>
 
 	<section style='position: absolute; left: 20px; top: 720px; ' ></section>
-
-    <!--
-    <button 
-      style='position: absolute; left: 20px; top: 750px; '
-      id='btn' onclick='btn_func();' >f</button>
-    -->
 
   </body>
 

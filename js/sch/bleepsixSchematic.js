@@ -26,6 +26,13 @@
 // TODO: arcs still need implementing
 //
 
+var bleepsixSchematicHeadless = false;
+if (typeof module !== 'undefined')
+{
+  bleepsixSchematicHeadless = true;
+}
+
+
 function bleepsixSchematic()
 {
   this.net          = {};
@@ -178,6 +185,126 @@ bleepsixSchematic.prototype.refLookup = function( id )
 
 }
 
+bleepsixSchematic.prototype.makeUnknownComponentTextField = function(x , y )
+{
+  var obj =
+  {
+    "bounding_box" : [ [ -50, -50] , [50,50] ],
+    "text" : "??",
+    "orientation": "H",
+    "reference": "??",
+    "hjustify": "C",
+    "number": 0,
+    "vjustify": "C",
+    "visible": true,
+    "bold": false,
+    "italic": true,
+    "x": x,
+    "y": y,
+    "size": "100",
+    "transform" : [ [ 1, 0 ], [ 0, -1 ] ],
+    "flags" : "0000 C CNN"
+  };
+
+  return obj;
+
+}
+
+bleepsixSchematic.prototype.makeUnknownComponent= function( size, id, text_ids )
+{
+  //g_component_cache['unknown'] = {
+  var obj = {
+    "name": "unknown",
+    "reference" : "Z",
+    "bounding_box" : [ [ -250, -250], [250, 250] ],
+    "type" : "component",
+    "timestamp" : "52566B9A",
+    "transform" : [ [1,0],[0,-1] ],
+    "mm" : 1,
+    "nn" : 1,
+
+    "unknown_text_field" : 
+      {
+        "bounding_box" : [ [ -50, -50] , [50,50] ],
+        "text" : "??",
+        "orientation": "H",
+        "reference": "??",
+        "hjustify": "C",
+        "number": 0,
+        "vjustify": "C",
+        "visible": true,
+        "bold": false,
+        "italic": true,
+        "x": 0,
+        "y": 0,
+        "size": "100",
+        "transform" : [ [ 1, 0 ], [ 0, -1 ] ],
+        "flags" : "0000 C CNN"
+      },
+
+
+    "text" : [
+      {
+        "bounding_box" : [ [ -50, -50] , [50,50] ],
+        "text" : "??",
+        "orientation": "H",
+        "reference": "Z",
+        "hjustify": "C",
+        "number": 0,
+        "vjustify": "C",
+        "visible": false,
+        "bold": false,
+        "italic": false,
+        "y": "0",
+        "x": "0",
+        "size": "60",
+        "flags" : "0000 C CNN"
+      },
+
+      {
+        "bounding_box" : [ [ -50, -50] , [50,50] ],
+        "text" : "??",
+        "orientation": "H",
+        "reference": "??",
+        "hjustify": "C",
+        "number": 1,
+        "vjustify": "C",
+        "visible": true,
+        "bold": true,
+        "italic": true,
+        "y": "0",
+        "x": "0",
+        "size": "60",
+        "flags" : "0000 C CNN"
+      }
+
+    ],
+
+    "art" : [
+      {
+        "count" : 5,
+        "line_width" : 0,
+        "shape" : "path",
+        "path" : [
+          [  250,  250 ],
+          [ -250,  250 ],
+          [ -250, -250 ],
+          [  250, -250 ],
+          [  250,  250 ]
+        ],
+        "de_morgan_alternate_shape" : "1",
+        "unit" : "0",
+        "fill" : "N"
+      }
+     ]
+
+  };
+
+  return obj;
+
+}
+
+
 
 // Set default values for the name and reference of the component,
 // taken from the library components two text fields.
@@ -241,6 +368,7 @@ bleepsixSchematic.prototype._updateReference = function()
 {
 
   var sch = this.kicad_sch_json.element;
+
   for (var ind=0; ind<sch.length; ind++)
   {
     var ref = sch[ind];
@@ -1030,7 +1158,9 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   //console.log("adding component");
   //console.log(json_component);
 
-  this.updateComponentBoundingBox( comp_entry );
+  if ("bounding_box" in comp_entry)
+    this.updateComponentBoundingBox( comp_entry );
+
   this.kicad_sch_json["element"].push( comp_entry );
 
   g_painter.dirty_flag = true;
@@ -2145,7 +2275,15 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
   else
   {
 
-    //console.log(" couldn't find " + name + ", drawing uknown");
+    if (!("unknown" in g_component_cache))
+    {
+      g_component_cache["unknown"] = this.makeUnknownComponent();
+    }
+
+    if (!("unknown_text_field" in comp))
+    {
+      comp["unknown_text_field"] = this.makeUnknownComponentTextField( comp_x, comp_y );
+    }
 
     this.drawComponent( g_component_cache[ "unknown" ], comp["x"], comp["y"], comp["transform"]  );
     this.drawComponentTextField( comp["unknown_text_field"], comp_x, comp_y, comp["transform"] );
@@ -2796,6 +2934,10 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
 
     for (ind in sch)
     {
+
+      if (!("bounding_box" in sch[ind]))
+        continue;
+
       if      ( sch[ind]["type"] == "component")  { this.updateComponentBoundingBox( sch[ind] ); }
       else if ( sch[ind]["type"] == "connection") { this.updatePointBoundingBox( sch[ind] ); }
       else if ( sch[ind]["type"] == "noconn")     { this.updatePointBoundingBox( sch[ind] ); }
@@ -2815,6 +2957,10 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
   else
   {
     var t = ele["type"];
+
+    if (!("bounding_box" in ele))
+      return;
+
 
     if      (t == "component")    this.updateComponentBoundingBox( ele );
     else if (t == "noconnect")    this.updatePointBoundingBox( ele );
@@ -2937,14 +3083,45 @@ bleepsixSchematic.prototype._annoteSchematic = function( )
 
 }
 
+bleepsixSchematic.prototype.cache_component = function( name )
+{
+  if (name in g_component_cache) return;
+
+  var part_json = g_component_location[name].location;
+
+  if (name == "unknown")
+  {
+    var unknown_json = this.makeUnknownComponent();
+    g_component_cache["unknown"] = unknown_json;
+    return;
+  }
+
+  this.queued_display_component_count++;
+
+  var schem = this;
+  $.ajaxSetup({ cache : false });
+  $.getJSON( part_json,
+    ( function(a) {
+        return function(data) {
+          schem.load_part(a, data);
+        }
+      }
+    )(name)
+  ).fail(
+    ( function(a) {
+        return function(jqxhr, textStatus, error) {
+          schem.load_part_error(a, jqxhr, textStatus, error);
+        }
+      }
+    )(part_json)
+  );			
+
+}
 
 bleepsixSchematic.prototype.load_schematic = function( json )
 {
 
   this.kicad_sch_json = json;
-
-  //console.log("kicad_sch_json:");
-  //console.log( this.kicad_sch_json );
 
   // We don't need to wait for the component cache to load as that's
   // only the art.  By the time we have the json for the schematic,
@@ -2968,6 +3145,9 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
     //var name = comp["name"];
     var name = this.toCacheName( comp["name"] );
+
+    if (bleepsixSchematicHeadless)
+      continue;
 
     if (name in g_component_cache)
     {
@@ -3047,6 +3227,10 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
   // The case where all our library components are cached, we need to ask for a redraw
   //
+
+  if (bleepsixSchematicHeadless)
+    return;
+
   if (this.queued_display_component_count == 0)
     g_painter.dirty_flag = true;
 

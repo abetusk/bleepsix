@@ -40,6 +40,8 @@ var g_component_cache = {};
 var g_component_location = {};
 var g_component_library_map = {};
 
+var g_component_location_ready = false;
+
 
 function load_footprint_location( footprint_location_json )
 {
@@ -100,6 +102,27 @@ function load_footprint_cache_part( name, location )
   {
     console.log(" load_footprint_cache_part: " + name + " already loaded");
   }
+}
+
+function load_component_location( component_location_json )
+{
+  $.ajaxSetup({ cache : false });
+  //var component_location_json = "json/component_location.json";
+  $.getJSON( component_location_json,
+    function(data) {
+      g_component_location = data;
+      g_component_location_ready = true;
+
+      //console.log(component_location_json + " loaded");
+      //console.log(g_component_location);
+    }
+  ).fail(
+    function(jqxhr, textStatus, error) {
+      console.log("could not load " + component_location_json + ": " + error);
+    }
+  );
+
+
 }
 
 

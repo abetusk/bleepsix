@@ -41,6 +41,9 @@ function bleepsixBoardController() {
   this.board = new bleepsixBoard();
   this.schematic = new bleepsixSchematic();
 
+
+  //this.schematic.makeUnknownComponent();
+
   this.op = new bleepsixSchBrdOp( this.schematic, this.board );
 
   this.mouse_left_down = false;
@@ -120,6 +123,14 @@ bleepsixBoardController.prototype.opCommand = function( msg )
   this.boardUpdate = true;
   g_painter.dirty_flag = true;
 
+  if (!( "scope" in msg ))
+    msg.scope = "network";
+
+  if ( g_brdnetwork && (msg.scope == "network") )
+  {
+    g_brdnetwork.projectop( msg );
+  }
+
   if (   (( msg.action == "add") ||
           ( msg.action == "delete"))
       && (( msg.type == "footprintData") |
@@ -127,30 +138,27 @@ bleepsixBoardController.prototype.opCommand = function( msg )
   {
     console.log("need to add to schematic sister structure");
 
-    /*
-    var mod_ref = this.board.refLookup( msg.id );
-
-    var comp = 
-      this.schematic.makeUnknownComponent( 1000,
-                                           mod_ref.id,
-                                           [ mod_ref.text[0].id, mod_ref.text[1].id ] );
-    comp.text[0].text = mod_ref.text[0].text;
-    comp.text[0].visible = mod_ref.text[0].visible;
-
-    comp.text[1].text = mod_ref.text[1].text;
-    comp.text[1].visible = mod_ref.text[1].visible;
+    var ucomp = this.schematic.makeUnknownComponent();
 
     var schop = { source: "brd", destination: "sch" };
+    schop.scope = msg.scope;
     schop.action = msg.action;
     schop.type = "componentData";
-    schop.data = { componentData: comp, x: 0, y: 0 };
-    schop.id = mod_ref.id;
-    schop.idText = [ mod_ref.text[0].id, mod_ref.text[1].id ];
+    schop.data = { componentData: ucomp, x: 0, y: 0 };
+    schop.id = msg.id;
+
+    console.log("board opCommand, schop:");
+    console.log(schop);
+
     this.op.opCommand( schop );
-    */
+
+    if ( g_brdnetwork && (msg.scope == "network") )
+    {
+      console.log("board opCommand, sending schop over the network");
+      g_brdnetwork.projectop( schop );
+    }
 
   }
-
 
 }
 

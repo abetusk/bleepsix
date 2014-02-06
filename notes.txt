@@ -29,6 +29,10 @@ By Rama Hoetzlein and Abram Connelly"
     trying to reload from the schematic portion results in a 502...something
     went wrong in the script.
 
+  BUG: server is not managing sessions properly.  For anything other than
+    a fresh server, pushes don't happen consistently.
+
+
 == BOTH
 
   - schematic board communication:
@@ -40,6 +44,13 @@ By Rama Hoetzlein and Abram Connelly"
   sequence number than what's available, replace it.
 
 == SCH
+
+  - Need to figure out a better way to get components in from the network op
+    command.  Right now, the unknown part is being stuffed if it's found
+    lacking directly in the draw function.  Organize where this should occur
+    so that it's more consistent.
+
+
 
 * BUG: text not rendering on text fields for rotated components (display test
      has some examples)

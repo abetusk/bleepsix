@@ -28,7 +28,7 @@
  * central server.
  *
  * We will make a persistent socket.io connection and send
- * schematic updates for automatic saving.
+ * board updates for automatic saving.
  *
  */
 
@@ -43,14 +43,14 @@
  * app will have no effect on core functionality.  Download should
  * also be separate because it pushes the local json description
  * to a cgi that then gets processed and downloaded.  Though
- * files should be saved and loaded through this facility, schematics
+ * files should be saved and loaded through this facility, boards
  * should be stored local to the browser and be able to be pushed 
  * without this class functioning.
  *
  */
 
 
-function bleepsixSchematicNetwork( serverURL )
+function bleepsixBoardNetwork( serverURL )
 {
 
   serverURL = ( (typeof serverURL === 'undefined') ? 'https://localhost' : serverURL );
@@ -64,7 +64,7 @@ function bleepsixSchematicNetwork( serverURL )
   this.projectId = null;
   this.projectName = null;
 
-  //this.schematicId = null;
+  //this.boardId = null;
 
   this.messageq = [];
 
@@ -120,18 +120,8 @@ function bleepsixSchematicNetwork( serverURL )
       function(data) { p.projectsnapshotResponse( data ); } );
   this.socket.on( "projectflush", 
       function(data) { p.projectflushResponse( data ); } );
-
   this.socket.on( "projectop", 
       function(data) { p.projectopResponse( data ); } );
-
-  /*
-  this.socket.on( "schauth",
-      function(data) { p.schauthResponse( data ); } );
-  this.socket.on( "schsnapshot",
-      function(data) { p.schsnapshotResponse( data ); } );
-  this.socket.on( "schfullpush", 
-      function(data) { p.schfullpushResponse( data ); } );
-      */
 
   this.socket.on( "anonymouscreate", 
       function(data) { p.anonymousCreateResponse( data ); } );
@@ -146,23 +136,22 @@ function bleepsixSchematicNetwork( serverURL )
 
 }
 
-bleepsixSchematicNetwork.prototype.slowSync = function()
+bleepsixBoardNetwork.prototype.slowSync = function()
 {
-  if (g_schematic_controller.schematicUpdate)
+  if (g_board_controller.boardUpdate)
   {
-    console.log("  bleepsixSchematicNetwork.slowSync syncing!");
+    console.log("  bleepsixBoardNetwork.slowSync syncing!");
 
-    //this.schfullpush();
     this.projectflush();
 
-    g_schematic_controller.fadeMessage( "saved" );
-    g_schematic_controller.schematicUpdate = false;
+    g_board_controller.fadeMessage( "saved" );
+    g_board_controller.boardUpdate = false;
   }
 
 }
 
 
-bleepsixSchematicNetwork.prototype.clear  = function ( )
+bleepsixBoardNetwork.prototype.clear  = function ( )
 {
   this.socket = null;
   this.serverURL = null;
@@ -172,7 +161,7 @@ bleepsixSchematicNetwork.prototype.clear  = function ( )
   this.projectId = null;
   this.projectName = null;
 
-  //this.schematicId = null;
+  //this.boardId = null;
 
   this.messageq = [];
 
@@ -194,11 +183,11 @@ bleepsixSchematicNetwork.prototype.clear  = function ( )
 
 // If we get called, we know we've got a connection
 //
-// If we have a schematicId, use it, else create a new one
+// If we have a boardId, use it, else create a new one
 // If we have a userId and sessionId, use it, else
 //   try to get an anonymous account
 //
-bleepsixSchematicNetwork.prototype.init = function()
+bleepsixBoardNetwork.prototype.init = function()
 {
   this.connected = true;
 
@@ -206,17 +195,17 @@ bleepsixSchematicNetwork.prototype.init = function()
   this.sessionId    = $.cookie("sessionId");
   this.userName     = $.cookie("userName");
 
-  //this.schematicId = $(document).getUrlParam("sch");
-  //if (!this.schematicId)
-  //  this.schematicId = undefined;
+  //this.boardId = $(document).getUrlParam("sch");
+  //if (!this.boardId)
+  //  this.boardId = undefined;
 
   this.projectId = $(document).getUrlParam("project");
   if (!this.projectId)
     this.projectId = undefined;
 
-  console.log("bleepsixSchematicNetwork.init: got projectId: " + this.projectId );
+  console.log("bleepsixBoardNetwork.init: got projectId: " + this.projectId );
 
-  //this.schematicId = $.cookie("schematicId");
+  //this.boardId = $.cookie("boardId");
 
   // No userId or sessionId, we assume an anonymous connection
   //
@@ -299,7 +288,7 @@ bleepsixSchematicNetwork.prototype.init = function()
 
 }
 
-bleepsixSchematicNetwork.prototype.loadStartupProject = function( data )
+bleepsixBoardNetwork.prototype.loadStartupProject = function( data )
 {
   console.log("loadStartupProject");
   console.log(data);
@@ -319,7 +308,7 @@ bleepsixSchematicNetwork.prototype.loadStartupProject = function( data )
 }
 
 
-bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
+bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 {
   console.log("newprojectResponse:");
   console.log(data);
@@ -327,7 +316,7 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
 
   if (!data)
   {
-    console.log("bleepsixSchematicNetowrk.newprojectResponse: error occured: got null data");
+    console.log("bleepsixBoardNetowrk.newprojectResponse: error occured: got null data");
     return;
   }
 
@@ -338,7 +327,7 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
 
   if ((typ != "response") || (stat != "success"))
   {
-    console.log("bleepsixSchematicNetowrk.newprojectResponse: error occured: got '" + msg + "'");
+    console.log("bleepsixBoardNetowrk.newprojectResponse: error occured: got '" + msg + "'");
     return;
   }
 
@@ -354,15 +343,15 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
 }
 
 
-bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
+bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 {
   console.log("projectauthResponse:");
-  console.log(data);
+  //console.log(data);
 
   this.fail_count++;
   if (this.fail_count >= this.fail_max)
   {
-    console.log("ERROR: bleepsixSchematicNetwork.projectauthResponse  too many tries, bailing out");
+    console.log("ERROR: bleepsixBoardNetwork.projectauthResponse  too many tries, bailing out");
     console.log(data);
     return;
   }
@@ -379,7 +368,7 @@ bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
     console.log("projectName: " + this.projectName);
 
     $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
-    g_schematic_controller.project_name_text = this.userName + " / " + this.projectName;
+    g_board_controller.project_name_text = this.userName + " / " + this.projectName;
 
     this.projectsnapshot();
   }
@@ -402,7 +391,7 @@ bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
       return;
     }
 
-    console.log("DEBUG: bleepsixSchematicNetwork.projectauthResponse " +
+    console.log("DEBUG: bleepsixBoardNetwork.projectauthResponse " +
         "authentication failed, issuing a 'startupProject' request");
 
 
@@ -436,7 +425,7 @@ bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
 
 }
 
-bleepsixSchematicNetwork.prototype.projectsnapshot = function()
+bleepsixBoardNetwork.prototype.projectsnapshot = function()
 {
   var msg = {};
   msg.userId = this.userId;
@@ -446,18 +435,16 @@ bleepsixSchematicNetwork.prototype.projectsnapshot = function()
 }
 
 
-bleepsixSchematicNetwork.prototype.projectsnapshotResponse = function( data )
+bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 {
   console.log("projectsnapshot response:");
-  console.log(data);
+  //console.log(data);
 
   if (!data)
   {
     console.log("projectsnapshot response error, got null data");
     return;
   }
-
-  console.log("data:");
 
   var typ = data.type;
   var stat = data.status;
@@ -471,15 +458,28 @@ bleepsixSchematicNetwork.prototype.projectsnapshotResponse = function( data )
     return;
   }
 
-  var json_sch = JSON.parse(data.json_sch);
-  var json_brd = JSON.parse(data.json_brd);
+  //console.log("projectsnapshotResponse data:");
+  //console.log(data.json_sch);
+  //console.log(data.json_brd);
 
-  g_schematic_controller.schematic.load_schematic( json_sch );
-  g_schematic_controller.board.load_board( json_brd );
+
+  try {
+    var json_sch = JSON.parse(data.json_sch);
+    var json_brd = JSON.parse(data.json_brd);
+  }
+  catch (err)
+  {
+    console.log("ERROR: parse error:");
+    console.log(err);
+    return;
+  }
+
+  g_board_controller.board.load_board( json_brd );
+  g_board_controller.schematic.load_schematic( json_sch );
 
 }
 
-bleepsixSchematicNetwork.prototype.projectflushResponse = function( data )
+bleepsixBoardNetwork.prototype.projectflushResponse = function( data )
 {
   console.log("projectflushResponse:");
   console.log(data);
@@ -487,15 +487,15 @@ bleepsixSchematicNetwork.prototype.projectflushResponse = function( data )
 
 
 
-bleepsixSchematicNetwork.prototype.projectflush = function( data )
+bleepsixBoardNetwork.prototype.projectflush = function( data )
 {
   var msg = {};
   msg.userId = this.userId;
   msg.sessionId = this.sessionId;
   msg.projectId = this.projectId;
 
-  msg.json_sch = JSON.stringify( g_schematic_controller.schematic.kicad_sch_json ); 
-  msg.json_brd = JSON.stringify( g_schematic_controller.board.kicad_brd_json ); 
+  msg.json_sch = JSON.stringify( g_board_controller.schematic.kicad_sch_json ); 
+  msg.json_brd = JSON.stringify( g_board_controller.board.kicad_brd_json ); 
 
   console.log("emitting projectflush , msg:");
   console.log(msg);
@@ -503,12 +503,39 @@ bleepsixSchematicNetwork.prototype.projectflush = function( data )
   this.socket.emit( "projectflush", msg );
 }
 
-bleepsixSchematicNetwork.prototype.anonymousCreateResponse = function( data )
+bleepsixBoardNetwork.prototype.projectop = function( msg )
+{
+
+  console.log("");
+  console.log(" emitting projectop");
+  console.log(msg);
+
+  this.socket.emit("projectop", { userId: this.userId, sessionId: this.sessionId, projectId: this.projectId, op : msg } );
+}
+
+bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
+{
+  console.log("bleepsixBoardNetwork.projectopResponse:");
+  console.log(msg);
+
+  if (msg.type == "op")
+  {
+    //console.log("op neutered ");
+
+    console.log("applying op");
+    g_board_controller.opCommand( msg.op );
+  }
+
+}
+
+
+
+bleepsixBoardNetwork.prototype.anonymousCreateResponse = function( data )
 {
   console.log("anonymousCreateResponse:");
   console.log(data);
 
-  if (!data) { console.log("bleepsixSchematicNetwork.anonymouseCreateResponse: ERROR: data NULL!"); return; }
+  if (!data) { console.log("bleepsixBoardNetwork.anonymouseCreateResponse: ERROR: data NULL!"); return; }
 
   if ( (data.type == "response") && 
        (data.status == "success") )
@@ -534,49 +561,24 @@ bleepsixSchematicNetwork.prototype.anonymousCreateResponse = function( data )
   }
   else
   {
-    console.log("bleepsixSchematicNetwork.anonymousCreateResponse: ERROR: got data:");
+    console.log("bleepsixBoardNetwork.anonymousCreateResponse: ERROR: got data:");
     console.log(data);
   }
 
 
 }
 
-bleepsixSchematicNetwork.prototype.projectop = function( msg )
-{
-
-  console.log(" emitting projectop");
-  console.log(msg);
-
-  this.socket.emit("projectop", { userId: this.userId, sessionId: this.sessionId, projectId: this.projectId, op : msg } );
-}
-
-bleepsixSchematicNetwork.prototype.projectopResponse = function( msg )
-{
-  console.log("bleepsixSchematicNetwork.projectopResponse:");
-  console.log(msg);
-
-  if (msg.type == "op")
-  {
-    //console.log("op neutered");
-
-    console.log("got op, applying");
-    g_schematic_controller.opCommand( msg.op );
-  }
-
-}
-
-
 // push a 'keyframe'
 //
 /*
-bleepsixSchematicNetwork.prototype.fullpush = function()
+bleepsixBoardNetwork.prototype.fullpush = function()
 {
   var container = { 
     userId : this.userId,
     sessionId: this.sessionId,
-    schematicId: this.schematicId,
+    boardId: this.boardId,
     type:"fullpush",
-    sch_json: g_schematic_controller.kicad_sch_json
+    sch_json: g_board_controller.kicad_sch_json
   };
 
   this.socket.emit( "schfullopush", container );
@@ -587,7 +589,7 @@ bleepsixSchematicNetwork.prototype.fullpush = function()
 /*
 // handle logout event
 //
-bleepsixSchematicNetwork.prototype.logout = function()
+bleepsixBoardNetwork.prototype.logout = function()
 {
   window.location.href = 'login';
 }
@@ -595,7 +597,7 @@ bleepsixSchematicNetwork.prototype.logout = function()
 
 // Failed authentication tracer message
 //
-bleepsixSchematicNetwork.prototype.meowResponse = function( data )
+bleepsixBoardNetwork.prototype.meowResponse = function( data )
 {
   console.log("meow (authentication) failure, got:");
   console.log(data);
@@ -614,7 +616,7 @@ bleepsixSchematicNetwork.prototype.meowResponse = function( data )
 // worked.  This tells us the session is authenticated 
 // and we can send update requests to the server
 //
-bleepsixSchematicNetwork.prototype.mewResponse = function( data )
+bleepsixBoardNetwork.prototype.mewResponse = function( data )
 {
   if (!data)
   {
@@ -630,16 +632,16 @@ bleepsixSchematicNetwork.prototype.mewResponse = function( data )
     console.log("mew response received");
     console.log("session authenticated, will send updates");
 
-    if ( typeof this.schematicId === 'undefined' )
+    if ( typeof this.boardId === 'undefined' )
     {
 
-      console.log("user logged in but no current schematic.  asking for new project");
+      console.log("user logged in but no current board.  asking for new project");
       this.socket.emit("newproject", { userId : this.userId, sessionId : this.sessionId } );
       return;
 
     }
 
-    console.log("using schematic id: " + this.schematicId);
+    console.log("using board id: " + this.boardId);
     this.initialized = true;
 
   }
@@ -651,13 +653,13 @@ bleepsixSchematicNetwork.prototype.mewResponse = function( data )
 }
 
 
-bleepsixSchematicNetwork.prototype.update = function( msg )
+bleepsixBoardNetwork.prototype.update = function( msg )
 {
   this.messageq.push( msg );
 
   if (!this.connected)
   {
-    console.log("bleepsixSchematicNetwork.update: not connected, returning");
+    console.log("bleepsixBoardNetwork.update: not connected, returning");
     return;
   }
 
@@ -669,15 +671,15 @@ bleepsixSchematicNetwork.prototype.update = function( msg )
 
 }
 
-bleepsixSchematicNetwork.prototype.load = function( schematicId )
+bleepsixBoardNetwork.prototype.load = function( boardId )
 {
   if (!this.connected)
   {
-    console.log("bleepsixSchematicNetwork.load: not connected, cannot load");
+    console.log("bleepsixBoardNetwork.load: not connected, cannot load");
     return;
   }
 
-  this.socket.emit( "schget", { userId: this.userId, sessionId : this.sessionid, schematicId : schematicId } );
+  this.socket.emit( "schget", { userId: this.userId, sessionId : this.sessionid, boardId : boardId } );
 }
 
 */
