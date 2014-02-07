@@ -137,6 +137,72 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     g_brdnetwork.projectop( msg );
   }
 
+  if ( (msg.action == "add") && ((msg.type == "footprint") || (msg.type == "footprintData")) )
+  {
+    console.log("\n\nbleepsixBoardController.opCommand add footprint ---> brd");
+
+    var ucomp = this.schematic.makeUnknownComponent();
+
+    var schop = { source: "brd", destination: "sch" };
+    schop.scope = msg.scope;
+    schop.action = msg.action;
+    schop.type = "componentData";
+    schop.data = { componentData: ucomp, x: 0, y: 0 };
+    schop.id = msg.id;
+
+    console.log("board opCommand, schop:");
+    console.log(schop);
+
+    this.op.opCommand( schop );
+
+    if ( g_brdnetwork && (msg.scope == "network") )
+    {
+      console.log("board opCommand, sending schop over the network");
+      g_brdnetwork.projectop( schop );
+    }
+
+  }
+
+  if ( (msg.action == "update") && (msg.type == "edit") )
+  {
+    console.log("bleepsixBoardController.opCommand: update edit not implemented");
+  }
+
+  if ( (msg.action == "delete") && (msg.type == "group"))
+  {
+    console.log("\n\nbleepsixBoardController.opCommand delete group ---> brd");
+
+    var schop = { source: "brd", destination: "sch" };
+    schop.scope = msg.scope;
+    schop.action = msg.action;
+    schop.type = "group";
+    
+    schop.id = [];
+    schop.data = { element : [] };
+
+    for ( var ind in msg.id )
+    {
+      schop.id.push( msg.id[ind] );
+      var clonedData = simplecopy( this.schematic.refLookup( msg.id[ind] ) );
+      schop.data.element.push( clonedData );
+    }
+
+
+    console.log("board opCommand, schop:");
+    console.log(schop);
+
+    this.op.opCommand( schop );
+
+    if ( g_brdnetwork && (msg.scope == "network") )
+    {
+      console.log("board opCommand, sending schop over the network");
+      g_brdnetwork.projectop( schop );
+    }
+
+  }
+
+  /*
+
   if (   (( msg.action == "add") ||
           ( msg.action == "delete"))
       && (( msg.type == "footprintData") |
@@ -165,6 +231,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     }
 
   }
+
+  */
 
 }
 

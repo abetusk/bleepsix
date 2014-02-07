@@ -522,8 +522,9 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
   {
     //console.log("op neutered ");
 
-    console.log("applying op");
-    g_board_controller.opCommand( msg.op );
+    console.log("applying op (directly to board op)");
+    //g_board_controller.opCommand( msg.op );
+    g_board_controller.op.opCommand( msg.op );
   }
 
 }

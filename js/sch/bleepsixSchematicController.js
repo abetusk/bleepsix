@@ -169,6 +169,106 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     g_schnetwork.projectop( msg );
   }
 
+  if ( (msg.action == "add") && (msg.type == "componentData") )
+  {
+    console.log("add componentData --> board");
+
+    var comp_ref = this.schematic.refLookup( msg.id );
+    var module = 
+      this.board.makeUnknownModule( 1000, 
+                                    comp_ref.id, 
+                                    [ comp_ref.text[0].id, comp_ref.text[1].id ] );
+    module.text[0].text = comp_ref.text[0].text;
+    module.text[0].visible = comp_ref.text[0].visible;
+
+    module.text[1].text = comp_ref.text[1].text;
+    module.text[1].visible = comp_ref.text[1].visible;
+
+    var brdop = { source: "sch", destination: "brd" };
+    brdop.scope = msg.scope;
+    brdop.action = msg.action;
+    brdop.type = "footprintData";
+    brdop.data = { footprintData: module , x: 0, y: 0 };
+    brdop.id = comp_ref.id;
+    brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
+    this.op.opCommand( brdop );
+
+    if ( g_schnetwork && (msg.scope == "network") )
+    {
+
+      //DEBUG
+      console.log("  sending BRDOP over network");
+
+      g_schnetwork.projectop( brdop );
+    }
+
+  }
+
+  else if ((msg.action == "update") && (msg.type == "edit"))
+  {
+    console.log("update edit NOT IMPLEMENTED YET");
+    /*
+    var comp_ref = this.schematic.refLookup( msg.id );
+    var module = 
+      this.board.makeUnknownModule( 1000, 
+                                    comp_ref.id, 
+                                    [ comp_ref.text[0].id, comp_ref.text[1].id ] );
+    module.text[0].text = comp_ref.text[0].text;
+    module.text[0].visible = comp_ref.text[0].visible;
+
+    module.text[1].text = comp_ref.text[1].text;
+    module.text[1].visible = comp_ref.text[1].visible;
+
+    var brdop = { source: "sch", destination: "brd" };
+    brdop.scope = msg.scope;
+    brdop.action = msg.action;
+    brdop.type = "footprintData";
+    brdop.data = { footprintData: module , x: 0, y: 0 };
+    brdop.id = comp_ref.id;
+    brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
+    this.op.opCommand( brdop );
+    */
+
+  }
+
+  else if ((msg.action == "delete") && (msg.type == "group"))
+  {
+
+    console.log(" delete group --> board");
+    console.log(msg);
+
+    var brdop = { source: "sch", destination: "brd" };
+    brdop.scope = msg.scope;
+    brdop.action = msg.action;
+    brdop.type = "group";
+    brdop.id = [];
+    brdop.data = { element : [] }
+
+    for (var ind in msg.id)
+    {
+      brdop.id.push( msg.id[ind] );
+      var clonedData = simplecopy( this.board.refLookup( msg.id[ind] ) );
+      brdop.data.element.push( clonedData );
+    }
+
+    console.log("  -----> sending");
+    console.log(brdop);
+
+    this.op.opCommand( brdop );
+
+    if ( g_schnetwork && (msg.scope == "network") )
+    {
+
+      //DEBUG
+      console.log("  sending BRDOP over network");
+
+      g_schnetwork.projectop( brdop );
+    }
+
+
+  }
+
+  /*
   if (   ((msg.action == "add") ||
           (msg.action == "delete"))
       && ((msg.type == "componentData") ||
@@ -214,8 +314,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     console.log( this.board.refLookup( comp_ref.id ) );
     console.log( this.board.refLookup( module.id ) );
 
-
   }
+  */
 
 }
 

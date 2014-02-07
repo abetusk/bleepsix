@@ -559,8 +559,8 @@ bleepsixSchematicNetwork.prototype.projectopResponse = function( msg )
   {
     //console.log("op neutered");
 
-    console.log("got op, applying");
-    g_schematic_controller.opCommand( msg.op );
+    console.log("got op, applying (directly to schematic op)");
+    g_schematic_controller.op.opCommand( msg.op );
   }
 
 }
