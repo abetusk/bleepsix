@@ -32,6 +32,15 @@ if (typeof module !== 'undefined')
 {
   //headless = true;
   bleepsixBoardHeadless = true;
+
+  var numeric = require("../lib/numeric.js");
+  //var $ = require("../lib/jquery.js");
+  var bleepsixAux = require("../lib/aux.js");
+
+  var guid = bleepsixAux.guid;
+  var s4 = bleepsixAux.s4;
+  var simplecopy = bleepsixAux.simplecopy;
+
 }
 
 function bleepsixBoard()
@@ -293,7 +302,8 @@ bleepsixBoard.prototype.remove = function( id_ref )
         }
       }
 
-      g_painter.dirty_flag = true;
+      if (!bleepsixBoardHeadless)
+        g_painter.dirty_flag = true;
       return;
 
     }
@@ -1269,8 +1279,9 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
 
   //var id = this._createId();
 
-  var footprint_entry = {}
-  $.extend( true, footprint_entry, json_module );
+  //var footprint_entry = {}
+  //$.extend( true, footprint_entry, json_module );
+  footprint_entry = simplecopy( json_module );
 
   footprint_entry["id"] = id;
   //footprint_entry["angle"] = angle;
@@ -1310,7 +1321,8 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
 
   console.log( this.kicad_brd_json );
 
-  g_painter.dirty_flag = true;
+  if (!bleepsixBoardHeadless)
+    g_painter.dirty_flag = true;
 
 }
 
@@ -3026,6 +3038,9 @@ bleepsixBoard.prototype.load_board = function( json )
     var footprint = brd[vind];
 
     var name = this.toCacheName( footprint["name"] );
+
+    if (bleepsixBoardHeadless)
+      continue;
 
     if (name in g_footprint_cache)
     {

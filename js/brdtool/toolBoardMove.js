@@ -99,8 +99,9 @@ toolBoardMove.prototype.addElement = function( id_ref_array )
   //this.selectedElement = id_array;
   this.origElements = id_ref_array;
 
-  this.selectedElement = {};
-  $.extend( true, this.selectedElement, id_ref_array);
+  //this.selectedElement = {};
+  //$.extend( true, this.selectedElement, id_ref_array);
+  this.selectedElement = simplecopy( id_ref_array );
 
   for (var ind in this.origElements)
   {
@@ -120,8 +121,10 @@ toolBoardMove.prototype.addElement = function( id_ref_array )
 
   this.snap_world_xy = g_snapgrid.snapGrid( g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y ) );
 
-  $.extend(true, this.orig_element_state, id_ref_array );
-  $.extend(true, this.base_element_state, id_ref_array );
+  //$.extend(true, this.orig_element_state, id_ref_array );
+  //$.extend(true, this.base_element_state, id_ref_array );
+  this.orig_element_state = simplecopy( id_ref_array );
+  this.base_element_state = simplecopy( id_ref_array );
 
   g_painter.dirty_flag = true;
 }
@@ -336,7 +339,8 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
     // Copy original information back to do relative move
     //
-    $.extend(true, this.selectedElement, this.base_element_state);
+    //$.extend(true, this.selectedElement, this.base_element_state);
+    this.selectedElement = simplecopy( this.base_element_state );
 
 
     for (var ind in this.selectedElement)
@@ -404,8 +408,10 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     for (var ind in this.selectedElement)
     {
       op.id.push( this.selectedElement[ind].id );
-      var clonedData = {};
-      $.extend( true, clonedData, this.selectedElement[ind].ref );
+
+      //var clonedData = {};
+      //$.extend( true, clonedData, this.selectedElement[ind].ref );
+      var clonedData = simplecopy( this.selectedElement[ind].ref );
       op.data.element.push( clonedData );
 
       //g_board_controller.board.remove( this.selectedElement[ind] );
@@ -435,8 +441,9 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     com = g_snapgrid.snapGrid(com);
 
     var ccw = ( (ch == 'R') ? false : true );
-    g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
-    $.extend(true, this.selectedElement, this.base_element_state);
+    //g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
+    //$.extend(true, this.selectedElement, this.base_element_state);
+    this.selectedElement = simplecopy( this.base_element_state );
 
 
     var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
@@ -513,8 +520,10 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         op.id = [ ele.id ];
 
         //op.data = { element : [ ele.ref ] };
-        var clonedCZone = {};
-        $.extend( true, clonedCZone, ele.ref );
+        //var clonedCZone = {};
+        //$.extend( true, clonedCZone, ele.ref );
+        var clonedCZone = simplecopy( ele.ref );
+
         op.data = { element : [ clonedCZone ] };
 
         g_board_controller.opCommand( op );

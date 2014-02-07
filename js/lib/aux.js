@@ -175,6 +175,11 @@ function guid() {
            s4() + '-' + s4() + s4() + s4();
 }
 
+function simplecopy( src )
+{
+  return JSON.parse( JSON.stringify(src) );
+}
+
 function imageCache()
 {
   this.image = {};
@@ -240,4 +245,14 @@ imageCache.prototype.draw = function( name, x, y, w, h )
   g_painter.drawImage( img, x, y, w, h );
 
 }
+
+if (typeof module !== 'undefined')
+{
+  module.exports = {
+    s4 : s4,
+    guid : guid,
+    simplecopy : simplecopy
+  };
+}
+
 

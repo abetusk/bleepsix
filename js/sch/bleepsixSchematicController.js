@@ -29,6 +29,12 @@ if ( typeof module !== 'undefined')
   var bleepsixSchematic = require("./bleepsixSchematicNode.js");
   var bleepsixBoard = require("../brd/bleepsixBoardNode.js");
   var bleepsixSchBrdOp = require("../lib/bleepsixSchBrdOp.js");
+  var bleepsixAux = require("../lib/aux.js");
+
+  var guid = bleepsixAux.guid;
+  var s4 = bleepsixAux.s4;
+
+  var g_schnetwork = null;
 }
 
 function bleepsixSchematicController() {
@@ -141,9 +147,15 @@ function bleepsixSchematicController() {
 
 bleepsixSchematicController.prototype.opCommand = function ( msg )
 {
+  // DEBUG
+  console.log("bleepsixSchematicController.opCommand msg:");
+  console.log(msg);
+
   this.op.opCommand( msg );
   this.schematicUpdate = true;
-  g_painter.dirty_flag = true;
+
+  if (!schControllerHeadless)
+    g_painter.dirty_flag = true;
 
   if (!("scope" in msg))
     msg.scope = "network";
@@ -160,7 +172,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   if (   ((msg.action == "add") ||
           (msg.action == "delete"))
       && ((msg.type == "componentData") ||
-          (msg.type == "component")) )
+          (msg.type == "component") ||
+          (msg.type == "group")) )
   {
     console.log("ref_lookup:");
     console.log( this.schematic.ref_lookup );

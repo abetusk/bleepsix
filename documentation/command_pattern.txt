@@ -1,0 +1,90 @@
+The command pattern is a system to try and encapsulate all commands to
+go through a central authority on the 'client' side (bleepsixSchematic and 
+bleepsixBoard).
+
+Each of the bleepsixSchematicController and bleepsixBoardController 
+have a bleepsixSchBrdOp object which was given a reference to
+the controllers board and schematic.
+
+Both types of controllers encapsulate the 'opCommand' function
+so that the op message goes through them before being passed off
+to the bleepsixSchBrdOp object.  This is to ensure that any
+sister components or footprints that need to be created
+will be done.
+
+For example, if the user places a resistor in the schematic capture,
+a corresponding 'unknown' footprint will be created in the pcb
+capture (for later association).  Whatever schematic tool that's
+in charge of the component will issue an 'op' command to create the
+component and call the global 'g_schematic_controller.opCommand'
+command.  The 'g_schematic_controller.opCommand' will pass
+on the message to its copy of the bleepsixSchBrdOp, stuffing in
+a default 'network' scope if none exists.
+
+Now, since the op command was a component creation, it will 
+generate a *new* op command, stuffing in some values for an unknown
+part and filling in the appropriate text fields.  It will
+then pass that off to the bleepsixSchBrd object to have it update
+it's copy of the board, and send it over the network to update
+the server copy and send to any other clients connected.
+
+The point being that the controller handles the generation of
+'implied' operations so that tools and the like don't need
+to worry about updating their dual pcb/schematic structures.
+
+
+The basic structure of a command message is:
+
+  source : "brd" | "sch"
+  destination : "brd" | "sch"
+  action : "add" | "update" | "delete"
+  scope : "network" | "local"
+  type : 
+          "edit" |
+          "group" | "moveGroup" | 
+
+          "componentData" | 
+          "componentFlip" | "componentRotate180" | "componentRotate90" |
+          "noconn" | "connection" | "wireline" |
+
+          "czone" | "fillczone" | "drawsegment" | 
+          "footprintData" | 
+          "mergenet" | "net" | "rotate" | "rotate90" | 
+          "track" | "wire" | "via"
+
+  id : <id> | <id array>
+  data : <data specific to command>
+
+source and destination stores where the message 'originated' from,
+either from the schematic client or from the pcb client.  'source'
+is mostly unneeded but destination is used to update the appropriate
+data structure.
+
+'action' gives what type of action is occuring (add, update, delete).
+
+'scope' gives an indication of whether the op command should be 
+propagated over the network or whether it should only update it's
+local copy, without pushing the update.  'network' to push, 'local'
+to keep local.
+
+'type' is the specific operation being done.
+
+'id' exists dependant on 'type' and holds either the id or array of
+ids that are operated on.
+
+'data' is data specific to the operation being performed.  Existence is
+ also dependant on 'type'.
+
+
+
+
+It's still a little scattered, so we might need some refactoring.
+id is optional depending on the command.  The op command will
+stuff the id with relevant field if the component/footprint was
+created.
+
+The op commands are sent internally to update the local data structure,
+but they are also sent over the network to be stored on the server,
+update the servers local copy of the schematic which is then saved
+in a snapshot.  The server also distrubutes the same command to other
+connected clients

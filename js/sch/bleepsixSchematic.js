@@ -30,6 +30,15 @@ var bleepsixSchematicHeadless = false;
 if (typeof module !== 'undefined')
 {
   bleepsixSchematicHeadless = true;
+
+  var numeric = require("../lib/numeric.js");
+  //var $ = require("../lib/jquery.js");
+  var bleepsixAux = require("../lib/aux.js");
+
+  var guid = bleepsixAux.guid;
+  var s4 = bleepsixAux.s4;
+  var simplecopy = bleepsixAux.simplecopy;
+
 }
 
 
@@ -506,7 +515,8 @@ bleepsixSchematic.prototype.remove = function( id_ref )
         }
       }
 
-      g_painter.dirty_flag = true;
+      if (!bleepsixSchematicHeadless)
+        g_painter.dirty_flag = true;
       return;
 
     }
@@ -1085,8 +1095,10 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
   }
 
   //json_component = g_component_cache[comp_name];
-  json_component = {};
-  $.extend(true, json_component, g_component_cache[comp_name] );
+  //json_component = {};
+  //$.extend(true, json_component, g_component_cache[comp_name] );
+  json_component = simplecopy( g_component_cache[comp_name] );
+
   json_component.text[0].reference = json_component.text[0].reference + "?";
 
   this.addComponentData( json_component, x, y, transform, id );
@@ -1158,12 +1170,15 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   //console.log("adding component");
   //console.log(json_component);
 
-  if ("bounding_box" in comp_entry)
+  //if ("bounding_box" in comp_entry)
+  if (!bleepsixSchematicHeadless)
     this.updateComponentBoundingBox( comp_entry );
 
   this.kicad_sch_json["element"].push( comp_entry );
 
-  g_painter.dirty_flag = true;
+
+  if (!bleepsixSchematicHeadless)
+    g_painter.dirty_flag = true;
 
   return id;
 }
@@ -2890,6 +2905,9 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
   }
   else
   {
+    if (!("unknown" in g_component_cache))
+      g_component_cache["unknown"] = this.makeUnknownComponent();
+
     bbox = g_component_cache["unknown"]["bounding_box"];
   }
 
@@ -2935,7 +2953,8 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
     for (ind in sch)
     {
 
-      if (!("bounding_box" in sch[ind]))
+      //if (!("bounding_box" in sch[ind]))
+      if (bleepsixSchematicHeadless)
         continue;
 
       if      ( sch[ind]["type"] == "component")  { this.updateComponentBoundingBox( sch[ind] ); }
@@ -2958,7 +2977,8 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
   {
     var t = ele["type"];
 
-    if (!("bounding_box" in ele))
+    //if (!("bounding_box" in ele))
+    if (bleepsixSchematicHeadless)
       return;
 
 

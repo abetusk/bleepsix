@@ -28,6 +28,12 @@ if (typeof module !== 'undefined')
   brdControllerHeadless = true;
   var bleepsixSchematic = require("../sch/bleepsixSchematicNode.js");
   var bleepsixBoard = require("./bleepsixBoardNode.js");
+
+  var bleepsixAux = require("../lib/aux.js");
+
+  var guid = bleepsixAux.guid;
+  var s4 = bleepsixAux.s4;
+
 }
 
 
