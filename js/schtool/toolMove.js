@@ -227,7 +227,7 @@ toolMove.prototype.drawOverlay = function()
     var bbox = ref["bounding_box"];
 
     var x = bbox[0][0];
-    var y = bbox[0][0];
+    var y = bbox[0][1];
     var w = bbox[1][0] - bbox[0][0];
     var h = bbox[1][1] - bbox[0][1];
 

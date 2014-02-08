@@ -77,6 +77,8 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
 
   this.cursorSize = 6;
   this.cursorWidth = 1;
+
+  this.highlightId = undefined;
 }
 
 toolComponentPlace.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
@@ -87,14 +89,29 @@ toolComponentPlace.prototype.drawOverlay = function()
 {
   var s = this.cursorSize / 2;
 
+  var sch = g_schematic_controller.schematic;
 
-  g_schematic_controller.schematic.drawComponent( this.cloned_component,
-                                        parseFloat(this.world_xy["x"]), 
-                                        parseFloat(this.world_xy["y"]), 
-                                        this.transform, true );
+
+  sch.drawComponent( this.cloned_component,
+                     parseFloat(this.world_xy["x"]), 
+                     parseFloat(this.world_xy["y"]), 
+                     this.transform, true );
 
 
   g_schematic_controller.display_text = "x: " + this.world_xy.x + ", y: " + this.world_xy.y;
+
+  if (this.highlightId)
+  {
+    var ref = sch.refLookup( this.highlightId );
+    var bbox = ref.bounding_box;
+
+    var x = bbox[0][0];
+    var y = bbox[0][1];
+    var w = bbox[1][0] - x;
+    var h = bbox[1][1] - y;
+
+    g_painter.drawRectangle( x, y, w, h, 10, "rgb(128,128,128)", true, "rgba(0,0,0,0.25)" );
+  }
 
 }
 
@@ -107,6 +124,22 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
     console.log("toolComponentPlace: placing component: " + this.component_name);
 
     //g_schematic_controller.schematic.addComponent( this.component_name, this.world_xy["x"], this.world_xy["y"], this.transform );
+
+    if ( this.highlightId )
+    {
+      //DEBUG
+      var ref = g_schematic_controller.schematic.refLookup( this.highlightId );
+      g_schematic_controller.schematic.updateComponentData( this.cloned_component, this.highlightId );
+
+    g_schematic_controller.tool = new toolNav();
+    g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
+    g_schematic_controller.guiToolbox.defaultSelect();
+
+    g_painter.dirty_flag = true;
+
+      console.log("TESTING");
+      return;
+    }
 
 
     var op = { source : "sch", destination: "sch" };
@@ -138,6 +171,30 @@ toolComponentPlace.prototype.mouseUp = function( button, x, y )
   this.mouse_drag_button = false;
 }
 
+
+toolComponentPlace.prototype._componentWithinReplaceDistance = function( ref )
+{
+  if (ref.name == "unknown")
+  {
+    console.log("hovering over unknown");
+    return true;
+  }
+
+  var dist = 50;
+  var x = ref.x;
+  var y = ref.y;
+
+
+  var dx = Math.abs( x - this.world_xy.x );
+  var dy = Math.abs( y - this.world_xy.y );
+
+  if ((dx < dist) && (dy < dist))
+    return true;
+
+  return false;
+
+}
+
 toolComponentPlace.prototype.mouseMove = function( x, y )
 {
 
@@ -150,10 +207,17 @@ toolComponentPlace.prototype.mouseMove = function( x, y )
   if (!this.mouse_drag_button)
   {
     this.world_xy = g_painter.devToWorld( this.mouse_x, this.mouse_y );
-
     this.world_xy = g_snapgrid.snapGrid( this.world_xy );
 
-   g_painter.dirty_flag = true;
+    var id_ref = g_schematic_controller.schematic.pick( this.world_xy.x, this.world_xy.y );
+    if (id_ref && (id_ref.ref.type == "component"))
+    {
+      this.highlightId = ( this._componentWithinReplaceDistance( id_ref.ref ) ? id_ref.id : null );
+    }
+    else 
+      this.highlightId = null;
+
+    g_painter.dirty_flag = true;
 
   }
 

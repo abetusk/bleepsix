@@ -1105,6 +1105,57 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
 
 }
 
+bleepsixSchematic.prototype.updateComponentData = function( json_component, id )
+{
+  var ref = this.refLookup(id);
+  if (!ref || (ref.type != "component"))
+  {
+    console.log("ERROR: updateComponentData failed to find component with id: " + id);
+    return null;
+  }
+
+  //var t0xy = [ ref.text[0].x, ref.text[0].y ];
+  //var t1xy = [ ref.text[1].x, ref.text[1].y ];
+  var old_name = ref.name;
+  var old_ref_name = ref.reference;
+
+  var txt0 = json_component.text[0];
+  var txt1 = json_component.text[1];
+  var t0xy = [ parseFloat(ref.x) + parseFloat(txt0.x), 
+               parseFloat(ref.y) + parseFloat(txt0.y) ];
+  var t1xy = [ parseFloat(ref.x) + parseFloat(txt1.x), 
+               parseFloat(ref.y) + parseFloat(txt1.y) ];
+
+  console.log(t0xy);
+  console.log(t1xy);
+
+  ref["reference"] = json_component["reference"];
+  ref["name"] = json_component["name"];
+
+  for ( var key in json_component["text"][0] )
+  {
+    ref["text"][0][key] = json_component["text"][0][key];
+  }
+  ref["text"][0]["text"] = json_component.text[0].reference ;
+  ref["text"][0]["x"] = t0xy[0];
+  ref["text"][0]["y"] = t0xy[1];
+
+  for ( var key in json_component["text"][1] )
+  {
+    ref["text"][1][key] = json_component["text"][1][key];
+  }
+
+  if (typeof json_component.text[1].text === 'undefined')
+    ref["text"][1]["text"] = json_component["name"] ;
+  else
+    ref["text"][1]["text"] = json_component.text[1].text;
+  ref["text"][1]["x"] = t1xy[0];
+  ref["text"][1]["y"] = t1xy[1];
+
+  ref["transform"] = [[1,0],[0,-1]];
+
+
+}
 
 bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, transform, id, text_ids )
 {
@@ -2418,6 +2469,12 @@ bleepsixSchematic.prototype.drawElement = function( ele )
   else if (type == "entrybusbus"){ this.drawSchematicLine( ele ); }
   else                           { this.drawSchematicLine( ele ); }
 
+  /*
+  if ( ("highlightFlag" in ele) && ele.highlightFlag )
+  {
+    this.drawBoundingBox( ele );
+  }
+  */
 
 }
 
@@ -2427,7 +2484,7 @@ bleepsixSchematic.prototype.drawSchematic = function()
   this.updateBoundingBox();
 
   var sch = this.kicad_sch_json["element"];
-  var comp_ind = [];
+  //var comp_ind = [];
 
   for (var ind in sch)
   {
@@ -2463,8 +2520,10 @@ bleepsixSchematic.prototype.drawSchematic = function()
   }
 
   // draw components last
+  /*
   for (var ind in comp_ind)
     this.drawSchematicComponent( sch[ comp_ind[ind] ] );
+    */
 
 }
 

@@ -1261,6 +1261,71 @@ bleepsixBoard.prototype.addVia = function(x, y, width, layer0, layer1, netcode, 
   return id;
 }
 
+bleepsixBoard.prototype.updateFootprintData = function( json_module,  id, text_ids, pad_ids )
+{
+  text_ids = ((typeof text_ids !== 'undefined') ? text_ids : [ this._createId(id), this._createId(id) ] );
+  var use_pad_id = ((typeof pad_ids !== 'undefined') ? true : false );
+
+  var pos ;
+
+  for (pos=0; pos < this.kicad_brd_json.element.length; pos++)
+  {
+    if ( id == this.kicad_brd_json.element[pos].id )
+      break;
+  }
+
+  if (pos == this.kicad_brd_json.element.length)
+  {
+    console.log("ERROR: bleepsixBoard.updateFootprintData: could not find id " + id );
+  }
+
+  var ref = this.refLookup(id);
+  var old_ref = simplecopy( ref );
+
+  this.refDelete( ref.id );
+
+  this.kicad_brd_json.element[pos] = simplecopy( json_module );
+  ref = this.kicad_brd_json.element[pos];
+
+
+  ref["id"] = id;
+  ref["x"] = old_ref.x;
+  ref["y"] = old_ref.y;
+  ref["type"] = "module";
+
+
+  ref.text[0].id = text_ids[0];
+  ref.text[1].id = text_ids[1];
+
+  if ("pad" in ref)
+    for (var pad_ind in ref["pad"])
+    {
+      if (use_pad_id)
+      {
+        ref.pad[pad_ind].id = pad_ids[pad_ind];
+      }
+      else 
+      {
+        ref.pad[pad_ind].id = this._createId(id);
+      }
+    }
+
+  var angle = 0;
+  var R = this._R( angle );
+  var bbox = 
+    numeric.transpose( 
+      numeric.dot( R, numeric.transpose( ref["bounding_box"]) ) );
+  bbox[0][0] += old_ref.x;
+  bbox[0][1] += old_ref.y;
+
+  bbox[1][0] += old_ref.x;
+  bbox[1][1] += old_ref.y;
+  ref["bounding_box"] = bbox;
+
+
+
+}
+
 bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text_ids, pad_ids )
 {
   id = ( (typeof id !== 'undefined') ? id : this._createId() );

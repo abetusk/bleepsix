@@ -28,6 +28,42 @@ if (typeof module !== 'undefined')
   module.exports = bleepsixBoard;
 }
 
+// Delete reference id and all of it's children
+bleepsixBoard.prototype.refDelete = function( id )
+{
+  var ref = this.refLookup(id);
+
+  if (!ref)
+  {
+    console.log("bleepsixBoard.refDelete: ERROR: could not find id: " + id);
+    return;
+  }
+
+  if (ref.id in this.ref_lookup)
+    delete this.ref_lookup[ref.id];
+
+  if ("text" in ref)
+  {
+    for (var ind in ref.text)
+    {
+      if ("id" in ref.text[ind])
+        if (ref.text[ind].id in this.ref_lookup)
+          delete this.ref_lookup[ ref.text[ind].id ];
+    }
+  }
+
+  if ("pad" in ref)
+  {
+    for (var ind in ref.pad)
+    {
+      if ("id" in ref.pad[ind])
+        if (ref.pad[ind].id in this.ref_lookup)
+          delete this.ref_lookup[ ref.pad[ind].id ] ;
+    }
+  }
+
+
+}
 
 bleepsixBoard.prototype.refUpdate = function( oldId, newId )
 {

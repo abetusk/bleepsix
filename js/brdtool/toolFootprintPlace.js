@@ -65,6 +65,8 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
 
   this.cursorSize = 6;
   this.cursorWidth = 1;
+
+  this.highlightId = null;
 }
 
 toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
@@ -82,6 +84,17 @@ toolFootprintPlace.prototype.drawOverlay = function()
                                     0, true );
                                     //this.angle, true );
 
+  if (this.highlightId)
+  {
+    var ref = g_board_controller.board.refLookup( this.highlightId );
+    var bbox = ref.bounding_box;
+    var x = bbox[0][0];
+    var y = bbox[0][1];
+    var w = bbox[1][0] - x;
+    var h = bbox[1][1] - y;
+
+    g_painter.drawRectangle( x, y, w, h, 100, "rgb(128,128,128)", true, "rgba(255,255,255,0.25)");
+  }
 }
 
 toolFootprintPlace.prototype.mouseDown = function( button, x, y )
@@ -89,6 +102,18 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
   if (button == 1)
   {
+
+    if (this.highlightId)
+    {
+      var ref = g_board_controller.board.refLookup( this.highlightId );
+      g_board_controller.board.updateFootprintData( this.cloned_footprint, this.highlightId );
+
+      g_board_controller.tool = new toolBoardNav(x, y);
+      g_painter.dirty_flag = true;
+
+      console.log("TESTING");
+      return;
+    }
 
     console.log("toolFootprintPlace: placing footprint: " + this.footprint_name);
 
@@ -125,6 +150,28 @@ toolFootprintPlace.prototype.mouseUp = function( button, x, y )
   this.mouse_drag_button = false;
 }
 
+toolFootprintPlace.prototype._moduleWithinReplaceDistance = function( ref )
+{
+  if ( ref.name == "unknown" )
+  {
+    return true;
+  }
+
+  var dist = 500;
+  var x = ref.x;
+  var y = ref.y;
+
+  var dx = Math.abs( x - this.world_xy.x );
+  var dy = Math.abs( y - this.world_xy.y );
+
+  if ((dx < dist) && (dy < dist))
+    return true;
+
+  return false;
+
+}
+
+
 toolFootprintPlace.prototype.mouseMove = function( x, y )
 {
 
@@ -137,8 +184,15 @@ toolFootprintPlace.prototype.mouseMove = function( x, y )
   if (!this.mouse_drag_button)
   {
     this.world_xy = g_painter.devToWorld( this.mouse_x, this.mouse_y );
-
     this.world_xy = g_snapgrid.snapGrid( this.world_xy );
+
+    var id_ref = g_board_controller.board.pick( this.world_xy.x, this.world_xy.y );
+    if (id_ref && (id_ref.ref.type == "module"))
+    {
+      this.highlightId = ( this._moduleWithinReplaceDistance( id_ref.ref ) ? id_ref.id : null );
+    }
+    else
+      this.highlightId = null;
 
    g_painter.dirty_flag = true;
 
