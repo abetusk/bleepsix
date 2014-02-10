@@ -1542,6 +1542,10 @@ bleepsixSchematic.prototype.drawComponentText = function( art_entry, x, y, trans
   g_painter.drawText( art_entry["text"], x + u[0], y + u[1], color, size, 0.0, "C", "C");
 }
 
+// returns 2x2 array where first vector is endpoint, second is ssource of pin.
+// For example:
+//  [ [endpoint_x, endpoint_y] , [ source_x, source_y ] ]
+// 
 bleepsixSchematic.prototype._findPinEndpoints = function( pin_entry, x, y, transform  )
 {
   var T = transform;

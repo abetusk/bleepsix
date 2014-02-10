@@ -293,6 +293,9 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //console.log("LOADING (schsnapshot)");
     //g_schnetwork.schsnapshot();
 
+    //DEBUG
+    g_schematic_controller.schematic.constructNet();
+
   }
   else if (ch == 'U')
   {
