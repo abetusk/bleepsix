@@ -83,6 +83,8 @@ function bleepsixSchematic()
   this.id = 1;
 
   this.debug = false;
+
+  this.local_component_cache = {};
 }
 
 
@@ -103,7 +105,15 @@ bleepsixSchematic.prototype.clear = function()
   this.boundingBox  = {};
   this.position     = {};
   this.orientation  = {};
+
+  this.local_component_cache = {};
 }
+
+bleepsixSchematic.prototype.setLocalComponentCache = function( component_cache )
+{
+  this.local_component_cache = component_cache;
+}
+
 
 bleepsixSchematic.prototype._createId = function( parent_id )
 {

@@ -24,6 +24,7 @@
     <script src='js/core/bleepsixRender.js'></script>
 
     <script src='js/sch/bleepsixSchematic.js'></script>
+    <script src='js/sch/bleepsixSchematic_net.js'></script>
     <script src='js/sch/bleepsixSchematic_event.js'></script>
 
     <script src='js/lib/bleepsixSchBrdOp.js'></script>
@@ -295,6 +296,10 @@
 
         g_controller = g_schematic_controller;
 
+
+        // EXPERIMENTAL
+        //g_schematic_controller.schematic.local_component_cache  = g_component_cache;
+        g_schematic_controller.schematic.setLocalComponentCache( g_component_cache );
 
 
         // setup image cache and preload some generic items

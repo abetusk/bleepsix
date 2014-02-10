@@ -29,9 +29,15 @@ By Rama Hoetzlein and Abram Connelly"
     trying to reload from the schematic portion results in a 502...something
     went wrong in the script.
 
-  BUG: server is not managing sessions properly.  For anything other than
+* BUG: server is not managing sessions properly.  For anything other than
     a fresh server, pushes don't happen consistently.
+    FIXED: it's just fixed.
 
+  BUG: server needs to keep session state in the database so that if the
+    server goes down it will be able to push to connected clients.  Maybe
+    this is already or easily handled, but need to confirm.
+
+  BUG: server can't handle component edits (crashes).
 
 == BOTH
 
@@ -717,3 +723,10 @@ keycodes:
 
 http://jsbin.com/uyorip/10/quiet#k_8
 http://stackoverflow.com/questions/5603195/full-list-of-javascript-keycodes
+
+
+---
+
+line line intersections:
+http://en.wikipedia.org/wiki/Bentley%E2%80%93Ottmann_algorithm
+https://github.com/tokumine/sweepline/blob/master/lib/sweepline/point.js
