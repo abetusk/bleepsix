@@ -86,15 +86,38 @@ function guiToolbox( name )
   this.dropConn = u;
   this.addChild( u );
 
+  cur_y += w.height;
 
-  this.dropConn.selected = false;
-  this.dropWire.selected = false;
+
+  //var xx = this;
+  var lab = new guiDropIcon( this.name + ":label", this.iconWidth, this.iconWidth );
+  /*
+  lab.addIcon( this.name +":label", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name + ":heirlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name + ":globlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  */
+  lab.addIcon( this.name +":label", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name + ":heirlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name + ":globlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+
+  lab.move(0, cur_y);
+
+  this.dropLabel = lab;
+  this.addChild( lab );
+
+  cur_y += lab.height;
+
+
   this.iconNav.selected = true;
+  this.dropWire.selected = false;
+  this.dropLabel.selected = false;
+  this.dropConn.selected = false;
 
   //this.move(20,30);
   //this.move(40,100);
 
 }
+guiToolbox.inherits ( guiRegion );
 
 function _draw_nav_icon()
 {
@@ -198,13 +221,33 @@ function _draw_conn_tab_icon()
   g_painter.drawBarePolygon( path, 0, 0, color );
 }
 
-guiToolbox.inherits ( guiRegion );
+
+
+guiToolbox.prototype.debug_print = function()
+{
+  console.log("debug");
+}
+
+guiToolbox.prototype._debug_print = function( x )
+{
+  console.log(x);
+}
+
+guiToolbox.prototype._draw_label_icon = function()
+{
+  var mx = this.iconWidth/2, my = this.iconWidth/2;
+  var h = this.iconWidth/1.2;
+  g_painter.drawTextSimpleFont( "L", mx, my, "rgba(0,0,0,0.9)", h, "Calibri");
+
+}
+
 
 guiToolbox.prototype.defaultSelect = function()
 {
-  this.dropConn.selected = false;
-  this.dropWire.selected = false;
   this.iconNav.selected = true;
+  this.dropWire.selected = false;
+  this.dropConn.selected = false;
+  this.dropLabel.selected = false;
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
@@ -212,9 +255,10 @@ guiToolbox.prototype.defaultSelect = function()
 
 guiToolbox.prototype.wireSelect = function()
 {
-  this.dropConn.selected = false;
-  this.dropWire.selected = true;
   this.iconNav.selected = false;
+  this.dropWire.selected = true;
+  this.dropConn.selected = false;
+  this.dropLabel.selected = false;
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
@@ -284,6 +328,11 @@ guiToolbox.prototype.hitTest = function(x, y)
   return null;
 }
 
+guiToolbox.prototype._foo = function()
+{
+  console.log("foo");
+}
+
 guiToolbox.prototype._handleWireEvent = function(ev)
 {
 
@@ -300,6 +349,7 @@ guiToolbox.prototype._handleWireEvent = function(ev)
 
     this.dropConn.selected = false;
     this.iconNav.selected = false;
+    this.dropLabel.selected = false;
 
 
     g_painter.dirty_flag = true;
@@ -327,6 +377,7 @@ guiToolbox.prototype._handleConnEvent = function(ev)
 
     this.dropWire.selected = false;
     this.iconNav.selected = false;
+    this.dropLabel.selected = false;
 
     g_painter.dirty_flag = true;
   }
@@ -339,9 +390,28 @@ guiToolbox.prototype._handleConnEvent = function(ev)
 
     this.dropWire.selected = false;
     this.iconNav.selected = false;
+    this.dropLabel.selected = false;
 
     g_painter.dirty_flag = true;
 
+  }
+
+}
+
+guiToolbox.prototype._handleLabelEvent = function(ev)
+{
+  if (ev.owner == this.name + ":label")
+  {
+    console.log("  handing over to toolConn");
+    g_schematic_controller.tool = new toolLabel(0, 0, "label");
+
+    this.dropLabel.selected = true;
+
+    this.dropConn.selected = false;
+    this.dropWire.selected = false;
+    this.iconNav.selected = false;
+
+    g_painter.dirty_flag = true;
   }
 
 }
@@ -363,6 +433,7 @@ guiToolbox.prototype._eventMouseDown = function( ev )
 
     this.dropConn.selected = false;
     this.dropWire.selected = false;
+    this.dropLabel.selected = false;
 
     g_painter.dirty_flag = true;
 
@@ -376,6 +447,10 @@ guiToolbox.prototype._eventMouseDown = function( ev )
   else if ( ev.owner.match(/:(conn|noconn)$/) )
   {
     this._handleConnEvent(ev);
+  }
+  else if ( ev.owner.match(/:.*label$/) )
+  {
+    this._handleLabelEvent(ev);
   }
 
   else if (ev.owner == this.name + ":dropwire:tab")

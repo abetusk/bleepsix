@@ -261,8 +261,10 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'L')
   {
-    console.log("logging out!");
-    g_schnetwork.logout();
+    //console.log("logging out!");
+    //g_schnetwork.logout();
+    g_schematic_controller.tool = 
+      new toolLabel( this.mouse_cur_x, this.mouse_cur_y, "label" );
     
   }
   else if (ch == 'V')

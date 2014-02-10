@@ -1075,6 +1075,23 @@ bleepsixSchematic.prototype.addNoconn = function( x, y, id )
   this.kicad_sch_json["element"].push(noconn);
 }
 
+bleepsixSchematic.prototype.addLabel = function( text, x, y, orientation, id )
+{
+  id  = ( (typeof id !== 'undefined') ? id : this._createId() );
+
+  var label = {};
+  label["type"] = "label";
+  label["text"] = text;
+  label["orientation"] = orientation;
+  label["x"] = x;
+  label["y"] = y;
+  label["id"] = id;
+  
+  this.updateBoundingBox( label );
+
+  this.kicad_sch_json["element"].push(label);
+}
+
 
 // still needs some fixing.
 // 1) we need to decide if F0 (and all F(\d+) fields) should be stored as "text"

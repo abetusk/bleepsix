@@ -723,6 +723,7 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   this.guiPalette.move( (g_painter.width - this.guiPalette.width)/4, g_painter.height - this.guiPalette.height );
 
   this.guiToolbox = new guiToolbox( "toolbox" );
+
   //this.guiToolbox.move( 0, 150);
   this.guiToolbox.move( 0, 200);
   this.guiToolbox.defaultSelect();

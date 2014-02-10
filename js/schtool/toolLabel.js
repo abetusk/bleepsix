@@ -23,9 +23,9 @@
 */
 
 
-function toolConn( x, y, type, placeOption )
+function toolLabel( x, y, type, placeOption )
 {
-  console.log("toolConn");
+  console.log("toolLabel");
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
@@ -36,7 +36,7 @@ function toolConn( x, y, type, placeOption )
   // default to once
   placeOption = ( typeof placeOption !== 'undefined' ? placeOption : 'once' );
 
-  this.connType = type;
+  this.labelType = type;
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -49,15 +49,15 @@ function toolConn( x, y, type, placeOption )
   this.cursorWidth = 1;
 
 
-  //this.placeOption = "once";  // "persistent" ?
   this.placeOption = placeOption;  // "persistent" ?
 
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
+  var wxy =  [ this.mouse_world_xy.x , this.mouse_world_xy.y ] ;
+  this.label = { x : wxy[0], y : wxy[1], text : "texting and texting ", type: "label" , orientation : 0 };
+  g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+
   var ele = document.getElementById("canvas");
-
-  console.log(type);
-
   if (type == "noconn")
   {
     ele.style.cursor = "url('img/cursor_custom_noconn_s24.png') 4 3, cursor";
@@ -67,23 +67,29 @@ function toolConn( x, y, type, placeOption )
     ele.style.cursor = "url('img/cursor_custom_conn_s24.png') 4 3, cursor";
   }
 
+  g_painter.dirty_flag = true;
 
 }
 
 //-----------------------------
 
-
-toolConn.prototype.drawOverlay = function()
+toolLabel.prototype._drawBBoxOverlay = function( bbox )
 {
+  var x = bbox[0][0];
+  var y = bbox[0][0];
+  var w = bbox[1][0] - bbox[0][0];
+  var h = bbox[1][1] - bbox[0][1];
 
-  var tconn = { x : this.mouse_world_xy.x, y : this.mouse_world_xy.y,
-                bounding_box : [ [ -10, -10 ], [10, 10] ] };
+  g_painter.drawRectangle( bbox[0][0], bbox[0][1],
+                           w, h,
+                           2, "rgb(128,128,128)",
+                           true, "rgba(0,0,0,0.25)");
+
+}
 
 
-  if (this.connType == "noconn")
-    g_schematic_controller.schematic.drawSchematicNoconn( tconn );
-  else if (this.connType == "connection")
-    g_schematic_controller.schematic.drawSchematicConnection( tconn );
+toolLabel.prototype.drawOverlay = function()
+{
 
 
   var s = this.cursorSize / 2;
@@ -94,6 +100,8 @@ toolConn.prototype.drawOverlay = function()
                            this.cursorWidth ,
                            "rgb(128, 128, 128 )" );
 
+  g_schematic_controller.schematic.drawSchematicLabel( this.label );
+  this._drawBBoxOverlay( this.label.bounding_box );
 
   g_schematic_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
 
@@ -101,7 +109,7 @@ toolConn.prototype.drawOverlay = function()
 
 //-----------------------------
 
-toolConn.prototype.dist1 = function( xy0, xy1 )
+toolLabel.prototype.dist1 = function( xy0, xy1 )
 {
 
   var dx = Math.abs( xy0["x"] - xy1["x"] );
@@ -113,17 +121,18 @@ toolConn.prototype.dist1 = function( xy0, xy1 )
 
 //-----------------------------
 
-toolConn.prototype._addConnType = function( conntype, x, y )
+toolLabel.prototype._addLabelType = function( type, x, y ) 
 {
-  var op = { source: "sch", destination:"sch" };
-  op.action = "add";
-  if      (conntype == "noconn")      { op.type = "noconn"; }
-  else if (conntype == "connection" ) { op.type = "connection"; }
-  op.data = { x : x, y : y };
-  g_schematic_controller.opCommand( op );
+  console.log("toolLabel._addLabelType");
+
+  g_schematic_controller.schematic.addLabel( 
+      this.label.text, 
+      this.label.x, this.label.y, 
+      this.label.orientation );
 }
 
-toolConn.prototype.mouseDown = function( button, x, y ) 
+
+toolLabel.prototype.mouseDown = function( button, x, y ) 
 {
   this.mouse_down = true;
 
@@ -133,16 +142,16 @@ toolConn.prototype.mouseDown = function( button, x, y )
   if (button == 1)
   {
 
-      console.log("mouseDown..." + this.connType);
+    console.log("mouseDown..." + this.labelType );
 
-      if (this.connType == "noconn")
-      {
-        this._addConnType( "noconn", this.mouse_world_xy.x, this.mouse_world_xy.y );
-      }
-      else if (this.connType == "connection")
-      {
-        this._addConnType( "connection", this.mouse_world_xy.x, this.mouse_world_xy.y );
-      }
+    if (this.labelType == "label")
+    {
+      this._addLabelType( "noconn", this.mouse_world_xy.x, this.mouse_world_xy.y );
+    }
+    else if (this.labelType == "connection")
+    {
+      this._addLabelType( "connection", this.mouse_world_xy.x, this.mouse_world_xy.y );
+    }
 
     if (this.placeOption == "once")
     {
@@ -166,7 +175,7 @@ toolConn.prototype.mouseDown = function( button, x, y )
 
 
 /*
-toolConn.prototype.doubleClick = function( button, x, y )
+toolLabel.prototype.doubleClick = function( button, x, y )
 {
 
   if (this.placeOption == "once")
@@ -174,13 +183,13 @@ toolConn.prototype.doubleClick = function( button, x, y )
   else 
     this.placeOption = "once";
 
-  console.log("toolConn.doubleClick: placeOption " + this.placeOption );
+  console.log("toolLabel.doubleClick: placeOption " + this.placeOption );
 }
 */
 
 //-----------------------------
 
-toolConn.prototype.mouseUp = function( button, x, y ) 
+toolLabel.prototype.mouseUp = function( button, x, y ) 
 {
   this.mouse_down = false;
 
@@ -192,7 +201,7 @@ toolConn.prototype.mouseUp = function( button, x, y )
 //-----------------------------
 
 
-toolConn.prototype.mouseMove = function( x, y ) 
+toolLabel.prototype.mouseMove = function( x, y ) 
 {
 
   if ( this.mouse_drag_flag ) 
@@ -217,14 +226,14 @@ toolConn.prototype.mouseMove = function( x, y )
 
 //-----------------------------
 
-toolConn.prototype.mouseDrag = function( dx, dy ) 
+toolLabel.prototype.mouseDrag = function( dx, dy ) 
 {
   g_painter.adjustPan ( dx, dy );
 }
 
 //-----------------------------
 
-toolConn.prototype.mouseWheel = function( delta )
+toolLabel.prototype.mouseWheel = function( delta )
 {
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
@@ -232,9 +241,9 @@ toolConn.prototype.mouseWheel = function( delta )
 //-----------------------------
 // TESTING
 
-toolConn.prototype.keyDown = function( keycode, ch, ev )
+toolLabel.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolConn keyDown: " + keycode + " " + ch );
+  console.log("toolLabel keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
@@ -252,9 +261,9 @@ toolConn.prototype.keyDown = function( keycode, ch, ev )
 
 //-----------------------------
 
-toolConn.prototype.keyUp = function( keycode, ch, ev )
+toolLabel.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolConn keyUp: " + keycode + " " + ch );
+  console.log("toolLabel keyUp: " + keycode + " " + ch );
 }
 
 
