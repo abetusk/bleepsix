@@ -1103,6 +1103,7 @@ bleepsixSchematic.prototype.addLabel = function( text, x, y, orientation, id )
 // 2) I think the schematic is adding a few more text fields for one reason or
 //   another...should we add a few just for consistency with KiCAD's sake?
 // 3) timestamp???
+//
 bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, transform, id )
 {
 

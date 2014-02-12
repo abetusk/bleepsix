@@ -223,7 +223,7 @@ bleepsixBoard.prototype._find_footprint_pad_bbox = function( mod, pad_entry )
   if      (shape == "rectangle") { this._find_footprint_pad_rectangle_bbox( mod, pad_entry ) }
   else if (shape == "circle")    { this._find_footprint_pad_circle_bbox( mod, pad_entry ) }
   else if (shape == "oblong")    { this._find_footprint_pad_rectangle_bbox( mod, pad_entry ) }
-  //else if (shape == "trapeze") { find_footprint_pad_rectangle_bbox( bbox, pad_entry ) }
+  else if (shape == "trapeze")   { this._find_footprint_pad_rectangle_bbox( mod, pad_entry ) }
 
 
 }
