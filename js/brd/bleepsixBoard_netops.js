@@ -28,6 +28,105 @@ if (typeof module !== 'undefined')
   module.exports = bleepsixBoard;
 }
 
+// ------------- EXPERIMENTAL -----------------
+
+
+bleepsixBoard.prototype._get_layer_list = function( layer_mask )
+{
+
+  var r = [];
+
+  for (var layer=0; layer<16; layer++)
+  {
+    if ( !( parseInt( layer_mask, 16 ) & (1<<layer)) )
+      continue;
+    r.push( layer );
+  }
+
+  return r;
+
+}
+
+bleepsixBoard.prototype.updateLocalNet = function( )
+{
+
+  console.log("bleepsixBoard.updateLocalNet");
+
+  var brd = this.kicad_brd_json.element;
+
+  var layer_elements = {};
+  for (var layer=0; layer<16; layer++)
+    layer_elements[layer] = [];
+
+  var n = brd.length;
+  for (var ind=0; ind<n; ind++)
+  {
+
+    var ele = brd[ind];
+    var type = ele.type;
+
+    if ( type == "module" )
+    {
+      if (! ele.pad)
+        continue;
+
+      var pads = ele.pad;
+      for (var p_ind=0; p_ind<pads.length; p_ind++)
+      {
+        var pad = pads[p_ind];
+
+        var id_ref = { id: pad.id, ref : ele, pad_ref: pad, type : "pad" };
+        var pgn = this._build_element_polygon( id_ref, 10, true );
+
+        var n_pgn = pgn.length;
+        for (var i=0; i<n_pgn; i++)
+        {
+          pgn[i].id = pad.id;
+          pgn[i].parentId = ele.id;
+        }
+
+        var layer_list = this._get_layer_list( pad.layer_mask );
+        for (var layer=0; layer<layer_list.length; layer++)
+          layer_elements[ layer_list[layer] ].push( pgn );
+
+      }
+    }
+
+    else 
+    if (type == "track")
+    {
+      var pgn = [];
+      this._make_segment( pgn, ele, 10, true );
+      layer_elements[ ele.layer ].push( pgn );
+
+      var n_pgn = pgn.length;
+      for (var i=0; i<n_pgn; i++)
+      {
+        pgn[i].id = pad.id;
+        pgn[i].parentId = ele.id;
+      }
+
+    }
+
+  }
+
+  var test_layer = 0;
+  for (var ind in layer_elements[test_layer])
+  {
+    this.debug_pgns.push( layer_elements[test_layer][ind] );
+  }
+
+}
+
+
+
+
+
+// ------------- EXPERIMENTAL -----------------
+
+
+
+
 
 // Go through and collect points into a hash where
 // tracks end or pads are centered.  'Flood fill'

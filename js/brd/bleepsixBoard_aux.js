@@ -291,15 +291,17 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
 
 }
 
-bleepsixBoard.prototype._build_element_polygon = function( ele )
+bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag )
 {
-  var ds = 10;
+  //var ds = 10;
+  ds = ( (typeof ds !== 'undefined') ? ds : 10 );
+  border_flag = ( (typeof border_flag !== 'undefined') ? border_flag : false );
   var type = ele.type;
   var pgn = [];
 
   if ( (type == "track") || (type == "drawsegment") )
   {
-    this._make_segment( pgn, ele.ref, ds );
+    this._make_segment( pgn, ele.ref, ds, border_flag );
     return pgn;
   }
 
@@ -325,9 +327,9 @@ bleepsixBoard.prototype._build_element_polygon = function( ele )
   u[1] += mod_y;
 
   if (shape == "rectangle")
-    pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds );
+    pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag );
   else if (shape == "oblong")
-    pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds );
+    pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag );
   else if (shape == "circle")
     pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds );
   else if (shape == "trapeze")
@@ -620,9 +622,10 @@ bleepsixBoard.prototype._clip_xor = function( rop_pgns, pgnsA, pgnsB )
 
 // make counter clockwise rectangle with rounded edges (that is, an obround)
 //
-bleepsixBoard.prototype._make_segment = function( seg, line, ds  )
+bleepsixBoard.prototype._make_segment = function( seg, line, ds, border_flag  )
 {
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
+  border_flag = ( (typeof border_flag !== 'undefined' ) ? border_flag : false );
 
   seg.length = 0;
 
@@ -633,9 +636,11 @@ bleepsixBoard.prototype._make_segment = function( seg, line, ds  )
   var p1 = [ line.x1, line.y1 ];
 
   var u10 = numeric.sub( p1, p0 );
+  var p01 = numeric.sub( p0, p1 );
+  var p10 = numeric.sub( p1, p0 );
 
   var l = numeric.norm2( u10 );
-  if (l < eps)   // not a oblong but a circle
+  if (l < eps)   // not an oblong but a circle
   {
     var s = 2.0 * Math.PI * w2 ;
     var n = Math.floor( s / ds );
@@ -659,6 +664,13 @@ bleepsixBoard.prototype._make_segment = function( seg, line, ds  )
 
   var pgn = [];
 
+  //       a0  ----------------  b0
+  //      /                        \
+  //     | p0                    p1 |
+  //      \                        /
+  //       a1  ----------------  b1
+ //
+  //
   var a0 = numeric.add( p0, numeric.dot( Rm90, u01 ) );
   var a1 = numeric.add( p0, numeric.dot( R90, u01 ) );
 
@@ -677,7 +689,18 @@ bleepsixBoard.prototype._make_segment = function( seg, line, ds  )
     var tp = numeric.add(p0, numeric.dot(Ra, tv));
     seg.push( { X: tp[0], Y: tp[1] } );
   }
+
   seg.push( { X: a0[0], Y: a0[1] } );
+
+  if (border_flag)
+  {
+    for (var tl=ds; tl<l; tl += ds)
+    {
+      var tv = numeric.add(a0, numeric.mul( p10, tl/l ) );
+      seg.push( { X: tv[0], Y: tv[1] } );
+    }
+  }
+
 
   for (var i=0; i<n; i++)
   {
@@ -690,6 +713,16 @@ bleepsixBoard.prototype._make_segment = function( seg, line, ds  )
     seg.push( { X: tp[0], Y: tp[1] } );
   }
   seg.push( { X: b0[0], Y: b0[1] } );
+
+  if (border_flag)
+  {
+    for (var tl=ds; tl<l; tl += ds)
+    {
+      var tv = numeric.add(b0, numeric.mul( p01, tl/l ) );
+      seg.push( { X: tv[0], Y: tv[1] } );
+    }
+  }
+
 
 }
 
@@ -837,22 +870,159 @@ bleepsixBoard.prototype._realize_circle = function(x, y, r, ang, ds )
   return this._pnt2pgn(pnt);
 }
 
-bleepsixBoard.prototype._realize_rect = function( x, y, w, h, ang )
+bleepsixBoard.prototype._realize_rect = function( x, y, w, h, ang, ds, border_flag )
 {
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
+  border_flag = ( (typeof border_flag !== 'undefined') ? border_flag : false );
 
   var w2 = w/2, h2 = h/2;
-  var pnt = [ [ - w2,  - h2],
-              [ + w2,  - h2],
-              [ + w2,  + h2],
-              [ - w2,  + h2] ];
+
+  var pnt = [];
+  if (border_flag)
+  {
+    var tx, ty;
+
+    for (tx = -w2; tx < w2; tx += ds )
+      pnt.push( [  tx, -h2 ] );
+
+    for (ty = -h2; ty < h2; ty += ds )
+      pnt.push( [ +w2,  ty ] );
+
+    for (tx = w2; tx > -w2; tx -= ds )
+      pnt.push( [  tx, +h2 ] );
+
+    for (ty = h2; ty > -h2; ty -= ds )
+      pnt.push( [ -w2,  ty ] );
+
+  }
+  else
+  {
+    pnt = [ [ -w2, -h2 ],
+            [ +w2, -h2 ],
+            [ +w2, +h2 ],
+            [ -w2, +h2 ] ];
+  }
 
   pnt = numeric.dot( pnt, this._Rt(ang) );
   this._realize_translate(pnt, x, y);
   return this._pnt2pgn(pnt);
 }
 
-bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds  )
+bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds, border_flag  )
+{
+  ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
+  ds = ( (typeof ds !== 'undefined') ? ds : 1 );
+  border_flag = ((typeof border_flag !== 'undefined') ? border_flag : false );
+
+  var pnt = [];
+
+  var r = ( (obx > oby ) ? (oby/2) : (obx/2) );
+  var l = ( (obx > oby ) ? (obx - oby) : (oby - obx) );
+  var l2 = l/2;
+
+  var n2 = Math.floor( Math.PI * r / ds );
+
+  if ( obx > oby )
+  {
+    pnt.push( [ -l2, -r ] );
+
+    if (border_flag)
+    {
+      var tx = -l2 + ds;
+      while (tx < l2)
+      {
+        pnt.push( [ tx, -r ]);
+        tx += ds;
+      }
+    }
+
+    pnt.push( [  l2, -r ] );
+
+    for (var i=0; i<n2; i++)
+    {
+      var theta = Math.PI * i / n2;
+      theta -= Math.PI / 2.0;
+      pnt.push( [  + l2 + r*Math.cos(theta),  + r*Math.sin(theta) ] );
+    }
+
+    pnt.push( [  l2, r ] );
+
+    if (border_flag)
+    {
+      var tx = l2 - ds;
+      while (tx > -l2)
+      {
+        pnt.push( [ tx, r ]);
+        tx -= ds;
+      }
+    }
+
+    pnt.push( [ -l2, r ] );
+
+    for (var i=0; i<n2; i++)
+    {
+      var theta =  Math.PI * i / n2;
+      theta += Math.PI / 2.0;
+      pnt.push( [  -l2 + r*Math.cos(theta),  r*Math.sin(theta) ] );
+    }
+
+  }
+  else
+  {
+    pnt.push( [  r, -l2 ] );
+
+    if (border_flag)
+    {
+      var ty = - l2 + ds;
+      while (ty < l2)
+      {
+        pnt.push( [ r, ty ]);
+        ty += ds;
+      }
+    }
+
+    pnt.push( [  r,  l2 ] );
+
+    for (var i=0; i<n2; i++)
+    {
+      var theta = Math.PI * i / n2;
+      pnt.push( [ r*Math.cos(theta),  l2 + r*Math.sin(theta) ] );
+    }
+
+    pnt.push( [ -r,  l2 ] );
+
+    if (border_flag)
+    {
+      var ty =  l2 - ds;
+      while (ty > -l2)
+      {
+        pnt.push( [ -r, ty ]);
+        ty -= ds;
+      }
+    }
+
+    pnt.push( [ -r, -l2 ] );
+
+    for (var i=0; i<n2; i++)
+    {
+      var theta =  Math.PI * i / n2;
+      theta += Math.PI;
+      pnt.push( [  r*Math.cos(theta),  -l2 + r*Math.sin(theta) ] );
+    }
+
+  }
+
+  pnt = numeric.dot( pnt, this._Rt(ang) );
+  this._realize_translate(pnt, x, y);
+  return this._pnt2pgn(pnt);
+
+}
+
+
+// ----------------------- 
+
+
+bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, ang, ds  )
 {
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
@@ -875,6 +1045,18 @@ bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds  )
       var theta = Math.PI * i / n2;
       theta -= Math.PI / 2.0;
       pnt.push( [  + l2 + r*Math.cos(theta),  + r*Math.sin(theta) ] );
+
+      var Bx = - l2 - r * Math.cos(theta);
+      var By = r * Math.sin(theta);
+
+      var tx = Bx - ds;
+      var ty = By;
+      while ( tx > Bx )
+      {
+        pnt.push( [ tx, ty ] );
+        tx -= ds;
+      }
+
     }
 
     pnt.push( [  l2, r ] );
@@ -885,6 +1067,18 @@ bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds  )
       var theta =  Math.PI * i / n2;
       theta += Math.PI / 2.0;
       pnt.push( [  -l2 + r*Math.cos(theta),  r*Math.sin(theta) ] );
+
+      var Bx =  l2 - r * Math.cos(theta);
+      var By =  r * Math.sin(theta);
+
+      var tx = Bx  + ds;
+      var ty = By;
+      while ( tx < Bx )
+      {
+        pnt.push( [ tx, ty ] );
+        tx += ds;
+      }
+
     }
 
   }
@@ -897,6 +1091,19 @@ bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds  )
     {
       var theta = Math.PI * i / n2;
       pnt.push( [ r*Math.cos(theta),  l2 + r*Math.sin(theta) ] );
+
+      var Bx = r * Math.cos(theta);
+      var By = -l2 - r * Math.sin(theta);
+
+      var tx = Bx;
+      var ty = -By  + ds;
+      while ( ty > By )
+      {
+        pnt.push( [ tx, ty ] );
+        ty -= ds;
+      }
+
+
     }
 
     pnt.push( [ -r,  l2 ] );
@@ -907,6 +1114,18 @@ bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds  )
       var theta =  Math.PI * i / n2;
       theta += Math.PI;
       pnt.push( [  r*Math.cos(theta),  -l2 + r*Math.sin(theta) ] );
+
+      var Bx = r * Math.cos(theta);
+      var By = +l2 - r * Math.sin(theta);
+
+      var tx =  Bx;
+      var ty = - By  - ds;
+      while ( ty < By )
+      {
+        pnt.push( [ tx, ty ] );
+        ty += ds;
+      }
+
     }
 
   }
@@ -916,8 +1135,6 @@ bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds  )
   return this._pnt2pgn(pnt);
 
 }
-
-
 
 
 /*

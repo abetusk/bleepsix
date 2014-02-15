@@ -114,6 +114,8 @@ function bleepsixBoard()
   this.debug_pgns = [];
   this.debug_cgeom = [];
 
+  this.debug_point = [];
+
   this.highlight_net = [];
   this.highlight_net_flag = false;
 
@@ -2641,6 +2643,13 @@ bleepsixBoard.prototype.drawBoard = function()
     }
     */
 
+  }
+
+  for (var ind in this.debug_point)
+  {
+    g_painter.drawPoint( this.debug_point[ind].X, 
+                         this.debug_point[ind].Y , 
+                         "rgba(255,128,64,0.8)" );
   }
 
   for (var ind in this.debug_geom)

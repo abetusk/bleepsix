@@ -476,7 +476,26 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
 
     console.log("k");
-    g_board_controller.op._opDebugPrint();
+
+
+    g_board_controller.board.updateLocalNet();
+
+    //g_board_controller.op._opDebugPrint();
+
+    //var pnts = 
+    //g_board_controller.board.debug_point =
+      //g_board_controller.board._realize_rect( 0, 0, 500, 300, 0.3 );
+      //g_board_controller.board._realize_circle( 0, 0, 500, 0.3, 10 );
+      //g_board_controller.board._realize_oblong( 0, 0, 700, 500, 0.3, 10, true );
+      //g_board_controller.board._realize_oblong( 0, 0, 500, 700, 0.3, 10, true );
+      //g_board_controller.board._realize_oblong_point_cloud( 0, 0, 500, 700, 0.3, 30 );
+
+
+    //g_board_controller.board.debug_point = [];
+    //g_board_controller.board._make_segment( g_board_controller.board.debug_point, 
+        //{ x0: 0, y0: 0, x1 : 100, y1: 300, width: 500} , 10, true );
+        //{ x0: 0, y0: 0, x1 : 100, y1: 300, width: 500} , 10 );
+    //console.log( g_board_controller.board.debug_point );
 
     /*
     var pnts = [];
