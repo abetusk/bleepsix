@@ -257,22 +257,16 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
   else if (type == "rotate90")
   {
 
-    //console.log("board rotate90");
-
     var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
     var ref = this.board.refLookup( id );
+
     this.board.rotate90( { id: id, ref : ref } , ccw_flag );
     this.board.updateBoundingBox( ref );
   }
   else if (type == "rotate" )
   {
-    //console.log("board rotate");
-
     var ccw_flag = ( inverseFlag ? (!data.ccw) : data.ccw );
     var ref = this.board.refLookup( id );
-
-    //console.log("id:" + id);
-    //console.log(ref);
 
     this.board.rotateAboutPoint( 
         [ { id: id, ref : ref } ] , 
@@ -326,7 +320,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
   else if (type == "mergenet")
   {
     var res = 
-      g_board_controller.board.mergeNets( data.net_number0, data.net_number1 );
+      this.board.mergeNets( data.net_number0, data.net_number1 );
     op.result = res;
   }
 

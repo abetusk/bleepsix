@@ -39,6 +39,10 @@ By Rama Hoetzlein and Abram Connelly"
 
   BUG: server can't handle component edits (crashes).
 
+  BUG: server crashes when doing it's own fills
+
+  BUG: server doesn't update with loaded brd from pcb side
+
 == BOTH
 
   - schematic board communication:

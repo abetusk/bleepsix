@@ -441,7 +441,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     com = g_snapgrid.snapGrid(com);
 
     var ccw = ( (ch == 'R') ? false : true );
-    //g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
+    g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
     //$.extend(true, this.selectedElement, this.base_element_state);
     this.selectedElement = simplecopy( this.base_element_state );
 

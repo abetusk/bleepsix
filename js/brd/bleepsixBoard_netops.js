@@ -31,6 +31,321 @@ if (typeof module !== 'undefined')
 // ------------- EXPERIMENTAL -----------------
 
 
+bleepsixBoard.prototype._local_net_add_track_vert = function( V, verts, ref, ds )
+{
+  var x0 = parseInt(ref.x0);
+  var y0 = parseInt(ref.y0);
+
+  verts.push( [ x0, y0 ] );
+
+  var layers = [ ref.layer ];
+  if (ref.shape == "through")
+  {
+    var n_layer = parseInt(ref.layer);
+    for (var ind=0; ind<n_layer-1; ind++)
+      layers.push(ind);
+  }
+
+  V.push( { layers: layers, shape: ref.shape, type: ref.type, ref: ref, id: ref.id , visited: false} );
+
+  if (ref.shape == "track")
+  {
+
+    var x1 = parseInt(ref.x1);
+    var y1 = parseInt(ref.y1);
+    verts.push( [ x1, y1 ] );
+    V.push( { layers: layers, shape: ref.shape, type: ref.type, ref: ref, id: ref.id, visited: false  } );
+
+    var dx = x1 - x0;
+    var dy = y1 - y0;
+    var dl = Math.sqrt( (dx*dx) + (dy*dy) );
+
+    if (dl == 0) return;
+
+    for (var dt=ds; dt < dl; dt += ds)
+    {
+      var tx = parseInt(x0 + (dx*dt/dl));
+      var ty = parseInt(y0 + (dy*dt/dl));
+      verts.push( [ tx, ty ] );
+      V.push( { layers: layers, shape: ref.shape, type: ref.type, ref: ref, id: ref.id, visited: false  } );
+    }
+
+  }
+
+}
+
+bleepsixBoard.prototype._local_net_add_pad_vert = function( V, verts, ref, pad_ref, ds )
+{
+
+  var layers = [];
+  for (var ind=0; ind<16; ind++)
+  {
+    if ( parseInt(pad_ref.layer_mask, 16) & (1<<ind) )
+    {
+      layers.push(ind);
+    }
+  }
+
+  var cx = parseInt( ref.x );
+  var cy = parseInt( ref.y );
+  var ma = parseInt( ref.angle );
+
+  var px = parseInt( pad_ref.posx );
+  var py = parseInt( pad_ref.posy );
+  var pa = parseInt( pad_ref.angle );
+
+  var u = numeric.dot( this._R( ma ), [ px, py ] );
+
+  var tx = parseInt(cx + u[0]);
+  var ty = parseInt(cy + u[1]);
+  verts.push( [ tx, ty ] );
+  V.push(  { layers: layers, type: "pad", ref: ref, pad_ref : pad_ref, id : pad_ref.id, visited: false } );
+
+}
+
+bleepsixBoard.prototype._local_net_populate_r = function( v, V, verts, E, local_net_code , via_info, ds ) 
+{
+  ds = parseFloat(ds);
+  var type = V[v].type;
+
+  if (type == "pad")
+  {
+
+    if (V[v].visited) return;
+    V[v].visited = true;
+
+    V[v].pad_ref.local_net_code = local_net_code;
+    for ( var w in E[v] )
+    {
+      var d = __dist2( verts[v], verts[w] );
+      if (d > 2*ds) continue;
+
+      this._local_net_populate_r( w, V, verts, E, local_net_code, via_info, ds );
+    }
+
+  }
+  else if (type == "track")
+  {
+
+    if (V[v].visited) return;
+    V[v].visited = true;
+
+    if (V[v].ref.shape == "through")
+    {
+      if ( !( V[v].ref.id in via_info ) )
+      {
+        console.log("bang");
+        via_info[ V[v].ref.id ] = {};
+      }
+      via_info[ V[v].ref.id ][ local_net_code ] = 1;
+    }
+
+    V[v].ref.local_net_code = local_net_code;
+    for ( var w in E[v] )
+    {
+      var d = parseFloat(__dist2( verts[v], verts[w] ));
+      if (d > parseFloat(2*ds) ) continue;
+
+      this._local_net_populate_r( w, V, verts, E, local_net_code, via_info, ds );
+    }
+
+  }
+
+}
+
+bleepsixBoard.prototype._local_net_populate = function( V, verts, E , via_info, ds ) 
+{
+  var cur_net_code = 1;
+
+  var n = V.length;
+  for (var ind=0; ind<n; ind++)
+  {
+    var type = V[ind].type;
+
+    if (type == "pad")
+    {
+      if (V[ind].visited) continue;
+      this._local_net_populate_r( ind, V, verts, E, cur_net_code, via_info, ds );
+      cur_net_code++;
+
+    }
+    else if (type == "track")
+    {
+      if (V[ind].visited) continue;
+      this._local_net_populate_r( ind, V, verts, E, cur_net_code, via_info, ds );
+
+      if (V[ind].ref.shape == "through")
+      {
+        if ( !( V[ind].ref.id in via_info ) )
+        {
+          console.log("bang");
+          via_info[ V[ind].ref.id ] = {};
+        }
+        via_info[ V[ind].ref.id ][ cur_net_code ] = 1;
+      }
+
+      cur_net_code++;
+
+    }
+
+  }
+
+}
+
+bleepsixBoard.prototype._local_net_rename = function( src, dst )
+{
+  console.log("  src: " + src + ", dst: " + dst );
+}
+
+bleepsixBoard.prototype._local_net_flatten_from_via = function( via_info )
+{
+  var max_net_code = -1;
+  var rename_map = {};
+
+  for (var via_id in via_info)
+    for (var net_code in via_info[via_id])
+    {
+      if (net_code > max_net_code)
+        max_net_code = net_code;
+    }
+
+  var set = new UnionFind(max_net_code+1);
+
+  for (var via_id in via_info)
+  {
+    var prev = -1;
+    for (var net_code in via_info[via_id])
+    {
+      if (prev >= 0) set.link( prev, net_code );
+      else prev = net_code;
+    }
+  }
+
+  for (var via_id in via_info)
+  {
+    for (var net_code in via_info[via_id])
+    {
+      var x = set.find(net_code);
+
+      console.log(" renaming " + net_code + " --> " + x )
+
+      if (x == net_code)
+        continue;
+
+      rename_map[ net_code ] = x;
+
+    }
+  }
+
+  var elements = this.kicad_brd_json.element;
+  var n = elements.length;
+  for (var ind=0; ind<n; ind++)
+  {
+    var ele = elements[ind];
+    var type = ele.type;
+
+    if (type == "module")
+    {
+
+    }
+    else if (type == "track")
+    {
+    }
+
+  }
+
+}
+
+// DEFUNCT
+bleepsixBoard.prototype.updateLocalNet = function( )
+{
+  var ds = 50;
+  //var layer = 15;
+  //var layer = 0;
+  var layers = [0,15];
+
+  var via_info = {};
+
+  var elements = this.kicad_brd_json.element;
+  var n = elements.length;
+  for (var layer_ind in layers )
+  {
+    var verts = [];
+    var V = [], E = {};
+
+    var layer = layers[layer_ind];
+
+    for (var ind=0; ind<n; ind++)
+    {
+      var ele = elements[ind];
+      var type = ele.type;
+      var shape = ele.shape;
+
+      if (type == "track")
+      {
+
+        if (shape == "through")
+        {
+          if ( parseInt(layer) > parseInt(ele.layer) ) continue;
+        }
+        else if ( ele.layer != layer) { continue; }
+
+        this._local_net_add_track_vert( V, verts, ele, ds );
+        ele.local_net_code = -1;
+      }
+
+      else if (type == "module")
+      {
+        if (!( "pad" in ele))
+          continue;
+
+        var pads = ele.pad;
+        var m = pads.length;
+        for (var p_ind=0; p_ind<m; p_ind++)
+        {
+
+          var pad = pads[p_ind];
+          if (( parseInt(pad.layer_mask, 16) & (1<<layer)) == 0)
+            continue;
+
+          this._local_net_add_pad_vert( V, verts, ele, pad, ds );
+          pad.local_net_code = -1;
+        }
+
+      }
+    }
+
+    var edges  = EuclideanMST.euclideanMST( verts, __dist2 );
+
+    // construct edge graph
+    //
+    var m = edges.length;
+    for (var ind=0; ind<m; ind++)
+    {
+      var v = edges[ind][0];
+      var u = edges[ind][1];
+
+      if (!(v in E)) E[v] = {};
+      E[v][u] = 1;
+
+      if (!(u in E)) E[u] = {};
+      E[u][v] = 1;
+
+    }
+
+    this._local_net_populate( V, verts, E, via_info, ds );
+
+  }
+
+  console.log("via_info:" );
+  console.log(via_info);
+
+  this._local_net_flatten_from_via( via_info );
+
+
+}
+
+
 bleepsixBoard.prototype._get_layer_list = function( layer_mask )
 {
 
@@ -47,17 +362,26 @@ bleepsixBoard.prototype._get_layer_list = function( layer_mask )
 
 }
 
-bleepsixBoard.prototype.updateLocalNet = function( )
+// not fully implemented, still testing
+//
+bleepsixBoard.prototype.updateLocalNet_slow = function( )
 {
+  var ds = 10;
 
   console.log("bleepsixBoard.updateLocalNet");
 
   var brd = this.kicad_brd_json.element;
 
+  var layer_points = {};
   var layer_elements = {};
   for (var layer=0; layer<16; layer++)
+  {
+    layer_points[layer] = [];
     layer_elements[layer] = [];
+  }
 
+  // collect points for MST calculation
+  //
   var n = brd.length;
   for (var ind=0; ind<n; ind++)
   {
@@ -76,7 +400,7 @@ bleepsixBoard.prototype.updateLocalNet = function( )
         var pad = pads[p_ind];
 
         var id_ref = { id: pad.id, ref : ele, pad_ref: pad, type : "pad" };
-        var pgn = this._build_element_polygon( id_ref, 10, true );
+        var pgn = this._build_element_polygon( id_ref, ds, true );
 
         var n_pgn = pgn.length;
         for (var i=0; i<n_pgn; i++)
@@ -96,7 +420,7 @@ bleepsixBoard.prototype.updateLocalNet = function( )
     if (type == "track")
     {
       var pgn = [];
-      this._make_segment( pgn, ele, 10, true );
+      this._make_segment( pgn, ele, ds, true );
       layer_elements[ ele.layer ].push( pgn );
 
       var n_pgn = pgn.length;
@@ -110,15 +434,153 @@ bleepsixBoard.prototype.updateLocalNet = function( )
 
   }
 
+  // create the hash for lookup
+  //
+  var layer_point_hash = {};
+  for (var layer in layer_elements)
+  {
+    for (var k in layer_elements[layer])
+    {
+      var pgn = layer_elements[layer][k];
+
+      for (var p in pgn)
+      {
+        pgn[p].X = parseInt(pgn[p].X);
+        pgn[p].Y = parseInt(pgn[p].Y);
+        layer_point_hash[ layer + ":" + pgn[p].X + "," + pgn[p].Y ] = pgn[p];
+        layer_points[layer].push( [ pgn[p].X, pgn[p].Y ] );
+      }
+
+    }
+  }
+
+  // do an initial pass to label all elements with a local netcode
+  //
+  var group_net = {};
+  var group_net_id = 1;
+
+  for (var layer in layer_elements)
+  {
+    
+    var edges = EuclideanMST.euclideanMST( layer_points[layer], __dist2 );
+    var filtered_edge = [];
+
+    for (var e_ind in edges)
+    {
+      var u = layer_points[ layer ][ edges[e_ind][0] ];
+      var v = layer_points[ layer ][ edges[e_ind][1] ];
+      var d = __dist2( u, v );
+      if ( d < 2*ds )
+        continue;
+      filtered_edge.push( edges[e_ind] );
+    }
+
+
+    for (var e_ind in filtered_edge)
+    {
+      var a = [];
+      a.push( layer_points[ layer ][ filtered_edge[e_ind][0] ] );
+      a.push( layer_points[ layer ][ filtered_edge[e_ind][1] ] );
+
+      for (var i=0; i<2; i++)
+      {
+        var key = layer + ":" + a[i][0] + "," + a[i][1];
+        var pgn = layer_point_hash[ key ];
+
+        if (pgn.id in group_net)
+          continue;
+
+        group_net[ pgn.id ] = group_net_id++;
+      }
+
+    }
+
+  }
+
+  for (var id in group_net)
+  {
+    var ref = this.refLookup( id );
+    ref.local_netcode = group_net[ id ];
+
+  }
+
+  console.log("...");
+
+  return;
+
+  //DEBUG
+
+  /*
+  var test_layer = 15;
+  var edges = EuclideanMST.euclideanMST( layer_points[test_layer], __dist2 );
+  var filtered_edge = [];
+
+  for (var e_ind in edges)
+  {
+    var u = layer_points[ test_layer ][ edges[e_ind][0] ];
+    var v = layer_points[ test_layer ][ edges[e_ind][1] ];
+
+    var d = __dist2( u, v );
+    if ( d < 2*ds )
+      continue;
+
+    filtered_edge.push( edges[e_ind] );
+
+    //this.debug_edge.push( [[u[0], u[1]], [v[0],v[1]] ] );
+  }
+  g_painter.dirty_flag = true;
+
+  //var group_net = {};
+  //var group_net_id = 1;
+
+  for (var e_ind in filtered_edge)
+  {
+    var a = [];
+    a.push( layer_points[ test_layer ][ filtered_edge[e_ind][0] ] );
+    a.push( layer_points[ test_layer ][ filtered_edge[e_ind][1] ] );
+
+    for (var i=0; i<2; i++)
+    {
+      var key = test_layer + ":" + a[i][0] + "," + a[i][1];
+      var pgn = layer_point_hash[ key ];
+
+      console.log("..> " + key );
+      console.log( layer_point_hash[key] );
+
+      if (pgn.id in group_net)
+      {
+        console.log("  " + pgn.id + " already allcoated (" + group_net[ pgn.id ] + ")");
+        continue;
+      }
+
+      this.debug_edge.push( a );
+
+      group_net[ pgn.id ] = group_net_id++;
+    }
+
+  }
+
+  console.log( " --> group_net_id: "  + group_net_id );
+  console.log(group_net);
+  */
+
+  //console.log(edges);
+
+  /*
   var test_layer = 0;
   for (var ind in layer_elements[test_layer])
   {
     this.debug_pgns.push( layer_elements[test_layer][ind] );
   }
+  */
 
 }
 
 
+function __dist2( a, b )
+{
+  return Math.sqrt((a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]));
+}
 
 
 

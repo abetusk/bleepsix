@@ -115,6 +115,7 @@ function bleepsixBoard()
   this.debug_cgeom = [];
 
   this.debug_point = [];
+  this.debug_edge = [];
 
   this.highlight_net = [];
   this.highlight_net_flag = false;
@@ -316,10 +317,14 @@ bleepsixBoard.prototype.remove = function( id_ref )
 
 bleepsixBoard.prototype.rotate90 = function( id_ref , ccw_flag )
 {
+  /*
   var x = parseFloat( id_ref.ref.x );
   var y = parseFloat( id_ref.ref.y );
-
   this.rotateAboutPoint90( [ id_ref ] , x, y, ccw_flag);
+  */
+
+  var com = this.centerOfMass( [ id_ref ] );
+  this.rotateAboutPoint90( [ id_ref ] , com.x, com.y, ccw_flag);
 }
 
 bleepsixBoard.prototype.centerOfMass = function ( id_refs )
@@ -417,8 +422,7 @@ bleepsixBoard.prototype.rotateAboutPoint = function ( id_refs, x, y, rad_angle, 
       var p = [ [ ref.x0 - x, ref.y0 - y ],
                 [ ref.x1 - x, ref.y1 - y ] ];
 
-      p_r = numeric.transpose( numeric.dot( R, numeric.transpose(p) ) );
-
+      var p_r = numeric.transpose( numeric.dot( R, numeric.transpose(p) ) );
       ref.x0 = p_r[0][0] + x;
       ref.y0 = p_r[0][1] + y;
 
@@ -433,6 +437,10 @@ bleepsixBoard.prototype.rotateAboutPoint = function ( id_refs, x, y, rad_angle, 
 
 bleepsixBoard.prototype.rotateAboutPoint90 = function ( id_refs, x, y, ccw_flag )
 {
+
+  //DEBUG
+  console.log("rotateAboutPoint90: " + x + " " + y );
+
   this.rotateAboutPoint(id_refs, x, y, -Math.PI/2, ccw_flag );
 }
 
@@ -752,6 +760,10 @@ bleepsixBoard.prototype._initBoardNet = function()
   this.kicad_brd_json["net_code_map"] = { "0" : "" };
   this.kicad_brd_json["net_name_map"] = { "" : 0 };
   this.kicad_brd_json["net_code_airwire_map"] = { "0" : [] };
+
+  // mapping of schematic netcodes to board netcodes
+  //
+  this.kicad_brd_json["sch_net_code_map"] = {};
 
 }
 
@@ -2650,6 +2662,12 @@ bleepsixBoard.prototype.drawBoard = function()
     g_painter.drawPoint( this.debug_point[ind].X, 
                          this.debug_point[ind].Y , 
                          "rgba(255,128,64,0.8)" );
+  }
+
+  for (var ind in this.debug_edge)
+  {
+    var g = this.debug_edge[ind];
+    g_painter.line( g[0][0], g[0][1], g[1][0], g[1][1], "rgba(128,128,128,1.0)", 10 );
   }
 
   for (var ind in this.debug_geom)

@@ -276,6 +276,16 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
           if ( parseInt( ref.layer ) == ilayer )
           {
             var hit_ele = { ref:ref, type: "track", id: ref.id };
+
+            //DEBUG
+            console.log("?????");
+            console.log( ref.layer + " " + layer);
+            console.log( track_bbox_list[t_ind]);
+            console.log( tbbox );
+            console.log( hit_ele );
+            console.log("...");
+
+
             hit_element_list.push( hit_ele );
             break;
           }
@@ -411,6 +421,9 @@ bleepsixBoard.prototype._build_non_net_polygons = function( net_code, net_name, 
     {
       var ref = hit_ar[ind].ref;
       var seg = [];
+
+      console.log(ref);
+
       this._make_segment( seg, ref, 10 );
       pgns.push( seg );
     }
@@ -436,7 +449,17 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
 
   // first test for bounding box intersection
   //var hit_ele_list = this._find_possible_track_intersections( tracks, debug_flag );
+
+  //DEBUG
+  console.log("cp00");
+  console.log(tracks);
+  console.log(layer);
+
   var hit_ele_list = this._find_possible_track_intersections( tracks, layer );
+
+  //DEBUG
+  console.log("got:");
+  console.log(hit_ele_list);
 
   if (debug_flag)
   {
@@ -466,6 +489,11 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
   // We have bounding box collisions, so collect all
   // non net pad and track geometries.
   //
+
+  //DEBUG
+  console.log("hit_ele_list");
+  console.log(hit_ele_list);
+
   var pgns = this._build_non_net_polygons( 0, 0, hit_ele_list );
 
   if (debug_flag)
@@ -893,6 +921,13 @@ bleepsixBoard.prototype._realize_rect = function( x, y, w, h, ang, ds, border_fl
 
     for (ty = h2; ty > -h2; ty -= ds )
       pnt.push( [ -w2,  ty ] );
+
+    var dxy = ds / Math.sqrt(2);
+    for (tx = -w2, ty = -h2;  (tx < w2) && (ty < h2) ; tx += dxy, ty += dxy )
+      pnt.push( [ tx,  ty ] );
+
+    for (tx = -w2, ty = h2;  (tx < w2) && (ty > -h2) ; tx += dxy, ty -= dxy )
+      pnt.push( [ tx,  ty ] );
 
   }
   else

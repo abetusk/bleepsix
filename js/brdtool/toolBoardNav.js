@@ -613,8 +613,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       // TESTING
 
 
-
           g_board_controller.board.updateRatsNest();
+
 
           return true;
         }

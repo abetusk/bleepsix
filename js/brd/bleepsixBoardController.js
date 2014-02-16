@@ -129,6 +129,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
   this.boardUpdate = true;
   g_painter.dirty_flag = true;
 
+  //this.board.updateRatsNest();
+
   if (!( "scope" in msg ))
     msg.scope = "network";
 
