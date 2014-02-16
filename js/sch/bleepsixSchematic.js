@@ -136,6 +136,22 @@ bleepsixSchematic.prototype._createId = function( parent_id )
 
 }
 
+bleepsixSchematic.prototype.dataReplace = function( id, data )
+{
+  var sch = this.kicad_sch_json;
+  for (var ind in sch)
+  {
+    if (sch[ind].id == id)
+    {
+      sch[ind] = data;
+      return true;
+    }
+  }
+
+  console.log("bleepsixSchematic.refUpdate: ERROR could not find id " + id );
+  return false;
+}
+
 bleepsixSchematic.prototype.refUpdate = function( oldId, newId )
 {
   if (oldId == newId)
@@ -198,7 +214,7 @@ bleepsixSchematic.prototype.refLookup = function( id )
 
   }
 
-  console.log("ERROR: id " + id + " not found!");
+  console.log("bleepsixSchematic.refLookup: ERROR: id " + id + " not found!");
 
   return null;
 

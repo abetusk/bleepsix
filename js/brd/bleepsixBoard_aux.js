@@ -65,6 +65,23 @@ bleepsixBoard.prototype.refDelete = function( id )
 
 }
 
+bleepsixBoard.prototype.dataReplace = function( id, data )
+{
+  var brd = this.kicad_brd_json;
+  for (var ind in brd)
+  {
+    if ( brd[ind].id == id)
+    {
+      brd[ind] = data;
+      return true;
+    }
+  }
+
+  console.log("bleepsixBoard.dataReplace: ERROR, could not find id " + id);
+  return false;
+
+}
+
 bleepsixBoard.prototype.refUpdate = function( oldId, newId )
 {
   if (oldId == newId)
@@ -118,7 +135,7 @@ bleepsixBoard.prototype.refLookup = function( id )
     }
   }
 
-  console.log("ERROR: id " + id + " not found!");
+  console.log("bleepsixBoard.refLookup: ERROR: id " + id + " not found!");
   return null;
 
 }

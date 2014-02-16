@@ -53,6 +53,11 @@ By Rama Hoetzlein and Abram Connelly"
   change to all open connections.  If the received change has a higher
   sequence number than what's available, replace it.
 
+  BUG: lurking bug that I believe double deletes elements.  I've seen
+    refLookup errors in the pcb interface, but I'm having a hard time reproducing.
+    (devel branch, 2014-02-16)
+
+
 == SCH
 
   - Need to figure out a better way to get components in from the network op

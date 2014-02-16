@@ -284,6 +284,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       for (var ind in id)
       {
+        /*
         var ref = this.board.refLookup( id[ind] );
 
         // extend doesn't work the way I though it did:
@@ -300,6 +301,11 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
         ref.polyscorners = [];  
 
         $.extend( true, ref, data.element[ind] );
+        */
+
+        var clonedData = simplecopy( data.element[ind] );
+        this.schematic.dataReplace( id[ind], clonedData );
+
       }
 
     }
@@ -332,8 +338,14 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       for (var ind=0; ind< data.oldElement.length; ind++)
       {
+        /*
         var ref = this.board.refLookup( data.element[ind].id );
         $.extend( true, ref, data.oldElement[ind] );
+        this.board.refUpdate( id[ind], data.oldElement[ind].id );
+        */
+
+        var clonedData = simplecopy( data.oldElement[ind] );
+        this.board.dataReplace( data.element[ind].id, clonedData );
         this.board.refUpdate( id[ind], data.oldElement[ind].id );
       }
 
@@ -346,8 +358,14 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
       //
       for (var ind=0; ind<id.length; ind++)
       {
+        /*
         var ref = this.board.refLookup( data.oldElement[ind].id );
         $.extend( true, ref, data.element[ind] );
+        this.board.refUpdate( data.oldElement[ind].id, id[ind] );
+        */
+
+        var clonedData = simplecopy( data.element[ind] );
+        this.board.dataReplace( data.oldElement[ind].id, clonedData );
         this.board.refUpdate( data.oldElement[ind].id, id[ind] );
       }
 
@@ -593,9 +611,12 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
       for (var ind=0; ind< data.oldElement.length; ind++)
       {
-        var ref = this.schematic.refLookup( data.element[ind].id );
-        //$.extend( true, ref, data.oldElement[ind].ref );
-        $.extend( true, ref, data.oldElement[ind] );
+        //var ref = this.schematic.refLookup( data.element[ind].id );
+        ////$.extend( true, ref, data.oldElement[ind].ref );
+        //$.extend( true, ref, data.oldElement[ind] );
+
+        var clonedData = simplecopy( data.oldEelement[ind].ref );
+        this.schematic.dataReplace( data.oldElement[ind].id, clonedData );
         this.schematic.refUpdate( id[ind], data.oldElement[ind].id );
       }
 
@@ -608,9 +629,14 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
       //
       for (var ind=0; ind<id.length; ind++)
       {
-        var ref = this.schematic.refLookup( data.oldElement[ind].id );
-        $.extend( true, ref, data.element[ind] );
+        //var ref = this.schematic.refLookup( data.oldElement[ind].id );
+        //$.extend( true, ref, data.element[ind] );
+        //this.schematic.refUpdate( data.oldElement[ind].id, id[ind] );
+
+        var clonedData = simplecopy( data.element[ind].ref );
+        this.schematic.dataReplace( data.oldElement[ind].id, clonedData );
         this.schematic.refUpdate( data.oldElement[ind].id, id[ind] );
+
       }
 
     }
