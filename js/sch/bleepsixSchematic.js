@@ -138,7 +138,7 @@ bleepsixSchematic.prototype._createId = function( parent_id )
 
 bleepsixSchematic.prototype.dataReplace = function( id, data )
 {
-  var sch = this.kicad_sch_json;
+  var sch = this.kicad_sch_json.element;
   for (var ind in sch)
   {
     if (sch[ind].id == id)

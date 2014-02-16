@@ -67,13 +67,26 @@ bleepsixBoard.prototype.refDelete = function( id )
 
 bleepsixBoard.prototype.dataReplace = function( id, data )
 {
-  var brd = this.kicad_brd_json;
+  var brd = this.kicad_brd_json.element;
   for (var ind in brd)
   {
     if ( brd[ind].id == id)
     {
       brd[ind] = data;
       return true;
+    }
+
+    if ( brd[ind].type == "module")
+    {
+      var pads = brd[ind].pad;
+      for (var p_ind in pads)
+      {
+        if (pads[p_ind].id == id)
+        {
+          pads[p_ind] = data;
+          return true;
+        }
+      }
     }
   }
 
@@ -467,16 +480,7 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
   // first test for bounding box intersection
   //var hit_ele_list = this._find_possible_track_intersections( tracks, debug_flag );
 
-  //DEBUG
-  console.log("cp00");
-  console.log(tracks);
-  console.log(layer);
-
   var hit_ele_list = this._find_possible_track_intersections( tracks, layer );
-
-  //DEBUG
-  console.log("got:");
-  console.log(hit_ele_list);
 
   if (debug_flag)
   {
@@ -506,10 +510,6 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
   // We have bounding box collisions, so collect all
   // non net pad and track geometries.
   //
-
-  //DEBUG
-  console.log("hit_ele_list");
-  console.log(hit_ele_list);
 
   var pgns = this._build_non_net_polygons( 0, 0, hit_ele_list );
 

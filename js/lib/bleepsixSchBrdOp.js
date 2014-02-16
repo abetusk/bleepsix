@@ -29,6 +29,11 @@ var schBrdOpHeadless = false;
 if ( typeof module !== 'undefined')
 {
   schBrdOpHeadless = true;
+  var bleepsixAux = require("../lib/aux.js");
+  var guid = bleepsixAux.guid;
+  var s4 = bleepsixAux.s4;
+  var simplecopy = bleepsixAux.simplecopy;
+
 }
 
 function bleepsixSchBrdOp( schematic, board )
@@ -364,9 +369,15 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
         this.board.refUpdate( data.oldElement[ind].id, id[ind] );
         */
 
+
         var clonedData = simplecopy( data.element[ind] );
         this.board.dataReplace( data.oldElement[ind].id, clonedData );
         this.board.refUpdate( data.oldElement[ind].id, id[ind] );
+
+        console.log("\n\n\n EDIT brd:");
+        console.log( data.element[ind] );
+        console.log( clonedData );
+
       }
 
     }
