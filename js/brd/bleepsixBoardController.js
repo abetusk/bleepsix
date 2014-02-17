@@ -108,6 +108,80 @@ function bleepsixBoardController() {
   this.drawSnapArea = false;
 }
 
+
+bleepsixBoardController.prototype._pad_by_name = function( pad, name )
+{
+  for (var ind in pad)
+  {
+    if (pad[ind].name == name )
+      return pad[ind];
+  }
+  return null;
+}
+
+bleepsixBoardController.prototype.schNetCodeMap= function( )
+{
+  var sch_pin_id_net_map  = this.schematic.getPinNetMap();
+
+  var sch_netcode_map = {};
+
+  var brd_to_sch_net_map = {};
+  var sch_to_brd_net_map = {};
+
+  for (var pin_id in sch_pin_id_net_map)
+  {
+    var pin_name  = sch_pin_id_net_map[pin_id].pin;
+    var parent_id   = sch_pin_id_net_map[pin_id].id;
+    var sch_netcode = parseInt(sch_pin_id_net_map[pin_id].netcode);
+
+    // retrieve module
+    var ref = this.board.refLookup( parent_id );
+    if (!ref) continue;
+    if (! ( "pad" in ref ) ) continue;
+
+    console.log(" !!>> " + pin_id + " " + parent_id);
+    console.log(ref);
+
+    console.log( ref.pad.length );
+    console.log( pin_name );
+
+    var pad = this._pad_by_name( ref.pad, pin_name );
+    if (!pad) continue;
+
+    console.log("looking at pad: " + pin_name + " with net number " + pad.net_number );
+
+    var pad_net = parseInt( pad.net_number );
+
+    console.log(pad_net);
+
+    if (pad_net <= 0) continue;
+
+    console.log("pad:");
+    console.log(pad);
+
+    // setup mappings
+    //
+    if (pad_net in brd_to_sch_net_map)
+      brd_to_sch_net_map[ pad_net ].push( sch_netcode );
+    else
+      brd_to_sch_net_map[ pad_net ] = [ sch_netcode ];
+
+    if ( sch_netcode in sch_to_brd_net_map )
+      sch_to_brd_net_map[ sch_netcode ].push( pad_net );
+    else
+      sch_to_brd_net_map[ sch_netcode ] = [ pad_net ];
+
+  }
+
+  //DEBUG
+  console.log("brd_to_sch_net_map:");
+  console.log(brd_to_sch_net_map);
+
+  console.log("sch_to_brd_net_map:");
+  console.log(sch_to_brd_net_map);
+
+}
+
 bleepsixBoardController.prototype.opUndo = function( )
 {
   this.op.opUndo();
@@ -125,6 +199,13 @@ bleepsixBoardController.prototype.opRedo = function( )
 
 bleepsixBoardController.prototype.opCommand = function( msg )
 {
+
+  //EXPERIMENTAL
+  var sch_pin_net_map = this.schematic.constructNet();
+
+  console.log("EXPERIMENTAL");
+  console.log(sch_pin_net_map);
+
   this.op.opCommand( msg );
   this.boardUpdate = true;
   g_painter.dirty_flag = true;

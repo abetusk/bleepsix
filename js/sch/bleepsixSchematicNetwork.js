@@ -544,22 +544,22 @@ bleepsixSchematicNetwork.prototype.anonymousCreateResponse = function( data )
 bleepsixSchematicNetwork.prototype.projectop = function( msg )
 {
 
-  console.log(" emitting projectop");
-  console.log(msg);
+  //console.log(" emitting projectop");
+  //console.log(msg);
 
   this.socket.emit("projectop", { userId: this.userId, sessionId: this.sessionId, projectId: this.projectId, op : msg } );
 }
 
 bleepsixSchematicNetwork.prototype.projectopResponse = function( msg )
 {
-  console.log("bleepsixSchematicNetwork.projectopResponse:");
-  console.log(msg);
+  //console.log("bleepsixSchematicNetwork.projectopResponse:");
+  //console.log(msg);
 
   if (msg.type == "op")
   {
     //console.log("op neutered");
 
-    console.log("got op, applying (directly to schematic op)");
+    //console.log("got op, applying (directly to schematic op)");
     g_schematic_controller.op.opCommand( msg.op );
   }
 

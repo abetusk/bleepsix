@@ -252,6 +252,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'I')
   {
     console.log("schematic:");
+    console.log( g_schematic_controller.schematic);
     console.log( g_schematic_controller.schematic.kicad_sch_json );
     console.log( g_schematic_controller.schematic.ref_lookup );
 

@@ -369,14 +369,9 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
         this.board.refUpdate( data.oldElement[ind].id, id[ind] );
         */
 
-
         var clonedData = simplecopy( data.element[ind] );
         this.board.dataReplace( data.oldElement[ind].id, clonedData );
         this.board.refUpdate( data.oldElement[ind].id, id[ind] );
-
-        console.log("\n\n\n EDIT brd:");
-        console.log( data.element[ind] );
-        console.log( clonedData );
 
       }
 
@@ -701,6 +696,13 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
   }
 
+  else if ( type == "updateNet" )
+  {
+
+    this.schematic.updateNets( data );
+
+  }
+
 }
 
 
@@ -785,7 +787,9 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
     this.opHistoryIndex++;
 
   if ( dest == "sch" )
+
   {
+
     if      ( action == "add" )    { this.opSchAdd( op, inverseFlag ); }
     else if ( action == "update" ) { this.opSchUpdate( op, inverseFlag ); }
     else if ( action == "delete" ) { this.opSchDelete( op, inverseFlag ); }
@@ -793,6 +797,7 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
 
   else if ( dest == "brd" )
   {
+
     if      ( action == "add" )    { this.opBrdAdd( op, inverseFlag ); }
     else if ( action == "update" ) { this.opBrdUpdate( op, inverseFlag ); }
     else if ( action == "delete" ) { this.opBrdDelete( op, inverseFlag ); }

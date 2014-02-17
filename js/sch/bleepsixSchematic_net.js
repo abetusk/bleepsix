@@ -252,13 +252,35 @@ bleepsixSchematic.prototype.constructNet = function()
 
   this._net_label_groups(V, E);
 
+  /*
+  //DEBUG
   console.log("V:");
   console.log(V);
   console.log("E:");
   console.log(E);
+  */
+
+  var sch_pin_net_map = {};
+  for (var v in V)
+  {
+    var id = V[v].id;
+    var nc = V[v].net;
+    var ref = V[v].ref;
+    var type = V[v].type;
+
+    if ( type == "pin") 
+    {
+      var parent_id = ref.id;
+      var pin_number = V[v].pin_number;
+
+      var obj = { netcode : nc, pin : pin_number, id : parent_id }
+      sch_pin_net_map[ id ] = obj;
+    }
 
 
-  return;
+  }
+
+  return sch_pin_net_map;
 
 
   var n = sch.element.length;

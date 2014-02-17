@@ -317,6 +317,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("info (board state):");
     console.log( g_board_controller.board );
+
+    console.log( g_board_controller.schematic );
+
     //console.log( g_painter.zoom );
     //console.log( g_painter.view );
   }

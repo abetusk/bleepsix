@@ -39,7 +39,7 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
   var type = ele.type;
 
   netcode = orig_netcode;
-  if (sch_net_code_map)
+  if (sch_net_code_map && (netcode in sch_net_code_map))
     netcode = sch_net_code_map[ orig_netcode ];
 
   if (type == "track")

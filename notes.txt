@@ -237,6 +237,16 @@ By Rama Hoetzlein and Abram Connelly"
 
 == PCB
 
+  BUG: trace is laying down with intersections over pads with the SSOP-48 (and
+    others, libcms) with 50 spacing.  There are two things going on here (I
+    believe).  The first is that 50 is too big for some of the clearances, or
+    at least doesn't fall onto a metricly spaced footprint pitch.  This
+    prevents laying down wires (which may be ok in retrospect).
+    The other is that I think it snaps back to a spaced 50 grid point,
+    not realizing it's intersecting pads or crossing...  look at toolTrace
+    to figure out when final acceptance is done.
+    Moving to 25 or 1 spacing and everything works fine.
+
 * BUG: need to record last _unconnected_ point for trace placement or
        else it might have happened to land on the track in the small
        magnet (or large magnet zone).  Pick one and be consistent.

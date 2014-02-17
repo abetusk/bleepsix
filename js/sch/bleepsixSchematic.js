@@ -85,6 +85,9 @@ function bleepsixSchematic()
   this.debug = false;
 
   this.local_component_cache = {};
+
+  this.net_pin_id_map = {};
+
 }
 
 
@@ -133,6 +136,18 @@ bleepsixSchematic.prototype._createId = function( parent_id )
 
   this.id++;
   return id_str;
+
+}
+
+bleepsixSchematic.prototype.getPinNetMap = function()
+{
+  return this.net_pin_id_map ;
+}
+
+bleepsixSchematic.prototype.updateNets = function( net_info )
+{
+
+  this.net_pin_id_map = net_info;
 
 }
 

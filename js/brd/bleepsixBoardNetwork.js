@@ -506,9 +506,11 @@ bleepsixBoardNetwork.prototype.projectflush = function( data )
 bleepsixBoardNetwork.prototype.projectop = function( msg )
 {
 
+  /*
   console.log("");
   console.log(" emitting projectop");
   console.log(msg);
+  */
 
   this.socket.emit("projectop", { userId: this.userId, sessionId: this.sessionId, projectId: this.projectId, op : msg } );
 }

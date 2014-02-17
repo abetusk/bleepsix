@@ -354,8 +354,11 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
 
     //TESTING
-    //g_board_controller.board.updateRatsNest();
-    g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+
+
+    var sch_net_code_map = g_board_controller.schNetCodeMap();
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
     //TESTING
 
 
@@ -379,9 +382,11 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
 
-    //g_board_controller.board.updateRatsNest();
-    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
-    g_board_controller.board.updateRatsNest( );
+    //g_board_controller.board.updateRatsNest( );
+
+    //TESTING
+    var sch_net_code_map = g_board_controller.schNetCodeMap();
+    g_board_controller.board.updateRatsNest( undefined, undefined, sch_net_code_map );
 
     g_painter.dirty_flag = true;
 
@@ -419,8 +424,12 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
     g_board_controller.opCommand( op );
 
-    g_board_controller.board.updateRatsNest();
-    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+    //g_board_controller.board.updateRatsNest();
+
+    //TESTING
+    var sch_net_code_map = g_board_controller.schNetCodeMap();
+    g_board_controller.board.updateRatsNest( undefined, undefined, sch_net_code_map );
+
 
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
@@ -462,7 +471,11 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
       g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
     //g_board_controller.board.updateRatsNest();
-    g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
+
+    //TESTING
+    var sch_net_code_map = g_board_controller.schNetCodeMap();
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
 
     g_painter.dirty_flag = true;
 
