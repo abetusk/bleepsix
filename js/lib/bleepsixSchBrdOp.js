@@ -335,6 +335,16 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     op.result = res;
   }
 
+  else if (type == "schematicnetmap")
+  {
+
+    console.log("SCHEMATIC NET MAP>>");
+
+    var sch_pin_id_net_map = this.schematic.getPinNetMap();
+    this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
+
+  }
+
   else if (type == "edit")
   {
 
@@ -696,12 +706,23 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
   }
 
-  else if ( type == "updateNet" )
+  else if ( type == "net" )
   {
 
     this.schematic.updateNets( data );
 
   }
+
+  else if (type == "boardnetmap")
+  {
+
+    console.log("WARNING: opSchUpdate boardnetmap not implemented");
+
+    //this.schematic.getPinNetMap();
+    //this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
+  }
+
+
 
 }
 

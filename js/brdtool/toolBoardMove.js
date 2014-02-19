@@ -279,6 +279,9 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
           op.id.push( this.selectedElement[ind].id );
         }
 
+        console.log("MOVING GROUP>>>>>>");
+        console.log(op);
+
         g_board_controller.opCommand( op );
 
       }
@@ -357,8 +360,8 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
 
 
-    var sch_net_code_map = g_board_controller.schNetCodeMap();
-    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
+    //var sch_net_code_map = g_board_controller.schNetCodeMap();
+    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
     //TESTING
 
 

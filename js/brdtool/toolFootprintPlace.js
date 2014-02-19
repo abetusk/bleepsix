@@ -105,8 +105,34 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
     if (this.highlightId)
     {
+      //var ref = g_board_controller.board.refLookup( this.highlightId );
+      //g_board_controller.board.updateFootprintData( this.cloned_footprint, this.highlightId );
+
+
       var ref = g_board_controller.board.refLookup( this.highlightId );
-      g_board_controller.board.updateFootprintData( this.cloned_footprint, this.highlightId );
+      var saved_ref = simplecopy(ref);
+
+      var tx = ref.x;
+      var ty = ref.y;
+
+      this.cloned_footprint.id = ref.id;
+      this.cloned_footprint.x = ref.x;
+      this.cloned_footprint.y = ref.y;
+
+      this.cloned_footprint.text[0].text = ref.text[0].text;
+      this.cloned_footprint.text[1].text = ref.text[1].text;
+
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "update";
+      op.type = "edit";
+      op.id = [ ref.id ];
+      op.data = { element : [ this.cloned_footprint ] , oldElement : [ saved_ref ] };
+
+      console.log("SENDING OP>>>>>>>>> (" + tx + " " + ty + ")" );
+      console.log(op);
+
+      g_board_controller.opCommand( op );
 
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;

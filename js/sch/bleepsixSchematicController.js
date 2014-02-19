@@ -160,40 +160,15 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   if (!("scope" in msg))
     msg.scope = "network";
 
-
-  //TESTING
-
-  var sch_net_code_map = this.schematic.constructNet();
-  var net_op = { source: "sch", destination: "sch" };
-  net_op.action = "update";
-  net_op.type = "updateNet";
-  net_op.data = sch_net_code_map;
-
-  console.log("TESTING");
-  console.log(net_op);
-  this.op.opCommand( net_op );
-
-  var brd_net_op = { source: "sch", destination: "brd" };
-  brd_net_op.action = "update";
-  brd_net_op.type = "updateNet";
-  brd_net_op.data = sch_net_code_map;
-  this.op.opCommand( brd_net_op );
-
   if (g_schnetwork && (msg.scope == "network") )
   {
-
-    //DEBUG
-    //console.log("bleepsixSchematicController.opCommand sending to g_schnetwork");
-
     g_schnetwork.projectop( msg );
-
-
-    //TESTING
-    g_schnetwork.projectop( net_op);
-    g_schnetwork.projectop( brd_net_op);
-
   }
 
+
+  // If we've added a component, we need to add an 'unknown'
+  // footprint to the board side
+  //
   if ( (msg.action == "add") && (msg.type == "componentData") )
   {
     console.log("add componentData --> board");
@@ -229,6 +204,9 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
 
   }
 
+  // We change the reference or name, we should propagate it through
+  // to the board side.
+  //
   else if ((msg.action == "update") && (msg.type == "edit"))
   {
     console.log("update edit NOT IMPLEMENTED YET");
@@ -256,6 +234,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
 
   }
 
+  // Delete the component -> delete the footprint
+  //
   else if ((msg.action == "delete") && (msg.type == "group"))
   {
 
@@ -292,6 +272,38 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
 
 
   }
+
+  // After all udpates and delete, propagate the net information .
+  // Order is important as the board needs to have it's sister
+  // schematic updated with the netmap.
+  //
+  //TESTING
+
+  var sch_net_code_map = this.schematic.constructNet();
+  var net_op = { source: "sch", destination: "sch" };
+  net_op.action = "update";
+  net_op.type = "net";
+  net_op.data = sch_net_code_map;
+
+  console.log("TESTING");
+  console.log(net_op);
+  this.op.opCommand( net_op );
+
+  var brd_net_op = { source: "sch", destination: "brd" };
+  brd_net_op.action = "update";
+  brd_net_op.type = "schematicnetmap";
+  //brd_net_op.data = sch_net_code_map;
+  this.op.opCommand( brd_net_op );
+
+  if (g_schnetwork && (msg.scope == "network") )
+  {
+
+    g_schnetwork.projectop( net_op);
+    g_schnetwork.projectop( brd_net_op);
+
+  }
+
+
 
   /*
   if (   ((msg.action == "add") ||

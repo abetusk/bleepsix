@@ -68,6 +68,10 @@ bleepsixBoard.prototype.refDelete = function( id )
 bleepsixBoard.prototype.dataReplace = function( id, data )
 {
   var brd = this.kicad_brd_json.element;
+
+
+  this.refDelete( id );
+
   for (var ind in brd)
   {
     if ( brd[ind].id == id)

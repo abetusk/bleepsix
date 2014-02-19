@@ -109,6 +109,7 @@ function bleepsixBoardController() {
 }
 
 
+/*
 bleepsixBoardController.prototype._pad_by_name = function( pad, name )
 {
   for (var ind in pad)
@@ -181,6 +182,8 @@ bleepsixBoardController.prototype.schNetCodeMap= function( )
   console.log(sch_to_brd_net_map);
 
 }
+
+*/
 
 bleepsixBoardController.prototype.opUndo = function( )
 {

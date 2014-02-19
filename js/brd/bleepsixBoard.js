@@ -705,6 +705,10 @@ bleepsixBoard.prototype.relativeMoveElement = function( id_ref, dx, dy )
   dx = parseInt(dx);
   dy = parseInt(dy);
 
+  //DEBUG
+  console.log("RELATIVE MOVE: " + dx + " " + dy );
+  console.log(id_ref);
+
   ref = id_ref["ref"];
   type = ref.type;
 
