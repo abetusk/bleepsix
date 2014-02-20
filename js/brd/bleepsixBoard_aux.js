@@ -85,6 +85,7 @@ bleepsixBoard.prototype.dataReplace = function( id, data )
       var pads = brd[ind].pad;
       for (var p_ind in pads)
       {
+
         if (pads[p_ind].id == id)
         {
           pads[p_ind] = data;

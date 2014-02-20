@@ -104,6 +104,8 @@ bleepsixBoard.prototype.updateSchematicNetcodeMap = function( sch_pin_id_net_map
   console.log("sch_to_brd_net_map:");
   console.log(sch_to_brd_net_map);
 
+  this.kicad_brd_json.brd_to_sch_net_map = brd_to_sch_net_map;
+  this.kicad_brd_json.sch_to_brd_net_map = sch_to_brd_net_map;
 
 }
 

@@ -122,16 +122,30 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       this.cloned_footprint.text[0].text = ref.text[0].text;
       this.cloned_footprint.text[1].text = ref.text[1].text;
 
+      // Generate new nets for each of the pads about to be created
+      //
+      for (var p_ind in this.cloned_footprint.pad )
+      {
+
+        var net_obj = g_board_controller.board.genNet()
+        var net_op = { source : "brd" , destination: "brd" };
+        net_op.action = "add";
+        net_op.type = "net";
+        net_op.data = { net_number : net_obj.net_number,
+                        net_name : net_obj.net_name };
+        g_board_controller.opCommand(net_op);
+
+        var pad = this.cloned_footprint.pad[p_ind];
+        pad.net_number = net_obj.net_number;
+        pad.net_name = net_obj.net_name;
+      }
+
 
       var op = { source: "brd", destination: "brd" };
       op.action = "update";
       op.type = "edit";
       op.id = [ ref.id ];
       op.data = { element : [ this.cloned_footprint ] , oldElement : [ saved_ref ] };
-
-      console.log("SENDING OP>>>>>>>>> (" + tx + " " + ty + ")" );
-      console.log(op);
-
       g_board_controller.opCommand( op );
 
       g_board_controller.tool = new toolBoardNav(x, y);

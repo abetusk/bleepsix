@@ -415,7 +415,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       //g_board_controller.board.rotate90( id_ref, ccw );
       //g_painter.dirty_flag = true;
 
-      g_board_controller.board.updateRatsNest();
+      //g_board_controller.board.updateRatsNest();
+      g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
     }
 
   }
@@ -444,7 +445,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       //g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
     }
 
-    g_board_controller.board.updateRatsNest();
+    //g_board_controller.board.updateRatsNest();
+    g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
 
   }
@@ -470,7 +472,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     console.log("TESTING RATS NEST FUNCTIONALITY");
 
     //g_board_controller.board.updateRatsNest();
-    g_board_controller.board.updateRatsNest();
+
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
     console.log("update rat's nest done");
 
@@ -582,7 +587,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           //g_painter.dirty_flag = true;
 
 
-          g_board_controller.board.updateRatsNest();
+          //g_board_controller.board.updateRatsNest();
+          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
           return true;
         }
@@ -621,7 +627,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       // TESTING
 
 
-          g_board_controller.board.updateRatsNest();
+          //g_board_controller.board.updateRatsNest();
+          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
 
           return true;
@@ -644,7 +651,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           //g_painter.dirty_flag = true;
 
 
-          g_board_controller.board.updateRatsNest();
+          //g_board_controller.board.updateRatsNest();
+          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
           return true;
 
@@ -662,7 +670,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
 
 
-      g_board_controller.board.updateRatsNest();
+      //g_board_controller.board.updateRatsNest();
+      g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
       return true;
 

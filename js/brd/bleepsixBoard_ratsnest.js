@@ -38,20 +38,49 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
 {
   var type = ele.type;
 
+  if (orig_netcode < 0) return false;
+
+  /*
   netcode = orig_netcode;
   if (sch_net_code_map && (netcode in sch_net_code_map))
     netcode = sch_net_code_map[ orig_netcode ];
+    */
+
+  mapNetList = [ orig_netcode ];
+  if (sch_net_code_map && (orig_netcode in sch_net_code_map))
+    mapNetList = sch_net_code_map[ orig_netcode ];
+
+  //DEBUG
+  console.log(">>> filter single (orig_netcode " + orig_netcode + ")" );
+  console.log( sch_net_code_map);
+  console.log(mapNetList);
+
 
   if (type == "track")
   {
 
-    if ((netcode >= 0) &&
-        (netcode != parseInt(ele.netcode)) )
-      return false;
-
     if ((layer >= 0) &&
         (layer != parseInt(ele.layer)))
       return false;
+
+    var foundFlag = false;
+    for (var ind in mapNetList)
+    {
+      if (mapNetList[ind] == parseInt(ele.netcode))
+      {
+        foundFlag = true;
+        break;
+      }
+    }
+
+    if (!foundFlag) 
+      return false;
+
+    /*
+    if ((netcode >= 0) &&
+        (netcode != parseInt(ele.netcode)) )
+      return false;
+      */
 
     res.push( { id: ele.id, ref: ele, type : "track" } );
 
@@ -65,13 +94,34 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
     {
       var pad = pads[p_ind];
 
-      if ((netcode >= 0) &&
-          (netcode != parseInt(pad.net_number)) )
-        return false;
-
       if ((layer >= 0) &&
           ( (parseInt(pad.layer_mask, 16) & (1<<layer)) == 0 ) )
         return false;
+
+      var foundFlag = false;
+      for (var ind in mapNetList)
+      {
+        if (mapNetList[ind] == parseInt(pad.net_number))
+        {
+          foundFlag = true;
+          break;
+        }
+      }
+
+      //DEBUG
+      console.log(">>>> pad filter (" + foundFlag + ") (" + layer + ")" );
+      console.log( pad );
+      console.log( mapNetList );
+
+      if (!foundFlag) 
+        return false;
+
+
+      /*
+      if ((netcode >= 0) &&
+          (netcode != parseInt(pad.net_number)) )
+        return false;
+        */
 
       res.push( { id: pad.id, ref: ele, pad_ref: pad, type :"pad" } );
 
@@ -711,6 +761,10 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 
   var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array, sch_net_code_map );
 
+  //DEBUG
+  console.log(">>>>> _update_single_ratsnest");
+  console.log(net_id_ref);
+
   var verts = [];
 
   for (var ind in net_id_ref)
@@ -782,6 +836,10 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 
 bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_net_code_map )
 {
+
+  console.log(">>>>>>>>>>>>>>>>>> updateRatsNest");
+  console.log( sch_net_code_map );
+
   if (typeof netcode !== 'undefined')
   {
 

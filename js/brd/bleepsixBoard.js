@@ -705,10 +705,6 @@ bleepsixBoard.prototype.relativeMoveElement = function( id_ref, dx, dy )
   dx = parseInt(dx);
   dy = parseInt(dy);
 
-  //DEBUG
-  console.log("RELATIVE MOVE: " + dx + " " + dy );
-  console.log(id_ref);
-
   ref = id_ref["ref"];
   type = ref.type;
 
@@ -1387,6 +1383,12 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
       {
         footprint_entry.pad[pad_ind].id = this._createId(id);
       }
+
+      // EXPERIMENTAL
+      var net_obj = this.genNet();
+      footprint_entry.pad[pad_ind].net_name = net_obj.net_name;
+      footprint_entry.pad[pad_ind].net_number = net_obj.net_number;
+
     }
 
   var R = this._R( angle );
