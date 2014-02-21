@@ -77,6 +77,9 @@ function bleepsixSchematic()
   //this.draw_bounding_box_flag = true;
   this.draw_bounding_box_flag = false;
 
+  //this.draw_id_text_flag = false;
+  this.draw_id_text_flag = true;
+
   this.reference_number = {};
 
   this.log = [];
@@ -1983,7 +1986,12 @@ bleepsixSchematic.prototype.drawSchematicLine = function( line )
   if ( this.draw_bounding_box_flag )
   {
     this.drawBoundingBox( line["bounding_box"] );
+  }
 
+  if (this.draw_id_text_flag)
+  {
+    var bb = line["bounding_box"];
+    g_painter.drawText( line.id, bb[1][0], bb[1][1], "rgba(0,0,0,0.3)", 12, 0.0, "L", "C" );
   }
 
 }
@@ -2003,6 +2011,12 @@ bleepsixSchematic.prototype.drawSchematicNoconn = function( noconn )
   if ( this.draw_bounding_box_flag )
   {
     this.drawBoundingBox( noconn["bounding_box"] );
+  }
+
+  if (this.draw_id_text_flag)
+  {
+    var bb = noconn["bounding_box"];
+    g_painter.drawText( noconn.id, bb[1][0], bb[1][1], "rgba(0,0,0,0.3)", 12, 0.0, "L", "C" );
   }
 
 
@@ -2025,6 +2039,13 @@ bleepsixSchematic.prototype.drawSchematicConnection = function( conn )
   {
     this.drawBoundingBox( conn["bounding_box"] );
   }
+
+  if (this.draw_id_text_flag)
+  {
+    var bb = conn["bounding_box"];
+    g_painter.drawText( conn.id, bb[1][0], bb[1][1], "rgba(0,0,0,0.3)", 12, 0.0, "L", "C" );
+  }
+
 
 }
 
@@ -2213,6 +2234,12 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
   if ( this.draw_bounding_box_flag )
   {
     this.drawBoundingBox( text["bounding_box"] );
+  }
+
+  if (this.draw_id_text_flag)
+  {
+    var bb = text["bounding_box"];
+    g_painter.drawText( text.id, bb[1][0], bb[1][1], "rgba(0,0,0,0.3)", 12, 0.0, "L", "C" );
   }
 
 
@@ -2422,6 +2449,12 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
   if (this.draw_bounding_box_flag)
   {
     this.drawBoundingBox( comp["bounding_box"] );
+  }
+
+  if (this.draw_id_text_flag)
+  {
+    var bb = comp["bounding_box"];
+    g_painter.drawText( comp.id, bb[1][0], bb[1][1], "rgba(0,0,0,0.3)", 12, 0.0, "L", "C" );
   }
 
   var T = comp["transform"];

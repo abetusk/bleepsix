@@ -132,6 +132,10 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
       {
         for (var jj in mapNetList)
         {
+          if ( (parseInt(eleNetList[ii]) == 0) || 
+               (parseInt(mapNetList[jj]) == 0) )
+            continue;
+
           if ( parseInt(eleNetList[ii]) == parseInt(mapNetList[jj]) )
           {
             foundFlag = true;

@@ -37,7 +37,13 @@ bleepsixSchematic.prototype._conn_wire_intersect = function( conn, wire )
 
   var finalDist = numeric.norm2( numeric.sub( v, q ) );
   if ( finalDist < eps )
-    return true;
+  {
+
+    if ( (t >= 0) && (t <= 1) )
+    {
+      return true;
+    }
+  }
 
   return false;
 }
@@ -221,6 +227,7 @@ bleepsixSchematic.prototype._net_label_groups_r = function( V, E, id, net )
   {
     this._net_label_groups_r( V, E, next_id, net );
   }
+
 }
 
 bleepsixSchematic.prototype._net_label_groups = function( V, E )
