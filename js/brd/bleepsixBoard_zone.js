@@ -682,7 +682,7 @@ bleepsixBoard.prototype.initBGL = function()
 {
 
   this.bgl_grammar = null;
-  foo = this;
+  var foo = this;
 
   $.ajax( {
     url : "data/bgl.peg",

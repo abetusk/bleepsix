@@ -102,8 +102,13 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
     this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.net_number, id );
   }
 
-  else if ( ( type == "footprintData" ) || (type == "footprintData" ) )
+  else if ( type == "footprintData" )
   {
+
+    //DEBUG
+    console.log(">>>>> opBrdAddSingle, footprintData:");
+    console.log( data.footprintData );
+
 
     this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
 

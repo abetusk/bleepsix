@@ -140,7 +140,8 @@ bleepsixBoardNetwork.prototype.slowSync = function()
 {
   if (g_board_controller.boardUpdate)
   {
-    console.log("  bleepsixBoardNetwork.slowSync syncing!");
+    //DEBUG
+    //console.log("  bleepsixBoardNetwork.slowSync syncing!");
 
     this.projectflush();
 
@@ -203,7 +204,8 @@ bleepsixBoardNetwork.prototype.init = function()
   if (!this.projectId)
     this.projectId = undefined;
 
-  console.log("bleepsixBoardNetwork.init: got projectId: " + this.projectId );
+  //DEBUG
+  //console.log("bleepsixBoardNetwork.init: got projectId: " + this.projectId );
 
   //this.boardId = $.cookie("boardId");
 
@@ -216,7 +218,8 @@ bleepsixBoardNetwork.prototype.init = function()
     //this.sessionId = -1;
     this.anonymous = true;
 
-    console.log("getting anonymous credentials (emitting 'anonymouscreate')");
+    //DEBUG
+    //console.log("getting anonymous credentials (emitting 'anonymouscreate')");
 
     // this will create an anonymous user, create a sessionId for the
     // anonymous user and create a new project with a projectId 
@@ -230,7 +233,8 @@ bleepsixBoardNetwork.prototype.init = function()
   // and sessionId are actually valid.  Send a 'meow' probe and wait for a
   // 'mew' response to proceed.
   //
-  console.log("userId: " + this.userId + ", sessionId: " + this.sessionId );
+  //DEBUG
+  //console.log("userId: " + this.userId + ", sessionId: " + this.sessionId );
 
   // If we don't have a projectId, then we emit a meow and will 
   // request a new projectId on authenticated 'mew' response.
@@ -243,7 +247,8 @@ bleepsixBoardNetwork.prototype.init = function()
       this.projectId = $.cookie("recentProjectId");
       this.usingRecentProjectFlag = true;
 
-      console.log("have recentProjectId, authentication most recent project id " + this.projectId);
+      //DEBUG
+      //console.log("have recentProjectId, authentication most recent project id " + this.projectId);
 
       this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId });
       return;
@@ -253,7 +258,7 @@ bleepsixBoardNetwork.prototype.init = function()
     // if no most recent project, create a random one
     //
 
-    console.log("CHECKPOINT");
+    //console.log("CHECKPOINT");
 
     var container = {
       type : "startupProject",
@@ -280,7 +285,8 @@ bleepsixBoardNetwork.prototype.init = function()
   }
   else
   {
-    console.log("projectauth emit");
+    //DEBUG
+    //console.log("projectauth emit");
 
     this.usingUrlProjectFlag = true;
     this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId});
@@ -290,14 +296,17 @@ bleepsixBoardNetwork.prototype.init = function()
 
 bleepsixBoardNetwork.prototype.loadStartupProject = function( data )
 {
-  console.log("loadStartupProject");
-  console.log(data);
+
+  //DEBUG
+  //console.log("loadStartupProject");
+  //console.log(data);
 
   if ((data) && (data.type == "success"))
   {
 
+    //DEBUG
     //console.log("emitting schauth from loadStartupProject");
-    console.log("projectauth emit from loadStartupProject");
+    //console.log("projectauth emit from loadStartupProject");
 
     this.projectId = data.projectId;
 
@@ -310,13 +319,14 @@ bleepsixBoardNetwork.prototype.loadStartupProject = function( data )
 
 bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 {
-  console.log("newprojectResponse:");
-  console.log(data);
+  //DEBUG
+  //console.log("newprojectResponse:");
+  //console.log(data);
 
 
   if (!data)
   {
-    console.log("bleepsixBoardNetowrk.newprojectResponse: error occured: got null data");
+    console.log("ERROR: bleepsixBoardNetowrk.newprojectResponse: got null data");
     return;
   }
 
@@ -327,7 +337,7 @@ bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 
   if ((typ != "response") || (stat != "success"))
   {
-    console.log("bleepsixBoardNetowrk.newprojectResponse: error occured: got '" + msg + "'");
+    console.log("ERROR: bleepsixBoardNetowrk.newprojectResponse: got '" + msg + "'");
     return;
   }
 
@@ -345,7 +355,8 @@ bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 
 bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 {
-  console.log("projectauthResponse:");
+  //DEBUG
+  //console.log("projectauthResponse:");
   //console.log(data);
 
   this.fail_count++;
@@ -356,16 +367,20 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
     return;
   }
 
-  console.log( "fail_count: " + this.fail_count + " / " + this.fail_max );
+  //DEBUG
+  //console.log( "fail_count: " + this.fail_count + " / " + this.fail_max );
 
   if (data && (data.type == "response") && (data.status == "success") )
   {
     this.projectName = data.projectName;
 
+    //DEBUG
+    /*
     console.log("userId: " + this.userId);
     console.log("sessionid: " + this.sessionId);
     console.log("projectId: " + this.projectId);
     console.log("projectName: " + this.projectName);
+    */
 
     $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
     g_board_controller.project_name_text = this.userName + " / " + this.projectName;
@@ -385,14 +400,16 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
     //
     if ( data.message.match(/thentication failure/) )
     {
-      console.log("authentication failure, issuing an anonymouscreate request");
+      //DEBUG
+      //console.log("authentication failure, issuing an anonymouscreate request");
 
       this.socket.emit( "anonymouscreate" );
       return;
     }
 
-    console.log("DEBUG: bleepsixBoardNetwork.projectauthResponse " +
-        "authentication failed, issuing a 'startupProject' request");
+    //DEBUG
+    //console.log("DEBUG: bleepsixBoardNetwork.projectauthResponse " +
+    //    "authentication failed, issuing a 'startupProject' request");
 
 
     var container = {
@@ -405,8 +422,9 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
     var xx = this;
     var str_data = JSON.stringify( container );
 
-    console.log("sending to meowDataManager");
-    console.log(str_data);
+    //DEBUG
+    //console.log("sending to meowDataManager");
+    //console.log(str_data);
 
     $.ajax({
       type: "POST",
@@ -437,7 +455,8 @@ bleepsixBoardNetwork.prototype.projectsnapshot = function()
 
 bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 {
-  console.log("projectsnapshot response:");
+  //DEBUG
+  //console.log("projectsnapshot response:");
   //console.log(data);
 
   if (!data)
@@ -453,7 +472,8 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 
   if ( (typ != "response") || (stat != "success") )
   {
-    console.log("projectsnapshot response error, got data:");
+
+    console.log("ERROR: projectsnapshot response error, got data:");
     console.log(data);
     return;
   }
@@ -481,6 +501,7 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 
 bleepsixBoardNetwork.prototype.projectflushResponse = function( data )
 {
+  //DEBUG
   console.log("projectflushResponse:");
   console.log(data);
 }
@@ -497,8 +518,9 @@ bleepsixBoardNetwork.prototype.projectflush = function( data )
   msg.json_sch = JSON.stringify( g_board_controller.schematic.kicad_sch_json ); 
   msg.json_brd = JSON.stringify( g_board_controller.board.kicad_brd_json ); 
 
-  console.log("emitting projectflush , msg:");
-  console.log(msg);
+  //DEBUG
+  //console.log("emitting projectflush , msg:");
+  //console.log(msg);
 
   this.socket.emit( "projectflush", msg );
 }
@@ -517,14 +539,16 @@ bleepsixBoardNetwork.prototype.projectop = function( msg )
 
 bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
 {
-  console.log("bleepsixBoardNetwork.projectopResponse:");
-  console.log(msg);
+  //DEBUG
+  //console.log("bleepsixBoardNetwork.projectopResponse:");
+  //console.log(msg);
 
   if (msg.type == "op")
   {
     //console.log("op neutered ");
 
-    console.log("applying op (directly to board op)");
+    //DEBUG
+    //console.log("applying op (directly to board op)");
     //g_board_controller.opCommand( msg.op );
     g_board_controller.op.opCommand( msg.op );
   }
@@ -535,21 +559,26 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
 
 bleepsixBoardNetwork.prototype.anonymousCreateResponse = function( data )
 {
-  console.log("anonymousCreateResponse:");
-  console.log(data);
+
+  //DEBUG
+  //console.log("anonymousCreateResponse:");
+  //console.log(data);
 
   if (!data) { console.log("bleepsixBoardNetwork.anonymouseCreateResponse: ERROR: data NULL!"); return; }
 
   if ( (data.type == "response") && 
        (data.status == "success") )
   {
-    console.log("anonymous create success!");
+
+    //DEBUG
+    //console.log("anonymous create success!");
 
     this.userId = data.userId;
     this.sessionId = data.sessionId;
     this.projectId = data.projectId;
 
-    console.log("setting cookies");
+    //DEBUG
+    //console.log("setting cookies");
     $.cookie("userId",      this.userId,    {expires:365, path:'/', secure:true });
     $.cookie("sessionId",   this.sessionId, {expires:365, path:'/', secure:true });
     $.cookie("userName", "anonymous", {expires:365, path:'/', secure:true });

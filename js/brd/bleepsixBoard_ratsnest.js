@@ -52,9 +52,9 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
 
 
   //DEBUG
-  console.log(">>> filter single (orig_netcode " + orig_netcode + ")" );
-  console.log( sch_net_code_map);
-  console.log(mapNetList);
+  //console.log(">>> filter single (orig_netcode " + orig_netcode + ")" );
+  //console.log( sch_net_code_map);
+  //console.log(mapNetList);
 
 
   if (type == "track")
@@ -62,7 +62,7 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
 
     if ((layer >= 0) &&
         (layer != parseInt(ele.layer)))
-      return false;
+      return ;
 
     var ele_net_number = parseInt(ele.netcode);
 
@@ -85,7 +85,7 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
     }
 
     if (!foundFlag) 
-      return false;
+      return ;
 
     res.push( { id: ele.id, ref: ele, type : "track" } );
 
@@ -95,13 +95,23 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
   {
 
     var pads = ele.pad;
+
+    /*
+    //DEBUG
+    console.log("ele, pads:");
+    console.log(ele);
+    console.log(pads);
+    */
+
     for (var p_ind in pads)
     {
       var pad = pads[p_ind];
 
       if ((layer >= 0) &&
           ( (parseInt(pad.layer_mask, 16) & (1<<layer)) == 0 ) )
-        return false;
+      {
+        continue;
+      }
 
       var ele_net_number = parseInt(pad.net_number);
 
@@ -109,12 +119,20 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
       if (sch_net_code_map && (orig_netcode in sch_net_code_map))
         eleNetList = sch_net_code_map[ ele_net_number ];
 
+      /*
+      //DEBUG
+      console.log("considering pad(" + p_ind + "): " + pad.net_number );
+      console.log(pad);
+      console.log("\n");
+      */
+
+
       var foundFlag = false;
       for (var ii in eleNetList)
       {
         for (var jj in mapNetList)
         {
-          if (eleNetList[ii] == mapNetList[jj])
+          if ( parseInt(eleNetList[ii]) == parseInt(mapNetList[jj]) )
           {
             foundFlag = true;
             break;
@@ -124,15 +142,22 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
       }
 
       if (!foundFlag) 
-        return false;
+      {
+        continue;
+      }
 
+      /*
       //DEBUG
       console.log(">>>> pad filter (" + foundFlag + ") (" + layer + ")" );
       console.log( pad );
       console.log( mapNetList );
+      console.log("\n");
+      */
 
       if (!foundFlag) 
-        return false;
+      {
+        continue;
+      }
 
 
       /*
@@ -146,8 +171,6 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
     }
 
   }
-
-  return true;
 
 }
 
@@ -782,8 +805,8 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
   var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array, sch_net_code_map );
 
   //DEBUG
-  console.log(">>>>> _update_single_ratsnest");
-  console.log(net_id_ref);
+  //console.log(">>>>> _update_single_ratsnest");
+  //console.log(net_id_ref);
 
   var verts = [];
 
@@ -834,8 +857,9 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
     }
   }
 
-  console.log(">>>>> verts:");
-  console.log(verts);
+  //DEBUG
+  //console.log(">>>>> verts:");
+  //console.log(verts);
 
   var edges = [];
 
@@ -844,8 +868,9 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
   else if (verts.length == 2)
     edges = [[ 0, 1 ]] ;
 
-  console.log(">>>>> edges:");
-  console.log(edges);
+  //DEBUG
+  //console.log(">>>>> edges:");
+  //console.log(edges);
 
 
   var min_seg_len_sq = (ds+1)*(ds+1);
@@ -869,8 +894,9 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_net_code_map )
 {
 
-  console.log(">>>>>>>>>>>>>>>>>> updateRatsNest");
-  console.log( sch_net_code_map );
+  //DEBUG
+  //console.log(">>>>>>>>>>>>>>>>>> updateRatsNest");
+  //console.log( sch_net_code_map );
 
   if (typeof netcode !== 'undefined')
   {

@@ -166,7 +166,8 @@ bleepsixBoard.prototype.init = function( paint )
   // load ascii font
 
 
-  console.log("bleepsixBoard.init...");
+  //DEBUG
+  //console.log("bleepsixBoard.init...");
 
   var brd = this;
   $.ajaxSetup({ cache : false });
@@ -439,7 +440,7 @@ bleepsixBoard.prototype.rotateAboutPoint90 = function ( id_refs, x, y, ccw_flag 
 {
 
   //DEBUG
-  console.log("rotateAboutPoint90: " + x + " " + y );
+  //console.log("rotateAboutPoint90: " + x + " " + y );
 
   this.rotateAboutPoint(id_refs, x, y, -Math.PI/2, ccw_flag );
 }
@@ -475,7 +476,6 @@ bleepsixBoard.prototype._line_point_intersect = function( l0, l1, p, w )
   
   if (d2 < eps) 
   {
-    console.log("boing!");
     return false;
   }
 
@@ -578,7 +578,7 @@ bleepsixBoard.prototype.pickElement = function( ele, x, y )
   {
     //if ( ele.type != 'czone' )
     //{
-      console.log("undefined bbox");
+      console.log("ERROR: undefined bbox");
       console.log(ele);
     //}
     return;
@@ -754,7 +754,8 @@ bleepsixBoard.prototype.relativeMoveElement = function( id_ref, dx, dy )
 bleepsixBoard.prototype._initBoardNet = function()
 {
 
-  console.log("bleepsixBoard.initBoardNet()");
+  //DEBUG
+  //console.log("bleepsixBoard.initBoardNet()");
 
   this.kicad_brd_json["equipot"] = [ { net_name : "", net_number : 0 } ];
   this.kicad_brd_json["net_code_map"] = { "0" : "" };
@@ -786,7 +787,8 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
   var new_netname = this.kicad_brd_json.net_code_map[ new_netcode ];
   var renamed_ids = [];
 
-  console.log("new_netname: " + new_netname);
+  //DEBUG
+  //console.log("new_netname: " + new_netname);
 
   var brd = this.kicad_brd_json["element"];
   for (var ind in brd)
@@ -939,17 +941,20 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
 {
   if ((netcode0 <= 0) || (netcode1 <= 0)) return;
 
-  console.log(this.net_code_map)
+  //DEBUG
+  //console.log(this.net_code_map)
 
   var netname0 = this.kicad_brd_json.net_code_map[ String(netcode0) ];
   var netname1 = this.kicad_brd_json.net_code_map[ String(netcode1) ];
 
-  console.log("netnames: " + netname0 + ", " + netname1);
+  //DEBUG
+  //console.log("netnames: " + netname0 + ", " + netname1);
 
   var net_array = [ netname0, netname1 ].sort();
 
-  console.log("sorted net_array:");
-  console.log(net_array);
+  //DEBUG
+  //console.log("sorted net_array:");
+  //console.log(net_array);
 
   var stale_netcode = netcode0;
   var new_netcode = netcode1;
@@ -960,11 +965,14 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
     new_netcode = netcode0;
   }
 
-  console.log("stale_netcode: " + stale_netcode +", new_netcode: " + new_netcode);
+  //DEBUG
+  //console.log("stale_netcode: " + stale_netcode +", new_netcode: " + new_netcode);
 
   var renamed_ids = this.renameNet( stale_netcode, new_netcode );
 
-  console.log("removing netcode: " + stale_netcode);
+  //DEBUG
+  //console.log("removing netcode: " + stale_netcode);
+
   this.removeNet( stale_netcode );
 
   return { net_number: new_netcode, renamed_ids : renamed_ids } ;
@@ -1350,8 +1358,9 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
 
   angle = parseFloat( json_module.angle );
 
-  console.log("bleepsixBoard.addFootprintData:");
-  console.log(json_module);
+  //DEBUG
+  //console.log("bleepsixBoard.addFootprintData:");
+  //console.log(json_module);
 
   x = parseFloat(x);
   y = parseFloat(y);
@@ -1384,10 +1393,12 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
         footprint_entry.pad[pad_ind].id = this._createId(id);
       }
 
+      /*
       // EXPERIMENTAL
       var net_obj = this.genNet();
       footprint_entry.pad[pad_ind].net_name = net_obj.net_name;
       footprint_entry.pad[pad_ind].net_number = net_obj.net_number;
+      */
 
     }
 
@@ -1404,7 +1415,8 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
 
   this.kicad_brd_json["element"].push( footprint_entry );
 
-  console.log( this.kicad_brd_json );
+  //DEBUG
+  //console.log( this.kicad_brd_json );
 
   if (!bleepsixBoardHeadless)
     g_painter.dirty_flag = true;
@@ -2243,8 +2255,9 @@ bleepsixBoard.prototype.drawBoardText = function( text )
   var color = this.layer_color[layer];
   var angle_deg = parseFloat( text["angle"] ) * 180.0 / Math.PI;
 
-  console.log(" global ang: " + angle + ", local_ang: " + ang_deg + ", text_ang_deg: " + text_ang_deg + 
-              ", deg_fiddle: " + deg_fiddle + ", fin_angle: " + fin_angle);
+  //DEBUG
+  //console.log(" global ang: " + angle + ", local_ang: " + ang_deg + ", text_ang_deg: " + text_ang_deg + 
+  //            ", deg_fiddle: " + deg_fiddle + ", fin_angle: " + fin_angle);
 
 
   g_painter.drawText( s, x, y, color, font_height, angle_deg );
@@ -2331,7 +2344,7 @@ bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_
         is_flipped);
 
   else
-    console.log("draw font error");
+    console.log("ERROR: bleepsixBoard.drawFootprintTextField: font error");
 }
 
 
@@ -2612,7 +2625,7 @@ bleepsixBoard.prototype.drawElement = function( ele )
   else if ( type == "text" )          { this.drawBoardText( ele ); }
   else if ( type == "czone" )         { this.drawBoardCZone( ele ); }
   else {
-    console.log("unhandled draw type: " + type);
+    console.log("ERROR: bleepsixBoard.drawElement: unhandled draw type: " + type);
   }
 
 }
@@ -3082,9 +3095,10 @@ bleepsixBoard.prototype._setupNetMappings = function()
   this.kicad_brd_json["net_code_map"] = net_code_map;
   this.kicad_brd_json["net_name_map"] = net_name_map;
 
-  console.log("net name maps");
-  console.log(net_code_map);
-  console.log(net_name_map);
+  //DBEUG
+  //console.log("net name maps");
+  //console.log(net_code_map);
+  //console.log(net_name_map);
 }
 
 // Load full brd from json data (brd file assumed to be converted to json format)
@@ -3158,7 +3172,8 @@ bleepsixBoard.prototype.load_board = function( json )
       }
       else if (name == 'unknown')
       {
-        console.log("footprint of special type 'unknown'");
+        //DEBUG
+        //console.log("footprint of special type 'unknown'");
         continue;
       }
 

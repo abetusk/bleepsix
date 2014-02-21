@@ -103,6 +103,38 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
   if (button == 1)
   {
 
+    //DEBUG
+    console.log(">>>>>>>>>>> PLACING");
+
+    // Generate new nets for each of the pads about to be created
+    //
+    for (var p_ind in this.cloned_footprint.pad )
+    {
+
+
+      var net_obj = g_board_controller.board.genNet();
+
+      //DEBUG
+      console.log(">>>>>>>>>>>>> tool footprint place: creating new net:");
+      console.log( net_obj );
+
+
+      var net_op = { source : "brd" , destination: "brd" };
+      net_op.action = "add";
+      net_op.type = "net";
+      net_op.data = { net_number : net_obj.net_number,
+                      net_name : net_obj.net_name };
+      g_board_controller.opCommand(net_op);
+
+      var pad = this.cloned_footprint.pad[p_ind];
+      pad.net_number = net_obj.net_number;
+      pad.net_name = net_obj.net_name;
+    }
+
+    //DEBUG
+    console.log(">>>>>> CLONED FOOTPRINT (after prep)");
+    console.log(this.cloned_footprint);
+
     if (this.highlightId)
     {
       //var ref = g_board_controller.board.refLookup( this.highlightId );
@@ -121,24 +153,6 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
       this.cloned_footprint.text[0].text = ref.text[0].text;
       this.cloned_footprint.text[1].text = ref.text[1].text;
-
-      // Generate new nets for each of the pads about to be created
-      //
-      for (var p_ind in this.cloned_footprint.pad )
-      {
-
-        var net_obj = g_board_controller.board.genNet()
-        var net_op = { source : "brd" , destination: "brd" };
-        net_op.action = "add";
-        net_op.type = "net";
-        net_op.data = { net_number : net_obj.net_number,
-                        net_name : net_obj.net_name };
-        g_board_controller.opCommand(net_op);
-
-        var pad = this.cloned_footprint.pad[p_ind];
-        pad.net_number = net_obj.net_number;
-        pad.net_name = net_obj.net_name;
-      }
 
 
       var op = { source: "brd", destination: "brd" };

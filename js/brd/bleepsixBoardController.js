@@ -47,6 +47,10 @@ function bleepsixBoardController() {
   this.board = new bleepsixBoard();
   this.schematic = new bleepsixSchematic();
 
+  //HACKY!  though not really needed, we won't get component load
+  // errors if we set this flag.
+  //bleepsixSchematicHeadless = true;
+
 
   //this.schematic.makeUnknownComponent();
 
@@ -204,10 +208,9 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 {
 
   //EXPERIMENTAL
-  var sch_pin_net_map = this.schematic.constructNet();
-
-  console.log("EXPERIMENTAL");
-  console.log(sch_pin_net_map);
+  //var sch_pin_net_map = this.schematic.constructNet();
+  //console.log("EXPERIMENTAL");
+  //console.log(sch_pin_net_map);
 
   this.op.opCommand( msg );
   this.boardUpdate = true;

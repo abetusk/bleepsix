@@ -292,6 +292,13 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         this.origElements[ind].ref.hideFlag = false;
       }
 
+
+      //TESTING
+      var brd = g_board_controller.board.kicad_brd_json;
+      var map = brd.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
 
@@ -364,6 +371,10 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     //g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
     //TESTING
 
+    //TESTING
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, map );
 
   }
 
@@ -388,8 +399,9 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     //g_board_controller.board.updateRatsNest( );
 
     //TESTING
-    var sch_net_code_map = g_board_controller.schNetCodeMap();
-    g_board_controller.board.updateRatsNest( undefined, undefined, sch_net_code_map );
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
     g_painter.dirty_flag = true;
 
@@ -430,8 +442,12 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     //g_board_controller.board.updateRatsNest();
 
     //TESTING
-    var sch_net_code_map = g_board_controller.schNetCodeMap();
-    g_board_controller.board.updateRatsNest( undefined, undefined, sch_net_code_map );
+    //var sch_net_code_map = g_board_controller.schNetCodeMap();
+    //g_board_controller.board.updateRatsNest( undefined, undefined, sch_net_code_map );
+
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
@@ -477,8 +493,13 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
 
     //TESTING
-    var sch_net_code_map = g_board_controller.schNetCodeMap();
-    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
+    //var sch_net_code_map = g_board_controller.schNetCodeMap();
+    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
+
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
 
     g_painter.dirty_flag = true;
 
