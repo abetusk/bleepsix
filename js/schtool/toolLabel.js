@@ -23,20 +23,14 @@
 */
 
 
-function toolLabel( x, y, type, placeOption )
+function toolLabel( x, y, type, initialPlaceFlag )
 {
   console.log("toolLabel");
 
   x = ( typeof x !== 'undefined' ? x : 0 );
-  y = ( typeof x !== 'undefined' ? y : 0 );
-
-  // default to noconn
-  type = ( typeof type !== 'undefined' ? type : 'noconn' );
-
-  // default to once
-  placeOption = ( typeof placeOption !== 'undefined' ? placeOption : 'once' );
-
-  this.labelType = type;
+  y = ( typeof y !== 'undefined' ? y : 0 );
+  type = ( typeof type !== 'undefined' ? type : 'label' );
+  initialPlaceFlag = ( typeof initialPlaceFlag !== 'undefined' ? initialPlaceFlag : true );
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -49,20 +43,34 @@ function toolLabel( x, y, type, placeOption )
   this.cursorWidth = 1;
 
 
-  this.placeOption = placeOption;  // "persistent" ?
+  if (initialPlaceFlag == false)
+    this.state = "positionChoose";  // inputText
+  else
+    this.state = "inputText";
 
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   var wxy =  [ this.mouse_world_xy.x , this.mouse_world_xy.y ] ;
-  this.label = { x : wxy[0], y : wxy[1], text : "texting and texting ", type: "label" , orientation : 0 };
+  this.label = { 
+    x : wxy[0], 
+    y : wxy[1], 
+    text : "texting and texting ", 
+    dimension: 40,
+    type: type , 
+    orientation : 0 
+  };
   g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
 
   var ele = document.getElementById("canvas");
-  if (type == "noconn")
+  if (type == "label")
   {
     ele.style.cursor = "url('img/cursor_custom_noconn_s24.png') 4 3, cursor";
   }
-  else if ( (type == "conn") || (type == "connection") )
+  else if (type == "heirlabel")
+  {
+    ele.style.cursor = "url('img/cursor_custom_conn_s24.png') 4 3, cursor";
+  }
+  else if (type == "globlabel")
   {
     ele.style.cursor = "url('img/cursor_custom_conn_s24.png') 4 3, cursor";
   }
@@ -121,23 +129,33 @@ toolLabel.prototype.dist1 = function( xy0, xy1 )
 
 //-----------------------------
 
-toolLabel.prototype._addLabelType = function( type, x, y ) 
+//toolLabel.prototype._addLabelType = function( type, x, y ) 
+toolLabel.prototype._addLabel = function()
 {
   console.log("toolLabel._addLabelType");
 
   var op = { source: "sch", destination: "sch" };
   op.action = "add";
-  op.type = "label";
-  op.data = { x : this.label.x, y : this.label.y, orientation: this.label.orientation,
+  op.type = this.label.type;
+  op.data = { x : this.label.x, 
+              y : this.label.y, 
+              orientation: this.label.orientation,
+              dimension : this.label.dimension ,
               text : this.label.text };
   g_schematic_controller.opCommand( op );
 
-  /*
-  g_schematic_controller.schematic.addLabel( 
-      this.label.text, 
-      this.label.x, this.label.y, 
-      this.label.orientation );
-      */
+}
+
+toolLabel.prototype._handoff = function()
+{
+  console.log("handing back to toolNav");
+  g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
+  g_schematic_controller.guiToolbox.defaultSelect();
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
+  g_painter.dirty_flag = true;
 }
 
 
@@ -151,29 +169,22 @@ toolLabel.prototype.mouseDown = function( button, x, y )
   if (button == 1)
   {
 
-    console.log("mouseDown..." + this.labelType );
-
-    if (this.labelType == "label")
+    if (this.state == "positionChoose")
     {
-      this._addLabelType( "noconn", this.mouse_world_xy.x, this.mouse_world_xy.y );
-    }
-    else if (this.labelType == "connection")
-    {
-      this._addLabelType( "connection", this.mouse_world_xy.x, this.mouse_world_xy.y );
+      this.state = "inputText";
     }
 
-    if (this.placeOption == "once")
+    else if (this.state == "inputText")
     {
-      g_schematic_controller.tool = new toolNav(x, y);
-      g_schematic_controller.guiToolbox.defaultSelect();
-      g_painter.dirty_flag = true;
+      this.mouse_world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
+      this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
 
-      var ele = document.getElementById("canvas");
-      ele.style.cursor = "auto";
+      //var id_ref = g_schematic_controller.schematic.pickElement(
 
+      this._addLabel();
+      this._handoff();
 
-      return;
     }
 
   }
@@ -221,13 +232,19 @@ toolLabel.prototype.mouseMove = function( x, y )
   this.mouse_cur_y = y;
 
   this.mouse_world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
-
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   g_painter.dirty_flag = true;
 
   if ( ! this.mouse_drag_flag ) 
   {
+
+    if (this.state == "positionChoose")
+    {
+      this.label.x = this.mouse_world_xy.x;
+      this.label.y = this.mouse_world_xy.y;
+      g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+    }
 
   }
 

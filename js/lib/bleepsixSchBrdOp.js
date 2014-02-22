@@ -515,7 +515,7 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
   }
   else if ( type == "label" )
   {
-    this.schematic.addLabel( data.text, data.x, data.y, data.orientation, id);
+    this.schematic.addLabel( data.text, data.x, data.y, data.orientation, data.dimension, id);
   }
   else if ( type == "labelglobal" )
   {
@@ -630,7 +630,12 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
         ////$.extend( true, ref, data.oldElement[ind].ref );
         //$.extend( true, ref, data.oldElement[ind] );
 
+        /*
         var clonedData = simplecopy( data.oldEelement[ind].ref );
+        this.schematic.dataReplace( data.oldElement[ind].id, clonedData );
+        this.schematic.refUpdate( id[ind], data.oldElement[ind].id );
+        */
+        var clonedData = simplecopy( data.oldElement[ind].ref );
         this.schematic.dataReplace( data.oldElement[ind].id, clonedData );
         this.schematic.refUpdate( id[ind], data.oldElement[ind].id );
       }

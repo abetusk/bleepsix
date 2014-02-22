@@ -393,7 +393,7 @@ guiToolbox.prototype._handleLabelEvent = function(ev)
   if (ev.owner == this.name + ":label")
   {
     console.log("  handing over to toolConn");
-    g_schematic_controller.tool = new toolLabel(0, 0, "label");
+    g_schematic_controller.tool = new toolLabel(0, 0, "label", false);
 
     this.dropLabel.selected = true;
 

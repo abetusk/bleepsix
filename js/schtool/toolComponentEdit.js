@@ -163,13 +163,13 @@ toolComponentEdit.prototype._commitChange = function( )
     op.data = { element: [], oldElement: [] };
 
     var clonedData = {};
-    $.extend( true, clonedData, this.picked_id_ref.ref );
-    clonedData.hideFlag = false;
+    $.extend( true, clonedData, { id : this.picked_id_ref.id, ref: this.picked_id_ref.ref }  );
+    clonedData.ref.hideFlag = false;
     op.data.element.push( clonedData );
     
     var clonedOrigData = {};
-    $.extend( true, clonedOrigData, this.origElement.ref );
-    clonedOrigData.hideFlag = false;
+    $.extend( true, clonedOrigData, { id : this.picked_id_ref.id , ref: this.origElement.ref } );
+    clonedOrigData.ref.hideFlag = false;
     op.data.oldElement.push( clonedOrigData );
 
     g_schematic_controller.opCommand( op );
