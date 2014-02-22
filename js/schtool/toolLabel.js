@@ -125,10 +125,19 @@ toolLabel.prototype._addLabelType = function( type, x, y )
 {
   console.log("toolLabel._addLabelType");
 
+  var op = { source: "sch", destination: "sch" };
+  op.action = "add";
+  op.type = "label";
+  op.data = { x : this.label.x, y : this.label.y, orientation: this.label.orientation,
+              text : this.label.text };
+  g_schematic_controller.opCommand( op );
+
+  /*
   g_schematic_controller.schematic.addLabel( 
       this.label.text, 
       this.label.x, this.label.y, 
       this.label.orientation );
+      */
 }
 
 

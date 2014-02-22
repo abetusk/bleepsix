@@ -173,6 +173,9 @@ toolMove.prototype.deep_copy_element_array = function( rop )
 toolMove.prototype.addElement = function( id_array )
 {
 
+  console.log("toolMove addElement >>>>");
+  console.log( id_array );
+
   //this.selectedElement = id_array;
   this.origElements = id_array;
   this.selectedElement = {};
@@ -349,12 +352,17 @@ toolMove.prototype.mouseUp = function( button, x, y )
           rotateCount : this.rotateCount,
           cx : com.x, cy: com.y };
 
-        console.log("rotateCount: " + this.rotateCount);
+        //DEBUG
+        //console.log("rotateCount: " + this.rotateCount);
 
         for (var ind in this.selectedElement)
         {
           op.id.push( this.selectedElement[ind].id );
         }
+
+        //DEBUG
+        //console.log("OP>>>>>");
+        //console.log(op);
 
         g_schematic_controller.opCommand( op );
 

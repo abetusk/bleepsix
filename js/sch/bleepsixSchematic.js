@@ -1111,6 +1111,7 @@ bleepsixSchematic.prototype.addNoconn = function( x, y, id )
 
 bleepsixSchematic.prototype.addLabel = function( text, x, y, orientation, id )
 {
+
   id  = ( (typeof id !== 'undefined') ? id : this._createId() );
 
   var label = {};
@@ -1124,6 +1125,7 @@ bleepsixSchematic.prototype.addLabel = function( text, x, y, orientation, id )
   this.updateBoundingBox( label );
 
   this.kicad_sch_json["element"].push(label);
+
 }
 
 

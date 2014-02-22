@@ -105,11 +105,6 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
   else if ( type == "footprintData" )
   {
 
-    //DEBUG
-    console.log(">>>>> opBrdAddSingle, footprintData:");
-    console.log( data.footprintData );
-
-
     this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
 
     var ref = this.board.refLookup( id );
@@ -520,8 +515,7 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
   }
   else if ( type == "label" )
   {
-    console.log("bleepsixSchBrdOp.opSchAdd label not implemented\n");
-    updateBBox = false;
+    this.schematic.addLabel( data.text, data.x, data.y, data.orientation, id);
   }
   else if ( type == "labelglobal" )
   {
