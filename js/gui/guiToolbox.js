@@ -22,19 +22,15 @@
 
 */
 
-//var __icon_width = 20;
-var __icon_width = 24;
-
 function guiToolbox( name ) 
 {
   this.constructor ( name )   
 
-  //this.bgColor = "rgba( 255, 0, 0, 0.2 )";
   this.bgColor = "rgba( 0, 0, 255, 0.2 )";
 
-  //this.width = 25;
-  //this.iconWidth = 20;
-  this.iconWidth = __icon_width;
+  //this.iconWidth = __icon_width;
+  this.iconWidth = 24;
+
   this.width = this.iconWdith + 5;
 
   this.height = 4* this.iconWidth;
@@ -42,9 +38,6 @@ function guiToolbox( name )
 
   this.tabHeight = this.iconWidth;
   this.tabWidth = this.width - this.iconWidth;
-
-  //this.move(10, 100);
-  //this.move(100, 200);
 
   var cur_y = 0;
   var sz = this.iconWidth;
@@ -54,8 +47,7 @@ function guiToolbox( name )
   //
   this.iconNav = new guiIcon( name + ":nav" );
   this.iconNav.init( 0, cur_y, sz, sz);
-  //this.iconNav.draw = _draw_nav_icon;
-  this.iconNav.drawShape = _draw_nav_icon;
+  this.iconNav.drawShape = (function(xx) { return function() { xx._draw_nav_icon(); }; })(this);
   this.iconNav.bgColor = "rgba(0,0,0, 0.0)";
   this.addChild( this.iconNav );
 
@@ -64,10 +56,11 @@ function guiToolbox( name )
 
   // grouped wire functions (wire, bus, etc)
   //
-  //var w = new guiDropIcon( this.name + ":dropwire", 20, 20 );
   var w = new guiDropIcon( this.name + ":dropwire", this.iconWidth , this.iconWidth );
-  w.addIcon( this.name + ":wire", _draw_wire_icon );
-  w.addIcon( this.name + ":bus" , _draw_bus_icon );
+  w.addIcon( this.name + ":wire", 
+      (function(xx) { return function() { xx._draw_wire_icon(); }; })(this) );
+  w.addIcon( this.name + ":bus" , 
+      (function(xx) { return function() { xx._draw_bus_icon(); }; })(this)  );
   w.move(0, cur_y);
 
   this.dropWire = w;
@@ -77,10 +70,12 @@ function guiToolbox( name )
 
 
 
-  //var u = new guiDropIcon( this.name + ":dropconn", 20, 20 );
   var u = new guiDropIcon( this.name + ":dropconn", this.iconWidth , this.iconWidth );
-  u.addIcon( this.name + ":noconn", _draw_noconn_icon );
-  u.addIcon( this.name + ":conn", _draw_conn_icon );
+  u.addIcon( this.name + ":noconn", 
+      (function(xx) { return function() { xx._draw_noconn_icon(); }; })(this) );
+  u.addIcon( this.name + ":conn", 
+      (function(xx) { return function() { xx._draw_conn_icon(); }; })(this) );
+
   u.move(0, cur_y);
 
   this.dropConn = u;
@@ -89,16 +84,13 @@ function guiToolbox( name )
   cur_y += w.height;
 
 
-  //var xx = this;
   var lab = new guiDropIcon( this.name + ":label", this.iconWidth, this.iconWidth );
-  /*
-  lab.addIcon( this.name +":label", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
-  lab.addIcon( this.name + ":heirlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
-  lab.addIcon( this.name + ":globlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
-  */
-  lab.addIcon( this.name +":label", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
-  lab.addIcon( this.name + ":heirlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
-  lab.addIcon( this.name + ":globlabel", (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name +":label", 
+      (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name + ":heirlabel", 
+      (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+  lab.addIcon( this.name + ":globlabel", 
+      (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
 
   lab.move(0, cur_y);
 
@@ -110,35 +102,33 @@ function guiToolbox( name )
 
   this.iconNav.selected = true;
   this.dropWire.selected = false;
-  this.dropLabel.selected = false;
   this.dropConn.selected = false;
+  this.dropLabel.selected = false;
 
-  //this.move(20,30);
-  //this.move(40,100);
 
 }
 guiToolbox.inherits ( guiRegion );
 
-function _draw_nav_icon()
+guiToolbox.prototype._draw_nav_icon = function()
 {
-  var sz = 10;
-  var sx = __icon_width/2-sz/2, sy = __icon_width/2-sz/2;
 
-  var r = parseInt(8 * __icon_width /10);
+  var sz = 10;
+  var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
+
+  var r = parseInt(8 * this.iconWidth /10);
   g_imgcache.draw( "cursor", 3, 1, r, r );
 
-  //g_painter.drawRectangle( sx, sy, sz, sz, 0, "rgb(0,0,0)", true, "rgb(128,128,128)");
-  g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
+  g_painter.drawRectangle( 0, 0, this.iconWidth, this.iconWidth, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
 
 
 }
 
-function _draw_grid_tab_icon()
+guiToolbox.prototype._draw_grid_tab_icon = function()
 {
   var x = 0;
-  var y = __icon_width/3;
-  var w = __icon_width/3;
-  var h = __icon_width - y;
+  var y = this.iconWidth/3;
+  var w = this.iconWidth/3;
+  var h = this.iconWidth - y;
 
   var color = "rgba(0, 0, 255, 0.2)";
 
@@ -147,23 +137,21 @@ function _draw_grid_tab_icon()
 }
 
 
-function _draw_gridinch_icon()
+guiToolbox.prototype._draw_gridinch_icon = function()
 {
   g_painter.drawText("in", 3, 3, "rgba(0,0,0,0.5)", 12, 0, "L", "T");
-  //g_painter.drawRectangle( 0, 0, 30, 30, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.1)");
-  //g_painter.drawRectangle( 1, 1, 29, 29, 1, "rgba(0,0,0,0.5)");
-  g_painter.drawRectangle( 0, 0, __icon_width, __icon_width, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
+  g_painter.drawRectangle( 0, 0, this.iconWidth, this.iconWidth, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
 }
 
-function _draw_gridmm_icon()
+guiToolbox.prototype._draw_gridmm_icon = function()
 {
   g_painter.drawText("mm", 6, 8, "rgba(0,0,0,0.5)", 15, 0, "L", "T");
 }
 
 
-function _draw_wire_icon()
+guiToolbox.prototype._draw_wire_icon = function()
 {
-  var sx = __icon_width/6, sy = __icon_width/3, dx = __icon_width/3, dy = __icon_width/3;
+  var sx = this.iconWidth/6, sy = this.iconWidth/3, dx = this.iconWidth/3, dy = this.iconWidth/3;
   var color = "rgba(0,138,0,0.6)", width = 2;
   var bgColor = "rgb(255,255,255,0.1)";
 
@@ -172,10 +160,10 @@ function _draw_wire_icon()
   g_painter.line( sx+dx, sy+dy, sx+2*dx,  sy+dy, color, width);
 }
 
-function _draw_bus_icon()
+guiToolbox.prototype._draw_bus_icon = function()
 {
-  var sx = __icon_width/3, sy = __icon_width/3, dx = __icon_width/3, dy = __icon_width/3;
-  var dx0 = __icon_width/6;
+  var sx = this.iconWidth/3, sy = this.iconWidth/3, dx = this.iconWidth/3, dy = this.iconWidth/3;
+  var dx0 = this.iconWidth/6;
   var color = "rgb(0,0,138)";
   var width = 2;
   var bgColor = "rgb(255,255,255,0.1)";
@@ -185,10 +173,9 @@ function _draw_bus_icon()
   g_painter.line( sx+dx0, sy+dy, sx+dx + dx0,  sy+dy, color, width);
 }
 
-function _draw_noconn_icon()
+guiToolbox.prototype._draw_noconn_icon = function()
 {
-  //var mx = 15, my = 15, dx = 5, dy = 5;
-  var mx = __icon_width/2, my = __icon_width/2, dx = __icon_width/6, dy = __icon_width/6;
+  var mx = this.iconWidth/2, my = this.iconWidth/2, dx = this.iconWidth/6, dy = this.iconWidth/6;
   var color = "rgba(0,0,138,0.6)";
   var width = 2;
 
@@ -197,10 +184,9 @@ function _draw_noconn_icon()
 
 }
 
-function _draw_conn_icon()
+guiToolbox.prototype._draw_conn_icon = function()
 {
-  //var mx = 10, my = 10, r = 3;
-  var mx = 12, my = 12, r = 3;
+  var mx = this.iconWidth/2, my = this.iconWidth/2, r = 3;
   var color = "rgba(0,138,0, 0.5)";
   var width = 2;
 
@@ -208,12 +194,12 @@ function _draw_conn_icon()
 
 }
 
-function _draw_conn_tab_icon()
+guiToolbox.prototype._draw_conn_tab_icon = function()
 {
   var x = 0;
-  var y = __icon_width/3;
-  var w = __icon_width/3;
-  var h = __icon_width - y;
+  var y = this.iconWidth/3;
+  var w = this.iconWidth/3;
+  var h = this.iconWidth - y;
 
   var color = "rgba(0, 0, 255, 0.2)";
 
@@ -338,6 +324,7 @@ guiToolbox.prototype._handleWireEvent = function(ev)
 
   //this.iconConnTab.visible = true;
   this.dropConn.iconTab.visible = true;
+  this.dropLabel.iconTab.visible = true;
 
   if (ev.owner == this.name + ":wire")
   {
@@ -368,6 +355,9 @@ guiToolbox.prototype._handleWireEvent = function(ev)
 
 guiToolbox.prototype._handleConnEvent = function(ev)
 {
+
+  this.dropLabel.iconTab.visible = true;
+
   if (ev.owner == this.name + ":conn")
   {
     console.log("  handing over to toolConn");
@@ -455,23 +445,25 @@ guiToolbox.prototype._eventMouseDown = function( ev )
 
   else if (ev.owner == this.name + ":dropwire:tab")
   {
-    console.log("  wire tab!");
-
-    // hide (or show) the tabs from other tools that stick out below it
-    //
-    this.dropConn.iconTab.visible = !this.dropConn.iconTab.visible;
-
-    if ( this.dropConn.showDropdown )
-      this.dropConn.toggleList();
+    if ( this.dropWire.showDropdown )
+    {
+      this.dropConn.contractSlim();
+      this.dropLabel.contractSlim();
+    }
+    else
+    {
+      this.dropConn.contract();
+      this.dropLabel.contract();
+    }
 
   }
 
   else if (ev.owner == this.name + ":dropconn:tab")
   {
-    console.log("  conn tab");
-
-    if ( this.dropWire.showDropdown )
-      this.dropWire.toggleList();
+    if ( this.dropConn.showDropdown )
+      this.dropLabel.contractSlim();
+    else
+      this.dropLabel.contract();
 
     g_painter.dirty_flag = true;
   }

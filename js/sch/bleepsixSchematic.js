@@ -77,8 +77,8 @@ function bleepsixSchematic()
   //this.draw_bounding_box_flag = true;
   this.draw_bounding_box_flag = false;
 
-  //this.draw_id_text_flag = false;
-  this.draw_id_text_flag = true;
+  this.draw_id_text_flag = false;
+  //this.draw_id_text_flag = true;
 
   this.reference_number = {};
 
@@ -3140,6 +3140,7 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
     if      (t == "component")    this.updateComponentBoundingBox( ele );
     else if (t == "noconnect")    this.updatePointBoundingBox( ele );
     else if (t == "connection")   this.updatePointBoundingBox( ele );
+    else if (t == "noconn")     { this.updatePointBoundingBox( ele ); }
 
     else if ( t == "textnote" )  { this.updateTextBoundingBox( ele ); }
 
