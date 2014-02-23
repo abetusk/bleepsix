@@ -123,14 +123,9 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
 
     console.log("toolComponentPlace: placing component: " + this.component_name);
 
-    //g_schematic_controller.schematic.addComponent( this.component_name, this.world_xy["x"], this.world_xy["y"], this.transform );
-
     if ( this.highlightId )
     {
-      //DEBUG
       var ref = g_schematic_controller.schematic.refLookup( this.highlightId );
-
-      //g_schematic_controller.schematic.updateComponentData( this.cloned_component, this.highlightId );
 
       var op = { source : "sch", destination : "sch" };
       op.action = "update";
@@ -157,17 +152,12 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
 
       g_schematic_controller.opCommand( op );
 
-      //DEBUG
-      console.log(">>>>>");
-      console.log(op);
+      g_schematic_controller.tool = new toolNav();
+      g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
+      g_schematic_controller.guiToolbox.defaultSelect();
 
-    g_schematic_controller.tool = new toolNav();
-    g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
-    g_schematic_controller.guiToolbox.defaultSelect();
+      g_painter.dirty_flag = true;
 
-    g_painter.dirty_flag = true;
-
-      console.log("TESTING");
       return;
     }
 

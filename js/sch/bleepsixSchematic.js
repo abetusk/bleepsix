@@ -162,6 +162,7 @@ bleepsixSchematic.prototype.dataReplace = function( id, data )
     if (sch[ind].id == id)
     {
       sch[ind] = data;
+      this.ref_lookup[id] = data;
       return true;
     }
   }

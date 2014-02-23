@@ -177,7 +177,6 @@ function guid() {
 
 function simplecopy( src )
 {
-  console.log(src);
   return JSON.parse( JSON.stringify(src) );
 }
 

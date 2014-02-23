@@ -85,15 +85,8 @@ toolSelect.prototype.mouseUp = function( button, x, y )
       var id_ref_ar = g_schematic_controller.schematic.pickBox( mx, my, Mx, My );
 
 
-      //DEBUG
-      console.log("PICKED>>>>");
-      console.log(id_ref_ar);
-
       if (id_ref_ar.length > 0)
       {
-
-        console.log("PASSING CONTROL>>>");
-
         g_schematic_controller.tool = new toolMove(x, y);
         g_schematic_controller.tool.addElement( id_ref_ar );
 
