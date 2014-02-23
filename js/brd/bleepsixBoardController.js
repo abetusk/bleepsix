@@ -233,6 +233,20 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
     var ucomp = this.schematic.makeUnknownComponent();
 
+    var brd_fp = this.board.refLookup( msg.id );
+
+    ucomp.text[0].text      = brd_fp.text[0].text;
+    ucomp.text[0].reference = brd_fp.text[0].text;
+    ucomp.text[0].visible   = brd_fp.text[0].visible;
+    ucomp.text[0].x = -280;
+    ucomp.text[0].y = -280;
+
+    ucomp.text[1].text      = brd_fp.text[1].text;
+    ucomp.text[1].visible   = brd_fp.text[1].visible;
+    ucomp.text[1].x = + 280;
+    ucomp.text[1].y = + 280;
+
+
     var schop = { source: "brd", destination: "sch" };
     schop.scope = msg.scope;
     schop.action = msg.action;

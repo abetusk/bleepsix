@@ -129,7 +129,29 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
     {
       //DEBUG
       var ref = g_schematic_controller.schematic.refLookup( this.highlightId );
-      g_schematic_controller.schematic.updateComponentData( this.cloned_component, this.highlightId );
+
+      //g_schematic_controller.schematic.updateComponentData( this.cloned_component, this.highlightId );
+
+      var op = { source : "sch", destination : "sch" };
+      op.action = "update";
+      op.type = "updateComponent";
+      op.id = [ ref.id ];
+      op.data = { element : [], oldElement : [] };
+
+      var clonedData = { id: ref.id, ref: this.cloned_component };
+      var clonedOrigData = { id : ref.id, ref: ref };
+
+      clonedData.ref.hideFlag = false;
+      clonedOrigData.ref.hideFlag = false;
+
+      op.data.element.push(clonedData);
+      op.data.oldElement.push(clonedOrigData);
+
+      g_schematic_controller.opCommand( op );
+
+      //DEBUG
+      console.log(">>>>>");
+      console.log(op);
 
     g_schematic_controller.tool = new toolNav();
     g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?

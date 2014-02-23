@@ -710,6 +710,36 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
   }
 
+  else if ( type == "updateComponent")
+  {
+
+    if (inverseFlag)
+    {
+
+      for (var ind=0; ind< data.oldElement.length; ind++)
+      {
+        var clonedData = simplecopy( data.oldElement[ind].ref );
+        this.schematic.dataReplace( clonedData, id[ind] );
+      }
+
+    }
+    else
+    {
+
+      // id holds array of _new_ ids.  oldElement has old id.
+      // array lengths of oldelement, id and element must match.
+      //
+      for (var ind=0; ind<id.length; ind++)
+      {
+        var clonedData = simplecopy( data.element[ind].ref );
+        this.schematic.updateComponentData( clonedData, id[ind] );
+      }
+
+    }
+
+
+  }
+
   else if ( type == "net" )
   {
 

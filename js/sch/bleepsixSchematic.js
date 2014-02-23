@@ -251,7 +251,8 @@ bleepsixSchematic.prototype.makeUnknownComponentTextField = function(x , y )
     "vjustify": "C",
     "visible": true,
     "bold": false,
-    "italic": true,
+    //"italic": true,
+    "italic": false,
     "x": x,
     "y": y,
     "size": "100",
@@ -323,8 +324,8 @@ bleepsixSchematic.prototype.makeUnknownComponent= function( size, id, text_ids )
         "number": 1,
         "vjustify": "C",
         "visible": true,
-        "bold": true,
-        "italic": true,
+        "bold": false,
+        "italic": false,
         "y": "0",
         "x": "0",
         "size": "60",
@@ -1935,6 +1936,11 @@ bleepsixSchematic.prototype.drawComponent = function( data, x, y, transform, dra
     this.drawComponentTextField( data["text"][0], x, y, transform, true );
     this.drawComponentTextField( data["text"][1], x, y, transform, true );
 
+  }
+
+  if ( name == "unknown" )
+  {
+    g_painter.drawText( "??", x, y, "rgb(136,0,0)", 200, 0.0, "C", "C", false, true, true );
   }
 
   
