@@ -141,6 +141,14 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
       var clonedData = { id: ref.id, ref: this.cloned_component };
       var clonedOrigData = { id : ref.id, ref: ref };
 
+      var tref = clonedData.ref;
+      tref.text[0].text     = ref.text[0].text;
+      tref.text[0].visible  = ref.text[0].visible;
+      tref.text[0].reference = ref.text[0].text;
+
+      tref.text[1].text     = ref.text[1].text;
+      tref.text[1].visible  = ref.text[1].visible;
+
       clonedData.ref.hideFlag = false;
       clonedOrigData.ref.hideFlag = false;
 
