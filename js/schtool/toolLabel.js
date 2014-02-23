@@ -23,7 +23,7 @@
 */
 
 
-function toolLabel( x, y, type, initialPlaceFlag )
+function toolLabel( x, y, type, initialPlaceFlag, initialName )
 {
   console.log("toolLabel");
 
@@ -31,6 +31,7 @@ function toolLabel( x, y, type, initialPlaceFlag )
   y = ( typeof y !== 'undefined' ? y : 0 );
   type = ( typeof type !== 'undefined' ? type : 'label' );
   initialPlaceFlag = ( typeof initialPlaceFlag !== 'undefined' ? initialPlaceFlag : true );
+  initialName = ( typeof initialName !== 'undefined' ? initialName : "label" );
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -42,11 +43,13 @@ function toolLabel( x, y, type, initialPlaceFlag )
   this.cursorSize = 6;
   this.cursorWidth = 1;
 
+  this.edit_pos = 0;
+
 
   if (initialPlaceFlag == false)
-    this.state = "positionChoose";  // inputText
+    this.state = "positionChoose";  // "textedit" 
   else
-    this.state = "inputText";
+    this.state = "textedit";
 
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
@@ -54,7 +57,7 @@ function toolLabel( x, y, type, initialPlaceFlag )
   this.label = { 
     x : wxy[0], 
     y : wxy[1], 
-    text : "texting and texting ", 
+    text : initialName,
     dimension: 40,
     type: type , 
     orientation : 0 
@@ -95,6 +98,45 @@ toolLabel.prototype._drawBBoxOverlay = function( bbox )
 
 }
 
+toolLabel.prototype._drawCursor = function()
+{
+  var s = this.label.text;
+
+  var tbbox = this.label.coarse_bounding_box;
+
+  var text_width = parseFloat(this.label.dimension);
+  var text_height = text_width / .6;
+
+  var vec = [ 0, 0 ];
+  if ( this.label.orientation == 0 )
+    vec = [ 1, 0 ];
+  else if (this.label.orientation == 1)
+    vec = [ 0, 1];
+  else if (this.label.orientation == 2)
+    vec = [ -1, 0];
+  else if (this.label.orientation == 3)
+    vec = [ 0, -1];
+
+  if ( Math.abs(vec[0]) > 0.5 )
+  {
+    var x = parseFloat(tbbox[0][0]) + text_width * this.edit_pos;
+    var y = parseFloat(tbbox[0][1]);
+
+    g_painter.line(x, y, x, y + text_height, "rgba(0,0,0, .3)", 10);
+  }
+  else if ( Math.abs(vec[1]) > 0.5 )
+  {
+    var x = parseFloat(tbbox[0][0]) ;
+    var y = parseFloat(tbbox[0][1]) + text_width * this.edit_pos;
+
+    g_painter.line(x, y, x + text_height, y, "rgba(0,0,0, .3)", 10);
+  }
+
+
+
+}
+
+
 
 toolLabel.prototype.drawOverlay = function()
 {
@@ -112,7 +154,11 @@ toolLabel.prototype.drawOverlay = function()
   this._drawBBoxOverlay( this.label.bounding_box );
   this._drawBBoxOverlay( this.label.coarse_bounding_box );
 
+  this._drawCursor();
+
   g_schematic_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
+
+
 
 }
 
@@ -172,10 +218,10 @@ toolLabel.prototype.mouseDown = function( button, x, y )
 
     if (this.state == "positionChoose")
     {
-      this.state = "inputText";
+      this.state = "textedit";
     }
 
-    else if (this.state == "inputText")
+    else if (this.state == "textedit")
     {
       this.mouse_world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
       this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
@@ -266,11 +312,74 @@ toolLabel.prototype.mouseWheel = function( delta )
 }
 
 //-----------------------------
-// TESTING
+
+
+toolLabel.prototype._addch = function( ch, indicator )
+{
+  indicator = ( typeof indicator !== 'undefined' ? indicator : "none" );
+
+  var s = this.label.text;
+  var p = this.edit_pos;
+
+  if ((p<0) || (p>s.length))
+    return;
+
+  var lpos=p, rpos=p;
+  var ds = 1;
+  if (indicator == "bs")
+  {
+    lpos--;
+    if (lpos<0)
+      lpos=0;
+    ds = -1;
+
+
+  }
+  if (indicator == "del")
+  {
+    rpos++;
+    if (rpos>s.length)
+      rpos=s.length;
+    ds = 0;
+
+  }
+
+
+  var new_s = s.slice(0, lpos) + ch + s.slice(rpos, s.length);
+  this.edit_pos += ds;
+  if (this.edit_pos<0) this.edit_pos = 0;
+  if (this.edit_pos>new_s.length) this.edit_pos=new_s.length;
+
+  this.label.text = new_s;
+
+  g_painter.dirty_flag = true;
+
+}
+
+
+toolLabel.prototype.keyPress = function( keycode, ch, ev )
+{
+  if (this.state == "textedit")
+  {
+
+    if ( keycode == 13)
+    {
+      this._addLabel();
+      this._handoff();
+      return;
+    }
+
+    this._addch( ch );
+    g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+
+  }
+
+}
 
 toolLabel.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolLabel keyDown: " + keycode + " " + ch );
+  var pass_key = true;
+  var dirty_text = false;
 
   if ((ch == 'Q') || (keycode == 27))
   {
@@ -288,24 +397,85 @@ toolLabel.prototype.keyDown = function( keycode, ch, ev )
     */
   }
 
-  if (this.state == "")
+  if (this.state == "positionChoose")
   {
+
+    if (ch == "R")
+    {
+      this.label.orientation = ( this.label.orientation + 1 ) % 4;
+      g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+      g_painter.dirty_flag = true;
+    }
+
+    else if (ch == "E")
+    {
+      this.label.orientation = ( this.label.orientation + 3 ) % 4;
+      g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+      g_painter.dirty_flag = true;
+    }
+
   }
 
-  else if (ch == "R")
+  else if (this.state == "textedit")
   {
-    this.label.orientation = ( this.label.orientation + 1 ) % 4;
-    g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
-    g_painter.dirty_flag = true;
+    if (keycode == 8)  // BS
+    {
+      this._addch( "", "bs" );
+      pass_key = false;
+      g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+    }
+
+    else if (keycode == 46) // DEL
+    {
+      this._addch( "", "del" );
+      pass_key = false;
+      g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+    }
+
+    else if (keycode == 32) // SPACE
+    {
+      //DEBUG
+      console.log("SPACE");
+      pass_key = false;
+      g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+    }
+
+    else if (keycode == 13) // ESC
+    {
+      //DEBUG
+      console.log("...");
+    }
+
+    else if ( (keycode == 37)  ||   // left arrow
+              (keycode == 38) )     // up
+    {
+      this._clamp_add_edit_pos(-1)
+      pass_key = false;
+      g_painter.dirty_flag = true;
+    }
+
+    else if ( (keycode == 39)  ||   // right arrow
+              (keycode == 40) )     // down arrow
+    {
+      this._clamp_add_edit_pos(+1)
+      pass_key = false;
+      g_painter.dirty_flag = true;
+    }
+
+    
   }
 
-  else if (ch == "E")
-  {
-    this.label.orientation = ( this.label.orientation + 3 ) % 4;
-    g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
-    g_painter.dirty_flag = true;
-  }
+  return pass_key;
 
+}
+
+toolLabel.prototype._clamp_add_edit_pos = function( ds )
+{
+  this.edit_pos += ds;
+  if (this.edit_pos < 0) 
+    this.edit_pos = 0;
+  else if (this.edit_pos > this.label.text.length)
+    this.edit_pos = this.label.text.length ;
 }
 
 //-----------------------------

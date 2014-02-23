@@ -297,7 +297,21 @@ toolMove.prototype.doubleClick = function( button, x, y )
         g_schematic_controller.guiToolbox.defaultSelect();
         g_painter.dirty_flag = true;
 
-        g_schematic_controller.schematicUpdate = true;
+        //g_schematic_controller.schematicUpdate = true;
+      }
+
+      else if (id_ref.ref.type == "label")
+      {
+
+        for (var ind in this.origElements)
+        {
+          this.origElements[ind].ref.hideFlag = false;
+        }
+
+        g_schematic_controller.tool = new toolLabelEdit(x, y, id_ref);
+        g_schematic_controller.guiToolbox.defaultSelect();
+        g_painter.dirty_flag = true;
+
       }
 
     }

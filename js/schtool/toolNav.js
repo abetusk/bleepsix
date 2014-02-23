@@ -110,7 +110,7 @@ toolNav.prototype.mouseDown = function( button, x, y )
 
 toolNav.prototype.doubleClick = function(button, x, y)
 {
-  //console.log("toolNav.doubleClick");
+  console.log("toolNav.doubleClick");
   var world_coord = g_painter.devToWorld( x, y );
   var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
 
@@ -129,6 +129,12 @@ toolNav.prototype.doubleClick = function(button, x, y)
     if (id_ref.ref.type == "component")
     {
       g_schematic_controller.tool = new toolComponentEdit(x, y, id_ref);
+      g_painter.dirty_flag = true;
+    }
+
+    else if (id_ref.ref.type == "label")
+    {
+      g_schematic_controller.tool = new toolLabelEdit(x, y, id_ref);
       g_painter.dirty_flag = true;
     }
 

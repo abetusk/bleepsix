@@ -2146,6 +2146,9 @@ bleepsixSchematic.prototype.drawSchematicLabel = function( text )
   var x = parseFloat(text["x"]);
   var y = parseFloat(text["y"]);
 
+  var w = 25;
+  g_painter.drawRectangle( x-w/2, y-w/2, w, w, 5, "rgba(0,0,0,0.7)" );
+
   var font_width = parseFloat(text["dimension"]);
   var font_height = font_width / 0.6;
 
@@ -3099,20 +3102,9 @@ bleepsixSchematic.prototype._get_text_bbox = function( text,
   var r = [ [xmin, ymin], [xmin, ymax], [xmax, ymax], [xmax,ymin] ];
   var r_t = numeric.transpose( numeric.dot( transform, numeric.transpose(r) ) );
 
-  //var ll = find_lower_left_xy( r_t );
-  //var ur = find_upper_right_xy( r_t );
-
   var ll = this.find_min_xy( r_t );
   var ur = this.find_max_xy( r_t );
 
-  if (name == "texting and texting " )
-  {
-  console.log(">>>>>>>>>>>>>");
-  console.log(transform[0], transform[1]);
-  console.log(r, r_t, ll, ur);
-  }
-
-  //var bbox = [ [0,0],[0,0] ];
 
   bbox[0][0] = ll[0] + x;
   bbox[0][1] = ll[1] + y;
