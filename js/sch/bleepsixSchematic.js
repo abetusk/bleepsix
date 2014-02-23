@@ -594,7 +594,7 @@ bleepsixSchematic.prototype.rotate90 = function( id_ref , ccw_flag )
   comp["transform"] = numeric.dot( transform, comp["transform"] );
   this.updateBoundingBox( comp );
 
-  g_painter.dirty_flag = true;
+  //g_painter.dirty_flag = true;
 
 }
 
@@ -613,7 +613,7 @@ bleepsixSchematic.prototype.flip = function( id_ref )
   comp["transform"] = numeric.dot( transform, comp["transform"] );
   this.updateBoundingBox( comp );
 
-  g_painter.dirty_flag = true;
+  //g_painter.dirty_flag = true;
 
 }
 
@@ -1307,14 +1307,14 @@ function find_lower_left( pnt )
   {
     if (ind == 0)
     {
-      x_min = pnt[0][0];
-      y_min = pnt[0][1];
+      x_min = parseFloat(pnt[0][0]);
+      y_min = parseFloat(pnt[0][1]);
     }
 
-    if ( pnt[ind][0] < x_min )
+    if ( parseFloat(pnt[ind][0]) < x_min )
     {
-      x_min = pnt[ind][0];
-      y_min = pnt[ind][1];
+      x_min = parseFloat(pnt[ind][0]);
+      y_min = parseFloat(pnt[ind][1]);
 
       ind_min = ind;
     }
@@ -1322,11 +1322,11 @@ function find_lower_left( pnt )
 
   for (ind in pnt)
   {
-    if (pnt[ind][0] == x_min)
+    if (parseFloat(pnt[ind][0]) == x_min)
     {
-      if (pnt[ind][1] < y_min)
+      if (parseFloat(pnt[ind][1]) < y_min)
       {
-        y_min = pnt[ind][1];
+        y_min = parseFloat(pnt[ind][1]);
         ind_min = ind;
       }
     }
@@ -1344,14 +1344,14 @@ function find_upper_right( pnt )
   {
     if (ind == 0)
     {
-      x_max = pnt[0][0];
-      y_max = pnt[0][1];
+      x_max = parseFloat(pnt[0][0]);
+      y_max = parseFloat(pnt[0][1]);
     }
 
-    if ( pnt[ind][0] > x_max )
+    if ( parseFloat(pnt[ind][0]) > x_max )
     {
-      x_max = pnt[ind][0];
-      y_max = pnt[ind][1];
+      x_max = parseFloat(pnt[ind][0]);
+      y_max = parseFloat(pnt[ind][1]);
 
       ind_max = ind;
     }
@@ -1359,11 +1359,11 @@ function find_upper_right( pnt )
 
   for (ind in pnt)
   {
-    if (pnt[ind][0] == x_max)
+    if (parseFloat(pnt[ind][0]) == x_max)
     {
-      if (pnt[ind][1] > y_max)
+      if (parseFloat(pnt[ind][1]) > y_max)
       {
-        y_max = pnt[ind][1];
+        y_max = parseFloat(pnt[ind][1]);
         ind_max = ind;
       }
     }
@@ -2925,16 +2925,26 @@ bleepsixSchematic.prototype.updateLabelBoundingBox = function( label_entry )
   label_entry.bounding_box = bbox;
 
   var orientation_flag = "H";
+  /*
   if ( (label_entry.orientation == 1) ||
        (label_entry.orientation == 3) )
     orientation_flag = "V";
+    */
 
   var rot_rad = parseInt( label_entry.orientation ) * Math.PI / 2.0;
   var T = this._R( rot_rad );
 
+  var hjustify = "L";
+  var vjustify = "T";
+  if ( (label_entry.orientation == 2) ||
+       (label_entry.orientation == 3) )
+  {
+    vjustify = "B";
+  }
+
   label_entry.coarse_bounding_box = 
-    this._get_text_bbox( label_entry.text, x, y, T,
-                         orientation_flag, "L", "B",
+    this._get_text_bbox( label_entry.text, x, y, x, y, T,
+                         orientation_flag, hjustify, vjustify,
                          label_entry.dimension );
 
 }
@@ -2989,17 +2999,56 @@ bleepsixSchematic.prototype.updateWireBoundingBox = function( wire_entry )
 
 }
 
+
+bleepsixSchematic.prototype.find_min_xy = function( xy )
+{
+  var n = xy.length;
+  var x_min = xy[0][0];
+  var y_min = xy[0][1];
+
+  for (var ind=1; ind<n; ind++)
+  {
+    if (xy[ind][0] < x_min)
+      x_min = xy[ind][0];
+    if (xy[ind][1] < y_min)
+      y_min = xy[ind][1];
+  }
+
+  return [ x_min, y_min ];
+}
+
+
+bleepsixSchematic.prototype.find_max_xy = function( xy )
+{
+  var n = xy.length;
+  var x_max = xy[0][0];
+  var y_max = xy[0][1];
+
+  for (var ind=1; ind<n; ind++)
+  {
+    if (xy[ind][0] > x_max)
+      x_max = xy[ind][0];
+    if (xy[ind][1] > y_max)
+      y_max = xy[ind][1];
+  }
+
+  return [ x_max, y_max ];
+}
+
+
 bleepsixSchematic.prototype._get_text_bbox = function( text, 
-                                                       x, y, transform, 
+                                                       center_x, center_y,
+                                                       text_x, text_y, transform, 
                                                        orientation, hjustify, vjustify, 
                                                        size) 
 {
 
-  x = parseFloat( x );
-  y = parseFloat( y );
+  var x = parseFloat( center_x );
+  var y = parseFloat( center_y );
 
-  var text_x = parseFloat( x );
-  var text_y = parseFloat( y );
+  text_x = parseFloat( text_x );
+  text_y = parseFloat( text_y );
+
   var text_width  = parseFloat( size );
   var text_height = text_width / 0.6;
 
@@ -3010,7 +3059,7 @@ bleepsixSchematic.prototype._get_text_bbox = function( text,
 
   var bbox = [[0,0],[0,0]];
 
-  if ( ! name ) 
+  if ( !name ) 
   {
     return bbox;
   }
@@ -3050,8 +3099,18 @@ bleepsixSchematic.prototype._get_text_bbox = function( text,
   var r = [ [xmin, ymin], [xmin, ymax], [xmax, ymax], [xmax,ymin] ];
   var r_t = numeric.transpose( numeric.dot( transform, numeric.transpose(r) ) );
 
-  var ll = find_lower_left( r_t );
-  var ur = find_upper_right( r_t );
+  //var ll = find_lower_left_xy( r_t );
+  //var ur = find_upper_right_xy( r_t );
+
+  var ll = this.find_min_xy( r_t );
+  var ur = this.find_max_xy( r_t );
+
+  if (name == "texting and texting " )
+  {
+  console.log(">>>>>>>>>>>>>");
+  console.log(transform[0], transform[1]);
+  console.log(r, r_t, ll, ur);
+  }
 
   //var bbox = [ [0,0],[0,0] ];
 
@@ -3064,20 +3123,22 @@ bleepsixSchematic.prototype._get_text_bbox = function( text,
 
 }
 
-/*
 bleepsixSchematic.prototype.updateComponentTextBoundingBox = function( comp_text_entry, x, y, transform ) 
 {
   comp_text_entry["bounding_box"] = 
-    this._get_text_bbox( comp_text_entry.text, x, y, transform,
+    this._get_text_bbox( comp_text_entry.text, 
+                            x, y, 
+                            comp_text_entry.x, comp_text_entry.y,
+                            transform,
                             comp_text_entry.orientation,
                             comp_text_entry.hjustify,
                             comp_text_entry.vjustify,
                             comp_text_entry.size );
 
 }
-*/
 
-bleepsixSchematic.prototype.updateComponentTextBoundingBox = function( comp_text_entry, x, y, transform ) 
+/*
+bleepsixSchematic.prototype.updateComponentTextBoundingBox_old = function( comp_text_entry, x, y, transform ) 
 {
 
   var text_x = parseFloat( comp_text_entry["x"] );
@@ -3144,6 +3205,7 @@ bleepsixSchematic.prototype.updateComponentTextBoundingBox = function( comp_text
   comp_text_entry["bounding_box"] = bbox;
 
 }
+*/
 
 bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry ) 
 {

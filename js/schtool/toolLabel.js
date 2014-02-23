@@ -110,6 +110,7 @@ toolLabel.prototype.drawOverlay = function()
 
   g_schematic_controller.schematic.drawSchematicLabel( this.label );
   this._drawBBoxOverlay( this.label.bounding_box );
+  this._drawBBoxOverlay( this.label.coarse_bounding_box );
 
   g_schematic_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
 
@@ -273,6 +274,9 @@ toolLabel.prototype.keyDown = function( keycode, ch, ev )
 
   if ((ch == 'Q') || (keycode == 27))
   {
+    this._handoff( );
+    return;
+    /*
     console.log("handing back to toolNav");
     g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_schematic_controller.guiToolbox.defaultSelect();
@@ -280,6 +284,25 @@ toolLabel.prototype.keyDown = function( keycode, ch, ev )
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
 
+    g_painter.dirty_flag = true;
+    */
+  }
+
+  if (this.state == "")
+  {
+  }
+
+  else if (ch == "R")
+  {
+    this.label.orientation = ( this.label.orientation + 1 ) % 4;
+    g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ch == "E")
+  {
+    this.label.orientation = ( this.label.orientation + 3 ) % 4;
+    g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
     g_painter.dirty_flag = true;
   }
 
