@@ -22,12 +22,14 @@
 
 */
 
-bleepsixSchematic.prototype._conn_wire_intersect = function( conn, wire )
+//bleepsixSchematic.prototype._conn_wire_intersect = function( conn, wire )
+bleepsixSchematic.prototype._point_wire_intersect = function( point, wire )
 {
   var eps = 0.0001;
   var p = [ parseInt(wire.startx), parseInt(wire.starty) ];
   var d = [ parseInt(wire.endx) - p[0], parseInt(wire.endy) - p[1] ];
-  var q = [ parseInt(conn.x), parseInt(conn.y) ];
+  //var q = [ parseInt(conn.x), parseInt(conn.y) ];
+  var q = [ parseInt(point.x), parseInt(point.y) ];
 
   var l = numeric.norm2Squared( d );
   if ( l < eps) return false;
@@ -86,7 +88,7 @@ bleepsixSchematic.prototype._net_extend_VE_from_conn_wires = function( V, E )
   {
     for (var j=0; j<conn.length; j++)
     {
-      if ( this._conn_wire_intersect( conn[j], wire[i] ) )
+      if ( this._point_wire_intersect( conn[j], wire[i] ) )
       {
         edge.push( [ wire[i].id, conn[j].id ] );
         edge.push( [ conn[j].id, wire[i].id ] );
@@ -126,6 +128,144 @@ bleepsixSchematic.prototype._net_add_endpoint = function( endpoints, key, data )
   else
   {
     endpoints[key] = [ data ];
+  }
+
+}
+
+bleepsixSchematic.prototype._net_extend_VE_from_labels = function( V, E )
+{
+  var edge = [];
+  var endpoints = {};
+  var labels = [];
+
+  var label_name_list = {};
+
+  var sch = this.kicad_sch_json.element;
+  var n = sch.length;
+  for (var i=0; i<n; i++)
+  {
+    var ele = sch[i];
+    var type = ele.type;
+    
+    if (type == "label")
+    {
+      labels.push(ele);
+
+      var key = this._net_make_key( ele.x, ele.y );
+      var data = { type: "label", ref: ele, id: ele.id, visited: false, net: 0 };
+
+      if ( ele.text in label_name_list )
+        label_name_list[ ele.text ].push( data );
+      else
+        label_name_list[ ele.text ] = [ data ];
+
+
+      V[ ele.id ] = data;
+      this._net_add_endpoint( endpoints, key, data );
+    }
+  }
+
+  // make virtual link to each labels with the same name
+  for ( var name in label_name_list )
+  {
+    var l = label_name_list[name].length;
+    for (var i=0; i<l; i++)
+    {
+      var data0 = label_name_list[name][i];
+      var key0 = this._net_make_key( data0.x, data0.y );
+      this._net_add_endpoint( endpoints, key0, data0 );
+
+      for (var j=i+1; j<l; j++)
+      {
+        var data1 = label_name_list[name][j];
+        var key1 = this._net_make_key( data1.ref.x, data1.ref.y );
+
+        this._net_add_endpoint( endpoints, key0, data1 );
+      }
+
+    }
+  }
+
+  for (var i=0; i<n; i++)
+  {
+    var ele = sch[i];
+    var type = ele.type;
+
+    if ( (type != "component") &&
+         (type != "wireline") )
+      continue;
+
+    for (var j=0; j<labels.length; j++)
+    {
+
+      var data = labels[j];
+      var label_key = this._net_make_key( data.x, data.y );
+
+      if (type == "component")
+      {
+        var comp = this._lookup_comp( ele.name );
+        var pins = comp.pin;
+        for (var p_ind=0; p_ind<pins.length; p_ind++)
+        {
+          var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
+          var key = this._net_make_key( p[0][0], p[0][1] );
+
+          if ( (parseInt(p[0][0]) != parseInt(data.x)) ||
+               (parseInt(p[0][1]) != parseInt(data.y)) )
+            continue;
+
+          var comp_data = {
+            type : "pin",
+            ref: ele,
+            parentId : ele.id,
+            id: ele.id + ":" + comp.pin[p_ind].number ,
+            pin_number: comp.pin[p_ind].number ,
+            visited : false,
+            net : 0
+          };
+
+          this._net_add_endpoint( endpoints, label_key, comp_data );
+        }
+
+
+      }
+      else if (type == "wireline")
+      {
+
+        if (! ( ((parseInt(ele.startx) == parseInt(data.x)) && (parseInt(ele.starty) == parseInt(data.y))) ||
+              ((parseInt(ele.endx)   == parseInt(data.x)) && (parseInt(ele.endy)   == parseInt(data.y))) ) )
+          continue;
+
+        var wire_data = { type: "wireline", ref: ele, id: ele.id, visited: false, net: 0};
+        this._net_add_endpoint( endpoints, label_key, wire_data );
+
+      }
+
+    }
+
+  }
+
+  for (var xy in endpoints)
+  {
+    var list= endpoints[xy];
+    for (var i=0; i<list.length; i++)
+    {
+      for (var j=i+1; j<list.length; j++)
+      {
+        var a = list[i].id;
+        var b = list[j].id;
+
+        // DEBUG
+        console.log("adding ", a, b );
+
+        if (!(a in E)) E[a] = {};
+        E[a][b] = [ list[i], list[j] ];
+
+        if (!(b in E)) E[b] = {};
+        E[b][a] = [ list[j], list[i] ];
+
+      }
+    }
   }
 
 }
@@ -256,6 +396,7 @@ bleepsixSchematic.prototype.constructNet = function()
 
   this._net_extend_VE_from_conn_wires( V, E );
   this._net_extend_VE_from_endpoints( V, E );
+  this._net_extend_VE_from_labels( V, E );
 
   this._net_label_groups(V, E);
 
