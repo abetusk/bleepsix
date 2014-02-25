@@ -50,7 +50,7 @@ function bleepsixSchematic()
   this.component    = {};
   this.connection   = {};
 
-  this.kicad_sch_json = { "element":[] };
+  this.kicad_sch_json = { "element":[] , "net_pin_id_map": {} };
 
   // reference by id
   this.ref_lookup = {};
@@ -77,8 +77,8 @@ function bleepsixSchematic()
   //this.draw_bounding_box_flag = true;
   this.draw_bounding_box_flag = false;
 
-  this.draw_id_text_flag = false;
-  //this.draw_id_text_flag = true;
+  //this.draw_id_text_flag = false;
+  this.draw_id_text_flag = true;
 
   this.reference_number = {};
 
@@ -89,7 +89,7 @@ function bleepsixSchematic()
 
   this.local_component_cache = {};
 
-  this.net_pin_id_map = {};
+  //this.net_pin_id_map = {};
 
 }
 
@@ -144,13 +144,15 @@ bleepsixSchematic.prototype._createId = function( parent_id )
 
 bleepsixSchematic.prototype.getPinNetMap = function()
 {
-  return this.net_pin_id_map ;
+  //return this.net_pin_id_map ;
+  return this.kicad_sch_json.net_pin_id_map ;
 }
 
 bleepsixSchematic.prototype.updateNets = function( net_info )
 {
 
-  this.net_pin_id_map = net_info;
+  //this.net_pin_id_map = net_info;
+  this.kicad_sch_json.net_pin_id_map = net_info;
 
 }
 

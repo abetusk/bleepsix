@@ -305,6 +305,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     //DEBUG
     g_schematic_controller.schematic.constructNet();
 
+
   }
   else if (ch == 'U')
   {

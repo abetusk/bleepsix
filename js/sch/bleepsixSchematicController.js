@@ -171,35 +171,43 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   //
   if ( (msg.action == "add") && (msg.type == "componentData") )
   {
+
     console.log("add componentData --> board");
 
     var comp_ref = this.schematic.refLookup( msg.id );
-    var module = 
-      this.board.makeUnknownModule( 1000, 
-                                    comp_ref.id, 
-                                    [ comp_ref.text[0].id, comp_ref.text[1].id ] );
-    module.text[0].text = comp_ref.text[0].text;
-    module.text[0].visible = comp_ref.text[0].visible;
 
-    module.text[1].text = comp_ref.text[1].text;
-    module.text[1].visible = comp_ref.text[1].visible;
-
-    var brdop = { source: "sch", destination: "brd" };
-    brdop.scope = msg.scope;
-    brdop.action = msg.action;
-    brdop.type = "footprintData";
-    brdop.data = { footprintData: module , x: 0, y: 0 };
-    brdop.id = comp_ref.id;
-    brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
-    this.op.opCommand( brdop );
-
-    if ( g_schnetwork && (msg.scope == "network") )
+    if ( (!comp_ref.reference.match( /^#PWR/ )) &&
+         (!comp_ref.reference.match( /^#FLG/ )) )
     {
 
-      //DEBUG
-      console.log("  sending BRDOP over network");
+      var module = 
+        this.board.makeUnknownModule( 1000, 
+                                      comp_ref.id, 
+                                      [ comp_ref.text[0].id, comp_ref.text[1].id ] );
+      module.text[0].text = comp_ref.text[0].text;
+      module.text[0].visible = comp_ref.text[0].visible;
 
-      g_schnetwork.projectop( brdop );
+      module.text[1].text = comp_ref.text[1].text;
+      module.text[1].visible = comp_ref.text[1].visible;
+
+      var brdop = { source: "sch", destination: "brd" };
+      brdop.scope = msg.scope;
+      brdop.action = msg.action;
+      brdop.type = "footprintData";
+      brdop.data = { footprintData: module , x: 0, y: 0 };
+      brdop.id = comp_ref.id;
+      brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
+      this.op.opCommand( brdop );
+
+      if ( g_schnetwork && (msg.scope == "network") )
+      {
+
+        //DEBUG
+        console.log("  sending BRDOP over network");
+
+        g_schnetwork.projectop( brdop );
+      }
+
     }
 
   }
@@ -279,7 +287,11 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   //
   //TESTING
 
-  var sch_net_code_map = this.schematic.constructNet();
+  //var sch_net_code_map = this.schematic.constructNet();
+
+  this.schematic.constructNet();
+  var sch_net_code_map = this.schematic.getPinNetMap();
+
   var net_op = { source: "sch", destination: "sch" };
   net_op.action = "update";
   net_op.type = "net";
