@@ -203,8 +203,13 @@ bleepsixSchematic.prototype._net_extend_VE_from_labels = function( V, E )
 
       if (type == "component")
       {
+
         var comp = this._lookup_comp( ele.name );
         var pins = comp.pin;
+
+        if (comp.name == "unknown")
+          continue;
+
         for (var p_ind=0; p_ind<pins.length; p_ind++)
         {
           var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
