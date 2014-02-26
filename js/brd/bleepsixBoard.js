@@ -316,6 +316,36 @@ bleepsixBoard.prototype.remove = function( id_ref )
 
 }
 
+bleepsixBoard.prototype.flip = function( id_ref , old_layer, new_layer )
+{
+  var ref = id_ref.ref;
+  var type = ref.type;
+
+  if (type != "module")
+  {
+    console.log("ERROR: bleepsixBoard.flip: not flipping module");
+    return;
+  }
+
+  //this.rotateAboutPoint( [ id_ref ], ref.x, ref.y, Math.PI );
+  this.moduleFlipY( id_ref );
+
+  for (var ind in ref.text)
+  {
+    ref.text[ind].flag = ( (ref.text[ind].flag == "M") ? "N" : "M" );
+  }
+
+  for (var p_ind in ref.pad)
+  {
+    var layer_mask = ref.pad[p_ind].layer_mask;
+    var bits = parseInt(layer_mask, 16);
+    bits = bits & (~(1<<old_layer));
+    bits = bits | (1<<new_layer);
+    ref.pad[p_ind].layer_mask = bits;
+  }
+
+}
+
 bleepsixBoard.prototype.rotate90 = function( id_ref , ccw_flag )
 {
   /*
@@ -368,6 +398,89 @@ bleepsixBoard.prototype.centerOfMass = function ( id_refs )
   }
 
   return { "x" :  (x / id_refs.length), "y" : (y / id_refs.length) } ;
+
+}
+
+bleepsixBoard.prototype._clampAngle = function ( ang )
+{
+  var twoPi = 2.0*Math.PI;
+  var q = Math.floor(ang / twoPi);
+
+  if (ang > 0.0)
+    ang = ang - Math.floor( ang / twoPi ) * twoPi;
+  else
+    ang = ang + Math.floor( -ang / twoPi) * twoPi;
+
+  return ang;
+
+}
+
+//  flip the module across the X=0 (local) line
+// 
+bleepsixBoard.prototype.moduleFlipY = function ( id_ref )
+{
+  var X = [ [1,0],[0,-1] ];
+  var id = id_ref.id;
+  var ref = id_ref.ref;
+
+  console.log(id_ref, id, ref );
+
+  console.log(ref);
+  console.log(ref.text);
+
+  for (var ind in ref.text)
+  {
+    var t = ref.text[ind];
+    var v_t = numeric.dot( X, [ parseFloat( t.x ), parseFloat( t.y ) ] );
+
+    t.x = v_t[0];
+    t.y = v_t[1];
+  }
+
+
+  for (var ind in ref.pad)
+  {
+    var p = ref.pad[ind];
+    var v_t = numeric.dot( X, [ parseFloat( p.posx ), parseFloat( p.posy ) ] );
+    p.posx = v_t[0];
+    p.posy = v_t[1];
+  }
+
+
+  for (var ind in ref.art)
+  {
+    var a = ref.art[ind];
+    var shape = a.shape;
+
+    if (shape == "segment") 
+    {
+      var v_t = numeric.dot( X, [ parseFloat( a.startx ), parseFloat( a.starty ) ] );
+      a.startx = v_t[0];
+      a.starty = v_t[1];
+
+      v_t = numeric.dot( X, [ parseFloat( a.endx ), parseFloat( a.endy ) ] );
+      a.endx = v_t[0];
+      a.endy = v_t[1];
+    }
+
+    if ( (shape == "circle") ||
+         (shape == "arc") )
+    {
+      var v_t = numeric.dot( X, [ parseFloat( a.x ), parseFloat( a.y ) ] );
+      a.x = v_t[0];
+      a.y = v_t[1];
+    }
+
+    if (shape == "arc")
+    {
+      var sa = this._clampAngle( parseFloat( a.start_angle ) );
+      var da = this._clampAngle( parseFloat( a.angle ) );
+
+      var new_sa = - ( sa + da );
+      a.start_angle = this._clampAngle( new_sa );
+    }
+
+  }
 
 }
 

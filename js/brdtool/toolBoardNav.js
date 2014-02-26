@@ -312,6 +312,45 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'F')
   {
+
+    //DEBUG
+    console.log("FLIP");
+
+    var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
+    if (id_ref_ar.length > 0)
+    {
+
+      for (var ind in id_ref_ar)
+      {
+        var ref = id_ref_ar[ind]["ref"];
+        if (ref["type"] == "module")
+        {
+
+          //DEBUG
+          console.log("FOUND!!");
+
+          var src_layer = g_board_controller.guiLayer.getActiveLayer();
+          var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
+
+          console.log(src_layer, dst_layer);
+
+          g_board_controller.board.flip( id_ref_ar[ind], src_layer, dst_layer );
+          break;
+
+          var op = { source: "brd", destination: "brd" };
+          op.action = "update";
+          op.type = "flip";
+          op.id = id_ref.id;
+          op.data = { sourceLayer : 0, destinationLayer: 20 };
+          g_board_controller.opCommand( op );
+
+          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
+
+        }
+      }
+
+    }
+    
   }
   else if (ch == 'I')
   {

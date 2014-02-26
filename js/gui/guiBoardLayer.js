@@ -226,6 +226,17 @@ guiBoardLayer.prototype.toggleLayer = function()
 
 }
 
+guiBoardLayer.prototype.getActiveLayer = function()
+{
+  return this.layer[ this.layerIndex ];
+}
+
+guiBoardLayer.prototype.getInactiveLayer = function()
+{
+  var ind = (this.layerIndex + 1)%2;
+  return this.layer[ ind ];
+}
+
 guiBoardLayer.prototype.draw = function()
 {
 

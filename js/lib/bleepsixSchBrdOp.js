@@ -286,6 +286,18 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     this.board.updateBoundingBox( ref );
   }
 
+  else if (type == "flip" )
+  {
+    var src = data.sourceLayer;
+    var dst = data.destinationLayer;
+
+    var ref = this.board.refLookup( id );
+    this.board.flip( { id: id, ref: ref } , dst);
+
+
+    //this.board.foo();
+  }
+
   else if (type == "fillczone")
   {
 
