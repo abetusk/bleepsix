@@ -875,9 +875,10 @@ bleepsixBoard.prototype._initBoardNet = function()
   this.kicad_brd_json["net_name_map"] = { "" : 0 };
   this.kicad_brd_json["net_code_airwire_map"] = { "0" : [] };
 
+  // DEPRECATED
   // mapping of schematic netcodes to board netcodes
   //
-  this.kicad_brd_json["sch_net_code_map"] = {};
+  //this.kicad_brd_json["sch_net_code_map"] = {};
 
 }
 
@@ -2746,6 +2747,7 @@ bleepsixBoard.prototype.drawElement = function( ele )
 bleepsixBoard.prototype.drawBoard = function()
 {
   this.updateBoundingBox();
+  //this.updateRatsNest(undefined, undefined, this.kicad_brd_json.brd_to_sch_net_map );
 
   var brd = this.kicad_brd_json;
   var ele_list = brd.element;

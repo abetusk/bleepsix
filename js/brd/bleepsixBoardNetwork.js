@@ -497,6 +497,10 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
   g_board_controller.board.load_board( json_brd );
   g_board_controller.schematic.load_schematic( json_sch );
 
+  var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+  g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
 }
 
 bleepsixBoardNetwork.prototype.projectflushResponse = function( data )
@@ -545,11 +549,14 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
 
   if (msg.type == "op")
   {
-    //console.log("op neutered ");
 
     //DEBUG
     //console.log("applying op (directly to board op)");
     //g_board_controller.opCommand( msg.op );
+
+    console.log("OP>>>>>>>>");
+    console.log( msg.op );
+
     g_board_controller.op.opCommand( msg.op );
   }
 

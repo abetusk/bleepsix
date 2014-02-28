@@ -290,6 +290,31 @@ bleepsixBoard.prototype._make_thermal_pad_geometry = function( mod, pad, thickne
 
 }
 
+bleepsixBoard.prototype._net_equal = function( brd_net0, brd_net1 )
+{
+  var a = parseInt( brd_net0 );
+  var b = parseInt( brd_net1 );
+
+  var sch_net_code_map = this.sch_to_brd_net_map;
+
+  var a_list = [];
+  if ( a in sch_net_code_map )
+    a_list = sch_net_code_map[a];
+
+  var b_list = [];
+  if (b in sch_net_code_map )
+    b_list = sch_net_code_map[b];
+
+  for (var ii in a_list)
+    for (var jj in b_list)
+      if ( a_list[ii] == b_list[jj] )
+        return true;
+
+  return false;
+
+}
+
+
 // This will need to be refactored at some point, but for now, it's all here.
 // 
 // 
@@ -308,6 +333,8 @@ bleepsixBoard.prototype.fillCZone = function( czone )
   // N or '' for none (connected via trace)
   //
   var thermal_relief_flag = czone.pad_option;  
+
+  var sch_net_code_map = this.sch_to_brd_net_map ;
 
   //console.log("czone net: " + net_name + ", layer: " + layer + ", thermal relief: " + thermal_relief_flag );
 
@@ -344,7 +371,8 @@ bleepsixBoard.prototype.fillCZone = function( czone )
       // exclude it from our offseting and intersection and save it for
       // later intersection tests.
       //
-      if (parseInt(ele.netcode) == netcode)
+      //if (parseInt(ele.netcode) == netcode)
+      if ( this._net_equal( ele.netcode, netcode) )
       {
         var p = this._build_element_polygon( { type:"track", ref: ele, id: ele.id } );
         base_pgns.push(p);
@@ -377,20 +405,12 @@ bleepsixBoard.prototype.fillCZone = function( czone )
       if ( ele.polyscorners.length < 2)
         continue;
 
-      console.log("conzidering czone...");
-      console.log( ele );
-      console.log("polyscorners");
-      console.log( ele.polyscorners );
-
       var pnts = [];
       var pc = ele.polyscorners;
       for (var i in pc)
         pnts.push( [ parseFloat( pc[i].x0 ), parseFloat( pc[i].y0 ) ] );
 
       var pgns = this._make_pgns_from_pnts( pnts );
-
-      console.log("got pgns:");
-      console.log(pgns);
 
       this._clip_offset( sub_pgns, pgns, parseFloat(czone.clearance) + parseFloat(czone.min_thickness) );
 
@@ -407,7 +427,8 @@ bleepsixBoard.prototype.fillCZone = function( czone )
         // it from the zone removal depending on the thermal relief option
         // ( to be iplemented, testing thermal relief default now )
         //
-        if (parseInt(pad.net_number) == netcode)
+        //if (parseInt(pad.net_number) == netcode)
+        if ( this._net_equal( pad.net_number, netcode ) )
         {
 
           // skip it if it's not on this layer
@@ -734,6 +755,21 @@ bleepsixBoard.prototype.highlightNets = function( net_names )
   this.highlight_net_flag = true;
   g_painter.dirty_flag = true;
 }
+
+bleepsixBoard.prototype.highlightNetCodes = function( net_codes )
+{
+  this.highlight_net.length = 0;
+  for (var n in net_codes)
+  {
+    var net_name = this.kicad_brd_json.net_code_map[ net_codes[n] ];
+    var pgns = this.getBGLVar( net_name );
+    for (var i in pgns)
+      this.highlight_net.push( this._pgn2pnt(pgns[i]) );
+  }
+  this.highlight_net_flag = true;
+  g_painter.dirty_flag = true;
+}
+
 
 bleepsixBoard.prototype.unhighlightNet = function( net_name )
 {

@@ -257,11 +257,20 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if ( keycode == 219 )  // left bracket ('[')
   {
     g_board_controller.opUndo();
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
   }
   else if ( keycode == 221 ) // right bracket (']')
   {
     g_board_controller.opRedo();
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
   }
+
 
   else if ( keycode == 188 )
   {
@@ -334,7 +343,14 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
           console.log(src_layer, dst_layer);
 
+          // IN DEVELOPMENT
+          //STILL NEEDS WORK!
+
           g_board_controller.board.flip( id_ref_ar[ind], src_layer, dst_layer );
+
+          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+          g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
           break;
 
           var op = { source: "brd", destination: "brd" };
@@ -344,7 +360,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           op.data = { sourceLayer : 0, destinationLayer: 20 };
           g_board_controller.opCommand( op );
 
-          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
         }
       }
@@ -455,7 +470,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       //g_painter.dirty_flag = true;
 
       //g_board_controller.board.updateRatsNest();
-      g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
+      var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
     }
 
   }
@@ -484,9 +500,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       //g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
     }
 
-    //g_board_controller.board.updateRatsNest();
-    g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
-
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
   }
 
@@ -622,12 +637,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           op.data.element.push( clonedData );
           g_board_controller.opCommand( op );
 
-          //g_board_controller.board.remove( id_ref_ar[ind] );
-          //g_painter.dirty_flag = true;
+          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+          g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
-
-          //g_board_controller.board.updateRatsNest();
-          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
 
           return true;
         }
@@ -644,10 +656,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
           g_board_controller.opCommand( op );
-
-          //g_board_controller.board.remove( id_ref_ar[ind] );
-          //g_painter.dirty_flag = true;
-
 
 
       // TESTING
@@ -666,8 +674,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       // TESTING
 
 
-          //g_board_controller.board.updateRatsNest();
-          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
+          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+          g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
           return true;
@@ -686,12 +694,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           op.data.element.push( clonedData );
           g_board_controller.opCommand( op );
 
-          //g_board_controller.board.remove( id_ref_ar[ind] );
-          //g_painter.dirty_flag = true;
-
-
-          //g_board_controller.board.updateRatsNest();
-          g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
+          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+          g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
           return true;
 
@@ -704,13 +708,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       op.data.element.push( clonedData );
       g_board_controller.opCommand( op );
 
-      //g_board_controller.board.remove( id_ref_ar[0] );
-      //g_painter.dirty_flag = true;
-
-
-
-      //g_board_controller.board.updateRatsNest();
-      g_board_controller.board.updateRatsNest( undefined, undefined, g_board_controller.board.sch_to_brd_net_map );
+      var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
       return true;
 

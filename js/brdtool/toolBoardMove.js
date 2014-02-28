@@ -132,10 +132,6 @@ toolBoardMove.prototype.addElement = function( id_ref_array )
 toolBoardMove.prototype.drawOverlay = function()
 {
 
-  //TESTING
-  //g_board_controller.board.updateRatsNest();
-  //TESTING
-
   var s = this.cursorSize / 2;
 
   g_painter.drawRectangle( this.snap_world_xy["x"] - s, 
@@ -362,16 +358,6 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     this.prev_world_xy["x"] = world_xy["x"];
     this.prev_world_xy["y"] = world_xy["y"];
 
-
-    //TESTING
-    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
-
-
-    //var sch_net_code_map = g_board_controller.schNetCodeMap();
-    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
-    //TESTING
-
-    //TESTING
     var brd = g_board_controller.board.kicad_brd_json;
     var map = brd.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, this.selectedElement, map );
@@ -395,8 +381,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     //$.extend(true, this.selectedElement, this.orig_element_state);
 
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
-
-    //g_board_controller.board.updateRatsNest( );
 
     //TESTING
     var brd = g_board_controller.board.kicad_brd_json;
@@ -438,12 +422,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     }
 
     g_board_controller.opCommand( op );
-
-    //g_board_controller.board.updateRatsNest();
-
-    //TESTING
-    //var sch_net_code_map = g_board_controller.schNetCodeMap();
-    //g_board_controller.board.updateRatsNest( undefined, undefined, sch_net_code_map );
 
     var brd = g_board_controller.board.kicad_brd_json;
     var map = brd.brd_to_sch_net_map;
@@ -489,16 +467,9 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     for (var ind in this.selectedElement)
       g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
-    //g_board_controller.board.updateRatsNest();
-    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement );
-
-    //TESTING
-    //var sch_net_code_map = g_board_controller.schNetCodeMap();
-    //g_board_controller.board.updateRatsNest( undefined, this.selectedElement, sch_net_code_map );
-
     var brd = g_board_controller.board.kicad_brd_json;
     var map = brd.brd_to_sch_net_map;
-    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, map );
 
 
     g_painter.dirty_flag = true;

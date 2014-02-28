@@ -165,6 +165,19 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
 
+
+      var net_op = { source : "brd", destination: "sch" };
+      op.action = "update";
+      op.type = "schematicnetmap";
+      g_board_controller.opCommand( op );
+
+      var sch_pin_id_net_map = g_board_controller.schematic.getPinNetMap();
+      g_board_controller.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
+
+      var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
       console.log("TESTING");
       return;
     }
