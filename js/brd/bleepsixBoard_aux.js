@@ -26,6 +26,8 @@ if (typeof module !== 'undefined')
 {
   var bleepsixBoard = require("./bleepsixBoard.js");
   module.exports = bleepsixBoard;
+
+  var clipper = require("../lib/clipper_unminified.js");
 }
 
 // Delete reference id and all of it's children

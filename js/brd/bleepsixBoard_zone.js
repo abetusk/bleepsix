@@ -22,10 +22,12 @@
 
 */
 
+var bleepsixBoardHeadless_zone = false;
 if (typeof module !== 'undefined')
 {
   var bleepsixBoard = require("./bleepsixBoard_ratsnest.js");
   module.exports = bleepsixBoard;
+  bleepsixBoardHeadless_zone = true;
 }
 
 
@@ -290,12 +292,12 @@ bleepsixBoard.prototype._make_thermal_pad_geometry = function( mod, pad, thickne
 
 }
 
-bleepsixBoard.prototype._net_equal = function( brd_net0, brd_net1 )
+bleepsixBoard.prototype._net_equal_old = function( brd_net0, brd_net1 )
 {
   var a = parseInt( brd_net0 );
   var b = parseInt( brd_net1 );
 
-  var sch_net_code_map = this.sch_to_brd_net_map;
+  var sch_net_code_map = this.kicad_brd_json.sch_to_brd_net_map;
 
   var a_list = [];
   if ( a in sch_net_code_map )
@@ -314,14 +316,30 @@ bleepsixBoard.prototype._net_equal = function( brd_net0, brd_net1 )
 
 }
 
+bleepsixBoard.prototype._net_equal = function( brd_net, sch_net )
+{
+
+  var btos_map = this.kicad_brd_json.brd_to_sch_net_map;
+
+  for ( var ind in btos_map[ brd_net ] )
+    if ( btos_map[ brd_net ][ind] == sch_net )
+      return true;
+
+  return false;
+
+}
+
 
 // This will need to be refactored at some point, but for now, it's all here.
 // 
 // 
 bleepsixBoard.prototype.fillCZone = function( czone )
 {
+
   var netcode = parseInt(czone.netcode);
-  var net_name = this.kicad_brd_json.net_code_map[netcode];
+
+  //var net_name = this.kicad_brd_json.net_code_map[netcode];
+
   var layer = parseInt(czone.layer);
   var ds = 10;
 
@@ -678,7 +696,8 @@ bleepsixBoard.prototype.fillCZone = function( czone )
 
   czone.polyscorners = final_polyscorners;
 
-  g_painter.dirty_flag = true;
+  if (!bleepsixBoardHeadless_zone)
+    g_painter.dirty_flag = true;
 
 }
 

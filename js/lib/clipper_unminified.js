@@ -68,7 +68,16 @@
 {
   // "use strict";
   // Browser test to speedup performance critical functions
-  var nav = navigator.userAgent.toString().toLowerCase();
+  //var nav = navigator.userAgent.toString().toLowerCase();
+
+  if (typeof(document) === "undefined") var self = this;
+    var nav = "headless";
+  if ( typeof navigator !== 'undefined' )
+    var nav = navigator.userAgent.toString().toLowerCase();
+  else
+    var navigator = { appName : "headless" };
+
+
   var browser = {};
   if ( nav.indexOf("chrome") != -1 && nav.indexOf("chromium") == -1 ) browser.chrome = 1; else browser.chrome = 0;
   if ( nav.indexOf("chromium") != -1 ) browser.chromium = 1; else browser.chromium = 0;

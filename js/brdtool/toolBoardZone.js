@@ -43,13 +43,9 @@ function toolBoardZone( x, y, initialPlaceFlag )
 
   this.mouse_drag_flag = false;
 
-  //DUMMY!!
-  //this.netcode = 1;
-  //this.netname = "GND";
   this.netcode = 0;
-  this.netname = "";
+  //this.netname = "";
 
-  //this.layer = 15;
   this.layer = g_board_controller.guiLayer.selectedLayer;
 
   this.initialPlaceFlag = initialPlaceFlag;
@@ -90,7 +86,8 @@ toolBoardZone.prototype.debug_print = function()
   console.log("  region_box_threshold " + this.region_box_threshold_size );
   console.log("  drawing_box_flag " + this.drawing_box_flag );
   console.log("  mouse_drag_flag " + this.drawing_box_flag );
-  console.log("  netcode " + this.netcode +  ", netname " + this.netname + ", " + this.layer );
+  //console.log("  netcode " + this.netcode +  ", netname " + this.netname + ", " + this.layer );
+  console.log("  netcode " + this.netcode +   ", layer " + this.layer );
 }
 
 
@@ -149,11 +146,6 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
       var Mx = Math.max( this.cur_world_coord["x"], this.orig_world_coord["x"] );
       var My = Math.max( this.cur_world_coord["y"], this.orig_world_coord["y"] );
 
-
-      //console.log("bang: " + mx + " " + my + " " + Mx + " " + My );
-      //console.log("  trying to add czone:");
-
-      //var pnts = [ [mx, my], [mx, My], [Mx, My], [Mx, my] ];
       var pnts = [ [mx, my], [Mx, my], [Mx, My], [mx, My] ];
 
       var op = { source : "brd", destination: "brd" };
@@ -162,17 +154,15 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
       op.data  = { points : pnts, netcode: this.netcode, layer : this.layer };
       g_board_controller.opCommand( op );
 
-      //g_board_controller.board.addCZone( pnts, this.netcode, this.layer );
-
-
-      //console.log("...");
-
     }
 
     g_board_controller.tool = new toolBoardNav(x, y);
     g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
+
+    g_board_controller.board.unhighlightNet();
+
 
   }
 
@@ -316,7 +306,8 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 
     this._setPrevNetcode();
 
-    console.log("netcode now : " + this.netcode + " " + this.netname );
+    //console.log("netcode now : " + this.netcode + " " + this.netname );
+    console.log("netcode now : " + this.netcode );
 
   }
 
