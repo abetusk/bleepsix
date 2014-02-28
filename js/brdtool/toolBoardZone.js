@@ -77,6 +77,8 @@ toolBoardZone.prototype._initZoneState = function( x, y )
 
   this.ready = true;
   this.ignoreMouseUp = false;
+
+  this._setNextNetcode();
 }
 
 toolBoardZone.prototype.debug_print = function()
@@ -227,15 +229,16 @@ toolBoardZone.prototype.mouseWheel = function( delta )
 
 toolBoardZone.prototype._setNextNetcode = function()
 {
+
   var cur_netcode = parseInt(this.netcode);
   var t = -1;
-  var min_netcode = cur_netcode;
+  var min_netcode = -1;
 
-  var ncm = g_board_controller.board.kicad_brd_json.net_code_map;
-  var nnm = g_board_controller.board.kicad_brd_json.net_name_map;
-  for (var ind in nnm)
+  var ncm = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map ;
+
+  for ( var nc in ncm )
   {
-    var nc = parseInt(nnm[ind]);
+    nc = parseInt(nc);
 
     if (nc > cur_netcode)
     {
@@ -243,26 +246,30 @@ toolBoardZone.prototype._setNextNetcode = function()
         t = nc;
     }
 
+    if ( min_netcode == -1 )
+      min_netcode = nc;
+
     if ( min_netcode > nc )
       min_netcode = nc;
+
   }
 
   this.netcode = ( (t >= 0) ? t : min_netcode );
-  this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
 
+  g_board_controller.board.highlightNetCodes( ncm[ this.netcode ] );
 }
 
 toolBoardZone.prototype._setPrevNetcode = function()
 {
   var cur_netcode = parseInt(this.netcode);
   var t = -1;
-  var max_netcode = cur_netcode;
+  var max_netcode = -1;
 
-  var ncm = g_board_controller.board.kicad_brd_json.net_code_map;
-  var nnm = g_board_controller.board.kicad_brd_json.net_name_map;
-  for (var ind in nnm)
+  var ncm = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
+
+  for (var nc in ncm)
   {
-    var nc = parseInt(nnm[ind]);
+    nc = parseInt(nc);
 
     if (nc < cur_netcode)
     {
@@ -270,14 +277,20 @@ toolBoardZone.prototype._setPrevNetcode = function()
         t = nc;
     }
 
+    if ( max_netcode == -1 )
+      max_netcode = nc;
+
     if ( max_netcode < nc )
       max_netcode = nc;
   }
 
   this.netcode = ( (t >= 0) ? t : max_netcode );
-  this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
+
+  g_board_controller.board.highlightNetCodes( ncm[ this.netcode ] );
 
 }
+
+
 
 toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 {
@@ -291,45 +304,9 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 
     this._setNextNetcode();
 
-    console.log("netcode now : " + this.netcode + " " + this.netname );
+    //console.log("netcode now : " + this.netcode + " " + this.netname );
+    console.log("netcode now (sch) : " + this.netcode );
 
-    return;
-
-    var cur_netcode = parseInt(this.netcode);
-    var t = -1;
-    var min_netcode = cur_netcode;
-
-    var ncm = g_board_controller.board.kicad_brd_json.net_code_map;
-    var nnm = g_board_controller.board.kicad_brd_json.net_name_map;
-    for (var ind in nnm)
-    {
-      var nc = parseInt(nnm[ind]);
-
-      //console.log("ind: " + ind + ", nnm: " + nnm[ind]);
-      //console.log("nc: " + nc + ", t: " + t + ", cur_netcode: " + cur_netcode + ", min_netcode: " + min_netcode);
-
-      if (nc > cur_netcode)
-      {
-        if ( (t == -1) || (nc < t) )
-          t = nc;
-      }
-
-      if ( min_netcode > nc )
-        min_netcode = nc;
-    }
-
-    this.netcode = ( (t >= 0) ? t : min_netcode );
-    this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
-
-    console.log(" current netcode/name: " + this.netcode + " " + this.netname );
-
-    /*
-    this.netcode ++;
-    if (this.netcode in g_board_controller.board.kicad_brd_json.net_code_map)
-      this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
-      */
-
-    this.debug_print();
   }
 
 
@@ -341,15 +318,6 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("netcode now : " + this.netcode + " " + this.netname );
 
-    return;
-
-
-    this.netcode--;
-
-    if (this.netcode in g_board_controller.board.kicad_brd_json.net_code_map)
-      this.netname = g_board_controller.board.kicad_brd_json.net_code_map[ this.netcode ] ;
-
-    this.debug_print();
   }
 
   else if (keycode == 27)
@@ -358,6 +326,8 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
+
+    g_board_controller.board.unhighlightNet();
   }
 
 }
