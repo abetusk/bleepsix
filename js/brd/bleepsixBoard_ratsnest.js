@@ -22,10 +22,14 @@
 
 */
 
+bleepsixBoardHeadless_ratsnest = false;
 if (typeof module !== 'undefined')
 {
   var bleepsixBoard = require("./bleepsixBoard_netops.js");
+
+  var EuclideanMST = require("../lib/euclideanmst.js");
   module.exports = bleepsixBoard;
+  bleepsixBoardHeadless_ratsnest = true;
 }
 
 
@@ -898,10 +902,6 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_net_code_map )
 {
 
-  //DEBUG
-  //console.log(">>>>>>>>>>>>>>>>>> updateRatsNest");
-  //console.log( sch_net_code_map );
-
   if (typeof netcode !== 'undefined')
   {
 
@@ -911,7 +911,11 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
     this.kicad_brd_json.net_code_airwire_map[netcode] = [];
     this._update_single_ratsnest( netcode, undefined, id_ref_array, sch_net_code_map );
 
-    g_painter.dirty_flag = true;
+    if (!bleepsixBoardHeadless_ratsnest)
+    {
+      g_painter.dirty_flag = true;
+    }
+
     return;
   }
 
@@ -922,7 +926,10 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
     this._update_single_ratsnest( nc, undefined , id_ref_array, sch_net_code_map );
   }
 
-  g_painter.dirty_flag = true;
+  if (!bleepsixBoardHeadless_ratsnest)
+  {
+    g_painter.dirty_flag = true;
+  }
 
 
 }

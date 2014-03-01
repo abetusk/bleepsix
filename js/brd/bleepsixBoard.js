@@ -90,8 +90,8 @@ function bleepsixBoard()
   this.flag_utf8_hershey_font_loaded = false;
   this.utf8_hershey_font = null;
 
-  //this.flag_draw_bounding_box = true;
-  this.flag_draw_bounding_box = false;
+  this.flag_draw_bounding_box = true;
+  //this.flag_draw_bounding_box = false;
 
 
   this.flag_text_zoom_speedup = true;
@@ -652,6 +652,7 @@ bleepsixBoard.prototype.pickLine = function( ele, x, y )
     return null;
   }
 
+
   var l0 = { x : parseFloat(ele.x0), y : parseFloat(ele.y0) };
   var l1 = { x : parseFloat(ele.x1), y : parseFloat(ele.y1) };
   var p = { x : parseFloat(x) , y : parseFloat(y) };
@@ -711,6 +712,14 @@ bleepsixBoard.prototype.pickElement = function( ele, x, y )
   if ( ( x <= x1 ) && ( x >= x0 ) &&
        ( y <= y1 ) && ( y >= y0 ) )
     r_ref = { "id":ele["id"], "ref":ele };
+
+  if (r_ref && (type == "drawsegment"))
+  {
+    if ((ele.shape == "circle") || (ele.shape == "arc"))
+    {
+      return r_ref;
+    }
+  }
 
   if (r_ref && ((type == "track") || (type == "drawsegment")) )
     return this.pickLine(ele, x, y);
@@ -784,8 +793,9 @@ bleepsixBoard.prototype.pickBox = function(x0, y0, x1, y1)
   {
     var type = brd[ind].type;
 
-    if ( ( type == "track" ) ||
-         ( type == "drawsegment" ) )
+    //if ( ( type == "track" ) ||
+    //     ( type == "drawsegment" ) )
+    if ( type == "track" ) 
     {
       var r = brd[ind];
       var l0 = { x : parseFloat(r.x0) , y : parseFloat(r.y0) };
@@ -794,6 +804,39 @@ bleepsixBoard.prototype.pickBox = function(x0, y0, x1, y1)
       if (this._box_line_intersect( bbox, l0, l1 ) )
         ar.push( { "id" : brd[ind].id , "ref" : brd[ind] } );
     }
+
+    else if (type == "drawsegment")
+    {
+      var shape = brd[ind].shape;
+
+      if (shape == "line")
+      {
+        var r = brd[ind];
+        var l0 = { x : parseFloat(r.x0) , y : parseFloat(r.y0) };
+        var l1 = { x : parseFloat(r.x1) , y : parseFloat(r.y1) };
+
+        if (this._box_line_intersect( bbox, l0, l1 ) )
+          ar.push( { "id" : brd[ind].id , "ref" : brd[ind] } );
+      }
+
+      else if (shape == "arc")
+      {
+        if (this._box_box_intersect( brd[ind]["bounding_box"], bbox ))
+        {
+          ar.push( { "id" : brd[ind]["id"], "ref": brd[ind] } );
+        }
+      }
+
+      else if (shape == "circle")
+      {
+        if (this._box_box_intersect( brd[ind]["bounding_box"], bbox ))
+        {
+          ar.push( { "id" : brd[ind]["id"], "ref": brd[ind] } );
+        }
+      }
+
+    }
+
     else if (type == "module")
     {
       if (this._box_box_intersect( brd[ind]["bounding_box"], bbox ))
@@ -827,8 +870,37 @@ bleepsixBoard.prototype.relativeMoveElement = function( id_ref, dx, dy )
     ref["y"] = parseInt(ref["y"]) + dy;
 
   }
-  else if ( ( type == "drawsegment") ||
-            ( type == "track") )
+
+  else if ( type == "drawsegment" )
+  {
+    var shape = ref.shape;
+
+    if (shape == "line")
+    {
+      ref.x0 = parseInt( ref.x0 ) + dx ;
+      ref.y0 = parseInt( ref.y0 ) + dy ;
+      ref.x1 = parseInt( ref.x1 ) + dx ;
+      ref.y1 = parseInt( ref.y1 ) + dy ;
+    }
+
+    else if (shape == "arc")
+    {
+      ref.x = parseInt( ref.x ) + dx ;
+      ref.y = parseInt( ref.y ) + dy ;
+    }
+
+    else if (shape == "circle")
+    {
+      ref.x = parseInt( ref.x ) + dx ;
+      ref.y = parseInt( ref.y ) + dy ;
+    }
+
+
+  }
+
+  //else if ( ( type == "drawsegment") ||
+  //          ( type == "track") )
+  else if ( type == "track" )
   {
 
     ref.x0 = parseInt( ref.x0 ) + dx ;
@@ -1345,6 +1417,42 @@ bleepsixBoard.prototype.addDrawSegment = function(x0, y0, x1, y1, width, layer, 
   drawsegment["shape_code"] = "0";
   drawsegment["shape"] = "line";
   drawsegment["angle"] = "900";
+  drawsegment["timestamp"] = "0";
+  drawsegment["width"] = width;
+
+  //this.updateTrackBoundingBox( drawsegment );
+  this.updateLineBoundingBox( drawsegment );
+
+  this.kicad_brd_json["element"].push(drawsegment);
+
+  return id;
+}
+
+bleepsixBoard.prototype.addDrawArcSegment = function(x, y, r, start_angle, end_angle, width, layer, id )
+{
+  id = ( (typeof id !== 'undefined') ? id : this._createId() );
+
+  var drawsegment = {};
+
+  drawsegment["id"] = id;
+  drawsegment["type"] = "drawsegment";
+
+  drawsegment["x"] = x;
+  drawsegment["y"] = y;
+  drawsegment["r"] = r;
+  drawsegment["start_angle"] = start_angle;
+  drawsegment["angle"] = end_angle - start_angle;
+
+  drawsegment["status"] = "0";
+  drawsegment["layer"] = layer;
+
+  drawsegment["shape_code"] = "0";
+  drawsegment["shape"] = "arc";
+  drawsegment["shape_code"] = "2";
+  drawsegment["counterclockwise_flag"] = true;
+
+  //drawsegment["angle"] = "900";
+
   drawsegment["timestamp"] = "0";
   drawsegment["width"] = width;
 
@@ -2592,6 +2700,10 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
     var r = parseFloat( ele.r );
 
     g_painter.circle( x, y, r, width, color );
+
+    if (this.flag_draw_bounding_box)
+      this.drawBoundingBox( ele.bounding_box );
+
   }
   else if (shape == "arc")
   {
@@ -2603,7 +2715,10 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
     var ang = parseFloat( ele.angle );
     var ccw_flag = ele.counterclockwise_flag;
 
-    g_painter.drawArc( x, y, r, sa, sa + ang, ccw_flag, width, "rgba(255,255,255,0.4)"  );
+    g_painter.drawArc( x, y, r, sa, sa + ang, ccw_flag, width, color );
+
+    if (this.flag_draw_bounding_box)
+      this.drawBoundingBox( ele.bounding_box );
 
   }
 

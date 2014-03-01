@@ -1,7 +1,14 @@
 var Kruskal;
 
-//var MakeSet  = require("union-find");
-var MakeSet = UnionFind;
+
+if (typeof module !== 'undefined')
+{
+  var MakeSet  = require("./union-find.js");
+}
+else
+{
+  var MakeSet = UnionFind;
+}
 
 (function() {
   "use strict";

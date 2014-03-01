@@ -135,6 +135,15 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
         data.width, data.layer, id );
   }
 
+  else if ( type == "drawarcsegment" )
+  {
+    this.board.addDrawArcSegment( 
+        data.x, data.y, 
+        data.r, 
+        data.start_angle, data.end_angle,
+        data.width, data.layer, id );
+  }
+
   else
   {
     updateBBox = false;

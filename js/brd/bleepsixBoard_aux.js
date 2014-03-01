@@ -346,10 +346,36 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
   var type = ele.type;
   var pgn = [];
 
-  if ( (type == "track") || (type == "drawsegment") )
+  //if ( (type == "track") || (type == "drawsegment") )
+  if (type == "track")
   {
     this._make_segment( pgn, ele.ref, ds, border_flag );
     return pgn;
+  }
+
+  else if (type == "drawsegment")
+  {
+    var shape = ele.shape;
+    if (shape == "line")
+    {
+      this._make_segment( pgn, ele.ref, ds, border_flag );
+      return pgn;
+    }
+
+    else if (shape == "circle")
+    {
+      this._make_circle_segment( pgn, ele.ref, ds, border_flag )
+      return pgn;
+    }
+
+    else if (shape == "arc")
+    {
+      this._make_arc_segment( pgn, ele.ref, ds, border_flag );
+      return pgn;
+    }
+
+    return [];
+
   }
 
   if (type != "pad") return null;
@@ -671,6 +697,15 @@ bleepsixBoard.prototype._clip_xor = function( rop_pgns, pgnsA, pgnsB )
 
 
 //---
+
+bleepsixBoard.prototype._make_circle_segment = function( seg, line, ds, border_flag  )
+{
+
+}
+
+bleepsixBoard.prototype._make_arc_segment = function( seg, line, ds, border_flag  )
+{
+}
 
 // make counter clockwise rectangle with rounded edges (that is, an obround)
 //

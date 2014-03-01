@@ -377,6 +377,65 @@ bleepsixBoard.prototype._find_line_bbox = function( line )
 
 }
 
+bleepsixBoard.prototype._find_drawsegment_bbox = function( drawsegment )
+{
+  var shape = drawsegment.shape;
+
+  if (shape == "line")
+  {
+
+    var w = parseFloat(drawsegment.width);
+
+    var xm = Math.min( drawsegment.x0, drawsegment.x1 );
+    var ym = Math.min( drawsegment.y0, drawsegment.y1 );
+
+    var xM = Math.max( drawsegment.x0, drawsegment.x1 );
+    var yM = Math.max( drawsegment.y0, drawsegment.y1 );
+
+    drawsegment.bounding_box = [ [ xm - w, ym - w ], [ xM + w, yM + w ] ] ;
+  }
+
+  else if (shape == "arc")
+  {
+
+    var x = parseFloat( drawsegment.x );
+    var y = parseFloat( drawsegment.y );
+    var r = parseFloat( drawsegment.r );
+    var sa = parseFloat( drawsegment.start_angle );
+    var ea = sa + parseFloat( drawsegment.angle );
+    var s = ( drawsegment.counterclockwise_flag ? 1 : -1 );
+
+    var p = [ [ x + r*Math.cos(s*sa), y + r*Math.sin(s*sa) ],
+              [ x + r*Math.cos(s*ea), y + r*Math.sin(s*ea) ] ];
+
+    var xm = x;
+    var xM = x;
+    var ym = y;
+    var yM = y;
+
+    for (var i in p)
+    {
+      if ( p[i][0] < xm ) xm = p[i][0];
+      if ( p[i][0] > xM ) xM = p[i][0];
+      if ( p[i][1] < ym ) ym = p[i][1];
+      if ( p[i][1] > yM ) yM = p[i][1];
+    }
+
+    drawsegment.bounding_box = [ [ xm, ym ], [xM, yM] ];
+
+  }
+
+  else if (shape == "circle")
+  {
+    var x = parseFloat( drawsegment.x );
+    var y = parseFloat( drawsegment.y );
+    var r = parseFloat( drawsegment.r );
+
+    drawsegment.bounding_box = [ [ x - r, y - r ], [ x + r, y + r ] ] ;
+  }
+
+}
+
 
 
 bleepsixBoard.prototype._find_text_bbox = function( text_entry )
@@ -495,7 +554,8 @@ bleepsixBoard.prototype.updateBoundingBox = function( ele )
     {
       if      ( brd[ind]["type"] == "module")       { this._find_footprint_bbox( brd[ind] ); }
       else if ( brd[ind]["type"] == "track")        { this._find_line_bbox( brd[ind] ); }
-      else if ( brd[ind]["type"] == "drawsegment")  { this._find_line_bbox( brd[ind] ); }
+      //else if ( brd[ind]["type"] == "drawsegment")  { this._find_line_bbox( brd[ind] ); }
+      else if ( brd[ind]["type"] == "drawsegment")  { this._find_drawsegment_bbox( brd[ind] ); }
       else if ( brd[ind]["type"] == "text")         { this._find_text_bbox( brd[ind] ); }
       else if ( brd[ind]["type"] == "czone")        { this._find_czone_bbox( brd[ind] );  }
 
@@ -511,7 +571,8 @@ bleepsixBoard.prototype.updateBoundingBox = function( ele )
 
     if      (t == "module")       { this._find_footprint_bbox( ele ); }
     else if (t == "track")        { this._find_line_bbox( ele ); }
-    else if (t == "drawsegment")  { this._find_line_bbox( ele ); }
+    //else if (t == "drawsegment")  { this._find_line_bbox( ele ); }
+    else if (t == "drawsegment")  { this._find_drawsegment_bbox( ele ); }
     else if (t == "text")         { this._find_text_bbox( ele ); }
     else if (t == "czone")        { this._find_czone_bbox( ele );  }
 

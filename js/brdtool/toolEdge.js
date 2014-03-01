@@ -27,7 +27,7 @@ function toolEdge( x, y, initialPlaceFlag )
   console.log("toolEdge " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
-  y = ( typeof x !== 'undefined' ? y : 0 );
+  y = ( typeof y !== 'undefined' ? y : 0 );
 
   initialPlaceFlag = ( typeof initialPlaceFlag !== 'undefined' ? initialPlaceFlag : true );
 
@@ -211,36 +211,6 @@ toolEdge.prototype.placeEdge = function()
 
 //-----------------------------
 
-// Returns true if it hanlded the connection.  
-// placeTrack and handoff back to toolBoardNav is done here.
-//
-toolEdge.prototype.handlePossibleConnection = function( ex, ey )
-{
-
-  var n = this.cur_edge_point.length;
-  var  dst_edge = {};
-  this._make_point_edge( dst_edge, this.cur_edge_point[n-1] );
-  var hit_ele_dst = g_board_controller.board.edgeBoardIntersect( [ dst_edge ] );
-
-  var dst_hit = this._choose_hit_element( hit_ele_dst );
-
-  if (dst_hit)
-  {
-    if (dst_hit.type == "drawsegment")
-    {
-      this._magnet_edge( this.cur_edge_point[n-1], dst_hit.ref );
-      this.cur_edge_point = this._make_joint_edge( this.cur_edge_point );
-      this.placeTrack();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-//-----------------------------
-
 toolEdge.prototype.mouseDown = function( button, x, y ) 
 {
   this.mouse_down = true;
@@ -271,8 +241,6 @@ toolEdge.prototype.mouseDown = function( button, x, y )
     {
       var ex = this.mouse_world_xy["x"];
       var ey = this.mouse_world_xy["y"];
-
-      //if ( this.handlePossibleConnection( ex, ey ) ) { return; }
 
       var drawsegment = { x0 : this.cur_edge_point[0].x,
                     y0 : this.cur_edge_point[0].y,
@@ -362,39 +330,6 @@ toolEdge.prototype._make_point_edge = function( pnt_edge, edge )
   pnt_edge["shape_code"] = "0";
 }
 
-
-
-toolEdge.prototype._choose_hit_element = function( hit_ele_list )
-{
-  var hit_ele = null;
-
-  for (var ind in hit_ele_list)
-  {
-    hit_ele = hit_ele_list[ind];
-    if (hit_ele_list[ind].type == "drawsegment")
-      return hit_ele_list[ind];
-  }
-
-  return hit_ele;
-
-}
-
-
-// Figure out what the joint should be from current jointStateAngled
-// and return it.
-//
-toolEdge.prototype._make_joint_edge = function( virtual_edge )
-{
-  var n = virtual_edge.length;
-  var fiddled_edge;
-  if (this.jointStateAngled)
-    fiddled_edge = 
-      this._createAngledJoint( virtual_edge[0], virtual_edge[n-1] );
-  else
-    fiddled_edge =
-      this._createAlignedJoint( virtual_edge[0], virtual_edge[n-1]);
-  return fiddled_edge;
-}
 
 toolEdge.prototype.mouseMove = function( x, y ) 
 {

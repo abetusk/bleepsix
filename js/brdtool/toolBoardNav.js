@@ -397,6 +397,16 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.board.debug_geom = [];
   
   }
+
+  else if (ch == 'B')
+  {
+    console.log(" 'B' edge shape...");
+
+    //g_board_controller.tool = new toolEdgeShape(x, y, "rect", true );
+    g_board_controller.tool = new toolEdgeShape(x, y, "roundedRect", true );
+
+  }
+
   else if (ch == 'Z')
   {
     console.log("zone...");

@@ -310,6 +310,20 @@ By Rama Hoetzlein and Abram Connelly"
 * BUG: zone net cycling not working unless there is a board loaded.
       fixed: rolls over properly now.
 
+
+  - tool for pcb edges
+    . box
+    . out rounded box
+    . in rounded box
+    . circle
+    . arc
+  - tool trace needs to magnet on schematic implied nets
+  - tool trace needs to have rats nest on, including airwire from current trace
+  - flip component 
+  - zone highlight per layer (?)
+  - export to gerber
+
+
 * - provide interface to cycle through nets and layers for zones.
   * . layers (partial fix): has layer 0 and 15.  need to include others
     . zones.  No indication rightnow
@@ -322,8 +336,8 @@ By Rama Hoetzlein and Abram Connelly"
 * - implement track safe distance 
 
   - undo/redo 
-  - save/load on startup
-  - receive op commands from network
+* - save/load on startup
+* - receive op commands from network
 
   - try to automatically associate components properly from brd load?
 
@@ -337,7 +351,7 @@ By Rama Hoetzlein and Abram Connelly"
     . added 'shimmer'.  We might want to make this a bit nicer by doing
       a global gradient instead of just a local one.
       UPDATE: don't like it.  implement global gradient
-    . ratsnest must take in a list of other components to calculate
+*   . ratsnest must take in a list of other components to calculate
       as well as filter out non-visible components (needed for tool
       integration with op command pattern)
 
@@ -432,7 +446,6 @@ By Rama Hoetzlein and Abram Connelly"
   - drc checks
 
   - export to KiCAD
-  - export to gerber
   - export to json
   
 

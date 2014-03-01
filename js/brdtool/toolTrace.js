@@ -27,7 +27,7 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
   console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
-  y = ( typeof x !== 'undefined' ? y : 0 );
+  y = ( typeof y !== 'undefined' ? y : 0 );
 
   layerPair = ( (typeof layerPair !== 'undefined') ? layerPair : [ 0, 15 ] );
 

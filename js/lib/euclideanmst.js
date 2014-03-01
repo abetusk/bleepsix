@@ -1,6 +1,11 @@
 var EuclideanMST;
-//var Delaunay = require("delaunay");
-//var Kruskal = require("kruskal");
+
+
+if (typeof module !== 'undefined')
+{
+  var Delaunay = require("./delaunay");
+  var Kruskal = require("./kruskal");
+}
 
 
 (function() {
