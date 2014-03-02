@@ -338,9 +338,47 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
 
 }
 
+// returns list of polygons, not just a single polygon
+// circle might have interior.  This is why we need to return multiple polygons
+bleepsixBoard.prototype._build_drawsegment_polygons = function( ele, ds, border_flag )
+{
+
+  ds = ( (typeof ds !== 'undefined') ? ds : 10 );
+  border_flag = ( (typeof border_flag !== 'undefined') ? border_flag : false );
+
+  var ref = ele.ref;
+  var type = ref.type;
+  var shape = ref.shape;
+  var pgn = [];
+
+  if (shape == "line")
+  {
+    this._make_segment( pgn, ele.ref, ds, border_flag );
+    return [ pgn ];
+  }
+
+  else if (shape == "arc")
+  {
+
+    this._make_arc_segment( pgn, ele.ref, ds, border_flag );
+
+    if (pgn.length > 0)
+      return [ pgn ];
+    return [];
+  }
+
+  else if (shape == "circle")
+  {
+    var pgns = this._realize_circle_drawsegment( ele.ref, ds, border_flag );
+    return pgns;
+  }
+
+  return [];
+
+}
+
 bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag )
 {
-  //var ds = 10;
   ds = ( (typeof ds !== 'undefined') ? ds : 10 );
   border_flag = ( (typeof border_flag !== 'undefined') ? border_flag : false );
   var type = ele.type;
@@ -407,7 +445,7 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
     pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds );
   else if (shape == "trapeze")
   {
-    console.log("bleepsix_netops.splitNet: trapeze not implemented");
+    console.log("bleepsixBoard._build_element_polygon: trapeze not implemented");
   }
 
   //this.debug_geom.push( this._pgn2pnt( pgn ) );
@@ -698,16 +736,113 @@ bleepsixBoard.prototype._clip_xor = function( rop_pgns, pgnsA, pgnsB )
 
 //---
 
-bleepsixBoard.prototype._make_circle_segment = function( seg, line, ds, border_flag  )
+bleepsixBoard.prototype._make_circle_segment = function( seg, circle, ds, border_flag  )
 {
+  ds = ( (typeof ds !== 'undefined') ? ds : 1 );
+  border_flag = ( (typeof border_flag !== 'undefined' ) ? border_flag : false );
+
+  var eps = 0.0001;
+  var x = parseFloat(circle.x);
+  var y = parseFloat(circle.y);
+  var r = parseFloat(circle.r);
+  var w = parseFloat(circle.width);
+  var w2 = w/2;
+
+  seg.length = 0;
+
+
 
 }
 
-bleepsixBoard.prototype._make_arc_segment = function( seg, line, ds, border_flag  )
+bleepsixBoard.prototype._make_arc_segment = function( seg, arc, ds, border_flag  )
 {
+  ds = ( (typeof ds !== 'undefined') ? ds : 1 );
+  border_flag = ( (typeof border_flag !== 'undefined' ) ? border_flag : false );
+
+  seg.length = 0;
+
+  var eps = 0.0001;
+  var w2 = parseFloat(arc.width)/2;
+
+  var x = parseFloat(arc.x);
+  var y = parseFloat(arc.y);
+  var r = parseFloat(arc.r);
+
+  var r_outer = r + w2;
+  var r_inner = r - w2;
+
+  if ( r_inner < 0 )
+    return;
+
+  var sa = parseFloat(arc.start_angle);
+  var ea = sa + parseFloat(arc.angle);
+  var ccw = arc.counterclockwise_flag;
+  if (ccw)
+  {
+    sa = parseFloat(arc.start_angle) + parseFloat(arc.angle);
+    ea = parseFloat(arc.start_angle);
+  }
+  
+  var da_outer = Math.atan( 2*ds / r_outer );
+  var da_inner = Math.atan( 2*ds / r_inner );
+
+  for (var da = sa; da < ea; da += da_outer )
+  {
+    var tx = x + r_outer * Math.cos(da);
+    var ty = y + r_outer * Math.sin(da);
+
+    seg.push( { X: tx, Y: ty }  );
+
+  }
+
+  // make endcap
+  //
+  var s = Math.PI * w2 ;
+  var n = Math.floor( s / ds );
+  var tv0 = [ w2 * Math.cos( ea ),
+             w2 * Math.sin( ea ) ];
+  var p0 = [ x + ((r_outer + r_inner)/2) * Math.cos( ea ),
+             y + ((r_outer + r_inner)/2) * Math.sin( ea ) ];
+
+  for (var i=0; i<n; i++)
+  {
+    var theta = Math.PI * i / n;
+    var Ra = this._R(-theta);
+
+    var tp = numeric.add(p0, numeric.dot(Ra, tv0));
+    seg.push( { X: tp[0], Y: tp[1] } );
+  }
+
+
+  for (var da = ea; da > sa; da -= da_inner )
+  {
+    var tx = x + r_inner * Math.cos(da);
+    var ty = y + r_inner * Math.sin(da);
+
+    seg.push( { X: tx, Y: ty }  );
+  }
+
+  // make endcap
+  var tv1 = [ w2 * Math.cos( sa ),
+              w2 * Math.sin( sa ) ];
+  var p1 = [ x + ((r_outer + r_inner)/2) * Math.cos( sa ),
+             y + ((r_outer + r_inner)/2) * Math.sin( sa ) ];
+
+  for (var i=n-1; i>=0; i--)
+  {
+    var theta = Math.PI * i / n;
+    var Ra = this._R( theta );
+
+    var tp = numeric.add(p1, numeric.dot(Ra, tv1));
+    seg.push( { X: tp[0], Y: tp[1] } );
+  }
+
+
+
 }
 
-// make counter clockwise rectangle with rounded edges (that is, an obround)
+// make counter clockwise rectangle with rounded edges (that is, an obround).
+// border flag set if you want long edges of segment to be interpolated.
 //
 bleepsixBoard.prototype._make_segment = function( seg, line, ds, border_flag  )
 {

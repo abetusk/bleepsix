@@ -343,8 +343,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
   var layer = parseInt(czone.layer);
   var ds = 10;
 
-  console.log("CZONE FILLCZONE LAYER " + layer);
-
   // I for 'solid', 
   // T for X (th) or + (smd), 
   // H for THT (through thermal, solid smd),
@@ -364,10 +362,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
   var brd = this.kicad_brd_json['element'];
   for (var brd_ind in brd)
   {
-
-    //DEBUG
-    console.log(brd_ind);
-
     var ele = brd[brd_ind];
     var type = ele.type;
 
@@ -411,36 +405,20 @@ bleepsixBoard.prototype.fillCZone = function( czone )
     else if (type == "drawsegment")
     {
 
-  //DEBUG
-  console.log("CP!!!>>>>>>>");
-
-
       if ( parseInt(ele.layer) == 28 )
       {
-        console.log("BEEP!");
 
         // add the offsetted pcb edges to the geometry list to remove from the zone
         //
-        var pgn = this._build_element_polygon( { type: "drawsegment", ref: ele, id: ele.id } );
+        var pgns = this._build_drawsegment_polygons( { type: "drawsegment", ref: ele, id: ele.id } );
 
-        console.log("BLONK!");
-
-        console.log(pgn);
-        for (var ii in pgn)
+        if (pgns.length > 0)
         {
-          console.log(pgn[ii]);
+          this._clip_offset( sub_pgns, pgns,
+              parseFloat(czone.clearance) + parseFloat(czone.min_thickness) );
         }
 
-        //return;
-
-        this._clip_offset( sub_pgns, [ pgn ], parseFloat(czone.clearance) + parseFloat(czone.min_thickness) );
-
-        console.log("BLORNK!");
-
       }
-
-  //DEBUG
-  console.log("CP___>>>>>>>");
 
 
     }
@@ -531,9 +509,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
 
   }
 
-  //DEBUG
-  console.log("CP0>>>>>>>");
-
 
   // collect all the geometry that are of the same net for the zone we're creating
   // 
@@ -600,9 +575,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
 
   }
 
-  //DEBUG
-  console.log("CP1>>>>>>>");
-
 
   // We can't have floating holes, so collect all boundaries and
   // the holes that are inside them.
@@ -622,9 +594,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
     zone_pwh_vec.push(pwh);
   }
 
-  //DEBUG
-  console.log("CP2>>>>>>>");
-
 
   // we're keeping references to the holes and we reversed them to do 
   // some checking, go through our holes array and reverse them again 
@@ -632,10 +601,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
   //
   for (var i in pgn_holes)
     pgn_holes[i].reverse();
-
-
-  //DEBUG
-  console.log("CP3>>>>>>>");
 
 
   // collect the final possible zone regions.
@@ -646,10 +611,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
     f_zone_pwh_vec.push( [] );
     this._clip_union( f_zone_pwh_vec[i], zone_pwh_vec[i] );
   }
-
-
-  //DEBUG
-  console.log("CP4>>>>>>>");
 
 
   // Now we need to figure out which f_zone_pwh's to discard (if any).
@@ -712,10 +673,6 @@ bleepsixBoard.prototype.fillCZone = function( czone )
       final_zone.push( t_union );
 
   }
-
-
-  //DEBUG
-  console.log("CP5>>>>>>>");
 
 
   var final_zone_union = [];

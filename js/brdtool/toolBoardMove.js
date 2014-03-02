@@ -45,8 +45,6 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
     return g_board_controller.tool;  // iffy, be careful
   }
 
-  console.log("toolBoardMove starting");
-
   this.mouse_cur_x = mouse_x;
   this.mouse_cur_y = mouse_y;
 
@@ -62,9 +60,6 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   this.cur_world_xy  = g_painter.devToWorld( mouse_x, mouse_y );
 
   this.snap_world_xy = g_snapgrid.snapGrid (this.prev_world_xy);
-
-  console.log("snap_world_xy");
-  console.log(this.snap_world_xy);
 
   this.cursorSize = 6;
   this.cursorWidth = 1;
