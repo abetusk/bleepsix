@@ -403,7 +403,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     console.log(" 'B' edge shape...");
 
     //g_board_controller.tool = new toolEdgeShape(x, y, "rect", true );
-    g_board_controller.tool = new toolEdgeShape(x, y, "roundedRect", true );
+    //g_board_controller.tool = new toolEdgeShape(x, y, "roundedRect", true );
+    g_board_controller.tool = new toolEdgeShape(x, y, "inroundedRect", true );
 
   }
 

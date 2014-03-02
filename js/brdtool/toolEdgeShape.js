@@ -182,6 +182,55 @@ toolEdgeShape.prototype.drawOverlay = function()
 
   else if (this.shape == "inroundedRect")
   {
+    var x = this.inroundedRect.x;
+    var y = this.inroundedRect.y;
+    var w = this.inroundedRect.w;
+    var h = this.inroundedRect.h;
+
+    var r = this.inroundedRect.r;
+
+    if (w < 0)
+      x += w;
+    if (h < 0)
+      y += h;
+    w = Math.abs(w);
+    h = Math.abs(h);
+
+    if ( (w > 2*r) && (h > 2*r) )
+    {
+
+      var edges = [ [ [ x + r, y ],    [x + w - r, y ] ],
+                    [ [ x + r, y + h], [x + w - r, y + h ] ],
+                    [ [ x, y + r ], [ x, y + h - r ] ],
+                    [ [ x + w, y + r ], [ x + w, y + h - r ] ] ];
+
+      for ( var i in edges )
+      {
+        g_painter.line( edges[i][0][0], edges[i][0][1],
+                        edges[i][1][0], edges[i][1][1],
+                        "rgba(255,255,0,0.4)",  this.edge_width );
+      }
+
+      var p = [ [ x , y  ], 
+                 [ x + w , y  ],
+                 [ x + w , y + h ],
+                 [ x , y + h  ] ];
+      var ang = [ [ Math.PI/2,  0 ],
+                  [ Math.PI,    Math.PI/2 ],
+                  [ -Math.PI/2, -Math.PI ],
+                  [ 0,          -Math.PI/2 ] ];
+
+      for (var i in p )
+      {
+        g_painter.drawArc( p[i][0], p[i][1],  
+                           r, 
+                           ang[i][0], ang[i][1],
+                           true, this.edge_width, "rgba(255,255,0,0.4)" );
+      }
+
+    }
+
+    g_painter.drawRectangle( x, y, w, h, this.edge_width, "rgba(255,255,255,0.2)" );
   }
 
 
@@ -276,26 +325,72 @@ toolEdgeShape.prototype._placeRoundedRect = function()
     g_board_controller.opCommand( op );
   }
 
-
-  /*
-  // upper left
-  g_painter.drawArc( x + r, y + r, r, -Math.PI/2, -Math.PI, true, this.edge_width, "rgba(255,255,0,0.4)" );
-
-  // upper right
-  g_painter.drawArc( x + w - r, y + r, r, 0, -Math.PI/2, true, this.edge_width, "rgba(255,255,0,0.4)" );
-
-  // lower right
-  g_painter.drawArc( x + w - r, y + h - r, r, Math.PI/2, 0, true, this.edge_width, "rgba(255,255,0,0.4)" );
-
-  // lower right
-  g_painter.drawArc( x + r, y + h - r, r, Math.PI, Math.PI/2, true, this.edge_width, "rgba(255,255,0,0.4)" );
-  */
-
-
 }
 
 toolEdgeShape.prototype._placeInroundedRect = function()
 {
+  console.log("toolEdgeShape._placeInroundedRect");
+  var x = this.inroundedRect.x;
+  var y = this.inroundedRect.y;
+  var w = this.inroundedRect.w;
+  var h = this.inroundedRect.h;
+
+  var r = this.inroundedRect.r;
+
+  if (w < 0)
+    x += w;
+  if (h < 0)
+    y += h;
+  w = Math.abs(w);
+  h = Math.abs(h);
+
+  if ( (w <= 2*r) && (h <= 2*r) )
+  {
+    console.log("toolEdgeShape._placeInroundedRect: too small, not placing rect"); 
+    return;
+  }
+
+
+  var edges = [ [ [ x + r, y ],    [x + w - r, y ] ],
+                [ [ x + r, y + h], [x + w - r, y + h ] ],
+                [ [ x, y + r ], [ x, y + h - r ] ],
+                [ [ x + w, y + r ], [ x + w, y + h - r ] ] ];
+
+  for ( var i in edges )
+  {
+    var op = { source: "brd", destination: "brd" };
+    op.action = "add";
+    op.type = "drawsegment";
+    op.data = { x0 : edges[i][0][0], y0: edges[i][0][1],
+                x1 : edges[i][1][0], y1: edges[i][1][1],
+                width: this.edge_width,
+                layer: this.layer };
+    g_board_controller.opCommand( op );
+
+  }
+
+  var p = [ [ x , y  ], 
+             [ x + w , y  ],
+             [ x + w , y + h ],
+             [ x , y + h  ] ];
+  var ang = [ [ Math.PI/2,  0 ],
+              [ Math.PI,    Math.PI/2 ],
+              [ -Math.PI/2, -Math.PI ],
+              [ 0,          -Math.PI/2 ] ];
+
+  for (var i in p )
+  {
+    var op = { source: "brd", destination: "brd" };
+    op.action = "add";
+    op.type = "drawarcsegment";
+    op.data = { x : p[i][0], y : p[i][1], 
+                r : r, 
+                start_angle: ang[i][0], end_angle: ang[i][1],
+                width: this.edge_width,
+                layer: this.layer };
+    g_board_controller.opCommand( op );
+  }
+
 }
 
 toolEdgeShape.prototype._placeRect = function()
@@ -375,15 +470,17 @@ toolEdgeShape.prototype.mouseDown = function( button, x, y )
 
     else if (this.shape == "roundedRect") 
     {
-      this.rect.w = xy.x - this.rect.x ;
-      this.rect.h = xy.y - this.rect.y ;
+      this.roundedRect.w = xy.x - this.roundedRect.x ;
+      this.roundedRect.h = xy.y - this.roundedRect.y ;
+
       this._placeRoundedRect();
     }
 
     else if (this.shape == "inroundedRect") 
     {
-      this.rect.w = xy.x - this.rect.x ;
-      this.rect.h = xy.y - this.rect.y ;
+      this.inroundedRect.w = xy.x - this.inroundedRect.x ;
+      this.inroundedRect.h = xy.y - this.inroundedRect.y ;
+
       this._placeInroundedRect();
     }
 

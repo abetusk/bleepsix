@@ -183,7 +183,8 @@ bleepsixRender.prototype.drawGrid = function()
 		// Lines
 
         ctx.lineWidth = 4.0 / (10.0 * this.zoom);
-		ctx.strokeStyle = "#808080";
+		//ctx.strokeStyle = "#808080";
+		ctx.strokeStyle = "rgba(128,128,128,0.3)";
 		ctx.beginPath();
 		for (var x=x_start; x < x_stop; x += gridstep ) {
 		  ctx.moveTo ( x, view.y1 );
