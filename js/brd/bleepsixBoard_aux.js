@@ -30,6 +30,28 @@ if (typeof module !== 'undefined')
   var clipper = require("../lib/clipper_unminified.js");
 }
 
+bleepsixBoard.prototype.areBoardNetsEqual = function( brd_net0, brd_net1)
+{
+  var a = parseInt( brd_net0 );
+  var b = parseInt( brd_net1 );
+
+  var map = this.kicad_brd_json.brd_to_sch_net_map;;
+
+  var a_list = [];
+  if (a in map) a_list = map[a];
+
+  var b_list = [];
+  if (b in map) b_list = map[b];
+
+  for (var ii in a_list)
+    for (var jj in b_list)
+      if (a_list[ii] == b_list[jj])
+        return true;
+
+  return false;
+
+}
+
 // Delete reference id and all of it's children
 bleepsixBoard.prototype.refDelete = function( id )
 {

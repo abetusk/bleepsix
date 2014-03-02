@@ -1283,6 +1283,8 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   var src_hit = this._choose_hit_element( hit_ele_src, virtual_trace[0]  );
   var dst_hit = this._choose_hit_element( hit_ele_dst, virtual_trace[n-1]  );
 
+  var board = g_board_controller.board;
+
   // If we're starting out at a pad or track, suck the start 
   // to the element
   //
@@ -1321,7 +1323,8 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
       // Else, just return without updating anything.
       //
       var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
-      if ( (parseInt( dst_hit.pad_ref.net_number ) == this.netcode ) ||
+      //if ( (parseInt( dst_hit.pad_ref.net_number ) == this.netcode ) ||
+      if ( board.areBoardNetsEqual( dst_hit.pad_ref.net_number, this.netcode ) ||
            (this.dist1( virtual_trace[n-1], pad_center ) < this.small_magnet_size) )
       {
 
@@ -1361,7 +1364,8 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
     {
 
       var d = this._point_trace_distance( virtual_trace[n-1], dst_hit.ref);
-      if ( (parseInt( dst_hit.ref.netcode ) == this.netcode ) ||
+      //if ( (parseInt( dst_hit.ref.netcode ) == this.netcode ) ||
+      if ( board.areBoardNetsEqual( dst_hit.ref.netcode, this.netcode ) ||
            (d < this.small_trace_magnet_size) )
       {
         this._magnet_trace( virtual_trace[n-1], dst_hit.ref );
