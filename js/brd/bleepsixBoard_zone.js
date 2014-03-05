@@ -794,6 +794,7 @@ bleepsixBoard.prototype.highlightNetCodes = function( net_codes )
   for (var n in net_codes)
   {
     var net_name = this.kicad_brd_json.net_code_map[ net_codes[n] ];
+    if (!net_name) continue;
     var pgns = this.getBGLVar( net_name );
     for (var i in pgns)
       this.highlight_net.push( this._pgn2pnt(pgns[i]) );
@@ -817,7 +818,7 @@ bleepsixBoard.prototype.getBGLVar = function( bgl_name )
 
   if ( (typeof this.kicad_brd_json.net_name_map[bgl_name]) === "undefined"  )
   {
-    console.log("could not find netname, returning");
+    console.log("could not find netname, returning", bgl_name);
     return null;
   }
 
