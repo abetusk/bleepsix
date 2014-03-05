@@ -90,8 +90,8 @@ function bleepsixBoard()
   this.flag_utf8_hershey_font_loaded = false;
   this.utf8_hershey_font = null;
 
-  this.flag_draw_bounding_box = true;
-  //this.flag_draw_bounding_box = false;
+  //this.flag_draw_bounding_box = true;
+  this.flag_draw_bounding_box = false;
 
 
   this.flag_text_zoom_speedup = true;

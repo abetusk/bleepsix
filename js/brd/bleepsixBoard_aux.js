@@ -337,12 +337,14 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
             var hit_ele = { ref:ref, type: "track", id: ref.id };
 
             //DEBUG
+            /*
             console.log("?????");
             console.log( ref.layer + " " + layer);
             console.log( track_bbox_list[t_ind]);
             console.log( tbbox );
             console.log( hit_ele );
             console.log("...");
+            */
 
 
             hit_element_list.push( hit_ele );
@@ -544,8 +546,6 @@ bleepsixBoard.prototype._build_non_net_polygons = function( net_code, net_name, 
     {
       var ref = hit_ar[ind].ref;
       var seg = [];
-
-      console.log(ref);
 
       this._make_segment( seg, ref, 10 );
       pgns.push( seg );
