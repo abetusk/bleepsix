@@ -207,13 +207,13 @@ bleepsixSchematic.prototype.refLookup = function( id )
 
     this.ref_lookup[ sch[ind].id ] = sch[ind];
 
-    //console.log("added " + sch[ind].id + " to ref_lookup:");
-    //console.log( this.ref_lookup[ sch[ind].id ] );
+    console.log("added " + sch[ind].id + " to ref_lookup:");
+    console.log( this.ref_lookup[ sch[ind].id ] );
 
     if ( id == sch[ind].id )
     {
-      //console.log("  found!  returning:");
-      //console.log( this.ref_lookup[id] );
+      console.log("  found!  returning:");
+      console.log( this.ref_lookup[id] );
 
       return this.ref_lookup[id];
     }
@@ -1020,6 +1020,8 @@ bleepsixSchematic.prototype.relativeMoveElement = function( id_ref, dx, dy )
 
   ref = id_ref["ref"];
 
+  console.log("relativeMoveElement", ref);
+
   if ( (ref["type"] == "connection") || 
        (ref["type"] == "noconn") ||
        (ref["type"] == "textnote") ||
@@ -1115,6 +1117,7 @@ bleepsixSchematic.prototype.addNoconn = function( x, y, id )
 
 bleepsixSchematic.prototype.addLabel = function( text, x, y, orientation, dimension, id )
 {
+
   dimension = ( (typeof dimension !== 'undefined') ? dimension : 60 );
   id  = ( (typeof id !== 'undefined') ? id : this._createId() );
 

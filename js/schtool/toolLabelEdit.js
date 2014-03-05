@@ -61,14 +61,8 @@ function toolLabelEdit( x, y, id_ref )
 
   var ref = id_ref.ref;
 
-  this.label = { 
-    x : ref.x,
-    y : ref.y,
-    text : ref.text,
-    dimension: ref.dimension,
-    type: ref.type , 
-    orientation : ref.orientation
-  };
+  this.label = simplecopy( ref );
+
   g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
 
   var ele = document.getElementById("canvas");
