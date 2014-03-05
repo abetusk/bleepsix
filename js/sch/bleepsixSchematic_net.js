@@ -172,13 +172,17 @@ bleepsixSchematic.prototype._net_extend_VE_from_labels = function( V, E )
     for (var i=0; i<l; i++)
     {
       var data0 = label_name_list[name][i];
-      var key0 = this._net_make_key( data0.x, data0.y );
+      var ref0 = data0.ref;
+      var key0 = this._net_make_key( ref0.x, ref0.y );
+
+
       this._net_add_endpoint( endpoints, key0, data0 );
 
       for (var j=i+1; j<l; j++)
       {
         var data1 = label_name_list[name][j];
-        var key1 = this._net_make_key( data1.ref.x, data1.ref.y );
+        var ref1 = data1.ref;
+        var key1 = this._net_make_key( ref1.x, ref1.y );
 
         this._net_add_endpoint( endpoints, key0, data1 );
       }

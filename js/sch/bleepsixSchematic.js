@@ -1020,8 +1020,6 @@ bleepsixSchematic.prototype.relativeMoveElement = function( id_ref, dx, dy )
 
   ref = id_ref["ref"];
 
-  console.log("relativeMoveElement", ref);
-
   if ( (ref["type"] == "connection") || 
        (ref["type"] == "noconn") ||
        (ref["type"] == "textnote") ||
