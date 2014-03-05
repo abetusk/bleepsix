@@ -188,7 +188,9 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
 
   var ida = g_board_controller.board.pickAll( world_xy.x, world_xy.y );
-  if (ida.length == 1)
+  var pad_ar = g_board_controller.board.pickPads( world_xy.x, world_xy.y );
+
+  if (ida.length > 0)
   {
 
     var ref = ida[0].ref;
@@ -198,16 +200,62 @@ toolBoardNav.prototype.mouseMove = function( x, y )
     {
       netcode = parseInt(ref.netcode);
     }
+
+    /*
     // NOT FUNCTIONAL (need better picking for pads)
     else if (ref.type == "pad")
       netcode = parseInt(ref.pad_ref.net_number);
+      */
 
     if (netcode >= 0)
     {
-      var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
-      g_board_controller.board.highlightNet( net_name );
+      //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
+      //g_board_controller.board.highlightNet( net_name );
+
+      var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
+      var hi_netcodes = [];
+      for (var i in sch_nets)
+      {
+        var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
+        for (var j in map)
+          hi_netcodes.push( map[j] );
+      }
+      g_board_controller.board.highlightNetCodes( hi_netcodes );
+
+    }
+    else if (pad_ar.length > 0)
+    {
+      var pad_ref = pad_ar[0].pad_ref;
+      var netcode = parseInt( pad_ref.net_number );
+      if (netcode >= 0)
+      {
+        //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
+        //g_board_controller.board.highlightNet( net_name );
+
+        var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
+        var hi_netcodes = [];
+        for (var i in sch_nets)
+        {
+          var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
+          for (var j in map)
+            hi_netcodes.push( map[j] );
+        }
+        g_board_controller.board.highlightNetCodes( hi_netcodes );
+
+
+      }
+      else
+      {
+        g_board_controller.board.unhighlightNet();
+      }
+
+    }
+    else
+    {
+      g_board_controller.board.unhighlightNet();
     }
   }
+
   else 
   {
     g_board_controller.board.unhighlightNet();

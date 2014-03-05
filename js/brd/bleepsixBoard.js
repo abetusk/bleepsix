@@ -778,6 +778,58 @@ bleepsixBoard.prototype.pickAll = function(x, y)
 
 }
 
+// return an array of all elements within bounding box
+//
+bleepsixBoard.prototype.pickPads = function(x, y)
+{
+
+  var ar = [];
+  var brd = this.kicad_brd_json["element"];
+
+  for (var ind in brd)
+  {
+    if (brd[ind].type != "module") 
+      continue;
+
+    var ref = brd[ind];
+    var pads = ref.pad;
+
+    for (var p_ind in pads)
+    {
+      var pad = pads[p_ind];
+
+      if (!("bounding_box" in pad))
+        continue;
+
+      var bbox = pads[p_ind].bounding_box;
+
+
+      var x0 = bbox[0][0];
+      var y0 = bbox[0][1];
+      var w = bbox[1][0] - bbox[0][0];
+      var h = bbox[1][1] - bbox[0][1];
+
+      var x1 = x0 + w;
+      var y1 = y0 + h;
+
+      if ( ( x <= x1 ) && ( x >= x0 ) &&
+           ( y <= y1 ) && ( y >= y0 ) )
+      {
+        var id_ref = { id: brd[ind].id, ref : brd[ind], 
+                       pad_id: pad.id, pad_ref: pad };
+
+        ar.push( id_ref );
+      }
+
+    }
+
+
+  }
+
+  return ar;
+
+}
+
 
 // return an array of all elements within bounding box
 //
