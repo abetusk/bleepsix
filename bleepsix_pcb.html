@@ -330,6 +330,23 @@
         ifrm.src = "bleepsixDownloadManager.py?id=" + id;
       }
 
+      function initiateDownload( json_container )
+      {
+        var msg_type = json_container["type"];
+        if (msg_type != "id")
+        {
+          console.log("error, expected id, got: " + msg_type);
+          console.log(json_container);
+          return;
+        }
+
+        // fiddle with iframe to send a download request
+        //
+        var id = json_container["id"];
+        var ifrm = document.getElementById( "downloadFrame" );
+        ifrm.src = "bleepsixDownloadManager.py?id=" + id;
+      }
+
       function downloadBoard( )
       {
         var json_data = g_board_controller.board.kicad_brd_json ;
@@ -342,6 +359,24 @@
           type: 'POST',
           data: str_data,
           success: brdJSONDownload,
+          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+          });
+      }
+
+      function downloadProject( )
+      {
+        var brd_data = g_board_controller.board.kicad_brd_json ;
+        var sch_data = g_board_controller.schematic.kicad_sch_json ;
+
+        var container = { "type" : "downloadProject", board: brd_data, schematic: sch_data };
+        var str_data = JSON.stringify( container );
+
+        $.ajax({
+          url: "bleepsixDataManager.py",
+          type: 'POST',
+          data: str_data,
+          success: initiateDownload,
           error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
 
           });
@@ -441,8 +476,9 @@
         src='img/download_white.png' 
         style=' height:32px; width:32px;' 
         value='download' 
-        onclick="downloadBoard(); canvasFocus();"  />
+        onclick="downloadProject(); canvasFocus();"  />
     </div>
+    <!-- onclick="downloadBoard(); canvasFocus();"  /> -->
 
     <div class="snapshot_button" id="snapButton">
       <input 

@@ -2518,23 +2518,29 @@ bleepsixBoard.prototype.drawBoardText = function( text )
   var layer = parseInt( text["layer"] );
   var x = parseInt( text["x"] );
   var y = parseInt( text["y"] );
+  var a = parseFloat( text["angle"] );
   var s = text["text"];
   var sizex = parseInt( text["sizex"] );
   var sizey = parseInt( text["sizey"] );
 
   var font_height = sizey;
 
-  var width = parseInt( text["penwidth"] );
+  //var width = parseInt( text["penwidth"] );
+  var width = parseInt( text["width"] );
 
   var color = this.layer_color[layer];
   var angle_deg = parseFloat( text["angle"] ) * 180.0 / Math.PI;
 
-  //DEBUG
-  //console.log(" global ang: " + angle + ", local_ang: " + ang_deg + ", text_ang_deg: " + text_ang_deg + 
-  //            ", deg_fiddle: " + deg_fiddle + ", fin_angle: " + fin_angle);
+  var texts = s.split( "\n" );
+  d_offset = numeric.dot( this._R(-a), [ 0, sizey ] );
+  offset = [0,0];
 
-
-  g_painter.drawText( s, x, y, color, font_height, angle_deg );
+  for (var ind in texts)
+  {
+    g_painter.drawText( texts[ind], x + offset[0], y + offset[1], color, font_height, angle_deg, "C", "C" );
+    offset[0] += d_offset[0];
+    offset[1] += d_offset[1];
+  }
 
 }
 

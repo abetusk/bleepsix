@@ -19,6 +19,7 @@ cgitb.enable();
 #staging_base = "/tmp/stage"
 
 jsonsch_exec = "/home/meow/pykicad/jsonsch.py"
+jsonsch_exec = "/home/meow/pykicad/jsonbrd.py"
 staging_base = "/home/meow/stage"
 
 def error_and_quit(err, notes):
@@ -78,6 +79,22 @@ def makePNG( json_message ):
   obj = { "type" : "id", "id" : str(png_uid), "notes" : "PNG file id" }
   return obj
 
+def readyProjectZipfile( json_message ):
+  sch_u_id, brd_json_fn = dumpToFile( str(json_message["board"]) )
+  brd_u_id, sch_json_fn = dumpToFile( str(json_message["schematic"]) )
+
+  try:
+    kicad_sch = sp.check_output( [jsonsch_exec, sch_json_fn ] );
+    u_id, fn  = dumpToFile( kicad_sch )
+  except Exception as e:
+    error_and_quit(e, sch_json_fn)
+
+  obj = { "type" : "id", "id" : str(u_id), "notes" : "KiCAD Schematic File ID"  }
+  return obj
+
+
+
+
 try:
   json_container = json.load(sys.stdin);
 except Exception as e:
@@ -100,6 +117,8 @@ elif msg_type == "createJSONSchematic":
   obj = makeJSONSchematic( json_container )
 elif msg_type == "createPNG":
   obj = makePNG( json_container );
+elif msg_type == "downloadProject":
+  obj = readyProjectZipfile( json_container )
 
 s = "nothing"
 args = cgi.FieldStorage()

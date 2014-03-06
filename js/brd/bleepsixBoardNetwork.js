@@ -554,8 +554,8 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
     //console.log("applying op (directly to board op)");
     //g_board_controller.opCommand( msg.op );
 
-    console.log("OP>>>>>>>>");
-    console.log( msg.op );
+    //console.log("OP>>>>>>>>");
+    //console.log( msg.op );
 
     g_board_controller.op.opCommand( msg.op );
   }

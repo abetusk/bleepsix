@@ -212,15 +212,21 @@ toolBoardNav.prototype.mouseMove = function( x, y )
       //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
       //g_board_controller.board.highlightNet( net_name );
 
-      var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
-      var hi_netcodes = [];
-      for (var i in sch_nets)
+      var board = g_board_controller.board;
+      if ("brd_to_sch_net_map" in board.kicad_brd_json)
       {
-        var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
-        for (var j in map)
-          hi_netcodes.push( map[j] );
+
+        var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
+        var hi_netcodes = [];
+        for (var i in sch_nets)
+        {
+          var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
+          for (var j in map)
+            hi_netcodes.push( map[j] );
+        }
+        g_board_controller.board.highlightNetCodes( hi_netcodes );
+
       }
-      g_board_controller.board.highlightNetCodes( hi_netcodes );
 
     }
     else if (pad_ar.length > 0)
@@ -232,15 +238,19 @@ toolBoardNav.prototype.mouseMove = function( x, y )
         //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
         //g_board_controller.board.highlightNet( net_name );
 
-        var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
-        var hi_netcodes = [];
-        for (var i in sch_nets)
+        var board = g_board_controller.board;
+        if ("brd_to_sch_net_map" in board.kicad_brd_json)
         {
-          var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
-          for (var j in map)
-            hi_netcodes.push( map[j] );
+          var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
+          var hi_netcodes = [];
+          for (var i in sch_nets)
+          {
+            var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
+            for (var j in map)
+              hi_netcodes.push( map[j] );
+          }
+          g_board_controller.board.highlightNetCodes( hi_netcodes );
         }
-        g_board_controller.board.highlightNetCodes( hi_netcodes );
 
 
       }
