@@ -762,3 +762,14 @@ http://stackoverflow.com/questions/5603195/full-list-of-javascript-keycodes
 line line intersections:
 http://en.wikipedia.org/wiki/Bentley%E2%80%93Ottmann_algorithm
 https://github.com/tokumine/sweepline/blob/master/lib/sweepline/point.js
+
+---
+
+copper zone pours
+
+clearance: amount it needs to be away from other zones (on the same layer)
+minimum width: the outline line width
+
+thermal relief:
+antipad clearance: clearance to non-net items within the region
+spoke width: width of connecting elements from pad to surrounding zone
