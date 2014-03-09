@@ -70,6 +70,7 @@ function bleepsixBoard()
 
   this.layer_color[28] = "rgba(255, 255,   0, 0.4)";
   this.layer_color[21] = "rgba(  0, 255, 255, 0.4)";
+  this.layer_color[20] = "rgba(255,   0, 255, 0.4)";
   this.layer_color[15] = "rgba(255,   0,   0, 0.4)";
   this.layer_color[0]  = "rgba(  0, 255,   0, 0.4)";
 
@@ -316,10 +317,13 @@ bleepsixBoard.prototype.remove = function( id_ref )
 
 }
 
-bleepsixBoard.prototype.flip = function( id_ref , old_layer, new_layer )
+bleepsixBoard.prototype.flip = function( id_ref , swap_layer0, swap_layer1 )
 {
   var ref = id_ref.ref;
   var type = ref.type;
+
+  swap_layer0 = swap_layer0 ;
+  swap_layer1 = swap_layer1 ;
 
   if (type != "module")
   {
@@ -333,15 +337,44 @@ bleepsixBoard.prototype.flip = function( id_ref , old_layer, new_layer )
   for (var ind in ref.text)
   {
     ref.text[ind].flag = ( (ref.text[ind].flag == "M") ? "N" : "M" );
+
+    if (parseInt(ref.text[ind].layer) == 21)
+      ref.text[ind].layer = 20;
+    else if (parseInt(ref.text[ind].layer) == 20)
+      ref.text[ind].layer = 21;
+
+  }
+
+  for (var ind in ref.art)
+  {
+
+    if (parseInt(ref.art[ind].layer) == 21)
+      ref.art[ind].layer = 20;
+    else if (parseInt(ref.art[ind].layer) == 20)
+      ref.art[ind].layer = 21;
+
   }
 
   for (var p_ind in ref.pad)
   {
     var layer_mask = ref.pad[p_ind].layer_mask;
     var bits = parseInt(layer_mask, 16);
-    bits = bits & (~(1<<old_layer));
-    bits = bits | (1<<new_layer);
-    ref.pad[p_ind].layer_mask = bits;
+    var new_bits = bits;
+
+    if (bits & (1<<swap_layer0))
+    {
+      new_bits &= (~(1<<swap_layer0));
+      new_bits |= (1<<swap_layer1);
+    }
+
+    if (bits & (1<<swap_layer1))
+    {
+      new_bits &= (~(1<<swap_layer1));
+      new_bits |= (1<<swap_layer0);
+    }
+
+    ref.pad[p_ind].layer_mask = new_bits.toString(16);
+
   }
 
 }
@@ -2609,6 +2642,10 @@ bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_
   loc_deg_ang = this._findTextDegAngle( loc_deg_ang, g_deg_ang );
 
   color = "rgba(255,255,255,0.7)";
+
+  if ( text_field["flag"].match(/M/) )
+    color = "rgba(0,0,255,0.7)";
+
   //g_painter.drawText( s , fp_x + x, fp_y + y, color, text_size, loc_deg_ang, "C", "C", is_flipped);
 
   if (this.flag_utf8_hershey_ascii_font_loaded)
