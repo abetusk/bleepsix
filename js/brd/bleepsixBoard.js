@@ -23,18 +23,12 @@
 */
 
 
-// TODO: arcs still need implementing
-//
-
-//var headless = false;
 var bleepsixBoardHeadless = false;
 if (typeof module !== 'undefined')
 {
-  //headless = true;
   bleepsixBoardHeadless = true;
 
   var numeric = require("../lib/numeric.js");
-  //var $ = require("../lib/jquery.js");
   var bleepsixAux = require("../lib/aux.js");
 
   var guid = bleepsixAux.guid;
@@ -48,7 +42,10 @@ function bleepsixBoard()
   this.net          = {};
   this.netlist      = {};
 
-  this.kicad_brd_json = { "element":[] };
+  this.kicad_brd_json = { "element":[] , "units" : "deci-mils" };
+
+  console.log("STARTING:", this.kicad_brd_json );
+
   this.displayable = true;
 
   this.queued_display_footprint_count = 0;

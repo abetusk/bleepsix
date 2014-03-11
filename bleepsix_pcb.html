@@ -327,7 +327,14 @@
         //
         var id = json_container["id"];
         var ifrm = document.getElementById( "downloadFrame" );
-        ifrm.src = "bleepsixDownloadManager.py?id=" + id;
+
+        //ifrm.src = "bleepsixDownloadManager.py?id=" + id;
+        url = "bleepsixDownloadManager.py?id=" + id;
+        if ("name" in json_container)
+        {
+          url += '&name=' + json_container["name"]
+        }
+        ifrm.src = url;
       }
 
       function initiateDownload( json_container )
@@ -344,7 +351,14 @@
         //
         var id = json_container["id"];
         var ifrm = document.getElementById( "downloadFrame" );
-        ifrm.src = "bleepsixDownloadManager.py?id=" + id;
+        //ifrm.src = "bleepsixDownloadManager.py?id=" + id;
+
+        url = "bleepsixDownloadManager.py?id=" + id;
+        if ("name" in json_container)
+        {
+          url += '&name=' + json_container["name"]
+        }
+        ifrm.src = url;
       }
 
       function downloadBoard( )
