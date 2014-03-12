@@ -37,15 +37,16 @@ By Rama Hoetzlein and Abram Connelly"
     server goes down it will be able to push to connected clients.  Maybe
     this is already or easily handled, but need to confirm.
 
-  BUG: server can't handle component edits (crashes).
+* BUG: server can't handle component edits (crashes).
 
-  BUG: server crashes when doing it's own fills
+* BUG: server crashes when doing it's own fills
 
-  BUG: server doesn't update with loaded brd from pcb side
+* BUG: server doesn't update with loaded brd from pcb side
+  ??
 
 == BOTH
 
-  - schematic board communication:
+* - schematic board communication:
   Add a copy of it's sister structure.  So the schematic will have a board and
   the board will have a schematic.  Keep a sequence number for both.  When
   updating the schematic, update the sequence number and update the local copy
