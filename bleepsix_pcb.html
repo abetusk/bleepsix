@@ -266,7 +266,8 @@
 
 
         console.log("starting network");
-        g_brdnetwork = new bleepsixBoardNetwork();
+        //g_brdnetwork = new bleepsixBoardNetwork();
+        g_brdnetwork = new bleepsixBoardNetwork( "https://www.meowcad.com" );
 
         canvasFocus();
 
