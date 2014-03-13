@@ -148,10 +148,22 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       var pnts = [ [mx, my], [Mx, my], [Mx, My], [mx, My] ];
 
+
+      // a bit hacky.  If we do this a lot, we should abstract it out
+      //
+      map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
+
+      brd_nc = 0;
+      if (this.netcode in map)
+      {
+        brd_nc = map[ this.netcode ][0];
+      }
+
       var op = { source : "brd", destination: "brd" };
       op.action = "add";
       op.type = "czone";
-      op.data  = { points : pnts, netcode: this.netcode, layer : this.layer };
+      //op.data  = { points : pnts, netcode: this.netcode, layer : this.layer };
+      op.data  = { points : pnts, netcode: brd_nc, layer : this.layer };
       g_board_controller.opCommand( op );
 
     }
