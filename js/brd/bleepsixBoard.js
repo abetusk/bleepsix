@@ -118,12 +118,14 @@ function bleepsixBoard()
   this.highlight_net = [];
   this.highlight_net_flag = false;
 
+
   //if (!headless)
   if (!bleepsixBoardHeadless)
   {
     this.initBGL();
-    this._initBoardNet();
   }
+
+  this._initBoardNet();
 
   this.boardProperties = { zoneDisplayable : true };
 }
@@ -1020,9 +1022,6 @@ bleepsixBoard.prototype.relativeMoveElement = function( id_ref, dx, dy )
 
 bleepsixBoard.prototype._initBoardNet = function()
 {
-
-  //DEBUG
-  //console.log("bleepsixBoard.initBoardNet()");
 
   this.kicad_brd_json["equipot"] = [ { net_name : "", net_number : 0 } ];
   this.kicad_brd_json["net_code_map"] = { "0" : "" };

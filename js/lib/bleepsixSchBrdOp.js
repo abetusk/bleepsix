@@ -216,10 +216,6 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
   var data = op.data;
   var id = op.id;
 
-
-  //DEBUG
-  console.log(">>>>A");
-
   if      ( type == "moveGroup" )
   {
 
@@ -261,11 +257,6 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       for (var ind in id_ref_ar)
       {
-
-        //DEBUG
-        console.log("MOVE GROUP >>>>>>>>>>>>>>>");
-        console.log( id_ref_ar[ind].id, id_ref_ar[ind].ref);
-
 
         this.board.relativeMoveElement( id_ref_ar[ind], dx, dy );
 

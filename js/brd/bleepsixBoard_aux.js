@@ -198,6 +198,7 @@ bleepsixBoard.prototype.makeUnknownModule = function( size, id, text_ids )
     library_name : "unknown",
     layer : 15,
     text : "??",
+    timestamp : "0000",
     bounding_box : [[-50,-50],[50,50]],
 
     unknownFlag : true,
