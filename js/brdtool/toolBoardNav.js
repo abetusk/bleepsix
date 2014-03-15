@@ -212,8 +212,6 @@ toolBoardNav.prototype.mouseMove = function( x, y )
         //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
         //g_board_controller.board.highlightNet( net_name );
 
-        console.log(">>>>>", netcode);
-
         var board = g_board_controller.board;
         if ("brd_to_sch_net_map" in board.kicad_brd_json)
         {
