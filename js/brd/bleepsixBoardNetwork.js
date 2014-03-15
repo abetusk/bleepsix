@@ -393,7 +393,8 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 
     if (this.usingUrlProjectFlag)
     {
-      window.history.replaceState( {}, 'title', '/bleepsix_sch' );
+      //window.history.replaceState( {}, 'title', '/bleepsix_sch' );
+      window.history.replaceState( {}, 'title', '/bleepsix_brd' );
     }
 
     // We don't have a valid userid/sessionid, login anonymously
