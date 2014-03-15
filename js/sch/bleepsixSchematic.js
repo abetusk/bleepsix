@@ -207,8 +207,8 @@ bleepsixSchematic.prototype.refLookup = function( id )
 
     this.ref_lookup[ sch[ind].id ] = sch[ind];
 
-    console.log("added " + sch[ind].id + " to ref_lookup:");
-    console.log( this.ref_lookup[ sch[ind].id ] );
+    //console.log("added " + sch[ind].id + " to ref_lookup:");
+    //console.log( this.ref_lookup[ sch[ind].id ] );
 
     if ( id == sch[ind].id )
     {

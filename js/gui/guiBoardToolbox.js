@@ -95,7 +95,9 @@ function guiBoardToolbox( name, bgColor  )
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
   u.divColor = "rgba(255,255,255,0.2)";
-  u.addIcon( this.name + ":edge", _draw_edge_icon );
+  //u.addIcon( this.name + ":edge", _draw_edge_icon );
+  u.addIcon( this.name + ":edge", 
+      (function(s) { return function() { s._draw_edge_icon(); }; })(this)  );
   //u.addIcon( this.name + ":text", _draw_text_icon );
   u.addIcon( this.name + ":box", _draw_box_icon );
   u.addIcon( this.name + ":circle", _draw_circle_icon );
@@ -239,10 +241,13 @@ function _draw_zone_icon()
 
 //--- art and edge drawing functions
 
-function _draw_edge_icon()
+//function _draw_edge_icon()
+guiBoardToolbox.prototype._draw_edge_icon = function()
 {
-  var mx = __icon_width/2, my = __icon_width/2;
-  var dx = __icon_width/5, dy = __icon_width/5;
+  //var mx = __icon_width/2, my = __icon_width/2;
+  //var dx = __icon_width/5, dy = __icon_width/5;
+  var mx = this.iconWidth/2, my = this.iconWidth/2;
+  var dx = this.iconWidth/5, dy = this.iconWidth/5;
   var color = "rgba(255,255,0,0.6)";
   var width = 4;
 
@@ -478,37 +483,37 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
 
   else if (ev.owner == this.name + ":box")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
-    //console.log("  handing over to toolbox");
-    //g_board_controller.tool = new toolBoardEdgeBox(0, 0, "noconn");
+    //console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
+    console.log("  handing over to toolEdgeShape rect");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "rect");
   }
 
   else if (ev.owner == this.name + ":circle")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool circle not implmeneted yet");
-    //console.log("  handing over to toolbox");
-    //g_board_controller.tool = new toolBoardEdgeBox(0, 0, "noconn");
+    //console.log("  IN DEVELOPMENT, sorry, tool circle not implmeneted yet");
+    console.log("  handing over to toolEdgeShape circle");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "circle");
   }
 
   else if (ev.owner == this.name + ":arc")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool arc not implmeneted yet");
-    //console.log("  handing over to toolarc");
-    //g_board_controller.tool = new toolBoardEdgeArc(0, 0, "noconn");
+    //console.log("  IN DEVELOPMENT, sorry, tool arc not implmeneted yet");
+    console.log("  handing over to toolEdgeShape arc");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "arc");
   }
 
   else if (ev.owner == this.name + ":roundedbox")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool rounded box not implmeneted yet");
-    //console.log("  handing over to tool rounded box");
-    //g_board_controller.tool = new toolBoardEdgeRoundedBox(0, 0, "noconn");
+    //console.log("  IN DEVELOPMENT, sorry, tool rounded box not implmeneted yet");
+    console.log("  handing over to toolEdgeShape roundedBox");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "roundedRect");
   }
 
   else if (ev.owner == this.name + ":inroundedbox")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool inroundedbox not implmeneted yet");
-    //console.log("  handing over to tool inrounded box");
-    //g_board_controller.tool = new toolBoardEdgeInroundedBox(0, 0, "noconn");
+    //console.log("  IN DEVELOPMENT, sorry, tool inroundedbox not implmeneted yet");
+    console.log("  handing over to toolEdgeShape inroundedBox");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "inroundedRect");
   }
 
   else
