@@ -216,6 +216,10 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
   var data = op.data;
   var id = op.id;
 
+
+  //DEBUG
+  console.log(">>>>A");
+
   if      ( type == "moveGroup" )
   {
 
@@ -345,6 +349,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       for (var ind in id)
       {
+
         var ref = this.board.refLookup( id[ind] );
         ref.polyscorners = [];
         this.board.fillCZone( ref );

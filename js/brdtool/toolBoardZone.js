@@ -43,6 +43,11 @@ function toolBoardZone( x, y, initialPlaceFlag )
 
   this.mouse_drag_flag = false;
 
+  // This netcode is the _schematic_ net code, _not_ the board
+  // netcode.  This way, it will be able to connect multiple
+  // board elements with different board netcodes because they'll
+  // be in an equivalent schematic netcode
+  //
   this.netcode = 0;
   //this.netname = "";
 
@@ -153,11 +158,21 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
       //
       map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
 
+      
+      /*
+
       brd_nc = 0;
       if (this.netcode in map)
       {
         brd_nc = map[ this.netcode ][0];
       }
+      */
+
+      //DEBUG
+      brd_nc = this.netcode;
+
+//DEBUG
+console.log(">>>> sending zone netcode: ", brd_nc );
 
       var op = { source : "brd", destination: "brd" };
       op.action = "add";
@@ -307,7 +322,7 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
     this._setNextNetcode();
 
     //console.log("netcode now : " + this.netcode + " " + this.netname );
-    console.log("netcode now (sch) : " + this.netcode );
+    console.log(">>> netcode now (sch) : " + this.netcode );
 
   }
 
@@ -319,7 +334,7 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
     this._setPrevNetcode();
 
     //console.log("netcode now : " + this.netcode + " " + this.netname );
-    console.log("netcode now : " + this.netcode );
+    console.log(">>> netcode now : " + this.netcode );
 
   }
 
