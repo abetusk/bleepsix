@@ -59,8 +59,12 @@ function guiToolbox( name )
   var w = new guiDropIcon( this.name + ":dropwire", this.iconWidth , this.iconWidth );
   w.addIcon( this.name + ":wire", 
       (function(xx) { return function() { xx._draw_wire_icon(); }; })(this) );
-  w.addIcon( this.name + ":bus" , 
-      (function(xx) { return function() { xx._draw_bus_icon(); }; })(this)  );
+
+  // BUS not implementd right now, just take it out, we'll put it back in later
+  //
+  //w.addIcon( this.name + ":bus" , 
+  //    (function(xx) { return function() { xx._draw_bus_icon(); }; })(this)  );
+
   w.move(0, cur_y);
 
   this.dropWire = w;
@@ -87,10 +91,16 @@ function guiToolbox( name )
   var lab = new guiDropIcon( this.name + ":label", this.iconWidth, this.iconWidth );
   lab.addIcon( this.name +":label", 
       (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+
+  // Other labels not implemented right now.  Will implement later, take them out
+  // here for now.
+  //
+  /*
   lab.addIcon( this.name + ":heirlabel", 
       (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
   lab.addIcon( this.name + ":globlabel", 
       (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+      */
 
   lab.move(0, cur_y);
 

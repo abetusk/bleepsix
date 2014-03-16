@@ -338,9 +338,6 @@ bleepsixBoard.prototype._net_equal = function( brd_net, sch_net )
 
   for ( var ind in btos_map[ brd_net ] )
   {
-
-    console.log("_net_equal: ", ind, btos_map[brd_net], sch_net );
-
     if ( btos_map[ brd_net ][ind] == sch_net )
     {
       return true;

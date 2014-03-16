@@ -35,7 +35,7 @@ bleepsixBoard.prototype.areBoardNetsEqual = function( brd_net0, brd_net1)
   var a = parseInt( brd_net0 );
   var b = parseInt( brd_net1 );
 
-  var map = this.kicad_brd_json.brd_to_sch_net_map;;
+  var map = this.kicad_brd_json.brd_to_sch_net_map;
 
   var a_list = [];
   if (a in map) a_list = map[a];

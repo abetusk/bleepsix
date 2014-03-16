@@ -41,13 +41,14 @@ bleepsixBoard.prototype._pad_by_name = function( pad, name )
 }
 
 
-
+// Update schematic to board net and board to schematic net mappings.
+//
+// sch_pin_id_net_map is received from the schematic portion and is
+// a hash of <id>:<pin> -> { id : <id> , netcode : <nc> , pin : <pin> }.
+// Netcode in the structure is the schematic netcode.
+//
 bleepsixBoard.prototype.updateSchematicNetcodeMap = function( sch_pin_id_net_map )
 {
-
-  //console.log("bleepsixBoard.updateSchematicNetcodeMap:");
-  //console.log(sch_pin_id_net_map);
-
   var sch_netcode_map = {};
 
   var brd_to_sch_net_map = {};
@@ -59,30 +60,16 @@ bleepsixBoard.prototype.updateSchematicNetcodeMap = function( sch_pin_id_net_map
     var parent_id   = sch_pin_id_net_map[pin_id].id;
     var sch_netcode = parseInt(sch_pin_id_net_map[pin_id].netcode);
 
-    // retrieve module
     var ref = this.refLookup( parent_id );
     if (!ref) continue;
     if (! ( "pad" in ref ) ) continue;
 
-    //console.log(" !!>> " + pin_id + " " + parent_id);
-    //console.log(ref);
-
-    //console.log( ref.pad.length );
-    //console.log( pin_name );
-
     var pad = this._pad_by_name( ref.pad, pin_name );
     if (!pad) continue;
 
-    //console.log("looking at pad: " + pin_name + " with net number " + pad.net_number );
-
     var pad_net = parseInt( pad.net_number );
 
-    //console.log(pad_net);
-
     if (pad_net <= 0) continue;
-
-    //console.log("pad:");
-    //console.log(pad);
 
     // setup mappings
     //
@@ -97,15 +84,6 @@ bleepsixBoard.prototype.updateSchematicNetcodeMap = function( sch_pin_id_net_map
       sch_to_brd_net_map[ sch_netcode ] = [ pad_net ];
 
   }
-
-  /*
-  //DEBUG
-  console.log("brd_to_sch_net_map:");
-  console.log(brd_to_sch_net_map);
-
-  console.log("sch_to_brd_net_map:");
-  console.log(sch_to_brd_net_map);
-  */
 
   this.kicad_brd_json.brd_to_sch_net_map = brd_to_sch_net_map;
   this.kicad_brd_json.sch_to_brd_net_map = sch_to_brd_net_map;

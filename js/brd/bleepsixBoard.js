@@ -583,10 +583,6 @@ bleepsixBoard.prototype.rotateAboutPoint = function ( id_refs, x, y, rad_angle, 
 
 bleepsixBoard.prototype.rotateAboutPoint90 = function ( id_refs, x, y, ccw_flag )
 {
-
-  //DEBUG
-  //console.log("rotateAboutPoint90: " + x + " " + y );
-
   this.rotateAboutPoint(id_refs, x, y, -Math.PI/2, ccw_flag );
 }
 
@@ -877,8 +873,6 @@ bleepsixBoard.prototype.pickBox = function(x0, y0, x1, y1)
   {
     var type = brd[ind].type;
 
-    //if ( ( type == "track" ) ||
-    //     ( type == "drawsegment" ) )
     if ( type == "track" ) 
     {
       var r = brd[ind];
@@ -925,11 +919,6 @@ bleepsixBoard.prototype.pickBox = function(x0, y0, x1, y1)
     {
       if (this._box_box_intersect( brd[ind]["bounding_box"], bbox ))
       {
-
-        //console.log(": " + brd[ind].ref.name);
-        //console.log(brd[ind]["bounding_box"]);
-        //console.log(bbox);
-
         ar.push( { "id" : brd[ind]["id"], "ref": brd[ind] } );
       }
     }
@@ -1019,6 +1008,11 @@ bleepsixBoard.prototype.relativeMoveElement = function( id_ref, dx, dy )
 
 }
 
+//--------------
+//
+// Net functions
+//
+//--------------
 
 bleepsixBoard.prototype._initBoardNet = function()
 {
@@ -1027,11 +1021,6 @@ bleepsixBoard.prototype._initBoardNet = function()
   this.kicad_brd_json["net_code_map"] = { "0" : "" };
   this.kicad_brd_json["net_name_map"] = { "" : 0 };
   this.kicad_brd_json["net_code_airwire_map"] = { "0" : [] };
-
-  // DEPRECATED
-  // mapping of schematic netcodes to board netcodes
-  //
-  //this.kicad_brd_json["sch_net_code_map"] = {};
 
 }
 
@@ -1054,9 +1043,6 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
   var new_netname = this.kicad_brd_json.net_code_map[ new_netcode ];
   var renamed_ids = [];
 
-  //DEBUG
-  //console.log("new_netname: " + new_netname);
-
   var brd = this.kicad_brd_json["element"];
   for (var ind in brd)
   {
@@ -1066,10 +1052,6 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
     {
       if (ele.netcode == stale_netcode)
       {
-
-        //console.log("renaming track: ");
-        //console.log(ele);
-
         ele.netcode = new_netcode;
 
         renamed_ids.push( ele.id );
@@ -1208,20 +1190,10 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
 {
   if ((netcode0 <= 0) || (netcode1 <= 0)) return;
 
-  //DEBUG
-  //console.log(this.net_code_map)
-
   var netname0 = this.kicad_brd_json.net_code_map[ String(netcode0) ];
   var netname1 = this.kicad_brd_json.net_code_map[ String(netcode1) ];
 
-  //DEBUG
-  //console.log("netnames: " + netname0 + ", " + netname1);
-
   var net_array = [ netname0, netname1 ].sort();
-
-  //DEBUG
-  //console.log("sorted net_array:");
-  //console.log(net_array);
 
   var stale_netcode = netcode0;
   var new_netcode = netcode1;
@@ -1232,13 +1204,7 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
     new_netcode = netcode0;
   }
 
-  //DEBUG
-  //console.log("stale_netcode: " + stale_netcode +", new_netcode: " + new_netcode);
-
   var renamed_ids = this.renameNet( stale_netcode, new_netcode );
-
-  //DEBUG
-  //console.log("removing netcode: " + stale_netcode);
 
   this.removeNet( stale_netcode );
 
@@ -1355,36 +1321,6 @@ bleepsixBoard.prototype.removeNet = function( netcode, netname )
 
 bleepsixBoard.prototype.addNet = function( netcode, netname )
 {
-
-  /*
-  this.default_net_prefix = "N-";
-
-  if (typeof netcode === 'undefined' )
-  {
-    if (!("equipot" in this.kicad_brd_json ))
-      this._initBoardNet();
-
-    var equipot = this.kicad_brd_json.equipot;
-
-    var new_net_code = -1;
-    for (var ind in equipot)
-      if ( parseInt( equipot[ind].net_number ) > new_net_code )
-        new_net_code = parseInt( equipot[ind].net_number ) 
-
-    netcode = new_net_code + 1;
-    netname = this._genNetName();
-  }
-
-  if (typeof netname === 'undefined')
-    netname = this._genNetName();
-
-  this.kicad_brd_json.equipot.push( { net_name : netname, net_number : netcode } );
-  this.kicad_brd_json.net_code_map[netcode] = netname;
-  this.kicad_brd_json.net_name_map[netname] = netcode;
-
-  return { net_name: netname, net_number: netcode } ;
-    */
- 
   var netinfo = this.genNet( netcode, netname );
 
   this.kicad_brd_json.equipot.push( netinfo );
@@ -1393,6 +1329,10 @@ bleepsixBoard.prototype.addNet = function( netcode, netname )
 
   return netinfo;
 }
+
+
+//-----------------
+
 
 bleepsixBoard.prototype.addCZone = function( pnts, netcode, layer, polyscorners, id )
 {
