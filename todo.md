@@ -8,7 +8,7 @@
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
   one at a time?  If a board and a schematic is specified we should try to tie them together?
 * Add timestamps to sessions, portfolios and the like.
-
+* Add in name verification to delete project.
 
 
 ## Schematic
