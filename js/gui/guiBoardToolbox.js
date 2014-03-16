@@ -100,8 +100,8 @@ function guiBoardToolbox( name, bgColor  )
       (function(s) { return function() { s._draw_edge_icon(); }; })(this)  );
   //u.addIcon( this.name + ":text", _draw_text_icon );
   u.addIcon( this.name + ":box", _draw_box_icon );
-  u.addIcon( this.name + ":circle", _draw_circle_icon );
-  u.addIcon( this.name + ":arc", _draw_arc_icon );
+  //u.addIcon( this.name + ":circle", _draw_circle_icon );
+  //u.addIcon( this.name + ":arc", _draw_arc_icon );
   u.addIcon( this.name + ":roundedbox", _draw_roundedbox_icon );
   u.addIcon( this.name + ":inroundedbox", _draw_inroundedbox_icon );
   u.move(0, cur_y);
