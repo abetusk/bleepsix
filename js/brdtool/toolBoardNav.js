@@ -186,6 +186,11 @@ toolBoardNav.prototype.mouseMove = function( x, y )
   this.mouse_world_xy["x"] = world_xy["x"];
   this.mouse_world_xy["y"] = world_xy["y"];
 
+  if (this.mouse_drag_flag)
+  {
+    g_painter.dirty_flag = true;
+    return;
+  }
 
   var ida = g_board_controller.board.pickAll( world_xy.x, world_xy.y );
   var pad_ar = g_board_controller.board.pickPads( world_xy.x, world_xy.y );
