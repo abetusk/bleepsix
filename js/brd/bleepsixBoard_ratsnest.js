@@ -807,8 +807,12 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 {
   // anything below this and it'll probably just bog down too much.
   //
-  ds = ( (typeof ds === 'undefined') ? 100 : ds );
-  if (ds <=  0) ds = 100;
+  //ds = ( (typeof ds === 'undefined') ? 100 : ds );
+  //if (ds <=  0) ds = 100;
+
+  ds = ( (typeof ds === 'undefined') ? 500 : ds );
+  if (ds <=  0) ds = 500;
+
 
   var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array, sch_net_code_map );
 

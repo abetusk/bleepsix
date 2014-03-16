@@ -485,35 +485,35 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
   {
     //console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
     console.log("  handing over to toolEdgeShape rect");
-    g_board_controller.tool = new toolEdgeShape(0, 0, "rect");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "rect", false );
   }
 
   else if (ev.owner == this.name + ":circle")
   {
     //console.log("  IN DEVELOPMENT, sorry, tool circle not implmeneted yet");
     console.log("  handing over to toolEdgeShape circle");
-    g_board_controller.tool = new toolEdgeShape(0, 0, "circle");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "circle", false );
   }
 
   else if (ev.owner == this.name + ":arc")
   {
     //console.log("  IN DEVELOPMENT, sorry, tool arc not implmeneted yet");
     console.log("  handing over to toolEdgeShape arc");
-    g_board_controller.tool = new toolEdgeShape(0, 0, "arc");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "arc", false );
   }
 
   else if (ev.owner == this.name + ":roundedbox")
   {
     //console.log("  IN DEVELOPMENT, sorry, tool rounded box not implmeneted yet");
     console.log("  handing over to toolEdgeShape roundedBox");
-    g_board_controller.tool = new toolEdgeShape(0, 0, "roundedRect");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "roundedRect", false );
   }
 
   else if (ev.owner == this.name + ":inroundedbox")
   {
     //console.log("  IN DEVELOPMENT, sorry, tool inroundedbox not implmeneted yet");
     console.log("  handing over to toolEdgeShape inroundedBox");
-    g_board_controller.tool = new toolEdgeShape(0, 0, "inroundedRect");
+    g_board_controller.tool = new toolEdgeShape(0, 0, "inroundedRect", false );
   }
 
   else
