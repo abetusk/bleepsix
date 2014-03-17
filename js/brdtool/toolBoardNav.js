@@ -106,13 +106,20 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
         if ( picked_id_ref.ref.type == "track" )
         {
           g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+
+
+          g_board_controller.board.unhighlightNet();
           g_painter.dirty_flag = true;
+
           return;
         }
       }
 
       g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+
+      g_board_controller.board.unhighlightNet();
       g_painter.dirty_flag = true;
+
       return;
 
     }
@@ -476,6 +483,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     //g_board_controller.tool = new toolEdgeShape(x, y, "roundedRect", true );
     g_board_controller.tool = new toolEdgeShape(x, y, "inroundedRect", true );
 
+    g_board_controller.board.unhighlightNet();
+
+
   }
 
   else if (ch == 'Z')
@@ -483,6 +493,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     console.log("zone...");
 
     g_board_controller.tool = new toolBoardZone(x, y);
+
+    g_board_controller.board.unhighlightNet();
+
   }
   else if (ch == 'J')
   {
@@ -499,6 +512,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     g_board_controller.tool = new toolTrace(x, y, [0, 15], true);
 
+    g_board_controller.board.unhighlightNet();
   }
 
   else if (ch == 'V')
@@ -517,6 +531,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var t = g_painter.devToWorld(x, y);
       g_board_controller.tool = new toolBoardMove(x, y, ida);
       //g_board_controller.tool.addElement( ida );
+
+      g_board_controller.board.unhighlightNet();
+
       return true;
     }
     else
@@ -553,6 +570,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       //g_board_controller.board.updateRatsNest();
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+      this.mouseMove( wx, wy );
     }
 
   }
@@ -579,6 +598,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       g_board_controller.opCommand( op );
 
       //g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
+
+      this.mouseMove( wx, wy );
     }
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
@@ -600,6 +621,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.opCommand( op );
 
     //g_board_controller.board.addFootprintData( k , 0, 0 );
+
+    g_board_controller.board.unhighlightNet();
   }
 
   else if ( ch == 'M')
@@ -721,6 +744,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
           g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
+  
+          g_board_controller.board.unhighlightNet();
 
           return true;
         }
@@ -758,6 +783,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
           g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
+          g_board_controller.board.unhighlightNet();
 
           return true;
         }
@@ -778,6 +804,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
           g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
+          g_board_controller.board.unhighlightNet();
+
           return true;
 
         }
@@ -791,6 +819,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+      g_board_controller.board.unhighlightNet();
 
       return true;
 
