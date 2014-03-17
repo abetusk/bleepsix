@@ -46,6 +46,9 @@ function toolBoardNav( x, y )
   this.mouse_world_xy = g_painter.devToWorld(x, y);
   this.snap_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
+  if (g_board_controller)
+    this.mouseMove( x, y );
+
 }
 
 toolBoardNav.prototype.update = function(x, y)

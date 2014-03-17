@@ -13,9 +13,9 @@
 
 ## Schematic
 
+* Power lines need to be treated as a net so nets connect in board.
 * Wire "grabbing" instead of free floating pick and move.
 * Need cursor icon for label.
-* Power lines need to be treated as a net so nets connect in board.
 
 ## Board
 
