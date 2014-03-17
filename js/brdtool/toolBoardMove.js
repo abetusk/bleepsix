@@ -353,9 +353,50 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     this.prev_world_xy["x"] = world_xy["x"];
     this.prev_world_xy["y"] = world_xy["y"];
 
+    //EXPERIMENTAL
+    //
+    // Restrict to only the nets attached to the selected elements.
+    // looks to be working, needs some more testing.
+    //
+    /*
     var brd = g_board_controller.board.kicad_brd_json;
     var map = brd.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, this.selectedElement, map );
+    */
+
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+
+    var ncs = {};
+    for (var ind in this.selectedElement)
+    {
+      var ref = this.selectedElement[ind].ref;
+
+      if (ref.type == "track")
+      {
+        var nc = parseInt(ref.netcode);
+        ncs[ nc ] = nc;
+      }
+      else if (ref.type == "module")
+      {
+        if ("pad" in ref)
+        {
+          for (var p_ind in ref.pad)
+          {
+            var nc = parseInt(ref.pad[p_ind].net_number);
+            ncs[ nc ] = nc;
+          }
+        }
+      }
+
+    }
+
+    for (var nc in ncs)
+    {
+      g_board_controller.board.updateRatsNest( nc, this.selectedElement, map );
+    }
+    //
+    //EXPERIMENTAL
 
   }
 
