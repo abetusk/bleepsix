@@ -110,6 +110,11 @@ toolBoardZone.prototype.drawOverlay = function()
     g_painter.drawRectangle( mx, my, w, h, 100, "rgb(128, 128, 128)" );
   }
 
+  var mouse_x = Math.floor(this.cur_world_coord.x);
+  var mouse_y = Math.floor(this.cur_world_coord.y);
+  g_board_controller.display_text = "x: " + mouse_x + ", y: " + mouse_y;
+
+
 }
 
 toolBoardZone.prototype.mouseDown = function( button, x, y )
