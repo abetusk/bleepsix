@@ -19,12 +19,14 @@
 
 ## Board
 
-* There was a hang when trying to add a trace to a via.  Having a hard time reproducing.
 * Figure out a way to get custom modules in easily.
-* ~~Store sch_pin_id_net_map and call updateSchematicNetcodeMap appripriately (bug fix).~~
 * Add via tool.
 * Shift auto placed parts so they don't stack on top of each other.
 * Move text for modules.
 * Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
+* toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
+  if it intersects geometry initially.
+* ~~There was a hang when trying to add a trace to a via.  Having a hard time reproducing.~~
+* ~~Store sch_pin_id_net_map and call updateSchematicNetcodeMap appripriately (bug fix).~~
 

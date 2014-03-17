@@ -1134,6 +1134,8 @@ toolTrace.prototype._magnet_pad = function( trace_point, mod, pad )
 // 
 toolTrace.prototype._magnet_trace = function( trace_point, track_ref )
 {
+  var eps = 0.00001;
+
   var u = [ parseFloat( track_ref.x0 ), parseFloat( track_ref.y0 ) ];
   var v = [ parseFloat( track_ref.x1 ), parseFloat( track_ref.y1 ) ];
   var p = [ parseFloat( trace_point.x ), parseFloat( trace_point.y ) ];
@@ -1141,10 +1143,15 @@ toolTrace.prototype._magnet_trace = function( trace_point, track_ref )
   var L = numeric.sub(v, u);
   var L_2 = numeric.norm2Squared( L );
 
-  var P = numeric.sub(p, u);
-  var t = numeric.dot( P, L ) / L_2;
+  var alpha = u;
+  if (L_2 > eps)
+  {
+    var P = numeric.sub(p, u);
+    var t = numeric.dot( P, L ) / L_2;
 
-  var alpha = numeric.add( u, numeric.mul(t, L) );
+    //var alpha = numeric.add( u, numeric.mul(t, L) );
+    alpha = numeric.add( u, numeric.mul(t, L) );
+  }
 
   var snap_point = g_snapgrid.snapGrid( { x: alpha[0], y: alpha[1] } );
   trace_point.x = snap_point.x;
@@ -1238,6 +1245,8 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 {
   var clearance = 100;
 
+
+
   // clearance as last value (in deci-mils)
   //
   var tracks = this._make_tracks_from_points( virtual_trace, layer, 2*clearance );  // WIDTH, not radius
@@ -1277,6 +1286,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
     this._save_current_trace();
   }
 
+
   //var src_hit = this._choose_hit_element( hit_ele_src );
   //var dst_hit = this._choose_hit_element( hit_ele_dst );
 
@@ -1312,6 +1322,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 
     }
   }
+
 
   if (dst_hit)
   {
@@ -1402,7 +1413,9 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
     }
 
     virtual_trace = this._make_joint_trace( virtual_trace );
+
   } // if (dst_hit)
+
 
   this.netcode_dst = -1;
   this.ele_dst = null;
@@ -1416,7 +1429,9 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   //
   //var fin_tracks = this._make_tracks_from_points( virtual_trace, layer );
   var fin_tracks = this._make_tracks_from_points( virtual_trace, layer,  2*clearance );
+
   var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks, layer );
+
   if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
 
@@ -1476,6 +1491,7 @@ toolTrace.prototype.mouseMove = function( x, y )
 
   g_painter.dirty_flag = true;
 
+
   // If we haven't started, just return
   // We need to wait for a mouseDown (or
   // an escape)
@@ -1515,6 +1531,7 @@ toolTrace.prototype.mouseMove = function( x, y )
     }
 
   }
+
 
 }
 

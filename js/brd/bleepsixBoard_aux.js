@@ -571,10 +571,12 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
   if (tracks.length == 0) 
     return false;
 
+
   // first test for bounding box intersection
   //var hit_ele_list = this._find_possible_track_intersections( tracks, debug_flag );
 
   var hit_ele_list = this._find_possible_track_intersections( tracks, layer );
+
 
   if (debug_flag)
   {
@@ -606,6 +608,7 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
   //
 
   var pgns = this._build_non_net_polygons( 0, 0, hit_ele_list );
+
 
   if (debug_flag)
   {
@@ -673,8 +676,10 @@ bleepsixBoard.prototype.trackBoardIntersect = function( tracks, layer )
       this.debug_geom.push( this._pgn2pnt( intersect_geom[ind] ) );
   }
 
+
   if (ret_hit_ele.length > 0)
     return ret_hit_ele;
+
 
   return [];
 
