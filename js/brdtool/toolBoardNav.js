@@ -574,7 +574,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
-      this.mouseMove( wx, wy );
+      this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
     }
 
   }
@@ -602,7 +602,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
       //g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
 
-      this.mouseMove( wx, wy );
+      this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
     }
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
