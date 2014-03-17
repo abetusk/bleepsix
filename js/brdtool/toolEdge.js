@@ -130,6 +130,9 @@ toolEdge.prototype.drawOverlay = function()
                            this.cursorWidth ,
                            "rgb(128, 128, 128 )" );
 
+  var mouse_x = this.mouse_world_xy.x;
+  var mouse_y = this.mouse_world_xy.y;
+  g_board_controller.display_text = "x: " + mouse_x + ", y: " + mouse_y;
 
 }
 

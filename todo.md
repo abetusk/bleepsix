@@ -22,6 +22,7 @@
 * Figure out a way to get custom modules in easily.
 * Add via tool.
 * Shift auto placed parts so they don't stack on top of each other.
+* zone sometimes makes thin connections to thermal reliefs.
 * Move text for modules.
 * Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
