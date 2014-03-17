@@ -20,6 +20,8 @@
 ## Board
 
 * Figure out a way to get custom modules in easily.
+* Flip needs to go into opCommand and special consideration needs to be 
+  done for through hole parts
 * Add via tool.
 * Shift auto placed parts so they don't stack on top of each other.
 * zone sometimes makes thin connections to thermal reliefs.

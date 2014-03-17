@@ -372,6 +372,16 @@ bleepsixBoard.prototype.flip = function( id_ref , swap_layer0, swap_layer1 )
       new_bits |= (1<<swap_layer0);
     }
 
+    //DEBUG
+    /*
+    console.log(">>>>>> FLIP", bits.toString(16), "-->", new_bits.toString(16) );
+    console.log( swap_layer0, swap_layer1 );
+    console.log( swap_layer0, swap_layer1 );
+    var x = 1<<swap_layer0;
+    var y = 1<<swap_layer1;
+    console.log( x.toString(16), y.toString(16) );
+    */
+
     ref.pad[p_ind].layer_mask = new_bits.toString(16);
 
   }
