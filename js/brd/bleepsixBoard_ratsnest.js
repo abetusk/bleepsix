@@ -941,8 +941,6 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
   if (typeof netcode !== 'undefined')
   {
 
-    console.log(">> CPA");
-
     if (!("net_code_airwire_map" in this.kicad_brd_json))
       this.kicad_brd_json.net_code_airwire_map = {};
 
@@ -983,8 +981,6 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
 
     return;
   }
-
-  console.log(">>> CPB");
 
   this.kicad_brd_json.net_code_airwire_map = {};
   for (var nc in this.kicad_brd_json.net_code_map)
