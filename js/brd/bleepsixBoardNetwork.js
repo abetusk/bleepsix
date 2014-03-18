@@ -83,7 +83,7 @@ function bleepsixBoardNetwork( serverURL )
 
   var p = this;
   this.socket.on('connect', 
-      function() { console.log("connect!"); p.init();  });
+      function() { /* console.log("connect!"); */ p.init();  });
   this.socket.on('connect_error', 
       function(x,y) { console.log("connect_error?"); console.log(x); console.log(y); });
   this.socket.on('connect_timeout', 

@@ -174,7 +174,7 @@ toolBoardMove.prototype.drawOverlay = function()
 toolBoardMove.prototype.mouseDown = function( button, x, y )
 {
 
-  console.log("toolBoardMove.mouseDown");
+  //console.log("toolBoardMove.mouseDown");
 
   /*
   if (button == 1)
@@ -195,7 +195,7 @@ toolBoardMove.prototype.mouseDown = function( button, x, y )
 
 toolBoardMove.prototype.doubleClick = function( button, x, y )
 {
-  console.log("toolBoardMove.doubleClick");
+  //console.log("toolBoardMove.doubleClick");
 
   var world_coord = g_painter.devToWorld( x, y );
   var id_ref =  g_board_controller.board.pick( world_coord["x"], world_coord["y"] );
@@ -263,15 +263,15 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         rotateCount : this.rotateCount,
         cx : com.x, cy: com.y };
 
-        console.log("rotateCount: " + this.rotateCount);
+        //console.log("rotateCount: " + this.rotateCount);
 
         for (var ind in this.selectedElement)
         {
           op.id.push( this.selectedElement[ind].id );
         }
 
-        console.log("MOVING GROUP>>>>>>");
-        console.log(op);
+        //console.log("MOVING GROUP>>>>>>");
+        //console.log(op);
 
         g_board_controller.opCommand( op );
 
@@ -475,8 +475,8 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     this.rotateCount = (this.rotateCount+drot)%4;
 
     com = g_board_controller.board.centerOfMass( this.base_element_state );
-    console.log("com:");
-    console.log(com);
+    //console.log("com:");
+    //console.log(com);
 
     // be careful, this might lead to 'drift' as we rotate things around
     //
@@ -514,7 +514,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   else if ( ch == 'Z' )
   {
 
-    console.log("zone!");
+    //console.log("zone!");
 
     for (var i in this.selectedElement )
     {
@@ -580,13 +580,13 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         for (var j in this.origElements)
         {
           this.origElements[j].ref.hideFlag = false;
-          console.log("unhiding? " + j + " " + this.origElements[j].ref.hideFlag );
+          //console.log("unhiding? " + j + " " + this.origElements[j].ref.hideFlag );
 
           //var r = g_board_controller.board.refLookup( this.origElements[j].id );
           //r.hideFlag = false;
         }
 
-        console.log("filling czone, handing back to toolBoardNav");
+        //console.log("filling czone, handing back to toolBoardNav");
         g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
         g_painter.dirty_flag = true;
 

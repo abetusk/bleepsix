@@ -29,7 +29,7 @@ function toolBoardZone( x, y, initialPlaceFlag )
   y = ((typeof y !== 'undefined') ? y : 0 );
   initialPlaceFlag = ((typeof initialPlaceFlag !== 'undefined') ? initialPlaceFlag : true );
 
-  console.log("toolBoardZone");
+  //console.log("toolBoardZone");
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
@@ -177,7 +177,7 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
       brd_nc = this.netcode;
 
 //DEBUG
-console.log(">>>> sending zone netcode: ", brd_nc );
+//console.log(">>>> sending zone netcode: ", brd_nc );
 
       var op = { source : "brd", destination: "brd" };
       op.action = "add";
@@ -322,24 +322,24 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'Z')
   {
-    console.log("Z!");
+    //console.log("Z!");
 
     this._setNextNetcode();
 
     //console.log("netcode now : " + this.netcode + " " + this.netname );
-    console.log(">>> netcode now (sch) : " + this.netcode );
+    //console.log(">>> netcode now (sch) : " + this.netcode );
 
   }
 
 
   else if (ch == 'A')
   {
-    console.log("A.");
+    //console.log("A.");
 
     this._setPrevNetcode();
 
     //console.log("netcode now : " + this.netcode + " " + this.netname );
-    console.log(">>> netcode now : " + this.netcode );
+    //console.log(">>> netcode now : " + this.netcode );
 
   }
 

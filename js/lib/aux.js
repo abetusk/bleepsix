@@ -46,7 +46,7 @@ var g_component_location_ready = false;
 function load_footprint_location( footprint_location_json )
 {
 
-  console.log("load_footprint_location");
+  //console.log("load_footprint_location");
 
   $.ajaxSetup({ cache : false });
   $.getJSON( footprint_location_json,
@@ -54,8 +54,8 @@ function load_footprint_location( footprint_location_json )
       g_footprint_location = data;
       g_footprint_location_ready = true;
 
-     console.log("module location data loaded:");
-     console.log(g_footprint_location);
+     //console.log("module location data loaded:");
+     //console.log(g_footprint_location);
 
     }
   ).fail(
@@ -68,7 +68,7 @@ function load_footprint_location( footprint_location_json )
 function load_footprint_cache_part( name, location )
 {
 
-  console.log("load_footprint_cache_part: " + name + ", " + location);
+  //console.log("load_footprint_cache_part: " + name + ", " + location);
 
   if ( !(name in g_footprint_cache) )
   {
@@ -78,7 +78,7 @@ function load_footprint_cache_part( name, location )
     part_json = location;
     var brd = g_board_controller.board;
 
-    console.log("load_footprint_cache_part: footprint " + name + " " + location );
+    //console.log("load_footprint_cache_part: footprint " + name + " " + location );
 
     $.ajaxSetup({ cache : false });
     $.getJSON( part_json,
@@ -100,7 +100,7 @@ function load_footprint_cache_part( name, location )
   }
   else 
   {
-    console.log(" load_footprint_cache_part: " + name + " already loaded");
+    //console.log(" load_footprint_cache_part: " + name + " already loaded");
   }
 }
 

@@ -44,7 +44,7 @@ function bleepsixBoard()
 
   this.kicad_brd_json = { "element":[] , "units" : "deci-mils" };
 
-  console.log("STARTING:", this.kicad_brd_json );
+  //console.log("STARTING:", this.kicad_brd_json );
 
   this.displayable = true;
 

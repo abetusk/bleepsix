@@ -229,7 +229,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   if ( (msg.action == "add") && ((msg.type == "footprint") || (msg.type == "footprintData")) )
   {
-    console.log("\n\nbleepsixBoardController.opCommand add footprint ---> brd");
+    //console.log("\n\nbleepsixBoardController.opCommand add footprint ---> brd");
 
     var ucomp = this.schematic.makeUnknownComponent();
 
@@ -254,14 +254,14 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.data = { componentData: ucomp, x: 0, y: 0 };
     schop.id = msg.id;
 
-    console.log("board opCommand, schop:");
-    console.log(schop);
+    //console.log("board opCommand, schop:");
+    //console.log(schop);
 
     this.op.opCommand( schop );
 
     if ( g_brdnetwork && (msg.scope == "network") )
     {
-      console.log("board opCommand, sending schop over the network");
+      //console.log("board opCommand, sending schop over the network");
       g_brdnetwork.projectop( schop );
     }
 
@@ -274,7 +274,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   if ( (msg.action == "delete") && (msg.type == "group"))
   {
-    console.log("\n\nbleepsixBoardController.opCommand delete group ---> brd");
+    //console.log("\n\nbleepsixBoardController.opCommand delete group ---> brd");
 
     var schop = { source: "brd", destination: "sch" };
     schop.scope = msg.scope;
@@ -292,8 +292,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     }
 
 
-    console.log("board opCommand, schop:");
-    console.log(schop);
+    //console.log("board opCommand, schop:");
+    //console.log(schop);
 
     this.op.opCommand( schop );
 
@@ -808,7 +808,7 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   var controller = this;
 
   $(canvas_id).focus( function(ev) {
-    console.log('focus');
+    //console.log('focus');
     //console.log(ev);
   });
 

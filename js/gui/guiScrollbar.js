@@ -36,7 +36,7 @@ function guiScrollbar( gui_name )
 
   this.bar_position = 0;
 
-  console.log("scrollbar: " + w + " " + h );
+  //console.log("scrollbar: " + w + " " + h );
 
   this.ready = false;
 

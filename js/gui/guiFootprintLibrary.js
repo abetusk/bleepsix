@@ -85,7 +85,7 @@ function guiFootprintLibrary( name )
 
   g_painter.dirty_flag = true;
 
-  console.log("guiFootprintLibrary loaded");
+  //console.log("guiFootprintLibrary loaded");
 
 }
 

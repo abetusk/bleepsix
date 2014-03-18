@@ -29,7 +29,7 @@ function toolBoardNav( x, y )
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
 
-  console.log("toolBoardNav");
+  //console.log("toolBoardNav");
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -403,7 +403,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
 
     //DEBUG
-    console.log("FLIP");
+    //console.log("FLIP");
 
     var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
     if (id_ref_ar.length > 0)
@@ -416,12 +416,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         {
 
           //DEBUG
-          console.log("FOUND!!");
+          //console.log("FOUND!!");
 
           var src_layer = g_board_controller.guiLayer.getActiveLayer();
           var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
 
-          console.log(src_layer, dst_layer);
+          //console.log(src_layer, dst_layer);
 
           // IN DEVELOPMENT
           //STILL NEEDS WORK!
@@ -480,6 +480,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'B')
   {
+    /*
     console.log(" 'B' edge shape...");
 
     //g_board_controller.tool = new toolEdgeShape(x, y, "rect", true );
@@ -487,13 +488,14 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.tool = new toolEdgeShape(x, y, "inroundedRect", true );
 
     g_board_controller.board.unhighlightNet();
+    */
 
 
   }
 
   else if (ch == 'Z')
   {
-    console.log("zone...");
+    //console.log("zone...");
 
     g_board_controller.tool = new toolBoardZone(x, y);
 
@@ -503,7 +505,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'J')
   {
 
-    console.log("J " + wx + " " + wy );
+    //console.log("J " + wx + " " + wy );
 
     //g_board_controller.board.addConnection( wx, wy );
     //g_painter.dirty_flag = true;
@@ -511,7 +513,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'X')
   {
 
-    console.log("X " + wx + " " + wy );
+    //console.log("X " + wx + " " + wy );
 
     g_board_controller.tool = new toolTrace(x, y, [0, 15], true);
 
@@ -520,7 +522,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'V')
   {
-    console.log("V ");
+    //console.log("V ");
     g_board_controller.guiLayer.toggleLayer();
     g_painter.dirty_flag = true;
   }
@@ -581,13 +583,13 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'Y')
   {
 
-    console.log("Y");
+    //console.log("Y");
 
     var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
     {
-      console.log("y pick (15deg rot), got:");
-      console.log(id_ref);
+      //console.log("y pick (15deg rot), got:");
+      //console.log(id_ref);
 
       var ang_rad =  15 * Math.PI / 180;
       var x = id_ref.ref.x;
@@ -612,7 +614,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if ( ch == 'U' )
   {
-    console.log("adding 'unknown' part");
+    //console.log("adding 'unknown' part");
 
     var k = g_board_controller.board.makeUnknownModule( );
 
@@ -716,12 +718,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'D')
   {
-    console.log("(D)elete: wxy: " + wx + " " + wy );
+    //console.log("(D)elete: wxy: " + wx + " " + wy );
 
     var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
 
-    console.log("got:");
-    console.log(id_ref_ar);
+    //console.log("got:");
+    //console.log(id_ref_ar);
 
     if (id_ref_ar.length > 0)
     {
@@ -768,18 +770,20 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
 
       // TESTING
-      console.log("toolBoardNav.keyDown: testing netsplit");
+      //console.log("toolBoardNav.keyDown: testing netsplit");
 
       var ref = id_ref_ar[ind].ref;
 
+      /*
       console.log(" trying to split net, netcode: " + ref.netcode + ", layer: " + ref.layer +
                   "x0: " + ref.x0 + ", y0: " + ref.y0 + ", " +
                   "x1: " + ref.x1 + ", y1: " + ref.y1 );
+                  */
 
       g_board_controller.board.splitNet( ref.netcode );
 
 
-      console.log("toolBoardNav.keyDown: testing netsplit done...");
+      //console.log("toolBoardNav.keyDown: testing netsplit done...");
       // TESTING
 
 
@@ -832,7 +836,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'M')
   {
-    console.log("move...\n");
+    //console.log("move...\n");
   }
 
   if (keycode == '32') return false;
@@ -841,7 +845,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
 toolBoardNav.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolBoardNav keyUp: " + keycode + " " + ch );
+  //console.log("toolBoardNav keyUp: " + keycode + " " + ch );
 }
 
 

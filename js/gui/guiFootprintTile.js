@@ -59,7 +59,7 @@ function guiFootprintTile( gui_name, footprint_name )
 
   this.once = false;
 
-  console.log("guiFootprintTile loaded");
+  //console.log("guiFootprintTile loaded");
 
 }
 

@@ -471,11 +471,11 @@ bleepsixBoard.prototype.fillCZone = function( czone )
         // it from the zone removal depending on the thermal relief option
         // ( to be iplemented, testing thermal relief default now )
         //
-        //if (parseInt(pad.net_number) == netcode)
         if ( this._net_equal( pad.net_number, netcode ) )
         {
 
           // skip it if it's not on this layer
+          //
           if ( (parseInt(pad.layer_mask, 16) & (1<<layer)) == 0 )
             continue;
 
@@ -646,6 +646,16 @@ bleepsixBoard.prototype.fillCZone = function( czone )
 
     for ( var j in thermal_pgns)
     {
+
+      //EXPERIMENTAL
+      //
+      // I'm finding the thermal relief is sometimes very loosely connected
+      // to the zone.  The intersection is not enough.  I think it suffices
+      // to make sure two of the four points in the thermal polygon fall within
+      // the zone.  I'll do this the brute force way of creating a tiny triangle
+      // around each of the endpoints of the thermal relief rectangle, testing
+      // for intersection and counting the number of hits.
+      /*
       if ( this._pgn_intersect_test( f_zone_pwh_vec[i], [ thermal_pgns[j] ] ) )
       {
         intersects = true;
@@ -654,6 +664,32 @@ bleepsixBoard.prototype.fillCZone = function( czone )
       else
       {
       }
+      */
+
+      var hit_count=0;
+      for ( var k in thermal_pgns[j] )
+      {
+        var x = thermal_pgns[j][k].X;
+        var y = thermal_pgns[j][k].Y;
+
+        // CCW
+        //
+        var tiny_rect = [ { X: x-1, Y: y-1 }, { X: x+1, Y: y-1 }, { X:x+1, Y: y+1}, {X:x-1, Y:y+1}  ];
+
+        if ( this._pgn_intersect_test( f_zone_pwh_vec[i], [ tiny_rect ] ) )
+          hit_count++;
+      }
+
+      if (hit_count>1)
+      {
+        intersects = true;
+        thermal_idx.push(j);
+      }
+
+      //
+      //EXPERIMENTAL
+
+
     }
 
     var t_union = f_zone_pwh_vec[i];
@@ -747,7 +783,7 @@ bleepsixBoard.prototype.setupBGL = function(data)
   //console.log(this.bgl_grammar);
 
   this.parserBGL = PEG.buildParser( this.bgl_grammar );
-  console.log("built BGL grammar");
+  //console.log("built BGL grammar");
 }
 
 bleepsixBoard.prototype.initBGL = function()
@@ -758,7 +794,10 @@ bleepsixBoard.prototype.initBGL = function()
 
   $.ajax( {
     url : "data/bgl.peg",
-    success : function(data) { console.log("got bgl grammar successfully"); foo.setupBGL(data);  }
+    success : function(data) { 
+      //console.log("got bgl grammar successfully"); 
+      foo.setupBGL(data);  
+    }
   } );
 
 }
