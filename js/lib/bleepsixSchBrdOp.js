@@ -389,6 +389,9 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
         this.board.refUpdate( id[ind], data.oldElement[ind].id );
       }
 
+      //var sch_pin_id_net_map = this.schematic.getPinNetMap();
+      //this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
+
     }
     else
     {
@@ -409,6 +412,10 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
         this.board.refUpdate( data.oldElement[ind].id, id[ind] );
 
       }
+
+      //var sch_pin_id_net_map = this.schematic.getPinNetMap();
+      //this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
+
 
     }
 

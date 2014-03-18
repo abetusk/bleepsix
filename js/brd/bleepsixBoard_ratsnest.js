@@ -803,6 +803,13 @@ function distance_metric(a,b)
 // Not specifying netcode will update all netcodes
 // Updates this.kicad_brd_json.net_code_airwire_map
 //
+// Jitter is added to compensate for weirdness in the EuclideanMST.  I think what's
+// going on is that if points are colinera, the Delaunay triangulation screws up
+// and drops some of the points.  By adding a small jitter (a random amount in [0,1])
+// this makes it very unlikely that points are colinear and has all of them evaluated.
+// If points are dropped, some line segments become longer than they would had the points
+// not been dropped.  This creates airwire artifacts on some traces, for example.
+// 
 bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_array, sch_net_code_map )
 {
   // anything below this and it'll probably just bog down too much.
@@ -811,8 +818,9 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
   //if (ds <=  0) ds = 100;
 
   ds = ( (typeof ds === 'undefined') ? 500 : ds );
-  if (ds <=  0) ds = 500;
+  if (ds <=  0) ds = 200;
 
+  var jitter_x = 0, jittery_y = 0;
 
   var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array, sch_net_code_map );
 
@@ -841,7 +849,12 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 
       var u = numeric.dot( this._R( ma ), [ px, py ] );
 
-      verts.push( [ cx + u[0], cy + u[1] ] );
+      jitter_x = Math.random();
+      jitter_y = Math.random();
+
+      //verts.push( [ cx + u[0], cy + u[1] ] );
+      verts.push( [ cx + u[0] + jitter_x, cy + u[1] + jitter_y ] );
+
     }
     else if (type == "track")
     {
@@ -854,7 +867,11 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 
         var x1 = parseFloat(ref.x1);
         var y1 = parseFloat(ref.y1);
-        verts.push( [ x1, y1 ] );
+
+        //verts.push( [ x1, y1 ] );
+        jitter_x = Math.random();
+        jitter_y = Math.random();
+        verts.push( [ x1 + jitter_x, y1 + jitter_y ] );
 
         var dx = x1 - x0;
         var dy = y1 - y0;
@@ -863,7 +880,14 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
         if (dl == 0) continue;
 
         for (var dt=ds; dt < dl; dt += ds)
-          verts.push( [ x0 + (dx*dt/dl), y0 + (dy*dt/dl) ] );
+        {
+          //verts.push( [ x0 + (dx*dt/dl), y0 + (dy*dt/dl) ] );
+          jitter_x = Math.random();
+          jitter_y = Math.random();
+          verts.push( [ x0 + (dx*dt/dl) + jitter_x, y0 + (dy*dt/dl) + jitter_y ] );
+
+
+        }
 
       }
     }
@@ -885,14 +909,21 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
   //console.log(edges);
 
 
-  var min_seg_len_sq = (ds+1)*(ds+1);
+  //var min_seg_len_sq = (ds+1)*(ds+1);
+  var min_seg_len_sq = (ds+5)*(ds+5);
 
   var filtered_edge = [];
   for (var ind in edges)
   {
+
     var u =  edges[ind][0];
     var v =  edges[ind][1];
-    var seg = { x0 : verts[u][0], y0 : verts[u][1], x1 : verts[v][0], y1 : verts[v][1] };
+    var seg = { 
+      //x0 : verts[u][0], y0 : verts[u][1], 
+      //x1 : verts[v][0], y1 : verts[v][1]
+      x0 : verts[u][0] + Math.random(), y0 : verts[u][1] + Math.random(), 
+      x1 : verts[v][0] + Math.random(), y1 : verts[v][1] + Math.random()
+      };
 
     var l2 = (seg.x0 - seg.x1)*(seg.x0 - seg.x1) + (seg.y0 - seg.y1)*(seg.y0 - seg.y1);
     if (l2 <= min_seg_len_sq)
@@ -906,11 +937,41 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_net_code_map )
 {
 
+
   if (typeof netcode !== 'undefined')
   {
 
+    console.log(">> CPA");
+
     if (!("net_code_airwire_map" in this.kicad_brd_json))
       this.kicad_brd_json.net_code_airwire_map = {};
+
+    //EXPERIMENTAL
+    //
+    // Board nets might have been split (but still be connected via a schematic net) 
+    // in which case we need to remove elements from the airwire map that are of
+    // the same schematic net.  This operation is much cheaper than doing a board
+    // wide recalculation.
+    //
+    else
+    {
+
+      var btosm0 = this.kicad_brd_json.brd_to_sch_net_map[netcode];
+      var awp = this.kicad_brd_json.net_code_airwire_map;
+      for (var nc_awp in awp)
+      {
+        var btosm1 = this.kicad_brd_json.brd_to_sch_net_map[nc_awp];
+        for (var ii in btosm0)
+          for (var jj in btosm1)
+            if (btosm0[ii] == btosm1[jj])
+              awp[ nc_awp ] = [];
+
+      }
+    }
+    //
+    //EXPERIMENTAL
+
+
 
     this.kicad_brd_json.net_code_airwire_map[netcode] = [];
     this._update_single_ratsnest( netcode, undefined, id_ref_array, sch_net_code_map );
@@ -922,6 +983,8 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
 
     return;
   }
+
+  console.log(">>> CPB");
 
   this.kicad_brd_json.net_code_airwire_map = {};
   for (var nc in this.kicad_brd_json.net_code_map)
