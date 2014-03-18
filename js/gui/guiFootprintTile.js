@@ -26,7 +26,7 @@ function guiFootprintTile( gui_name, footprint_name )
 {
   this.constructor ( gui_name )   
   this.footprint_name = footprint_name;
-  this.bgColor = "rgba(100, 10, 10, 0.5)";
+  this.bgColor = "rgba(10, 10, 10, 0.5)";
 
   this.fudge = 30;
 
@@ -53,7 +53,9 @@ function guiFootprintTile( gui_name, footprint_name )
 
   // debugging...
   this.uniq = parseInt(256.0*Math.random());
-  this.bgColor = "rgba(" + this.uniq + ",0,0," + "0.2)";
+  //this.bgColor = "rgba(" + this.uniq + ",0,0," + "0.2)";
+
+  this.bgColor = "rgba(0,0,0," + "0.2)";
 
   this.guiPickCallback = null;
 
