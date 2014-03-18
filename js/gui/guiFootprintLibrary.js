@@ -122,11 +122,11 @@ guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
 
 guiFootprintLibrary.prototype.listPick = function(list_ele)
 {
-  console.log("guiFootprintLibrary.listPick");
+  //console.log("guiFootprintLibrary.listPick");
 
   if (list_ele.type == "element")
   {
-    console.log("guiFootprintLibrary.listPick: loading part " + list_ele.data+ " into cache ");
+    //console.log("guiFootprintLibrary.listPick: loading part " + list_ele.data+ " into cache ");
 
     load_footprint_cache_part( list_ele.name, list_ele.data );
     this.guiChildren[1].footprint_name = list_ele.name;
@@ -138,16 +138,16 @@ guiFootprintLibrary.prototype.listPick = function(list_ele)
 
 guiFootprintLibrary.prototype.tilePick = function(tile_ele)
 {
-  console.log("guiFootprintLibrary.tilePick");
+  //console.log("guiFootprintLibrary.tilePick");
 
-  console.log("tilePick");
-  console.log(tile_ele);
+  //console.log("tilePick");
+  //console.log(tile_ele);
 }
 
 guiFootprintLibrary.prototype.load_library = function(data)
 {
-  console.log("got data for " + this.myname )
-  console.log(data);
+  //console.log("got data for " + this.myname )
+  //console.log(data);
 }
 
 guiFootprintLibrary.prototype.load_library_error = function(jqxr, textStatus, error)
@@ -170,7 +170,7 @@ guiFootprintLibrary.prototype.hitTest = function(x, y)
 
 guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
 {
-  console.log("guiFootprintLibrary.mouseDown");
+  //console.log("guiFootprintLibrary.mouseDown");
 
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
 
@@ -180,7 +180,7 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
 
     if (r)
     {
-      console.log("guiFootprintLibrary: got tile hit " + this.guiChildren[1].footprint_name );
+      //console.log("guiFootprintLibrary: got tile hit " + this.guiChildren[1].footprint_name );
       g_board_controller.tool = new toolFootprintPlace( x, y, this.guiChildren[1].footprint_name );
       return true;
     }
@@ -195,7 +195,7 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
        (0 <= u[1]) && (u[1] <= this.height) )
   {
-    console.log( "guiFootprintLibrary: hit\n");
+    //console.log( "guiFootprintLibrary: hit\n");
     return true;
   }
 
@@ -205,7 +205,7 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
 
 guiFootprintLibrary.prototype.mouseWheel = function(delta)
 {
-  console.log("guiFootprintLibrary.mouseWheel delta " + delta);
+  //console.log("guiFootprintLibrary.mouseWheel delta " + delta);
 
   /*
   this.indexStart += delta;
