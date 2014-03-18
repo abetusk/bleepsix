@@ -909,7 +909,8 @@ bleepsixRender.prototype.line = function(x0, y0, x1, y1, color, line_width )
   ctx.stroke();
 }
 
-bleepsixRender.prototype.drawGradientLine = function(x0, y0, x1, y1, line_width, end_color, mid_color, pos )
+/*
+bleepsixRender.prototype.drawGradientLine_old = function(x0, y0, x1, y1, line_width, end_color, mid_color, pos )
 {
   var ctx = this.context;
   color      = ( typeof color      !== 'undefined' ? color      : this.default_stroke_color );
@@ -925,6 +926,44 @@ bleepsixRender.prototype.drawGradientLine = function(x0, y0, x1, y1, line_width,
   grad.addColorStop(pos, mid_color);
   grad.addColorStop(1-pos, mid_color);
   grad.addColorStop(0.5, end_color);
+
+  ctx.strokeStyle = grad;
+  ctx.lineCap = "round";
+
+  ctx.beginPath();
+  ctx.moveTo(x0, y0);
+  ctx.lineTo(x1, y1);
+  ctx.lineJoin = "round";
+  ctx.stroke();
+}
+*/
+
+bleepsixRender.prototype.drawGradientLine = function(x0, y0, x1, y1, 
+    line_width, end_color, mid_color, pos, gx0, gy0, gx1, gy1 )
+{
+  var ctx = this.context;
+  color      = ( typeof color      !== 'undefined' ? color      : this.default_stroke_color );
+  line_width = ( typeof line_width !== 'undefined' ? line_width : this.default_line_width  );
+
+  gx0 = ( typeof gx0 !== 'undefined' ? gx0 : x0 );
+  gy0 = ( typeof gy0 !== 'undefined' ? gy0 : y0 );
+  gx1 = ( typeof gx1 !== 'undefined' ? gx1 : x1 );
+  gy1 = ( typeof gy1 !== 'undefined' ? gy1 : y1 );
+
+  //ctx.lineWidth = ( (line_width > 0) ? line_width : this.default_line_width );
+  //ctx.strokeStyle = ( (color) ? color : this.default_stroke_color );
+  ctx.lineWidth = line_width;
+
+  //var grad = ctx.createLinearGradient(x0, y0, x1, y1);
+  var grad = ctx.createLinearGradient(gx0, gy0, gx1, gy1);
+  grad.addColorStop(0, end_color);
+  grad.addColorStop(1, end_color);
+  grad.addColorStop(pos, mid_color);
+
+  /*
+  grad.addColorStop(1-pos, mid_color);
+  grad.addColorStop(0.5, end_color);
+  */
 
   ctx.strokeStyle = grad;
   ctx.lineCap = "round";

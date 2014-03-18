@@ -3023,7 +3023,8 @@ bleepsixBoard.prototype.drawBoard = function()
                                           30,
                                           "rgba(255,255,255,0.6)",
                                           "rgba(255,255,255,0.8)",
-                                          this.draw_ratsnest_shimmer_p );
+                                          this.draw_ratsnest_shimmer_p,
+                 -10000, -10000, 10000, 10000 );
 
         }
         else
