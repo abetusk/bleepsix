@@ -360,6 +360,15 @@ bleepsixBoard.prototype.flip = function( id_ref , swap_layer0, swap_layer1 )
     var bits = parseInt(layer_mask, 16);
     var new_bits = bits;
 
+    // zero out both position
+    new_bits &= (~ ( (1<<swap_layer0) | (1<<swap_layer1) ) );
+    if (bits & (1 << swap_layer0))
+      new_bits |= (1 << swap_layer1);
+    if (bits & (1 << swap_layer1))
+      new_bits |= (1 << swap_layer0); 
+
+
+    /*
     if (bits & (1<<swap_layer0))
     {
       new_bits &= (~(1<<swap_layer0));
@@ -371,6 +380,7 @@ bleepsixBoard.prototype.flip = function( id_ref , swap_layer0, swap_layer1 )
       new_bits &= (~(1<<swap_layer1));
       new_bits |= (1<<swap_layer0);
     }
+    */
 
     //DEBUG
     /*
