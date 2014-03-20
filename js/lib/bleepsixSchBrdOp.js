@@ -296,10 +296,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     var dst = data.destinationLayer;
 
     var ref = this.board.refLookup( id );
-    this.board.flip( { id: id, ref: ref } , dst);
-
-
-    //this.board.foo();
+    this.board.flip( { id: id, ref: ref } , src, dst);
   }
 
   else if (type == "fillczone")

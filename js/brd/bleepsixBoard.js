@@ -475,10 +475,11 @@ bleepsixBoard.prototype.moduleFlipY = function ( id_ref )
   var id = id_ref.id;
   var ref = id_ref.ref;
 
+  /*
   console.log(id_ref, id, ref );
-
   console.log(ref);
   console.log(ref.text);
+  */
 
   for (var ind in ref.text)
   {

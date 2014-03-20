@@ -426,19 +426,18 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           // IN DEVELOPMENT
           //STILL NEEDS WORK!
 
-          g_board_controller.board.flip( id_ref_ar[ind], src_layer, dst_layer );
-
-          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
-          g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
-          break;
+          //g_board_controller.board.flip( id_ref_ar[ind], src_layer, dst_layer );
+          //break;
 
           var op = { source: "brd", destination: "brd" };
           op.action = "update";
           op.type = "flip";
-          op.id = id_ref.id;
-          op.data = { sourceLayer : 0, destinationLayer: 20 };
+          op.id = id_ref_ar[ind].id;
+          op.data = { sourceLayer : src_layer, destinationLayer: dst_layer};
           g_board_controller.opCommand( op );
+
+          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+          g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
         }
