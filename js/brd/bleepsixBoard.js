@@ -100,6 +100,8 @@ function bleepsixBoard()
   //this.flag_display_net_name = false;
   this.flag_display_net_name = true;
 
+  this.draw_id_text_flag = true;
+  //this.draw_id_text_flag = false;
 
   //this.flag_bounding_box_speedup = true;
   this.flag_bounding_box_speedup = false;
@@ -2513,6 +2515,12 @@ bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f0
 
   }
 
+  if (this.draw_id_text_flag)
+  {
+    var bb = data["bounding_box"];
+    g_painter.drawText( data.id, bb[1][0], bb[1][1], "rgba(255,255,255,0.3)", 50, 0.0, "L", "C" );
+  }
+
 }
 
 
@@ -2736,6 +2744,12 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele )
                       text_height,
                       ang, "C", "C" );
 
+  if (this.draw_id_text_flag)
+  {
+    var bb = ele["bounding_box"];
+    g_painter.drawText( ele.id, bb[1][0], bb[1][1], "rgba(255,255,255,0.3)", 50, 0.0, "L", "C" );
+  }
+
 
 }
 
@@ -2792,6 +2806,14 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
       this.drawBoundingBox( ele.bounding_box );
 
   }
+
+  if (this.draw_id_text_flag)
+  {
+    var bb = ele["bounding_box"];
+    g_painter.drawText( ele.id, bb[1][0], bb[1][1], "rgba(255,255,255,0.3)", 50, 0.0, "L", "C" );
+  }
+
+
 
 }
 
