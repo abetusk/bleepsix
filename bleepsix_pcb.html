@@ -12,27 +12,28 @@
     <!-- we don't want it pausing while loading if the server is down -->
     <script src='js/lib/socket.io.js'></script>
 
-	<script src='js/lib/union-find.js'></script>
-	<script src='js/lib/delaunay.js'></script>
-	<script src='js/lib/kruskal.js'></script>
-	<script src='js/lib/euclideanmst.js'></script>
+    <script src='js/lib/union-find.js'></script>
+    <script src='js/lib/delaunay.js'></script>
+    <script src='js/lib/kruskal.js'></script>
+    <script src='js/lib/euclideanmst.js'></script>
 
-	<script src='js/lib/peg.js'></script>
+    <script src='js/lib/peg.js'></script>
 
-	<script src='js/lib/jquery.js'></script>
+    <script src='js/lib/jquery.js'></script>
     <script src='js/lib/jquery.mousewheel.js'/></script>
     <script src='js/lib/jquery.capslockstate.js'/></script>
     <script src='js/lib/jquery.cookie.js'/></script>
     <script src='js/lib/jquery.getUrlParam.js'/></script>
 
     <script src='js/lib/numeric.js'></script>
-	<script src='js/lib/oop.js'></script>
+    <script src='js/lib/oop.js'></script>
 
-	<script src='js/lib/aux.js'></script>
-	<script src='js/lib/snapGrid.js'></script>
+    <script src='js/lib/aux.js'></script>
+    <script src='js/lib/snapGrid.js'></script>
 
     <script src='js/lib/clipper.js'></script>
     <script src='js/lib/bleepsixSchBrdOp.js'></script>
+    <script src='js/lib/bleepsixTabCommunication.js'></script>
 
     <script src='js/core/bleepsixRender.js'></script>
 
@@ -52,7 +53,7 @@
     <script src='js/sch/bleepsixSchematic_net.js'></script>
 
 
-	<script src='js/gui/guiRegion.js'></script>
+    <script src='js/gui/guiRegion.js'></script>
 
     <script src='js/gui/guiFootprintTile.js'></script>
     <script src='js/gui/guiList.js'></script>
@@ -70,16 +71,16 @@
     <script src='js/gui/guiBoardLayer.js'></script>
     <script src='js/gui/guiLayer.js'></script>
 
-	<script src='js/tool/toolScrollbar.js'></script>
+    <script src='js/tool/toolScrollbar.js'></script>
 
-	<script src='js/brdtool/toolBoardNav.js'></script>
-	<script src='js/brdtool/toolTrace.js'></script>
-	<script src='js/brdtool/toolEdge.js'></script>
-	<script src='js/brdtool/toolEdgeShape.js'></script>
-	<script src='js/brdtool/toolFootprintPlace.js'></script>
-	<script src='js/brdtool/toolBoardMove.js'></script>
-	<script src='js/brdtool/toolBoardSelect.js'></script>
-	<script src='js/brdtool/toolBoardZone.js'></script>
+    <script src='js/brdtool/toolBoardNav.js'></script>
+    <script src='js/brdtool/toolTrace.js'></script>
+    <script src='js/brdtool/toolEdge.js'></script>
+    <script src='js/brdtool/toolEdgeShape.js'></script>
+    <script src='js/brdtool/toolFootprintPlace.js'></script>
+    <script src='js/brdtool/toolBoardMove.js'></script>
+    <script src='js/brdtool/toolBoardSelect.js'></script>
+    <script src='js/brdtool/toolBoardZone.js'></script>
 
     <script src='js/helperFunctions.js'></script>
 
@@ -251,23 +252,20 @@
         f.style.left = '900px';
 
 
+        // camera snapshot
+        //
         $( "#snapElement" ).hover(
         function() {
-          console.log("hoveron");
           g_board_controller.drawSnapArea = true;
           g_painter.dirty_flag = true;
-
         },
         function() {
-          console.log("hoveroff");
           g_board_controller.drawSnapArea = false;
           g_painter.dirty_flag = true;
-
         }
         );
 
 
-        //console.log("starting network");
         //g_brdnetwork = new bleepsixBoardNetwork();
         g_brdnetwork = new bleepsixBoardNetwork( "https://www.meowcad.com" );
 

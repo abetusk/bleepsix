@@ -304,6 +304,8 @@ bleepsixSchematic.prototype._net_extend_VE_from_endpoints = function( V, E )
         var key = this._net_make_key( p[0][0], p[0][1] );
 
         var data = { 
+          x : p[0][0],
+          y : p[0][1],
           type : "pin", 
           ref: ele, 
           parentId : ele.id,
@@ -322,7 +324,17 @@ bleepsixSchematic.prototype._net_extend_VE_from_endpoints = function( V, E )
 
     else if (type == "wireline")
     {
-      var data = { type: "wireline", ref: ele, id: ele.id, visited: false, net: 0 };
+      var data = { 
+        startx : ele.startx,
+        starty : ele.starty,
+        endx : ele.endx,
+        endy : ele.endy,
+        type: "wireline", 
+        ref: ele, 
+        id: ele.id, 
+        visited: false, 
+        net: 0 
+      };
       var key0 = this._net_make_key( ele.startx, ele.starty );
       var key1 = this._net_make_key( ele.endx, ele.endy );
       this._net_add_endpoint( endpoints, key0, data );
@@ -333,8 +345,16 @@ bleepsixSchematic.prototype._net_extend_VE_from_endpoints = function( V, E )
 
     else if (type == "connection")
     {
+      var data = { 
+        x : ele.x,
+        y : ele.y,
+        type:"connection", 
+        ref: ele, 
+        id: ele.id, 
+        visited:false, 
+        net: 0 
+      };
       var key = this._net_make_key( ele.x, ele.y );
-      var data = { type:"connection", ref: ele, id: ele.id, visited:false, net: 0 };
       this._net_add_endpoint( endpoints, key, data );
 
       V[ ele.id ] = data;
@@ -389,6 +409,161 @@ bleepsixSchematic.prototype._net_label_groups = function( V, E )
   }
 }
 
+// comp_id_pin_name is an array of <id>/<pin_name>
+// Make mappings for both component and component/pin for easy inclusion testing.
+// Then go through each element in our schematic and pick out the pins that 
+// should be highlighted.
+// TODO: highlight wirelines that connect to all component pins.
+//
+bleepsixSchematic.prototype.highlightNet = function( comp_id_pin_name )
+{
+  this.highlight_net = [];
+
+  var sch = this.kicad_sch_json.element;
+
+  var comp_id_lookup = {};
+  for (var ind in comp_id_pin_name )
+  {
+    var comp_id_ar = comp_id_pin_name[ind].split('/');
+    comp_id_lookup[comp_id_ar[0]] = { 
+      id : comp_id_ar[0],
+      pin : comp_id_ar[1]
+    };
+  }
+
+  var comp_pin_id_lookup = {};
+  for (var ind in comp_id_pin_name )
+  {
+    comp_pin_id_lookup[ comp_id_pin_name[ind] ] = 1;
+  }
+
+
+  for (var ind=0; ind<sch.length; ind++)
+  {
+    var ele = sch[ind];
+    var type = ele.type;
+
+    if (!(ele.id in comp_id_lookup))
+      continue;
+
+    if (type == "component")
+    {
+
+      var comp = this._lookup_comp( ele.name );
+      if (!comp) continue;
+      if (comp.name == "unknown") continue;
+
+      for (var p_ind in comp.pin)
+      {
+        var x = ele.id + "/" +  comp.pin[p_ind].number.toString();
+        if (x in comp_pin_id_lookup)
+        {
+          var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
+          this.highlight_net.push({ x : p[0][0], y : p[0][1], size : 50, type : "box" });
+          this.highlight_net_flag = true;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+bleepsixSchematic.prototype.highlightNet_old = function( sch_netcodes )
+//bleepsixSchematic.prototype.highlightNet = function( sch_netcodes )
+{
+  var sch = this.kicad_sch_json;
+  var elements = sch.element;
+  var endpoints = {};
+
+  // vertices are ids with custom data
+  // edges are indexed by ids, with an array pointing to the vertices
+  //   in the order of the indexes
+  //
+  var V = {};
+  var E = {};
+
+  this._net_extend_VE_from_conn_wires( V, E );
+  this._net_extend_VE_from_endpoints( V, E );
+  this._net_extend_VE_from_labels( V, E );
+
+  this._net_label_groups(V, E);
+
+  var map = {};
+  for (var ind in sch_netcodes)
+  {
+    map[ parseInt(sch_netcodes[ind]) ] = 1;
+  }
+
+  this.highlight_net = [];
+  this.highlight_net_flag = true;
+
+  var groupToSchNetMap = {};
+  for (var v in V)
+  {
+    var id = V[v].id;
+    var nc = V[v].net;
+    var ref = V[v].ref;
+    var type = V[v].type;
+
+    if (type == "wireline")
+    {
+    }
+    else if (type == "pin")
+    {
+      var parent_id = ref.id;
+      var pin_number = V[v].pin_number;
+
+      //if (!("pin" in ref)) ref.pin = {}
+      //ref.pin[ pin_number ]. 
+    }
+
+  }
+
+  for (var v in V)
+  {
+    var nc = V[v].net;
+    var type = V[v].type;
+
+    if ( parseInt(nc) in map )
+    {
+
+      if (type == "wireline")
+      {
+        this.highlight_net.push({ 
+          x0 : V[v].startx, y0 : V[v].starty,
+          x1 : V[v].endx, y1 : V[v].endy,
+          size : 50 , type : "rect" 
+        });
+      }
+      else if (type == "pin")
+      {
+        this.highlight_net.push({ x : V[v].x, y : V[v].y, size : 50, type : "box" });
+      }
+
+    }
+
+  }
+
+  // DEBUG
+  //console.log(">>>> HIGHLIGHT NET");
+  //console.log( this.highlight_net );
+
+}
+
+
+bleepsixSchematic.prototype.unhighlightNet = function( )
+{
+  this.highlight_net_flag = false;
+
+  // DEBUG
+  //console.log(">>>> UNHIGHLIGHT NET");
+  //console.log( this.highlight_net );
+
+
+}
+
 
 bleepsixSchematic.prototype.constructNet = function()
 {
@@ -430,6 +605,21 @@ bleepsixSchematic.prototype.constructNet = function()
 
       var obj = { netcode : nc, pin : pin_number, id : parent_id }
       sch_pin_net_map[ id ] = obj;
+
+      if (!("pinData" in ref))
+        ref.pinData = {};
+
+      ref.pinData[ pin_number ] = { x : V[v].x, y: V[v].y, size : 50, type: "box", netcode: nc  };
+
+    }
+    else if (type == "wireline")
+    {
+      ref.data = { 
+          x0 : V[v].startx, y0 : V[v].starty,
+          x1 : V[v].endx,   y1 : V[v].endy,
+          size : 50 , type : "rect" ,
+          netcode: nc
+        };
     }
 
 

@@ -112,6 +112,13 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
 
 
           g_board_controller.board.unhighlightNet();
+
+          // EXPERIMENTAL
+          g_board_controller.unhighlightNet( );
+          // EXPERIMENTAL
+
+
+          
           g_painter.dirty_flag = true;
 
           return;
@@ -121,6 +128,12 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
       g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
 
       g_board_controller.board.unhighlightNet();
+
+      // EXPERIMENTAL
+      g_board_controller.unhighlightNet( );
+      // EXPERIMENTAL
+
+
       g_painter.dirty_flag = true;
 
       return;
@@ -233,13 +246,48 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
           var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
           var hi_netcodes = [];
+
           for (var i in sch_nets)
           {
             var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
             for (var j in map)
+            {
               hi_netcodes.push( map[j] );
+            }
           }
+
           g_board_controller.board.highlightNetCodes( hi_netcodes );
+
+          // EXPERIMENTAL
+
+          /*
+          var sch_hi_set = {};
+          var fin_sch_list = [];
+          for (var i in sch_nets) sch_hi_set[ sch_nets[i] ] = 1;
+          for (var key in sch_hi_set) fin_sch_list.push(key);
+          g_board_controller.highlightNetCodes( fin_sch_list );
+          */
+
+
+          g_board_controller.highlightSchematicNetsFromBoard( netcode );
+
+
+          // EXPERIMENTAL
+
+
+
+          /*
+          // EXPERIMENTAL
+          var sch_hi_set = {};
+          for (var i in sch_nets)
+          {
+            sch_hi_set[ sch_nets[i] ] = 1;
+          }
+
+          // just try list for now
+          g_board_controller.highlightNetCodes( sch_nets );
+          // EXPERIMENTAL
+          */
 
           highlightFound = true;
 
@@ -272,9 +320,31 @@ toolBoardNav.prototype.mouseMove = function( x, y )
         {
           var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
           for (var j in map)
+          {
             hi_netcodes.push( map[j] );
+          }
         }
         g_board_controller.board.highlightNetCodes( hi_netcodes );
+
+
+        // EXPERIMENTAL
+        /*
+        var sch_hi_set = {};
+        for (var i in sch_nets)
+          sch_hi_set[ sch_nets[i] ] = 1;
+
+        var fin_sch_list = [];
+        for (var key in sch_hi_set)
+          fin_sch_list.push(key);
+
+        //g_board_controller.highlightNetCodes( sch_nets );
+        g_board_controller.highlightNetCodes( fin_sch_list );
+        */
+
+        g_board_controller.highlightSchematicNetsFromBoard( netcode );
+
+        // EXPERIMENTAL
+
 
         highlightFound = true;
       }
@@ -284,6 +354,12 @@ toolBoardNav.prototype.mouseMove = function( x, y )
     else
     {
       g_board_controller.board.unhighlightNet();
+
+      // EXPERIMENTAL
+      g_board_controller.unhighlightNet();
+      // EXPERIMENTAL
+
+
     }
 
   }
@@ -291,6 +367,12 @@ toolBoardNav.prototype.mouseMove = function( x, y )
   if (!highlightFound)
   {
     g_board_controller.board.unhighlightNet();
+
+    // EXPERIMENTAL
+    g_board_controller.unhighlightNet();
+    // EXPERIMENTAL
+
+
   }
 
   g_painter.dirty_flag = true;
@@ -500,6 +582,13 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     g_board_controller.board.unhighlightNet();
 
+
+    // EXPERIMENTAL
+    g_board_controller.unhighlightNet( );
+    // EXPERIMENTAL
+
+
+
   }
   else if (ch == 'J')
   {
@@ -517,6 +606,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.tool = new toolTrace(x, y, [0, 15], true);
 
     g_board_controller.board.unhighlightNet();
+
+    // EXPERIMENTAL
+    g_board_controller.unhighlightNet( );
+    // EXPERIMENTAL
+
+
   }
 
   else if (ch == 'V')
@@ -537,6 +632,11 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       //g_board_controller.tool.addElement( ida );
 
       g_board_controller.board.unhighlightNet();
+
+      // EXPERIMENTAL
+      g_board_controller.unhighlightNet( );
+      // EXPERIMENTAL
+
 
       return true;
     }
@@ -627,6 +727,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     //g_board_controller.board.addFootprintData( k , 0, 0 );
 
     g_board_controller.board.unhighlightNet();
+
+    // EXPERIMENTAL
+    g_board_controller.unhighlightNet( );
+    // EXPERIMENTAL
+
+
   }
 
   else if ( ch == 'M')
@@ -751,6 +857,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   
           g_board_controller.board.unhighlightNet();
 
+          // EXPERIMENTAL
+          g_board_controller.unhighlightNet( );
+          // EXPERIMENTAL
+
+
+
           return true;
         }
       }
@@ -791,6 +903,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
           g_board_controller.board.unhighlightNet();
 
+          // EXPERIMENTAL
+          g_board_controller.unhighlightNet( );
+          // EXPERIMENTAL
+
+
+
           return true;
         }
       }
@@ -812,6 +930,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
           g_board_controller.board.unhighlightNet();
 
+          // EXPERIMENTAL
+          g_board_controller.unhighlightNet( );
+          // EXPERIMENTAL
+
+
+
           return true;
 
         }
@@ -827,6 +951,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
       g_board_controller.board.unhighlightNet();
+
+      // EXPERIMENTAL
+      g_board_controller.unhighlightNet( );
+      // EXPERIMENTAL
+
+
 
       return true;
 

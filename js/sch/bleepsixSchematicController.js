@@ -82,6 +82,7 @@ function bleepsixSchematicController() {
   if (!schControllerHeadless)
   {
     this.tool = new toolNav ();
+    this.tabCommunication = new bleepsixTabCommunication();
   }
   
   /*
@@ -400,6 +401,26 @@ bleepsixSchematicController.prototype.redraw = function ()
   var action_text_val = 0.0;
 
   var at_s = 0.4;
+
+  if ( g_schnetwork )
+  {
+    if ( g_schnetwork.projectId )
+    {
+      this.tabCommunication.setId( g_schnetwork.projectId );
+
+      if (this.tabCommunication.hasNewMessage())
+      {
+        msg = this.tabCommunication.processMessage();
+
+        if (msg.length > 0)
+          this.schematic.highlightNet( msg.split('.') )
+        else
+          this.schematic.unhighlightNet();
+
+        g_painter.dirty_flag = true;
+      }
+    }
+  }
 
 
   if (this.action_text_flag)

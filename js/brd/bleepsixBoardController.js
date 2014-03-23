@@ -70,6 +70,7 @@ function bleepsixBoardController() {
   if (!brdControllerHeadless)
   {
     this.tool = new toolBoardNav ();
+    this.tabCommunication = new bleepsixTabCommunication();
   }
   
   this.moving = false;
@@ -83,10 +84,7 @@ function bleepsixBoardController() {
   this.capState = "unknown";
 
   var controller = this;
-  //setInterval( function() { controller.redraw() } , 50 );
 
-  // HARD CODED FOR DEMO.  REMOVE ASAP
-  //g_painter.adjustPan( -4000, -1500);
   if (!brdControllerHeadless)
   {
     g_painter.adjustPan( 0, 0);
@@ -112,83 +110,6 @@ function bleepsixBoardController() {
   this.drawSnapArea = false;
 }
 
-
-/*
-bleepsixBoardController.prototype._pad_by_name = function( pad, name )
-{
-  for (var ind in pad)
-  {
-    if (pad[ind].name == name )
-      return pad[ind];
-  }
-  return null;
-}
-
-bleepsixBoardController.prototype.schNetCodeMap= function( )
-{
-  var sch_pin_id_net_map  = this.schematic.getPinNetMap();
-
-  var sch_netcode_map = {};
-
-  var brd_to_sch_net_map = {};
-  var sch_to_brd_net_map = {};
-
-  for (var pin_id in sch_pin_id_net_map)
-  {
-    var pin_name  = sch_pin_id_net_map[pin_id].pin;
-    var parent_id   = sch_pin_id_net_map[pin_id].id;
-    var sch_netcode = parseInt(sch_pin_id_net_map[pin_id].netcode);
-
-    // retrieve module
-    var ref = this.board.refLookup( parent_id );
-    if (!ref) continue;
-    if (! ( "pad" in ref ) ) continue;
-
-    console.log(" !!>> " + pin_id + " " + parent_id);
-    console.log(ref);
-
-    console.log( ref.pad.length );
-    console.log( pin_name );
-
-    var pad = this._pad_by_name( ref.pad, pin_name );
-    if (!pad) continue;
-
-    console.log("looking at pad: " + pin_name + " with net number " + pad.net_number );
-
-    var pad_net = parseInt( pad.net_number );
-
-    console.log(pad_net);
-
-    if (pad_net <= 0) continue;
-
-    console.log("pad:");
-    console.log(pad);
-
-    // setup mappings
-    //
-    if (pad_net in brd_to_sch_net_map)
-      brd_to_sch_net_map[ pad_net ].push( sch_netcode );
-    else
-      brd_to_sch_net_map[ pad_net ] = [ sch_netcode ];
-
-    if ( sch_netcode in sch_to_brd_net_map )
-      sch_to_brd_net_map[ sch_netcode ].push( pad_net );
-    else
-      sch_to_brd_net_map[ sch_netcode ] = [ pad_net ];
-
-  }
-
-  //DEBUG
-  console.log("brd_to_sch_net_map:");
-  console.log(brd_to_sch_net_map);
-
-  console.log("sch_to_brd_net_map:");
-  console.log(sch_to_brd_net_map);
-
-}
-
-*/
-
 bleepsixBoardController.prototype.opUndo = function( )
 {
   this.op.opUndo();
@@ -206,17 +127,10 @@ bleepsixBoardController.prototype.opRedo = function( )
 
 bleepsixBoardController.prototype.opCommand = function( msg )
 {
-
-  //EXPERIMENTAL
-  //var sch_pin_net_map = this.schematic.constructNet();
-  //console.log("EXPERIMENTAL");
-  //console.log(sch_pin_net_map);
-
   this.op.opCommand( msg );
   this.boardUpdate = true;
   g_painter.dirty_flag = true;
 
-  //this.board.updateRatsNest();
   this.board.updateRatsNest( undefined, undefined, this.board.sch_to_brd_net_map );
 
   if (!( "scope" in msg ))
@@ -229,8 +143,6 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   if ( (msg.action == "add") && ((msg.type == "footprint") || (msg.type == "footprintData")) )
   {
-    //console.log("\n\nbleepsixBoardController.opCommand add footprint ---> brd");
-
     var ucomp = this.schematic.makeUnknownComponent();
 
     var brd_fp = this.board.refLookup( msg.id );
@@ -254,14 +166,10 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.data = { componentData: ucomp, x: 0, y: 0 };
     schop.id = msg.id;
 
-    //console.log("board opCommand, schop:");
-    //console.log(schop);
-
     this.op.opCommand( schop );
 
     if ( g_brdnetwork && (msg.scope == "network") )
     {
-      //console.log("board opCommand, sending schop over the network");
       g_brdnetwork.projectop( schop );
     }
 
@@ -274,7 +182,6 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   if ( (msg.action == "delete") && (msg.type == "group"))
   {
-    //console.log("\n\nbleepsixBoardController.opCommand delete group ---> brd");
 
     var schop = { source: "brd", destination: "sch" };
     schop.scope = msg.scope;
@@ -291,52 +198,14 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       schop.data.element.push( clonedData );
     }
 
-
-    //console.log("board opCommand, schop:");
-    //console.log(schop);
-
     this.op.opCommand( schop );
 
     if ( g_brdnetwork && (msg.scope == "network") )
     {
-      console.log("board opCommand, sending schop over the network");
       g_brdnetwork.projectop( schop );
     }
 
   }
-
-  /*
-
-  if (   (( msg.action == "add") ||
-          ( msg.action == "delete"))
-      && (( msg.type == "footprintData") |
-          ( msg.type == "footprint")) )
-  {
-    console.log("need to add to schematic sister structure");
-
-    var ucomp = this.schematic.makeUnknownComponent();
-
-    var schop = { source: "brd", destination: "sch" };
-    schop.scope = msg.scope;
-    schop.action = msg.action;
-    schop.type = "componentData";
-    schop.data = { componentData: ucomp, x: 0, y: 0 };
-    schop.id = msg.id;
-
-    console.log("board opCommand, schop:");
-    console.log(schop);
-
-    this.op.opCommand( schop );
-
-    if ( g_brdnetwork && (msg.scope == "network") )
-    {
-      console.log("board opCommand, sending schop over the network");
-      g_brdnetwork.projectop( schop );
-    }
-
-  }
-
-  */
 
 }
 
@@ -351,6 +220,59 @@ bleepsixBoardController.prototype.fadeMessage = function ( msg )
   this.action_text_fade.lastT = curt;
 }
 
+
+
+bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( brd_nc )
+{
+  var brd = this.board.kicad_brd_json.element;
+  var msg = "";
+
+  var sch_netcodes = this.board.kicad_brd_json.sch_to_brd_net_map[ brd_nc ];
+
+  for (var ind in brd)
+  {
+    var ele = brd[ind];
+    var type = ele.type;
+
+    if (type == "module")
+    {
+      for (var p_ind in ele.pad)
+      {
+        if ( !this.board._net_equal_bbs( parseInt(brd_nc), parseInt(ele.pad[p_ind].net_number) ) )
+          continue;
+
+        if (msg.length>0) msg += ".";
+        msg += ele.id + "/" + ele.pad[p_ind].name;
+      }
+    }
+
+  }
+
+  if (msg.length>0)
+    this.tabCommunication.addMessage( msg );
+  else
+    this.tabCommunication.addMessage( "" );
+
+}
+
+
+
+bleepsixBoardController.prototype.highlightNetCodes = function ( sch_netcodes )
+{
+  var msg = "";
+  for (var ind in sch_netcodes)
+  {
+    if (msg.length > 0) msg += ".";
+    //msg += ind.toString();
+    msg += sch_netcodes[ind].toString();
+  }
+  this.tabCommunication.addMessage( msg );
+}
+
+bleepsixBoardController.prototype.unhighlightNet = function()
+{
+  this.tabCommunication.addMessage( "" );
+}
 
 
 bleepsixBoardController.prototype.redraw = function ()
@@ -389,6 +311,13 @@ bleepsixBoardController.prototype.redraw = function ()
 
   }
 
+  if ( g_brdnetwork )
+  {
+    if ( g_brdnetwork.projectId )
+    {
+      this.tabCommunication.setId( g_brdnetwork.projectId );
+    }
+  }
 
 
   if (this.board.displayable)
@@ -397,25 +326,14 @@ bleepsixBoardController.prototype.redraw = function ()
   if ( g_painter.dirty_flag )
   {
     g_painter.startDrawColor();
-
     g_painter.drawGrid();
-
-
-
-    //DEBUG
-    //this.primitives_test();
-    //this.hershey_ascii_font_test();
-    //this.hershey_font_test();
-    //DEBUG
-
-
 
     if (this.board.displayable) 
       this.board.drawBoard();
 
     this.tool.drawOverlay();
-
     g_painter.endDraw ();
+
 
 	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
@@ -428,17 +346,7 @@ bleepsixBoardController.prototype.redraw = function ()
     this.guiGrid.drawChildren();
 
 
-	//this.root.drawChildren ();
-    //this.guiBoardPalette.drawChildren();
-    //this.guiLayer.drawChildren();
-    //this.guiModule.drawChildren();
-    //this.guiGrid.drawChildren();
-    //this.guiAction.drawChildren();
 
-
-
-
-    //
     //------------------------
     //
     // Draw text graphics

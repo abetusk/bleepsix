@@ -11,6 +11,7 @@
 * Add in name verification to delete project.
 * DRC checks for both
 * Cross browser net highlights
+* undo/redo batching and server communication
 
 ## Schematic
 

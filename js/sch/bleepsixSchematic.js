@@ -77,8 +77,12 @@ function bleepsixSchematic()
   //this.draw_bounding_box_flag = true;
   this.draw_bounding_box_flag = false;
 
-  //this.draw_id_text_flag = true;
-  this.draw_id_text_flag = false;
+  this.draw_id_text_flag = true;
+  //this.draw_id_text_flag = false;
+
+  this.highlight_net = [];
+  this.highlight_net_flag = false;
+
 
   this.reference_number = {};
 
@@ -141,6 +145,7 @@ bleepsixSchematic.prototype._createId = function( parent_id )
   return id_str;
 
 }
+
 
 bleepsixSchematic.prototype.getPinNetMap = function()
 {
@@ -2587,6 +2592,40 @@ bleepsixSchematic.prototype.drawElement = function( ele )
     this.drawBoundingBox( ele );
   }
   */
+
+  if ( this.highlight_net_flag )
+  {
+
+    //DEBUG
+    //console.log(">>> highlight_net " + this.highlight_net.length);
+
+    for (var ind in this.highlight_net)
+    {
+      var hi_ele = this.highlight_net[ind];
+      var type = hi_ele.type;
+
+      if (type == "box")
+      {
+        var s2 = hi_ele.size/2;
+        g_painter.drawRectangle( 
+            hi_ele.x - s2, hi_ele.y - s2, 
+            hi_ele.size, hi_ele.size,
+            1, "rgba(0,0,0,0.3)",
+            true, "rgba(0,0,0,0.01)" );
+
+      }
+      else if (type == "rect")
+      {
+        var w = Math.abs(hi_ele.endx - hi_ele.startx);
+        var h = Math.abs(hi_ele.endy - hi_ele.starty);
+        g_painter.drawRectangle( 
+            hi_ele.startx - w/2, hi_ele.starty - h/2, 
+            w, h, 
+            1, "rgba(0,0,0,0.3)",
+            true, "rgba(0,0,0,0.01)" );
+      }
+    }
+  }
 
 }
 

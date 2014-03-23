@@ -328,6 +328,34 @@ console.log("_net_equal lists ", a_list, b_list);
 
 }
 
+// Check to see if board nets have a schematic net in common 
+//
+bleepsixBoard.prototype._net_equal_bbs = function( brd_net0, brd_net1 )
+{
+
+  var map0 = {};
+  var map1 = {};
+
+  var sm0 = this.kicad_brd_json.brd_to_sch_net_map[ brd_net0 ];
+  var sm1 = this.kicad_brd_json.brd_to_sch_net_map[ brd_net1 ];
+
+  for ( var ind in sm0 )
+  {
+    map0[ sm0[ind] ] = 1;
+  }
+
+  for (var ind in sm1 )
+  {
+    map1[ sm1[ind] ] = 1;
+    if (sm1[ind] in map0) return true;
+  }
+
+  return false;
+
+
+}
+
+
 //bleepsixBoard.prototype._net_equal_old = function( brd_net, sch_net )
 
 bleepsixBoard.prototype._net_equal = function( brd_net, sch_net )
