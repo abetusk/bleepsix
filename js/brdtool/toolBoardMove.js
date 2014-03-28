@@ -73,6 +73,7 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
 
   this.rotateCount = 0;
   this.selectedElement = null;
+  this.ghostElement = null;
   this.origElements = null;
 
   this.addElement( id_ref_array );
@@ -129,9 +130,17 @@ toolBoardMove.prototype.drawOverlay = function()
                            this.cursorWidth ,
                            "rgb(128, 128, 128 )" );
 
-  for (var ind in this.selectedElement )
+  var ele_ar = this.ghostElement;
+  if ( this.allowPlaceFlag )
   {
-    var ref = this.selectedElement[ind]["ref"];
+    ele_ar = this.selectedElement;
+  }
+
+  //for (var ind in this.selectedElement )
+  for (var ind in ele_ar )
+  {
+    //var ref = this.selectedElement[ind]["ref"];
+    var ref = ele_ar[ind].ref;
 
     g_board_controller.board.updateBoundingBox( ref );
     g_board_controller.board.drawElement( ref );
@@ -329,6 +338,62 @@ toolBoardMove.prototype.updateSelectedRatsnest = function( )
 
 }
 
+toolBoardMove.prototype.canPlace = function()
+{
+  var bbox_intersect = false;
+  var board = g_board_controller.board;
+  var brd = g_board_controller.board.kicad_brd_json.element;
+
+
+  for (var b in brd)
+  {
+    var brd_ele = brd[b];
+    var brd_type = brd_ele.type;
+
+    if (brd_ele.hideFlag)
+      continue;
+
+    if (brd_type == "module")
+    {
+
+      for (var ind in this.ghostElement)
+      {
+        var ele = this.ghostElement[ind].ref;
+        var type = ele.type;
+
+        if (type == "track")
+        {
+
+        }
+        else if (type == "module")
+        {
+
+          if ( board._box_box_intersect( brd_ele.bounding_box, ele.bounding_box ) )
+          {
+            bbox_intersect = true;
+          }
+        }
+
+        if (bbox_intersect)
+          break;
+
+      }
+
+    }
+
+    if (bbox_intersect)
+      break;
+
+  }
+
+  if (!bbox_intersect)
+    return true;
+
+
+  return false;
+
+}
+
 
 // Move is a bit slow.  I think it's jquery's extend.
 // We probably want to do our own deep copy.
@@ -371,17 +436,43 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     this.selectedElement = simplecopy( this.base_element_state );
 
 
-    for (var ind in this.selectedElement)
+    this.ghostElement = simplecopy( this.base_element_state );
+    for (var ind in this.ghostElement)
     {
-      g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+      g_board_controller.board.relativeMoveElement( this.ghostElement[ind], wdx, wdy );
+
+      var ele = this.ghostElement[ind].ref ;
+      var type = ele.type;
+
+      if ( type == "module")
+        g_board_controller.board._find_footprint_bbox( ele );
+      else if ( type == "track" )
+        g_board_controller.board._find_line_bbox( ele );
+
       g_painter.dirty_flag = true;
     }
 
 
+    if ( this.canPlace() )  this.allowPlaceFlag = true;
+    else                    this.allowPlaceFlag = false;
+
+    if (this.allowPlaceFlag)
+    {
+      for (var ind in this.selectedElement)
+      {
+        g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+        g_painter.dirty_flag = true;
+      }
+      this.updateSelectedRatsnest();
+    }
+    else
+    {
+      console.log("nope");
+    }
+
     this.prev_world_xy["x"] = world_xy["x"];
     this.prev_world_xy["y"] = world_xy["y"];
 
-    this.updateSelectedRatsnest();
 
   }
 
