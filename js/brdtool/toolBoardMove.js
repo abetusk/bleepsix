@@ -77,9 +77,8 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
 
   this.addElement( id_ref_array );
 
-  //console.log( this.orig_element_state );
-  //console.log( this.base_element_state );
 
+  this.allowPlaceFlag = false;
 
 }
 
@@ -91,11 +90,7 @@ toolBoardMove.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom (
 toolBoardMove.prototype.addElement = function( id_ref_array )
 {
 
-  //this.selectedElement = id_array;
   this.origElements = id_ref_array;
-
-  //this.selectedElement = {};
-  //$.extend( true, this.selectedElement, id_ref_array);
   this.selectedElement = simplecopy( id_ref_array );
 
   for (var ind in this.origElements)
@@ -116,8 +111,6 @@ toolBoardMove.prototype.addElement = function( id_ref_array )
 
   this.snap_world_xy = g_snapgrid.snapGrid( g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y ) );
 
-  //$.extend(true, this.orig_element_state, id_ref_array );
-  //$.extend(true, this.base_element_state, id_ref_array );
   this.orig_element_state = simplecopy( id_ref_array );
   this.base_element_state = simplecopy( id_ref_array );
 
@@ -263,15 +256,10 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         rotateCount : this.rotateCount,
         cx : com.x, cy: com.y };
 
-        //console.log("rotateCount: " + this.rotateCount);
-
         for (var ind in this.selectedElement)
         {
           op.id.push( this.selectedElement[ind].id );
         }
-
-        //console.log("MOVING GROUP>>>>>>");
-        //console.log(op);
 
         g_board_controller.opCommand( op );
 
@@ -410,9 +398,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
       this.origElements[ind].ref.hideFlag = false;
     }
 
-    //$.extend(true, this.selectedElement, this.base_element_state);
-    //$.extend(true, this.selectedElement, this.orig_element_state);
-
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
 
     //TESTING
@@ -446,12 +431,8 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     {
       op.id.push( this.selectedElement[ind].id );
 
-      //var clonedData = {};
-      //$.extend( true, clonedData, this.selectedElement[ind].ref );
       var clonedData = simplecopy( this.selectedElement[ind].ref );
       op.data.element.push( clonedData );
-
-      //g_board_controller.board.remove( this.selectedElement[ind] );
     }
 
     g_board_controller.opCommand( op );
@@ -472,8 +453,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     this.rotateCount = (this.rotateCount+drot)%4;
 
     com = g_board_controller.board.centerOfMass( this.base_element_state );
-    //console.log("com:");
-    //console.log(com);
 
     // be careful, this might lead to 'drift' as we rotate things around
     //
@@ -481,7 +460,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
     var ccw = ( (ch == 'R') ? false : true );
     g_board_controller.board.rotateAboutPoint90( this.base_element_state , com.x, com.y, ccw );
-    //$.extend(true, this.selectedElement, this.base_element_state);
     this.selectedElement = simplecopy( this.base_element_state );
 
 
@@ -510,8 +488,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   }
   else if ( ch == 'Z' )
   {
-
-    //console.log("zone!");
 
     for (var i in this.selectedElement )
     {
@@ -560,30 +536,18 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         op.type = "fillczone";
         op.id = [ ele.id ];
 
-        //op.data = { element : [ ele.ref ] };
-        //var clonedCZone = {};
-        //$.extend( true, clonedCZone, ele.ref );
         var clonedCZone = simplecopy( ele.ref );
 
         op.data = { element : [ clonedCZone ] };
 
         g_board_controller.opCommand( op );
 
-        //g_board_controller.board.fillCZone( ele.ref );
-        //$.extend(true, this.base_element_state, this.selectedElement );
-        //$.extend(true, this.orig_element_state, this.selectedElement );
-
 
         for (var j in this.origElements)
         {
           this.origElements[j].ref.hideFlag = false;
-          //console.log("unhiding? " + j + " " + this.origElements[j].ref.hideFlag );
-
-          //var r = g_board_controller.board.refLookup( this.origElements[j].id );
-          //r.hideFlag = false;
         }
 
-        //console.log("filling czone, handing back to toolBoardNav");
         g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
         g_painter.dirty_flag = true;
 
