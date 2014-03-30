@@ -61,6 +61,16 @@ bleepsixBoard.prototype.updateSchematicNetcodeMap = function( sch_pin_id_net_map
     var sch_netcode = parseInt(sch_pin_id_net_map[pin_id].netcode);
 
     var ref = this.refLookup( parent_id );
+
+
+    //DEBUG
+    if (!ref)
+    {
+      console.log(">>>> updateSchematicNetcodeMap, trying to lookup:", parent_id);
+      console.log(">>>> pin_name:", pin_name, ", sch_netcode:", sch_netcode);
+    }
+
+
     if (!ref) continue;
     if (! ( "pad" in ref ) ) continue;
 

@@ -78,6 +78,12 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
 
   this.addElement( id_ref_array );
 
+  // EXPERIMENTAL
+  // We will need to come back to this later when we have
+  // global parameters that can feed into the local paramter
+  // (or just use the global parameters directly)
+  //
+  this.clearance = 10;  // 10 mils
 
   //this.allowPlaceFlag = false;
   this.allowPlaceFlag = this.canPlace();
@@ -234,7 +240,61 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
 
 }
 
-toolBoardMove.prototype._sendNetOps = function( button, x, y )
+// Return true on first collision, false otherwise.
+//
+// Do a simple sweep to see if we have any collisions.  If we do, then
+// we'll have to do net allocations and the like, but if not, we can just
+// keep nets as they are.  
+//
+toolBoardMove.prototype._testForModuleCollision = function()
+{
+  var n = this.selectedElement.length;
+  if ( n != 1 ) return false;
+
+  var ref = this.selectedElement[0].ref;
+  var type = ref.type;
+  if ( type != "module" ) return false;
+
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  var pads = ref.pad;
+
+  for (var ind in pads)
+  {
+    var pad = pads[ind];
+
+    for (var brd_ind in brd_eles)
+    {
+      var brd_ele = brd_eles[brd_ind];
+      var brd_type = brd_ele.type;
+      if ( brd_type != "track" ) continue;
+      if ( !board._box_box_intersect( brd_ele.bounding_box, pad.bounding_box ) ) continue;
+
+      var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele } );
+      var pgnEle = board._build_element_polygon( { type: "pad", ref: ref, pad_ref: pad, id : pad.id } );
+
+      if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) ) 
+        return true;
+
+    }
+
+  }
+
+  return false;
+
+}
+
+
+// Initially, allocate completely new net numbers for each module
+// pad that we're placing.
+// For each mergenet operation (pad-track intersection), get the
+// pad net number from doing a ref lookup by id to ensure we
+// have the most current version of the pad name, then do a merge.
+//
+// 
+
+toolBoardMove.prototype._patchUpModuleNets = function()
 {
 
   var n = this.selectedElement.length;
@@ -244,10 +304,47 @@ toolBoardMove.prototype._sendNetOps = function( button, x, y )
   var type = ref.type;
   if ( type != "module" ) return;
 
+  // skip if we have no collisions
+  if ( !this._testForModuleCollision() )
+  {
+
+    //DEBUG
+    //console.log(">>>skipping");
+    //return;
+  }
+
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
 
   var pads = ref.pad;
+
+  for (var ind in pads)
+  {
+    var pad = pads[ind];
+
+    //DEBUG
+    console.log(">>>> NET CREATE, from:", pad.net_number, pad.net_name );
+
+    var newnet = board.addNet();
+
+    var brd_pad_ref = board.refLookup( pad.id );
+
+    //DEBUG
+    console.log(">>>>> :", brd_pad_ref);
+
+    brd_pad_ref.net_number = newnet.net_number;
+    brd_pad_ref.net_name   = newnet.net_name;
+
+    pad.net_number = newnet.net_number;
+    pad.net_name   = newnet.net_name;
+
+    //DEBUG
+    console.log(">>>>>>> NET CREATE, to:", pad.net_number, pad.net_name );
+
+
+  }
+
+
   for (var ind in pads)
   {
     var pad = pads[ind];
@@ -266,15 +363,113 @@ toolBoardMove.prototype._sendNetOps = function( button, x, y )
       {
 
         //DEBUG
-        console.log(">>>> NET JOIN", brd_ele, pad );
-        console.log(">>>>>> ", brd_ele.netcode, pad.net_number );
-      }
+        //console.log(">>>> NET JOIN", brd_ele, pad );
+        //console.log(">>>>>> ", brd_ele.netcode, pad.net_number );
 
+
+        var brd_pad_ref = board.refLookup( pad.id );
+
+        if ( parseInt(pad.net_number) != parseInt(brd_ele.netcode) )
+        {
+
+          //DEBUG
+          console.log(">>>> MERGING NET: ", brd_ele.netcode, pad.net_number );
+
+          board.mergeNets( brd_ele.netcode, pad.net_number );
+        }
+        else
+        {
+
+          //DEBUG
+          console.log(">>>> skipping merge (same nets): ", brd_ele.netcode, pad.net_number );
+
+        }
+
+      }
 
     }
 
   }
 
+
+}
+
+toolBoardMove.prototype._patchUpTrackNets = function()
+{
+
+  var n = this.selectedElement.length;
+  if ( n != 1 ) return;
+
+  var ref = this.selectedElement[0].ref;
+  var type = ref.type;
+  if ( type != "track" ) return;
+
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  var pgnTrack = board._build_element_polygon( { type: "track", ref: ref, id : ref.id } );
+
+  //DEBUG
+  console.log(">>>> NET CREATE, from:", ref.netcode );
+
+  var newnet = board.addNet();
+  var brd_track_ref = board.refLookup( ref.id );
+
+  //DEBUG
+  console.log(">>>>> ADDED NET:", newnet.net_number, newnet.net_name);
+
+  brd_track_ref.netcode = newnet.net_number;
+  ref.netcode           = newnet.net_number;
+
+  //DEBUG
+  console.log(">>>>>>> NET CREATE, to:", ref.netcode, brd_track_ref.netcode );
+
+
+
+  for (var brd_ind in brd_eles)
+  {
+    var brd_ele = brd_eles[brd_ind];
+    var brd_type = brd_ele.type;
+    if ( brd_type != "track" ) continue;  // only allow track-track overlaying
+
+    var l0 = { x : parseFloat(ref.x0) , y : parseFloat(ref.y0) };
+    var l1 = { x : parseFloat(ref.x1) , y : parseFloat(ref.y1) };
+    var w = parseFloat(ref.width) + this.clearance;
+
+    if ( !board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) ) continue;
+
+    var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele, id : brd_ele.id } );
+
+    if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+    {
+
+      //DEBUG
+      console.log(">>>> NET JOIN", brd_ele, ref );
+      console.log(">>>>>> ", brd_ele.netcode, ref.netcode );
+
+      brd_track_ref = board.refLookup( brd_track_ref.id );
+      board.mergeNets( brd_ele.netcode, brd_track_ref.netcode );
+    }
+
+
+  }
+
+
+}
+
+
+toolBoardMove.prototype._patchUpNets = function()
+{
+
+  var n = this.selectedElement.length;
+  if ( n != 1 ) return;
+
+  var ref = this.selectedElement[0].ref;
+  var type = ref.type;
+  if        ( type == "module" ) 
+    this._patchUpModuleNets();
+  else if   ( type == "track" )
+    this._patchUpTrackNets();
 
 }
 
@@ -331,7 +526,8 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         g_board_controller.opCommand( op );
 
 
-        this._sendNetOps();
+        this._patchUpNets();
+        //this._sendNetOps();
 
       }
 
@@ -412,14 +608,17 @@ toolBoardMove.prototype.canPlace = function()
     var ref = this.ghostElement[0].ref;
     var type = ref.type;
 
+    if ( type == "track")
+      return true;
+
     if ( type == "module" )
-      return !g_board_controller.board.intersectTestModule( this.ghostElement );
+      return !g_board_controller.board.intersectTestModule( this.ghostElement, this.clearance );
     else
-      return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
+      return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
 
   }
 
-  return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
+  return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
 
 }
 

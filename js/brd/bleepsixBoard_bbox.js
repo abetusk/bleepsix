@@ -487,13 +487,14 @@ bleepsixBoard.prototype._find_text_bbox = function( text_entry )
 //
 // world y co-ordinate is negated
 //
-bleepsixBoard.prototype._box_box_intersect = function( bb0, bb1 )
+bleepsixBoard.prototype._box_box_intersect = function( bb0, bb1, box_fudge )
 {
+  box_fudge = ( (typeof box_fudge === 'undefined') ? 0 : box_fudge );
 
-  return !( (bb1[0][0] > bb0[1][0]) ||
-            (bb1[1][0] < bb0[0][0]) ||
-            (-bb1[1][1] > -bb0[0][1]) ||
-            (-bb1[0][1] < -bb0[1][1]) );
+  return !( ((bb1[0][0] - box_fudge)  > bb0[1][0]) ||
+            (bb1[1][0] < (bb0[0][0] + box_fudge)) ||
+            (-bb1[1][1] > -(bb0[0][1]-box_fudge)) ||
+            (-bb1[0][1] < -(bb0[1][1]+box_fudge)) );
 
 }
 

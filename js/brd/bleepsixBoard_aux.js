@@ -1401,8 +1401,9 @@ bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, 
 //----------------------------
 
 
-bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar )
+bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar, clearance )
 {
+  clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
 
   //DEBUG
   console.log(">>> intersectTestModule");
@@ -1425,7 +1426,7 @@ bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar )
 
       if (ele_type != "module") continue;
 
-      if ( !this._box_box_intersect( brd_ele.bounding_box, ele.bounding_box) )
+      if ( !this._box_box_intersect( brd_ele.bounding_box, ele.bounding_box, clearance) )
         continue;
 
       var ele_pads = ele.pad;
@@ -1459,8 +1460,10 @@ bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar )
 
 }
 
-bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
+bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar, clearance )
 {
+  clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
+
   var bbox_intersect = false;
   var brd = this.kicad_brd_json.element;
 
@@ -1481,10 +1484,13 @@ bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
 
         if (type == "track")
         {
-          var r = ele;
-          var l0 = { x : parseFloat(r.x0) , y : parseFloat(r.y0) };
-          var l1 = { x : parseFloat(r.x1) , y : parseFloat(r.y1) };
-          var w = parseFloat(r.width);
+          var l0 = { x : parseFloat(ele.x0) , y : parseFloat(ele.y0) };
+          var l1 = { x : parseFloat(ele.x1) , y : parseFloat(ele.y1) };
+          var w = parseFloat(ele.width) + clearance;
+
+          //DEBUG
+          console.log("????>>>", w, ele.width, clearance );
+          console.log( brd_ele.bounding_box[0], brd_ele.bounding_box[1] );
 
           if ( this._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) )
             bbox_intersect = true;
@@ -1493,7 +1499,7 @@ bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
         else if (type == "module")
         {
 
-          if ( this._box_box_intersect( brd_ele.bounding_box, ele.bounding_box ) )
+          if ( this._box_box_intersect( brd_ele.bounding_box, ele.bounding_box, clearance) )
           {
             bbox_intersect = true;
           }
@@ -1508,7 +1514,7 @@ bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
     {
       var l0 = { x : parseFloat(brd_ele.x0) , y : parseFloat(brd_ele.y0) };
       var l1 = { x : parseFloat(brd_ele.x1) , y : parseFloat(brd_ele.y1) };
-      var w = parseFloat(brd_ele.width);
+      var w = parseFloat(brd_ele.width) + clearance;
 
 
       for (var ind in id_ref_ar )

@@ -1280,6 +1280,9 @@ bleepsixBoard.prototype._genNetName = function()
   return this.default_net_prefix + z + String(new_base_net_name);
 }
 
+// Return a new netcode and netname as an object with net_number and net_name as keys.
+// Passing in an undefined for netcode and netname will automatically allocate them.
+//
 bleepsixBoard.prototype.genNet = function( netcode, netname )
 {
 
@@ -2722,6 +2725,17 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
   var text_height = width;
   var netcode = parseInt( ele.netcode );
 
+
+  // Draw ID before any of the return checks if the flag is set.
+  //
+  if (this.draw_id_text_flag)
+  {
+    var bb = ele["bounding_box"];
+    g_painter.drawText( ele.id, bb[1][0], bb[1][1], "rgba(255,255,255,0.3)", 50, 0.0, "L", "C" );
+  }
+
+
+
   if (netcode == 0) return;
 
   if (!this.flag_display_net_name)
@@ -2780,12 +2794,6 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
                       this.net_name_text_color,
                       text_height,
                       ang, "C", "C" );
-
-  if (this.draw_id_text_flag)
-  {
-    var bb = ele["bounding_box"];
-    g_painter.drawText( ele.id, bb[1][0], bb[1][1], "rgba(255,255,255,0.3)", 50, 0.0, "L", "C" );
-  }
 
 
 }
