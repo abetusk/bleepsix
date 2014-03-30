@@ -234,6 +234,51 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
 
 }
 
+toolBoardMove.prototype._sendNetOps = function( button, x, y )
+{
+
+  var n = this.selectedElement.length;
+  if ( n != 1 ) return;
+
+  var ref = this.selectedElement[0].ref;
+  var type = ref.type;
+  if ( type != "module" ) return;
+
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  var pads = ref.pad;
+  for (var ind in pads)
+  {
+    var pad = pads[ind];
+
+    for (var brd_ind in brd_eles)
+    {
+      var brd_ele = brd_eles[brd_ind];
+      var brd_type = brd_ele.type;
+      if ( brd_type != "track" ) continue;
+      if ( !board._box_box_intersect( brd_ele.bounding_box, pad.bounding_box ) ) continue;
+
+      var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele } );
+      var pgnEle = board._build_element_polygon( { type: "pad", ref: ref, pad_ref: pad, id : pad.id } );
+
+      if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) ) 
+      {
+
+        //DEBUG
+        console.log(">>>> NET JOIN", brd_ele, pad );
+        console.log(">>>>>> ", brd_ele.netcode, pad.net_number );
+      }
+
+
+    }
+
+  }
+
+
+}
+
+
 toolBoardMove.prototype.mouseUp = function( button, x, y )
 {
 
@@ -284,6 +329,9 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         }
 
         g_board_controller.opCommand( op );
+
+
+        this._sendNetOps();
 
       }
 
@@ -370,64 +418,8 @@ toolBoardMove.prototype.canPlace = function()
       return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
 
   }
-  else
-  {
-    return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
-  }
 
-  return;
-
-  var bbox_intersect = false;
-  var board = g_board_controller.board;
-  var brd = g_board_controller.board.kicad_brd_json.element;
-
-
-  for (var b in brd)
-  {
-    var brd_ele = brd[b];
-    var brd_type = brd_ele.type;
-
-    if (brd_ele.hideFlag)
-      continue;
-
-    if (brd_type == "module")
-    {
-
-      for (var ind in this.ghostElement)
-      {
-        var ele = this.ghostElement[ind].ref;
-        var type = ele.type;
-
-        if (type == "track")
-        {
-
-        }
-        else if (type == "module")
-        {
-
-          if ( board._box_box_intersect( brd_ele.bounding_box, ele.bounding_box ) )
-          {
-            bbox_intersect = true;
-          }
-        }
-
-        if (bbox_intersect)
-          break;
-
-      }
-
-    }
-
-    if (bbox_intersect)
-      break;
-
-  }
-
-  if (!bbox_intersect)
-    return true;
-
-
-  return false;
+  return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
 
 }
 
