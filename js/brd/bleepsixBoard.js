@@ -1844,8 +1844,10 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
 
 }
 
-bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_ang )
+bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_ang, ghostFlag )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
   glob_rad_ang = ( (typeof glob_rad_ang !== 'undefined') ? glob_rad_ang : 0.0 );
 
   var cx = parseFloat(pad_entry.posx);
@@ -1864,6 +1866,8 @@ bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_a
     color = this.layer_color[0];
   else if (layer_mask & (1<<15))
     color = this.layer_color[15];
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var name = pad_entry.name;
 
@@ -1999,8 +2003,10 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
 
 }
 
-bleepsixBoard.prototype._draw_pad_rect = function( pad_entry, x, y, glob_rad_ang )
+bleepsixBoard.prototype._draw_pad_rect = function( pad_entry, x, y, glob_rad_ang, ghostFlag )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
   glob_rad_ang = ( (typeof glob_rad_ang !== 'undefined') ? glob_rad_ang : 0.0 );
 
   var cx = parseFloat(pad_entry.posx);
@@ -2019,6 +2025,8 @@ bleepsixBoard.prototype._draw_pad_rect = function( pad_entry, x, y, glob_rad_ang
     color = this.layer_color[0];
   else if (layer_mask & (1<<15))
     color = this.layer_color[15];
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var name = pad_entry.name;
 
@@ -2153,8 +2161,10 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
 
 }
 
-bleepsixBoard.prototype._draw_pad_oblong = function( pad_entry, x, y, glob_rad_ang )
+bleepsixBoard.prototype._draw_pad_oblong = function( pad_entry, x, y, glob_rad_ang, ghostFlag )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
   glob_rad_ang = ( (typeof glob_rad_ang !== 'undefined') ? glob_rad_ang : 0.0 );
 
   var cx = parseFloat(pad_entry.posx);
@@ -2173,6 +2183,8 @@ bleepsixBoard.prototype._draw_pad_oblong = function( pad_entry, x, y, glob_rad_a
     color = this.layer_color[0];
   else if (layer_mask & (1<<15))
     color = this.layer_color[15];
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var name = pad_entry.name;
 
@@ -2294,8 +2306,10 @@ bleepsixBoard.prototype._findTextDegAngle = function( loc_deg_ang, glob_deg_ang 
 //
 // g_rad_angle ccw
 //
-bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang )
+bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang, ghostFlag )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
 
   var name = pad_entry["name"];
   var shape = pad_entry["shape"];
@@ -2323,6 +2337,8 @@ bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang 
   else if (layer_mask & (1<<15))
     color = this.layer_color[15];
 
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
+
 
   // TODO: other shapes
   // and holes (clear through)
@@ -2332,20 +2348,26 @@ bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang 
     //g_painter.drawRectangle( fp_x + x, fp_y + y, sizex, sizey, 0, null, true, "rgba(255,0,0,0.3)"  );  
     //g_painter.drawRectangle( fp_x + x, fp_y + y, sizex, sizey, 0, null, true, color );  
 
-    this._draw_pad_rect( pad_entry, x, y, g_rad_ang );
-    this._draw_pad_rect_text( pad_entry, x, y, g_rad_ang );
+    this._draw_pad_rect( pad_entry, x, y, g_rad_ang, ghostFlag );
+
+    if (!ghostFlag)
+      this._draw_pad_rect_text( pad_entry, x, y, g_rad_ang );
   }
   else if ( shape == "circle" )
   {
     //g_painter.circle( cx + x, cy + y, sizex/2, 0, null, true, color );  
 
-    this._draw_pad_circle( pad_entry, x, y, g_rad_ang );
-    this._draw_pad_circle_text( pad_entry, x, y, g_rad_ang );
+    this._draw_pad_circle( pad_entry, x, y, g_rad_ang, ghostFlag);
+
+    if (!ghostFlag)
+      this._draw_pad_circle_text( pad_entry, x, y, g_rad_ang );
   }
   else if ( shape == "oblong" )
   {
-    this._draw_pad_oblong( pad_entry, x, y, g_rad_ang );
-    this._draw_pad_oblong_text( pad_entry, x, y, g_rad_ang );
+    this._draw_pad_oblong( pad_entry, x, y, g_rad_ang, ghostFlag );
+
+    if (!ghostFlag)
+      this._draw_pad_oblong_text( pad_entry, x, y, g_rad_ang );
   }
 
 
@@ -2418,8 +2440,10 @@ bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang 
 
 }
 
-bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f01 )
+bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f01, ghostFlag )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
 
   draw_f01 = ( typeof draw_f01 !== 'undefined' ? draw_f01 : false );
   debug_flag = ( typeof debug_flag !== 'undefined' ? debug_flag : false );
@@ -2447,17 +2471,20 @@ bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f0
   // Art can pick up the transform to display.  As such, it doesn't need knowledge
   // about the current transform, the angle, etc.
   //
-  for (ind in art)
+  if (!ghostFlag)
   {
+    for (ind in art)
+    {
 
-    var shape = art[ind]["shape"];
+      var shape = art[ind]["shape"];
 
-    if       ( shape == "segment" )   { this.drawFootprintSegment( art[ind], 0, 0 ); }
-    else if  ( shape == "circle" )    { this.drawFootprintCircle( art[ind], 0, 0 );  }
-    else if  ( shape == "arc" )       { this.drawFootprintArc( art[ind], 0, 0 );  }
-    //else if  ( shape == "obround" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
-    //else if  ( shape == "trapeze" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
+      if       ( shape == "segment" )   { this.drawFootprintSegment( art[ind], 0, 0 ); }
+      else if  ( shape == "circle" )    { this.drawFootprintCircle( art[ind], 0, 0 );  }
+      else if  ( shape == "arc" )       { this.drawFootprintArc( art[ind], 0, 0 );  }
+      //else if  ( shape == "obround" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
+      //else if  ( shape == "trapeze" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
 
+    }
   }
 
 
@@ -2496,7 +2523,7 @@ bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f0
 
     // holes: http://www.storminthecastle.com/2013/07/24/how-you-can-draw-regular-polygons-with-the-html5-canvas-api/
     // pass in cw angles (in radians)
-    this.drawFootprintPad( pad[ind], 0, 0, -ang );
+    this.drawFootprintPad( pad[ind], 0, 0, -ang, ghostFlag );
   }
 
   g_painter.context.rotate( ang );
@@ -2601,6 +2628,8 @@ bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_
 {
   //var flag = ( (typeof flag !== 'undefined') ? flag : 'N' );
 
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
   if (! text_field["visible"]) 
     return;
 
@@ -2618,6 +2647,8 @@ bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_
 
   var layer = parseInt( text_field["layer"] );
   var color = this.layer_color[layer];
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var loc_rad_ang = this._angleMod( parseFloat(text_field.angle) );
   var loc_deg_ang = -loc_rad_ang * 180.0 / Math.PI ;
@@ -2651,8 +2682,10 @@ bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_
 }
 
 
-bleepsixBoard.prototype.drawBoardTrack = function( ele )
+bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
   var layer = parseInt( ele["layer"] );
   var shape = ele["shape"] ;
 
@@ -2666,6 +2699,8 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele )
   var text_size = width * 0.9;
 
   var color = this.layer_color[layer];
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   // bounding box draw
   //
@@ -2757,6 +2792,8 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele )
 
 bleepsixBoard.prototype.drawBoardSegment = function( ele )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var layer = parseInt( ele["layer"] );
   var color = this.layer_color[layer];
@@ -2769,6 +2806,8 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
   var y1 = parseFloat( ele["y1"] );
 
   var width = parseFloat( ele["width"] );
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   //if (layer == 28) color = "rgba(255,255,0,0.4)";
 
@@ -2821,6 +2860,8 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
 
 bleepsixBoard.prototype.drawBoardCZone = function( ele )
 {
+  ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+
 
   var n = ele.zcorner.length;
   for (var ind=0; ind < ele.zcorner.length; ind++)
@@ -2837,6 +2878,7 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
     var layer = parseInt(ele.layer);
 
     var color = ( ( typeof this.layer_color[layer] !== 'undefined' ) ? this.layer_color[layer] : "rgba(255,0,0,0.3)" );
+    if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
     if (pc.length > 0 )
     {
@@ -2890,8 +2932,9 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
 
 }
 
-bleepsixBoard.prototype.drawBoardModule = function( ele )
+bleepsixBoard.prototype.drawBoardModule = function( ele, ghostFlag )
 {
+
   var x = parseFloat( ele["x"] );
   var y = parseFloat( ele["y"] );
   var orientation = parseFloat( ele["orientation"] );
@@ -2899,7 +2942,7 @@ bleepsixBoard.prototype.drawBoardModule = function( ele )
 
   //this.drawFootprint( ele, x, y, rad_angle );
   //this.drawFootprint( ele, x, y, 0 );
-  this.drawFootprint( ele, x, y, 0, true );
+  this.drawFootprint( ele, x, y, 0, true, ghostFlag );
 
 }
 
@@ -2953,6 +2996,24 @@ bleepsixBoard.prototype.drawElement = function( ele )
   }
 
 }
+
+
+bleepsixBoard.prototype.drawGhostElement = function( ele )
+{
+  var type = ele.type;
+
+  if      ( type == "track" )         { this.drawBoardTrack( ele, true ); }
+  else if ( type == "drawsegment" )   { this.drawBoardSegment( ele, true ); }
+  else if ( type == "module" )        { this.drawBoardModule( ele, true ); }
+  else if ( type == "text" )          { this.drawBoardText( ele, true ); }
+  else if ( type == "czone" )         { this.drawBoardCZone( ele, true  ); }
+  else {
+    console.log("ERROR: bleepsixBoard.drawElement: unhandled draw type: " + type);
+  }
+
+}
+
+
 
 bleepsixBoard.prototype.drawBoard = function()
 {

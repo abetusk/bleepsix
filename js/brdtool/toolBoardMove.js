@@ -79,7 +79,8 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   this.addElement( id_ref_array );
 
 
-  this.allowPlaceFlag = false;
+  //this.allowPlaceFlag = false;
+  this.allowPlaceFlag = this.canPlace();
 
 }
 
@@ -93,6 +94,7 @@ toolBoardMove.prototype.addElement = function( id_ref_array )
 
   this.origElements = id_ref_array;
   this.selectedElement = simplecopy( id_ref_array );
+  this.ghostElement = simplecopy( id_ref_array );
 
   for (var ind in this.origElements)
   {
@@ -118,6 +120,50 @@ toolBoardMove.prototype.addElement = function( id_ref_array )
   g_painter.dirty_flag = true;
 }
 
+toolBoardMove.prototype.drawOverlayElementArray = function( ele_ar, ghostFlag )
+{
+
+  for (var ind in ele_ar )
+  {
+    //var ref = this.selectedElement[ind]["ref"];
+    var ref = ele_ar[ind].ref;
+
+    g_board_controller.board.updateBoundingBox( ref );
+
+    if (ghostFlag)
+      g_board_controller.board.drawGhostElement( ref );
+    else
+      g_board_controller.board.drawElement( ref );
+
+    if (!ghostFlag)
+    {
+
+      if ( (ref.type == "track") || (ref.type == "drawsegment") )
+      {
+        var w = parseFloat( ref.width );
+        g_painter.line( ref.x0, ref.y0, ref.x1, ref.y1, "rgba(255,255,255,0.25)", 2*w );
+      }
+      else
+      {
+        var bbox = ref["bounding_box"];
+
+        var x = bbox[0][0];
+        var y = bbox[0][0];
+        var w = bbox[1][0] - bbox[0][0];
+        var h = bbox[1][1] - bbox[0][1];
+
+        g_painter.drawRectangle( bbox[0][0], bbox[0][1],
+                                 w, h, 
+                                 10, "rgb(128,128,128)",
+                                 true, "rgba(255,255,255,0.25)");
+      }
+
+    }
+
+  }
+
+}
+
 toolBoardMove.prototype.drawOverlay = function()
 {
 
@@ -130,42 +176,15 @@ toolBoardMove.prototype.drawOverlay = function()
                            this.cursorWidth ,
                            "rgb(128, 128, 128 )" );
 
-  var ele_ar = this.ghostElement;
-  if ( this.allowPlaceFlag )
+  if (this.allowPlaceFlag)
   {
-    ele_ar = this.selectedElement;
+    this.drawOverlayElementArray( this.selectedElement, false );
+  }
+  else
+  {
+    this.drawOverlayElementArray( this.ghostElement , true );
   }
 
-  //for (var ind in this.selectedElement )
-  for (var ind in ele_ar )
-  {
-    //var ref = this.selectedElement[ind]["ref"];
-    var ref = ele_ar[ind].ref;
-
-    g_board_controller.board.updateBoundingBox( ref );
-    g_board_controller.board.drawElement( ref );
-
-    if ( (ref.type == "track") || (ref.type == "drawsegment") )
-    {
-      var w = parseFloat( ref.width );
-      g_painter.line( ref.x0, ref.y0, ref.x1, ref.y1, "rgba(255,255,255,0.25)", 2*w );
-    }
-    else
-    {
-      var bbox = ref["bounding_box"];
-
-      var x = bbox[0][0];
-      var y = bbox[0][0];
-      var w = bbox[1][0] - bbox[0][0];
-      var h = bbox[1][1] - bbox[0][1];
-
-      g_painter.drawRectangle( bbox[0][0], bbox[0][1],
-                               w, h, 
-                               10, "rgb(128,128,128)",
-                               true, "rgba(255,255,255,0.25)");
-    }
-
-  }
 
   g_board_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
 
@@ -176,28 +195,15 @@ toolBoardMove.prototype.drawOverlay = function()
 toolBoardMove.prototype.mouseDown = function( button, x, y )
 {
 
-  //console.log("toolBoardMove.mouseDown");
-
-  /*
-  if (button == 1)
-  {
-    g_board_controller.tool = new toolNav(x, y);
-    //g_board_controller.tool.mouseMove( x, y );  // easy way to setup?
-    g_painter.dirty_flag = true;
-  }
-  else 
- */
   if (button == 3)
   {
     this.mouse_drag_button = true;
   }
 
-
 }
 
 toolBoardMove.prototype.doubleClick = function( button, x, y )
 {
-  //console.log("toolBoardMove.doubleClick");
 
   var world_coord = g_painter.devToWorld( x, y );
   var id_ref =  g_board_controller.board.pick( world_coord["x"], world_coord["y"] );
@@ -238,6 +244,13 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
 
     if (button == 1)
     {
+
+      if (!this.allowPlaceFlag)
+      {
+        g_board_controller.fadeMessage( "Sorry, cannot place! There are too many intersections" );
+        return;
+      }
+
       var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
       var wdx = world_xy["x"] - this.orig_world_xy["x"];
       var wdy = world_xy["y"] - this.orig_world_xy["y"];
@@ -304,13 +317,16 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
 //
 toolBoardMove.prototype.updateSelectedRatsnest = function( )
 {
+
+  var selected_ar = this.ghostElement;
+
   var brd = g_board_controller.board.kicad_brd_json;
   var map = brd.brd_to_sch_net_map;
 
   var ncs = {};
-  for (var ind in this.selectedElement)
+  for (var ind in selected_ar)
   {
-    var ref = this.selectedElement[ind].ref;
+    var ref = selected_ar[ind].ref;
 
     if (ref.type == "track")
     {
@@ -333,13 +349,34 @@ toolBoardMove.prototype.updateSelectedRatsnest = function( )
 
   for (var nc in ncs)
   {
-    g_board_controller.board.updateRatsNest( nc, this.selectedElement, map );
+    //g_board_controller.board.updateRatsNest( nc, this.selectedElement, map );
+    g_board_controller.board.updateRatsNest( nc, selected_ar, map );
   }
 
 }
 
 toolBoardMove.prototype.canPlace = function()
 {
+
+  var n = this.ghostElement.length;
+  if (n==1)
+  {
+    var ref = this.ghostElement[0].ref;
+    var type = ref.type;
+
+    if ( type == "module" )
+      return g_board_controller.board.intersectTestModule( this.ghostElement );
+    else
+      return g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
+
+  }
+  else
+  {
+    return g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
+  }
+
+  return;
+
   var bbox_intersect = false;
   var board = g_board_controller.board;
   var brd = g_board_controller.board.kicad_brd_json.element;
@@ -434,8 +471,6 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     // Copy original information back to do relative move
     //
     this.selectedElement = simplecopy( this.base_element_state );
-
-
     this.ghostElement = simplecopy( this.base_element_state );
     for (var ind in this.ghostElement)
     {
@@ -452,9 +487,7 @@ toolBoardMove.prototype.mouseMove = function( x, y )
       g_painter.dirty_flag = true;
     }
 
-
-    if ( this.canPlace() )  this.allowPlaceFlag = true;
-    else                    this.allowPlaceFlag = false;
+    this.allowPlaceFlag = this.canPlace();
 
     if (this.allowPlaceFlag)
     {
@@ -467,7 +500,7 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     }
     else
     {
-      console.log("nope");
+      this.updateSelectedRatsnest();
     }
 
     this.prev_world_xy["x"] = world_xy["x"];

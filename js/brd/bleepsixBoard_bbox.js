@@ -475,6 +475,8 @@ bleepsixBoard.prototype._find_text_bbox = function( text_entry )
 
 
 
+// Thank you to user [Daniel Vassallo]
+// (answer from May 2 2010 at 3:50)
 // http://stackoverflow.com/questions/2752349/fast-rectangle-to-rectangle-intersection
 // function intersectRect(r1, r2) {
 //   return !(r2.left > r1.right || 
@@ -495,12 +497,14 @@ bleepsixBoard.prototype._box_box_intersect = function( bb0, bb1 )
 
 }
 
-// thank you to user user37968  on stackoverflow.com
-// (answered from Nov 15 '08 at 21:07):
+// thank you to user [user37968] on stackoverflow.com
+// (answered from Nov 15 2008 at 21:07):
 // http://stackoverflow.com/questions/99353/how-to-test-if-a-line-segment-intersects-an-axis-aligned-rectange-in-2d
 //
-bleepsixBoard.prototype._box_line_intersect = function( bbox, l0, l1 )
+bleepsixBoard.prototype._box_line_intersect = function( bbox, l0, l1, box_fudge )
 {
+
+  box_fudge = ( (typeof box_fudge === 'undefined') ? 0 : box_fudge );
 
   var A = l1.y - l0.y;
   var B = l0.x - l1.x;
@@ -509,10 +513,10 @@ bleepsixBoard.prototype._box_line_intersect = function( bbox, l0, l1 )
 
   var f = function(a, b) { return (A*a + B*b + C) > 0; };
 
-  var xm = bbox[0][0];
-  var ym = bbox[0][1];
-  var xM = bbox[1][0];
-  var yM = bbox[1][1];
+  var xm = bbox[0][0] - box_fudge;
+  var ym = bbox[0][1] - box_fudge;
+  var xM = bbox[1][0] + box_fudge;
+  var yM = bbox[1][1] + box_fudge;
 
   // handle degenerate line (point)
   if ( (l0.x == l1.x) && (l0.y == l1.y) )

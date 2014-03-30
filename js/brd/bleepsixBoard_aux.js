@@ -1394,6 +1394,100 @@ bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, 
 }
 
 
+//----------------------------
+//
+// Intersection Tests
+//
+//----------------------------
+
+
+bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar )
+{
+}
+
+bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
+{
+  var bbox_intersect = false;
+  var brd = this.kicad_brd_json.element;
+
+  for (var b in brd)
+  {
+    var brd_ele = brd[b];
+    var brd_type = brd_ele.type;
+
+    if (brd_ele.hideFlag) continue;
+
+    if (brd_type == "module")
+    {
+
+      for (var ind in id_ref_ar )
+      {
+        var ele = id_ref_ar[ind].ref;
+        var type = ele.type;
+
+        if (type == "track")
+        {
+          var r = ele;
+          var l0 = { x : parseFloat(r.x0) , y : parseFloat(r.y0) };
+          var l1 = { x : parseFloat(r.x1) , y : parseFloat(r.y1) };
+          var w = parseFloat(r.width);
+
+          if ( this._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) )
+            bbox_intersect = true;
+
+        }
+        else if (type == "module")
+        {
+
+          if ( this._box_box_intersect( brd_ele.bounding_box, ele.bounding_box ) )
+          {
+            bbox_intersect = true;
+          }
+        }
+
+        if (bbox_intersect) break;
+
+      }
+
+    }
+    else if (brd_type == "track")
+    {
+      var l0 = { x : parseFloat(brd_ele.x0) , y : parseFloat(brd_ele.y0) };
+      var l1 = { x : parseFloat(brd_ele.x1) , y : parseFloat(brd_ele.y1) };
+      var w = parseFloat(brd_ele.width);
+
+
+      for (var ind in id_ref_ar )
+      {
+        var ele = id_ref_ar[ind].ref;
+        var type = ele.type;
+
+        if (type == "track")
+        {
+          //if ( this._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) )
+          //  bbox_intersect = true;
+
+        }
+        else if (type == "module")
+          if ( this._box_line_intersect( ele.bounding_box, l0, l1, w ) )
+            bbox_intersect = true;
+
+        if (bbox_intersect) break;
+
+      }
+
+    }
+
+    if (bbox_intersect) break;
+
+  }
+
+  if (!bbox_intersect) return true;
+  return false;
+
+}
+
+
 /*
 //---------------------------- TESTING
 
