@@ -1004,7 +1004,7 @@ bleepsixBoard.prototype._clip_offset = function( ofs_pgns, inp_pgns, ds )
 //   they are disjoint.  This isn't meant for polygons whose boundaries
 //   intersect.
 //
-bleepsixBoard.prototype._pgn_inside_test= function( pgnA, pgnB )
+bleepsixBoard.prototype._pgn_inside_test = function( pgnA, pgnB )
 {
   var local_eps = 0.0005;
 
@@ -1440,7 +1440,11 @@ bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar )
           if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box ) )
             continue;
 
-          return true;
+          var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ele, pad_ref : brd_pad, id : brd_pad.id } );
+          var pgnEle = this._build_element_polygon( { type: "pad", ref: ele,     pad_ref : ele_pad, id : ele_pad.id } );
+
+          if (this._pgn_intersect_test( [ pgnBrd ] , [ pgnEle ] ))
+            return true;
 
         }
 
