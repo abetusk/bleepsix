@@ -365,14 +365,14 @@ toolBoardMove.prototype.canPlace = function()
     var type = ref.type;
 
     if ( type == "module" )
-      return g_board_controller.board.intersectTestModule( this.ghostElement );
+      return !g_board_controller.board.intersectTestModule( this.ghostElement );
     else
-      return g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
+      return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
 
   }
   else
   {
-    return g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
+    return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement );
   }
 
   return;

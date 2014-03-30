@@ -1403,6 +1403,56 @@ bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, 
 
 bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar )
 {
+
+  //DEBUG
+  console.log(">>> intersectTestModule");
+
+  var brd = this.kicad_brd_json.element;
+
+  for (var b in brd)
+  {
+    var brd_ele = brd[b];
+    var brd_type = brd_ele.type;
+    if (brd_ele.hideFlag)       continue;
+    if (brd_type != "module")    continue;
+
+    var brd_pads = brd_ele.pad;
+
+    for ( var ind in id_ref_ar )
+    {
+      var ele = id_ref_ar[ind].ref;
+      var ele_type = ele.type;
+
+      if (ele_type != "module") continue;
+
+      if ( !this._box_box_intersect( brd_ele.bounding_box, ele.bounding_box) )
+        continue;
+
+      var ele_pads = ele.pad;
+
+      for (var ele_pad_ind in ele_pads)
+      {
+        var ele_pad = ele_pads[ele_pad_ind];
+
+        for ( var brd_pad_ind in brd_pads )
+        {
+          var brd_pad = brd_pads[brd_pad_ind];
+          if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box ) )
+            continue;
+
+          return true;
+
+        }
+
+      }
+
+
+    }
+
+  }
+
+  return false;
+
 }
 
 bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
@@ -1482,8 +1532,7 @@ bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar )
 
   }
 
-  if (!bbox_intersect) return true;
-  return false;
+  return bbox_intersect;
 
 }
 
