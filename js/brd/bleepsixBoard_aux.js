@@ -1405,9 +1405,6 @@ bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar, clearance )
 {
   clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
 
-  //DEBUG
-  console.log(">>> intersectTestModule");
-
   var brd = this.kicad_brd_json.element;
 
   for (var b in brd)
@@ -1487,10 +1484,6 @@ bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar, clearanc
           var l0 = { x : parseFloat(ele.x0) , y : parseFloat(ele.y0) };
           var l1 = { x : parseFloat(ele.x1) , y : parseFloat(ele.y1) };
           var w = parseFloat(ele.width) + clearance;
-
-          //DEBUG
-          console.log("????>>>", w, ele.width, clearance );
-          console.log( brd_ele.bounding_box[0], brd_ele.bounding_box[1] );
 
           if ( this._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) )
             bbox_intersect = true;

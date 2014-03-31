@@ -1373,29 +1373,12 @@ bleepsixBoard.prototype.addNet = function( netcode, netname )
 {
   var netinfo = this.genNet( netcode, netname );
 
-  //DEBUG
-  console.log(">>>> addNet", netinfo);
-
   this.kicad_brd_json.equipot.push( netinfo );
   this.kicad_brd_json.net_code_map[ netinfo.net_number ] = netinfo.net_name;
   this.kicad_brd_json.net_name_map[ netinfo.net_name   ] = netinfo.net_number;
 
-  //DEBUG
-  console.log(">>>>>> addNet BEFORE", this.kicad_brd_json.equipot );
-  for (var ind in this.kicad_brd_json.equipot)
-  {
-    console.log(">>>> ", this.kicad_brd_json.equipot[ind] );
-  }
-
   var schpin_map = this.kicad_brd_json.sch_pin_id_net_map;
   this.updateSchematicNetcodeMap( schpin_map );
-
-  //DEBUG
-  console.log(">>>>>> addNet AFTER", this.kicad_brd_json.equipot );
-  for (var ind in this.kicad_brd_json.equipot)
-  {
-    console.log(">>>> ", this.kicad_brd_json.equipot[ind] );
-  }
 
   return netinfo;
 }

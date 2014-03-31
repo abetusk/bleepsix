@@ -285,6 +285,49 @@ toolBoardMove.prototype._testForModuleCollision = function()
 
 }
 
+toolBoardMove.prototype._testForTrackCollision = function()
+{
+
+  var n = this.selectedElement.length;
+  if ( n != 1 ) return;
+
+  var ref = this.selectedElement[0].ref;
+  var type = ref.type;
+  if ( type != "track" ) return;
+
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  var pgnTrack = board._build_element_polygon( { type: "track", ref: ref, id : ref.id } );
+  var brd_track_ref = board.refLookup( ref.id );
+
+  for (var brd_ind in brd_eles)
+  {
+    var brd_ele = brd_eles[brd_ind];
+    var brd_type = brd_ele.type;
+    if ( brd_ele.hideFlag ) continue;
+    if ( brd_type != "track" ) continue;  // only allow track-track overlaying
+
+    var l0 = { x : parseFloat(ref.x0) , y : parseFloat(ref.y0) };
+    var l1 = { x : parseFloat(ref.x1) , y : parseFloat(ref.y1) };
+    var w = parseFloat(ref.width) + this.clearance;
+
+    if ( !board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) ) continue;
+
+    var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele, id : brd_ele.id } );
+
+    if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+    {
+      return true;
+    }
+
+  }
+
+  return false;
+
+}
+
+
 
 // Initially, allocate completely new net numbers for each module
 // pad that we're placing.
@@ -305,11 +348,9 @@ toolBoardMove.prototype._patchUpModuleNets = function()
   if ( type != "module" ) return;
 
   // skip if we have no collisions
+  //
   if ( !this._testForModuleCollision() )
   {
-
-    //DEBUG
-    //console.log(">>>skipping");
     //return;
   }
 
