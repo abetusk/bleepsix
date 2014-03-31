@@ -353,6 +353,7 @@ toolBoardMove.prototype._patchUpModuleNets = function()
     {
       var brd_ele = brd_eles[brd_ind];
       var brd_type = brd_ele.type;
+      if ( brd_ele.hideFlag ) continue;
       if ( brd_type != "track" ) continue;
       if ( !board._box_box_intersect( brd_ele.bounding_box, pad.bounding_box ) ) continue;
 
@@ -430,6 +431,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
   {
     var brd_ele = brd_eles[brd_ind];
     var brd_type = brd_ele.type;
+    if ( brd_ele.hideFlag ) continue;
     if ( brd_type != "track" ) continue;  // only allow track-track overlaying
 
     var l0 = { x : parseFloat(ref.x0) , y : parseFloat(ref.y0) };

@@ -1225,6 +1225,9 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
 {
   if ((netcode0 <= 0) || (netcode1 <= 0)) return;
 
+  if ( parseInt(netcode0) == parseInt(netcode1) )
+    return;
+
   var netname0 = this.kicad_brd_json.net_code_map[ String(netcode0) ];
   var netname1 = this.kicad_brd_json.net_code_map[ String(netcode1) ];
 
@@ -1312,6 +1315,9 @@ bleepsixBoard.prototype.genNet = function( netcode, netname )
 
 bleepsixBoard.prototype.removeNet = function( netcode, netname )
 {
+
+  console.log(">>> removeNet:", netcode, netname );
+
   var net_name;
   var net_ind;
   var n ;
@@ -1367,12 +1373,29 @@ bleepsixBoard.prototype.addNet = function( netcode, netname )
 {
   var netinfo = this.genNet( netcode, netname );
 
+  //DEBUG
+  console.log(">>>> addNet", netinfo);
+
   this.kicad_brd_json.equipot.push( netinfo );
   this.kicad_brd_json.net_code_map[ netinfo.net_number ] = netinfo.net_name;
   this.kicad_brd_json.net_name_map[ netinfo.net_name   ] = netinfo.net_number;
 
+  //DEBUG
+  console.log(">>>>>> addNet BEFORE", this.kicad_brd_json.equipot );
+  for (var ind in this.kicad_brd_json.equipot)
+  {
+    console.log(">>>> ", this.kicad_brd_json.equipot[ind] );
+  }
+
   var schpin_map = this.kicad_brd_json.sch_pin_id_net_map;
   this.updateSchematicNetcodeMap( schpin_map );
+
+  //DEBUG
+  console.log(">>>>>> addNet AFTER", this.kicad_brd_json.equipot );
+  for (var ind in this.kicad_brd_json.equipot)
+  {
+    console.log(">>>> ", this.kicad_brd_json.equipot[ind] );
+  }
 
   return netinfo;
 }
