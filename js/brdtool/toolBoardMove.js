@@ -337,6 +337,48 @@ toolBoardMove.prototype._testForTrackCollision = function()
 //
 // 
 
+toolBoardMove.prototype._createPadModuleNets = function( pads )
+{
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  // Create new nets for pads of module
+  //
+  for (var ind in pads)
+  {
+    var pad = pads[ind];
+
+    var newnet = board.genNet();
+
+    var op = { source: "brd", destination: "brd" };
+    op.action = "add";
+    op.type = "net";
+    op.data = { net_number : newnet.net_number,
+                net_name : newnet.net_name };
+    g_board_controller.opCommand( op );
+
+    var brd_pad_ref = board.refLookup( pad.id );
+
+    var old_pad = {};
+    var new_pad = {};
+
+    $.extend( true, old_pad, brd_pad_ref );
+    $.extend( true, new_pad, brd_pad_ref );
+
+    new_pad.net_number = newnet.net_number;
+    new_pad.net_name = newnet.net_name;
+
+    var op2 = { source: "brd", destination: "brd" };
+    op2.action = "update";
+    op2.type = "edit";
+    op2.id = [ brd_pad_ref.id ];
+    op2.data = { element: [ new_pad ], oldElement: [ old_pad ] };
+    g_board_controller.opCommand( op2 );
+
+  }
+
+}
+
 toolBoardMove.prototype._patchUpModuleNets = function()
 {
 
@@ -347,45 +389,20 @@ toolBoardMove.prototype._patchUpModuleNets = function()
   var type = ref.type;
   if ( type != "module" ) return;
 
-  // skip if we have no collisions
+  // skip if we need no updates (initially no collisions
+  // and we move to no collisions)
   //
   if ( !this._testForModuleCollision() )
   {
     //return;
   }
 
+  var pads = ref.pad;
+  this._createPadModuleNets( pads );
+
+
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
-
-  var pads = ref.pad;
-
-  for (var ind in pads)
-  {
-    var pad = pads[ind];
-
-    //DEBUG
-    console.log(">>>> NET CREATE, from:", pad.net_number, pad.net_name );
-
-    var newnet = board.addNet();
-
-    var brd_pad_ref = board.refLookup( pad.id );
-
-    //DEBUG
-    console.log(">>>>> :", brd_pad_ref);
-
-    brd_pad_ref.net_number = newnet.net_number;
-    brd_pad_ref.net_name   = newnet.net_name;
-
-    pad.net_number = newnet.net_number;
-    pad.net_name   = newnet.net_name;
-
-    //DEBUG
-    console.log(">>>>>>> NET CREATE, to:", pad.net_number, pad.net_name );
-
-
-  }
-
-
   for (var ind in pads)
   {
     var pad = pads[ind];
@@ -404,20 +421,18 @@ toolBoardMove.prototype._patchUpModuleNets = function()
       if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) ) 
       {
 
-        //DEBUG
-        //console.log(">>>> NET JOIN", brd_ele, pad );
-        //console.log(">>>>>> ", brd_ele.netcode, pad.net_number );
-
-
         var brd_pad_ref = board.refLookup( pad.id );
 
-        if ( parseInt(pad.net_number) != parseInt(brd_ele.netcode) )
+        //if ( parseInt(pad.net_number) != parseInt(brd_ele.netcode) )
+        if ( parseInt(brd_pad_ref.net_number) != parseInt(brd_ele.netcode) )
         {
 
-          //DEBUG
-          console.log(">>>> MERGING NET: ", brd_ele.netcode, pad.net_number );
+          var op = { source: "brd", destination: "brd" };
+          op.action = "update";
+          op.type = "mergenet";
+          op.data = { net_number0: brd_ele.netcode, net_number1: brd_pad_ref.net_number };
+          g_board_controller.opCommand( op );
 
-          board.mergeNets( brd_ele.netcode, pad.net_number );
         }
         else
         {
@@ -432,6 +447,11 @@ toolBoardMove.prototype._patchUpModuleNets = function()
     }
 
   }
+
+  var map_op = { source: "brd", destination: "brd" };
+  map_op.action = "update";
+  map_op.type = "schematicnetmap";
+  g_board_controller.opCommand( map_op );
 
 
 }
@@ -451,20 +471,31 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
   var pgnTrack = board._build_element_polygon( { type: "track", ref: ref, id : ref.id } );
 
-  //DEBUG
-  console.log(">>>> NET CREATE, from:", ref.netcode );
+  var newnet = board.genNet();
 
-  var newnet = board.addNet();
+  var net_op = { source: "brd", destination: "brd" };
+  net_op.action = "add";
+  net_op.type = "net";
+  net_op.data = { net_number : newnet.net_number,
+              net_name : newnet.net_name };
+  g_board_controller.opCommand( net_op );
+
+
   var brd_track_ref = board.refLookup( ref.id );
+  var old_data = {};
+  var new_data = {};
 
-  //DEBUG
-  console.log(">>>>> ADDED NET:", newnet.net_number, newnet.net_name);
+  $.extend( true, old_data, brd_track_ref );
+  $.extend( true, new_data, brd_track_ref );
 
-  brd_track_ref.netcode = newnet.net_number;
-  ref.netcode           = newnet.net_number;
+  new_data.netcode = newnet.net_number;
 
-  //DEBUG
-  console.log(">>>>>>> NET CREATE, to:", ref.netcode, brd_track_ref.netcode );
+  var update_op = { source: "brd", destination: "brd" };
+  update_op.action = "update";
+  update_op.type = "edit";
+  update_op.id = [ brd_track_ref.id ];
+  update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+  g_board_controller.opCommand( update_op );
 
 
 
@@ -486,17 +517,26 @@ toolBoardMove.prototype._patchUpTrackNets = function()
     if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
     {
 
-      //DEBUG
-      console.log(">>>> NET JOIN", brd_ele, ref );
-      console.log(">>>>>> ", brd_ele.netcode, ref.netcode );
-
       brd_track_ref = board.refLookup( brd_track_ref.id );
-      board.mergeNets( brd_ele.netcode, brd_track_ref.netcode );
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "update";
+      op.type = "mergenet";
+      op.data = { net_number0: brd_ele.netcode, net_number1: brd_track_ref.netcode };
+      g_board_controller.opCommand( op );
+
     }
 
 
   }
 
+  // finally update net maps and rats nest
+  //
+
+  var map_op = { source: "brd", destination: "brd" };
+  map_op.action = "update";
+  map_op.type = "schematicnetmap";
+  g_board_controller.opCommand( map_op );
 
 }
 
@@ -575,9 +615,15 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
       }
 
 
+      // refs could have changed out from under us, so 
+      // be sure to use .refLookup to find the current version.
+      //
       for (var ind in this.origElements )
       {
-        this.origElements[ind].ref.hideFlag = false;
+        //this.origElements[ind].ref.hideFlag = false;
+
+        var ref = g_board_controller.board.refLookup( this.origElements[ind].ref.id );
+        ref.hideFlag = false;
       }
 
 

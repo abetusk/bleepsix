@@ -1098,8 +1098,9 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
 
         if (pad.net_number == stale_netcode)
         {
-          //console.log("renaming pad: ");
-          //console.log(pad);
+
+          //DEBUG
+          //console.log("renaming pad: ", pad);
 
           pad.net_number = new_netcode;
           pad.net_name = new_netname;
@@ -1315,8 +1316,6 @@ bleepsixBoard.prototype.genNet = function( netcode, netname )
 
 bleepsixBoard.prototype.removeNet = function( netcode, netname )
 {
-
-  console.log(">>> removeNet:", netcode, netname );
 
   var net_name;
   var net_ind;

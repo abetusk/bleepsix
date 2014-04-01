@@ -177,7 +177,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   if ( (msg.action == "update") && (msg.type == "edit") )
   {
-    console.log("bleepsixBoardController.opCommand: update edit not implemented");
+    console.log("bleepsixBoardController.opCommand: update edit not implemented for schematic communication");
   }
 
   if ( (msg.action == "delete") && (msg.type == "group"))
