@@ -246,14 +246,17 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
 // we'll have to do net allocations and the like, but if not, we can just
 // keep nets as they are.  
 //
-toolBoardMove.prototype._testForModuleCollision = function()
+toolBoardMove.prototype._testForModuleCollision = function( ref )
 {
+  /*
   var n = this.selectedElement.length;
   if ( n != 1 ) return false;
 
   var ref = this.selectedElement[0].ref;
   var type = ref.type;
   if ( type != "module" ) return false;
+  */
+
 
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
@@ -285,15 +288,17 @@ toolBoardMove.prototype._testForModuleCollision = function()
 
 }
 
-toolBoardMove.prototype._testForTrackCollision = function()
+toolBoardMove.prototype._testForTrackCollision = function( ref )
 {
 
+  /*
   var n = this.selectedElement.length;
   if ( n != 1 ) return;
 
   var ref = this.selectedElement[0].ref;
   var type = ref.type;
   if ( type != "track" ) return;
+  */
 
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
@@ -389,12 +394,15 @@ toolBoardMove.prototype._patchUpModuleNets = function()
   var type = ref.type;
   if ( type != "module" ) return;
 
+  var orig_ref = this.orig_element_state[0].ref;
+
   // skip if we need no updates (initially no collisions
   // and we move to no collisions)
   //
-  if ( !this._testForModuleCollision() )
+  if ( (!this._testForModuleCollision( ref )) &&
+       (!this._testForModuleCollision( orig_ref ))  )
   {
-    //return;
+    return;
   }
 
   var pads = ref.pad;
@@ -465,6 +473,19 @@ toolBoardMove.prototype._patchUpTrackNets = function()
   var ref = this.selectedElement[0].ref;
   var type = ref.type;
   if ( type != "track" ) return;
+
+  var orig_ref = this.orig_element_state[0].ref;
+
+  // If we're not colliding with anything from our from
+  // position and our to position, don't need to update any
+  // nets.
+  //
+  if ( (!this._testForTrackCollision( ref )) &&
+       (!this._testForTrackCollision( orig_ref )) )
+  {
+    return;
+  }
+
 
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
