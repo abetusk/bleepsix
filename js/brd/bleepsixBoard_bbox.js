@@ -491,10 +491,10 @@ bleepsixBoard.prototype._box_box_intersect = function( bb0, bb1, box_fudge )
 {
   box_fudge = ( (typeof box_fudge === 'undefined') ? 0 : box_fudge );
 
-  return !( ((bb1[0][0] - box_fudge)  > bb0[1][0]) ||
-            (bb1[1][0] < (bb0[0][0] + box_fudge)) ||
-            (-bb1[1][1] > -(bb0[0][1]-box_fudge)) ||
-            (-bb1[0][1] < -(bb0[1][1]+box_fudge)) );
+  return !( ( bb1[0][0] >  (bb0[1][0] + box_fudge)) ||
+            ( bb1[1][0] <  (bb0[0][0] - box_fudge)) ||
+            (-bb1[1][1] > -(bb0[0][1] - box_fudge)) ||
+            (-bb1[0][1] < -(bb0[1][1] + box_fudge)) );
 
 }
 
@@ -536,11 +536,20 @@ bleepsixBoard.prototype._box_line_intersect = function( bbox, l0, l1, box_fudge 
   if ( (s0 == s1) && (s1 == s2) && (s2 == s3) )
     return false;
 
+  /*
   if ( ((l0.x < bbox[0][0]) && (l1.x < bbox[0][0])) ||
        ((l0.x > bbox[1][0]) && (l1.x > bbox[1][0])) ||
        ((l0.y < bbox[0][1]) && (l1.y < bbox[0][1])) ||
        ((l0.y > bbox[1][1]) && (l1.y > bbox[1][1])) )
     return false;
+    */
+
+  if ( ((l0.x < xm) && (l1.x < xm)) ||
+       ((l0.x > xM) && (l1.x > xM)) ||
+       ((l0.y < ym) && (l1.y < ym)) ||
+       ((l0.y > yM) && (l1.y > yM)) )
+    return false;
+
   return true;
 
 }

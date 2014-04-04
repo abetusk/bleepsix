@@ -409,10 +409,16 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
   var type = ele.type;
   var pgn = [];
 
+  var clearance = 0;
+  if (("clearance" in ele) && (typeof ele.clearance !== 'undefined'))
+  {
+    clearance = parseFloat(ele.clearance);
+  }
+
   //if ( (type == "track") || (type == "drawsegment") )
   if (type == "track")
   {
-    this._make_segment( pgn, ele.ref, ds, border_flag );
+    this._make_segment( pgn, ele.ref, ds, border_flag, clearance );
     return pgn;
   }
 
@@ -421,19 +427,19 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
     var shape = ele.shape;
     if (shape == "line")
     {
-      this._make_segment( pgn, ele.ref, ds, border_flag );
+      this._make_segment( pgn, ele.ref, ds, border_flag, clearance );
       return pgn;
     }
 
     else if (shape == "circle")
     {
-      this._make_circle_segment( pgn, ele.ref, ds, border_flag )
+      this._make_circle_segment( pgn, ele.ref, ds, border_flag, clearance )
       return pgn;
     }
 
     else if (shape == "arc")
     {
-      this._make_arc_segment( pgn, ele.ref, ds, border_flag );
+      this._make_arc_segment( pgn, ele.ref, ds, border_flag, clearance );
       return pgn;
     }
 
@@ -463,11 +469,11 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
   u[1] += mod_y;
 
   if (shape == "rectangle")
-    pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag );
+    pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
   else if (shape == "oblong")
-    pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag );
+    pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
   else if (shape == "circle")
-    pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds );
+    pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds, clearance );
   else if (shape == "trapeze")
   {
     console.log("bleepsixBoard._build_element_polygon: trapeze not implemented");
@@ -764,17 +770,18 @@ bleepsixBoard.prototype._clip_xor = function( rop_pgns, pgnsA, pgnsB )
 
 //---
 
-bleepsixBoard.prototype._make_circle_segment = function( seg, circle, ds, border_flag  )
+bleepsixBoard.prototype._make_circle_segment = function( seg, circle, ds, border_flag, clearance )
 {
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
   border_flag = ( (typeof border_flag !== 'undefined' ) ? border_flag : false );
+  clearance = ( (typeof clearance !== 'undefined' ) ? clearance : 0 );
 
   var eps = 0.0001;
   var x = parseFloat(circle.x);
   var y = parseFloat(circle.y);
   var r = parseFloat(circle.r);
   var w = parseFloat(circle.width);
-  var w2 = w/2;
+  var w2 = (w/2) + clearance;
 
   seg.length = 0;
 
@@ -782,15 +789,16 @@ bleepsixBoard.prototype._make_circle_segment = function( seg, circle, ds, border
 
 }
 
-bleepsixBoard.prototype._make_arc_segment = function( seg, arc, ds, border_flag  )
+bleepsixBoard.prototype._make_arc_segment = function( seg, arc, ds, border_flag, clearance  )
 {
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
   border_flag = ( (typeof border_flag !== 'undefined' ) ? border_flag : false );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
 
   seg.length = 0;
 
   var eps = 0.0001;
-  var w2 = parseFloat(arc.width)/2;
+  var w2 = (parseFloat(arc.width)/2) + clearance;
 
   var x = parseFloat(arc.x);
   var y = parseFloat(arc.y);
@@ -872,15 +880,16 @@ bleepsixBoard.prototype._make_arc_segment = function( seg, arc, ds, border_flag 
 // make counter clockwise rectangle with rounded edges (that is, an obround).
 // border flag set if you want long edges of segment to be interpolated.
 //
-bleepsixBoard.prototype._make_segment = function( seg, line, ds, border_flag  )
+bleepsixBoard.prototype._make_segment = function( seg, line, ds, border_flag, clearance  )
 {
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
   border_flag = ( (typeof border_flag !== 'undefined' ) ? border_flag : false );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
 
   seg.length = 0;
 
   var eps = 0.0001;
-  var w2 = line.width/2;
+  var w2 = (line.width/2) + clearance;
 
   var p0 = [ line.x0, line.y0 ];
   var p1 = [ line.x1, line.y1 ];
@@ -1101,12 +1110,15 @@ bleepsixBoard.prototype._realize_translate = function(pnt, x, y )
   }
 }
 
-bleepsixBoard.prototype._realize_circle = function(x, y, r, ang, ds )
+bleepsixBoard.prototype._realize_circle = function(x, y, r, ang, ds, clearance )
 {
   var pnt = [];
 
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
+
+  r += clearance;
 
   var n = Math.floor( 2.0 * Math.PI * r / ds );
   for (var i=0; i<n; i++)
@@ -1120,12 +1132,14 @@ bleepsixBoard.prototype._realize_circle = function(x, y, r, ang, ds )
   return this._pnt2pgn(pnt);
 }
 
-bleepsixBoard.prototype._realize_rect = function( x, y, w, h, ang, ds, border_flag )
+bleepsixBoard.prototype._realize_rect = function( x, y, w, h, ang, ds, border_flag, clearance )
 {
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
   border_flag = ( (typeof border_flag !== 'undefined') ? border_flag : false );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
 
-  var w2 = w/2, h2 = h/2;
+  var w2 = (w/2) + clearance, 
+      h2 = (h/2) + clearance;
 
   var pnt = [];
   if (border_flag)
@@ -1165,17 +1179,21 @@ bleepsixBoard.prototype._realize_rect = function( x, y, w, h, ang, ds, border_fl
   return this._pnt2pgn(pnt);
 }
 
-bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds, border_flag  )
+bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds, border_flag, clearance )
 {
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
   border_flag = ((typeof border_flag !== 'undefined') ? border_flag : false );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
 
   var pnt = [];
 
   var r = ( (obx > oby ) ? (oby/2) : (obx/2) );
   var l = ( (obx > oby ) ? (obx - oby) : (oby - obx) );
   var l2 = l/2;
+
+  r += clearance;
+  l2 += clearance;
 
   var n2 = Math.floor( Math.PI * r / ds );
 
@@ -1279,16 +1297,20 @@ bleepsixBoard.prototype._realize_oblong = function( x, y, obx, oby, ang, ds, bor
 // ----------------------- 
 
 
-bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, ang, ds  )
+bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, ang, ds, clearance )
 {
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
   ds = ( (typeof ds !== 'undefined') ? ds : 1 );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
 
   var pnt = [];
 
   var r = ( (obx > oby ) ? (oby/2) : (obx/2) );
   var l = ( (obx > oby ) ? (obx - oby) : (oby - obx) );
   var l2 = l/2;
+
+  r += clearance;
+  l2 += clearance;
 
   var n2 = Math.floor( Math.PI * r / ds );
 
@@ -1435,11 +1457,15 @@ bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar, clearance )
         for ( var brd_pad_ind in brd_pads )
         {
           var brd_pad = brd_pads[brd_pad_ind];
-          if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box ) )
+
+          if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance ) )
             continue;
 
-          var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ele, pad_ref : brd_pad, id : brd_pad.id } );
-          var pgnEle = this._build_element_polygon( { type: "pad", ref: ele,     pad_ref : ele_pad, id : ele_pad.id } );
+          var pgnEle = this._build_element_polygon({ type: "pad", ref: ele,     pad_ref : ele_pad, 
+                                                     id : ele_pad.id, clearance: clearance } );
+
+          var pgnBrd = this._build_element_polygon({ type: "pad", ref: brd_ele, pad_ref : brd_pad, 
+                                                     id : brd_pad.id } );
 
           if (this._pgn_intersect_test( [ pgnBrd ] , [ pgnEle ] ))
             return true;
@@ -1515,15 +1541,20 @@ bleepsixBoard.prototype.intersectTestBoundingBox = function( id_ref_ar, clearanc
         var ele = id_ref_ar[ind].ref;
         var type = ele.type;
 
+        // track track intersections are allowed
+        //
         if (type == "track")
         {
           //if ( this._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) )
           //  bbox_intersect = true;
 
         }
+
         else if (type == "module")
+        {
           if ( this._box_line_intersect( ele.bounding_box, l0, l1, w ) )
             bbox_intersect = true;
+        }
 
         if (bbox_intersect) break;
 

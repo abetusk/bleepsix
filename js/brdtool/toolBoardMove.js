@@ -83,7 +83,7 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   // global parameters that can feed into the local paramter
   // (or just use the global parameters directly)
   //
-  this.clearance = 10;  // 10 mils
+  this.clearance = 100;  // 10 mils
 
   //this.allowPlaceFlag = false;
   this.allowPlaceFlag = this.canPlace();
@@ -464,7 +464,129 @@ toolBoardMove.prototype._patchUpModuleNets = function()
 
 }
 
+toolBoardMove.prototype._hasCollision = function()
+{
+  for (var ind in this.orig_element_state)
+  {
+    var ref = this.orig_element_state[ind].ref;
+    if (this._testForTrackCollision( ref ))
+      return true;
+  }
+
+  for (var ind in this.selectedElement)
+  {
+    var ref = this.selectedElement[ind].ref;
+    if (this._testForTrackCollision( ref ))
+      return true;
+  }
+
+  return false;
+
+
+}
+
 toolBoardMove.prototype._patchUpTrackNets = function()
+{
+  var n = this.selectedElement.length;
+  if ( n == 1 ) 
+  {
+    this._patchUpTrackNetsSingle();
+    return;
+  }
+
+  // no collisions in from or to position, nothing to do
+  //
+  if (!this._hasCollision())
+  {
+
+    //DEBUG
+    console.log(">>> patchUpTrackNets !hasCollision --> nothing to do");
+
+    return;
+  }
+
+  //DEBUG
+  console.log(">>> patchUpTrackNets ...");
+
+  return;
+
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  var pgnTrack = board._build_element_polygon( { type: "track", ref: ref, id : ref.id } );
+
+  var newnet = board.genNet();
+
+  var net_op = { source: "brd", destination: "brd" };
+  net_op.action = "add";
+  net_op.type = "net";
+  net_op.data = { net_number : newnet.net_number,
+              net_name : newnet.net_name };
+  g_board_controller.opCommand( net_op );
+
+
+  var brd_track_ref = board.refLookup( ref.id );
+  var old_data = {};
+  var new_data = {};
+
+  $.extend( true, old_data, brd_track_ref );
+  $.extend( true, new_data, brd_track_ref );
+
+  new_data.netcode = newnet.net_number;
+
+  var update_op = { source: "brd", destination: "brd" };
+  update_op.action = "update";
+  update_op.type = "edit";
+  update_op.id = [ brd_track_ref.id ];
+  update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+  g_board_controller.opCommand( update_op );
+
+
+
+  for (var brd_ind in brd_eles)
+  {
+    var brd_ele = brd_eles[brd_ind];
+    var brd_type = brd_ele.type;
+    if ( brd_ele.hideFlag ) continue;
+    if ( brd_type != "track" ) continue;  // only allow track-track overlaying
+
+    var l0 = { x : parseFloat(ref.x0) , y : parseFloat(ref.y0) };
+    var l1 = { x : parseFloat(ref.x1) , y : parseFloat(ref.y1) };
+    var w = parseFloat(ref.width) + this.clearance;
+
+    if ( !board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) ) continue;
+
+    var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele, id : brd_ele.id } );
+
+    if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+    {
+
+      brd_track_ref = board.refLookup( brd_track_ref.id );
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "update";
+      op.type = "mergenet";
+      op.data = { net_number0: brd_ele.netcode, net_number1: brd_track_ref.netcode };
+      g_board_controller.opCommand( op );
+
+    }
+
+
+  }
+
+  // finally update net maps and rats nest
+  //
+
+  var map_op = { source: "brd", destination: "brd" };
+  map_op.action = "update";
+  map_op.type = "schematicnetmap";
+  g_board_controller.opCommand( map_op );
+
+
+
+}
+
+toolBoardMove.prototype._patchUpTrackNetsSingle = function()
 {
 
   var n = this.selectedElement.length;
@@ -566,7 +688,13 @@ toolBoardMove.prototype._patchUpNets = function()
 {
 
   var n = this.selectedElement.length;
-  if ( n != 1 ) return;
+  if ( n != 1 ) 
+  {
+
+    this._patchUpTrackNets();
+
+    return;
+  }
 
   var ref = this.selectedElement[0].ref;
   var type = ref.type;
