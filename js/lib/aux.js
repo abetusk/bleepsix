@@ -256,3 +256,89 @@ if (typeof module !== 'undefined')
 }
 
 
+
+
+
+
+// Converted from (a slightly buggy) python version
+// from user Alex Martelli posted on Math 13 2010 5:31.
+// http://stackoverflow.com/questions/2824478/shortest-distance-between-two-line-segments
+
+//   distance between two segments in the plane:
+//   one segment is (x11, y11) to (x12, y12)
+//   the other is   (x21, y21) to (x22, y22)
+//
+function segments_distance(x11, y11, x12, y12, x21, y21, x22, y22)
+{
+
+  if (segments_intersect(x11, y11, x12, y12, x21, y21, x22, y22))
+    return 0;
+
+  // try each of the 4 vertices w/the other segment
+  var distances = [];
+  distances.push(point_segment_distance(x11, y11, x21, y21, x22, y22));
+  distances.push(point_segment_distance(x12, y12, x21, y21, x22, y22));
+  distances.push(point_segment_distance(x21, y21, x11, y11, x12, y12));
+  distances.push(point_segment_distance(x22, y22, x11, y11, x12, y12));
+
+  return Math.min.apply(null, distances);
+
+}
+
+// whether two segments in the plane intersect:
+// one segment is (x11, y11) to (x12, y12)
+// the other is   (x21, y21) to (x22, y22)
+//
+function segments_intersect(x11, y11, x12, y12, x21, y21, x22, y22)
+{
+  var local_eps = 0.00001;
+  var dx1 = x12 - x11;
+  var dy1 = y12 - y11;
+  var dx2 = x22 - x21;
+  var dy2 = y22 - y21;
+  var delta = dx2 * dy1 - dy2 * dx1;
+
+  if (Math.abs(delta) < local_eps)
+    return false;
+
+  var s = (dx1 * (y21 - y11) + dy1 * (x11 - x21)) / delta;
+  var t = (dx2 * (y11 - y21) + dy2 * (x21 - x11)) / (-delta);
+
+  return (0 <= s) && (s  <= 1) && (0 <= t) && (t  <= 1);
+
+}
+
+function point_segment_distance(px, py, x1, y1, x2, y2)
+{
+  var local_eps = 0.00001;
+  var dx = x2 - x1;
+  var dy = y2 - y1;
+  if ( (Math.abs(dx - dy) < local_eps) &&
+       (Math.abs(dy) < local_eps) )
+    return Math.sqrt(((px-x1)*(px-x1) + (py-y1)*(py-y1)));
+
+  var t = ((px - x1) * dx + (py - y1) * dy) / (dx*dx + dy*dy);
+
+  if (t < 0)
+  {
+    dx = px - x1;
+    dy = py - y1;
+  }
+  else if (t > 1)
+  {
+    dx = px - x2;
+    dy = py - y2;
+  }
+  else
+  {
+    var near_x = x1 + t * dx;
+    var near_y = y1 + t * dy;
+    dx = px - near_x;
+    dy = py - near_y;
+  }
+
+  return Math.sqrt(dx*dx + dy*dy);
+
+}
+
+
