@@ -291,15 +291,6 @@ toolBoardMove.prototype._testForModuleCollision = function( ref )
 toolBoardMove.prototype._testForTrackCollision = function( ref )
 {
 
-  /*
-  var n = this.selectedElement.length;
-  if ( n != 1 ) return;
-
-  var ref = this.selectedElement[0].ref;
-  var type = ref.type;
-  if ( type != "track" ) return;
-  */
-
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
 
@@ -331,6 +322,60 @@ toolBoardMove.prototype._testForTrackCollision = function( ref )
   return false;
 
 }
+
+// Check for track and pad detection
+toolBoardMove.prototype._testForTrackCollisionAll = function( ref )
+{
+
+  var board = g_board_controller.board;
+  var brd_eles = board.kicad_brd_json.element;
+
+  var pgnTrack = board._build_element_polygon( { type: "track", ref: ref, id : ref.id } );
+  var brd_track_ref = board.refLookup( ref.id );
+
+  for (var brd_ind in brd_eles)
+  {
+    var brd_ele = brd_eles[brd_ind];
+    var brd_type = brd_ele.type;
+    if ( brd_ele.hideFlag ) continue;
+    //if ( brd_type != "track" ) continue;  // only allow track-track overlaying
+
+    if ( (brd_type != "track") && (brd_type != "module") ) continue;
+
+    var l0 = { x : parseFloat(ref.x0) , y : parseFloat(ref.y0) };
+    var l1 = { x : parseFloat(ref.x1) , y : parseFloat(ref.y1) };
+    var w = parseFloat(ref.width) + this.clearance;
+
+    if ( !board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) ) continue;
+
+    if (brd_type == "track")
+    {
+      var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele, id : brd_ele.id } );
+      if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+        return true;
+    }
+
+    else if (brd_type == "module")
+    {
+      if (!("pad" in brd_ele)) continue;
+
+      for (var p_ind in brd_ele.pad)
+      {
+        var pad = brd_ele.pad[p_ind];
+        var pgnBrd = board._build_element_polygon( { type: "pad", ref: brd_ele, pad_ref: pad, id : pad.id } );
+        if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+          return true;
+      }
+
+    }
+
+  }
+
+  return false;
+
+}
+
+
 
 
 
@@ -764,12 +809,20 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
   // position and our to position, don't need to update any
   // nets.
   //
-  if ( (!this._testForTrackCollision( ref )) &&
-       (!this._testForTrackCollision( orig_ref )) )
+  if ( (!this._testForTrackCollisionAll( ref )) &&
+       (!this._testForTrackCollisionAll( orig_ref )) )
   {
+
+  //DEBUG
+  console.log(">>>>CP-0");
+
+
     return;
   }
 
+
+  //DEBUG
+  console.log(">>>>CP0");
 
   var board = g_board_controller.board;
   var brd_eles = board.kicad_brd_json.element;
@@ -809,29 +862,71 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
     var brd_ele = brd_eles[brd_ind];
     var brd_type = brd_ele.type;
     if ( brd_ele.hideFlag ) continue;
-    if ( brd_type != "track" ) continue;  // only allow track-track overlaying
+
+    //if ( brd_type != "track" ) continue;  // only allow track-track overlaying
+
+    if ( ( brd_type != "track") && ( brd_type != "module" ) ) continue;
 
     var l0 = { x : parseFloat(ref.x0) , y : parseFloat(ref.y0) };
     var l1 = { x : parseFloat(ref.x1) , y : parseFloat(ref.y1) };
-    var w = parseFloat(ref.width) + this.clearance;
-
+    var w = parseFloat(ref.width);
     if ( !board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) ) continue;
 
-    var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele, id : brd_ele.id } );
+    if ( brd_type == "track" )
+    {
+      var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ele, id : brd_ele.id } );
+      if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+      {
 
-    if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+        brd_track_ref = board.refLookup( brd_track_ref.id );
+
+        var op = { source: "brd", destination: "brd" };
+        op.action = "update";
+        op.type = "mergenet";
+        op.data = { net_number0: brd_ele.netcode, net_number1: brd_track_ref.netcode };
+        g_board_controller.opCommand( op );
+
+      }
+    }
+    else if (brd_type == "module")
     {
 
-      brd_track_ref = board.refLookup( brd_track_ref.id );
+      //DEBUG
+      console.log(">>> brd_type", brd_type);
 
-      var op = { source: "brd", destination: "brd" };
-      op.action = "update";
-      op.type = "mergenet";
-      op.data = { net_number0: brd_ele.netcode, net_number1: brd_track_ref.netcode };
-      g_board_controller.opCommand( op );
+      if (brd_ele.name == "unknown") continue;
+      if ( !("pad" in brd_ele) ) continue;
+
+      var pads = brd_ele.pad;
+
+      for (var p_ind in pads)
+      {
+        var pad = pads[p_ind];
+
+        //DEBUG
+        console.log(">>> pad:", pad);
+
+        if ( !board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) continue;
+
+        //DEBUG
+        console.log(">>> cp");
+
+
+        var pgnBrd = board._build_element_polygon( { type: "pad", ref: brd_ele, pad_ref: pad, id : pad.id } );
+        if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) ) 
+        {
+          brd_track_ref = board.refLookup( brd_track_ref.id );
+
+          var op = { source: "brd", destination: "brd" };
+          op.action = "update";
+          op.type = "mergenet";
+          op.data = { net_number0: pad.net_number, net_number1: brd_track_ref.netcode };
+          g_board_controller.opCommand( op );
+        }
+
+      }
 
     }
-
 
   }
 
