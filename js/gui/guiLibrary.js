@@ -186,7 +186,7 @@ guiLibrary.prototype.mouseDown = function(button, x, y )
 
     if (r)
     {
-      console.log("guiLibrary: got tile hit " + this.guiChildren[1].component_name );
+      //console.log("guiLibrary: got tile hit " + this.guiChildren[1].component_name );
       g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiChildren[1].component_name );
       g_schematic_controller.guiToolbox.defaultSelect();
       return true;

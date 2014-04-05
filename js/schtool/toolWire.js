@@ -24,7 +24,7 @@
 
 function toolWire( x, y, initialPlaceFlag ) 
 {
-  console.log("toolWire");
+  //console.log("toolWire");
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
@@ -271,7 +271,7 @@ toolWire.prototype.placeWire = function()
                                         */
 
       }
-      else console.log("wire points too close, skipping");
+      //else console.log("wire points too close, skipping");
 
     }
   }
@@ -436,7 +436,7 @@ toolWire.prototype.mouseDown = function( button, x, y )
     {
 
       var d = this.dist1( this.cur_wire[1], this.cur_wire[0] ) ;
-      console.log("d: " + d);
+      //console.log("d: " + d);
 
       if ( this.dist1( this.cur_wire[1], this.cur_wire[0] ) < this.dist1_wire_eps )
       {
@@ -604,14 +604,14 @@ toolWire.prototype.mouseMove = function( x, y )
           if (this.forceVertical)
           {
 
-            console.log("forcing vertical");
+            //console.log("forcing vertical");
 
             this.jointWireVerticalFlag = true;
           }
           else
           {
 
-            console.log("forcing horizontal");
+            //console.log("forcing horizontal");
 
             this.jointWireVerticalFlag = false;
           }
@@ -668,11 +668,11 @@ toolWire.prototype.mouseWheel = function( delta )
 
 toolWire.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolWire keyDown: " + keycode + " " + ch );
+  //console.log("toolWire keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
-    console.log("handing back to toolNav");
+    //console.log("handing back to toolNav");
     g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_schematic_controller.guiToolbox.defaultSelect();
 
@@ -689,7 +689,7 @@ toolWire.prototype.keyDown = function( keycode, ch, ev )
 
 toolWire.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolWire keyUp: " + keycode + " " + ch );
+  //console.log("toolWire keyUp: " + keycode + " " + ch );
 }
 
 

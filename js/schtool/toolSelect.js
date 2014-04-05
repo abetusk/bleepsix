@@ -25,7 +25,7 @@
 function toolSelect( x, y) 
 {
 
-  console.log("toolSelect");
+  //console.log("toolSelect");
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;

@@ -156,7 +156,7 @@ guiPalette.prototype.hitTest = function(x, y)
 
       if (r)
       {
-        console.log("guiPalette: got child hit " + this.guiChildren[ind].component_name );
+        //console.log("guiPalette: got child hit " + this.guiChildren[ind].component_name );
         g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiChildren[ind].component_name );
 
         g_schematic_controller.guiToolbox.defaultSelect();
@@ -169,7 +169,7 @@ guiPalette.prototype.hitTest = function(x, y)
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
        (0 <= u[1]) && (u[1] <= this.height) )
   {
-    console.log( "guiPalette: " + this.name + " hit\n");
+    //console.log( "guiPalette: " + this.name + " hit\n");
     return true;
   }
 

@@ -1180,8 +1180,8 @@ bleepsixSchematic.prototype.updateComponentData = function( json_component, id )
   var t1xy = [ parseFloat(ref.x) + parseFloat(txt1.x), 
                parseFloat(ref.y) + parseFloat(txt1.y) ];
 
-  console.log(t0xy);
-  console.log(t1xy);
+  //console.log(t0xy);
+  //console.log(t1xy);
 
   ref["reference"] = json_component["reference"];
   ref["name"] = json_component["name"];

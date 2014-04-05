@@ -83,7 +83,10 @@ function bleepsixSchematicNetwork( serverURL )
 
   var p = this;
   this.socket.on('connect', 
-      function() { console.log("connect!"); p.init();  });
+      function() { 
+        //console.log("connect!"); 
+        p.init();  
+      });
   this.socket.on('connect_error', 
       function(x,y) { console.log("connect_error?"); console.log(x); console.log(y); });
   this.socket.on('connect_timeout', 
@@ -214,7 +217,7 @@ bleepsixSchematicNetwork.prototype.init = function()
   if (!this.projectId)
     this.projectId = undefined;
 
-  console.log("bleepsixSchematicNetwork.init: got projectId: " + this.projectId );
+  //console.log("bleepsixSchematicNetwork.init: got projectId: " + this.projectId );
 
   //this.schematicId = $.cookie("schematicId");
 
@@ -241,7 +244,7 @@ bleepsixSchematicNetwork.prototype.init = function()
   // and sessionId are actually valid.  Send a 'meow' probe and wait for a
   // 'mew' response to proceed.
   //
-  console.log("userId: " + this.userId + ", sessionId: " + this.sessionId );
+  //console.log("userId: " + this.userId + ", sessionId: " + this.sessionId );
 
   // If we don't have a projectId, then we emit a meow and will 
   // request a new projectId on authenticated 'mew' response.
@@ -291,7 +294,7 @@ bleepsixSchematicNetwork.prototype.init = function()
   }
   else
   {
-    console.log("projectauth emit");
+    //console.log("projectauth emit");
 
     this.usingUrlProjectFlag = true;
     this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId});
@@ -356,8 +359,8 @@ bleepsixSchematicNetwork.prototype.newprojectResponse = function( data )
 
 bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
 {
-  console.log("projectauthResponse:");
-  console.log(data);
+  //console.log("projectauthResponse:");
+  //console.log(data);
 
   this.fail_count++;
   if (this.fail_count >= this.fail_max)
@@ -367,16 +370,18 @@ bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
     return;
   }
 
-  console.log( "fail_count: " + this.fail_count + " / " + this.fail_max );
+  //console.log( "fail_count: " + this.fail_count + " / " + this.fail_max );
 
   if (data && (data.type == "response") && (data.status == "success") )
   {
     this.projectName = data.projectName;
 
+    /*
     console.log("userId: " + this.userId);
     console.log("sessionid: " + this.sessionId);
     console.log("projectId: " + this.projectId);
     console.log("projectName: " + this.projectName);
+    */
 
     $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
     g_schematic_controller.project_name_text = this.userName + " / " + this.projectName;
@@ -396,14 +401,14 @@ bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
     //
     if ( data.message.match(/thentication failure/) )
     {
-      console.log("authentication failure, issuing an anonymouscreate request");
+      //console.log("authentication failure, issuing an anonymouscreate request");
 
       this.socket.emit( "anonymouscreate" );
       return;
     }
 
-    console.log("DEBUG: bleepsixSchematicNetwork.projectauthResponse " +
-        "authentication failed, issuing a 'startupProject' request");
+    //console.log("DEBUG: bleepsixSchematicNetwork.projectauthResponse " +
+    //    "authentication failed, issuing a 'startupProject' request");
 
 
     var container = {
@@ -416,8 +421,8 @@ bleepsixSchematicNetwork.prototype.projectauthResponse = function( data )
     var xx = this;
     var str_data = JSON.stringify( container );
 
-    console.log("sending to meowDataManager");
-    console.log(str_data);
+    //console.log("sending to meowDataManager");
+    //console.log(str_data);
 
     $.ajax({
       type: "POST",
@@ -448,8 +453,8 @@ bleepsixSchematicNetwork.prototype.projectsnapshot = function()
 
 bleepsixSchematicNetwork.prototype.projectsnapshotResponse = function( data )
 {
-  console.log("projectsnapshot response:");
-  console.log(data);
+  //console.log("projectsnapshot response:");
+  //console.log(data);
 
   if (!data)
   {
@@ -457,7 +462,7 @@ bleepsixSchematicNetwork.prototype.projectsnapshotResponse = function( data )
     return;
   }
 
-  console.log("data:");
+  //console.log("data:");
 
   var typ = data.type;
   var stat = data.status;
@@ -474,10 +479,26 @@ bleepsixSchematicNetwork.prototype.projectsnapshotResponse = function( data )
   var json_sch = JSON.parse(data.json_sch);
   var json_brd = JSON.parse(data.json_brd);
 
-  g_schematic_controller.schematic.load_schematic( json_sch );
+  this.deferLoadSchematic( json_sch );
   g_schematic_controller.board.load_board( json_brd );
 
 }
+
+bleepsixSchematicNetwork.prototype.deferLoadSchematic = function( json_sch )
+{
+
+  if (!g_component_location_ready)
+  {
+    setTimeout( (function(xx) { return function() { xx.deferLoadSchematic( json_sch ); } })(this), 250 );
+    return;
+  }
+
+  g_schematic_controller.schematic.load_schematic( json_sch );
+  return;
+
+}
+
+
 
 bleepsixSchematicNetwork.prototype.projectflushResponse = function( data )
 {

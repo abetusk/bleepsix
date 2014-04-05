@@ -188,7 +188,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   if ( (msg.action == "add") && (msg.type == "componentData") )
   {
 
-    console.log("add componentData --> board");
+    //console.log("add componentData --> board");
 
     var comp_ref = this.schematic.refLookup( msg.id );
 
@@ -219,7 +219,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
       {
 
         //DEBUG
-        console.log("  sending BRDOP over network");
+        //console.log("  sending BRDOP over network");
 
         g_schnetwork.projectop( brdop );
       }
@@ -303,8 +303,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   net_op.type = "net";
   net_op.data = sch_net_code_map;
 
-  console.log("TESTING");
-  console.log(net_op);
+  //console.log("TESTING");
+  //console.log(net_op);
   this.op.opCommand( net_op );
 
   var brd_net_op = { source: "sch", destination: "brd" };
@@ -660,7 +660,7 @@ bleepsixSchematicController.prototype.mouseDown = function( button, x, y )
 
   if (this.guiPalette.hitTest(x, y))
   {
-    console.log(" gui component hit, letting it handle it");
+    //console.log(" gui component hit, letting it handle it");
     return;
   }
 
@@ -718,7 +718,7 @@ bleepsixSchematicController.prototype.mouseDown = function( button, x, y )
 
 bleepsixSchematicController.prototype.doubleClick = function( e )
 {
-  console.log("double click");
+  //console.log("double click");
 
   if (this.guiToolbox.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
   {
@@ -821,7 +821,7 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   var controller = this;
 
   $(canvas_id).focus( function(ev) {
-    console.log('focus');
+    //console.log('focus');
     //console.log(ev);
   });
 

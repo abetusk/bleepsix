@@ -195,7 +195,7 @@ bleepsixBoard.prototype.makeUnknownModule = function( size, id, text_ids )
 
 
   //DEBUG
-  console.log("makeUnknownModule: " + id );
+  //console.log("makeUnknownModule: " + id );
 
   var unknownModule = {
     id : id,

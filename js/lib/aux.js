@@ -112,9 +112,6 @@ function load_component_location( component_location_json )
     function(data) {
       g_component_location = data;
       g_component_location_ready = true;
-
-      //console.log(component_location_json + " loaded");
-      //console.log(g_component_location);
     }
   ).fail(
     function(jqxhr, textStatus, error) {

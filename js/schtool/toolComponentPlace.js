@@ -51,7 +51,7 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
 
     this.cloned_component.name = component_data.name;
 
-    console.log( this.cloned_component );
+    //console.log( this.cloned_component );
 
     this.transform[0][0] = component_data.transform[0][0];
     this.transform[0][1] = component_data.transform[0][1];
@@ -121,7 +121,7 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
   if (button == 1)
   {
 
-    console.log("toolComponentPlace: placing component: " + this.component_name);
+    //console.log("toolComponentPlace: placing component: " + this.component_name);
 
     if ( this.highlightId )
     {
@@ -170,7 +170,7 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
                 transform: this.transform };
     g_schematic_controller.opCommand( op );
 
-    console.log("toolComponentPlace: passing back to toolNav");
+    //console.log("toolComponentPlace: passing back to toolNav");
 
     g_schematic_controller.tool = new toolNav();
     g_schematic_controller.tool.mouseMove( x, y );  // easy way to setup?
@@ -196,7 +196,7 @@ toolComponentPlace.prototype._componentWithinReplaceDistance = function( ref )
 {
   if (ref.name == "unknown")
   {
-    console.log("hovering over unknown");
+    //console.log("hovering over unknown");
     return true;
   }
 
@@ -249,7 +249,7 @@ toolComponentPlace.prototype.keyDown = function( keycode, ch, ev )
   if (keycode == 27)
   {
 
-    console.log("toolComponentPlace: passing back to toolNav");
+    //console.log("toolComponentPlace: passing back to toolNav");
 
     // pass control back to toolNav
     g_schematic_controller.tool = new toolNav();
@@ -274,7 +274,7 @@ toolComponentPlace.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (keycode == 191)
   {
-    console.log(g_component_cache[this.component_name]);
+    //console.log(g_component_cache[this.component_name]);
   }
 
 }

@@ -36,7 +36,7 @@ function toolMove( mouse_x, mouse_y, processInitialMouseUp  )
   mouse_y = ( typeof mouse_y !== 'undefined' ? mouse_y : 0 );
   processInitialMouseUp = ( typeof processInitialMouseUp !== 'undefined' ? processInitialMouseUp : true );
 
-  console.log("toolMove starting");
+  //console.log("toolMove starting");
 
   this.mouse_cur_x = mouse_x;
   this.mouse_cur_y = mouse_y;
@@ -245,7 +245,7 @@ toolMove.prototype.drawOverlay = function()
 toolMove.prototype.mouseDown = function( button, x, y )
 {
 
-  console.log("toolMove.mouseDown");
+  //console.log("toolMove.mouseDown");
 
   /*
   if (button == 1)
@@ -266,7 +266,7 @@ toolMove.prototype.mouseDown = function( button, x, y )
 
 toolMove.prototype.doubleClick = function( button, x, y )
 {
-  console.log("toolMove.doubleClick");
+  //console.log("toolMove.doubleClick");
 
   if ( !this.hasMoved )
   {
@@ -288,7 +288,7 @@ toolMove.prototype.doubleClick = function( button, x, y )
           this.origElements[ind].ref.hideFlag = false;
         }
 
-        console.log("toolMove handing control over to toolComponentEdit");
+        //console.log("toolMove handing control over to toolComponentEdit");
 
         g_schematic_controller.tool = new toolComponentEdit(x, y, id_ref);
         g_schematic_controller.guiToolbox.defaultSelect();
@@ -372,7 +372,7 @@ toolMove.prototype.mouseUp = function( button, x, y )
 
       }
 
-      console.log("toolMove handing control back to toolNav (1)");
+      //console.log("toolMove handing control back to toolNav (1)");
 
       g_schematic_controller.tool = new toolNav(x, y);
       g_schematic_controller.guiToolbox.defaultSelect();
@@ -461,7 +461,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
     //this.deep_copy_back( this.orig_element_state );
     //$.extend(true, this.selectedElement, this.orig_element_state );
 
-    console.log("toolMove handing back control to toolNav (2)");
+    //console.log("toolMove handing back control to toolNav (2)");
 
     // pass control back to toolNav
     g_schematic_controller.tool = new toolNav();
@@ -506,7 +506,7 @@ toolMove.prototype.keyDown = function( keycode, ch, ev )
 
     g_schematic_controller.opCommand( op );
 
-    console.log("toolMove handing back control to toolNav (3)");
+    //console.log("toolMove handing back control to toolNav (3)");
 
 
     g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );

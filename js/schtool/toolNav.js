@@ -28,7 +28,7 @@ function toolNav( x, y )
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
 
-  console.log("toolNav");
+  //console.log("toolNav");
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -110,7 +110,7 @@ toolNav.prototype.mouseDown = function( button, x, y )
 
 toolNav.prototype.doubleClick = function(button, x, y)
 {
-  console.log("toolNav.doubleClick");
+  //console.log("toolNav.doubleClick");
   var world_coord = g_painter.devToWorld( x, y );
   var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
 
@@ -257,6 +257,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'I')
   {
+    console.log(">>> (I)nformation");
     console.log("schematic:");
     console.log( g_schematic_controller.schematic);
     console.log( g_schematic_controller.schematic.kicad_sch_json );
@@ -338,8 +339,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_schnetwork.schfullpush();
     */
 
-    console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
-    console.log( g_schematic_controller.schematic.ref_lookup);
+    //console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
+    //console.log( g_schematic_controller.schematic.ref_lookup);
 
 
   }
@@ -364,7 +365,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'J')
   {
 
-    console.log("connection? " + wx + " " + wy );
+    //console.log("connection? " + wx + " " + wy );
 
     var op = { source: "sch", destination : "sch"  };
     op.action = "add";
@@ -376,7 +377,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'X')
   {
 
-    console.log("connection? " + wx + " " + wy );
+    //console.log("connection? " + wx + " " + wy );
 
     var op = { source: "sch", destination: "sch" };
     op.action = "add";
@@ -399,7 +400,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     }
     else
     {
-      console.log("...nope");
+      //console.log("...nope");
     }
 
   }
@@ -419,8 +420,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     if ( id && (id["ref"]["type"] == "component") )
     {
 
-      console.log("R id:");
-      console.log(id);
+      //console.log("R id:");
+      //console.log(id);
 
       var op = { source: "sch", destination: "sch"  }
       op.action = "update";
@@ -438,8 +439,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     if ( id && (id["ref"]["type"] == "component") )
     {
 
-      console.log("E id:");
-      console.log(id);
+      //console.log("E id:");
+      //console.log(id);
 
       var op = { source: "sch", destination : "sch" }
       op.action = "update";
@@ -484,12 +485,12 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'D')
   {
-    console.log("(D)elete: wxy: " + wx + " " + wy );
+    //console.log("(D)elete: wxy: " + wx + " " + wy );
 
     var id_ref_ar = g_schematic_controller.schematic.pickAll( wx, wy );
 
-    console.log("got:");
-    console.log(id_ref_ar);
+    //console.log("got:");
+    //console.log(id_ref_ar);
 
     if (id_ref_ar.length > 0)
     {
@@ -549,8 +550,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
           $.extend(true, clonedData, ref );
           op.data.element.push( clonedData );
 
-          console.log("pushing ref for removal:");
-          console.log(ref);
+          //console.log("pushing ref for removal:");
+          //console.log(ref);
 
           g_schematic_controller.opCommand( op );
 
@@ -573,7 +574,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'M')
   {
-    console.log("move...\n");
+    //console.log("move...\n");
   }
 
   if (keycode == '32') return false;
@@ -582,7 +583,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
 toolNav.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolNav keyUp: " + keycode + " " + ch );
+  //console.log("toolNav keyUp: " + keycode + " " + ch );
 }
 
 

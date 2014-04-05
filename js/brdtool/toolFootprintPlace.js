@@ -45,7 +45,7 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
     this.cloned_footprint.name = footprint_data.name;
     this.angle = 0.0;
 
-    console.log( this.cloned_footprint );
+    //console.log( this.cloned_footprint );
 
   }
 
@@ -104,7 +104,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
   {
 
     //DEBUG
-    console.log(">>>>>>>>>>> PLACING");
+    //console.log(">>>>>>>>>>> PLACING");
 
     // Generate new nets for each of the pads about to be created
     //
@@ -115,8 +115,8 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       var net_obj = g_board_controller.board.genNet();
 
       //DEBUG
-      console.log(">>>>>>>>>>>>> tool footprint place: creating new net:");
-      console.log( net_obj );
+      //console.log(">>>>>>>>>>>>> tool footprint place: creating new net:");
+      //console.log( net_obj );
 
 
       var net_op = { source : "brd" , destination: "brd" };
@@ -132,8 +132,8 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     }
 
     //DEBUG
-    console.log(">>>>>> CLONED FOOTPRINT (after prep)");
-    console.log(this.cloned_footprint);
+    //console.log(">>>>>> CLONED FOOTPRINT (after prep)");
+    //console.log(this.cloned_footprint);
 
     if (this.highlightId)
     {
@@ -194,7 +194,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       return;
     }
 
-    console.log("toolFootprintPlace: placing footprint: " + this.footprint_name);
+    //console.log("toolFootprintPlace: placing footprint: " + this.footprint_name);
 
     var op = { source : "brd" , destination: "brd" };
     op.action = "add";
@@ -210,7 +210,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
                                              //this.angle );
                                              */
 
-    console.log("toolFootprintPlace: passing back to toolBoardNav");
+    //console.log("toolFootprintPlace: passing back to toolBoardNav");
 
     g_board_controller.tool = new toolBoardNav(x, y);
     //g_board_controller.tool.mouseMove( x, y );  // easy way to setup?
@@ -285,7 +285,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
   if (keycode == 27)
   {
 
-    console.log("toolFootprintPlace: passing back to toolNav");
+    //console.log("toolFootprintPlace: passing back to toolNav");
 
     g_board_controller.tool = new toolBoardNav( this.mouse_x, this.mouse_y );
     g_painter.dirty_flag = true;
@@ -300,7 +300,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
     var id_ref = { id: this.cloned_footprint.id, ref : this.cloned_footprint };
     g_board_controller.board.rotate90( id_ref, true );
 
-    console.log(" (r) angle now: " + this.cloned_footprint.angle );
+    //console.log(" (r) angle now: " + this.cloned_footprint.angle );
 
     //this.cloned_footprint.angle = this.angle;
     g_painter.dirty_flag = true;
@@ -315,14 +315,14 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
     var id_ref = { id: this.cloned_footprint.id, ref : this.cloned_footprint };
     g_board_controller.board.rotate90( id_ref, false );
 
-    console.log(" (e) angle now: " + this.cloned_footprint.angle );
+    //console.log(" (e) angle now: " + this.cloned_footprint.angle );
 
     //this.cloned_footprint.angle = this.angle;
     g_painter.dirty_flag = true;
   }
   else if (keycode == 191)
   {
-    console.log(g_footprint_cache[this.footprint_name]);
+    //console.log(g_footprint_cache[this.footprint_name]);
   }
 
 }
