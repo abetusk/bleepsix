@@ -1570,6 +1570,37 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
     g_painter.dirty_flag = true;
   }
+
+  else if ( keycode == 187 )
+  {
+
+    g_parameter.traceWidth += 10;
+    this.trace_width = g_parameter.traceWidth;
+
+    this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
+
+    //DEBUG
+    console.log(">>> toolTrace.keyDonw ++", g_parameter.traceWidth);;
+
+  }
+
+  else if ( keycode == 189 )
+  {
+
+
+    g_parameter.traceWidth -= 10;
+    if (g_parameter.traceWidth < 80)
+      g_parameter.traceWidth = 80;
+    this.trace_width = g_parameter.traceWidth;
+
+    this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
+
+    //DEBUG
+    console.log(">>> toolTrace.keyDonw --", g_parameter.traceWidth);
+
+
+  }
+
   else if (ch =='V')
   {
     if (!this.allow_place_flag)
