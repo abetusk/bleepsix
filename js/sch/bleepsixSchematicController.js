@@ -152,6 +152,21 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   //console.log("bleepsixSchematicController.opCommand msg:");
   //console.log(msg);
 
+  var delComponentList = [];
+  if ((msg.action == "delete") && (msg.type == "group"))
+  {
+
+    for (var ind in msg.id)
+    {
+      var sch_ele_ref = this.schematic.refLookup( msg.id[ind] );
+      if (sch_ele_ref.type != "component") continue;
+      delComponentList.push( { id: msg.id[ind], type: sch_ele_ref.type } );
+    }
+
+  }
+
+
+
   this.op.opCommand( msg );
   this.schematicUpdate = true;
 
@@ -248,9 +263,6 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   else if ((msg.action == "delete") && (msg.type == "group"))
   {
 
-    console.log(" delete group --> board");
-    console.log(msg);
-
     var brdop = { source: "sch", destination: "brd" };
     brdop.scope = msg.scope;
     brdop.action = msg.action;
@@ -258,25 +270,18 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     brdop.id = [];
     brdop.data = { element : [] }
 
-    for (var ind in msg.id)
+    for ( var ind in delComponentList )
     {
-      brdop.id.push( msg.id[ind] );
-      var clonedData = simplecopy( this.board.refLookup( msg.id[ind] ) );
+      brdop.id.push( delComponentList[ind].id );
+      var clonedData = simplecopy( this.board.refLookup( delComponentList[ind].id ) );
       brdop.data.element.push( clonedData );
     }
 
-    console.log("  -----> sending");
-    console.log(brdop);
-
-    this.op.opCommand( brdop );
-
-    if ( g_schnetwork && (msg.scope == "network") )
+    if (brdop.id.length > 0)
     {
-
-      //DEBUG
-      console.log("  sending BRDOP over network");
-
-      g_schnetwork.projectop( brdop );
+      this.op.opCommand( brdop );
+      if ( g_schnetwork && (msg.scope == "network") )
+        g_schnetwork.projectop( brdop );
     }
 
 
