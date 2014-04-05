@@ -77,8 +77,10 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
   // Needs to be taken from board design constraints.
   // Hardcoded for now.
   //
-  this.trace_width = 100;
-  this.via_width = 472;
+  //this.trace_width = 100;
+  //this.via_width = 472;
+  this.trace_width = g_parameter.traceWidth;
+  this.via_width = g_parameter.viaWidth;
 
   this.small_magnet_size = 50;
   this.small_trace_magnet_size = 15;

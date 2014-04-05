@@ -45,8 +45,8 @@
     <script src='js/brd/bleepsixBoard_ratsnest.js'></script>
 
     <script src='js/brd/bleepsixBoardController.js'></script>
-
     <script src='js/brd/bleepsixBoardNetwork.js'></script>
+    <script src='js/brd/bleepsixBoardParameter.js'></script>
 
     <script src='js/sch/bleepsixSchematic.js'></script>
     <script src='js/sch/bleepsixSchematic_event.js'></script>
@@ -164,8 +164,8 @@
       var g_board_controller = null; 
 
       var g_brdnetwork = null;
-
       var g_controller = null;
+      var g_parameter = null;
 
       var g_imgcache = null;
 
@@ -217,6 +217,8 @@
 		g_context = g_board_controller.context;
 
         g_controller = g_board_controller;
+
+        g_parameter = new bleepsixBoardParameter();
 
         var img_base = "img";
         g_imgcache = new imageCache();

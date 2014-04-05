@@ -193,16 +193,8 @@ bleepsixSchematic.prototype.refUpdate = function( oldId, newId )
 bleepsixSchematic.prototype.refLookup = function( id )
 {
 
-  //console.log("refLookup: looking up id " + id );
-
   if (id in this.ref_lookup)
-  {
-
-    //console.log("  found!  returning:");
-    //console.log( this.ref_lookup[id] );
-
     return this.ref_lookup[ id ];
-  }
 
   var sch = this.kicad_sch_json["element"];
   var ind;
@@ -212,16 +204,8 @@ bleepsixSchematic.prototype.refLookup = function( id )
 
     this.ref_lookup[ sch[ind].id ] = sch[ind];
 
-    //console.log("added " + sch[ind].id + " to ref_lookup:");
-    //console.log( this.ref_lookup[ sch[ind].id ] );
-
     if ( id == sch[ind].id )
-    {
-      console.log("  found!  returning:");
-      console.log( this.ref_lookup[id] );
-
       return this.ref_lookup[id];
-    }
 
     if (sch[ind].type == "component")
     {
@@ -229,18 +213,13 @@ bleepsixSchematic.prototype.refLookup = function( id )
       {
         this.ref_lookup[ sch[ind].text[t_ind].id ] = sch[ind].text[t_ind];
         if ( id == sch[ind].text[t_ind].id )
-        {
-          //console.log("  found!  returning:");
-          //console.log( this.ref_lookup[id] );
-
           return this.ref_lookup[ id ];
-        }
       }
     }
 
   }
 
-  console.log("bleepsixSchematic.refLookup: ERROR: id " + id + " not found!");
+  console.log("bleepsixSchematic.refLookup: ERROR: id " , id , " not found!");
 
   return null;
 

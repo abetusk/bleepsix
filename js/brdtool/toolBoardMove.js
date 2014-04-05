@@ -83,7 +83,8 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   // global parameters that can feed into the local paramter
   // (or just use the global parameters directly)
   //
-  this.clearance = 100;  // 10 mils
+  //this.clearance = 100;  // 10 mils
+  this.clearance = g_parameter.clearance;
 
   //this.allowPlaceFlag = false;
   this.allowPlaceFlag = this.canPlace();

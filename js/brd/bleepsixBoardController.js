@@ -127,6 +127,26 @@ bleepsixBoardController.prototype.opRedo = function( )
 
 bleepsixBoardController.prototype.opCommand = function( msg )
 {
+
+  // We're going to delete the module in the board before
+  // we mirror the operations in the schematic, so save
+  // the ids that need to be deleted from the schematic,
+  // skipping over anything that isn't a module.
+  //
+  var delModuleList = [];
+  if ( (msg.action == "delete") && (msg.type == "group"))
+  {
+    for ( var ind in msg.id )
+    {
+      var brd_ele_ref = this.board.refLookup( msg.id[ind] );
+      if (brd_ele_ref.type != "module") 
+        continue;
+      delModuleList.push( { id: msg.id[ind], type: brd_ele_ref.type } );
+    }
+  }
+
+  // Apply the operation to the board
+  //
   this.op.opCommand( msg );
   this.boardUpdate = true;
   g_painter.dirty_flag = true;
@@ -180,6 +200,10 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     console.log("bleepsixBoardController.opCommand: update edit not implemented for schematic communication");
   }
 
+  // We have a group delete whose ids have been saved in delModuleList.
+  // Go through and remove them from teh schematic, sending them
+  // over the network if necessary.
+  //
   if ( (msg.action == "delete") && (msg.type == "group"))
   {
 
@@ -191,21 +215,24 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.id = [];
     schop.data = { element : [] };
 
-    for ( var ind in msg.id )
+    for ( var ind in delModuleList )
     {
-      schop.id.push( msg.id[ind] );
-      var clonedData = simplecopy( this.schematic.refLookup( msg.id[ind] ) );
+      schop.id.push( delModuleList[ind].id );
+      var clonedData = simplecopy( this.schematic.refLookup( delModuleList[ind].id ) );
       schop.data.element.push( clonedData );
     }
 
-    this.op.opCommand( schop );
-
-    if ( g_brdnetwork && (msg.scope == "network") )
+    if (schop.id.length > 0)
     {
-      g_brdnetwork.projectop( schop );
+      this.op.opCommand( schop );
+      if ( g_brdnetwork && (msg.scope == "network") )
+        g_brdnetwork.projectop( schop );
     }
 
   }
+
+
+
 
 }
 

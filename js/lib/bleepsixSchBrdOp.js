@@ -509,9 +509,6 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
 
   else if ( type == "componentData" )
   {
-    console.log("adding component data (sch op):");
-    console.log( data.componentData );
-    
     this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, id, op.idText  );
   }
 
