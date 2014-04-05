@@ -182,6 +182,7 @@ bleepsixBoard.prototype.refLookup = function( id )
   }
 
   console.log("bleepsixBoard.refLookup: ERROR: id " + id + " not found!");
+  console.trace();
   return null;
 
 }

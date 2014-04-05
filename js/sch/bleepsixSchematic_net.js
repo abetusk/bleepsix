@@ -584,11 +584,13 @@ bleepsixSchematic.prototype.constructNet = function()
 
   this._net_label_groups(V, E);
 
+  /*
   //DEBUG
   console.log("V:");
   console.log(V);
   console.log("E:");
   console.log(E);
+  */
 
   var sch_pin_net_map = {};
   for (var v in V)
@@ -625,13 +627,14 @@ bleepsixSchematic.prototype.constructNet = function()
 
   }
 
-  console.log( sch_pin_net_map );
+  //console.log( sch_pin_net_map );
 
   this.kicad_sch_json.net_pin_id_map = sch_pin_net_map;
 
   return sch_pin_net_map;
 
 
+  /*
   var n = sch.element.length;
   for (var ind=0; ind<n; ind++)
   {
@@ -684,8 +687,10 @@ bleepsixSchematic.prototype.constructNet = function()
     {
     }
 
-
   }
+
+  */
+
 }
 
 
