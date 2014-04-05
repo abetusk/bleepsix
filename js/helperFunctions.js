@@ -1,5 +1,8 @@
 /*
-    This file is part of Foobar.
+
+    Copyright (C) 2013 Abram Connelly
+
+    This file is part of bleepsix v2.
 
     Foobar is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -13,6 +16,10 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+
+    Parts based on bleepsix v1. BSD license
+    by Rama Hoetzlein and Abram Connelly.
+
 */
 
 function meowmeow()
