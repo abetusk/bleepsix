@@ -614,6 +614,8 @@ toolBoardMove.prototype._patchUpTrackNets = function()
     for ( var ind in this.selectedElement )
     {
       var ref = this.selectedElement[ind].ref;
+
+      ref = board.refLookup( ref.id );
       var type = ref.type;
 
       if ( (type == "track") && (brd_type == "track") )
@@ -630,6 +632,10 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
         if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) )
         {
+
+          //DEBUG
+          console.log(">>> merging track track ", brd_ele.netcode, ref.netcode );
+
           var op = { source: "brd", destination: "brd" };
           op.action = "update";
           op.type = "mergenet";
