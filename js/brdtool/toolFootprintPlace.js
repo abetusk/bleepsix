@@ -154,6 +154,18 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       this.cloned_footprint.text[0].text = ref.text[0].text;
       this.cloned_footprint.text[1].text = ref.text[1].text;
 
+      if ( (this.cloned_footprint.type == "module") &&
+           (this.cloned_footprint.name != "unknown") )
+      {
+        var pads = this.cloned_footprint.pad;
+        for (var ind in pads)
+        {
+          var pad = pads[ind];
+          if (!("id" in pad))
+            pad.id = g_board_controller.board._createId( this.cloned_footprint.id );
+        }
+      }
+
 
       var op = { source: "brd", destination: "brd" };
       op.action = "update";
@@ -178,7 +190,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
-      console.log("TESTING");
+      //console.log("TESTING");
       return;
     }
 
