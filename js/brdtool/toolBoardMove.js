@@ -512,19 +512,12 @@ toolBoardMove.prototype._patchUpModuleNets = function()
 
 toolBoardMove.prototype._hasCollisionFromTo = function()
 {
-  for (var ind in this.orig_element_state)
-  {
-    var ref = this.orig_element_state[ind].ref;
-    if (this._testForTrackCollision( ref ))
-      return true;
-  }
 
-  for (var ind in this.selectedElement)
-  {
-    var ref = this.selectedElement[ind].ref;
-    if (this._testForTrackCollision( ref ))
-      return true;
-  }
+  if ( g_board_controller.board.intersectTest( this.orig_element_state, this.clearance ) )
+    return true;
+
+  if ( g_board_controller.board.intersectTest( this.selectedElement, this.clearance ) )
+    return true;
 
   return false;
 
@@ -941,16 +934,279 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
 
 }
 
+//----------------------------------------------
+//----------------------------------------------
+//----------------------------------------------
+//----------------------------------------------
+//----------------------------------------------
 
 toolBoardMove.prototype._patchUpNets = function()
+{
+
+  if ( !this._hasCollisionFromTo() )
+    return;
+
+  // Collect all the net numbers that we will be
+  // replacing
+  //
+  var netReplaceSet = {};
+  for (var ind in this.selectedElement)
+  {
+    var ref = this.selectedElement[ind].ref;
+    var type = ref.type;
+
+    if ( type == "track" )
+      netReplaceSet[ ref.netcode ] = true;
+    else if ( type == "module" )
+    {
+      if (!("pad" in ref)) continue;
+      for ( var pad_ind in ref.pad )
+      {
+        var pad = ref.pad[pad_ind];
+        netReplaceSet[ pad.net_number ] = true;
+      }
+    }
+
+  }
+
+  // Create the new nets, one for each unique net collected
+  // above.
+  //
+  var newnets = {};
+  for (var nc in netReplaceSet)
+  {
+    var net = g_board_controller.board.genNet();
+    newnets[ nc ] = net;
+
+    var net_op = { source: "brd", destination: "brd" };
+    net_op.action = "add";
+    net_op.type = "net";
+    net_op.data = { net_number : net.net_number,
+                net_name : net.net_name };
+    g_board_controller.opCommand( net_op );
+
+  }
+
+  // Allocate the net numbers to the relevant elements
+  //
+  var board = g_board_controller.board;
+  for (var ind in this.selectedElement)
+  {
+    var ref = this.selectedElement[ind].ref;
+    var type = ref.type;
+
+    if (type == "track")
+    {
+      var nc = ref.netcode;
+      ref.netcode = newnets[ nc ].net_number;
+
+      var brd_track_ref = board.refLookup( ref.id );
+      var old_data = {};
+      var new_data = {};
+
+      $.extend( true, old_data, brd_track_ref );
+      $.extend( true, new_data, brd_track_ref );
+
+      new_data.netcode = newnets[ nc ].net_number;
+
+      var update_op = { source: "brd", destination: "brd" };
+      update_op.action = "update";
+      update_op.type = "edit";
+      update_op.id = [ brd_track_ref.id ];
+      update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+      g_board_controller.opCommand( update_op );
+
+    }
+
+    else if (type == "module")
+    {
+      if (!("pad" in ref)) continue;
+
+      for (var pad_ind in ref.pad)
+      {
+        var nc = ref.pad[pad_ind].net_number;
+
+        var pad_ref = board.refLookup( ref.pad[pad_ind].id );
+        var old_data = {};
+        var new_data = {};
+
+        $.extend( true, old_data, pad_ref );
+        $.extend( true, new_data, pad_ref );
+
+        new_data.net_number = newnets[ nc ].net_number;
+        new_data.net_name   = newnets[ nc ].net_name;
+
+        var update_op = { source: "brd", destination: "brd" };
+        update_op.action = "update";
+        update_op.type = "edit";
+        update_op.id = [ pad_ref.id ];
+        update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+        g_board_controller.opCommand( update_op );
+
+      }
+    }
+
+  }
+
+  var brd_eles = board.kicad_brd_json.element;
+  for (var brd_ind in brd_eles)
+  {
+    var brd_ref = brd_eles[brd_ind];
+    var brd_type = brd_ref.type;
+
+    if (brd_ref.hideFlag) continue;
+    if (("name" in brd_ref) && (brd_ref.name == "unknown")) continue;
+
+    for ( var ind in this.selectedElement )
+    {
+      var ele_ref = this.selectedElement[ind].ref;
+
+      ele_ref = board.refLookup( ele_ref.id );
+      var ele_type = ele_ref.type;
+
+      if ( (ele_type == "track") && (brd_type == "track") )
+      {
+        var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
+        var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
+        var w = parseFloat(ele_ref.width) ;
+
+        if ( !board.shareLayer( brd_ref, ele_ref ) ) continue;
+        if ( !board._box_line_intersect( brd_ref.bounding_box, l0, l1, w ) ) continue;
+
+        var pgnEle = board._build_element_polygon( { type: "track", ref: ele_ref } );
+        var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ref } );
+
+        if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+        {
+          var op = { source: "brd", destination: "brd" };
+          op.action = "update";
+          op.type = "mergenet";
+          op.data = { net_number0: brd_ref.netcode, net_number1: ele_ref.netcode };
+          g_board_controller.opCommand( op );
+        }
+
+      }
+      else if ( (type == "track") && (brd_type == "module") )
+      {
+
+        var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
+        var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
+        var w = parseFloat(ele_ref.width) ;
+        var pgnTrack = board._build_element_polygon( { type: "track", ref: ele_ref } );
+
+        for (var p_ind in brd_ref.pad)
+        {
+          var pad = brd_ref.pad[p_ind];
+          if ( !board.shareLayer( pad, ele_ref ) ) continue;
+          if ( !board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) continue;
+
+          var pgnBrd = board._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad } );
+
+          if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) )
+          {
+            var op = { source: "brd", destination: "brd" };
+            op.action = "update";
+            op.type = "mergenet";
+            op.data = { net_number0: pad.net_number, net_number1: ele_ref.netcode };
+            g_board_controller.opCommand( op );
+          }
+        }
+
+
+      }
+      else if ( (type == "module") && (brd_type == "track") )
+      {
+
+        var l0 = { x : parseFloat(brd_ref.x0) , y : parseFloat(brd_ref.y0) };
+        var l1 = { x : parseFloat(brd_ref.x1) , y : parseFloat(brd_ref.y1) };
+        var w = parseFloat(brd_ref.width) ;
+        var pgnBrd = board._build_element_polygon( { type: "track", ref: brd_ref } );
+
+        for (var p_ind in ele_ref.pad)
+        {
+          var pad = ele_ref.pad[p_ind];
+
+          if ( !board.shareLayer( brd_ref, pad ) ) continue;
+          if ( !board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) continue;
+          var pgnEle = board._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad } );
+
+          if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+          {
+            var op = { source: "brd", destination: "brd" };
+            op.action = "update";
+            op.type = "mergenet";
+            op.data = { net_number0: brd_ref.netcode, net_number1: pad.net_number };
+            g_board_controller.opCommand( op );
+          }
+        }
+
+      }
+
+      // I'm not sure this should happen...
+      //
+      else if ( (type == "module") && (brd_type == "module") )
+      {
+
+        for (var brd_p_ind in brd_ref.pad)
+        {
+          var brd_pad = brd_ref.pad[brd_p_ind];
+          var pgnBrd = board._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: brd_pad } );
+
+          for (var ele_p_ind in ele_ref.pad)
+          {
+            var ele_pad = ele_ref.pad[ele_p_ind];
+
+            if ( !board._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, this.clearance ) )
+              continue;
+
+            var pgnEle = board._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: ele_pad } );
+
+            if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+            {
+              var op = { source: "brd", destination: "brd" };
+              op.action = "update";
+              op.type = "mergenet";
+              op.data = { net_number0: ele_pad.net_number, net_number1: brd_pad.net_number };
+              g_board_controller.opCommand( op );
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  // finally update net maps and rats nest
+  //
+  var map_op = { source: "brd", destination: "brd" };
+  map_op.action = "update";
+  map_op.type = "schematicnetmap";
+  g_board_controller.opCommand( map_op );
+
+
+
+}
+
+//----------------------------------------------
+//----------------------------------------------
+//----------------------------------------------
+//----------------------------------------------
+//----------------------------------------------
+
+
+
+toolBoardMove.prototype._patchUpNets_old = function()
 {
 
   var n = this.selectedElement.length;
   if ( n != 1 ) 
   {
-
     this._patchUpTrackNets();
-
     return;
   }
 
@@ -1100,6 +1356,10 @@ toolBoardMove.prototype.canPlace = function()
 
   return g_board_controller.board.allowPlacement( this.ghostElement, this.clearance );
 
+  // old version where we had specific test for sub conditions.  allowPlacement might
+  // turn out to be really slow...
+  //
+  /*
   var n = this.ghostElement.length;
   if (n==1)
   {
@@ -1118,6 +1378,7 @@ toolBoardMove.prototype.canPlace = function()
 
   //return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
   return !g_board_controller.board.intersectTest( this.ghostElement, this.clearance );
+  */
 
 }
 

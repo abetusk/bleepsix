@@ -1427,10 +1427,9 @@ bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, 
 //
 //----------------------------
 
-bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, criticalRegionFlag )
+bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance )
 {
   clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
-  criticalRegionFlag = ( (typeof criticalRegionFlag === 'undefined') ? false : criticalRegionFlag );
 
   var brd = this.kicad_brd_json.element;
 
@@ -1452,6 +1451,9 @@ bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, critical
 
       if ( (brd_type == "track") && (ele_type == "track") )
       {
+
+        if ( !this.shareLayer( brd_ref, ele_ref ) ) continue;
+
         var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
         var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
         var w = parseFloat(ele_ref.width) + clearance;
@@ -1486,6 +1488,8 @@ bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, critical
         for (var p_ind in pads)
         {
           var pad = pads[p_ind];
+          if ( !this.shareLayer( brd_ref, pad) ) continue;
+
           var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad, clearance: clearance } );
           if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
             return true;
@@ -1514,6 +1518,8 @@ bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, critical
         for (var p_ind in pads)
         {
           var pad = pads[p_ind];
+          if ( !this.shareLayer( pad, ele_ref ) ) continue;
+
           var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad, clearance: clearance } );
           if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
             return true;
@@ -1539,6 +1545,7 @@ bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, critical
           for (var jj in ele_pads)
           {
             var ele_pad = ele_pads[jj];
+            if ( !this.shareLayer( brd_pad, ele_ref ) ) continue;
 
             if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance) )
               continue;
@@ -1615,7 +1622,6 @@ bleepsixBoard.prototype.shareLayer = function( ref0, ref1 )
 bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
 {
   clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
-  criticalRegionFlag = ( (typeof criticalRegionFlag === 'undefined') ? false : criticalRegionFlag );
 
   var brd = this.kicad_brd_json.element;
 

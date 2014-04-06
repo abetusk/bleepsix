@@ -1334,6 +1334,7 @@ bleepsixBoard.prototype.removeNet = function( netcode, netname )
   if (net_ind == n)
   {
     console.log("ERROR: bleepsixBoard.removeNet: could not find netocde " + netcode + " in equipot");
+    console.trace();
     return false;
   }
 
@@ -1344,12 +1345,14 @@ bleepsixBoard.prototype.removeNet = function( netcode, netname )
   else
   {
     console.log("ERROR: bleepsixBoard.removeNet: could not find netocde " + netcode + " in net_code_map");
+    console.trace();
     return false;
   }
 
   if ( !(net_name in brd.net_name_map) )
   {
     console.log("ERROR: bleepsixBoard.removeNet: could not find name " + net_name + " in net_code_map");
+    console.trace();
     return false;
   }
 
