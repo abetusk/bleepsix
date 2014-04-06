@@ -70,10 +70,6 @@ bleepsixBoard.prototype.refDelete = function( id )
   {
     for (var ind in ref.text)
     {
-
-      //DEBUG
-      console.log(">>> refDelete ref.text", ind, ref);
-
       if ("id" in ref.text[ind])
         if (ref.text[ind].id in this.ref_lookup)
           delete this.ref_lookup[ ref.text[ind].id ];

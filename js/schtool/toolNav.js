@@ -168,6 +168,43 @@ toolNav.prototype.mouseMove = function( x, y )
   this.mouse_world_xy["x"] = world_xy["x"];
   this.mouse_world_xy["y"] = world_xy["y"];
 
+  var wx = this.mouse_world_xy.x;
+  var wy = this.mouse_world_xy.y;
+
+  var id_ref = g_schematic_controller.schematic.pick( wx, wy );
+
+  if (id_ref)
+  {
+    g_schematic_controller.schematic.constructNet();
+    var ref = g_schematic_controller.schematic.refLookup( id_ref.id );
+
+    if (ref.type == "wireline")
+    {
+      g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.data.netcode ] );
+    }
+    else if (ref.type == "component")
+    {
+      for (var i in ref.pinData)
+      {
+        if ( (Math.abs( ref.pinData[i].x - wx ) <= 25) &&
+             (Math.abs( ref.pinData[i].y - wy ) <= 25) )
+        {
+          g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.pinData[i].netcode ] );
+          break;
+        }
+      }
+    }
+    else
+    {
+      g_schematic_controller.highlightBoardNetsFromSchematic( [] );
+    }
+  }
+  else
+  {
+    g_schematic_controller.highlightBoardNetsFromSchematic( [] );
+  }
+
+
   g_painter.dirty_flag = true;
 
 }

@@ -276,9 +276,11 @@ bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( br
   }
 
   if (msg.length>0)
-    this.tabCommunication.addMessage( msg );
+    //this.tabCommunication.addMessage( msg );
+    this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, msg );
   else
-    this.tabCommunication.addMessage( "" );
+    //this.tabCommunication.addMessage( "" );
+    this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId,  "");
 
 }
 
@@ -293,12 +295,14 @@ bleepsixBoardController.prototype.highlightNetCodes = function ( sch_netcodes )
     //msg += ind.toString();
     msg += sch_netcodes[ind].toString();
   }
-  this.tabCommunication.addMessage( msg );
+  //this.tabCommunication.addMessage( msg );
+  this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, msg );
 }
 
 bleepsixBoardController.prototype.unhighlightNet = function()
 {
-  this.tabCommunication.addMessage( "" );
+  //this.tabCommunication.addMessage( "" );
+  this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, "" );
 }
 
 
@@ -342,7 +346,45 @@ bleepsixBoardController.prototype.redraw = function ()
   {
     if ( g_brdnetwork.projectId )
     {
-      this.tabCommunication.setId( g_brdnetwork.projectId );
+      //this.tabCommunication.setId( "sch:" + g_brdnetwork.projectId );
+    }
+  }
+
+  if ( g_brdnetwork )
+  {
+    if ( g_brdnetwork.projectId )
+    {
+
+      var channelName = "brd:" + g_brdnetwork.projectId;
+
+      if ( this.tabCommunication.hasNewMessage( channelName ) )
+      {
+        msg = this.tabCommunication.processMessage( channelName );
+
+        if (msg.length > 0)
+        {
+          var hi_netcodes = [];
+          var sch_nets = msg.split('.');
+
+          for (var i in sch_nets)
+          {
+            var map = this.board.kicad_brd_json.sch_to_brd_net_map[ parseInt(sch_nets[i]) ];
+            for (var j in map)
+            {
+              hi_netcodes.push( map[j] );
+            }
+          }
+
+          this.board.highlightNetCodes( hi_netcodes );
+
+        }
+        else
+        {
+          this.board.unhighlightNet();
+        }
+
+        g_painter.dirty_flag = true;
+      }
     }
   }
 

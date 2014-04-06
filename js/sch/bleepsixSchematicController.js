@@ -374,6 +374,30 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
 
 }
 
+
+//--------------------------------------
+
+bleepsixSchematicController.prototype.highlightBoardNetsFromSchematic= function ( sch_ncs )
+{
+  var sch = this.schematic.kicad_sch_json.element;
+  var msg = "";
+
+  for (var ii in sch_ncs )
+  {
+    var sch_nc = sch_ncs[ii];
+    if (msg.length > 0) msg += ".";
+    msg += sch_nc.toString();
+  }
+
+  if ( msg.length > 0 )
+    this.tabCommunication.addMessage( "brd:" + g_schnetwork.projectId, msg );
+  else
+    this.tabCommunication.addMessage( "brd:" + g_schnetwork.projectId, "" );
+}
+
+
+//--------------------------------------
+
 bleepsixSchematicController.prototype.opUndo = function ( )
 {
   this.op.opUndo();
@@ -411,14 +435,15 @@ bleepsixSchematicController.prototype.redraw = function ()
   {
     if ( g_schnetwork.projectId )
     {
-      this.tabCommunication.setId( g_schnetwork.projectId );
+      //this.tabCommunication.setId( "sch:" + g_schnetwork.projectId );
+      var channelName = "sch:" + g_schnetwork.projectId;
 
-      if (this.tabCommunication.hasNewMessage())
+      if (this.tabCommunication.hasNewMessage( channelName ))
       {
-        msg = this.tabCommunication.processMessage();
+        msg = this.tabCommunication.processMessage( channelName );
 
         if (msg.length > 0)
-          this.schematic.highlightNet( msg.split('.') )
+          this.schematic.highlightNet( msg.split('.') );
         else
           this.schematic.unhighlightNet();
 

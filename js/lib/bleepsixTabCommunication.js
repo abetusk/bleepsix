@@ -35,19 +35,27 @@ if ( typeof module !== 'undefined')
 
 function bleepsixTabCommunication()
 {
-  this.id = null;
-  this.message = null;
-  this.lastMessage = null;
+  this.message = {};
+  this.lastMessage = {};
 }
 
 
+/*
 bleepsixTabCommunication.prototype.setId = function( id )
 {
   this.id = id;
 }
+*/
 
-bleepsixTabCommunication.prototype.addMessage = function( msg )
+bleepsixTabCommunication.prototype.addMessage = function( channelName, msg )
 {
+
+  localStorage.setItem( "meowmsg:" + channelName, msg );
+
+  this.message[ channelName ] = msg;
+  this.lastMessage[ channelName ] = "";
+
+  return;
 
   if (this.id)
   {
@@ -61,8 +69,15 @@ bleepsixTabCommunication.prototype.addMessage = function( msg )
 
 }
 
-bleepsixTabCommunication.prototype.hasNewMessage = function()
+bleepsixTabCommunication.prototype.hasNewMessage = function( channelName )
 {
+
+  var msg = localStorage.getItem( "meowmsg:" + channelName );
+  return msg != this.lastMessage[ channelName ] ;
+
+
+
+
   //this.message = $.cookie( "meowmsg:" + this.id );
   this.message = localStorage.getItem( "meowmsg:" + this.id );
 
@@ -71,8 +86,14 @@ bleepsixTabCommunication.prototype.hasNewMessage = function()
   return this.lastMessage != this.message ;
 }
 
-bleepsixTabCommunication.prototype.removeMessage = function( msg )
+bleepsixTabCommunication.prototype.removeMessage = function( channelName, msg )
 {
+
+  $.removeCookie( "meowmsg:" + channelName, msg );
+  this.message[ channelName ] = "";
+  this.lastMessage[ channelName ] = "";
+  return;
+
 
   if (this.id)
   {
@@ -87,8 +108,13 @@ bleepsixTabCommunication.prototype.removeMessage = function( msg )
 
 }
 
-bleepsixTabCommunication.prototype.processMessage = function( msg )
+bleepsixTabCommunication.prototype.processMessage = function( channelName, msg )
 {
+
+  var x = localStorage.getItem( "meowmsg:" + channelName );
+  this.lastMessage[ channelName ] = x;
+  return x;
+
 
   if (this.id)
   {
@@ -105,8 +131,11 @@ bleepsixTabCommunication.prototype.processMessage = function( msg )
 
 }
 
-bleepsixTabCommunication.prototype.peekMessage = function()
+bleepsixTabCommunication.prototype.peekMessage = function( channelName )
 {
+  return localStorage.getItem( "meowmsg:" + channelName );
+
+
 
   if (this.id)
   {
