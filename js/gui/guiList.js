@@ -208,10 +208,6 @@ guiList.prototype.hitTest = function(x, y)
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
   var r = null;
 
-  //console.log("guiList.hitTest: debugging");
-  //console.log("u:" + u);
-  //console.log("child:" + this.guiChildren[0].width + " " + this.guiChildren[0].height );
-
   var sx = this.guiChildren[0].x;
   var sy = this.guiChildren[0].y;
   var ex = sx + this.guiChildren[0].width;
@@ -220,7 +216,6 @@ guiList.prototype.hitTest = function(x, y)
   if ( (sx <= u[0]) && (u[0] <= ex) &&
        (sy <= u[1]) && (u[1] <= ey) )
   {
-    console.log("guiList.hitTest: child hit?");
     return this.guiChildren[0];
   }
 

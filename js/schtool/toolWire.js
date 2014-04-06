@@ -68,7 +68,11 @@ function toolWire( x, y, initialPlaceFlag )
   {
     this._initWireState();
   }
-  
+
+  this.highlightBoxFlag = false;
+  this.highlightBox = { x:0, y:0, w:0, h:0 };  // dummy values, just displaying structure
+  this.highlightBoxWidth = 10;
+  this.highlightBoxColor = "rgba(0,0,0,0.4)";
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
@@ -167,6 +171,18 @@ toolWire.prototype.drawOverlay = function()
                            this.cursorWidth ,
                            "rgb(128, 128, 128 )" );
 
+  if ( this.highlightBoxFlag )
+  {
+    g_painter.drawRectangle( this.highlightBox.x,
+                             this.highlightBox.y,
+                             this.highlightBox.w,
+                             this.highlightBox.h,
+                             this.highlightBoxWidth,
+                             "rgb(128,128,128)",
+                             true,
+                             this.highlightBoxColor );
+  }
+
 
   g_schematic_controller.display_text = "x: " + this.mouse_world_xy.x + ", y: " + this.mouse_world_xy.y;
 
@@ -213,7 +229,6 @@ toolWire.prototype.placeWire = function()
       op.data = { x: x, y: y };
       g_schematic_controller.opCommand( op );
 
-      //g_schematic_controller.schematic.addConnection(x, y);
       break;
     }
 
@@ -228,28 +243,17 @@ toolWire.prototype.placeWire = function()
     op.type = "wireline";
     op.data = { startx: this.wire[ind-1].x, starty: this.wire[ind-1].y,
                 endx: this.wire[ind].x,     endy: this.wire[ind].y   };
-    /*
-    op.data = { x0: this.wire[ind-1].x, y0: this.wire[ind-1].y,
-                x1: this.wire[ind].x,   y1: this.wire[ind].y   };
-                */
     g_schematic_controller.opCommand( op );
 
-    /*
-    g_schematic_controller.schematic.addWire( this.wire[ind-1]["x"], this.wire[ind-1]["y"],
-                                    this.wire[ind]["x"], this.wire[ind]["y"] );
-                                    */
   }
 
 
   // also need to add the cur_wire
+  //
   if (this.laydownFormat == 'J')
   {
     for (var ind=1; ind < this.cur_wire.length; ind++)
     {
-
-      //var d = this.dist1( this.cur_wire[ind-1], this.cur_wire[ind] ) ;
-      //console.log("d: " + d);
-
       if (this.dist1( this.cur_wire[ind-1], this.cur_wire[ind] ) > 1 )
       {
 
@@ -259,19 +263,10 @@ toolWire.prototype.placeWire = function()
 
         op.data = { startx: this.cur_wire[ind-1].x, starty: this.cur_wire[ind-1].y,
                     endx: this.cur_wire[ind].x,     endy: this.cur_wire[ind].y   };
-        /*
-        op.data = { x0: this.cur_wire[ind-1].x, y0: this.cur_wire[ind-1].y,
-                    x1: this.cur_wire[ind].x,   y1: this.cur_wire[ind].y   };
-                    */
         g_schematic_controller.opCommand( op );
 
-        /*
-        g_schematic_controller.schematic.addWire( this.cur_wire[ind-1]["x"], this.cur_wire[ind-1]["y"],
-                                        this.cur_wire[ind]["x"],   this.cur_wire[ind]["y"] );
-                                        */
 
       }
-      //else console.log("wire points too close, skipping");
 
     }
   }
@@ -281,8 +276,6 @@ toolWire.prototype.placeWire = function()
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
-
-
 
 }
 
@@ -378,7 +371,6 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
       op.type = "connection";
       op.data = { x: ex, y : ey };
       g_schematic_controller.opCommand( op );
-      //g_schematic_controller.schematic.addConnection( ex, ey );
 
       this.placeWire();
       return true;
@@ -394,7 +386,6 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
 
 toolWire.prototype.mouseDown = function( button, x, y ) 
 {
-  //var dist1_wire_eps = 5;
   this.mouse_down = true;
 
   if (button == 3)
@@ -567,9 +558,36 @@ toolWire.prototype.mouseMove = function( x, y )
     return;
   }
 
-  if ( ! this.mouse_drag_flag ) 
+  if ( !this.mouse_drag_flag ) 
   {
 
+    // Highlight pin functionality
+    //
+    this.highlightBoxFlag = false;
+
+    var wx = this.mouse_world_xy.x;
+    var wy = this.mouse_world_xy.y;
+
+    var id_ref = g_schematic_controller.schematic.pick( wx, wy );
+    if (id_ref)
+    {
+      if (id_ref.ref.type == "component")
+      {
+        var pin = g_schematic_controller.schematic.pickComponentPin( id_ref.ref, wx, wy );
+        if (pin)
+        {
+          var w = 50;
+          var pinx = parseInt(id_ref.ref.x) + parseInt(pin.x);
+          var piny = parseInt(id_ref.ref.y) - parseInt(pin.y);
+          this.highlightBoxFlag = true;
+          this.highlightBox = { x: pinx - w/2, y: piny - w/2, w: w, h: w};
+        }
+      }
+    }
+
+
+    // Wire routing
+    //
     if      (this.laydownFormat == 'F')
     {
       this.cur_wire[1]["x"] = this.mouse_world_xy["x"];
@@ -601,20 +619,8 @@ toolWire.prototype.mouseMove = function( x, y )
         if ( (this.wire.length == 1) &&
              (this.forceVertical || this.forceHorizontal) )
         {
-          if (this.forceVertical)
-          {
-
-            //console.log("forcing vertical");
-
-            this.jointWireVerticalFlag = true;
-          }
-          else
-          {
-
-            //console.log("forcing horizontal");
-
-            this.jointWireVerticalFlag = false;
-          }
+          if (this.forceVertical)   { this.jointWireVerticalFlag = true;  }
+          else                      { this.jointWireVerticalFlag = false; }
         }
         else
         {
