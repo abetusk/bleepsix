@@ -1427,6 +1427,300 @@ bleepsixBoard.prototype._realize_oblong_point_cloud = function( x, y, obx, oby, 
 //
 //----------------------------
 
+bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, criticalRegionFlag )
+{
+  clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
+  criticalRegionFlag = ( (typeof criticalRegionFlag === 'undefined') ? false : criticalRegionFlag );
+
+  var brd = this.kicad_brd_json.element;
+
+  for (var b in brd)
+  {
+    var brd_ref = brd[b];
+    var brd_type = brd_ref.type;
+    if (brd_ref.hideFlag)       continue;
+    if ((brd_type != "track") && (brd_type != "module")) continue;
+    if ((brd_type == "module") && (brd_ref.name == "unknown")) continue;
+
+    for (var i in id_ref_ar)
+    {
+      var ele_ref = id_ref_ar[i].ref;
+      var ele_type = ele_ref.type;
+
+      //-----
+      //
+
+      if ( (brd_type == "track") && (ele_type == "track") )
+      {
+        var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
+        var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
+        var w = parseFloat(ele_ref.width) + clearance;
+
+        if ( !this._box_line_intersect( brd_ref.bounding_box, l0, l1, w ) )
+          continue;
+
+        var pgnBrd = this._build_element_polygon( { type: "track", ref: brd_ref } );
+        var pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref, clearance: clearance } );
+
+        if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+          return true;
+      }
+
+      //-----
+      //
+
+      else if ( (brd_type == "track") && (ele_type == "module") )
+      {
+        var l0 = { x : parseFloat(brd_ref.x0) , y : parseFloat(brd_ref.y0) };
+        var l1 = { x : parseFloat(brd_ref.x1) , y : parseFloat(brd_ref.y1) };
+        var w = parseFloat(brd_ref.width) + clearance;
+
+        if ( !this._box_line_intersect( ele_ref.bounding_box, l0, l1, w ) )
+          continue;
+
+        if ( !("pad" in ele_ref) ) continue;
+
+        var pgnBrd = this._build_element_polygon( { type: "track", ref: brd_ref } );
+
+        var pads = ele_ref.pad;
+        for (var p_ind in pads)
+        {
+          var pad = pads[p_ind];
+          var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad, clearance: clearance } );
+          if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+            return true;
+        }
+
+      }
+
+      //-----
+      //
+
+      else if ( (brd_type == "module") && (ele_type == "track") )
+      {
+
+        var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
+        var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
+        var w = parseFloat(ele_ref.width) + clearance;
+
+        if ( !this._box_line_intersect( brd_ref.bounding_box, l0, l1, w ) )
+          continue;
+
+        if ( !("pad" in brd_ref) ) continue;
+
+        var pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref } );
+
+        var pads = brd_ref.pad;
+        for (var p_ind in pads)
+        {
+          var pad = pads[p_ind];
+          var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad, clearance: clearance } );
+          if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+            return true;
+        }
+
+      }
+
+      //-----
+      //
+
+      else if ( (brd_type == "module") && (ele_type == "module") )
+      {
+        if ( !("pad" in ele_ref) ) continue;
+        if ( !("pad" in brd_ref) ) continue;
+
+        var brd_pads = brd_ref.pad;
+        var ele_pads = ele_ref.pad;
+
+        for (var ii in brd_pads)
+        {
+          var brd_pad = brd_pads[ii];
+
+          for (var jj in ele_pads)
+          {
+            var ele_pad = ele_pads[jj];
+
+            if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance) )
+              continue;
+
+            var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: brd_pad } );
+            var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: ele_pad, clearance: clearance } );
+
+            if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+              return true;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  return false;
+
+}
+
+
+// Slow
+// Do not allow pad-pad intersections.
+// Allow track-track and track-pad intersections as long as they are farther than
+//   clearance away from each other or intersect themselves completely.  Do not
+//   allow placement if they  do not intersect but are within clearance distance 
+//   within each other, 
+//
+// returns true if placement allowed, false otherwise.
+//
+bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
+{
+  clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
+  criticalRegionFlag = ( (typeof criticalRegionFlag === 'undefined') ? false : criticalRegionFlag );
+
+  var brd = this.kicad_brd_json.element;
+
+  for (var b in brd)
+  {
+    var brd_ref = brd[b];
+    var brd_type = brd_ref.type;
+    if (brd_ref.hideFlag)       continue;
+    if ((brd_type != "track") && (brd_type != "module")) continue;
+    if ((brd_type == "module") && (brd_ref.name == "unknown")) continue;
+
+    for (var i in id_ref_ar)
+    {
+      var ele_ref = id_ref_ar[i].ref;
+      var ele_type = ele_ref.type;
+
+      //-----
+      //
+
+      if ( (brd_type == "track") && (ele_type == "track") )
+      {
+        var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
+        var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
+        var w = parseFloat(ele_ref.width) + clearance;
+
+        if ( !this._box_line_intersect( brd_ref.bounding_box, l0, l1, w ) )
+          continue;
+
+        var pgnBrd = this._build_element_polygon( { type: "track", ref: brd_ref } );
+        var pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref, clearance: clearance } );
+
+        if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+        {
+
+          pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref } );
+          if ( !this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+            return false;
+
+        }
+      }
+
+      //-----
+      //
+
+      else if ( (brd_type == "track") && (ele_type == "module") )
+      {
+        var l0 = { x : parseFloat(brd_ref.x0) , y : parseFloat(brd_ref.y0) };
+        var l1 = { x : parseFloat(brd_ref.x1) , y : parseFloat(brd_ref.y1) };
+        var w = parseFloat(brd_ref.width) + clearance;
+
+        if ( !this._box_line_intersect( ele_ref.bounding_box, l0, l1, w ) )
+          continue;
+
+        if ( !("pad" in ele_ref) ) continue;
+
+        var pgnBrd = this._build_element_polygon( { type: "track", ref: brd_ref } );
+
+        var pads = ele_ref.pad;
+        for (var p_ind in pads)
+        {
+          var pad = pads[p_ind];
+          var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad, clearance: clearance } );
+          if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+          {
+
+            pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad } );
+            if ( !this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+              return false;
+          }
+        }
+
+      }
+
+      //-----
+      //
+
+      else if ( (brd_type == "module") && (ele_type == "track") )
+      {
+
+        var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
+        var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
+        var w = parseFloat(ele_ref.width) + clearance;
+
+        if ( !this._box_line_intersect( brd_ref.bounding_box, l0, l1, w ) )
+          continue;
+
+        if ( !("pad" in brd_ref) ) continue;
+
+        var pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref } );
+
+        var pads = brd_ref.pad;
+        for (var p_ind in pads)
+        {
+          var pad = pads[p_ind];
+          var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad, clearance: clearance } );
+          if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+          {
+            var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad } );
+            if ( !this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+              return false;
+          }
+        }
+
+      }
+
+      //-----
+      //
+
+      else if ( (brd_type == "module") && (ele_type == "module") )
+      {
+        if ( !("pad" in ele_ref) ) continue;
+        if ( !("pad" in brd_ref) ) continue;
+
+        var brd_pads = brd_ref.pad;
+        var ele_pads = ele_ref.pad;
+
+        for (var ii in brd_pads)
+        {
+          var brd_pad = brd_pads[ii];
+
+          for (var jj in ele_pads)
+          {
+            var ele_pad = ele_pads[jj];
+
+            if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance) )
+              continue;
+
+            var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: brd_pad } );
+            var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: ele_pad, clearance: clearance } );
+
+            if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+              return false;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  return true;
+
+}
 
 bleepsixBoard.prototype.intersectTestModule = function( id_ref_ar, clearance )
 {

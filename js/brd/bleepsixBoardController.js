@@ -596,7 +596,7 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
 
 bleepsixBoardController.prototype.doubleClick = function( e )
 {
-  console.log("double click");
+  //console.log("double click");
 
   if (this.guiToolbox.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
   {

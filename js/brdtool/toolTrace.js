@@ -24,7 +24,7 @@
 
 function toolTrace( x, y, layerPair, initialPlaceFlag ) 
 {
-  console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
+  //console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
@@ -100,7 +100,7 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
     this.cur_layer_ind++;
   }
 
-  console.log("toolTrace " + this.cur_layer_ind + ": " + this.cur_layer );
+  //console.log("toolTrace " + this.cur_layer_ind + ": " + this.cur_layer );
 
 
   this.ghost_color = "rgba(255,255,255,0.1)";
@@ -595,7 +595,7 @@ toolTrace.prototype.placeTrack = function()
                                      */
 
       }
-      else console.log("skipping addTrack: points are too close");
+      //else console.log("skipping addTrack: points are too close");
 
     }
   }
@@ -628,10 +628,7 @@ toolTrace.prototype.placeTrack = function()
       }
 
     }
-    else
-    {
-      console.log("dest join anonymous net");
-    }
+    //else { console.log("dest join anonymous net"); }
 
   }
 
@@ -661,10 +658,7 @@ toolTrace.prototype.placeTrack = function()
         //curNetCode = src_netcode;
       }
     }
-    else if (src_netcode)
-    {
-      console.log("source join anonymous net");
-    }
+    //else if (src_netcode) { console.log("source join anonymous net"); }
 
   }
 
@@ -765,7 +759,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
     if (!this.startedFlag)
     {
 
-      console.log("calling _initTraceState() (" + this.laydownFormat + ")" );
+      //console.log("calling _initTraceState() (" + this.laydownFormat + ")" );
 
       this._initTraceState();
       return;
@@ -776,7 +770,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 
       if ( this.dist1( this.cur_trace_point[1], this.cur_trace_point[0] ) < this.dist1_trace_eps )
       {
-        console.log("skipping extra add trace event (traces too close) [F]");
+        //console.log("skipping extra add trace event (traces too close) [F]");
       }
       else
       {
@@ -803,7 +797,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
         if ( this.dist1( this.cur_trace_point[2], this.cur_trace_point[1] ) < this.dist1_trace_eps )
         {
           //check for special case when direction blah blah blah
-          console.log("skipping extra add trace event (traces too close) [J]");
+          //console.log("skipping extra add trace event (traces too close) [J]");
 
           //console.log(this.cur_trace_point);
           //console.log(this.trace);
@@ -818,7 +812,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 
         if ( this.handlePossibleConnection( ex, ey, this.cur_layer ) )
         {
-          console.log("handlePossibleConnection returned (J)");
+          //console.log("handlePossibleConnection returned (J)");
           return;
         }
 
@@ -826,7 +820,7 @@ toolTrace.prototype.mouseDown = function( button, x, y )
         //
         if (!this.allow_place_flag)
         {
-          console.log("intermediate state, not allowing placement");
+          //console.log("intermediate state, not allowing placement");
           return;
         }
 
@@ -875,7 +869,7 @@ toolTrace.prototype.doubleClick = function( button, x, y )
   //
   if (!this.allow_place_flag)
   {
-    console.log("intermediate state, not allowing placement (doublclick)");
+    //console.log("intermediate state, not allowing placement (doublclick)");
     return;
   }
 
@@ -1426,8 +1420,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   this.netcode_dst = -1;
   this.ele_dst = null;
 
-  //console.log("CP");
-
   // final check to make sure 'magnetized' track doesn't also
   // interect anything else.  
   // If the fiddled track does intersect something, , just don't move.
@@ -1440,14 +1432,9 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 
   if (this._hitlist_has_middle_geometry( fin_hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
-
-    //console.log("FINAL CHECK FAILED");
-
     this.allow_place_flag = false;
     return;
   }
-
-  //console.log("END");
 
   this.allow_place_flag = true;
   this._load_current_trace( virtual_trace );
@@ -1560,11 +1547,11 @@ toolTrace.prototype.mouseWheel = function( delta )
 
 toolTrace.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolTrace keyDown: " + keycode + " " + ch );
+  //console.log("toolTrace keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
-    console.log("handing back to toolBoardNav");
+    //console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
 
@@ -1605,7 +1592,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
   {
     if (!this.allow_place_flag)
     {
-      console.log("intermediate state, ignoring via place request");
+      //console.log("intermediate state, ignoring via place request");
       return;
     }
 
@@ -1615,7 +1602,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
     if ( this._via_intersect_test( ctp, 0 ) )
     {
-      console.log("via interects, ignoring via place request");
+      //console.log("via interects, ignoring via place request");
       return;
     }
 
@@ -1688,7 +1675,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
 toolTrace.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolTrace keyUp: " + keycode + " " + ch );
+  //console.log("toolTrace keyUp: " + keycode + " " + ch );
 }
 
 

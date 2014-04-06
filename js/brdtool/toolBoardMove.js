@@ -1098,6 +1098,8 @@ toolBoardMove.prototype.updateSelectedRatsnest = function( )
 toolBoardMove.prototype.canPlace = function()
 {
 
+  return g_board_controller.board.allowPlacement( this.ghostElement, this.clearance );
+
   var n = this.ghostElement.length;
   if (n==1)
   {
@@ -1114,7 +1116,8 @@ toolBoardMove.prototype.canPlace = function()
 
   }
 
-  return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
+  //return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
+  return !g_board_controller.board.intersectTest( this.ghostElement, this.clearance );
 
 }
 
