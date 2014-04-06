@@ -1563,6 +1563,46 @@ bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance, critical
 }
 
 
+// defaults to true
+//
+bleepsixBoard.prototype.shareLayer = function( ref0, ref1 )
+{
+  if ( "layer" in ref0 ) 
+  {
+    var layer = parseInt(ref0.layer);
+
+    if ( "layer" in ref1 )
+      return layer == parseInt(ref1.layer);
+    if ( "layer_mask" in ref1 )
+      return (parseInt( ref1.layer_mask, 16) & (1<<layer)) != 0  ;
+    return true;
+  }
+
+  if ( "layer_mask" in ref0 )
+  {
+    if ( "layer" in ref1 )
+    {
+      var layer = parseInt( ref1.layer );
+      return (parseInt( ref0.layer_mask, 16) & (1<<layer)) != 0  ;
+    }
+
+    if ( "layer_mask" in ref1 )
+    {
+      for (var ii=0; ii<16; ii++)
+      {
+        var a = (parseInt( ref0.layer_mask, 16) & (1<<ii));
+        var b = (parseInt( ref1.layer_mask, 16) & (1<<ii));
+        if ((a>0) && (a==b)) return true;
+      }
+      return false;
+    }
+    return true;
+  }
+
+  return true;
+}
+
+
 // Slow
 // Do not allow pad-pad intersections.
 // Allow track-track and track-pad intersections as long as they are farther than
@@ -1597,6 +1637,10 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
 
       if ( (brd_type == "track") && (ele_type == "track") )
       {
+
+        if ( !this.shareLayer( brd_ref, ele_ref ) )
+          continue;
+
         var l0 = { x : parseFloat(ele_ref.x0) , y : parseFloat(ele_ref.y0) };
         var l1 = { x : parseFloat(ele_ref.x1) , y : parseFloat(ele_ref.y1) };
         var w = parseFloat(ele_ref.width) + clearance;
@@ -1637,6 +1681,8 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
         for (var p_ind in pads)
         {
           var pad = pads[p_ind];
+          if ( !this.shareLayer( brd_ref, pad) ) continue;
+
           var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad, clearance: clearance } );
           if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
           {
@@ -1670,6 +1716,8 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
         for (var p_ind in pads)
         {
           var pad = pads[p_ind];
+          if ( !this.shareLayer( pad, ele_ref ) ) continue;
+
           var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad, clearance: clearance } );
           if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
           {
@@ -1699,7 +1747,7 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
           for (var jj in ele_pads)
           {
             var ele_pad = ele_pads[jj];
-
+            if ( !this.shareLayer( brd_pad, ele_pad) ) continue;
             if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance) )
               continue;
 
