@@ -111,6 +111,7 @@ bleepsixSchematic.prototype._lookup_comp = function( name )
     return this.local_component_cache[name];
 
   console.log("ERROR: bleepsixSchematic._lookup_comp: could not find " + name + " in local component cache");
+  console.trace();
   return null;
 }
 
@@ -129,6 +130,225 @@ bleepsixSchematic.prototype._net_add_endpoint = function( endpoints, key, data )
   {
     endpoints[key] = [ data ];
   }
+
+}
+
+// The power extension is a sort of hybrid between the label and component
+// extend functions.  Since the power components are themselves components,
+// but need to be treated effectively as labels since they join disparate parts,
+// we see code that is similar to both functions.
+//
+// - Find power elements
+// - Connect like named power elements
+// - Connect power elements to schematic elements
+// 
+// In more detail:
+//
+// To extend V and E, go through the element list, recording what power components 
+// we find.  Add the relevant data to the V structure and collect like named
+// power pins in a list.
+//
+// Use the power pin list to add to the endpoint list.  Elements in the same
+// endpoint key position are considered logically connected.
+//
+// Go through the element list again to collect all other components that 
+// connect to the power element pin endpoints.
+//
+// Finally, add relevant connections to the edge structure, E.
+// 
+bleepsixSchematic.prototype._net_extend_VE_from_power = function( V, E )
+{
+  var edge = [];
+  var endpoints = {};
+  var power_comps = [];
+
+  var power_name_list = {};
+
+  // Construct the vertices with the proper data.
+  // Power components are just components but we
+  // want to connect different power components with
+  // the same pin name as a joined net.
+  // Add the vertices here, connect an edge between
+  // them below.
+  //
+  var sch = this.kicad_sch_json.element;
+  var n = sch.length;
+  for (var i=0; i<n; i++)
+  {
+    var ele = sch[i];
+    var type = ele.type;
+    
+    if (type == "component")
+    {
+      var name = ele.name;
+      var reference = ele.reference;
+
+      if ( !reference.match( /^#PWR/ ) ) continue;
+
+      power_comps.push(ele);
+
+      var key = this._net_make_key( ele.x, ele.y );
+
+      var comp = this._lookup_comp( ele.name );
+      if (!comp) continue;
+      if (comp.name == "unknown") continue;
+
+      for (var p_ind=0; p_ind<comp.pin.length; p_ind++)
+      {
+        var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
+        var key = this._net_make_key( p[0][0], p[0][1] );
+
+        var data = { 
+          x : p[0][0],
+          y : p[0][1],
+          //type : "pin", 
+          type : "power", 
+          ref: ele, 
+          parentId : ele.id,
+          id: ele.id + ":" + comp.pin[p_ind].number ,  
+          pin_number: comp.pin[p_ind].number ,
+          visited : false,
+          net : 0
+        }; 
+
+        this._net_add_endpoint( endpoints, key, data );
+
+        V[ ele.id + ":" + comp.pin[p_ind].number ] = data;
+
+        var pin_name = comp.pin[p_ind].name;
+
+        if ( pin_name in power_name_list )
+          power_name_list[ pin_name ].push( data );
+        else
+          power_name_list[ pin_name ] = [ data ];
+
+      }
+
+    }
+  }
+
+
+  // Make virtual link to each power component with the same name
+  //
+
+
+  // Add data to the endpoints structure based on the key.
+  //
+  for ( var pin_name in power_name_list )
+  {
+    var l = power_name_list[pin_name].length;
+    for (var i=0; i<l; i++)
+    {
+      var data0 = power_name_list[pin_name][i];
+      var ref0 = data0.ref;
+      var key0 = this._net_make_key( ref0.x, ref0.y );
+
+      this._net_add_endpoint( endpoints, key0, data0 );
+
+      for (var j=i+1; j<l; j++)
+      {
+        var data1 = power_name_list[pin_name][j];
+        var ref1 = data1.ref;
+        var key1 = this._net_make_key( ref1.x, ref1.y );
+
+        this._net_add_endpoint( endpoints, key0, data1 );
+      }
+
+    }
+  }
+
+  // Once our endpoints are collected, go through the schematic again
+  // and add all connecting endpoints from other elements.
+  //
+  for (var i=0; i<n; i++)
+  {
+    var ele = sch[i];
+    var type = ele.type;
+
+    if ( (type != "component") &&
+         (type != "wireline") )
+      continue;
+
+    for (var pin_name in power_name_list)
+    {
+
+      var data = power_name_list[pin_name];
+      //var power_comp = this._lookup_comp( power_name_list[pin_name] );
+      var power_key = this._net_make_key( data.x, data.y );
+
+      if (type == "component")
+      {
+
+        var comp = this._lookup_comp( ele.name );
+        var pins = comp.pin;
+
+        if (comp.name == "unknown")
+          continue;
+
+        for (var p_ind=0; p_ind<pins.length; p_ind++)
+        {
+          var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
+          var key = this._net_make_key( p[0][0], p[0][1] );
+
+          if ( (parseInt(p[0][0]) != parseInt(data.x)) ||
+               (parseInt(p[0][1]) != parseInt(data.y)) )
+            continue;
+
+          var comp_data = {
+            type : "pin",
+            ref: ele,
+            parentId : ele.id,
+            id: ele.id + ":" + comp.pin[p_ind].number ,
+            pin_number: comp.pin[p_ind].number ,
+            visited : false,
+            net : 0
+          };
+
+          this._net_add_endpoint( endpoints, power_key, comp_data );
+        }
+
+      }
+      else if (type == "wireline")
+      {
+
+        if (! ( ((parseInt(ele.startx) == parseInt(data.x)) && (parseInt(ele.starty) == parseInt(data.y))) ||
+                ((parseInt(ele.endx)   == parseInt(data.x)) && (parseInt(ele.endy)   == parseInt(data.y))) ) )
+          continue;
+
+        var wire_data = { type: "wireline", ref: ele, id: ele.id, visited: false, net: 0};
+        this._net_add_endpoint( endpoints, power_key, wire_data );
+
+      }
+
+    }
+
+  }
+
+  for (var xy in endpoints)
+  {
+    var list = endpoints[xy];
+    for (var i=0; i<list.length; i++)
+    {
+      for (var j=i+1; j<list.length; j++)
+      {
+        var a = list[i].id;
+        var b = list[j].id;
+
+        if ( a == b ) continue;
+
+        //DEBUG
+        //console.log(">>> adding", a, b);
+
+        if (!(a in E)) E[a] = {};
+        E[a][b] = [ list[i], list[j] ];
+
+        if (!(b in E)) E[b] = {};
+        E[b][a] = [ list[j], list[i] ];
+
+      }
+    }
+  }
+
 
 }
 
@@ -263,9 +483,6 @@ bleepsixSchematic.prototype._net_extend_VE_from_labels = function( V, E )
       {
         var a = list[i].id;
         var b = list[j].id;
-
-        // DEBUG
-        console.log("adding ", a, b );
 
         if (!(a in E)) E[a] = {};
         E[a][b] = [ list[i], list[j] ];
@@ -575,12 +792,29 @@ bleepsixSchematic.prototype.constructNet = function()
   // edges are indexed by ids, with an array pointing to the vertices
   //   in the order of the indexes
   //
+  // The edges adjacency structure, E, is a "logical" connection between
+  // element IDs.  The relevant data for each ID is stored in the
+  // vertex structure, V, that holds information about what type of
+  // element it is, endpoints, etc.
+  //
+  // The _net_extend_VE_from_* functions 'extend' the relevant data to the
+  // vertex structure, V, and add connections where appropriate to the 
+  // adjacency structure, E.
+  // For many, this ends up collecting endpoints and then adding an edge
+  // connection to E based on a matching endpoint.  
+  //
+  // The specifics of what constitutes a logical connection are handled
+  // by each of the _net_extend_VE_from_* functions so that we can
+  // abstract the idea of the specifics of how to join elements.
+  //
+  //
   var V = {};
   var E = {};
 
   this._net_extend_VE_from_conn_wires( V, E );
   this._net_extend_VE_from_endpoints( V, E );
   this._net_extend_VE_from_labels( V, E );
+  this._net_extend_VE_from_power( V, E );
 
   this._net_label_groups(V, E);
 
