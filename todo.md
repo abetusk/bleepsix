@@ -3,6 +3,8 @@
 
 ## General
 
+* Through hole not rotation properly in gerber production?  for example: CR2032H not rotation
+* Produce drill file
 * Export issues with zone.  KiCAD expects path not to overlap with any open regions.  Convert
   to appropriate polyscorners so KiCAD doesn't get confused (gerber is fine).
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
@@ -15,12 +17,16 @@
 
 ## Schematic
 
+* toolWire needs to take into account component rotation when highlighting net
 * Power lines need to be treated as a net so nets connect in board.
 * Wire "grabbing" instead of free floating pick and move.
 * Need cursor icon for label.
 
 ## Board
 
+* Recalculate rats nest after placement of parts and traces
+* toolTrace needs to either highlight net show the airwire so we know where we're
+  routing to.
 * Shift auto placed parts so they don't stack on top of each other.
 * toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
   if it intersects geometry initially.
