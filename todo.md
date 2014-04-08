@@ -24,19 +24,21 @@
 
 ## Board
 
-* When splitting nets, the newly created split net isn't persisting across refreshes.  It's not being
-  saved in the database?
-* Recalculate rats nest after placement of parts and traces
-* toolTrace needs to either highlight net show the airwire so we know where we're
-  routing to.
-* Shift auto placed parts so they don't stack on top of each other.
 * toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
   if it intersects geometry initially.
+* toolTrace gets confused when trying to connect two lines without an intermediate click.
+* Shift auto placed parts so they don't stack on top of each other.
 * Move text for modules.
 * Add via tool.
 * Figure out a way to get custom modules in easily.
 * Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
+* ~~toolTrace needs to either highlight net show the airwire so we know where we're
+  routing to.~~
+* ~~Recalculate rats nest after placement of parts and traces~~
+* ~~rats nest and schematic net to board net highlighting issues when splitting/deleting traces.~~
+* ~~When splitting nets, the newly created split net isn't persisting across refreshes.  It's not being
+  saved in the database?~~
 * ~~Group/Track/Module moves need to ghost if they fall within the forbidden zone.~~
 * ~~refLookups are failing.~~
 * ~~Element moves need to induce splits and joins for their nets.~~

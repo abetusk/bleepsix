@@ -787,9 +787,6 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
   else if (type == "schematicnetmap")
   {
-
-    console.log("(src sch) SCHEMATIC NET MAP>>");
-
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
 

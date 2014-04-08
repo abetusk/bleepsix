@@ -498,6 +498,12 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
   g_board_controller.board.load_board( json_brd );
   g_board_controller.schematic.load_schematic( json_sch );
 
+  var netop = { source: "brd", destination: "sch" };
+  netop.scope = msg.scope;
+  netop.action = "update";
+  netop.type = "schematicnetmap";
+  g_board_controller.op.opCommand( netop );
+
   var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
   g_board_controller.board.updateRatsNest( undefined, undefined, map );
 

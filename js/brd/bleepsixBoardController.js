@@ -196,10 +196,33 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   }
 
-  if ( (msg.action == "update") && (msg.type == "edit") )
+  if ( msg.action == "update" )
   {
-    console.log("bleepsixBoardController.opCommand: update edit not implemented for schematic communication");
+
+    // We've split a net (potentially), so update the
+    // sch to brd net mapping for highlighting and rats nest
+    // calculation purposes.
+    //
+    if ( msg.type == "splitnet") 
+    {
+      var netop = { source: "brd", destination: "sch" };
+      netop.scope = msg.scope;
+      netop.action = "update";
+      netop.type = "schematicnetmap";
+      this.op.opCommand( netop );
+
+      if ( g_brdnetwork && (msg.scop == "network") )
+        g_brdnetwork.projectop( netop );
+
+    }
+
+    else if (msg.type == "edit") 
+    {
+      //...
+    }
+
   }
+
 
   // We have a group delete whose ids have been saved in delModuleList.
   // Go through and remove them from teh schematic, sending them
