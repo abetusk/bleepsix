@@ -24,6 +24,8 @@
 
 ## Board
 
+* rat's nest initially is wonky (somtimes?)
+* rat's nest needs to be recalculated consistently.  Sometimes it just disappears after operation.
 * toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
   if it intersects geometry initially.
 * toolTrace gets confused when trying to connect two lines without an intermediate click.
