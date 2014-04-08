@@ -22,16 +22,15 @@
 
 */
 
-function toolTrace( x, y, layerPair, initialPlaceFlag ) 
+function toolTrace( x, y, layerPair, initialPlaceFlag, highlightNets ) 
 {
   //console.log("toolTrace " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
-
   layerPair = ( (typeof layerPair !== 'undefined') ? layerPair : [ 0, 15 ] );
-
   initialPlaceFlag = ( typeof initialPlaceFlag !== 'undefined' ? initialPlaceFlag : true );
+  highlightNets = ( (typeof highlightNets !== 'undefined' ) ? highlightNets : [] );
 
   this.dist1_trace_eps = 10;
 
@@ -120,6 +119,12 @@ function toolTrace( x, y, layerPair, initialPlaceFlag )
   this.ele_dst = null;
 
   this.netname = "N/A";
+
+  this.highlightNetcodes = highlightNets;
+  if ( this.highlightNetcodes.length > 0 )
+  {
+    g_board_controller.board.highlightNetCodes( this.highlightNetcodes );
+  }
 
 
   var ele = document.getElementById("canvas");
@@ -666,6 +671,8 @@ toolTrace.prototype.placeTrack = function()
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
   g_board_controller.guiToolbox.defaultSelect();
 
+  g_board_controller.board.unhighlightNet(); 
+
   g_painter.dirty_flag = true;
 
 }
@@ -888,6 +895,8 @@ toolTrace.prototype.doubleClick = function( button, x, y )
     //
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
+
+    g_board_controller.board.unhighlightNet(); 
 
     g_painter.dirty_flag = true;
   }
@@ -1554,6 +1563,8 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
     //console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
+
+    g_board_controller.board.unhighlightNet(); 
 
     g_painter.dirty_flag = true;
   }

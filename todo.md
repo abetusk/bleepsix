@@ -17,13 +17,15 @@
 
 ## Schematic
 
-* toolWire needs to take into account component rotation when highlighting net
-* Power lines need to be treated as a net so nets connect in board.
 * Wire "grabbing" instead of free floating pick and move.
 * Need cursor icon for label.
+* ~~toolWire needs to take into account component rotation when highlighting net~~
+* ~~Power lines need to be treated as a net so nets connect in board.~~
 
 ## Board
 
+* When splitting nets, the newly created split net isn't persisting across refreshes.  It's not being
+  saved in the database?
 * Recalculate rats nest after placement of parts and traces
 * toolTrace needs to either highlight net show the airwire so we know where we're
   routing to.

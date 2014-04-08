@@ -139,6 +139,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     for ( var ind in msg.id )
     {
       var brd_ele_ref = this.board.refLookup( msg.id[ind] );
+      if (!brd_ele_ref) continue;
       if (brd_ele_ref.type != "module") 
         continue;
       delModuleList.push( { id: msg.id[ind], type: brd_ele_ref.type } );

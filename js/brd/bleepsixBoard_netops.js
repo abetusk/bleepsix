@@ -705,12 +705,12 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
 {
   var net_ele_point_hash = {};
 
-  console.log("bleepsixBoard_netops.splitNet");
+  //console.log("bleepsixBoard_netops.splitNet");
 
   this._construct_netsplit_point_hash( net_ele_point_hash, orig_netcode );
   this._populate_netsplit_group_hash_names( net_ele_point_hash );
 
-  console.log( net_ele_point_hash );
+  //console.log( net_ele_point_hash );
 
   var group_list = this._get_netsplit_group_list(net_ele_point_hash);
   if (group_list.length == 1 )
@@ -723,8 +723,8 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
   if (this._bounding_box_netsplit( net_group_bin ) ) 
     return ;
 
-  console.log("complex netsplit...");
-  console.log(net_group_bin);
+  //console.log("complex netsplit...");
+  //console.log(net_group_bin);
 
   var ds = 10;
 

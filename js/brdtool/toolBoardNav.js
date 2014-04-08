@@ -46,8 +46,11 @@ function toolBoardNav( x, y )
   this.mouse_world_xy = g_painter.devToWorld(x, y);
   this.snap_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
+  this.highlightNetcodes = [];
+
   if (g_board_controller)
     this.mouseMove( x, y );
+
 
 }
 
@@ -225,8 +228,6 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
     for ( var ida_ind in ida )
     {
-
-      //var ref = ida[0].ref;
       var ref = ida[ida_ind].ref;
 
       var netcode = -1;
@@ -237,9 +238,6 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
       if (netcode >= 0)
       {
-        //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
-        //g_board_controller.board.highlightNet( net_name );
-
         var board = g_board_controller.board;
         if ("brd_to_sch_net_map" in board.kicad_brd_json)
         {
@@ -257,37 +255,9 @@ toolBoardNav.prototype.mouseMove = function( x, y )
           }
 
           g_board_controller.board.highlightNetCodes( hi_netcodes );
-
-          // EXPERIMENTAL
-
-          /*
-          var sch_hi_set = {};
-          var fin_sch_list = [];
-          for (var i in sch_nets) sch_hi_set[ sch_nets[i] ] = 1;
-          for (var key in sch_hi_set) fin_sch_list.push(key);
-          g_board_controller.highlightNetCodes( fin_sch_list );
-          */
-
-
           g_board_controller.highlightSchematicNetsFromBoard( netcode );
 
-
-          // EXPERIMENTAL
-
-
-
-          /*
-          // EXPERIMENTAL
-          var sch_hi_set = {};
-          for (var i in sch_nets)
-          {
-            sch_hi_set[ sch_nets[i] ] = 1;
-          }
-
-          // just try list for now
-          g_board_controller.highlightNetCodes( sch_nets );
-          // EXPERIMENTAL
-          */
+          this.highlightNetcodes = hi_netcodes;
 
           highlightFound = true;
 
@@ -328,21 +298,7 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
 
         // EXPERIMENTAL
-        /*
-        var sch_hi_set = {};
-        for (var i in sch_nets)
-          sch_hi_set[ sch_nets[i] ] = 1;
-
-        var fin_sch_list = [];
-        for (var key in sch_hi_set)
-          fin_sch_list.push(key);
-
-        //g_board_controller.highlightNetCodes( sch_nets );
-        g_board_controller.highlightNetCodes( fin_sch_list );
-        */
-
         g_board_controller.highlightSchematicNetsFromBoard( netcode );
-
         // EXPERIMENTAL
 
 
@@ -539,47 +495,21 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     console.log("kicad_brd_json:");
     console.log( g_board_controller.board.kicad_brd_json);
-
-    //console.log( g_painter.zoom );
-    //console.log( g_painter.view );
   }
   else if (ch == 'C')
   {
-    /*
-    var id_ref = g_board_controller.board.pick( wx, wy );
-    if ( id_ref &&
-         (id_ref.ref.type == "component") )
-    {
-      g_board_controller.tool = new toolComponentPlace( this.mouse_cur_x, this.mouse_cur_y, id_ref.ref.name, id_ref.ref );
-      return;
-    }
-   */
-
     g_board_controller.board.debug_geom = [];
-  
   }
 
   else if (ch == 'B')
   {
-    /*
-    console.log(" 'B' edge shape...");
-
-    //g_board_controller.tool = new toolEdgeShape(x, y, "rect", true );
-    //g_board_controller.tool = new toolEdgeShape(x, y, "roundedRect", true );
-    g_board_controller.tool = new toolEdgeShape(x, y, "inroundedRect", true );
-
-    g_board_controller.board.unhighlightNet();
-    */
-
 
   }
 
   else if (ch == 'Z')
   {
-    //console.log("zone...");
 
     g_board_controller.tool = new toolBoardZone(x, y);
-
     g_board_controller.board.unhighlightNet();
 
 
@@ -601,16 +531,13 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'X')
   {
 
-    //console.log("X " + wx + " " + wy );
-
-    g_board_controller.tool = new toolTrace(x, y, [0, 15], true);
-
     g_board_controller.board.unhighlightNet();
 
     // EXPERIMENTAL
     g_board_controller.unhighlightNet( );
     // EXPERIMENTAL
 
+    g_board_controller.tool = new toolTrace(x, y, [0, 15], true, this.highlightNetcodes);
 
   }
 
@@ -880,22 +807,14 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           g_board_controller.opCommand( op );
 
 
-      // TESTING
-      //console.log("toolBoardNav.keyDown: testing netsplit");
+          var ref = id_ref_ar[ind].ref;
 
-      var ref = id_ref_ar[ind].ref;
-
-      /*
-      console.log(" trying to split net, netcode: " + ref.netcode + ", layer: " + ref.layer +
-                  "x0: " + ref.x0 + ", y0: " + ref.y0 + ", " +
-                  "x1: " + ref.x1 + ", y1: " + ref.y1 );
-                  */
-
-      g_board_controller.board.splitNet( ref.netcode );
-
-
-      //console.log("toolBoardNav.keyDown: testing netsplit done...");
-      // TESTING
+          var split_op = { source: "brd", destination: "brd" };
+          split_op.action = "update";
+          split_op.type = "splitnet";
+          split_op.data = { net_number: ref.netcode };
+          g_board_controller.opCommand( split_op );
+          //g_board_controller.board.splitNet( ref.netcode );
 
 
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
