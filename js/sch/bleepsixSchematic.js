@@ -860,7 +860,14 @@ bleepsixSchematic.prototype.pickText = function( comp, x, y )
 
 bleepsixSchematic.prototype.pickElement = function( ele, x, y )
 {
+  if (!this.displayable) return null;
+
   var bbox = ele["bounding_box"];
+
+
+  //DEBUG
+  //console.log(">>>>", ele, x, y);
+  //console.trace();
 
   var x0 = bbox[0][0];
   var y0 = bbox[0][1];
@@ -918,6 +925,8 @@ bleepsixSchematic.prototype.pickElement = function( ele, x, y )
 bleepsixSchematic.prototype.pick = function(x, y)
 {
 
+  if (!this.displayable) return [];
+
   var sch = this.kicad_sch_json["element"];
   var id_ref;
   var id_ref_save = null;
@@ -941,6 +950,8 @@ bleepsixSchematic.prototype.pick = function(x, y)
 //
 bleepsixSchematic.prototype.pickAll = function(x, y)
 {
+
+  if (!this.displayable) return [];
 
   var ar = [];
   var sch = this.kicad_sch_json["element"];
@@ -3358,9 +3369,12 @@ bleepsixSchematic.prototype.load_part = function(name, data)
 
   if (this.queued_display_component_count == 0)
   {
+    this.updateBoundingBox();
 
     this.displayable = true;
     g_painter.dirty_flag = true;
+
+
 
   }
 

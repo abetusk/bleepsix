@@ -786,8 +786,11 @@ bleepsixSchematicController.prototype.mouseMove = function( x, y )
   //if (this.movingDebug) this.guiTextboxTest.move(x,y);
 
   
-  if (typeof this.tool.mouseMove !== 'undefined' )
-    this.tool.mouseMove ( x, y );
+  if ( this.schematic.displayable )
+  {
+    if (typeof this.tool.mouseMove !== 'undefined' )
+      this.tool.mouseMove ( x, y );
+  }
 }
 
 bleepsixSchematicController.prototype.mouseDrag = function( dx, dy ) 
