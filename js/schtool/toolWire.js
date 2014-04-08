@@ -571,6 +571,8 @@ toolWire.prototype.mouseMove = function( x, y )
     var id_ref = g_schematic_controller.schematic.pick( wx, wy );
     if (id_ref)
     {
+      var ref = id_ref.ref;
+
       if (id_ref.ref.type == "component")
       {
         var pin = g_schematic_controller.schematic.pickComponentPin( id_ref.ref, wx, wy );
@@ -578,12 +580,9 @@ toolWire.prototype.mouseMove = function( x, y )
         {
           var comp = g_controller.schematic._lookup_comp( id_ref.ref.name );
 
-          //DEBUG
-          console.log(">>>", comp);
-
-          if (comp && ("transform" in comp))
+          if (comp && ("transform" in ref))
           {
-            var p = numeric.dot( comp.transform, [ parseInt(pin.x), -parseInt(pin.y) ] );
+            var p = numeric.dot( ref.transform, [ parseInt(pin.x), parseInt(pin.y) ] );
 
             var w = 50;
             var pinx = parseInt(id_ref.ref.x) + p[0];
