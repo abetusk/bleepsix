@@ -49,7 +49,9 @@ function toolBoardNav( x, y )
   this.highlightNetcodes = [];
 
   if (g_board_controller)
+  {
     this.mouseMove( x, y );
+  }
 
 }
 
@@ -203,7 +205,6 @@ toolBoardNav.prototype.mouseMove = function( x, y )
   if ( this.mouse_drag_flag ) 
      this.mouseDrag ( x - this.mouse_cur_x, y - this.mouse_cur_y );
 
-
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
 
@@ -300,6 +301,7 @@ toolBoardNav.prototype.mouseMove = function( x, y )
         g_board_controller.highlightSchematicNetsFromBoard( netcode );
         // EXPERIMENTAL
 
+        this.highlightNetcodes = hi_netcodes;
 
         highlightFound = true;
       }
@@ -308,6 +310,7 @@ toolBoardNav.prototype.mouseMove = function( x, y )
     }
     else
     {
+
       g_board_controller.board.unhighlightNet();
 
       // EXPERIMENTAL
@@ -439,9 +442,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'F')
   {
 
-    //DEBUG
-    //console.log("FLIP");
-
     var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
     if (id_ref_ar.length > 0)
     {
@@ -452,19 +452,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
         if (ref["type"] == "module")
         {
 
-          //DEBUG
-          //console.log("FOUND!!");
-
           var src_layer = g_board_controller.guiLayer.getActiveLayer();
           var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
-
-          //console.log(src_layer, dst_layer);
-
-          // IN DEVELOPMENT
-          //STILL NEEDS WORK!
-
-          //g_board_controller.board.flip( id_ref_ar[ind], src_layer, dst_layer );
-          //break;
 
           var op = { source: "brd", destination: "brd" };
           op.action = "update";
@@ -813,8 +802,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           split_op.type = "splitnet";
           split_op.data = { net_number: ref.netcode };
           g_board_controller.opCommand( split_op );
-          //g_board_controller.board.splitNet( ref.netcode );
-
 
           g_board_controller.board.unhighlightNet();
 
@@ -822,14 +809,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           g_board_controller.unhighlightNet( );
           // EXPERIMENTAL
 
-
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
           g_board_controller.board.updateRatsNest( undefined, undefined, map );
           g_painter.dirty_flag = true;
-
-          //DEBUG
-          console.log(">>>>", map);
-
 
           return true;
         }

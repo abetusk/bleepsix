@@ -668,6 +668,8 @@ toolTrace.prototype.placeTrack = function()
   }
 
 
+  g_board_controller.board.unhighlightNet(); 
+
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
   g_board_controller.guiToolbox.defaultSelect();
 
@@ -675,7 +677,6 @@ toolTrace.prototype.placeTrack = function()
   g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
-  g_board_controller.board.unhighlightNet(); 
 
   g_painter.dirty_flag = true;
 
@@ -897,6 +898,8 @@ toolTrace.prototype.doubleClick = function( button, x, y )
     // (and we receive a doubleClick event),
     // do nothing but give control back to toolBoardNav
     //
+    g_board_controller.board.unhighlightNet(); 
+
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
 
@@ -905,7 +908,6 @@ toolTrace.prototype.doubleClick = function( button, x, y )
 
 
 
-    g_board_controller.board.unhighlightNet(); 
 
     g_painter.dirty_flag = true;
   }
@@ -1570,15 +1572,13 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
   if ((ch == 'Q') || (keycode == 27))
   {
     //console.log("handing back to toolBoardNav");
+    g_board_controller.board.unhighlightNet(); 
+
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
-
-
-    g_board_controller.board.unhighlightNet(); 
 
     g_painter.dirty_flag = true;
   }
@@ -1591,14 +1591,10 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
     this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
 
-    //DEBUG
-    console.log(">>> toolTrace.keyDonw ++", g_parameter.traceWidth);;
-
   }
 
   else if ( keycode == 189 )
   {
-
 
     g_parameter.traceWidth -= 10;
     if (g_parameter.traceWidth < 80)
@@ -1606,10 +1602,6 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
     this.trace_width = g_parameter.traceWidth;
 
     this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
-
-    //DEBUG
-    console.log(">>> toolTrace.keyDonw --", g_parameter.traceWidth);
-
 
   }
 
