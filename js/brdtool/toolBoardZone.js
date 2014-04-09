@@ -161,23 +161,10 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       // a bit hacky.  If we do this a lot, we should abstract it out
       //
-      map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
+      //map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
 
       
-      /*
-
-      brd_nc = 0;
-      if (this.netcode in map)
-      {
-        brd_nc = map[ this.netcode ][0];
-      }
-      */
-
-      //DEBUG
       brd_nc = this.netcode;
-
-//DEBUG
-//console.log(">>>> sending zone netcode: ", brd_nc );
 
       var op = { source : "brd", destination: "brd" };
       op.action = "add";
@@ -194,6 +181,9 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
     g_painter.dirty_flag = true;
 
     g_board_controller.board.unhighlightNet();
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
   }
@@ -351,6 +341,10 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
 
     g_board_controller.board.unhighlightNet();
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
   }
 
 }

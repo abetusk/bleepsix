@@ -893,20 +893,12 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
     }
   }
 
-  //DEBUG
-  //console.log(">>>>> verts:");
-  //console.log(verts);
-
   var edges = [];
 
   if (verts.length > 2)
     edges = EuclideanMST.euclideanMST( verts, distance_metric );
   else if (verts.length == 2)
     edges = [[ 0, 1 ]] ;
-
-  //DEBUG
-  //console.log(">>>>> edges:");
-  //console.log(edges);
 
 
   //var min_seg_len_sq = (ds+1)*(ds+1);

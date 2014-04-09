@@ -210,6 +210,11 @@ toolEdge.prototype.placeEdge = function()
   g_board_controller.guiToolbox.defaultSelect();
   g_painter.dirty_flag = true;
 
+  var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+  g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
+
 }
 
 //-----------------------------
@@ -294,6 +299,11 @@ toolEdge.prototype.doubleClick = function( button, x, y )
     g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
   }
 }
 
@@ -399,6 +409,11 @@ toolEdge.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
   }
 
 }

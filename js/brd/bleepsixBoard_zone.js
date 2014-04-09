@@ -495,17 +495,18 @@ bleepsixBoard.prototype.fillCZone = function( czone )
       {
         var pad = pads[ind];
 
+        // skip it if it's not on this layer
+        //
+        if ( (parseInt(pad.layer_mask, 16) & (1<<layer)) == 0 )
+          continue;
+
+
         // keep it for later intersection testing.  We exclude or keep
         // it from the zone removal depending on the thermal relief option
         // ( to be iplemented, testing thermal relief default now )
         //
         if ( this._net_equal( pad.net_number, netcode ) )
         {
-
-          // skip it if it's not on this layer
-          //
-          if ( (parseInt(pad.layer_mask, 16) & (1<<layer)) == 0 )
-            continue;
 
           var p = this._build_element_polygon( { type: "pad", ref: ele, pad_ref: pad, id: pad.id } );
           base_pgns.push(p);

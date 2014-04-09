@@ -491,6 +491,11 @@ toolEdgeShape.prototype.mouseDown = function( button, x, y )
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
 
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
+
     g_painter.dirty_flag = true;
 
   }
@@ -613,6 +618,11 @@ toolEdgeShape.prototype.keyDown = function( keycode, ch, ev )
     console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
+
+    var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
 
     g_painter.dirty_flag = true;
   }

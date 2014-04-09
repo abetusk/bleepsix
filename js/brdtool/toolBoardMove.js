@@ -42,6 +42,10 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
     console.log("toolBoardMove: WARNING: id_ref_ar, empty, handing back control to toolBoardNav");
     g_board_controller.tool = new toolBoardNav(mouse_x, mouse_y);
 
+    var brd = g_board_controller.board.kicad_brd_json;
+    var map = brd.brd_to_sch_net_map;
+    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
     return g_board_controller.tool;  // iffy, be careful
   }
 
@@ -230,6 +234,11 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
       g_board_controller.tool = new toolBoardNav(x, y);
 
       g_painter.dirty_flag = true;
+
+      var brd = g_board_controller.board.kicad_brd_json;
+      var map = brd.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
     }
 
   }
@@ -1299,6 +1308,10 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
 
+      var brd = g_board_controller.board.kicad_brd_json;
+      var map = brd.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
     }
   }
 
@@ -1512,13 +1525,15 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
     g_board_controller.opCommand( op );
 
+
+    g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
+    g_painter.dirty_flag = true;
+
     var brd = g_board_controller.board.kicad_brd_json;
     var map = brd.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
 
-    g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_painter.dirty_flag = true;
 
   }
   else if ( (ch == 'R') || (ch == 'E') )
@@ -1625,6 +1640,10 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
         g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
         g_painter.dirty_flag = true;
+
+        var brd = g_board_controller.board.kicad_brd_json;
+        var map = brd.brd_to_sch_net_map;
+        g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
         return;
 

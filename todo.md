@@ -24,7 +24,8 @@
 
 ## Board
 
-* toolTrace net highlighting still not working
+* toolBoardNav rotate needs to split/join net.
+* toolTrace net highlighting still not working.  Sometimes shows wrong highlighted net.
 * rat's nest initially is wonky (somtimes?)
 * rat's nest needs to be recalculated consistently.  Sometimes it just disappears after operation.
 * toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused

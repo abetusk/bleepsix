@@ -51,7 +51,6 @@ function toolBoardNav( x, y )
   if (g_board_controller)
     this.mouseMove( x, y );
 
-
 }
 
 toolBoardNav.prototype.update = function(x, y)
