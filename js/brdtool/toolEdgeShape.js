@@ -24,7 +24,6 @@
 
 function toolEdgeShape( x, y, shape, initialPlaceFlag ) 
 {
-  console.log("toolEdgeShape " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
@@ -76,9 +75,6 @@ function toolEdgeShape( x, y, shape, initialPlaceFlag )
   this.layer = 28;
   this.color = "rgba(255,255,0,0.4)";
 
-  console.log("toolEdgeShape : " + this.layer );
-
-
   var ele = document.getElementById("canvas");
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 
@@ -86,10 +82,6 @@ function toolEdgeShape( x, y, shape, initialPlaceFlag )
 
 toolEdgeShape.prototype._initEdgeShapeState = function()
 {
-
-  //DEBUG
-  console.log("_initEdgeShapeState");
-
   var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   this.startedFlag = true;
@@ -267,7 +259,6 @@ toolEdgeShape.prototype.dist1 = function( xy0, xy1 )
 
 toolEdgeShape.prototype._placeRoundedRect = function()
 {
-  console.log("toolEdgeShape._placeRoundedRect");
   var x = this.roundedRect.x;
   var y = this.roundedRect.y;
   var w = this.roundedRect.w;
@@ -284,7 +275,6 @@ toolEdgeShape.prototype._placeRoundedRect = function()
 
   if ( (w <= 2*r) && (h <= 2*r) )
   {
-    console.log("toolEdgeShape._placeRoundedRect: too small, not placing rect"); 
     return;
   }
 
@@ -333,7 +323,6 @@ toolEdgeShape.prototype._placeRoundedRect = function()
 
 toolEdgeShape.prototype._placeInroundedRect = function()
 {
-  console.log("toolEdgeShape._placeInroundedRect");
   var x = this.inroundedRect.x;
   var y = this.inroundedRect.y;
   var w = this.inroundedRect.w;
@@ -350,7 +339,6 @@ toolEdgeShape.prototype._placeInroundedRect = function()
 
   if ( (w <= 2*r) && (h <= 2*r) )
   {
-    console.log("toolEdgeShape._placeInroundedRect: too small, not placing rect"); 
     return;
   }
 
@@ -399,8 +387,6 @@ toolEdgeShape.prototype._placeInroundedRect = function()
 
 toolEdgeShape.prototype._placeRect = function()
 {
-  console.log("toolEdgeShape._placeRect");
-
   var sx = parseFloat(this.rect.x);
   var sy = parseFloat(this.rect.y);
   var w = parseFloat(this.rect.w);
@@ -420,7 +406,6 @@ toolEdgeShape.prototype._placeRect = function()
 
   if ( (h <= 1) || (w <= 1) )
   {
-    console.log("toolEdgeShape._placeRect: too small, not placing rect"); 
     return;
   }
 
@@ -507,7 +492,6 @@ toolEdgeShape.prototype.mouseDown = function( button, x, y )
 
 toolEdgeShape.prototype.doubleClick = function( button, x, y )
 {
-  console.log("toolEdgeShape.doubleClick");
 }
 
 //-----------------------------
@@ -611,11 +595,9 @@ toolEdgeShape.prototype.mouseWheel = function( delta )
 
 toolEdgeShape.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolEdgeShape keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
-    console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
 
@@ -633,7 +615,6 @@ toolEdgeShape.prototype.keyDown = function( keycode, ch, ev )
 
 toolEdgeShape.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolEdgeShape keyUp: " + keycode + " " + ch );
 }
 
 

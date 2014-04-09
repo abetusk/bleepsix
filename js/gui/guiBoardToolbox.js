@@ -419,8 +419,6 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
 
   if (ev.owner == this.name + ":trace")
   {
-    console.log("  handing over to toolTrace (grid)");
-    //g_board_controller.tool = new toolTrace(0, 0, [0, 15], false);
     g_board_controller.tool = new toolTrace(0, 0, g_board_controller.guiLayer.layer, false);
   }
 
@@ -454,9 +452,6 @@ guiBoardToolbox.prototype._handleZoneEvent = function(ev)
 {
   if (ev.owner == this.name + ":zone")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool zone not implmeneted yet");
-    //g_board_controller.tool = new toolZone(0, 0, "connection");
-
     g_board_controller.tool = new toolBoardZone( 0, 0, false );
 
     this.iconNav.selected = false;
@@ -475,44 +470,32 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
   var handoff = true;
   if (ev.owner == this.name + ":edge")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
-    console.log("  handing over to toolBoardEdge");
     g_board_controller.tool = new toolEdge( 0, 0, false );
 
   }
 
   else if (ev.owner == this.name + ":box")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool edge not implmeneted yet");
-    console.log("  handing over to toolEdgeShape rect");
     g_board_controller.tool = new toolEdgeShape(0, 0, "rect", false );
   }
 
   else if (ev.owner == this.name + ":circle")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool circle not implmeneted yet");
-    console.log("  handing over to toolEdgeShape circle");
     g_board_controller.tool = new toolEdgeShape(0, 0, "circle", false );
   }
 
   else if (ev.owner == this.name + ":arc")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool arc not implmeneted yet");
-    console.log("  handing over to toolEdgeShape arc");
     g_board_controller.tool = new toolEdgeShape(0, 0, "arc", false );
   }
 
   else if (ev.owner == this.name + ":roundedbox")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool rounded box not implmeneted yet");
-    console.log("  handing over to toolEdgeShape roundedBox");
     g_board_controller.tool = new toolEdgeShape(0, 0, "roundedRect", false );
   }
 
   else if (ev.owner == this.name + ":inroundedbox")
   {
-    //console.log("  IN DEVELOPMENT, sorry, tool inroundedbox not implmeneted yet");
-    console.log("  handing over to toolEdgeShape inroundedBox");
     g_board_controller.tool = new toolEdgeShape(0, 0, "inroundedRect", false );
   }
 
@@ -587,8 +570,6 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 {
   if (ev.owner == this.name + ":nav")
   {
-    console.log("  handing over to toolBoardNav (2)");
-
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
 
@@ -664,14 +645,6 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
   else if (ev.owner == this.name + ":droptrace:tab")
   {
-    console.log("  trace tab!");
-
-    // hide (or show) the tabs from other tools that stick out below it
-    //
-    //this.dropEdge.iconTab.visible = !this.dropEdge.iconTab.visible;
-    //this.dropZone.iconTab.visible = !this.dropZone.iconTab.visible;
-    //this.dropText.iconTab.visible = !this.dropText.iconTab.visible;
-
     if (this.dropTrace.showDropdown)
     {
       this.dropEdge.contractSlim();
@@ -689,8 +662,6 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
   else if (ev.owner == this.name + ":dropzone:tab")
   {
-    console.log("  zone tab");
-
     this.dropTrace.contract();
 
     if (this.dropZone.showDropdown)
@@ -710,8 +681,6 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
   else if (ev.owner == this.name + ":dropedge:tab")
   {
-    console.log("  edge tab");
-
     this.dropTrace.contract();
     this.dropZone.contract();
 
@@ -729,8 +698,6 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
   else if (ev.owner == this.name + ":droptext:tab")
   {
-    console.log("  text tab");
-
     this.dropTrace.contract();
     this.dropEdge.contract();
     this.dropZone.contract();

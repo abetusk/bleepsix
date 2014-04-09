@@ -71,9 +71,6 @@ function guiDropIcon( name, width, height, verticalFlag )
   this.selected = false;
   this.vertical = verticalFlag;
   this.showDropdown = false;
-
-
-  //console.log("uniq: " + this.uniq);
 }
 guiDropIcon.inherits( guiRegion );
 
@@ -237,8 +234,6 @@ guiDropIcon.prototype._positionTab = function()
 guiDropIcon.prototype.toggleList = function()
 {
 
-  console.log(" toggleList..?");
-
   this.showDropdown = !this.showDropdown;
 
   for (var ind in this.iconList)
@@ -298,9 +293,6 @@ guiDropIcon.prototype.deactivateList = function()
 
 guiDropIcon.prototype.handleEvent = function(ev)
 {
-
-  console.log("event: (name: " + ev.owner + ")");
-  console.log(ev);
 
   if (ev.owner == this.tabName)
   {

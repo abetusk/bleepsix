@@ -36,16 +36,12 @@ function guiIcon( name )
   this.fgColor = "rgb(0,0,0)";
 
   this.drawShape = null;
-
-  //console.log("uniq: " + this.uniq);
 }
 guiIcon.inherits( guiRegion );
 
 
 guiIcon.prototype.mouseDown = function(button, x, y)
 {
-  console.log("guiIcon.mouseDown(" + this.name + "): " + button + " " + x + " " + y);
-
   var ev = { type: "mouseDown", owner: this.name, ref: this, button : button, x : x, y : y };
 
   this.parent.handleEvent(ev);
@@ -55,9 +51,6 @@ guiIcon.prototype.mouseDown = function(button, x, y)
 
 guiIcon.prototype.doubleClick = function(ev, x, y)
 {
-  //console.log("guiIcon.doubleClick(" + this.name + ")");
-  //console.log(ev);
-
   var ev = { type: "doubleClick", owner: this.name, button : ev.button, x : x, y : y };
 
   this.parent.handleEvent(ev);

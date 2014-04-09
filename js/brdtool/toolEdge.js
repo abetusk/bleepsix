@@ -24,7 +24,6 @@
 
 function toolEdge( x, y, initialPlaceFlag ) 
 {
-  console.log("toolEdge " + x + " " + y + " " + initialPlaceFlag );
 
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
@@ -68,9 +67,6 @@ function toolEdge( x, y, initialPlaceFlag )
   this.layer = 28;
   this.color = "rgba(255,255,0,0.4)";
 
-  console.log("toolEdge : " + this.layer );
-
-
   var ele = document.getElementById("canvas");
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 
@@ -78,9 +74,6 @@ function toolEdge( x, y, initialPlaceFlag )
 
 toolEdge.prototype._initEdgeState = function()
 {
-
-  //DEBUG
-  console.log("_initEdgeState");
 
   var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
@@ -202,7 +195,9 @@ toolEdge.prototype.placeEdge = function()
                                    */
 
     }
-    else console.log("skipping addEdge: points are too close");
+    else {
+      //console.log("skipping addEdge: points are too close");
+    }
 
   }
 
@@ -239,10 +234,10 @@ toolEdge.prototype.mouseDown = function( button, x, y )
 
     if ( this.dist1( this.cur_edge_point[1], this.cur_edge_point[0] ) < this.dist1_edge_eps )
     {
-      console.log("skipping extra add edge event (edges too close)");
+      //console.log("skipping extra add edge event (edges too close)");
 
-      console.log(this.cur_edge_point);
-      console.log(this.edge);
+      //console.log(this.cur_edge_point);
+      //console.log(this.edge);
       return;
     }
     else
@@ -269,9 +264,6 @@ toolEdge.prototype.mouseDown = function( button, x, y )
 
 
       this.jointStateAngled = !this.jointStateAngled;
-
-      console.log("edge_history");
-      console.log(this.edge_history);
 
     }
 
@@ -400,11 +392,9 @@ toolEdge.prototype.mouseWheel = function( delta )
 
 toolEdge.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolEdge keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
-    console.log("handing back to toolBoardNav");
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_board_controller.guiToolbox.defaultSelect();
 
@@ -422,7 +412,6 @@ toolEdge.prototype.keyDown = function( keycode, ch, ev )
 
 toolEdge.prototype.keyUp = function( keycode, ch, ev )
 {
-  console.log("toolEdge keyUp: " + keycode + " " + ch );
 }
 
 
