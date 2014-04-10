@@ -562,6 +562,7 @@ bleepsixBoard.prototype.rotateAboutPoint = function ( id_refs, x, y, rad_angle, 
       ref.angle += rot_angle;
       if      (ref.angle >  Math.PI ) ref.angle -= 2.0 * Math.PI;
       else if (ref.angle < -Math.PI ) ref.angle += 2.0 * Math.PI;
+      ref.orientation = Math.floor( ref.angle * 1800.0 / Math.PI );
 
       var v = [ ref.x - x, ref.y - y ];
       var v_r = numeric.dot( R, v );

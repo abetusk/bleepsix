@@ -499,7 +499,9 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
   g_board_controller.schematic.load_schematic( json_sch );
 
   var netop = { source: "brd", destination: "sch" };
-  netop.scope = msg.scope;
+  //netop.scope = msg.scope;
+  netop.scope = "local";
+
   netop.action = "update";
   netop.type = "schematicnetmap";
   g_board_controller.op.opCommand( netop );

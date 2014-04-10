@@ -43,6 +43,7 @@ function meowmeow()
 
 function successSnapshotPicture(x,y,z)
 {
+  /*
   console.log("successSnapshotPicture");
 
   console.log("x:");
@@ -53,6 +54,7 @@ function successSnapshotPicture(x,y,z)
 
   console.log("z:");
   console.log(z);
+  */
 
   //window.open("https://google.com", "_blank"); 
   //window.focus();
@@ -98,7 +100,7 @@ function downloadFile()
 
 function takeSnapShotPicture()
 {
-  console.log("takeSnapShotPicture");
+  //console.log("takeSnapShotPicture");
 
   var canvas = document.getElementById( g_canvas );
   var img = canvas.toDataURL("image/png");
@@ -161,7 +163,7 @@ function takeSnapShotPicture()
  */
 function handleSnap( clientToken ) 
 {
-  console.log("snap...");
+  //console.log("snap...");
   window.open("pic?action=handoff&clientToken=" + clientToken );
   window.focus();
 

@@ -27,7 +27,6 @@
 * toolBoardNav rotate needs to split/join net.
 * toolTrace net highlighting still not working.  Sometimes shows wrong highlighted net.
 * rat's nest initially is wonky (somtimes?)
-* ~~rat's nest needs to be recalculated consistently.  Sometimes it just disappears after operation.~~
 * toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
   if it intersects geometry initially.
 * toolTrace gets confused when trying to connect two lines without an intermediate click.
@@ -37,6 +36,7 @@
 * Figure out a way to get custom modules in easily.
 * Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
+* ~~rat's nest needs to be recalculated consistently.  Sometimes it just disappears after operation.~~
 * ~~toolTrace needs to either highlight net show the airwire so we know where we're
   routing to.~~
 * ~~Recalculate rats nest after placement of parts and traces~~
