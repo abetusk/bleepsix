@@ -575,7 +575,8 @@ bleepsixBoard.prototype.rotateAboutPoint = function ( id_refs, x, y, rad_angle, 
         ref.text[ind].angle += rot_angle;
         ref.text[ind].angle = this._angleMod( ref.text[ind].angle );
         //ref.text[ind].orientation = 180.0 * ref.text[ind].angle / Math.PI;
-        ref.text[ind].orientation = 1800.0 * ref.text[ind].angle / Math.PI;
+        //ref.text[ind].orientation = 1800.0 * ref.text[ind].angle / Math.PI;
+        ref.text[ind].rotation = 1800.0 * ref.text[ind].angle / Math.PI;
       }
 
       for (var ind in ref.pad)
