@@ -1105,7 +1105,7 @@ $EndNCLASS
       "description" : "This is the default net class.",
       "unit" : "deci-thou",
       "track_width" : g_parameter.traceWidth,
-      "clerance" : g_parameter.clearance,
+      "clearance" : g_parameter.clearance,
       "via_diameter" : g_parameter.viaWidth,
       "via_drill_diameter" : g_parameter.viaDrillWidth,
       "uvia_diameter" : g_parameter.uViaWidth,
