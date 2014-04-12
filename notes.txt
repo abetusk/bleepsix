@@ -774,3 +774,16 @@ minimum width: the outline line width
 thermal relief:
 antipad clearance: clearance to non-net items within the region
 spoke width: width of connecting elements from pad to surrounding zone
+
+
+----
+
+KiCAD issues:
+
+does KiCAD actuall generate oblong drill holes?  VALVE-ECC-83-2 does not
+appear to generate oblong drill holes even though it renders as such in KiCAD.
+(using gerbv)
+
+switching x/y issue in one of the library/modules
+
+trapeze abandonded?

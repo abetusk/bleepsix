@@ -108,7 +108,7 @@ def readyProjectZipfile( json_message ):
 
     # Go through relevant layers and create gerber and gcode files for each
     #
-    layers = { 0 : "B_Cu.gbl", 15 : "F_Cu.gtl", 20 : "B_SilkS.gbo", 21 : "F_SilkS.gto", 28 : "Edge_Cuts.gbr" }
+    layers = { -1: ".drl", 0 : "-B_Cu.gbl", 15 : "-F_Cu.gtl", 20 : "-B_SilkS.gbo", 21 : "-F_SilkS.gto", 28 : "-Edge_Cuts.gbr" }
     gerber_files = []
     gcode_files = []
     for layer in layers:
@@ -135,10 +135,10 @@ def readyProjectZipfile( json_message ):
 
 
     for f in gerber_files:
-      z.write( f["filename"], projname + "/gerber/board-" + layers[ int(f["layer"]) ] )
+      z.write( f["filename"], projname + "/gerber/board" + layers[ int(f["layer"]) ] )
 
     for f in gcode_files:
-      z.write( f["filename"], projname + "/gcode/board-" + layers[ int(f["layer"]) ] )
+      z.write( f["filename"], projname + "/gcode/board" + layers[ int(f["layer"]) ] )
 
     z.close()
 

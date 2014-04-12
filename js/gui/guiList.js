@@ -247,6 +247,9 @@ guiList.prototype.mouseDown = function( button, x, y)
 
     var ele = this.pickElement(x, y);
 
+    if (!ele)
+      return true;
+
     if (ele.type == "list")
     {
       ele.expanded = !ele.expanded;
