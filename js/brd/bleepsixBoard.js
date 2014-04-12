@@ -24,6 +24,7 @@
 
 
 var bleepsixBoardHeadless = false;
+
 if (typeof module !== 'undefined')
 {
   bleepsixBoardHeadless = true;
@@ -35,6 +36,18 @@ if (typeof module !== 'undefined')
   var s4 = bleepsixAux.s4;
   var simplecopy = bleepsixAux.simplecopy;
 
+  var boardParameter = require("./bleepsixBoardParameter.js");
+  
+  if (typeof g_parameter === "undefined")
+  {
+    g_parameter = new boardParameter();
+  }
+
+
+}
+else
+{
+  g_parameter = new bleepsixBoardParameter();
 }
 
 function bleepsixBoard()
@@ -1054,7 +1067,52 @@ bleepsixBoard.prototype._initBoardNet = function()
 
   this.kicad_brd_json["sch_pin_id_net_map"] = {};
 
+  /*
+$NCLASS
+Name "Default"
+Desc "This is the default net class."
+Clearance 0.254
+TrackWidth 0.3048
+ViaDia 1.19888
+ViaDrill 0.635
+uViaDia 0.508
+uViaDrill 0.127
+AddNet ""
+AddNet "/CLK"
+AddNet "/MISO"
+AddNet "/MOSI"
+AddNet "/RST"
+AddNet "GND"
+AddNet "N-000006"
+AddNet "N-000008"
+AddNet "N-000009"
+AddNet "N-000010"
+AddNet "N-000011"
+AddNet "N-000024"
+AddNet "N-000025"
+AddNet "N-000027"
+AddNet "N-000030"
+AddNet "N-000031"
+AddNet "VCC"
+$EndNCLASS
+*/
 
+  // Holds information about clearance, via/drill sizes for different nets.
+  // Default should always exist.  Stuff in some reasonable (?) values here (for now?).
+  this.kicad_brd_json["net_class"] = {
+    "Default" : {
+      "name" : "Default",
+      "description" : "This is the default net class.",
+      "unit" : "deci-thou",
+      "track_width" : g_parameter.traceWidth,
+      "clerance" : g_parameter.clearance,
+      "via_diameter" : g_parameter.viaWidth,
+      "via_drill_diameter" : g_parameter.viaDrillWidth,
+      "uvia_diameter" : g_parameter.uViaWidth,
+      "uvia_drill_diameter" : g_parameter.uViaWidth,
+      "net" : [ ] 
+    }
+  };
 
 }
 

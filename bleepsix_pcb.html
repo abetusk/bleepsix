@@ -37,6 +37,8 @@
 
     <script src='js/core/bleepsixRender.js'></script>
 
+    <script src='js/brd/bleepsixBoardParameter.js'></script>
+
     <script src='js/brd/bleepsixBoard.js'></script>
     <script src='js/brd/bleepsixBoard_aux.js'></script>
     <script src='js/brd/bleepsixBoard_bbox.js'></script>
@@ -165,7 +167,7 @@
 
       var g_brdnetwork = null;
       var g_controller = null;
-      var g_parameter = null;
+      //var g_parameter = null;
 
       var g_imgcache = null;
 
@@ -206,6 +208,7 @@
         var cvs = document.getElementById('canvas');
         cvs.onselectstart = function() { return false; }
 
+        //g_parameter = new bleepsixBoardParameter();
 
         g_snapgrid = new snapGrid(true, "deci-mil", 50);
 
@@ -218,7 +221,6 @@
 
         g_controller = g_board_controller;
 
-        g_parameter = new bleepsixBoardParameter();
 
         var img_base = "img";
         g_imgcache = new imageCache();

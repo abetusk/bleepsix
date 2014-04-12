@@ -32,9 +32,18 @@ function bleepsixBoardParameter()
 {
   this.units = "deci-thou";
   this.clearance = 100;
-  this.viaWidth = 472;
   this.traceWidth = 100;
+
+  this.viaWidth = 472;
+  this.viaDrillWidth = 250;
+
+  this.uViaWidth = 200;
+  this.uViaDrillWidth = 50;
 }
 
+if (typeof module !== 'undefined')
+{
+  module.exports = bleepsixBoardParameter;
+}
 
 
