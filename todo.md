@@ -3,8 +3,6 @@
 
 ## General
 
-* Through hole not rotation properly in gerber production?  for example: CR2032H not rotation
-* Produce drill file
 * Export issues with zone.  KiCAD expects path not to overlap with any open regions.  Convert
   to appropriate polyscorners so KiCAD doesn't get confused (gerber is fine).
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
@@ -13,6 +11,8 @@
 * Add in name verification to delete project.
 * DRC checks for both
 * undo/redo batching and server communication
+* ~~Produce drill file~~
+* ~~Through hole not rotation properly in gerber production?  for example: CR2032H not rotation~~
 * ~~Cross browser net highlights~~
 
 ## Schematic
@@ -25,7 +25,7 @@
 ## Board
 
 * toolBoardNav rotate needs to split/join net.
-* toolTrace net highlighting still not working.  Sometimes shows wrong highlighted net.
+* toolTrace needs self intersection test.
 * rat's nest initially is wonky (somtimes?)
 * toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
   if it intersects geometry initially.
@@ -36,6 +36,7 @@
 * Figure out a way to get custom modules in easily.
 * Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
+* ~~toolTrace net highlighting still not working.  Sometimes shows wrong highlighted net.~~
 * ~~rat's nest needs to be recalculated consistently.  Sometimes it just disappears after operation.~~
 * ~~toolTrace needs to either highlight net show the airwire so we know where we're
   routing to.~~
