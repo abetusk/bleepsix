@@ -161,16 +161,21 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       // a bit hacky.  If we do this a lot, we should abstract it out
       //
-      //map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
+      map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map;
 
+      sch_nc = this.netcode;
+
+      equipot_ind = map[sch_nc][0];
+      //brd_nc = map[ this.netcode ][0];
       
-      brd_nc = this.netcode;
 
       var op = { source : "brd", destination: "brd" };
       op.action = "add";
       op.type = "czone";
+
       //op.data  = { points : pnts, netcode: this.netcode, layer : this.layer };
-      op.data  = { points : pnts, netcode: brd_nc, layer : this.layer };
+      op.data  = { points : pnts, netcode: sch_nc, layer : this.layer };
+
       g_board_controller.opCommand( op );
 
     }
