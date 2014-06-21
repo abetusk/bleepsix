@@ -53,3 +53,6 @@
 * ~~Flip needs to go into opCommand and special consideration needs to be 
   done for through hole parts.~~
 
+
+* BUG: There's a stray via that got into one of the board layouts.  I'm nto sure if adding/deleting put
+  it there or if I accidentally did an 'undo' and screwed things up.  Project-id: 174c284d-b216-40d3-b78b-89b86f3d2a94
