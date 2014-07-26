@@ -19,10 +19,7 @@ For example, here is the "+12V" component entry:
 `library_list_default.json`
 --------------------------
 
-A heirarchical list of default component names and locations.  
-Each entry has an `id`, `name`, `data`, `type` and optional `list` field.  
-`type` can be one of "list" or "element", where "list" denotes a list of entries.
-`id` and `name` should be the same.  `data` is the location of the data, URL encoded.
+A heirarchical list of default component names and locations.  Each entry has an `id`, `name`, `data`, `type` and optional `list` field.  `type` can be one of "list" or "element", where "list" denotes a list of entries.  `id` and `name` should be the same.  `data` is the location of the data, URL encoded.
 
 For example:
 
@@ -72,10 +69,7 @@ For example, here is the "MSOP-10(EP)" module:
 `footprint_list_default.json`
 ----------------------------
 
-A heirarchical list of default footprint names and locations.  
-Each entry has an `id`, `name`, `data`, `type` and optional `list` field.  
-`type` can be one of "list" or "element", where "list" denotes a list of entries.
-`id` and `name` should be the same.  `data` is the location of the data, URL encoded.
+A heirarchical list of default footprint names and locations.  Each entry has an `id`, `name`, `data`, `type` and optional `list` field.  `type` can be one of "list" or "element", where "list" denotes a list of entries.  `id` and `name` should be the same.  `data` is the location of the data, URL encoded.
 
 For example:
 
