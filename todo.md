@@ -3,20 +3,21 @@
 
 ## General
 
-* Export issues with zone.  KiCAD expects path not to overlap with any open regions.  Convert
-  to appropriate polyscorners so KiCAD doesn't get confused (gerber is fine).
+* undo/redo batching and server communication
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
   one at a time?  If a board and a schematic is specified we should try to tie them together?
 * Add timestamps to sessions, portfolios and the like.
 * Add in name verification to delete project.
 * DRC checks for both
-* undo/redo batching and server communication
 * ~~Produce drill file~~
 * ~~Through hole not rotation properly in gerber production?  for example: CR2032H not rotation~~
 * ~~Cross browser net highlights~~
+* ~~Export issues with zone.  KiCAD expects path not to overlap with any open regions.  Convert
+  to appropriate polyscorners so KiCAD doesn't get confused (gerber is fine).~~ (fixed with weakpwh)
 
 ## Schematic
 
+* **Import modules.**
 * Wire "grabbing" instead of free floating pick and move.
 * Need cursor icon for label.
 * ~~toolWire needs to take into account component rotation when highlighting net~~
@@ -24,6 +25,7 @@
 
 ## Board
 
+* **Import modules.**
 * toolBoardNav rotate needs to split/join net.
 * toolTrace needs self intersection test.
 * rat's nest initially is wonky (somtimes?)
@@ -33,7 +35,6 @@
 * Shift auto placed parts so they don't stack on top of each other.
 * Move text for modules.
 * Add via tool.
-* Figure out a way to get custom modules in easily.
 * Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
 * ~~toolTrace net highlighting still not working.  Sometimes shows wrong highlighted net.~~
@@ -50,9 +51,6 @@
 * ~~There was a hang when trying to add a trace to a via.  Having a hard time reproducing.~~
 * ~~Store sch_pin_id_net_map and call updateSchematicNetcodeMap appripriately (bug fix).~~
 * ~~zone sometimes makes thin connections to thermal reliefs.~~
-* ~~Flip needs to go into opCommand and special consideration needs to be 
-  done for through hole parts.~~
-
-
+* ~~Flip needs to go into opCommand and special consideration needs to be done for through hole parts.~~
 * BUG: There's a stray via that got into one of the board layouts.  I'm nto sure if adding/deleting put
   it there or if I accidentally did an 'undo' and screwed things up.  Project-id: 174c284d-b216-40d3-b78b-89b86f3d2a94

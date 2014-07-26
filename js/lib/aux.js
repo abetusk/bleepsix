@@ -23,12 +23,6 @@
 */
 
 
-/*
- * from the accepted (as of 2013-12-21) answer from user John Millikin
- * http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/105074#105074
- *
- */
-
 var g_footprint_cache = {};
 var g_footprint_location = {};
 var g_footprint_library_map = {};
@@ -157,6 +151,12 @@ function load_component_cache_part( name, location )
   }
 }
 
+
+/*
+ * from the accepted (as of 2013-12-21) answer from user John Millikin
+ * http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/105074#105074
+ *
+ */
 
 
 function s4() {
