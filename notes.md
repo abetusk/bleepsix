@@ -78,7 +78,7 @@ they are for the default library/module sets.
 
 Steps:
 
-  1. Drop in replacement to get to functionality of what we have now
+  1. Drop in replacement to get to functionality of what we have now (done!)
   2. Add dummy user override and make sure it appears in library/module list
   3. Upload facility in www.meowcad.com that does this automatically.
 
