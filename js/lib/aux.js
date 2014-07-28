@@ -37,7 +37,6 @@ var g_component_library_map = {};
 var g_component_location_ready = false;
 
 
-//function load_footprint_location( footprint_location_json )
 function load_footprint_location( userId, sessionId  )
 {
 
@@ -67,58 +66,46 @@ function load_footprint_location( userId, sessionId  )
     }
   });
 
-  return;
-
-  //console.log("load_footprint_location");
-
-  $.ajaxSetup({ cache : false });
-  $.getJSON( footprint_location_json,
-    function(data) {
-      g_footprint_location = data;
-      g_footprint_location_ready = true;
-
-     //console.log("module location data loaded:");
-     //console.log(g_footprint_location);
-
-    }
-  ).fail(
-    function(jqxhr, textStatus, error) {
-      console.log("could not load " + footprint_location_json + ": " + error);
-  });
-
 }
 
-function load_footprint_cache_part( name, location )
+function load_footprint_cache_part( name, location, userId, sessionId )
 {
-
-  //console.log("load_footprint_cache_part: " + name + ", " + location);
 
   if ( !(name in g_footprint_cache) )
   {
+
     g_board_controller.board.queued_display_footprint_count++;
 
-    //part_json = "json/" + name + ".json";
     part_json = location;
     var brd = g_board_controller.board;
 
-    //console.log("load_footprint_cache_part: footprint " + name + " " + location );
+    var req = { op: "MOD_ELE", name : name, location : location };
+    if ((typeof userId !== 'undefined') && (typeof sessionId !== 'undefined'))
+    {
+      req.userId = userId;
+      req.sessionId = sessionId;
+    }
 
     $.ajaxSetup({ cache : false });
-    $.getJSON( part_json,
+    $.ajax({
+      url: "cgi/libmodmanager.py",
+      type: "POST",
+      data: JSON.stringify(req),
+      success:
       ( function(a) {
           return function(data) {
             brd.load_part(a, data);
           }
         }
-      )(name)
-    ).fail(
+      )(name),
+      error:
       ( function(a) {
-        return function(jqxhr, textStatus, error) {
-          brd.load_part_error(a, jqxhr, textStatus, error);
+          return function(jqxhr, textStatus, error) {
+            brd.load_part_error(a, jqxhr, textStatus, error);
+          }
         }
-      }
       )(part_json)
-    );
+    });
 
   }
   else 
@@ -127,7 +114,6 @@ function load_footprint_cache_part( name, location )
   }
 }
 
-//function load_component_location( component_location_json )
 function load_component_location( userId, sessionId )
 {
 
@@ -157,52 +143,46 @@ function load_component_location( userId, sessionId )
     }
   });
 
-  return;
-
-
-  $.ajaxSetup({ cache : false });
-  //var component_location_json = "json/component_location.json";
-  $.getJSON( component_location_json,
-    function(data) {
-      g_component_location = data;
-      g_component_location_ready = true;
-    }
-  ).fail(
-    function(jqxhr, textStatus, error) {
-      console.log("could not load " + component_location_json + ": " + error);
-    }
-  );
-
-
 }
 
 
-function load_component_cache_part( name, location )
+function load_component_cache_part( name, location, userId, sessionId )
 {
   if ( !(name in g_component_cache) )
   {
     g_schematic_controller.schematic.queued_display_component_count++;
 
-    //part_json = "json/" + name + ".json";
     part_json = location;
     var schem = g_schematic_controller.schematic;
 
+    var req = { op: "COMP_ELE", name : name, location: location };
+    if ((typeof userId !== 'undefined') && (typeof sessionId !== 'undefined'))
+    {
+      req.userId = userId;
+      req.sessionId = sessionId;
+    }
+
     $.ajaxSetup({ cache : false });
-    $.getJSON( part_json,
+
+    $.ajax({
+      url: "cgi/libmodmanager.py",
+      type: "POST",
+      data: JSON.stringify(req),
+      success:
       ( function(a) {
           return function(data) {
             schem.load_part(a, data);
           }
         }
-      )(name)
-    ).fail(
+      )(name),
+      error:
       ( function(a) {
-        return function(jqxhr, textStatus, error) {
-          schem.load_part_error(a, jqxhr, textStatus, error);
+          return function(jqxhr, textStatus, error) {
+            schem.load_part_error(a, jqxhr, textStatus, error);
+          }
         }
-      }
       )(part_json)
-    );
+    });
 
   }
   else 
