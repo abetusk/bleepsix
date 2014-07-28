@@ -22,8 +22,9 @@
 
 */
 
-function guiLibrary( name ) 
+function guiLibrary( name, userId, sessionId ) 
 {
+
   this.constructor(name);
 
   //this.bgColor = "rgba(0,0,255, 0.2)";
@@ -51,13 +52,15 @@ function guiLibrary( name )
 
 
 
+  /*
   $.ajaxSetup({cache :false });
-  $.getJSON( "json/library_list_default.json",
+  $.getJSON( "json/component_list_default.json",
               function(data) {
                 foo.load_webkicad_library_json(data);
               }
            ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
-
+           */
+  this.fetchComponentList( userId, sessionId );
 
 
   var guiComp = new guiComponentTile( "guiLibrary:component", "" );
@@ -103,8 +106,54 @@ function guiLibrary( name )
 
 guiLibrary.inherits ( guiRegion );
 
+guiLibrary.prototype.fetchComponentList = function( userId, sessionId )
+{
+
+  var foo = this;
+
+  $.ajaxSetup({cache :false });
+
+  var req = { op : "COMP_LIST" };
+  if ( (typeof userId !== 'undefined') && (typeof sessionId !== 'undefined') )
+  {
+    req = { op : "COMP_LIST", userId : userId, sessionId : sessionId };
+  }
+
+  $.ajax({
+    url : "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+
+
+    /* FUCKING JQUERY!!!
+     * http://stackoverflow.com/questions/10456240/jquery-ajax-call-return-json-parsing-error
+     */
+    //dataType: "application/json",
+    dataType: "json",
+
+
+    success: 
+    function(data) {
+      foo.load_webkicad_library_json(data);
+    },
+    error: 
+    function(jqxr, textStatus, error) { 
+      console.log("FAIL:");
+      console.log( jqxr );
+      console.log( textStatus )
+      console.log( error ); 
+    }
+  });
+
+}
+
+
 guiLibrary.prototype.load_webkicad_library_json = function(data)
 {
+
+  //DEVELOPMENT
+  //g_component_library = {};
+
   var parent = null;
 
   for (var ind in data)
@@ -120,7 +169,12 @@ guiLibrary.prototype.load_webkicad_library_json = function(data)
       {
         var comp = ele.list[comp_ind];
         if (comp.type == "element")
+        {
           this.guiChildren[0].add( comp.id, comp.name, comp.data, parent);
+
+          //DEVELOPMENT
+          //g_component_library[ comp.id ] = { "name" : comp.name, "location" : comp.data };
+        }
       }
     }
   }

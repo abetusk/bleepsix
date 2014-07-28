@@ -55,18 +55,6 @@ function bleepsixSchematic()
   // reference by id
   this.ref_lookup = {};
 
-  //this.brd = new bleepsixBoard();
-
-  // update sister board structure
-  //
-  /*
-  var dummy_painter = {};
-  this.brd.init( dummy_painter );
-  var footprint_location_json = "json/footprint_location.json";
-  load_footprint_location( footprint_location_json );
-  */
-
-
   //this.kicad_brd_json = { "element":[] };
   this.displayable = true;
 

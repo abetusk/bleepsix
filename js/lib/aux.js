@@ -37,8 +37,37 @@ var g_component_library_map = {};
 var g_component_location_ready = false;
 
 
-function load_footprint_location( footprint_location_json )
+//function load_footprint_location( footprint_location_json )
+function load_footprint_location( userId, sessionId  )
 {
+
+  $.ajaxSetup({ cache : false });
+  var req = { op : "MOD_LOC" };
+  if ((typeof userId !== "undefined") && (typeof userId !== "undefined"))
+  {
+    req = { op : "MOD_LOC", userId : userId, sessionId : sessionId  };
+  }
+
+  $.ajax({
+    url : "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+    dataType: "json",
+    success:
+    function(data) {
+      g_footprint_location = data;
+      g_footprint_location_ready = true;
+    },
+    error:
+    function(jqxr, textStatus, error ){
+      console.log("FAIL");
+      console.log(jqxr);
+      console.log(textStatus);
+      console.log(error);
+    }
+  });
+
+  return;
 
   //console.log("load_footprint_location");
 
@@ -98,8 +127,39 @@ function load_footprint_cache_part( name, location )
   }
 }
 
-function load_component_location( component_location_json )
+//function load_component_location( component_location_json )
+function load_component_location( userId, sessionId )
 {
+
+  $.ajaxSetup({ cache : false });
+  var req = { op : "COMP_LOC" };
+  if ((typeof userId !== "undefined") && (typeof userId !== "undefined"))
+  {
+    req = { op : "COMP_LOC", userId : userId, sessionId : sessionId  };
+  }
+
+  $.ajax({
+    url : "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+    dataType: "json",
+    success:
+    function(data) {
+      g_component_location = data;
+      g_component_location_ready = true;
+    },
+    error:
+    function(jqxr, textStatus, error ){
+      console.log("FAIL");
+      console.log(jqxr);
+      console.log(textStatus);
+      console.log(error);
+    }
+  });
+
+  return;
+
+
   $.ajaxSetup({ cache : false });
   //var component_location_json = "json/component_location.json";
   $.getJSON( component_location_json,

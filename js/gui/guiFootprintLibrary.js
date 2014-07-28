@@ -22,7 +22,7 @@
 
 */
 
-function guiFootprintLibrary( name ) 
+function guiFootprintLibrary( name, userId, sessionId ) 
 {
   this.constructor(name);
 
@@ -56,12 +56,16 @@ function guiFootprintLibrary( name )
   // stores the json object of list elements to populate our
   // list gui element.
   //
+
+  /*
   $.ajaxSetup({cache :false });
   $.getJSON( "json/footprint_list_default.json",
               function(data) {
                 foo.load_webkicad_module_json(data);
               }
            ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
+           */
+  this.fetchModuleLibrary( userId, sessionId );
 
 
 
@@ -91,10 +95,50 @@ function guiFootprintLibrary( name )
 
 guiFootprintLibrary.inherits ( guiRegion );
 
+guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId )
+{
+  var foo = this;
+
+  $.ajaxSetup({cache :false });
+
+  var req = { op : "MOD_LIST" };
+  if ((typeof userid !== 'undefined') && (typeof sessionId !== 'undefined')) 
+  {
+    req = { op : "MOD_LIST", userId : userId, sessionId : sessionId  };
+  }
+
+  $.ajax({
+    url : "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+    dataType: "json",
+    success: function(data) { foo.load_webkicad_module_json(data); },
+    error: 
+    function(jqxr, textStatus, error) {
+      console.log("FAIL:");
+      console.log(jqxr);
+      console.log(textStatus);
+      console.log(error);
+    }
+  });
+
+  /*
+  $.getJSON( "json/footprint_list_default.json",
+              function(data) {
+                foo.load_webkicad_module_json(data);
+              }
+           ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
+           */
+}
+
 // Build up our list gui element
 //
 guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
 {
+
+  //EXPERIMENTAL
+  //g_footprint_location = {}
+
   var parent = null;
 
   for (var ind in data)
@@ -110,7 +154,14 @@ guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
       {
         var foot = ele.list[foot_ind];
         if (foot.type == "element")
+        {
           this.guiChildren[0].add( foot.id, foot.name, foot.data, parent);
+
+
+          //EXPERIMENTAL
+          //g_footprint_location[ foot.id ]  = { "name" : foot.id, "location" : foot.data };
+
+        }
       }
     }
   }
