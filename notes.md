@@ -97,8 +97,7 @@ This is still a feature of the system that's not clear (in my mind) and needs to
 at some point.
 
 
-References
-----------
+### References
 
   - [jQuery Collapsible List](http://kaipi.me/demos/collapsible-list.html)
 
