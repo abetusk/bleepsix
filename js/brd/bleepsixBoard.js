@@ -3630,6 +3630,11 @@ bleepsixBoard.prototype.load_board = function( json )
            ( name != 'unknown' ) )
       {
         console.log("ERROR: bleepsixBoard.load_board: " + name + " not in g_footprint_location");
+
+        //DEBUG
+        var x = g_footprint_location[name];
+        console.log( x );
+
         continue;
         //return;
       }

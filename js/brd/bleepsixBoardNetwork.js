@@ -479,11 +479,6 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
     return;
   }
 
-  //console.log("projectsnapshotResponse data:");
-  //console.log(data.json_sch);
-  //console.log(data.json_brd);
-
-
   try {
     var json_sch = JSON.parse(data.json_sch);
     var json_brd = JSON.parse(data.json_brd);

@@ -175,10 +175,15 @@
 
     <script>
 
+
+      //var MEOWURL = "https://www.meowcad.com";
+      var MEOWURL = "https://localhost";
+
+
 	  var drawing = true,
-	  running = true,
-	  mouseDown = false,
-	  visible = true;
+	      running = true,
+	      mouseDown = false,
+	      visible = true;
 	  
 	  var msec = 0;
 	  var frame = 0;
@@ -256,8 +261,20 @@
 
 		requestAnimationFrame( loop, 1 );
 
-        load_component_location( "json/component_location.json" );
-        load_footprint_location( "json/footprint_location.json" );
+
+        var userId = $.cookie('userId');
+        var sessionId = $.cookie('sessionId');
+
+        if ((typeof userId !== "undefined") && (typeof sessionId !== "undefined"))
+        {
+          load_component_location( userId, sessionId );
+          load_footprint_location( userId, sessionId );
+        } 
+        else 
+        {
+          load_component_location();
+          load_footprint_location();
+        }
 
 
         var f = document.getElementById('uploadButton');
@@ -295,7 +312,8 @@
         //console.log("starting network");
 
         //g_schnetwork = new bleepsixSchematicNetwork();
-        g_schnetwork = new bleepsixSchematicNetwork( "https://www.meowcad.com" );
+        //g_schnetwork = new bleepsixSchematicNetwork( "https://www.meowcad.com" );
+        g_schnetwork = new bleepsixSchematicNetwork( MEOWURL );
 
         canvasFocus();
 

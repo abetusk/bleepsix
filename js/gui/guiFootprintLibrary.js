@@ -57,14 +57,6 @@ function guiFootprintLibrary( name, userId, sessionId )
   // list gui element.
   //
 
-  /*
-  $.ajaxSetup({cache :false });
-  $.getJSON( "json/footprint_list_default.json",
-              function(data) {
-                foo.load_webkicad_module_json(data);
-              }
-           ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
-           */
   this.fetchModuleLibrary( userId, sessionId );
 
 
@@ -89,8 +81,6 @@ function guiFootprintLibrary( name, userId, sessionId )
 
   g_painter.dirty_flag = true;
 
-  //console.log("guiFootprintLibrary loaded");
-
 }
 
 guiFootprintLibrary.inherits ( guiRegion );
@@ -102,7 +92,7 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId )
   $.ajaxSetup({cache :false });
 
   var req = { op : "MOD_LIST" };
-  if ((typeof userid !== 'undefined') && (typeof sessionId !== 'undefined')) 
+  if ((typeof userId !== 'undefined') && (typeof sessionId !== 'undefined')) 
   {
     req = { op : "MOD_LIST", userId : userId, sessionId : sessionId  };
   }
@@ -122,22 +112,12 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId )
     }
   });
 
-  /*
-  $.getJSON( "json/footprint_list_default.json",
-              function(data) {
-                foo.load_webkicad_module_json(data);
-              }
-           ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
-           */
 }
 
 // Build up our list gui element
 //
 guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
 {
-
-  //EXPERIMENTAL
-  //g_footprint_location = {}
 
   var parent = null;
 
@@ -156,11 +136,6 @@ guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
         if (foot.type == "element")
         {
           this.guiChildren[0].add( foot.id, foot.name, foot.data, parent);
-
-
-          //EXPERIMENTAL
-          //g_footprint_location[ foot.id ]  = { "name" : foot.id, "location" : foot.data };
-
         }
       }
     }
@@ -173,32 +148,25 @@ guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
 
 guiFootprintLibrary.prototype.listPick = function(list_ele)
 {
-  //console.log("guiFootprintLibrary.listPick");
-
   if (list_ele.type == "element")
   {
-    //console.log("guiFootprintLibrary.listPick: loading part " + list_ele.data+ " into cache ");
 
-    load_footprint_cache_part( list_ele.name, list_ele.data );
+    var userId = $.cookie("userId");
+    var sessionId = $.cookie("sessionId");
+
+    load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId );
     this.guiChildren[1].footprint_name = list_ele.name;
 
     this.guiChildren[1].refresh();
-
   }
 }
 
 guiFootprintLibrary.prototype.tilePick = function(tile_ele)
 {
-  //console.log("guiFootprintLibrary.tilePick");
-
-  //console.log("tilePick");
-  //console.log(tile_ele);
 }
 
 guiFootprintLibrary.prototype.load_library = function(data)
 {
-  //console.log("got data for " + this.myname )
-  //console.log(data);
 }
 
 guiFootprintLibrary.prototype.load_library_error = function(jqxr, textStatus, error)
@@ -221,8 +189,6 @@ guiFootprintLibrary.prototype.hitTest = function(x, y)
 
 guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
 {
-  //console.log("guiFootprintLibrary.mouseDown");
-
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
 
   if (this.guiChildren[1].visible && this.guiChildren[1].ready )
@@ -231,7 +197,6 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
 
     if (r)
     {
-      //console.log("guiFootprintLibrary: got tile hit " + this.guiChildren[1].footprint_name );
       g_board_controller.tool = new toolFootprintPlace( x, y, this.guiChildren[1].footprint_name );
       return true;
     }
@@ -246,7 +211,6 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
        (0 <= u[1]) && (u[1] <= this.height) )
   {
-    //console.log( "guiFootprintLibrary: hit\n");
     return true;
   }
 
@@ -256,7 +220,6 @@ guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
 
 guiFootprintLibrary.prototype.mouseWheel = function(delta)
 {
-  //console.log("guiFootprintLibrary.mouseWheel delta " + delta);
 
   /*
   this.indexStart += delta;
@@ -280,15 +243,6 @@ guiFootprintLibrary.prototype.draw = function()
   g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
-
-                           /*
-  for (var ind in this.library_list)
-  {
-    var sz = 15;
-    g_painter.drawText( this.library_list[ind], 0, sz*ind, "rgb(128, 0, 0)", sz, 0, "L", "T" );
-  }
- */
-
 }
 
 

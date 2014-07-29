@@ -96,6 +96,10 @@ Speaking to the second issue, this gets back to the issue of social schematics a
 This is still a feature of the system that's not clear (in my mind) and needs to be addressed
 at some point.
 
+### Navigation and Management
+
+
+
 
 ### References
 

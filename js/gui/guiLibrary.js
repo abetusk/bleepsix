@@ -186,17 +186,15 @@ guiLibrary.prototype.listPick = function(list_ele)
 {
   if (list_ele.type == "element")
   {
-    //console.log("loading part " + list_ele.data+ " into cache ");
+    var userId = $.cookie("userId");
+    var sessionId = $.cookie("sessionId");
 
-    load_component_cache_part( list_ele.name, list_ele.data );
-    //load_component_cache_part( list_ele.data );
-    //load_component_cache_part( list_ele.name );
+    console.log("???>>>", userId, sessionId);
 
-    //this.guiChildren[1].component_name = list_ele.data;
+    load_component_cache_part( list_ele.name, list_ele.data, userId, sessionId );
+
     this.guiChildren[1].component_name = list_ele.name;
-
     this.guiChildren[1].refresh();
-
   }
 }
 

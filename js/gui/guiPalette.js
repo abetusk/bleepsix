@@ -78,13 +78,13 @@ function guiPalette( name )
     {
       if (cur >= this.default_part_list.length) break;
 
-      //guicomp = new guiComponentTile( "guiPalette:C:r" + r + ",c" + c , this.default_part_list[cur] );
       guicomp = new guiComponentTile( "guiPalette:C:r" + r + ",c" + c , this.default_part_list[cur].name );
       guicomp.x = c * (this.tile_width  + this.tile_border) + x_s;
       guicomp.y = r * (this.tile_height + this.tile_border) + y_s;
 
-      //load_component_cache_part( this.default_part_list[cur] );
-      load_component_cache_part( this.default_part_list[cur].name, this.default_part_list[cur].location );
+      var userId = $.cookie("userId");
+      var sessionId = $.cookie("sessionId");
+      load_component_cache_part( this.default_part_list[cur].name, this.default_part_list[cur].location, userId, sessionId );
 
       this.addChild( guicomp );
 
@@ -101,18 +101,15 @@ function guiPalette( name )
     {
       if (cur >= this.default_power_list.length) break;
 
-      //guicomp = new guiComponentTile( "guiPalette:C:r" + r + ",c" + c , this.default_power_list[cur] );
       guicomp = new guiComponentTile( "guiPalette:C:r" + r + ",c" + c , this.default_power_list[cur].name );
       guicomp.x = c * (this.tile_width  + this.tile_border) + x_s + base_x;
       guicomp.y = r * (this.tile_height + this.tile_border) + y_s;
 
-      //load_component_cache_part( this.default_power_list[cur] );
-      load_component_cache_part( this.default_power_list[cur].name, this.default_power_list[cur].location );
+      var userId = $.cookie("userId");
+      var sessionId = $.cookie("sessionId");
+      load_component_cache_part( this.default_power_list[cur].name, this.default_power_list[cur].location, userId, sessionId );
 
       this.addChild( guicomp );
-
-      //console.log("adding power " + this.default_power_list[cur] + " " + r + " " + c  + ", " + guicomp.x + " " + guicomp.y );
-      //console.log("..? " + this.default_power_list.length );
 
       cur++;
 

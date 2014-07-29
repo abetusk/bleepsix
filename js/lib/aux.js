@@ -39,7 +39,6 @@ var g_component_location_ready = false;
 
 function load_footprint_location( userId, sessionId  )
 {
-
   $.ajaxSetup({ cache : false });
   var req = { op : "MOD_LOC" };
   if ((typeof userId !== "undefined") && (typeof userId !== "undefined"))
@@ -226,20 +225,12 @@ imageCache.prototype.add = function( name, path )
 {
   var obj = {};
 
-  //DEBUG
-  //console.log("add: " + name + " " + path);
-
   obj.path = path;
   obj.ready = 0;
 
   obj.image = new Image();
   obj.image.onload = function() { 
-
-    //DEBUG
-    //console.log("image " + name + " " + path + " ready");
-
     obj.ready = 1; 
-
   };
   obj.image.src = path;
 
@@ -249,17 +240,8 @@ imageCache.prototype.add = function( name, path )
 
 imageCache.prototype.remove = function( name )
 {
-
-  //DEBUG
-  //console.log("remove " + name);
-
   if (name in this.image)
   {
-
-    //DEBUG
-    //console.log(" found it, deleting " + name);
-
-
     delete this.image[name];
   }
 }

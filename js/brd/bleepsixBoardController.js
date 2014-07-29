@@ -300,10 +300,8 @@ bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( br
   }
 
   if (msg.length>0)
-    //this.tabCommunication.addMessage( msg );
     this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, msg );
   else
-    //this.tabCommunication.addMessage( "" );
     this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId,  "");
 
 }
@@ -316,16 +314,13 @@ bleepsixBoardController.prototype.highlightNetCodes = function ( sch_netcodes )
   for (var ind in sch_netcodes)
   {
     if (msg.length > 0) msg += ".";
-    //msg += ind.toString();
     msg += sch_netcodes[ind].toString();
   }
-  //this.tabCommunication.addMessage( msg );
   this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, msg );
 }
 
 bleepsixBoardController.prototype.unhighlightNet = function()
 {
-  //this.tabCommunication.addMessage( "" );
   this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, "" );
 }
 
@@ -504,14 +499,11 @@ bleepsixBoardController.prototype.canvas_coords_from_global = function( x, y )
 
 bleepsixBoardController.prototype.mouseEnter = function( x, y ) 
 {
-  //console.log('mouseenter: ' + x + ", " + y );
 }
 
 bleepsixBoardController.prototype.mouseLeave = function( x, y ) 
 {
-  //console.log('mouseleave: ' + x + ", " + y );
 }
-
 
 
 bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
@@ -553,10 +545,6 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == '9')
   {
     console.log("adding 'R' component to palette");
-
-    //var guicomp = new guiPaletteComponent( "test", "R" );
-    //this.guiPalette.addChild( guicomp );
-
     g_painter.dirty_flag = true;
   }
 
@@ -632,15 +620,6 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
   }
  */
 
-  //DEBUGGING
-  /*
-  if (this.guiTextboxTest.hitTest(x,y))
-  {
-    this.guiTextboxTest.mouseDown(button, x, y);
-    return;
-  }
-  */
-
   /*
   for (var ind in this.guiChild)
   {
@@ -662,7 +641,6 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
 
 bleepsixBoardController.prototype.doubleClick = function( e )
 {
-  //console.log("double click");
 
   if (this.guiToolbox.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
   {
@@ -696,27 +674,6 @@ bleepsixBoardController.prototype.mouseMove = function( x, y )
 
   if (this.movingLayer)
     this.guiLayer.move(x, y);
-
-
-  /*
-  if ( this.moving ) 
-    this.guiPalette.move(x, y);
-
-  if (this.movingLibrary)
-    this.guiLibrary.move(x, y);
-
-  if (this.movingToolbox)
-    this.guiToolbox.move(x,y);
-
-  if (this.movingGrid)
-    this.guiGrid.move(x,y);
-  
-  if (this.movingAction)
-    this.guiAction.move(x,y);
-   */
-
-  //if (this.movingDebug) this.guiTextboxTest.move(x,y);
-
   
   if (typeof this.tool.mouseMove !== 'undefined' )
     this.tool.mouseMove ( x, y );
@@ -768,49 +725,17 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiLayer = new guiBoardLayer( "layer" );
   this.guiLayer.move( 0, 450 );
 
-  //this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.4)", undefined, "rgba(255,255,255,0.2)" );
   this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid.move(0,0);
 
-  this.guiFootprintLibrary = new guiFootprintLibrary( "library" );
+  var userId = $.cookie("userId");
+  var sessionId = $.cookie("sessionId");
+  this.guiFootprintLibrary = new guiFootprintLibrary( "library", userId, sessionId );
   this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
-
-  //this.guiToolbox = new guiBoardToolbox( "toolbox" );
-  //this.guiToolbox.move(0,200);
-  //this.guiToolbox.defaultSelect();
-
-  
-
-
-
-
-  // overlay (layer) hide/show and other information 
-  // need to work on it, we'll come back to it
-  //
-  //this.guiLayer = new guiLayer( "layer" );
-  //this.guiLayer.move( 5, 5 );
-
-  //this.guiGrid = new guiGrid("grid");
-  //this.guiGrid.move(50,50);
-
-  //this.guiLibrary = new guiLibrary( "library" );
-  //this.guiLibrary.move( g_painter.width - this.guiLibrary.width, 0);
-
-  //this.guiModule = new guiModule ( "module" );
-  //this.guiModule.move( g_painter.width - this.guiModule.width, 0);
-
-  //this.guiAction= new guiAction( "action" );
-  //this.guiAction.move( g_painter.width/2, 0);
-
-  //this.guiTextboxTest = new guiTextbox( "test" );
-  //this.guiTextboxTest.move( g_painter.width/2, g_painter.height/2);
-
 
   var controller = this;
 
   $(canvas_id).focus( function(ev) {
-    //console.log('focus');
-    //console.log(ev);
   });
 
   $(canvas_id).mouseup( function(e) {
@@ -821,19 +746,13 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   $(canvas_id).mousedown( function(e) {
     var xy = controller.canvas_coords_from_global( e.pageX, e.pageY );
 
-    //coords = controller.canvas.relMouseCoords( e );
-    //controller.mouseDown( e.which, coords["x"], coords["y"] );
     controller.mouseDown( e.which, xy[0], xy[1] );
   });
 
   $(canvas_id).mouseover( function(e) {
-    //console.log("mouse over");
-    //console.log(e);
   });
 
   $(canvas_id).mouseenter( function(e) {
-
-    //console.log("enter");
     var xy = controller.canvas_coords_from_global( e.pageX, e.pageY );
     controller.mouseEnter( xy[0], xy[1] );
   });
@@ -844,7 +763,6 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   });
 
   $(canvas_id).mousemove( function(e) {
-    //console.log('mousemove');
     var xy = controller.canvas_coords_from_global( e.pageX, e.pageY );
     controller.mouseMove( xy[0], xy[1] );
   });
@@ -855,7 +773,6 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   });
 
   $(canvas_id).click( function(e) {
-    //console.log('click');
   });
 
   $(canvas_id).dblclick( function(e) {
@@ -866,12 +783,7 @@ bleepsixBoardController.prototype.init = function( canvas_id )
     var key = ( e.which ? e.which : e.keyCode );
     var ch = String.fromCharCode(key);
 
-    //console.log('keydown: ' + ch);
-    //console.log ( "... " + e.shiftKey );
-
     this.capState = $(window).capslockstate("state");
-
-    //console.log("controller keydown: capState: " + this.capState);
 
     return controller.keyDown( e.keyCode, ch, e );
   });
@@ -879,11 +791,6 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   $(canvas_id).keyup( function(e) {
     var key = e.which;
     var ch = String.fromCharCode(key);
-
-    //console.log('keyup ' + ch);
-    //controller.keyUp( key, ch);
-
-    //controller.keyUp( e.keyCode, ch, e );
   });
 
   $(canvas_id).resize( function(e) {
@@ -900,17 +807,14 @@ bleepsixBoardController.prototype.init = function( canvas_id )
 
 
   $(window).bind("capsOn", function(e) {
-    //console.log("caps on");
     controller.capState = "on";
   });
 
   $(window).bind("capsOff", function(e) {
-    //console.log("caps off");
     controller.capState = "off";
   });
 
   $(window).bind("capsUnknown", function(e) {
-    //console.log("caps unknown");
     controller.capState = "unknown";
   });
 

@@ -3524,7 +3524,15 @@ bleepsixSchematic.prototype.load_schematic = function( json )
       //var part_json = "json/" + name + ".json";
       if ( !(name in g_component_location)) 
       {
-        console.log("ERROR: bleepsixSchematic.load_schematic: " + name + " not in g_component_location");
+
+        if (name != "unknown") 
+        {
+          console.log("ERROR: bleepsixSchematic.load_schematic: " + name + " not in g_component_location");
+        } 
+        else
+        {
+          console.log("'unknown' part...");
+        }
 
         sch[ind]["unknown_text_field"] = 
         {
