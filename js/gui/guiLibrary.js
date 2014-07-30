@@ -22,7 +22,7 @@
 
 */
 
-function guiLibrary( name, userId, sessionId ) 
+function guiLibrary( name, userId, sessionId, projectId ) 
 {
 
   this.constructor(name);
@@ -60,7 +60,7 @@ function guiLibrary( name, userId, sessionId )
               }
            ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
            */
-  this.fetchComponentList( userId, sessionId );
+  this.fetchComponentList( userId, sessionId, projectId );
 
 
   var guiComp = new guiComponentTile( "guiLibrary:component", "" );
@@ -106,7 +106,7 @@ function guiLibrary( name, userId, sessionId )
 
 guiLibrary.inherits ( guiRegion );
 
-guiLibrary.prototype.fetchComponentList = function( userId, sessionId )
+guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId )
 {
 
   var foo = this;
@@ -114,9 +114,11 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId )
   $.ajaxSetup({cache :false });
 
   var req = { op : "COMP_LIST" };
-  if ( (typeof userId !== 'undefined') && (typeof sessionId !== 'undefined') )
+  if ( (typeof userId !== 'undefined') && 
+       (typeof sessionId !== 'undefined') && 
+       (typeof projectId !== 'undefined') )
   {
-    req = { op : "COMP_LIST", userId : userId, sessionId : sessionId };
+    req = { op : "COMP_LIST", userId : userId, sessionId : sessionId, projectId : projectId  };
   }
 
   $.ajax({
@@ -186,12 +188,16 @@ guiLibrary.prototype.listPick = function(list_ele)
 {
   if (list_ele.type == "element")
   {
+    /*
     var userId = $.cookie("userId");
     var sessionId = $.cookie("sessionId");
+    var projectId = $.cookie("recentProjectId");
+    */
 
-    console.log("???>>>", userId, sessionId);
-
-    load_component_cache_part( list_ele.name, list_ele.data, userId, sessionId );
+    var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
+    var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
+    var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
+    load_component_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
 
     this.guiChildren[1].component_name = list_ele.name;
     this.guiChildren[1].refresh();

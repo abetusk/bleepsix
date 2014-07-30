@@ -22,7 +22,7 @@
 
 */
 
-function guiFootprintLibrary( name, userId, sessionId ) 
+function guiFootprintLibrary( name, userId, sessionId, projectId ) 
 {
   this.constructor(name);
 
@@ -57,7 +57,7 @@ function guiFootprintLibrary( name, userId, sessionId )
   // list gui element.
   //
 
-  this.fetchModuleLibrary( userId, sessionId );
+  this.fetchModuleLibrary( userId, sessionId, projectId );
 
 
 
@@ -85,16 +85,18 @@ function guiFootprintLibrary( name, userId, sessionId )
 
 guiFootprintLibrary.inherits ( guiRegion );
 
-guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId )
+guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, projectId )
 {
   var foo = this;
 
   $.ajaxSetup({cache :false });
 
   var req = { op : "MOD_LIST" };
-  if ((typeof userId !== 'undefined') && (typeof sessionId !== 'undefined')) 
+  if ( (typeof userId !== 'undefined') && 
+       (typeof sessionId !== 'undefined') &&
+       (typeof projectId !== 'undefined') ) 
   {
-    req = { op : "MOD_LIST", userId : userId, sessionId : sessionId  };
+    req = { op : "MOD_LIST", userId : userId, sessionId : sessionId, projectId: projectId  };
   }
 
   $.ajax({
@@ -151,12 +153,18 @@ guiFootprintLibrary.prototype.listPick = function(list_ele)
   if (list_ele.type == "element")
   {
 
+    /*
     var userId = $.cookie("userId");
     var sessionId = $.cookie("sessionId");
+    var projectId = $.cookie("recentProjectId");
+    */
 
-    load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId );
+    var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
+    var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );
+    var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
+    load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
+
     this.guiChildren[1].footprint_name = list_ele.name;
-
     this.guiChildren[1].refresh();
   }
 }

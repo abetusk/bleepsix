@@ -761,12 +761,17 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   //EXPERIMENTAL
   //this.guiLibrary = new guiLibrary( "library" );
 
+  /*
   var userId = $.cookie("userId");
   var sessionId = $.cookie("sessionId");
-  this.guiLibrary = new guiLibrary( "library", userId, sessionId );
+  var projectId = $.cookie("recentProjectId");
+  */
+  var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
+  var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
+  var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
+  this.guiLibrary = new guiLibrary( "library", userId, sessionId, projectId );
 
   this.guiLibrary.move( g_painter.width - this.guiLibrary.width, 0);
-
 
   var controller = this;
 

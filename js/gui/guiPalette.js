@@ -82,9 +82,21 @@ function guiPalette( name )
       guicomp.x = c * (this.tile_width  + this.tile_border) + x_s;
       guicomp.y = r * (this.tile_height + this.tile_border) + y_s;
 
+      /*
       var userId = $.cookie("userId");
       var sessionId = $.cookie("sessionId");
-      load_component_cache_part( this.default_part_list[cur].name, this.default_part_list[cur].location, userId, sessionId );
+      var projectId = $.cookie("recentProjectId");
+      */
+
+      var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
+      var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
+      var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
+      load_component_cache_part( 
+          this.default_part_list[cur].name, 
+          this.default_part_list[cur].location, 
+          userId, 
+          sessionId,
+          projectId  );
 
       this.addChild( guicomp );
 
@@ -105,9 +117,21 @@ function guiPalette( name )
       guicomp.x = c * (this.tile_width  + this.tile_border) + x_s + base_x;
       guicomp.y = r * (this.tile_height + this.tile_border) + y_s;
 
+      /*
       var userId = $.cookie("userId");
       var sessionId = $.cookie("sessionId");
-      load_component_cache_part( this.default_power_list[cur].name, this.default_power_list[cur].location, userId, sessionId );
+      var projectId = $.cookie("projectId");
+      */
+
+      var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
+      var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
+      var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
+      load_component_cache_part(
+          this.default_power_list[cur].name, 
+          this.default_power_list[cur].location, 
+          userId, 
+          sessionId,
+          projectId  );
 
       this.addChild( guicomp );
 

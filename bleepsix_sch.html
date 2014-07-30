@@ -262,13 +262,21 @@
 		requestAnimationFrame( loop, 1 );
 
 
+        /*
         var userId = $.cookie('userId');
         var sessionId = $.cookie('sessionId');
+        var projectId = $.cookie('recentProjectId');
+        */
+        var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
+        var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
+        var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
 
-        if ((typeof userId !== "undefined") && (typeof sessionId !== "undefined"))
+        if ( (typeof userId !== "undefined") && 
+             (typeof sessionId !== "undefined") &&
+             (typeof projectId !== "undefined") )
         {
-          load_component_location( userId, sessionId );
-          load_footprint_location( userId, sessionId );
+          load_component_location( userId, sessionId, projectId );
+          load_footprint_location( userId, sessionId, projectId );
         } 
         else 
         {

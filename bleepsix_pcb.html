@@ -236,12 +236,22 @@
 
 		requestAnimationFrame( loop, 1 );
 
+        /*
         var userId = $.cookie("userId");
         var sessionId = $.cookie("sessionId");
-        if ((typeof userId !== "undefined") && (typeof sessionId !== "undefined"))
+        var projectId = $.cookie("recentProjectId");
+        */
+        var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
+        var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );
+        var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
+
+
+        if ( (typeof userId !== "undefined") && 
+             (typeof sessionId !== "undefined") &&
+             (typeof projectId !== "undefined") )
         {
-          load_footprint_location( userId, sessionId );
-          load_component_location( userId, sessionId );
+          load_footprint_location( userId, sessionId, projectId );
+          load_component_location( userId, sessionId, projectId );
         }
         else
         {
