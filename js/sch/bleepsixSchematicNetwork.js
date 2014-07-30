@@ -458,7 +458,7 @@ bleepsixSchematicNetwork.prototype.deferLoadBoard = function( json_brd )
 {
   if (!g_footprint_location_ready)
   {
-    setTimeout( (function(xx) { return function() { xx.deferLoadBoard( json_sch ); } })(this), 250 );
+    setTimeout( (function(xx) { return function() { xx.deferLoadBoard( json_brd ); } })(this), 250 );
     return;
   }
   g_schematic_controller.board.load_board( json_brd );
