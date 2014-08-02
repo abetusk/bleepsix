@@ -121,6 +121,10 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
     req = { op : "COMP_LIST", userId : userId, sessionId : sessionId, projectId : projectId  };
   }
 
+  //DEBUG
+  //console.log("fetchComponentList>>", userId, sessionId, projectId);
+  //console.log("fetchComponentList>>", req);
+
   $.ajax({
     url : "cgi/libmodmanager.py",
     type: "POST",
@@ -136,6 +140,11 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
 
     success: 
     function(data) {
+
+      //DEBUG
+      //console.log("got:");
+      //console.log(data);
+
       foo.load_webkicad_library_json(data);
     },
     error: 
@@ -152,6 +161,8 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
 
 guiLibrary.prototype.load_webkicad_library_json = function(data)
 {
+
+  this.guiChildren[0].clearList();
 
   //DEVELOPMENT
   //g_component_library = {};

@@ -129,6 +129,11 @@ guiList.prototype.add = function( id, name, data, parent )
 
 //-----------------------------
 
+guiList.prototype.clearList = function() 
+{
+  this.list = [];
+}
+
 guiList.prototype.addList = function( id, name, parent )
 {
   var l = this.list;

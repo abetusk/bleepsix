@@ -242,7 +242,9 @@ bleepsixSchematicNetwork.prototype.init = function()
       this.projectId = $.cookie("recentProjectId");
       this.usingRecentProjectFlag = true;
 
-      console.log("have recentProjectId, authentication most recent project id " + this.projectId);
+      g_schematic_controller.guiLibrary.fetchComponentList( this.userId, this.sessionId, this.projectId );
+      load_component_location( this.userId, this.sessionId, this.projectId );
+
 
       this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId });
       return;
@@ -501,11 +503,13 @@ bleepsixSchematicNetwork.prototype.anonymousCreateResponse = function( data )
   if ( (data.type == "response") && 
        (data.status == "success") )
   {
-    console.log("anonymous create success!");
 
     this.userId = data.userId;
     this.sessionId = data.sessionId;
     this.projectId = data.projectId;
+
+    //DEBUG
+    console.log("anonymous create success!", userId, sessionId);
 
     console.log("setting cookies");
     $.cookie("userId",      this.userId,    {expires:365, path:'/', secure:true });

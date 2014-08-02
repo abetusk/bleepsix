@@ -131,7 +131,7 @@ function clamp(n, min, max)
 toolScrollbar.prototype.mouseMove = function( x, y ) 
 {
 
-  console.log("toolScrollBar.mouseMove");
+  //console.log("toolScrollBar.mouseMove");
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;

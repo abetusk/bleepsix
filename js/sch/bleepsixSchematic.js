@@ -852,11 +852,6 @@ bleepsixSchematic.prototype.pickElement = function( ele, x, y )
 
   var bbox = ele["bounding_box"];
 
-
-  //DEBUG
-  //console.log(">>>>", ele, x, y);
-  //console.trace();
-
   var x0 = bbox[0][0];
   var y0 = bbox[0][1];
   var w = bbox[1][0] - bbox[0][0];
@@ -2573,9 +2568,6 @@ bleepsixSchematic.prototype.drawElement = function( ele )
 
   if ( this.highlight_net_flag )
   {
-
-    //DEBUG
-    //console.log(">>> highlight_net " + this.highlight_net.length);
 
     for (var ind in this.highlight_net)
     {

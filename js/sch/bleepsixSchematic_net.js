@@ -336,9 +336,6 @@ bleepsixSchematic.prototype._net_extend_VE_from_power = function( V, E )
 
         if ( a == b ) continue;
 
-        //DEBUG
-        //console.log(">>> adding", a, b);
-
         if (!(a in E)) E[a] = {};
         E[a][b] = [ list[i], list[j] ];
 
@@ -763,22 +760,12 @@ bleepsixSchematic.prototype.highlightNet_old = function( sch_netcodes )
 
   }
 
-  // DEBUG
-  //console.log(">>>> HIGHLIGHT NET");
-  //console.log( this.highlight_net );
-
 }
 
 
 bleepsixSchematic.prototype.unhighlightNet = function( )
 {
   this.highlight_net_flag = false;
-
-  // DEBUG
-  //console.log(">>>> UNHIGHLIGHT NET");
-  //console.log( this.highlight_net );
-
-
 }
 
 
