@@ -30,14 +30,21 @@ one can use existing KiCAD, Eagle to KiCAD or other conversion tools to
 KiCAD to import custom libraries and modules.
 
 Since this initial import will be outside of the main bleepsix interface,
-this will only be available to bleepsix on reload.  Eventually we will
-move to a message system where by the server will dynamically update
-the library/module interface, but that seems like a large amount of complexity
-initially.  We'll move there eventually, but for now we'll have to settle
-for import on initial load.  Maybe as an intermediate step we'll have an
-explicit 'reload' button on the library/module window.  We would also
-like an upload feature in the bleepsix interface, something like an upload
-button on the library/module window itself, but again, that can wait.
+this will only be available to bleepsix on reload.  Providing this interface
+won't be that bad.  Most of the updates to the location and library list
+go through the network interface, so we can add a message to update those
+dynamicall.  This is just a matter of getting a message into the
+meow server and having it push to all relevant clients.
+
+This needs to be done soonish as I can imagine a common workflow to be:
+  - Work on project
+  - Discover part is missing
+  - Open new window to upload the component/module
+  - Go back to your project and wonder why it isn't there
+
+It will be jarring to have the user reload the page, especially if they
+have the camera positioned how they want it to, with the windows opened
+how they want etc. and have all that get lost.
 
 So, for the initial implementation we're going to load the library/module
 at the beginning.  There will be a default library/module that will be
@@ -79,7 +86,7 @@ they are for the default library/module sets.
 Steps:
 
   1. Drop in replacement to get to functionality of what we have now (done!)
-  2. Add dummy user override and make sure it appears in library/module list
+  2. Add dummy user override and make sure it appears in library/module list (done!)
   3. Upload facility in www.meowcad.com that does this automatically.
 
 Some things to consider:
@@ -96,9 +103,32 @@ Speaking to the second issue, this gets back to the issue of social schematics a
 This is still a feature of the system that's not clear (in my mind) and needs to be addressed
 at some point.
 
+#### UPDATE 2014-08-03
+
+Since the network sub component is basically in charge of updating the location and library list,
+we can easily modify this to accept 'refresh' messages from the meow server.  This will require
+some facility to inject messages to the meow server, maybe in the form of some 'admin' interface
+(which might be good to have anyway).
+
+This needs to be done soonish because I imagine a common workflow to be:
+
+  - Work on project
+  - Discover there is a missing part
+  - Open a new window to add the component/module
+  - Go back to project
+  - Wonder where the new component/module is
+
+
 ### Navigation and Management
 
 
+We want an interface to be able to manage the libraries.  At the least, it should be able to
+see things in a collabsible list.  We want an interface to upload and delete library packages as well.
+
+There should be an interface to alter a library on an individual project basis as well as a user
+wide basis.
+
+Libraries should be viewable, searchable and shareable.
 
 
 ### References

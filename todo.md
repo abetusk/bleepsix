@@ -6,6 +6,8 @@
 * undo/redo batching and server communication
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
   one at a time?  If a board and a schematic is specified we should try to tie them together?
+  UPDATE: this should probably be taken out altogether and expose another interface through
+  the web page (meowcad) to upload.
 * Add timestamps to sessions, portfolios and the like.
 * Add in name verification to delete project.
 * DRC checks for both
