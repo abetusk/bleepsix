@@ -85,9 +85,19 @@ function guiFootprintLibrary( name, userId, sessionId, projectId )
 
 guiFootprintLibrary.inherits ( guiRegion );
 
-guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, projectId )
+guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, projectId, callback, callback_err )
 {
   var foo = this;
+
+  if (typeof callback === 'undefined' ) { callback = function(data) { foo.load_webkicad_module_json(data); }; }
+  if (typeof callback === 'undefined' ) { 
+    callback_err = function( jqxr, textStatus, error ) {
+      console.log("FAIL:");
+      console.log(jqxr);
+      console.log(textStatus);
+      console.log(error);
+    };
+  }
 
   $.ajaxSetup({cache :false });
 
@@ -104,6 +114,16 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, 
     type: "POST",
     data: JSON.stringify(req),
     dataType: "json",
+    success: callback,
+    error: callback_err
+  });
+
+  /*
+  $.ajax({
+    url : "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+    dataType: "json",
     success: function(data) { foo.load_webkicad_module_json(data); },
     error: 
     function(jqxr, textStatus, error) {
@@ -113,6 +133,7 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, 
       console.log(error);
     }
   });
+  */
 
 }
 

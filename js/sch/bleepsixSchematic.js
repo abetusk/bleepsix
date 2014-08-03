@@ -3338,8 +3338,6 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
 bleepsixSchematic.prototype.load_part = function(name, data)
 {
 
-  //console.log("load_part: " + name);
-
   // component_cache is the cache of unique parts
   g_component_cache[name] = data;
 
@@ -3440,6 +3438,7 @@ bleepsixSchematic.prototype._annoteSchematic = function( )
 
 }
 
+/*
 bleepsixSchematic.prototype.cache_component = function( name )
 {
   if (name in g_component_cache) return;
@@ -3472,6 +3471,24 @@ bleepsixSchematic.prototype.cache_component = function( name )
       }
     )(part_json)
   );			
+
+}
+*/
+
+// We can get into a situation where we've loaded the g_component_location
+// from a default, then we've authenticated, then we load a g_component_location
+// based on user preferences.
+// If we try to render a schematic that has a missing component from the default
+// location but has it in the user location, we need to reload the part when
+// the new location becomes present.
+// As a first attempt to clear this issue up, a request will be sent every half
+// second to try and fetch the new component.
+bleepsixSchematic.prototype._deferLoadComponent = function( name )
+{
+  if ( !(name in g_component_location) ) {
+    setTimeout( (function(xx) { return function() { xx._deferLoadComponent( name ); } })(this), 500 );
+    return;
+  }
 
 }
 
@@ -3566,6 +3583,25 @@ bleepsixSchematic.prototype.load_schematic = function( json )
       // blech, bad description, see here: 
       //   http://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
 
+      g_schnetwork.fetchComponent( 
+          name, 
+          part_json, 
+
+          (function(xx) { 
+            return function(nam, dat) { 
+              xx.load_part(nam, dat); 
+            }; 
+          })(this) ,
+
+          (function(xx) { 
+            return function(dat, jqxr, textStatus, error) { 
+              xx.load_part_error( dat, jqxr, textStatus, error);
+            };
+          })(this)
+
+        )
+
+      /*
       var schem = this;
       $.ajaxSetup({ cache : false });
       $.getJSON( part_json,
@@ -3584,6 +3620,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
           }
         )(part_json)
       );			
+      */
 
       this.queued_display_component_count++;
 

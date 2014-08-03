@@ -106,8 +106,25 @@ function guiLibrary( name, userId, sessionId, projectId )
 
 guiLibrary.inherits ( guiRegion );
 
-guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId )
+guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId, callback, callback_err )
 {
+
+  if ( typeof callback === 'undefined' )
+  {
+    callback = (function(xx) {
+      return function(data) { xx.load_webkicad_library_json(data); };
+    });
+  }
+
+  if ( typeof callback_err === 'undefined' )
+  {
+    callback_err = function(jqxr, textStatus, error) { 
+        console.log("FAIL:");
+        console.log( jqxr );
+        console.log( textStatus )
+        console.log( error ); 
+      };
+  }
 
   var foo = this;
 
@@ -134,7 +151,8 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
     dataType: "json",
 
 
-    success: 
+    success: callback,
+    /*
     function(data) {
 
       //DEBUG
@@ -143,13 +161,18 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
 
       foo.load_webkicad_library_json(data);
     },
-    error: 
+    */
+
+    error:  callback_err
+
+    /*
     function(jqxr, textStatus, error) { 
       console.log("FAIL:");
       console.log( jqxr );
       console.log( textStatus )
       console.log( error ); 
     }
+    */
   });
 
 }
@@ -194,6 +217,7 @@ guiLibrary.prototype.listPick = function(list_ele)
     var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
     load_component_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
 
+
     this.guiChildren[1].component_name = list_ele.name;
     this.guiChildren[1].refresh();
   }
@@ -201,7 +225,7 @@ guiLibrary.prototype.listPick = function(list_ele)
 
 guiLibrary.prototype.tilePick = function(tile_ele)
 {
-  console.log("tilePick");
+  console.log("tilePick", tile_ele);
   console.log(tile_ele);
 }
 
@@ -239,7 +263,6 @@ guiLibrary.prototype.mouseDown = function(button, x, y )
 
     if (r)
     {
-      //console.log("guiLibrary: got tile hit " + this.guiChildren[1].component_name );
       g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiChildren[1].component_name );
       g_schematic_controller.guiToolbox.defaultSelect();
       return true;

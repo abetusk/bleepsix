@@ -80,6 +80,9 @@ function bleepsixSchematicNetwork( serverURL )
   this.fail_count = 0;
   this.fail_max = 20;
 
+  this.json_sch = null;
+  this.json_brd = null;
+
 
   var p = this;
   this.socket.on('connect', 
@@ -287,6 +290,110 @@ bleepsixSchematicNetwork.prototype.init = function()
 
 }
 
+//-----------------------
+
+// We still might need to worry about order of the load.
+// TODO: make sure when we load from a project, it takes precedence and any other
+// 'default' load goes ignored.
+//
+
+bleepsixSchematicNetwork.prototype.startLoadWaterfall = function()
+{
+  var cb = (function(xx) { 
+    return function(dat) { xx.loadLibraryWaterfall( dat ); };
+  })(this);
+  g_schematic_controller.guiLibrary.fetchComponentList( this.userId, this.sessionId, this.projectId, cb );
+}
+
+bleepsixSchematicNetwork.prototype.loadLibraryWaterfall = function(data)
+{
+  g_schematic_controller.guiLibrary.load_webkicad_library_json(data);
+
+  var cb = (function(xx) {
+    return function(dat) {
+      xx.loadLocationWaterfall(dat);
+    };
+  })(this);
+
+  load_component_location( this.userId, this.sessionId, this.projectId, cb );
+}
+
+bleepsixSchematicNetwork.prototype.loadLocationWaterfall = function(data)
+{
+  g_component_location = data;
+  g_component_location_ready = true;
+
+  this.loadSchematicWaterfall();
+}
+
+bleepsixSchematicNetwork.prototype.loadSchematicWaterfall = function()
+{
+
+  if (this.json_brd && this.json_sch) {
+    this.deferLoadSchematic( this.json_sch );
+    this.deferLoadBoard( this.json_brd );
+  } else {
+
+    console.log("schematic, waiting for json_brd and json_sch to be non-null");
+    setTimeout( (function() { return function() { xx.loadSchematicWaterfall(); } })(this), 500 );
+
+  }
+
+}
+
+//-------------------
+
+
+
+bleepsixSchematicNetwork.prototype.fetchComponent = function( name, location, callback, callback_err )
+{
+
+  if (typeof callback_err === 'undefined') {
+    callback_err =
+      ( function(a) {
+          return function(jqxhr, textStatus, error) {
+            callback_err(a, jqxhr, textStatus, error);
+          }
+        }
+      )(location);
+  }
+
+  var req = { op: "COMP_ELE", name : name, location: location };
+  if ( ( this.userId ) &&
+       ( this.sessionId ) &&
+       ( this.projectId ) )
+  {
+    req.userId = this.userId;
+    req.sessionId = this.sessionId;
+    req.projectId = this.projectId;
+  }
+
+  $.ajaxSetup({ cache : false });
+
+  $.ajax({
+    url: "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+    success:
+    ( function(a) {
+        return function(data) {
+          callback(a, data);
+        }
+      }
+    )(name),
+    error:
+    ( function(a) {
+        return function(jqxhr, textStatus, error) {
+          callback_err(a, jqxhr, textStatus, error);
+        }
+      }
+    )(part_json)
+  });
+
+
+}
+
+
 bleepsixSchematicNetwork.prototype.loadStartupProject = function( data )
 {
   console.log("loadStartupProject");
@@ -434,13 +541,25 @@ bleepsixSchematicNetwork.prototype.projectsnapshotResponse = function( data )
     return;
   }
 
-  var json_sch = JSON.parse(data.json_sch);
-  var json_brd = JSON.parse(data.json_brd);
+  var json_sch = null;
+  var json_brd = null;
+  try {
+    var json_sch = JSON.parse(data.json_sch);
+    var json_brd = JSON.parse(data.json_brd);
+  } catch (err) {
+    console.log("ERROR: parse error:");
+    console.log(err);
+    return;
+  }
 
-  this.deferLoadSchematic( json_sch );
+  this.json_sch = json_sch;
+  this.json_brd = json_brd;
 
-  //g_schematic_controller.board.load_board( json_brd );
-  this.deferLoadBoard( json_brd );
+  this.startLoadWaterfall();
+
+
+  //this.deferLoadSchematic( json_sch );
+  //this.deferLoadBoard( json_brd );
 
 
 }
@@ -452,6 +571,7 @@ bleepsixSchematicNetwork.prototype.deferLoadSchematic = function( json_sch )
     setTimeout( (function(xx) { return function() { xx.deferLoadSchematic( json_sch ); } })(this), 250 );
     return;
   }
+
   g_schematic_controller.schematic.load_schematic( json_sch );
   return;
 }

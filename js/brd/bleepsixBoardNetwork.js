@@ -80,6 +80,9 @@ function bleepsixBoardNetwork( serverURL )
   this.fail_count = 0;
   this.fail_max = 20;
 
+  this.json_brd = null;
+  this.json_sch = null;
+
 
   var p = this;
   this.socket.on('connect', 
@@ -324,6 +327,58 @@ bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 }
 
 
+//------------------------
+
+bleepsixBoardNetwork.prototype.startLoadWaterfall = function()
+{
+  var cb = (function(xx) { 
+    return function(data) { 
+      xx.loadLocationWaterfall( data );
+    } ;
+  })(this);
+
+  g_board_controller.guiFootprintLibrary.fetchModuleLibrary( this.userId, this.sessionId, this.projectId, cb );
+}
+
+bleepsixBoardNetwork.prototype.loadLocationWaterfall = function(data)
+{
+  g_board_controller.guiFootprintLibrary.load_webkicad_module_json(data);
+
+  var cb = (function(xx) {
+    return function(data) {
+      xx.loadBoardWaterfall(data);
+    };
+  })(this);
+
+  load_footprint_location( this.userId, this.sessionId, this.projectId, cb );
+}
+
+bleepsixBoardNetwork.prototype.loadBoardWaterfall = function(data)
+{
+  g_footprint_location = data;
+  g_footprint_location_ready = true;
+
+  this.loadBoardWaterfallEnd();
+
+}
+
+bleepsixBoardNetwork.prototype.loadBoardWaterfallEnd = function()
+{
+
+  if (this.json_brd && this.json_sch) {
+    this.refreshBoardState( this.json_brd, this.json_sch );
+  } else {
+
+    console.log("board, waiting for json_brd and json_sch to be non-null");
+    setTimeout( (function() { return function() { xx.loadBoardWaterfallEnd(); } })(this), 500 );
+
+  }
+
+}
+
+
+//------------------------
+
 bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 {
 
@@ -342,8 +397,9 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
     $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
     g_board_controller.project_name_text = this.userName + " / " + this.projectName;
 
-    g_board_controller.guiFootprintLibrary.fetchModuleLibrary( this.userId, this.sessionId, this.projectId );
-    load_footprint_location( this.userId, this.sessionId, this.projectId );
+    this.startLoadWaterfall();
+    //g_board_controller.guiFootprintLibrary.fetchModuleLibrary( this.userId, this.sessionId, this.projectId );
+    //load_footprint_location( this.userId, this.sessionId, this.projectId );
 
     this.projectsnapshot();
   }
@@ -400,6 +456,25 @@ bleepsixBoardNetwork.prototype.projectsnapshot = function()
   this.socket.emit( "projectsnapshot", msg );
 }
 
+bleepsixBoardNetwork.prototype.refreshBoardState = function( json_brd, json_sch )
+{
+  this.json_brd = json_brd;
+  this.json_sch = json_sch;
+
+  g_board_controller.board.load_board( json_brd );
+  g_board_controller.schematic.load_schematic( json_sch );
+
+  var netop = { source: "brd", destination: "sch" };
+  netop.scope = "local";
+
+  netop.action = "update";
+  netop.type = "schematicnetmap";
+  g_board_controller.op.opCommand( netop );
+
+  var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+  g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+}
 
 bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 {
@@ -434,6 +509,9 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
     return;
   }
 
+  this.refreshBoardState( json_brd, json_sch );
+
+  /*
   g_board_controller.board.load_board( json_brd );
   g_board_controller.schematic.load_schematic( json_sch );
 
@@ -447,7 +525,7 @@ bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 
   var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
   g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
+  */
 
 }
 

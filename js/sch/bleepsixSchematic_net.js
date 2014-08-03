@@ -190,6 +190,7 @@ bleepsixSchematic.prototype._net_extend_VE_from_power = function( V, E )
       var key = this._net_make_key( ele.x, ele.y );
 
       var comp = this._lookup_comp( ele.name );
+
       if (!comp) continue;
       if (comp.name == "unknown") continue;
 
@@ -280,10 +281,10 @@ bleepsixSchematic.prototype._net_extend_VE_from_power = function( V, E )
       {
 
         var comp = this._lookup_comp( ele.name );
-        var pins = comp.pin;
+        if (!comp) continue;
+        if (comp.name == "unknown") continue;
 
-        if (comp.name == "unknown")
-          continue;
+        var pins = comp.pin;
 
         for (var p_ind=0; p_ind<pins.length; p_ind++)
         {
@@ -426,10 +427,11 @@ bleepsixSchematic.prototype._net_extend_VE_from_labels = function( V, E )
       {
 
         var comp = this._lookup_comp( ele.name );
+        if (!comp) continue;
+        if (comp.name == "unknown") continue;
+
         var pins = comp.pin;
 
-        if (comp.name == "unknown")
-          continue;
 
         for (var p_ind=0; p_ind<pins.length; p_ind++)
         {
@@ -508,6 +510,8 @@ bleepsixSchematic.prototype._net_extend_VE_from_endpoints = function( V, E )
 
     if (type == "component")
     {
+
+
       var comp = this._lookup_comp( ele.name );
       if (!comp) continue;
       if (comp.name == "unknown") continue;

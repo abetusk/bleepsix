@@ -37,8 +37,30 @@ var g_component_library_map = {};
 var g_component_location_ready = false;
 
 
-function load_footprint_location( userId, sessionId, projectId  )
+function load_footprint_location( userId, sessionId, projectId, callback, callback_err )
 {
+
+  if (typeof callback === 'undefined' )
+  {
+    callback = (function(xx) { 
+      return function(data) {
+        g_footprint_location = data;
+        g_footprint_location_ready = true;
+      };
+    })(this);
+  }
+
+  if (typeof callback_err === 'undefined' )
+  {
+    callback_err = 
+      function(jqxr, textStatus, error ){
+        console.log("FAIL");
+        console.log(jqxr);
+        console.log(textStatus);
+        console.log(error);
+      };
+  }
+
   $.ajaxSetup({ cache : false });
   var req = { op : "MOD_LOC" };
   if ( (typeof userId !== "undefined") && 
@@ -53,18 +75,25 @@ function load_footprint_location( userId, sessionId, projectId  )
     type: "POST",
     data: JSON.stringify(req),
     dataType: "json",
-    success:
+    success: callback,
+
+    /*
     function(data) {
       g_footprint_location = data;
       g_footprint_location_ready = true;
     },
-    error:
+    */
+
+    error: callback_err
+
+    /*
     function(jqxr, textStatus, error ){
       console.log("FAIL");
       console.log(jqxr);
       console.log(textStatus);
       console.log(error);
     }
+    */
   });
 
 }
@@ -118,8 +147,28 @@ function load_footprint_cache_part( name, location, userId, sessionId, projectId
   }
 }
 
-function load_component_location( userId, sessionId, projectId )
+function load_component_location( userId, sessionId, projectId, callback, callback_err )
 {
+
+  if (typeof callback === 'undefined') 
+  {
+    callback = function(data) {
+        g_component_location = data;
+        g_component_location_ready = true;
+      };
+  }
+
+  if (typeof callback_err == 'undefined') 
+  {
+
+    callback_err = function(jqxr, textStatus, error ){
+      console.log("FAIL");
+      console.log(jqxr);
+      console.log(textStatus);
+      console.log(error);
+    };
+
+  }
 
   $.ajaxSetup({ cache : false });
   var req = { op : "COMP_LOC" };
@@ -135,18 +184,26 @@ function load_component_location( userId, sessionId, projectId )
     type: "POST",
     data: JSON.stringify(req),
     dataType: "json",
-    success:
+    success: callback,
+
+    /*
     function(data) {
       g_component_location = data;
       g_component_location_ready = true;
     },
-    error:
+    */
+
+    error: callback_err
+
+    /*
     function(jqxr, textStatus, error ){
       console.log("FAIL");
       console.log(jqxr);
       console.log(textStatus);
       console.log(error);
     }
+    */
+
   });
 
 }
@@ -196,7 +253,7 @@ function load_component_cache_part( name, location, userId, sessionId, projectId
   }
   else 
   {
-    console.log(" load_componet_cache_part: " + name + " already loaded");
+    //console.log(" load_componet_cache_part: " + name + " already loaded");
   }
 }
 

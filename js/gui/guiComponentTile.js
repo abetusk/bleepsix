@@ -32,6 +32,7 @@ function guiComponentTile( gui_name, component_name )
   this.fudge = 30;
 
   this.ready = false;
+  this.debug = false;
 
   this.bbox = [ [0, 0], [0,0] ];
   bbox = this.bbox;
@@ -77,6 +78,7 @@ guiComponentTile.prototype.refresh = function()
   bbox = this.bbox;
   if ( this.component_name in g_component_cache )
   {
+
     //this.bbox = g_component_cache[ this.component_name ]["bounding_box"];
     this.bbox = g_component_cache[ this.component_name ]["coarse_bounding_box"];
     bbox = this.bbox;
@@ -106,6 +108,11 @@ guiComponentTile.prototype.draw = function()
     if ( this.component_name in g_component_cache )
     {
 
+      //DEBUG
+      if (this.debug) {
+        console.log( this.component_name );
+      }
+
       var r = this.rescale;
       var s = this.width / 2;
 
@@ -125,7 +132,7 @@ guiComponentTile.prototype.draw = function()
     }
     else
     {
-      console.log("guiComponentTile: " + this.component_name + " not loaded, not rendering");
+      //console.log("guiComponentTile: " + this.component_name + " not loaded, not rendering");
     }
 
   }
