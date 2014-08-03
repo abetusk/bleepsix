@@ -728,17 +728,10 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid.move(0,0);
 
-  /*
-  var userId = $.cookie("userId");
-  var sessionId = $.cookie("sessionId");
-  var projectId = $.cookie("recentProjectId");
-  */
-
   var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
   var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );
   var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
   this.guiFootprintLibrary = new guiFootprintLibrary( "library", userId, sessionId, projectId );
-
   this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
 
   var controller = this;

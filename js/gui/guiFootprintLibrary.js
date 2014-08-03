@@ -121,6 +121,8 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, 
 guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
 {
 
+  this.guiChildren[0].clearList();
+
   var parent = null;
 
   for (var ind in data)
@@ -152,12 +154,6 @@ guiFootprintLibrary.prototype.listPick = function(list_ele)
 {
   if (list_ele.type == "element")
   {
-
-    /*
-    var userId = $.cookie("userId");
-    var sessionId = $.cookie("sessionId");
-    var projectId = $.cookie("recentProjectId");
-    */
 
     var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
     var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );

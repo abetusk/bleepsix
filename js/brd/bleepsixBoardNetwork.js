@@ -140,9 +140,6 @@ bleepsixBoardNetwork.prototype.slowSync = function()
 {
   if (g_board_controller.boardUpdate)
   {
-    //DEBUG
-    //console.log("  bleepsixBoardNetwork.slowSync syncing!");
-
     this.projectflush();
 
     g_board_controller.fadeMessage( "saved" );
@@ -204,22 +201,12 @@ bleepsixBoardNetwork.prototype.init = function()
   if (!this.projectId)
     this.projectId = undefined;
 
-  //DEBUG
-  //console.log("bleepsixBoardNetwork.init: got projectId: " + this.projectId );
-
-  //this.boardId = $.cookie("boardId");
-
   // No userId or sessionId, we assume an anonymous connection
   //
   if ( ( typeof this.userId     === 'undefined' ) ||
        ( typeof this.sessionId  === 'undefined' ) )
   {
-    //this.userId = -1;
-    //this.sessionId = -1;
     this.anonymous = true;
-
-    //DEBUG
-    //console.log("getting anonymous credentials (emitting 'anonymouscreate')");
 
     // this will create an anonymous user, create a sessionId for the
     // anonymous user and create a new project with a projectId 
@@ -247,8 +234,8 @@ bleepsixBoardNetwork.prototype.init = function()
       this.projectId = $.cookie("recentProjectId");
       this.usingRecentProjectFlag = true;
 
-      //DEBUG
-      //console.log("have recentProjectId, authentication most recent project id " + this.projectId);
+      g_board_controller.guiLibrary.fetchFootprintList( this.userId, this.sessionId, this.projectId );
+      load_footprint_location( this.userId, this.sessionId, this.projectId );
 
       this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId });
       return;
@@ -285,9 +272,6 @@ bleepsixBoardNetwork.prototype.init = function()
   }
   else
   {
-    //DEBUG
-    //console.log("projectauth emit");
-
     this.usingUrlProjectFlag = true;
     this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId});
   }
@@ -297,17 +281,8 @@ bleepsixBoardNetwork.prototype.init = function()
 bleepsixBoardNetwork.prototype.loadStartupProject = function( data )
 {
 
-  //DEBUG
-  //console.log("loadStartupProject");
-  //console.log(data);
-
   if ((data) && (data.type == "success"))
   {
-
-    //DEBUG
-    //console.log("emitting schauth from loadStartupProject");
-    //console.log("projectauth emit from loadStartupProject");
-
     this.projectId = data.projectId;
 
     this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId });
@@ -319,10 +294,6 @@ bleepsixBoardNetwork.prototype.loadStartupProject = function( data )
 
 bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 {
-  //DEBUG
-  //console.log("newprojectResponse:");
-  //console.log(data);
-
 
   if (!data)
   {
@@ -355,9 +326,6 @@ bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 
 bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 {
-  //DEBUG
-  //console.log("projectauthResponse:");
-  //console.log(data);
 
   this.fail_count++;
   if (this.fail_count >= this.fail_max)
@@ -367,23 +335,15 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
     return;
   }
 
-  //DEBUG
-  //console.log( "fail_count: " + this.fail_count + " / " + this.fail_max );
-
   if (data && (data.type == "response") && (data.status == "success") )
   {
     this.projectName = data.projectName;
 
-    //DEBUG
-    /*
-    console.log("userId: " + this.userId);
-    console.log("sessionid: " + this.sessionId);
-    console.log("projectId: " + this.projectId);
-    console.log("projectName: " + this.projectName);
-    */
-
     $.cookie("recentProjectId",     data.projectId, {expires:365, path:'/', secure:true });
     g_board_controller.project_name_text = this.userName + " / " + this.projectName;
+
+    g_board_controller.guiFootprintLibrary.fetchModuleLibrary( this.userId, this.sessionId, this.projectId );
+    load_footprint_location( this.userId, this.sessionId, this.projectId );
 
     this.projectsnapshot();
   }
@@ -393,7 +353,6 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 
     if (this.usingUrlProjectFlag)
     {
-      //window.history.replaceState( {}, 'title', '/bleepsix_sch' );
       window.history.replaceState( {}, 'title', '/bleepsix_brd' );
     }
 
@@ -401,17 +360,9 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
     //
     if ( data.message.match(/thentication failure/) )
     {
-      //DEBUG
-      //console.log("authentication failure, issuing an anonymouscreate request");
-
       this.socket.emit( "anonymouscreate" );
       return;
     }
-
-    //DEBUG
-    //console.log("DEBUG: bleepsixBoardNetwork.projectauthResponse " +
-    //    "authentication failed, issuing a 'startupProject' request");
-
 
     var container = {
       type : "startupProject",
@@ -422,10 +373,6 @@ bleepsixBoardNetwork.prototype.projectauthResponse = function( data )
 
     var xx = this;
     var str_data = JSON.stringify( container );
-
-    //DEBUG
-    //console.log("sending to meowDataManager");
-    //console.log(str_data);
 
     $.ajax({
       type: "POST",
@@ -456,9 +403,6 @@ bleepsixBoardNetwork.prototype.projectsnapshot = function()
 
 bleepsixBoardNetwork.prototype.projectsnapshotResponse = function( data )
 {
-  //DEBUG
-  //console.log("projectsnapshot response:");
-  //console.log(data);
 
   if (!data)
   {
@@ -526,41 +470,19 @@ bleepsixBoardNetwork.prototype.projectflush = function( data )
   msg.json_sch = JSON.stringify( g_board_controller.schematic.kicad_sch_json ); 
   msg.json_brd = JSON.stringify( g_board_controller.board.kicad_brd_json ); 
 
-  //DEBUG
-  //console.log("emitting projectflush , msg:");
-  //console.log(msg);
-
   this.socket.emit( "projectflush", msg );
 }
 
 bleepsixBoardNetwork.prototype.projectop = function( msg )
 {
-
-  /*
-  console.log("");
-  console.log(" emitting projectop");
-  console.log(msg);
-  */
-
   this.socket.emit("projectop", { userId: this.userId, sessionId: this.sessionId, projectId: this.projectId, op : msg } );
 }
 
 bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
 {
-  //DEBUG
-  //console.log("bleepsixBoardNetwork.projectopResponse:");
-  //console.log(msg);
 
   if (msg.type == "op")
   {
-
-    //DEBUG
-    //console.log("applying op (directly to board op)");
-    //g_board_controller.opCommand( msg.op );
-
-    //console.log("OP>>>>>>>>");
-    //console.log( msg.op );
-
     g_board_controller.op.opCommand( msg.op );
   }
 
@@ -571,25 +493,16 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
 bleepsixBoardNetwork.prototype.anonymousCreateResponse = function( data )
 {
 
-  //DEBUG
-  //console.log("anonymousCreateResponse:");
-  //console.log(data);
-
   if (!data) { console.log("bleepsixBoardNetwork.anonymouseCreateResponse: ERROR: data NULL!"); return; }
 
   if ( (data.type == "response") && 
        (data.status == "success") )
   {
 
-    //DEBUG
-    //console.log("anonymous create success!");
-
     this.userId = data.userId;
     this.sessionId = data.sessionId;
     this.projectId = data.projectId;
 
-    //DEBUG
-    //console.log("setting cookies");
     $.cookie("userId",      this.userId,    {expires:365, path:'/', secure:true });
     $.cookie("sessionId",   this.sessionId, {expires:365, path:'/', secure:true });
     $.cookie("userName", "anonymous", {expires:365, path:'/', secure:true });
