@@ -3594,8 +3594,8 @@ bleepsixSchematic.prototype.load_schematic = function( json )
           })(this) ,
 
           (function(xx) { 
-            return function(dat, jqxr, textStatus, error) { 
-              xx.load_part_error( dat, jqxr, textStatus, error);
+            return function(dat, jqxhr, textStatus, error) { 
+              xx.load_part_error( dat, jqxhr, textStatus, error);
             };
           })(this)
 

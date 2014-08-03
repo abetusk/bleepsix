@@ -3663,6 +3663,23 @@ bleepsixBoard.prototype.load_board = function( json )
       if (bleepsixBoardHeadless)
         continue;
 
+      g_brdnetwork.fetchModule( 
+          name, 
+          part_json,
+
+          (function(xx) {
+            return function(nam,dat) { xx.load_part(nam,dat); };
+          })(this),
+          
+          (function(xx) {
+            return function(dat, jqxhr, textStatus, error) {
+              xx.load_part_error(dat, jqxhr, textStatus, error);
+            };
+          })(this)
+        );
+
+
+      /*
       var Board = this;
       $.ajaxSetup({ cache : false });
       $.getJSON( part_json,
@@ -3680,6 +3697,7 @@ bleepsixBoard.prototype.load_board = function( json )
           }
         )(part_json)
       );			
+      */
 
       this.queued_display_footprint_count++;
 

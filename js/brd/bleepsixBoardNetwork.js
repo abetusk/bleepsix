@@ -237,7 +237,8 @@ bleepsixBoardNetwork.prototype.init = function()
       this.projectId = $.cookie("recentProjectId");
       this.usingRecentProjectFlag = true;
 
-      g_board_controller.guiLibrary.fetchFootprintList( this.userId, this.sessionId, this.projectId );
+      //g_board_controller.guiLibrary.fetchFootprintList( this.userId, this.sessionId, this.projectId );
+      g_board_controller.guiFootprintLibrary.fetchModuleLibrary( this.userId, this.sessionId, this.projectId );
       load_footprint_location( this.userId, this.sessionId, this.projectId );
 
       this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId });
@@ -456,6 +457,52 @@ bleepsixBoardNetwork.prototype.projectsnapshot = function()
   this.socket.emit( "projectsnapshot", msg );
 }
 
+bleepsixBoardNetwork.prototype.fetchModule = function( name, location, callback, callback_err )
+{
+
+  if (typeof callback_err === 'undefined')
+  {
+    callback_err = (function(a) {
+      return function(jqxhr, textStatus, error) {
+        callback_err(a, jqxhr, textStatus, error);
+      };
+    })(location);
+  }
+
+  var req = { op: "MOD_ELE", name: name, location: location };
+  if ( (this.userId) &&
+       (this.sessionId) &&
+       (this.projectId) )
+  {
+    req.userId = this.userId;
+    req.sessionId = this.sessionId;
+    req.projectId = this.projectId;
+  }
+
+  $.ajaxSetup({ cache : false });
+
+  $.ajax({
+    url: "cgi/libmodmanager.py",
+    type: "POST",
+    data: JSON.stringify(req),
+    success:
+    ( function(a) {
+        return function(data) {
+          callback(a, data);
+        }
+      }
+    )(name),
+    error:
+    ( function(a) {
+        return function(jqxhr, textStatus, error) {
+          callback_err(a, jqxhr, textStatus, error);
+        }
+      }
+    )(location)
+  });
+
+}
+
 bleepsixBoardNetwork.prototype.refreshBoardState = function( json_brd, json_sch )
 {
   this.json_brd = json_brd;
@@ -601,121 +648,4 @@ bleepsixBoardNetwork.prototype.anonymousCreateResponse = function( data )
 
 
 }
-
-// push a 'keyframe'
-//
-/*
-bleepsixBoardNetwork.prototype.fullpush = function()
-{
-  var container = { 
-    userId : this.userId,
-    sessionId: this.sessionId,
-    boardId: this.boardId,
-    type:"fullpush",
-    sch_json: g_board_controller.kicad_sch_json
-  };
-
-  this.socket.emit( "schfullopush", container );
-
-}
-*/
-
-/*
-// handle logout event
-//
-bleepsixBoardNetwork.prototype.logout = function()
-{
-  window.location.href = 'login';
-}
-
-
-// Failed authentication tracer message
-//
-bleepsixBoardNetwork.prototype.meowResponse = function( data )
-{
-  console.log("meow (authentication) failure, got:");
-  console.log(data);
-
-
-  // So, authentication failed...should we create a new anonymous
-  // account?
-  //
-  this.socket.emit( "anonymouscreate" );
-
-  return;
-
-}
-
-// We send out a 'meow' message and expect a 'mew' response if the authentication
-// worked.  This tells us the session is authenticated 
-// and we can send update requests to the server
-//
-bleepsixBoardNetwork.prototype.mewResponse = function( data )
-{
-  if (!data)
-  {
-    console.log("NULL data in mewResponse");
-    return;
-  }
-
-  if ( (data.status == "success") && (data.type == "response" ) )
-  {
-    this.connected = true;
-    this.authenticated = true;
-
-    console.log("mew response received");
-    console.log("session authenticated, will send updates");
-
-    if ( typeof this.boardId === 'undefined' )
-    {
-
-      console.log("user logged in but no current board.  asking for new project");
-      this.socket.emit("newproject", { userId : this.userId, sessionId : this.sessionId } );
-      return;
-
-    }
-
-    console.log("using board id: " + this.boardId);
-    this.initialized = true;
-
-  }
-  else
-  {
-    console.log("mew failure, got:");
-    console.log(data);
-  }
-}
-
-
-bleepsixBoardNetwork.prototype.update = function( msg )
-{
-  this.messageq.push( msg );
-
-  if (!this.connected)
-  {
-    console.log("bleepsixBoardNetwork.update: not connected, returning");
-    return;
-  }
-
-  while (this.messageq.length > 0)
-  {
-    var m = this.messageq.shift();
-    this.socket.emit( "schupdate", { userId: this.userId, sessionId: this.sessionId, data: msg } );
-  }
-
-}
-
-bleepsixBoardNetwork.prototype.load = function( boardId )
-{
-  if (!this.connected)
-  {
-    console.log("bleepsixBoardNetwork.load: not connected, cannot load");
-    return;
-  }
-
-  this.socket.emit( "schget", { userId: this.userId, sessionId : this.sessionid, boardId : boardId } );
-}
-
-*/
-
 
