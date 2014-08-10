@@ -134,5 +134,7 @@ Libraries should be viewable, searchable and shareable.
 ### References
 
   - [jQuery Collapsible List](http://kaipi.me/demos/collapsible-list.html)
+  - [Bootstrap Collapsible](http://getbootstrap.com/javascript/#collapse)
+  - [CSS Sprite Trick](http://css-tricks.com/css-sprites/)
 
 

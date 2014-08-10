@@ -629,7 +629,7 @@ bleepsixSchematicNetwork.prototype.anonymousCreateResponse = function( data )
     this.projectId = data.projectId;
 
     //DEBUG
-    console.log("anonymous create success!", userId, sessionId);
+    console.log("anonymous create success!", this.userId, this.sessionId);
 
     console.log("setting cookies");
     $.cookie("userId",      this.userId,    {expires:365, path:'/', secure:true });
