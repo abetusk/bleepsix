@@ -100,7 +100,7 @@ function bleepsixSchematicNetwork( serverURL )
       function(x,y) { console.log("reconnect_timeout?"); console.log(x); console.log(y); });
 
   this.socket.on('disconnect', 
-      function(x,y) { console.log("disconnect!"); p.connected = false; });
+      function(x,y) { console.log("disconnect!", x, y); p.connected = false; });
 
   this.socket.on('error', 
       function(x,y) { console.log("error?"); console.log(x); console.log(y); });
