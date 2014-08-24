@@ -23,10 +23,21 @@
 */
 
 
-
-function bleepsixRender( canvas_id )
+var bleepsixRenderHeadless = false;
+if (typeof module !== 'undefined')
 {
-  this.canvas = $( "#" + canvas_id )[0];
+  bleepsixRenderHeadless = true;
+}
+
+
+function bleepsixRender( canvas_param )
+{
+
+  if (bleepsixRenderHeadless) {
+    this.canvas = canvas_param;
+  } else {
+    this.canvas = $( "#" + canvas_param )[0];
+  }
   this.context = this.canvas.getContext('2d');
 
   this.gridMode = 2;		// 0=none, 1=dots, 2=lines
@@ -182,7 +193,7 @@ bleepsixRender.prototype.drawGrid = function()
 	if ( this.gridMode == 2 ) {
 		// Lines
 
-        ctx.lineWidth = 4.0 / (10.0 * this.zoom);
+    ctx.lineWidth = 4.0 / (10.0 * this.zoom);
 		//ctx.strokeStyle = "#808080";
 		ctx.strokeStyle = "rgba(128,128,128,0.3)";
 		ctx.beginPath();
@@ -194,7 +205,7 @@ bleepsixRender.prototype.drawGrid = function()
 		  ctx.moveTo ( view.x1, y );
 		  ctx.lineTo ( view.x2, y );
 		}
-        ctx.lineJoin = "round";
+    ctx.lineJoin = "round";
 		ctx.stroke();
 	}
 }
@@ -862,6 +873,7 @@ bleepsixRender.prototype.circleHoleOblong = function( x, y, r, obx, oby, line_wi
 }
 
 
+/*
 bleepsixRender.prototype.circle = function( x, y, r, line_width, line_color, fill_flag, fill_color )
 {
   var ctx = this.context;
@@ -889,6 +901,7 @@ bleepsixRender.prototype.circle = function( x, y, r, line_width, line_color, fil
 
   ctx.closePath();
 }
+*/
 
 bleepsixRender.prototype.line = function(x0, y0, x1, y1, color, line_width )
 {
@@ -1363,4 +1376,9 @@ bleepsixRender.prototype.drawImage =
   //ctx.rotate( -angle_radian );
   ctx.translate( -x, -y );
 
+}
+
+if (typeof module !== 'undefined' )
+{
+  module.exports = bleepsixRender;
 }

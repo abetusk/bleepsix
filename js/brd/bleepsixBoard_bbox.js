@@ -595,3 +595,51 @@ bleepsixBoard.prototype.updateBoundingBox = function( ele )
 
 }
 
+
+bleepsixBoard.prototype.getBoardBoundingBox = function( ele )
+{
+  var ind;
+  var brd = this.kicad_brd_json["element"];
+
+  var fin_bbox = [ [0,0], [0,0] ];
+  var first = true;
+
+  for (ind in brd)
+  {
+
+    if ("bounding_box" in brd[ind]) {
+      var bbox = brd[ind]["bounding_box"];
+
+      var x0 = bbox[0][0];
+      var y0 = bbox[0][1];
+
+      var x1 = bbox[1][0];
+      var y1 = bbox[1][1];
+
+      var mx = ( (x0 < x1) ? x0 : x1 );
+      var Mx = ( (x0 < x1) ? x1 : x0 );
+
+      var my = ( (y0 < y1) ? y0 : y1 );
+      var My = ( (y0 < y1) ? y1 : y0 );
+
+      if (first) {
+        fin_bbox[0][0] = mx;
+        fin_bbox[0][1] = my;
+        fin_bbox[1][0] = Mx;
+        fin_bbox[1][1] = My;
+        first = false;
+      }
+
+      if (fin_bbox[0][0] > mx) fin_bbox[0][0] = mx;
+      if (fin_bbox[0][1] > my) fin_bbox[0][1] = my;
+      if (fin_bbox[1][0] < Mx) fin_bbox[1][0] = Mx;
+      if (fin_bbox[1][1] < My) fin_bbox[1][1] = My;
+
+    }
+
+  }
+
+  return fin_bbox;
+
+}
+

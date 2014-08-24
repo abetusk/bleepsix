@@ -145,6 +145,10 @@ function bleepsixBoard()
   this.boardProperties = { zoneDisplayable : true };
 }
 
+if (typeof module !== 'undefined')
+{
+  global.bleepsixBoard = bleepsixBoard;
+}
 
 bleepsixBoard.prototype._load_hershey_ascii_font = function( json_font )
 {
@@ -3125,16 +3129,6 @@ bleepsixBoard.prototype.drawBoard = function()
     }
 
     this.drawElement( ele_list[ind] );
-    /*
-    if      ( type == "track" )         { this.drawBoardTrack( ele_list[ind] ); }
-    else if ( type == "drawsegment" )   { this.drawBoardSegment( ele_list[ind] ); }
-    else if ( type == "module" )        { this.drawBoardModule( ele_list[ind] ); }
-    else if ( type == "text" )          { this.drawBoardText( ele_list[ind] ); }
-    else if ( type == "czone" )         { this.drawBoardCZone( ele_list[ind] ); }
-    else {
-      console.log("unhandled draw type: " + type);
-    }
-    */
 
   }
 
@@ -3217,7 +3211,6 @@ bleepsixBoard.prototype.drawBoundingBox = function( b, color, width )
   var w = b[1][0] - b[0][0];
   var h = b[1][1] - b[0][1];
 
-  //g_painter.drawRectangle( b[0][0], b[0][1], w, h, 10, "rgb(120,120,120)" );
   g_painter.drawRectangle( b[0][0], b[0][1], w, h, width, color );
 }
 
@@ -3274,7 +3267,6 @@ bleepsixBoard.prototype.updatePointBoundingBox = function( pnt_entry )
 }
 
 
-//bleepsixBoard.prototype.updateTrackBoundingBox = function( track_entry ) 
 bleepsixBoard.prototype.updateLineBoundingBox = function( line_entry ) 
 {
   var ds = 50;

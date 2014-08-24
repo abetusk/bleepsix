@@ -449,7 +449,7 @@ bleepsixSchematicController.prototype.redraw = function ()
 
     g_painter.endDraw ();
 	
-	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
+    g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
     this.guiPalette.drawChildren();
 
     this.guiToolbox.drawChildren();
@@ -457,7 +457,7 @@ bleepsixSchematicController.prototype.redraw = function ()
 
     this.guiGrid.drawChildren();
 
-	g_painter.context.setTransform ( 1, 0, 0,  1, 0, 0 );
+    g_painter.context.setTransform ( 1, 0, 0,  1, 0, 0 );
 
     if (this.display_text_flag)
       g_painter.drawText(this.display_text, 10, 680, "rgba(0,0,0,0.4)", 15);
@@ -471,7 +471,7 @@ bleepsixSchematicController.prototype.redraw = function ()
 
     g_painter.dirty_flag = false;
 
-	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
+    g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     if (this.drawSnapArea)
     {

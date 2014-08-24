@@ -2605,7 +2605,6 @@ bleepsixSchematic.prototype.drawSchematic = function()
   this.updateBoundingBox();
 
   var sch = this.kicad_sch_json["element"];
-  //var comp_ind = [];
 
   for (var ind in sch)
   {
@@ -2619,32 +2618,7 @@ bleepsixSchematic.prototype.drawSchematic = function()
 
     this.drawElement( sch[ind] );
 
-    /*
-    if      (type == "component")  { comp_ind.push(ind); }
-    else if (type == "connection") { this.drawSchematicConnection( sch[ind] ); }
-    else if (type == "noconn")     { this.drawSchematicNoconn( sch[ind] ); }
-    else if (type == "textnote")   { this.drawSchematicText( sch[ind] ); }
-
-    //else if (type == "label")             { this.drawSchematicText( sch[ind] ); }
-    //else if (type == "labelglobal")       { this.drawSchematicText( sch[ind] ); }
-    //else if (type == "labelheirarchical") { this.drawSchematicText( sch[ind] ); }
-
-    else if (type == "label")             { this.drawSchematicLabel( sch[ind] ); }
-    else if (type == "labelglobal")       { this.drawSchematicLabel( sch[ind] ); }
-    else if (type == "labelheirarchical") { this.drawSchematicLabel( sch[ind] ); }
-
-    else if (type == "busline")    { this.drawSchematicLine( sch[ind] ); }
-    else if (type == "entrybusbus"){ this.drawSchematicLine( sch[ind] ); }
-    else                           { this.drawSchematicLine( sch[ind] ); }
-    */
-
   }
-
-  // draw components last
-  /*
-  for (var ind in comp_ind)
-    this.drawSchematicComponent( sch[ comp_ind[ind] ] );
-    */
 
 }
 
@@ -3506,7 +3480,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
   this._decorateSchematicWithIds();
   this._annoteSchematic();
 
-  sch = this.kicad_sch_json["element"];
+  var sch = this.kicad_sch_json["element"];
 
   for (var ind in sch)
   {
@@ -3517,7 +3491,6 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
     var comp = sch[ind];
 
-    //var name = comp["name"];
     var name = this.toCacheName( comp["name"] );
 
     if (bleepsixSchematicHeadless)
@@ -3530,7 +3503,6 @@ bleepsixSchematic.prototype.load_schematic = function( json )
     else
     {
 
-      //var part_json = "json/" + name + ".json";
       if ( !(name in g_component_location)) 
       {
 
@@ -3570,11 +3542,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
       this.displayable = false;
 
-      //console.log(g_component_location[name]);
       var part_json = g_component_location[name].location;
-
-      //console.log("trying to load " + part_json);
-
 
       // A litle fancy footing here.
       // If we just created a callback via 'function(data) { controller.load_part( name, data); }',
@@ -3601,27 +3569,6 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
         )
 
-      /*
-      var schem = this;
-      $.ajaxSetup({ cache : false });
-      $.getJSON( part_json,
-        ( function(a) {
-            return function(data) {
-              //console.log("cp:" + a);
-              schem.load_part(a, data);
-            }
-          }
-        )(name)
-      ).fail(
-        ( function(a) {
-            return function(jqxhr, textStatus, error) {
-              schem.load_part_error(a, jqxhr, textStatus, error);
-            }
-          }
-        )(part_json)
-      );			
-      */
-
       this.queued_display_component_count++;
 
     }
@@ -3638,7 +3585,58 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
 }
 
+bleepsixSchematic.prototype.getSchematicBoundingBox = function()
+{
+  var sch = this.kicad_sch_json["element"];
+
+  var fin_bbox = [ [0,0], [0,0] ];
+  var first = true;
+
+  for (var ind in sch)
+  {
+
+    if (sch[ind].hideFlag) continue;
+
+    var comp = sch[ind];
+    if ( !("bounding_box" in comp) ) continue;
+    var bbox = comp["bounding_box"];
+
+    var x0 = bbox[0][0];
+    var y0 = bbox[0][1];
+
+    var x1 = bbox[1][0];
+    var y1 = bbox[1][1];
+
+
+    var mx = ( (x0 < x1) ? x0 : x1 );
+    var Mx = ( (x0 < x1) ? x1 : x0 );
+
+    var my = ( (y0 < y1) ? y0 : y1 );
+    var My = ( (y0 < y1) ? y1 : y0 );
+
+    if (first) {
+      fin_bbox[0][0] = mx;
+      fin_bbox[0][1] = my;
+      fin_bbox[1][0] = Mx;
+      fin_bbox[1][1] = My;
+      first = false;
+    }
+
+    if (fin_bbox[0][0] > mx) fin_bbox[0][0] = mx;
+    if (fin_bbox[0][1] > my) fin_bbox[0][1] = my;
+    if (fin_bbox[1][0] < Mx) fin_bbox[1][0] = Mx;
+    if (fin_bbox[1][1] < My) fin_bbox[1][1] = My;
+
+  }
+
+  return fin_bbox;
+
+}
+
+
 if (typeof module !== 'undefined')
 {
   module.exports = bleepsixSchematic;
+
+
 }

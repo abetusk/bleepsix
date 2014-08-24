@@ -173,12 +173,8 @@
 
     </style>
 
+    <script src='js/meowconfig.js'></script>
     <script>
-
-
-      //var MEOWURL = "https://www.meowcad.com";
-      var MEOWURL = "https://localhost";
-
 
 	  var drawing = true,
 	      running = true,
@@ -189,148 +185,148 @@
 	  var frame = 0;
 	  var lastTime = new Date();
 	  
-      var g_snapgrid = null;
+    var g_snapgrid = null;
 	  var g_painter = null;
-      var g_schematic_controller = null ; 
-      var g_controller = null;
+    var g_schematic_controller = null;
+    var g_controller = null;
 
-      var g_imgcache = null;
+    var g_imgcache = null;
 
 
 	  var g_canvas = "canvas";
 	  var g_context = null;
 
-      var g_schnetwork = null;
+    var g_schnetwork = null;
 
-      function canvasFocus()
+    function canvasFocus()
+    {
+      //console.log("canvas focus");
+      var c = document.getElementById("canvas");
+      c.focus();
+    }
+
+    function loop() {
+		
+      frame = frame + 1;
+      if ( frame >= 30 ) {
+        var d = new Date();
+        msec = (d.getTime() - lastTime ) / frame;
+        lastTime = d;
+        frame = 0;
+      }
+      var container = document.querySelector( 'section' );
+      container.innerHTML = "FPS: " + (1000.0/msec);
+
+      var saved_dirty = g_painter.dirty_flag;
+
+      g_schematic_controller.redraw();
+      requestAnimationFrame( loop, 1 );
+    }
+
+    $(document).ready( function() {
+
+      //???
+      bleepsixBoardHeadless = true;
+
+      meowmeow();
+
+      var cvs = document.getElementById('canvas');
+      cvs.onselectstart = function() { return false; }
+
+      g_snapgrid = new snapGrid(true, "deci-mil", 50);
+
+      g_painter = new bleepsixRender( "canvas" );
+      g_painter.setGrid ( 1 );
+
+      g_schematic_controller = new bleepsixSchematicController();
+      g_schematic_controller.init( "canvas" );
+      g_context = g_schematic_controller.context;
+
+      g_controller = g_schematic_controller;
+
+
+      // EXPERIMENTAL
+      g_schematic_controller.schematic.setLocalComponentCache( g_component_cache );
+
+
+      // setup image cache and preload some generic items
+      //
+      var img_base = "img";
+      g_imgcache = new imageCache();
+      g_imgcache.add( "cursor", img_base + "/cursor_custom_base_s24.png" );
+      g_imgcache.add( "cursor:wire", img_base + "/cursor_custom_wire_s24.png" );
+      g_imgcache.add( "cursor:bus", img_base + "/cursor_custom_bus_s24.png" );
+      g_imgcache.add( "cursor:conn", img_base + "/cursor_custom_conn_s24.png" );
+      g_imgcache.add( "cursor:noconn", img_base + "/cursor_custom_noconn_s24.png" );
+
+      requestAnimationFrame( loop, 1 );
+
+
+      /*
+      var userId = $.cookie('userId');
+      var sessionId = $.cookie('sessionId');
+      var projectId = $.cookie('recentProjectId');
+      */
+      var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
+      var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
+      var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
+
+      if ( (typeof userId !== "undefined") &&
+           (typeof sessionId !== "undefined") &&
+           (typeof projectId !== "undefined") )
       {
-        //console.log("canvas focus");
-        var c = document.getElementById("canvas");
-        c.focus();
+        load_component_location( userId, sessionId, projectId );
+        load_footprint_location( userId, sessionId, projectId );
+      }
+      else
+      {
+        load_component_location();
+        load_footprint_location();
       }
 
-	  function loop() {
-		
-		frame = frame + 1;
-		if ( frame >= 30 ) {
-			var d = new Date();
-			msec = (d.getTime() - lastTime ) / frame;
-			lastTime = d;
-			frame = 0;
-		}
-		var container = document.querySelector( 'section' );
-		container.innerHTML = "FPS: " + (1000.0/msec);
 
-        var saved_dirty = g_painter.dirty_flag;
+      var f = document.getElementById('uploadButton');
+      f.style.top = '0px';
+      f.style.left = '500px';
 
-		g_schematic_controller.redraw();
-		requestAnimationFrame( loop, 1 );		
-	  }
-
-      $(document).ready( function() {
-
-        //???
-        bleepsixBoardHeadless = true;
-
-        meowmeow();
-
-        var cvs = document.getElementById('canvas');
-        cvs.onselectstart = function() { return false; }
-
-        g_snapgrid = new snapGrid(true, "deci-mil", 50);
-
-		g_painter = new bleepsixRender( "canvas" );
-        g_painter.setGrid ( 1 );
-
-        g_schematic_controller = new bleepsixSchematicController();
-        g_schematic_controller.init( "canvas" );		
-		g_context = g_schematic_controller.context;
-
-        g_controller = g_schematic_controller;
+      var f = document.getElementById('downloadButton');
+      f.style.top = '0px';
+      f.style.left = '550px';
 
 
-        // EXPERIMENTAL
-        g_schematic_controller.schematic.setLocalComponentCache( g_component_cache );
+      var f = document.getElementById('snapButton');
+      f.style.top = '0px';
+      f.style.left = '750px';
+
+      var f = document.getElementById('homeButton');
+      f.style.top = '4px';
+      f.style.left = '900px';
 
 
-        // setup image cache and preload some generic items
-        //
-        var img_base = "img";
-        g_imgcache = new imageCache();
-        g_imgcache.add( "cursor", img_base + "/cursor_custom_base_s24.png" );
-        g_imgcache.add( "cursor:wire", img_base + "/cursor_custom_wire_s24.png" );
-        g_imgcache.add( "cursor:bus", img_base + "/cursor_custom_bus_s24.png" );
-        g_imgcache.add( "cursor:conn", img_base + "/cursor_custom_conn_s24.png" );
-        g_imgcache.add( "cursor:noconn", img_base + "/cursor_custom_noconn_s24.png" );
+      // camera snapshot
 
-		requestAnimationFrame( loop, 1 );
-
-
-        /*
-        var userId = $.cookie('userId');
-        var sessionId = $.cookie('sessionId');
-        var projectId = $.cookie('recentProjectId');
-        */
-        var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
-        var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
-        var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
-
-        if ( (typeof userId !== "undefined") && 
-             (typeof sessionId !== "undefined") &&
-             (typeof projectId !== "undefined") )
-        {
-          load_component_location( userId, sessionId, projectId );
-          load_footprint_location( userId, sessionId, projectId );
-        } 
-        else 
-        {
-          load_component_location();
-          load_footprint_location();
-        }
+      $( "#snapElement" ).hover(
+      function() {
+        g_schematic_controller.drawSnapArea = true;
+        g_painter.dirty_flag = true;
+      },
+      function() {
+        g_schematic_controller.drawSnapArea = false;
+        g_painter.dirty_flag = true;
+      }
+      );
 
 
-        var f = document.getElementById('uploadButton');
-        f.style.top = '0px';
-        f.style.left = '500px';
+      //console.log("starting network");
 
-        var f = document.getElementById('downloadButton');
-        f.style.top = '0px';
-        f.style.left = '550px';
+      //g_schnetwork = new bleepsixSchematicNetwork();
+      //g_schnetwork = new bleepsixSchematicNetwork( "https://www.meowcad.com" );
+      g_schnetwork = new bleepsixSchematicNetwork( MEOWURL );
 
+      canvasFocus();
 
-        var f = document.getElementById('snapButton');
-        f.style.top = '0px';
-        f.style.left = '750px';
+    });
 
-        var f = document.getElementById('homeButton');
-        f.style.top = '4px';
-        f.style.left = '900px';
-
-
-        // camera snapshot
-
-        $( "#snapElement" ).hover( 
-        function() { 
-          g_schematic_controller.drawSnapArea = true;
-          g_painter.dirty_flag = true;
-        },
-        function() { 
-          g_schematic_controller.drawSnapArea = false;
-          g_painter.dirty_flag = true;
-        }
-        );
-
-
-        //console.log("starting network");
-
-        //g_schnetwork = new bleepsixSchematicNetwork();
-        //g_schnetwork = new bleepsixSchematicNetwork( "https://www.meowcad.com" );
-        g_schnetwork = new bleepsixSchematicNetwork( MEOWURL );
-
-        canvasFocus();
-
-      });
-	  
 	  if ( !window.requestAnimationFrame ) {
         window.requestAnimationFrame = ( function() {
           return window.webkitRequestAnimationFrame ||
@@ -341,167 +337,165 @@
             window.setTimeout( callback, 1000 );
           };
         } )();
+    }
+
+    function schJSONDownload( json_container )
+    {
+
+      var msg_type = json_container["type"];
+      if (msg_type != "id")
+      {
+        console.log("error, expected id, got: " + msg_type);
+        console.log(json_container);
+        return;
       }
 
-      function schJSONDownload( json_container )
+      // fiddle with iframe to send a download request
+      //
+      var id = json_container["id"];
+      var ifrm = document.getElementById( "downloadFrame" );
+      ifrm.src = "bleepsixDownloadManager.py?id=" + id;
+
+    }
+
+
+    function uploadSchematic( )
+    {
+    }
+
+
+    function initiateDownload( json_container )
+    {
+      var msg_type = json_container["type"];
+      if (msg_type != "id")
       {
-
-        var msg_type = json_container["type"];
-        if (msg_type != "id")
-        {
-          console.log("error, expected id, got: " + msg_type);
-          console.log(json_container);
-          return;
-        }
-
-        // fiddle with iframe to send a download request
-        //
-        var id = json_container["id"];
-        var ifrm = document.getElementById( "downloadFrame" );
-        ifrm.src = "bleepsixDownloadManager.py?id=" + id;
-
+        console.log("error, expected id, got: " + msg_type);
+        console.log(json_container);
+        return;
       }
 
+      // fiddle with iframe to send a download request
+      //
+      var id = json_container["id"];
+      var ifrm = document.getElementById( "downloadFrame" );
 
-      function uploadSchematic( )
+      url = "bleepsixDownloadManager.py?id=" + id;
+      if ("name" in json_container)
       {
+        url += '&name=' + json_container["name"]
       }
+      ifrm.src = url;
+    }
 
 
-      function initiateDownload( json_container )
-      {
-        var msg_type = json_container["type"];
-        if (msg_type != "id")
-        {
-          console.log("error, expected id, got: " + msg_type);
-          console.log(json_container);
-          return;
-        }
+    function downloadSchematic( )
+    {
+      var json_data = g_schematic_controller.schematic.kicad_sch_json ;
 
-        // fiddle with iframe to send a download request
-        //
-        var id = json_container["id"];
-        var ifrm = document.getElementById( "downloadFrame" );
+      var container = { "type" : "createKiCADSchematic", data: json_data };
+      var str_data = JSON.stringify( container );
 
-        url = "bleepsixDownloadManager.py?id=" + id;
-        if ("name" in json_container)
-        {
-          url += '&name=' + json_container["name"]
-        }
-        ifrm.src = url;
-      }
-
-
-      function downloadSchematic( )
-      {
-        var json_data = g_schematic_controller.schematic.kicad_sch_json ;
-
-        var container = { "type" : "createKiCADSchematic", data: json_data };
-        var str_data = JSON.stringify( container );
-
-        $.ajax({
-          url: "bleepsixDataManager.py",
-          type: 'POST',
-          data: str_data,
-          success: schJSONDownload,
-          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
-
-          });
-      }
-
-      function downloadProject( )
-      {
-        var sch_data = g_schematic_controller.schematic.kicad_sch_json ;
-        var brd_data = g_schematic_controller.board.kicad_brd_json ;
-
-        var container = { "type" : "downloadProject", board: brd_data, schematic: sch_data };
-        var str_data = JSON.stringify( container );
-
-        $.ajax({
-          url: "bleepsixDataManager.py",
-          type: 'POST',
-          data: str_data,
-          success: initiateDownload,
-          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+      $.ajax({
+        url: "bleepsixDataManager.py",
+        type: 'POST',
+        data: str_data,
+        success: schJSONDownload,
+        error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
 
         });
-      }
+    }
 
+    function downloadProject( )
+    {
+      var sch_data = g_schematic_controller.schematic.kicad_sch_json ;
+      var brd_data = g_schematic_controller.board.kicad_brd_json ;
 
+      var container = { "type" : "downloadProject", board: brd_data, schematic: sch_data };
+      var str_data = JSON.stringify( container );
 
-      function populateIframe(id,path)
+      $.ajax({
+        url: "bleepsixDataManager.py",
+        type: 'POST',
+        data: str_data,
+        success: initiateDownload,
+        error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+      });
+    }
+
+    function populateIframe(id,path)
+    {
+      var ifrm = document.getElementById(id);
+      ifrm.src = "bleepsixDownloadManager.php?path=" + path;
+    }
+
+    function uploadComplete(x)
+    {
+      var json_data = JSON.parse( this.response  );
+      if ( json_data["type"] == "error" )
       {
-        var ifrm = document.getElementById(id);
-        ifrm.src = "bleepsixDownloadManager.php?path=" + path;
+        console.log("error..." + json_data["message"] );
       }
-
-      function uploadComplete(x)
+      else
       {
-        var json_data = JSON.parse( this.response  );
-        if ( json_data["type"] == "error" )
-        {
-          console.log("error..." + json_data["message"] );
-        }
-        else
-        {
-          g_schematic_controller.schematic.load_schematic( json_data );
-          g_schematic_controller.schematicUpdate = true;
-        }
+        g_schematic_controller.schematic.load_schematic( json_data );
+        g_schematic_controller.schematicUpdate = true;
       }
+    }
 
-      function uploadError()
-      {
-        console.log("upload error");
-      }
+    function uploadError()
+    {
+      console.log("upload error");
+    }
 
-      function uploadAbort()
-      {
-        console.log("upload abort");
-      }
+    function uploadAbort()
+    {
+      console.log("upload abort");
+    }
 
-      function uploadProgress()
-      {
-        console.log("upload progress");
-      }
+    function uploadProgress()
+    {
+      console.log("upload progress");
+    }
 
 
-      function sendFile( file )
-      {
+    function sendFile( file )
+    {
 
-        console.log("file:");
-        console.log(file);
+      console.log("file:");
+      console.log(file);
 
-        var formData = new FormData();
-        formData.append( "fileType", "sch" );
-        formData.append( "fileData", file );
-        console.log(formData);
+      var formData = new FormData();
+      formData.append( "fileType", "sch" );
+      formData.append( "fileData", file );
+      console.log(formData);
 
-        var uri = "bleepsixUploadManager.py";
-        var xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", uploadProgress, false );
-        xhr.addEventListener("load", uploadComplete, false );
-        xhr.addEventListener("error", uploadError, false );
-        xhr.addEventListener("abort", uploadAbort, false );
+      var uri = "bleepsixUploadManager.py";
+      var xhr = new XMLHttpRequest();
+      xhr.upload.addEventListener("progress", uploadProgress, false );
+      xhr.addEventListener("load", uploadComplete, false );
+      xhr.addEventListener("error", uploadError, false );
+      xhr.addEventListener("abort", uploadAbort, false );
 
-        xhr.open( "POST", uri );
-        xhr.send( formData );
+      xhr.open( "POST", uri );
+      xhr.send( formData );
 
-      }
+    }
 
-      function handleFiles( files )
-      {
-        var n = files.length;
-        for (var i=0; i<n; i++)
-          sendFile(files[i]);
+    function handleFiles( files )
+    {
+      var n = files.length;
+      for (var i=0; i<n; i++)
+        sendFile(files[i]);
 
-        canvasFocus();
-      }
+      canvasFocus();
+    }
 
-      function foo( files)
-      {
-        console.log("foo");
-        console.log(files);
-      }
+    function foo( files)
+    {
+      console.log("foo");
+      console.log(files);
+    }
 
     </script>
   </head>

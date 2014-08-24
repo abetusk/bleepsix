@@ -423,7 +423,7 @@ bleepsixBoardController.prototype.redraw = function ()
     g_painter.endDraw ();
 
 
-	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
+    g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
 
     // One of these drawChildren calls doesn't clean up after themselves
@@ -440,7 +440,7 @@ bleepsixBoardController.prototype.redraw = function ()
     // Draw text graphics
     //
 
-	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
+    g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     if (this.display_text_flag )
       g_painter.drawText(this.display_text, 10, 680, "rgba(255,255,255,0.5)", 15);
@@ -470,7 +470,7 @@ bleepsixBoardController.prototype.redraw = function ()
 
 
 
-	g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
+    g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     // guiFootprintLibrary leaves the transform matrix (I think)
     // in a bad state.  Need to look at this to make sure it plays
