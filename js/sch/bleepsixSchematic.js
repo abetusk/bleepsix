@@ -1282,7 +1282,8 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   return id;
 }
 
-function find_lower_left( pnt )
+//function find_lower_left( pnt )
+bleepsixSchematic.prototype.find_lower_left = function( pnt )
 {
   var ind, ind_min = 0;
   var x_min, y_min;
@@ -1319,7 +1320,8 @@ function find_lower_left( pnt )
 
 }
 
-function find_upper_right( pnt )
+//function find_upper_right( pnt )
+bleepsixSchematic.prototype.find_upper_right = function( pnt )
 {
   var ind, ind_max = 0;
   var x_max, y_max;
@@ -1424,16 +1426,13 @@ bleepsixSchematic.prototype.drawComponentRectangle = function( art_entry, x, y, 
   var w = parseFloat( art_entry["width"] );
   var h = parseFloat( art_entry["height"] );
 
-  //DEBUGGING
-  if (this.debug)
-    console.log(art_x + " " + art_y + " w: " + w + " h: " + h);
-
   var T = transform;
 
   var rect_coord = [ [ art_x, art_y], [art_x + w, art_y ], [art_x, art_y - h], [art_x + w, art_y - h] ];
   var rect_coord_t = numeric.transpose( numeric.dot( T, numeric.transpose(rect_coord)  ) );
 
-  var lower_left = find_lower_left( rect_coord_t );
+  //var lower_left = find_lower_left( rect_coord_t );
+  var lower_left = this.find_lower_left( rect_coord_t );
 
   var v_t = numeric.dot( T, [w, h] );
 
@@ -2448,6 +2447,7 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
   if (this.draw_id_text_flag)
   {
     var bb = comp["bounding_box"];
+
     g_painter.drawText( comp.id, bb[1][0], bb[1][1], "rgba(0,0,0,0.3)", 12, 0.0, "L", "C" );
   }
 
@@ -2600,9 +2600,12 @@ bleepsixSchematic.prototype.drawElement = function( ele )
 }
 
 // we might have to worry about order...
-bleepsixSchematic.prototype.drawSchematic = function()
+bleepsixSchematic.prototype.drawSchematic = function( respect_headless )
 {
-  this.updateBoundingBox();
+
+  respect_headless = ( (typeof respect_headless === 'undefined') ? true : respect_headless );
+
+  this.updateBoundingBox( undefined, respect_headless );
 
   var sch = this.kicad_sch_json["element"];
 
@@ -2624,7 +2627,8 @@ bleepsixSchematic.prototype.drawSchematic = function()
 
 //--- helper functions
 
-function find_part_art_circle_bbox ( bbox, art_entry )
+//function find_part_art_circle_bbox ( bbox, art_entry )
+bleepsixSchematic.prototype.find_part_art_circle_bbox = function( bbox, art_entry )
 {
   var x = parseFloat( art_entry["x"] );
   var y = parseFloat( art_entry["y"] );
@@ -2638,7 +2642,8 @@ function find_part_art_circle_bbox ( bbox, art_entry )
 
 }
 
-function find_part_art_path_bbox ( bbox, art_entry )
+//function find_part_art_path_bbox ( bbox, art_entry )
+bleepsixSchematic.prototype.find_part_art_path_bbox = function( bbox, art_entry )
 {
   for (var ind in art_entry["path"])
   {
@@ -2654,7 +2659,8 @@ function find_part_art_path_bbox ( bbox, art_entry )
   }
 }
 
-function find_part_art_rectangle_bbox ( bbox, art_entry )
+//function find_part_art_rectangle_bbox ( bbox, art_entry )
+bleepsixSchematic.prototype.find_part_art_rectangle_bbox = function( bbox, art_entry )
 {
 
   var x = parseFloat( art_entry["x"] );
@@ -2671,7 +2677,8 @@ function find_part_art_rectangle_bbox ( bbox, art_entry )
 
 }
 
-function update_bbox_with_point(bbox, x, y )
+//function update_bbox_with_point(bbox, x, y )
+bleepsixSchematic.prototype.update_bbox_with_point = function( bbox, x, y )
 {
   bbox[0][0] = Math.min( bbox[0][0], x );
   bbox[0][1] = Math.min( bbox[0][1], y )
@@ -2680,7 +2687,8 @@ function update_bbox_with_point(bbox, x, y )
   bbox[1][1] = Math.max( bbox[1][1], y );
 }
 
-function find_part_art_arc_bbox ( bbox, art_entry )
+//function find_part_art_arc_bbox ( bbox, art_entry )
+bleepsixSchematic.prototype.find_part_art_arc_bbox = function( bbox, art_entry )
 {
   var sa = parseFloat(art_entry.start_angle);
   var ea = parseFloat(art_entry.end_angle);
@@ -2693,8 +2701,11 @@ function find_part_art_arc_bbox ( bbox, art_entry )
   var px = x + r*Math.cos(sa);
   var py = y + r*Math.sin(sa);
 
-  update_bbox_with_point(bbox,  x + r*Math.cos(sa), y + r*Math.sin(sa) );
-  update_bbox_with_point(bbox,  x + r*Math.cos(ea), y + r*Math.sin(ea) );
+  //update_bbox_with_point(bbox,  x + r*Math.cos(sa), y + r*Math.sin(sa) );
+  //update_bbox_with_point(bbox,  x + r*Math.cos(ea), y + r*Math.sin(ea) );
+
+  this.update_bbox_with_point(bbox,  x + r*Math.cos(sa), y + r*Math.sin(sa) );
+  this.update_bbox_with_point(bbox,  x + r*Math.cos(ea), y + r*Math.sin(ea) );
 
   var ang = [ 0.0, Math.PI/2.0, -Math.PI/2.0, Math.PI ];
 
@@ -2716,12 +2727,14 @@ function find_part_art_arc_bbox ( bbox, art_entry )
   for (var ind in ang)
   {
     if ( (first_angle <= ang[ind]) && (ang[ind] <= second_angle))
-      update_bbox_with_point(bbox, x + r*Math.cos(ang[ind]), y + r*Math.sin(ang[ind]));
+      //update_bbox_with_point(bbox, x + r*Math.cos(ang[ind]), y + r*Math.sin(ang[ind]));
+      this.update_bbox_with_point(bbox, x + r*Math.cos(ang[ind]), y + r*Math.sin(ang[ind]));
   }
 
 }
 
-function find_part_pin_bbox ( bbox, art_entry )
+//function find_part_pin_bbox ( bbox, art_entry )
+bleepsixSchematic.prototype.find_part_pin_bbox = function( bbox, art_entry )
 {
   var l = parseFloat( art_entry["length"] );
   var x = parseFloat( art_entry["x"] );
@@ -2755,7 +2768,8 @@ function find_part_pin_bbox ( bbox, art_entry )
 // Meant to be used for entries in the component cache rather
 // than a schematic.
 //
-function find_part_text_bbox ( coarse_bbox, text_entry )
+//function find_part_text_bbox ( coarse_bbox, text_entry )
+bleepsixSchematic.prototype.find_part_text_bbox = function( coarse_bbox, text_entry )
 {
   var text_x = parseFloat( text_entry["x"] );
   var text_y = parseFloat( text_entry["y"] );
@@ -2813,8 +2827,11 @@ function find_part_text_bbox ( coarse_bbox, text_entry )
   var r = [ [xmin, ymin], [xmin, ymax], [xmax, ymax], [xmax,ymin] ];
   var r_t = numeric.transpose( numeric.dot( transform, numeric.transpose(r) ) );
 
-  var ll = find_lower_left( r_t );
-  var ur = find_upper_right( r_t );
+  //var ll = find_lower_left( r_t );
+  //var ur = find_upper_right( r_t );
+
+  var ll = this.find_lower_left( r_t );
+  var ur = this.find_upper_right( r_t );
 
   var bbox = [ [0,0],[0,0] ];
 
@@ -2838,7 +2855,8 @@ function find_part_text_bbox ( coarse_bbox, text_entry )
 // Schematic uses this information as the base to move and transform it
 // based on the component position in the schematic.
 //
-function find_component_bounding_box( comp )
+//function find_component_bounding_box( comp )
+bleepsixSchematic.prototype.find_component_bounding_box = function( comp )
 {
   var first = true;
   var art = comp["art"];
@@ -2851,15 +2869,24 @@ function find_component_bounding_box( comp )
   {
     var shape = art[ind]["shape"];
 
+    if      (shape == "circle")     { this.find_part_art_circle_bbox    ( bbox, art[ind] ); }
+    else if (shape == "path")       { this.find_part_art_path_bbox      ( bbox, art[ind] ); }
+    else if (shape == "rectangle")  { this.find_part_art_rectangle_bbox ( bbox, art[ind] ); }
+    else if (shape == "arc")        { this.find_part_art_arc_bbox       ( bbox, art[ind] ); }
+
+    /*
     if      (shape == "circle")     { find_part_art_circle_bbox    ( bbox, art[ind] ); }
     else if (shape == "path")       { find_part_art_path_bbox      ( bbox, art[ind] ); }
     else if (shape == "rectangle")  { find_part_art_rectangle_bbox ( bbox, art[ind] ); }
     else if (shape == "arc")        { find_part_art_arc_bbox       ( bbox, art[ind] ); }
+    */
+
   }
 
   for (var ind in pin)
   {
-    find_part_pin_bbox( bbox, pin[ind] );
+    //find_part_pin_bbox( bbox, pin[ind] );
+    this.find_part_pin_bbox( bbox, pin[ind] );
   }
 
   var coarse_bbox = [ [0,0],[0,0] ];
@@ -2870,7 +2897,8 @@ function find_component_bounding_box( comp )
 
   for (var ind in text)
   {
-    find_part_text_bbox( coarse_bbox, text[ind] );
+    //find_part_text_bbox( coarse_bbox, text[ind] );
+    this.find_part_text_bbox( coarse_bbox, text[ind] );
   }
 
   comp["bounding_box"] = bbox;
@@ -3206,6 +3234,8 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
   //console.log(g_component_cache[name]);
 
   var bbox = [ [0,0],[0,0] ];
+
+
   if (name in g_component_cache)
   {
     bbox = g_component_cache[name]["bounding_box"];
@@ -3228,8 +3258,11 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
   var r = [ [ xl, yb ], [ xl, yt ], [ xr, yt], [xr, yb] ];
   var r_t = numeric.transpose( numeric.dot( T, numeric.transpose(r) ) );
 
-  var ll = find_lower_left( r_t );
-  var ur = find_upper_right( r_t );
+  //var ll = find_lower_left( r_t );
+  //var ur = find_upper_right( r_t );
+
+  var ll = this.find_lower_left( r_t );
+  var ur = this.find_upper_right( r_t );
 
   var x = parseFloat( comp_entry["x"] );
   var y = parseFloat( comp_entry["y"] );
@@ -3250,8 +3283,11 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
 
 }
 
-bleepsixSchematic.prototype.updateBoundingBox = function( ele ) 
+bleepsixSchematic.prototype.updateBoundingBox = function( ele, respect_headless ) 
 {
+
+  respect_headless = ( (typeof respect_headless === 'undefined') ? true : respect_headless );
+
   if ( typeof ele == 'undefined' )
   {
     var ind;
@@ -3261,7 +3297,7 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele )
     {
 
       //if (!("bounding_box" in sch[ind]))
-      if (bleepsixSchematicHeadless)
+      if (respect_headless && bleepsixSchematicHeadless)
         continue;
 
       if      ( sch[ind]["type"] == "component")  { this.updateComponentBoundingBox( sch[ind] ); }
@@ -3315,7 +3351,8 @@ bleepsixSchematic.prototype.load_part = function(name, data)
   // component_cache is the cache of unique parts
   g_component_cache[name] = data;
 
-  find_component_bounding_box( g_component_cache[name] );
+  //find_component_bounding_box( g_component_cache[name] );
+  this.find_component_bounding_box( g_component_cache[name] );
   
   this.queued_display_component_count--;
 
@@ -3637,6 +3674,4 @@ bleepsixSchematic.prototype.getSchematicBoundingBox = function()
 if (typeof module !== 'undefined')
 {
   module.exports = bleepsixSchematic;
-
-
 }
