@@ -909,6 +909,12 @@ bleepsixRender.prototype.line = function(x0, y0, x1, y1, color, line_width )
   color      = ( typeof color      !== 'undefined' ? color      : this.default_stroke_color );
   line_width = ( typeof line_width !== 'undefined' ? line_width : this.default_line_width  );
 
+  x0 = parseFloat(x0);
+  y0 = parseFloat(y0);
+
+  x1 = parseFloat(x1);
+  y1 = parseFloat(y1);
+
   //ctx.lineWidth = ( (line_width > 0) ? line_width : this.default_line_width );
   //ctx.strokeStyle = ( (color) ? color : this.default_stroke_color );
   ctx.lineWidth = line_width;
