@@ -3296,7 +3296,6 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele, respect_headless 
     for (ind in sch)
     {
 
-      //if (!("bounding_box" in sch[ind]))
       if (respect_headless && bleepsixSchematicHeadless)
         continue;
 
@@ -3320,10 +3319,9 @@ bleepsixSchematic.prototype.updateBoundingBox = function( ele, respect_headless 
   {
     var t = ele["type"];
 
-    //if (!("bounding_box" in ele))
-    if (bleepsixSchematicHeadless)
+    //if (bleepsixSchematicHeadless) return;
+    if (respect_headless && bleepsixSchematicHeadless)
       return;
-
 
     if      (t == "component")    this.updateComponentBoundingBox( ele );
     else if (t == "noconnect")    this.updatePointBoundingBox( ele );
