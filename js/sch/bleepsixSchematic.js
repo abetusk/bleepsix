@@ -65,8 +65,8 @@ function bleepsixSchematic()
   //this.draw_bounding_box_flag = true;
   this.draw_bounding_box_flag = false;
 
-  this.draw_id_text_flag = true;
-  //this.draw_id_text_flag = false;
+  //this.draw_id_text_flag = true;
+  this.draw_id_text_flag = false;
 
   this.highlight_net = [];
   this.highlight_net_flag = false;

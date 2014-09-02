@@ -113,8 +113,8 @@ function bleepsixBoard()
   //this.flag_display_net_name = false;
   this.flag_display_net_name = true;
 
-  this.draw_id_text_flag = true;
-  //this.draw_id_text_flag = false;
+  //this.draw_id_text_flag = true;
+  this.draw_id_text_flag = false;
 
   //this.flag_bounding_box_speedup = true;
   this.flag_bounding_box_speedup = false;
