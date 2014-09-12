@@ -433,6 +433,7 @@
         ifrm.src = "bleepsixDownloadManager.php?path=" + path;
       }
 
+
       function uploadComplete(x)
       {
         var json_data = JSON.parse( this.response  );
@@ -446,7 +447,6 @@
           g_board_controller.boardUpdate = true;
         }
       }
-
 
       function uploadError()
       {

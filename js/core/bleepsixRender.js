@@ -71,6 +71,11 @@ function bleepsixRender( canvas_param )
   this.default_fill_color = "rgb( 0, 160, 0 )";
 }
 
+bleepsixRender.prototype.setWidthHeight = function ( w , h) {
+  this.canvas.width = w;
+  this.canvas.height = h;
+}
+
 bleepsixRender.prototype.setGrid = function ( val )
 {
 	this.gridMode = val;
