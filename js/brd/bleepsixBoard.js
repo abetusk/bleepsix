@@ -1720,10 +1720,6 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
 
   angle = parseFloat( json_module.angle );
 
-  //DEBUG
-  //console.log("bleepsixBoard.addFootprintData:");
-  //console.log(json_module);
-
   x = parseFloat(x);
   y = parseFloat(y);
 
