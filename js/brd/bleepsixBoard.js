@@ -1736,6 +1736,18 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
   footprint_entry["y"] = y;
   footprint_entry["type"] = "module";
 
+  if ( !footprint_entry.text ) {
+    footprint_entry.text = [ {}, {} ];
+  }
+
+  if ( footprint_entry.text.length < 1 ) {
+    footprint_entry.text.push( { "text" : "" } );
+  }
+
+  if ( footprint_entry.text.length < 2 ) {
+    footprint_entry.text.push( { "text" : "" } );
+  }
+
   footprint_entry.text[0].id = text_ids[0];
   footprint_entry.text[1].id = text_ids[1];
 
