@@ -139,6 +139,8 @@
       "posy": 1181.0, 
       "posx": -1152.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -158,6 +160,8 @@
       "posy": 1181.0, 
       "posx": -896.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -177,6 +181,8 @@
       "posy": 1181.0, 
       "posx": -640.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -196,6 +202,8 @@
       "posy": 1181.0, 
       "posx": -384.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -215,6 +223,8 @@
       "posy": 1181.0, 
       "posx": -128.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -234,6 +244,8 @@
       "posy": 1181.0, 
       "posx": 128.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -253,6 +265,8 @@
       "posy": 1181.0, 
       "posx": 384.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -272,6 +286,8 @@
       "posy": 1181.0, 
       "posx": 640.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -291,6 +307,8 @@
       "posy": 1181.0, 
       "posx": 896.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -310,6 +328,8 @@
       "posy": 1181.0, 
       "posx": 1152.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -329,6 +349,8 @@
       "posy": -1181.0, 
       "posx": 1152.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -348,6 +370,8 @@
       "posy": -1181.0, 
       "posx": 896.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -367,6 +391,8 @@
       "posy": -1181.0, 
       "posx": 640.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -386,6 +412,8 @@
       "posy": -1181.0, 
       "posx": 384.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -405,6 +433,8 @@
       "posy": -1181.0, 
       "posx": 128.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -424,6 +454,8 @@
       "posy": -1181.0, 
       "posx": -128.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -443,6 +475,8 @@
       "posy": -1181.0, 
       "posx": -384.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -462,6 +496,8 @@
       "posy": -1181.0, 
       "posx": -640.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -481,6 +517,8 @@
       "posy": -1181.0, 
       "posx": -896.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -500,6 +538,8 @@
       "posy": -1181.0, 
       "posx": -1152.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

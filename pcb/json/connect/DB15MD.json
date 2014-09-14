@@ -99,6 +99,8 @@
       "posy": 50.0, 
       "posx": -6800.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -118,6 +120,8 @@
       "posy": 50.0, 
       "posx": 6300.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -137,6 +141,8 @@
       "posy": -500.0, 
       "posx": -4000.0, 
       "shape_code": "R", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -156,6 +162,8 @@
       "posy": -500.0, 
       "posx": -2950.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -175,6 +183,8 @@
       "posy": -500.0, 
       "posx": -1850.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -194,6 +204,8 @@
       "posy": -500.0, 
       "posx": -800.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -213,6 +225,8 @@
       "posy": -500.0, 
       "posx": 300.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -232,6 +246,8 @@
       "posy": -500.0, 
       "posx": 1400.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -251,6 +267,8 @@
       "posy": -500.0, 
       "posx": 2450.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -270,6 +288,8 @@
       "posy": -500.0, 
       "posx": 3550.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -289,6 +309,8 @@
       "posy": 600.0, 
       "posx": -3500.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -308,6 +330,8 @@
       "posy": 600.0, 
       "posx": -2400.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -327,6 +351,8 @@
       "posy": 600.0, 
       "posx": -1300.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -346,6 +372,8 @@
       "posy": 600.0, 
       "posx": -250.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -365,6 +393,8 @@
       "posy": 600.0, 
       "posx": 850.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -384,6 +414,8 @@
       "posy": 600.0, 
       "posx": 1900.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -403,6 +435,8 @@
       "posy": 600.0, 
       "posx": 3000.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

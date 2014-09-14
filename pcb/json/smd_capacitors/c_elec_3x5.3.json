@@ -179,6 +179,8 @@
       "posy": 0.0, 
       "posx": 591.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -198,6 +200,8 @@
       "posy": 0.0, 
       "posx": -591.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

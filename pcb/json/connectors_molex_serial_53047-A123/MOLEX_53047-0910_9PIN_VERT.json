@@ -240,6 +240,8 @@
       "posy": 0.0, 
       "posx": -1969.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -259,6 +261,8 @@
       "posy": 0.0, 
       "posx": -1476.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -278,6 +282,8 @@
       "posy": 0.0, 
       "posx": -984.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -297,6 +303,8 @@
       "posy": 0.0, 
       "posx": -492.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -316,6 +324,8 @@
       "posy": 0.0, 
       "posx": 0.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -335,6 +345,8 @@
       "posy": 0.0, 
       "posx": 492.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -354,6 +366,8 @@
       "posy": 0.0, 
       "posx": 984.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -373,6 +387,8 @@
       "posy": 0.0, 
       "posx": 1476.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -392,6 +408,8 @@
       "posy": 0.0, 
       "posx": 1969.0, 
       "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

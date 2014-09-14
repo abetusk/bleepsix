@@ -345,6 +345,8 @@
       "posy": 5906.0, 
       "posx": -5906.0, 
       "shape_code": "R", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -364,6 +366,8 @@
       "posy": 5906.0, 
       "posx": -3937.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -383,6 +387,8 @@
       "posy": 5906.0, 
       "posx": 1969.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -402,6 +408,8 @@
       "posy": 5906.0, 
       "posx": 3937.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -421,6 +429,8 @@
       "posy": 5906.0, 
       "posx": 5906.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -440,6 +450,8 @@
       "posy": -5906.0, 
       "posx": 5906.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -459,6 +471,8 @@
       "posy": -5906.0, 
       "posx": 3937.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -478,6 +492,8 @@
       "posy": -5906.0, 
       "posx": 1969.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -497,6 +513,8 @@
       "posy": -5906.0, 
       "posx": 0.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -516,6 +534,8 @@
       "posy": -5906.0, 
       "posx": -1969.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -535,6 +555,8 @@
       "posy": 5906.0, 
       "posx": -1969.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -554,6 +576,8 @@
       "posy": -5906.0, 
       "posx": -5906.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -573,6 +597,8 @@
       "posy": -5906.0, 
       "posx": -3937.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

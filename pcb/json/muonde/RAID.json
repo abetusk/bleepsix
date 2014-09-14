@@ -105,6 +105,8 @@
       "posy": -750.0, 
       "posx": -2250.0, 
       "shape_code": "C", 
+      "type": "MECA", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -124,6 +126,8 @@
       "posy": -750.0, 
       "posx": 1690.0, 
       "shape_code": "C", 
+      "type": "MECA", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

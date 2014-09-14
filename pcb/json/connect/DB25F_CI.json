@@ -222,6 +222,8 @@
       "posy": 1050.0, 
       "posx": -6500.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -241,6 +243,8 @@
       "posy": 1050.0, 
       "posx": -5400.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -260,6 +264,8 @@
       "posy": 1050.0, 
       "posx": -4350.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -279,6 +285,8 @@
       "posy": 1050.0, 
       "posx": -3250.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -298,6 +306,8 @@
       "posy": 1050.0, 
       "posx": -2200.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -317,6 +327,8 @@
       "posy": 1050.0, 
       "posx": -1100.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -336,6 +348,8 @@
       "posy": 1050.0, 
       "posx": 0.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -355,6 +369,8 @@
       "posy": 1050.0, 
       "posx": 1050.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -374,6 +390,8 @@
       "posy": 1050.0, 
       "posx": 2150.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -393,6 +411,8 @@
       "posy": 1050.0, 
       "posx": 3200.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -412,6 +432,8 @@
       "posy": 1050.0, 
       "posx": 4300.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -431,6 +453,8 @@
       "posy": 1050.0, 
       "posx": 5400.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -450,6 +474,8 @@
       "posy": 1050.0, 
       "posx": 6450.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -469,6 +495,8 @@
       "posy": 1050.0, 
       "posx": -5950.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -488,6 +516,8 @@
       "posy": 1050.0, 
       "posx": -4900.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -507,6 +537,8 @@
       "posy": 1050.0, 
       "posx": -3800.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -526,6 +558,8 @@
       "posy": 1050.0, 
       "posx": -2700.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -545,6 +579,8 @@
       "posy": 1050.0, 
       "posx": -1650.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -564,6 +600,8 @@
       "posy": 1050.0, 
       "posx": -550.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -583,6 +621,8 @@
       "posy": 1050.0, 
       "posx": 500.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -602,6 +642,8 @@
       "posy": 1050.0, 
       "posx": 1600.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -621,6 +663,8 @@
       "posy": 1050.0, 
       "posx": 2700.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -640,6 +684,8 @@
       "posy": 1050.0, 
       "posx": 3750.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -659,6 +705,8 @@
       "posy": 1050.0, 
       "posx": 4850.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }, 
     {
@@ -678,6 +726,8 @@
       "posy": 1050.0, 
       "posx": 5900.0, 
       "shape_code": "R", 
+      "type": "CONN", 
+      "drill_shape": "circle", 
       "orientation": 900
     }
   ], 

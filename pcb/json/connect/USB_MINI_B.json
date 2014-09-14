@@ -108,6 +108,8 @@
       "posy": -630.0, 
       "posx": 1358.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -127,6 +129,8 @@
       "posy": -315.0, 
       "posx": 1358.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -146,6 +150,8 @@
       "posy": 0.0, 
       "posx": 1358.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -165,6 +171,8 @@
       "posy": 315.0, 
       "posx": 1358.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -184,6 +192,8 @@
       "posy": 630.0, 
       "posx": 1358.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -203,6 +213,8 @@
       "posy": -1752.0, 
       "posx": 1319.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -222,6 +234,8 @@
       "posy": -1752.0, 
       "posx": -846.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -241,6 +255,8 @@
       "posy": 1752.0, 
       "posx": 1319.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -260,6 +276,8 @@
       "posy": 1752.0, 
       "posx": -846.0, 
       "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -279,6 +297,8 @@
       "posy": -866.0, 
       "posx": 335.0, 
       "shape_code": "C", 
+      "type": "HOLE", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -298,6 +318,8 @@
       "posy": 866.0, 
       "posx": 335.0, 
       "shape_code": "C", 
+      "type": "HOLE", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 

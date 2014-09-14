@@ -121,6 +121,8 @@
       "posy": 0.0, 
       "posx": -1000.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }, 
     {
@@ -140,6 +142,8 @@
       "posy": 0.0, 
       "posx": 1000.0, 
       "shape_code": "C", 
+      "type": "STD", 
+      "drill_shape": "circle", 
       "orientation": 0
     }
   ], 
