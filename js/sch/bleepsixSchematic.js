@@ -1241,7 +1241,14 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
   comp_entry["text"][0]["x"] = Math.floor(fx + x);
   comp_entry["text"][0]["y"] = Math.floor(fy + y);
   comp_entry["text"][0]["number"] = 0;
-  comp_entry["text"][0]["text"] = json_component.text[0].reference ;
+  //comp_entry["text"][0]["text"] = json_component.text[0].reference ;
+  comp_entry["text"][0]["text"] = "";
+  if ( ( "text" in json_component ) && 
+       ( json_component.text.length > 0) &&
+       ( "reference" in json_component.text[0] ) ) {
+    comp_entry["text"][0]["text"] = json_component.text[0].reference ;
+   }
+
   //comp_entry["text"][0]["id"] = id + "," + text_ids[0]
   comp_entry["text"][0]["id"] = text_ids[0]
 
@@ -1261,10 +1268,16 @@ bleepsixSchematic.prototype.addComponentData = function( json_component, x, y, t
 
   //UUUUHHHHHGGG!!!
   // I'll have to clean this up
-  if (typeof json_component.text[1].text === 'undefined')
-    comp_entry["text"][1]["text"] = json_component["name"] ;
-  else
+  comp_entry["text"][1]["text"] = "";
+  if ( ( "text" in json_component ) &&
+       ( json_component.text.length > 1 ) &&
+       ( "text" in json_component.text[1] ) ) {
+  //if (typeof json_component.text[1].text === 'undefined')
     comp_entry["text"][1]["text"] = json_component.text[1].text;
+  }
+  else if ("name" in json_component) {
+    comp_entry["text"][1]["text"] = json_component["name"] ;
+  }
 
   //console.log("adding component");
   //console.log(json_component);

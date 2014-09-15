@@ -258,7 +258,12 @@ bleepsixBoard.prototype._createId = function( parent_id )
 
 bleepsixBoard.prototype.getReferenceName = function( comp_ref )
 {
-  var ref_name = comp_ref.text[0].reference;
+  var ref_name = "";
+  if ( comp_ref && comp_ref.text && (comp_ref.text.length > 0) &&
+       ( comp_ref.text[0].reference ) )
+  {
+    ref_name = comp_ref.text[0].reference;
+  }
   var ref_num = 1;
 
   if (ref_name in this.reference_number)
@@ -2578,8 +2583,12 @@ bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f0
   //
   if (draw_f01)
   {
-    this.drawFootprintTextField( data["text"][0], 0, 0, -ang );
-    this.drawFootprintTextField( data["text"][1], 0, 0, -ang );
+    if ("text" in data) {
+      if (data["text"].length > 0 )
+        this.drawFootprintTextField( data["text"][0], 0, 0, -ang );
+      if (data["text"].length > 1 )
+        this.drawFootprintTextField( data["text"][1], 0, 0, -ang );
+    }
   }
 
   if ( data.unknownFlag )
