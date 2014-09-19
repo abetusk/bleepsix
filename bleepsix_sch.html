@@ -96,6 +96,14 @@
 
 
     <style>
+      body {
+        padding: 0px 0px 0px 0px;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow:hidden;
+      }
+
       .file_button_container,
       .file_button_container input {
         position: absolute;
@@ -330,6 +338,23 @@
       g_schnetwork = new bleepsixSchematicNetwork( MEOWURL );
 
       canvasFocus();
+
+      var w = $(window).width();
+      var h = $(window).height();
+      var canv = document.getElementById('canvas');
+      canv.width = w;
+      canv.height = h;
+      g_painter.setWidthHeight( w, h );
+
+      $(window).resize( function(ee) {
+        var w = $(window).width();
+        var h = $(window).height();
+        var canv = document.getElementById('canvas');
+        canv.width = w;
+        canv.height = h;
+        g_painter.setWidthHeight( w, h );
+      });
+
 
     });
 

@@ -72,8 +72,13 @@ function bleepsixRender( canvas_param )
 }
 
 bleepsixRender.prototype.setWidthHeight = function ( w , h) {
-  this.canvas.width = w;
-  this.canvas.height = h;
+  //this.canvas.width = w;
+  //this.canvas.height = h;
+
+  this.width = w;
+  this.height = h;
+
+  this.setView(w,h, this.zoom);
 }
 
 bleepsixRender.prototype.setGrid = function ( val )

@@ -42,6 +42,15 @@ function meowmeow()
 
 }
 
+function resize_canvas(w,h) 
+{
+  var canv = document.getElementById('canvas');
+  canv.width = w;
+  canv.height = h;
+
+  g_painter.setWidthHeight( w, h );
+}
+
 function successSnapshotPicture(x,y,z)
 {
   /*
