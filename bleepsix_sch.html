@@ -176,27 +176,29 @@
     <script src='js/meowconfig.js'></script>
     <script>
 
-	  var drawing = true,
-	      running = true,
-	      mouseDown = false,
-	      visible = true;
-	  
-	  var msec = 0;
-	  var frame = 0;
-	  var lastTime = new Date();
-	  
+    var drawing = true,
+      running = true,
+      mouseDown = false,
+      visible = true;
+
+    var msec = 0;
+    var frame = 0;
+    var lastTime = new Date();
+
     var g_snapgrid = null;
-	  var g_painter = null;
+    var g_painter = null;
     var g_schematic_controller = null;
     var g_controller = null;
 
     var g_imgcache = null;
 
 
-	  var g_canvas = "canvas";
-	  var g_context = null;
+    var g_canvas = "canvas";
+    var g_context = null;
 
     var g_schnetwork = null;
+
+    var g_show_fps = false;
 
     function canvasFocus()
     {
@@ -206,7 +208,7 @@
     }
 
     function loop() {
-		
+
       frame = frame + 1;
       if ( frame >= 30 ) {
         var d = new Date();
@@ -214,8 +216,12 @@
         lastTime = d;
         frame = 0;
       }
-      var container = document.querySelector( 'section' );
-      container.innerHTML = "FPS: " + (1000.0/msec);
+
+      if (g_show_fps) 
+      {
+        var container = document.querySelector( 'section' );
+        container.innerHTML = "FPS: " + (1000.0/msec);
+      }
 
       var saved_dirty = g_painter.dirty_flag;
 
@@ -327,7 +333,7 @@
 
     });
 
-	  if ( !window.requestAnimationFrame ) {
+    if ( !window.requestAnimationFrame ) {
         window.requestAnimationFrame = ( function() {
           return window.webkitRequestAnimationFrame ||
           window.mozRequestAnimationFrame ||
@@ -553,7 +559,7 @@
       style='position: absolute; left: 0; top: 0; border:1px solid #111; z-index:0;' 
       tabindex='0'> </canvas>
 
-	<section style='position: absolute; left: 20px; top: 720px; ' ></section>
+  <section style='position: absolute; left: 20px; top: 720px; ' ></section>
 
 <!-- Piwik -->
 <script type="text/javascript">

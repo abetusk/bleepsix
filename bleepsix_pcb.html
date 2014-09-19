@@ -155,53 +155,59 @@
       //var MEOWURL = "https://www.meowcad.com";
       //var MEOWURL = "https://localhost";
 
-	  var drawing = true,
-	      running = true,
-	      mouseDown = false,
-	      visible = true;
-	  
-	  var g_msec = 1;
-	  var frame = 0;
-	  var lastTime = new Date();
-	  
-      var g_snapgrid = null;
-	  var g_painter = null;
-      var g_board_controller = null; 
+    var drawing = true,
+        running = true,
+        mouseDown = false,
+        visible = true;
 
-      var g_brdnetwork = null;
-      var g_controller = null;
-      //var g_parameter = null;
+    var g_msec = 1;
+    var frame = 0;
+    var lastTime = new Date();
 
-      var g_imgcache = null;
+    var g_snapgrid = null;
+    var g_painter = null;
+    var g_board_controller = null; 
 
-      var g_canvas = "canvas";
-      var g_context = null;
+    var g_brdnetwork = null;
+    var g_controller = null;
+    //var g_parameter = null;
+
+    var g_imgcache = null;
+
+    var g_canvas = "canvas";
+    var g_context = null;
 
 
-      function canvasFocus()
-      {
-        //console.log("canvas focus");
-        var c = document.getElementById("canvas");
-        c.focus();
-      }
+    var g_show_fps = false;
 
-	  function loop() {
-		
-		frame = frame + 1;
-		if ( frame >= 30 ) {
-			var d = new Date();
-			g_msec = (d.getTime() - lastTime ) / frame;
-			lastTime = d;
-			frame = 0;
-		}
-		var container = document.querySelector( 'section' );
-		container.innerHTML = "FPS: " + (1000.0/g_msec);
+    function canvasFocus()
+    {
+      //console.log("canvas focus");
+      var c = document.getElementById("canvas");
+      c.focus();
+    }
 
-			
-		g_board_controller.redraw();
-		//requestAnimationFrame( loop, 1 );		
-		requestAnimationFrame( loop );
-	  }
+    function loop() {
+    
+    frame = frame + 1;
+    if ( frame >= 30 ) {
+      var d = new Date();
+      g_msec = (d.getTime() - lastTime ) / frame;
+      lastTime = d;
+      frame = 0;
+    }
+
+    if (g_show_fps)
+    {
+      var container = document.querySelector( 'section' );
+      container.innerHTML = "FPS: " + (1000.0/g_msec);
+    }
+
+
+    g_board_controller.redraw();
+    //requestAnimationFrame( loop, 1 );
+    requestAnimationFrame( loop );
+    }
 
       $(document).ready( function() {
 
@@ -219,12 +225,12 @@
 
         g_snapgrid = new snapGrid(true, "deci-mil", 50);
 
-		g_painter = new bleepsixRender( "canvas" );
+        g_painter = new bleepsixRender( "canvas" );
         g_painter.setGrid ( 1 );
 
         g_board_controller = new bleepsixBoardController();
-        g_board_controller.init( "canvas" );		
-		g_context = g_board_controller.context;
+        g_board_controller.init( "canvas" );
+        g_context = g_board_controller.context;
 
         g_controller = g_board_controller;
 
@@ -238,7 +244,7 @@
         g_imgcache.add( "cursor:noconn", img_base + "/cursor_custom_noconn_s24.png" );
 
 
-		requestAnimationFrame( loop, 1 );
+        requestAnimationFrame( loop, 1 );
 
         /*
         var userId = $.cookie("userId");
@@ -302,20 +308,20 @@
         canvasFocus();
 
       });
-	  
-	  if ( !window.requestAnimationFrame ) {
-		  window.requestAnimationFrame = ( function() {
-			
-			return window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.oRequestAnimationFrame ||
-			window.msRequestAnimationFrame ||
-			function( callback, element ) {
-			  window.setTimeout( callback, 1000 );
-			};
-			
-		  } )();
-		}
+    
+      if ( !window.requestAnimationFrame ) {
+        window.requestAnimationFrame = ( function() {
+        
+        return window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function( callback, element ) {
+          window.setTimeout( callback, 1000 );
+        };
+        
+        } )();
+      }
 
       function btn_func()
       {
@@ -554,7 +560,7 @@
       tabindex='0'> 
     </canvas>
 
-	<section  style='position: absolute; left: 20px; top: 720px; '></section>
+  <section  style='position: absolute; left: 20px; top: 720px; '></section>
 
     <!-- 
     <button 
