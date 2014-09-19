@@ -908,8 +908,14 @@ bleepsixSchBrdOp.prototype.opUndo = function( src )
 
     //console.log(this.opHistory[ this.opHistoryEnd ] );
 
-    this.opCommand( this.opHistory[ this.opHistoryEnd ], true, true );
-    this.opHistoryEnd--;
+    var start_group_id = this.opHistory[ this.opHistoryEnd ].groupId ;
+    while ( ( this.opHistoryEnd >= 0 ) &&
+            ( this.opHistory[ this.opHistoryEnd ].groupId == start_group_id ) )
+    {
+      this.opCommand( this.opHistory[ this.opHistoryEnd ], true, true );
+      this.opHistoryEnd--;
+    }
+
   }
   else
   {
@@ -924,8 +930,15 @@ bleepsixSchBrdOp.prototype.opRedo = function( src )
 
   if ( this.opHistoryEnd < (this.opHistory.length-1) )
   {
-    this.opHistoryEnd++;
-    this.opCommand( this.opHistory[ this.opHistoryEnd ], false, true );
+
+    var start_group_id = this.opHistory[ this.opHistoryEnd+1 ].groupId;
+
+    while ( (this.opHistoryEnd < (this.opHistory.length-1) ) &&
+            (this.opHistory[ this.opHistoryEnd+1 ].groupId == start_group_id) )
+    {
+      this.opHistoryEnd++;
+      this.opCommand( this.opHistory[ this.opHistoryEnd ], false, true );
+    }
   }
   else
   {

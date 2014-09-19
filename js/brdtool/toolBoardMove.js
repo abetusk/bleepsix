@@ -68,6 +68,8 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   this.cursorSize = 6;
   this.cursorWidth = 1;
 
+  this.groupId = String(guid());
+
 
   // Since we hand back control on a mouse up instead of a mouse down event
   // and we were handed control from a mouse down event, we need to ignore
@@ -397,6 +399,8 @@ toolBoardMove.prototype._testForTrackCollisionAll = function( ref )
 //
 // 
 
+// deprecated...
+//
 toolBoardMove.prototype._createPadModuleNets = function( pads )
 {
   var board = g_board_controller.board;
@@ -415,6 +419,7 @@ toolBoardMove.prototype._createPadModuleNets = function( pads )
     op.type = "net";
     op.data = { net_number : newnet.net_number,
                 net_name : newnet.net_name };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
     var brd_pad_ref = board.refLookup( pad.id );
@@ -433,12 +438,15 @@ toolBoardMove.prototype._createPadModuleNets = function( pads )
     op2.type = "edit";
     op2.id = [ brd_pad_ref.id ];
     op2.data = { element: [ new_pad ], oldElement: [ old_pad ] };
+    op2.groupId = this.groupId;
     g_board_controller.opCommand( op2 );
 
   }
 
 }
 
+// deprecated...
+//
 toolBoardMove.prototype._patchUpModuleNets = function()
 {
 
@@ -494,6 +502,7 @@ toolBoardMove.prototype._patchUpModuleNets = function()
           op.action = "update";
           op.type = "mergenet";
           op.data = { net_number0: brd_ele.netcode, net_number1: brd_pad_ref.net_number };
+          op.groupId = this.groupId;
           g_board_controller.opCommand( op );
 
         }
@@ -514,6 +523,7 @@ toolBoardMove.prototype._patchUpModuleNets = function()
   var map_op = { source: "brd", destination: "brd" };
   map_op.action = "update";
   map_op.type = "schematicnetmap";
+  map_op.groupId = this.groupId;
   g_board_controller.opCommand( map_op );
 
 
@@ -584,6 +594,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
     net_op.type = "net";
     net_op.data = { net_number : net.net_number,
                 net_name : net.net_name };
+    net_op.groupId = this.groupId;
     g_board_controller.opCommand( net_op );
 
   }
@@ -615,6 +626,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
       update_op.type = "edit";
       update_op.id = [ brd_track_ref.id ];
       update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+      update_op.groupId = this.groupId;
       g_board_controller.opCommand( update_op );
 
     }
@@ -643,6 +655,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
         update_op.type = "edit";
         update_op.id = [ brd_ref.id ];
         update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+        update_op.groupId = this.groupId;
         g_board_controller.opCommand( update_op );
 
       }
@@ -688,6 +701,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
           op.action = "update";
           op.type = "mergenet";
           op.data = { net_number0: brd_ele.netcode, net_number1: ref.netcode };
+          op.groupId = this.groupId;
           g_board_controller.opCommand( op );
         }
 
@@ -713,6 +727,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
             op.action = "update";
             op.type = "mergenet";
             op.data = { net_number0: brd_ele.net_number, net_number1: ref.netcode };
+            op.groupId = this.groupId;
             g_board_controller.opCommand( op );
           }
         }
@@ -740,6 +755,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
             op.action = "update";
             op.type = "mergenet";
             op.data = { net_number0: brd_ele.netcode, net_number1: pad.net_number };
+            op.groupId = this.groupId;
             g_board_controller.opCommand( op );
           }
         }
@@ -771,6 +787,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
               op.action = "update";
               op.type = "mergenet";
               op.data = { net_number0: ele_pad.net_number, net_number1: brd_pad.net_number };
+              op.groupId = this.groupId;
               g_board_controller.opCommand( op );
             }
 
@@ -790,6 +807,7 @@ toolBoardMove.prototype._patchUpTrackNets = function()
   var map_op = { source: "brd", destination: "brd" };
   map_op.action = "update";
   map_op.type = "schematicnetmap";
+  map_op.groupId = this.groupId;
   g_board_controller.opCommand( map_op );
 
 
@@ -839,6 +857,7 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
   net_op.type = "net";
   net_op.data = { net_number : newnet.net_number,
               net_name : newnet.net_name };
+  net_op.groupId = this.groupId;
   g_board_controller.opCommand( net_op );
 
 
@@ -856,6 +875,7 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
   update_op.type = "edit";
   update_op.id = [ brd_track_ref.id ];
   update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+  update_op.groupId = this.groupId;
   g_board_controller.opCommand( update_op );
 
 
@@ -887,6 +907,7 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
         op.action = "update";
         op.type = "mergenet";
         op.data = { net_number0: brd_ele.netcode, net_number1: brd_track_ref.netcode };
+        op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
       }
@@ -924,6 +945,7 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
           op.action = "update";
           op.type = "mergenet";
           op.data = { net_number0: pad.net_number, net_number1: brd_track_ref.netcode };
+          op.groupId = this.groupId;
           g_board_controller.opCommand( op );
         }
 
@@ -939,6 +961,7 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
   var map_op = { source: "brd", destination: "brd" };
   map_op.action = "update";
   map_op.type = "schematicnetmap";
+  map_op.groupId = this.groupId;
   g_board_controller.opCommand( map_op );
 
 }
@@ -949,6 +972,9 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
 //----------------------------------------------
 //----------------------------------------------
 
+// This should be double checkd, there might be some lurking
+// bugs...
+//
 toolBoardMove.prototype._patchUpNets = function()
 {
 
@@ -992,6 +1018,7 @@ toolBoardMove.prototype._patchUpNets = function()
     net_op.type = "net";
     net_op.data = { net_number : net.net_number,
                 net_name : net.net_name };
+    net_op.groupId = this.groupId;
     g_board_controller.opCommand( net_op );
 
   }
@@ -1023,6 +1050,7 @@ toolBoardMove.prototype._patchUpNets = function()
       update_op.type = "edit";
       update_op.id = [ brd_track_ref.id ];
       update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+      update_op.groupId = this.groupId;
       g_board_controller.opCommand( update_op );
 
     }
@@ -1050,6 +1078,7 @@ toolBoardMove.prototype._patchUpNets = function()
         update_op.type = "edit";
         update_op.id = [ pad_ref.id ];
         update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+        update_op.groupId = this.groupId;
         g_board_controller.opCommand( update_op );
 
       }
@@ -1091,6 +1120,7 @@ toolBoardMove.prototype._patchUpNets = function()
           op.action = "update";
           op.type = "mergenet";
           op.data = { net_number0: brd_ref.netcode, net_number1: ele_ref.netcode };
+          op.groupId = this.groupId;
           g_board_controller.opCommand( op );
         }
 
@@ -1117,6 +1147,7 @@ toolBoardMove.prototype._patchUpNets = function()
             op.action = "update";
             op.type = "mergenet";
             op.data = { net_number0: pad.net_number, net_number1: ele_ref.netcode };
+            op.groupId = this.groupId;
             g_board_controller.opCommand( op );
           }
         }
@@ -1145,6 +1176,7 @@ toolBoardMove.prototype._patchUpNets = function()
             op.action = "update";
             op.type = "mergenet";
             op.data = { net_number0: brd_ref.netcode, net_number1: pad.net_number };
+            op.groupId = this.groupId;
             g_board_controller.opCommand( op );
           }
         }
@@ -1176,6 +1208,7 @@ toolBoardMove.prototype._patchUpNets = function()
               op.action = "update";
               op.type = "mergenet";
               op.data = { net_number0: ele_pad.net_number, net_number1: brd_pad.net_number };
+              op.groupId = this.groupId;
               g_board_controller.opCommand( op );
             }
 
@@ -1195,8 +1228,8 @@ toolBoardMove.prototype._patchUpNets = function()
   var map_op = { source: "brd", destination: "brd" };
   map_op.action = "update";
   map_op.type = "schematicnetmap";
+  map_op.groupId = this.groupId;
   g_board_controller.opCommand( map_op );
-
 
 
 }
@@ -1209,6 +1242,8 @@ toolBoardMove.prototype._patchUpNets = function()
 
 
 
+// deprecated...
+//
 toolBoardMove.prototype._patchUpNets_old = function()
 {
 
@@ -1277,7 +1312,7 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         {
           op.id.push( this.selectedElement[ind].id );
         }
-
+        op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
 
@@ -1523,6 +1558,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
       op.data.element.push( clonedData );
     }
 
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
 
@@ -1614,6 +1650,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
           op.data = { dx: wdx, dy: wdy,
           rotateCount : this.rotateCount,
           cx : com.x, cy: com.y };
+          op.groupId = this.groupId;
           g_board_controller.opCommand( op );
         }
 
@@ -1630,6 +1667,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
         op.data = { element : [ clonedCZone ] };
 
+        op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
 

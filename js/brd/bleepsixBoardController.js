@@ -128,6 +128,8 @@ bleepsixBoardController.prototype.opRedo = function( )
 bleepsixBoardController.prototype.opCommand = function( msg )
 {
 
+  var group_id = ( (typeof msg.groupId === 'undefined') ? String(guid()) : msg.groupId );
+
   // We're going to delete the module in the board before
   // we mirror the operations in the schematic, so save
   // the ids that need to be deleted from the schematic,
@@ -145,6 +147,13 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       delModuleList.push( { id: msg.id[ind], type: brd_ele_ref.type } );
     }
   }
+
+  // Batch operations together so we can undo/redo properly
+  //
+  msg.groupId = group_id;
+
+  //DEBUG
+  console.log(">>>", msg, group_id )
 
   // Apply the operation to the board
   //
@@ -186,6 +195,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.type = "componentData";
     schop.data = { componentData: ucomp, x: 0, y: 0 };
     schop.id = msg.id;
+    schop.groupId = group_id;
 
     this.op.opCommand( schop );
 
@@ -209,6 +219,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       netop.scope = msg.scope;
       netop.action = "update";
       netop.type = "schematicnetmap";
+      netop.groupId = group_id;
       this.op.opCommand( netop );
 
       if ( g_brdnetwork && (msg.scop == "network") )
@@ -238,6 +249,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     
     schop.id = [];
     schop.data = { element : [] };
+    schop.groupId = group_id;
 
     for ( var ind in delModuleList )
     {

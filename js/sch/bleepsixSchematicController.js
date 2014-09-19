@@ -115,6 +115,9 @@ function bleepsixSchematicController() {
 
 bleepsixSchematicController.prototype.opCommand = function ( msg )
 {
+
+  var group_id = ( (typeof msg.groupId === 'undefined') ? String(guid()) : msg.groupId );
+
   var delComponentList = [];
   if ((msg.action == "delete") && (msg.type == "group"))
   {
@@ -127,6 +130,11 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     }
 
   }
+
+  // We need an identifier to group the messages together so we can
+  // undo it if necessary.
+  //
+  msg.groupId = group_id;
 
   this.op.opCommand( msg );
   this.schematicUpdate = true;
@@ -172,6 +180,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
       brdop.data = { footprintData: module , x: 0, y: 0 };
       brdop.id = comp_ref.id;
       brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
+      brdop.grouPId = group_id;
       this.op.opCommand( brdop );
 
       if ( g_schnetwork && (msg.scope == "network") )
@@ -222,6 +231,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     brdop.scope = msg.scope;
     brdop.action = msg.action;
     brdop.type = "group";
+    brdop.groupId = group_id;
     brdop.id = [];
     brdop.data = { element : [] }
 
@@ -256,6 +266,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   var net_op = { source: "sch", destination: "sch" };
   net_op.action = "update";
   net_op.type = "net";
+  net_op.groupId = group_id;
   net_op.data = sch_net_code_map;
 
   //console.log("TESTING");
@@ -265,6 +276,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   var brd_net_op = { source: "sch", destination: "brd" };
   brd_net_op.action = "update";
   brd_net_op.type = "schematicnetmap";
+  brd_net_op.groupId = group_id;
   //brd_net_op.data = sch_net_code_map;
   this.op.opCommand( brd_net_op );
 
