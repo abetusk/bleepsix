@@ -87,6 +87,12 @@ function bleepsixSchematicController() {
     this.tool = new toolNav ();
     this.tabCommunication = new bleepsixTabCommunication();
   }
+
+
+  this.opHistoryStart = 0;
+  this.opHistoryN = 0;
+  this.opHistory = [];
+
   
   this.moving = false;
   this.movingLibrary = false;
@@ -116,9 +122,209 @@ function bleepsixSchematicController() {
   this.drawSnapArea = false;
 }
 
+//--------------------------
+
+bleepsixSchematicController.prototype._opDebugPrint = function ( )
+{
+  console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
+  console.log( "  opHistoryIndex: " + this.opHistoryIndex );
+  console.log( "  opHistoryStart: " + this.opHistoryStart );
+  console.log( "  opHistoryN: " + this.opHistoryN );
+  console.log( "  opHistory.length: " + this.opHistory.length);
+  console.log( this.opHistory );
+
+}
+
+bleepsixSchematicController.prototype.opHistoryUpdate = function ( msg )
+{
+  //var inverseFlag = ( (typeof msg.inverseFlag === "undefined") ? false : msg.inverseFlag );
+  var replayFlag = ( (typeof msg.replayFlag === "undefined") ? false : msg.replayFlag );
+
+  if (!replayFlag)
+  {
+    var n = this.opHistoryN;
+    var hist = this.opHistory;
+    if ( n < hist.length ) { hist[n] = msg; }
+    else                   { hist.push( msg ); }
+
+    this.opHistoryN++;
+    this.opHistory = hist.slice(0,this.opHistoryN);
+  }
+
+}
+
+
+bleepsixSchematicController.prototype.opUndo = function ( )
+{
+  //this.op.opUndo();
+
+  if ( this.opHistoryN > 0 )
+  {
+
+    var ind = this.opHistoryN-1;
+
+    var start_group_id = this.opHistory[ ind ].groupId ;
+    while ( ( this.opHistoryN > 0 ) &&
+            ( this.opHistory[ ind ].groupId == start_group_id ) )
+    {
+
+      var op = this.opHistory[ind];
+
+      if ( ("type" in op) && (op["type"] == "batch") )
+      {
+        var batch_op = op;
+        var ops = batch_op["ops"];
+
+        for (var i=0; i<ops.length; i++)
+        {
+          ops[i].inverseFlag = true;
+          ops[i].replayFlag = true;
+          //this.op.opCommand( ops[i], true, true );
+          this.op.opCommand( ops[i] );
+        }
+
+        if ( batch_op.scope == "network" )
+        {
+
+          for (var i=0; i<ops.length; i++)
+          {
+            ops[i].inverseFlag = true;
+            ops[i].replayFlag = true;
+            g_schnetwork.projectop( ops[i] );
+          }
+
+        }
+
+      }
+      else
+      {
+
+        //this.opCommand( this.opHistory[ ind ], true, true );
+        op.inverseFlag = true;
+        op.replayFlag = true;
+
+        //this.op.opCommand( op, true, true );
+        this.op.opCommand( op );
+        if ( op.scope == "network" )
+        {
+          g_schnetwork.projectop( op );
+        }
+
+      }
+
+      this.opHistoryN--;
+      ind = this.opHistoryN-1;
+
+    }
+
+  }
+  else
+  {
+    console.log("bleepsixSchematicController.opUndo: already at first element, can't undo any further");
+  }
+
+  //DEBUG
+  this._opDebugPrint();
+
+  this.schematicUpdate = true;
+  g_painter.dirty_flag = true;
+}
+
+bleepsixSchematicController.prototype.opRedo = function ( )
+{
+  //this.op.opRedo();
+
+  if ( this.opHistoryN < this.opHistory.length )
+  {
+
+    var ind = this.opHistoryN;
+
+    //DEBUG
+    console.log(">> redoing...");
+    console.log( ind, this.opHistory );
+    console.log( this.opHistory[ind] );
+
+    var start_group_id = this.opHistory[ ind ].groupId ;
+
+    //DEBUG
+    console.log( start_group_id, this.opHistory[ind].groupId );
+
+    while ( ( this.opHistoryN < this.opHistory.length ) &&
+            ( this.opHistory[ ind ].groupId == start_group_id ) )
+    {
+
+      //DEBUG
+      console.log( ">>>", start_group_id, this.opHistory[ind].groupId );
+
+      var op = this.opHistory[ind];
+
+      if ( ("type" in op) && (op["type"] == "batch") )
+      {
+        var batch_op = op;
+        var ops = batch_op["ops"];
+
+        for (var i=0; i<ops.length; i++)
+        {
+          ops[i].inverseFlag = false;
+          ops[i].replayFlag = true;
+          //this.op.opCommand( ops[i], false, true );
+          this.op.opCommand( ops[i] );
+        }
+
+        if ( batch_op.scope == "network" )
+        {
+
+          for (var i=0; i<ops.length; i++)
+          {
+            ops[i].inverseFlag = false;
+            ops[i].replayFlag = true;
+            g_schnetwork.projectop( ops[i] );
+          }
+
+        }
+
+      }
+      else
+      {
+
+        //DEBUG
+        console.log(">>normal redo op>>", op);
+
+        //this.opCommand( this.opHistory[ ind ], true, true );
+        op.inverseFlag = false;
+        op.replayFlag = true;
+
+        //this.op.opCommand( op, false, true );
+        this.op.opCommand( op );
+        if ( op.scope == "network" )
+        {
+          g_schnetwork.projectop( op );
+        }
+
+      }
+
+      this.opHistoryN++;
+      ind = this.opHistoryN;
+
+    }
+
+  }
+  else
+  {
+    console.log("bleepsixSchematicController.opUndo: already at first element, can't undo any further");
+  }
+
+
+
+  this.schematicUpdate = true;
+  g_painter.dirty_flag = true;
+}
+
+
 bleepsixSchematicController.prototype.opCommand = function ( msg )
 {
-
+  var inverseFlag = ( (typeof msg.inverseFlag === "undefined") ? false : msg.inverseFlag );
+  var replayFlag = ( (typeof msg.replayFlag === "undefined") ? false : msg.replayFlag );
   var group_id = ( (typeof msg.groupId === 'undefined') ? String(guid()) : msg.groupId );
 
   var delComponentList = [];
@@ -138,6 +344,9 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   // undo it if necessary.
   //
   msg.groupId = group_id;
+  msg.inverseFlag = false;
+  msg.replayFlag = false;
+
 
   this.op.opCommand( msg );
   this.schematicUpdate = true;
@@ -152,6 +361,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   {
     g_schnetwork.projectop( msg );
   }
+
+  this.opHistoryUpdate( msg );
 
 
   // If we've added a component, we need to add an 'unknown'
@@ -183,13 +394,18 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
       brdop.data = { footprintData: module , x: 0, y: 0 };
       brdop.id = comp_ref.id;
       brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
-      brdop.grouPId = group_id;
+      brdop.groupId = group_id;
+      brdop.inverseFlag = false;
+      brdop.replayFlag = false;
       this.op.opCommand( brdop );
+
 
       if ( g_schnetwork && (msg.scope == "network") )
       {
         g_schnetwork.projectop( brdop );
       }
+
+      this.opHistoryUpdate( brdop );
 
     }
 
@@ -235,6 +451,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
     brdop.action = msg.action;
     brdop.type = "group";
     brdop.groupId = group_id;
+    brdop.inverseFlag = false;
+    brdop.replayFlag = false;
     brdop.id = [];
     brdop.data = { element : [] }
 
@@ -250,6 +468,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
       this.op.opCommand( brdop );
       if ( g_schnetwork && (msg.scope == "network") )
         g_schnetwork.projectop( brdop );
+
+      this.opHistoryUpdate( brdop );
     }
 
 
@@ -259,9 +479,6 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   // Order is important as the board needs to have it's sister
   // schematic updated with the netmap.
   //
-  //TESTING
-
-  //var sch_net_code_map = this.schematic.constructNet();
 
   this.schematic.constructNet();
   var sch_net_code_map = this.schematic.getPinNetMap();
@@ -270,77 +487,29 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   net_op.action = "update";
   net_op.type = "net";
   net_op.groupId = group_id;
+  net_op.inverseFlag = false;
+  net_op.replayFlag = false;
   net_op.data = sch_net_code_map;
-
-  //console.log("TESTING");
-  //console.log(net_op);
   this.op.opCommand( net_op );
+
 
   var brd_net_op = { source: "sch", destination: "brd" };
   brd_net_op.action = "update";
   brd_net_op.type = "schematicnetmap";
   brd_net_op.groupId = group_id;
-  //brd_net_op.data = sch_net_code_map;
+  brd_net_op.inverseFlag = false;
+  brd_net_op.replayFlag = false;
   this.op.opCommand( brd_net_op );
+
 
   if (g_schnetwork && (msg.scope == "network") )
   {
-
-    g_schnetwork.projectop( net_op);
-    g_schnetwork.projectop( brd_net_op);
-
+    g_schnetwork.projectop( net_op );
+    g_schnetwork.projectop( brd_net_op );
   }
 
-
-
-  /*
-  if (   ((msg.action == "add") ||
-          (msg.action == "delete"))
-      && ((msg.type == "componentData") ||
-          (msg.type == "component") ||
-          (msg.type == "group")) )
-  {
-    console.log("ref_lookup:");
-    console.log( this.schematic.ref_lookup );
-    console.log( this.schematic.kicad_sch_json );
-    console.log("  returned id " + msg.id + ", got ref:");
-
-    var comp_ref = this.schematic.refLookup( msg.id );
-    console.log(comp_ref);
-
-    var module = 
-      this.board.makeUnknownModule( 1000, 
-                                    comp_ref.id, 
-                                    [ comp_ref.text[0].id, comp_ref.text[1].id ] );
-    console.log("created unknown module:");
-    console.log(module);
-
-    module.text[0].text = comp_ref.text[0].text;
-    module.text[0].visible = comp_ref.text[0].visible;
-
-    module.text[1].text = comp_ref.text[1].text;
-    module.text[1].visible = comp_ref.text[1].visible;
-
-    var brdop = { source: "sch", destination: "brd" };
-    brdop.scope = msg.scope;
-    brdop.action = msg.action;
-    brdop.type = "footprintData";
-    brdop.data = { footprintData: module , x: 0, y: 0 };
-    brdop.id = comp_ref.id;
-    brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
-    this.op.opCommand( brdop );
-
-    if ( g_schnetwork && (msg.scope == "network") )
-    {
-      g_schnetwork.projectop( brdop );
-    }
-
-    console.log("finishing up controller opCommand, checking module existence");
-    console.log( this.board.refLookup( comp_ref.id ) );
-    console.log( this.board.refLookup( module.id ) );
-
-  }
-  */
+  var batch_op = { "type" : "batch", "ops" : [ net_op, brd_net_op ], "groupId" : group_id, "scope" : msg.scope  };
+  this.opHistoryUpdate( batch_op );
 
 }
 
@@ -367,20 +536,6 @@ bleepsixSchematicController.prototype.highlightBoardNetsFromSchematic= function 
 
 
 //--------------------------------------
-
-bleepsixSchematicController.prototype.opUndo = function ( )
-{
-  this.op.opUndo();
-  this.schematicUpdate = true;
-  g_painter.dirty_flag = true;
-}
-
-bleepsixSchematicController.prototype.opRedo = function ( )
-{
-  this.op.opRedo();
-  this.schematicUpdate = true;
-  g_painter.dirty_flag = true;
-}
 
 
 

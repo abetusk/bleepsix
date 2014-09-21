@@ -70,6 +70,10 @@ function bleepsixBoardController() {
 
   this.queued_display_module = 0;
 
+  this.opHistoryStart = 0;
+  this.opHistoryN = 0;
+  this.opHistory = [];
+
   if (!brdControllerHeadless)
   {
     this.tool = new toolBoardNav ();
@@ -113,18 +117,199 @@ function bleepsixBoardController() {
   this.drawSnapArea = false;
 }
 
+
+//---------------
+
+
+bleepsixBoardController.prototype._opDebugPrint = function ( )
+{
+  console.log("DEBUG: bleepsixBoardController._opDebugPrint");
+  console.log( "  opHistoryIndex: " + this.opHistoryIndex );
+  console.log( "  opHistoryStart: " + this.opHistoryStart );
+  console.log( "  opHistoryN: " + this.opHistoryN );
+  console.log( "  opHistory.length: " + this.opHistory.length);
+  console.log( this.opHistory );
+
+}
+
+bleepsixBoardController.prototype.opHistoryUpdate = function ( msg )
+{
+  var replayFlag = ( (typeof msg.replayFlag === "undefined") ? false : msg.replayFlag );
+
+  if (!replayFlag)
+  {
+    var n = this.opHistoryN;
+    var hist = this.opHistory;
+    if ( n < hist.length ) { hist[n] = msg; }
+    else                   { hist.push( msg ); }
+
+    this.opHistoryN++;
+    this.opHistory = hist.slice(0,this.opHistoryN);
+  }
+
+}
+
+
+
 bleepsixBoardController.prototype.opUndo = function( )
 {
-  this.op.opUndo();
+  //this.op.opUndo();
+
+  if ( this.opHistoryN > 0 )
+  {
+
+    var ind = this.opHistoryN-1;
+
+    var start_group_id = this.opHistory[ ind ].groupId ;
+    while ( ( this.opHistoryN > 0 ) &&
+            ( this.opHistory[ ind ].groupId == start_group_id ) )
+    {
+
+      var op = this.opHistory[ind];
+
+      if ( ("type" in op) && (op["type"] == "batch") )
+      {
+        var batch_op = op;
+        var ops = batch_op["ops"];
+
+        for (var i=0; i<ops.length; i++)
+        {
+          ops[i].inverseFlag = true;
+          ops[i].replayFlag = true;
+          //this.op.opCommand( ops[i], true, true );
+          this.op.opCommand( ops[i] );
+        }
+
+        if ( batch_op.scope == "network" )
+        {
+
+          for (var i=0; i<ops.length; i++)
+          {
+            ops[i].inverseFlag = true;
+            ops[i].replayFlag = true;
+            g_brdnetwork.projectop( ops[i] );
+          }
+
+        }
+
+      }
+      else
+      {
+
+        //this.opCommand( this.opHistory[ ind ], true, true );
+        op.inverseFlag = true;
+        op.replayFlag = true;
+
+        //this.op.opCommand( op, true, true );
+        this.op.opCommand( op );
+        if ( op.scope == "network" )
+        {
+          g_brdnetwork.projectop( op );
+        }
+
+      }
+
+      this.opHistoryN--;
+      ind = this.opHistoryN-1;
+
+    }
+
+  }
+  else
+  {
+    console.log("bleepsixBoardController.opUndo: already at first element, can't undo any further");
+  }
+
   this.boardUpdate = true;
   g_painter.dirty_flag = true;
 }
 
 bleepsixBoardController.prototype.opRedo = function( )
 {
-  this.op.opRedo();
+  //this.op.opRedo();
+
+  if ( this.opHistoryN < this.opHistory.length )
+  {
+
+    var ind = this.opHistoryN;
+
+    //DEBUG
+    console.log(">> redoing...");
+    console.log( ind, this.opHistory );
+    console.log( this.opHistory[ind] );
+
+    var start_group_id = this.opHistory[ ind ].groupId ;
+
+    //DEBUG
+    console.log( start_group_id, this.opHistory[ind].groupId );
+
+    while ( ( this.opHistoryN < this.opHistory.length ) &&
+            ( this.opHistory[ ind ].groupId == start_group_id ) )
+    {
+
+      //DEBUG
+      console.log( ">>>", start_group_id, this.opHistory[ind].groupId );
+
+      var op = this.opHistory[ind];
+
+      if ( ("type" in op) && (op["type"] == "batch") )
+      {
+        var batch_op = op;
+        var ops = batch_op["ops"];
+
+        for (var i=0; i<ops.length; i++)
+        {
+          ops[i].inverseFlag = false;
+          ops[i].replayFlag = true;
+          //this.op.opCommand( ops[i], false, true );
+          this.op.opCommand( ops[i] );
+        }
+
+        if ( batch_op.scope == "network" )
+        {
+
+          for (var i=0; i<ops.length; i++)
+          {
+            ops[i].inverseFlag = false;
+            ops[i].replayFlag = true;
+            g_brdnetwork.projectop( ops[i] );
+          }
+
+        }
+
+      }
+      else
+      {
+        //DEBUG
+        console.log(">>normal redo op>>", op);
+
+        //this.opCommand( this.opHistory[ ind ], true, true );
+        op.inverseFlag = false;
+        op.replayFlag = true;
+
+        //this.op.opCommand( op, false, true );
+        this.op.opCommand( op );
+        if ( op.scope == "network" )
+        {
+          g_brdnetwork.projectop( op );
+        }
+
+      }
+
+      this.opHistoryN++;
+      ind = this.opHistoryN;
+
+    }
+
+  }
+  else
+  {
+    console.log("bleepsixBoardController.opUndo: already at first element, can't undo any further");
+  }
+
   this.boardUpdate = true;
   g_painter.dirty_flag = true;
+
 }
 
 
@@ -154,6 +339,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
   // Batch operations together so we can undo/redo properly
   //
   msg.groupId = group_id;
+  msg.inverseFlag = false;
+  msg.replayFlag = false;
 
   //DEBUG
   console.log(">>>", msg, group_id )
@@ -173,6 +360,9 @@ bleepsixBoardController.prototype.opCommand = function( msg )
   {
     g_brdnetwork.projectop( msg );
   }
+
+  this.opHistoryUpdate( msg );
+
 
   if ( (msg.action == "add") && ((msg.type == "footprint") || (msg.type == "footprintData")) )
   {
@@ -199,6 +389,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.data = { componentData: ucomp, x: 0, y: 0 };
     schop.id = msg.id;
     schop.groupId = group_id;
+    schop.inverseFlag = false;
+    schop.replayFlag = false;
 
     this.op.opCommand( schop );
 
@@ -206,6 +398,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     {
       g_brdnetwork.projectop( schop );
     }
+
+    this.opHistoryUpdate( schop );
 
   }
 
@@ -223,11 +417,14 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       netop.action = "update";
       netop.type = "schematicnetmap";
       netop.groupId = group_id;
+      netop.inverseFlag = false;
+      netop.replayFlag = false;
       this.op.opCommand( netop );
 
       if ( g_brdnetwork && (msg.scop == "network") )
         g_brdnetwork.projectop( netop );
 
+      this.opHistoryUpdate( netop );
     }
 
     else if (msg.type == "edit") 
@@ -253,6 +450,8 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.id = [];
     schop.data = { element : [] };
     schop.groupId = group_id;
+    schop.inverseFlag = false;
+    schop.replayFlag = false;
 
     for ( var ind in delModuleList )
     {
@@ -266,12 +465,11 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       this.op.opCommand( schop );
       if ( g_brdnetwork && (msg.scope == "network") )
         g_brdnetwork.projectop( schop );
+
+      this.opHistoryUpdate( schop );
     }
 
   }
-
-
-
 
 }
 

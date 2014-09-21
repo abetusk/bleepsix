@@ -857,10 +857,11 @@ bleepsixSchBrdOp.prototype.opSchDelete = function ( op, inverseFlag )
 
 
 
-bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
+//bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
+bleepsixSchBrdOp.prototype.opCommand = function ( op )
 {
-  inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
-  replayFlag = ( (typeof replayFlag !== 'undefined') ? replayFlag : false );
+  inverseFlag = ( (typeof op.inverseFlag !== 'undefined') ? op.inverseFlag : false );
+  replayFlag = ( (typeof op.replayFlag !== 'undefined') ? op.replayFlag : false );
 
   var source = op.source;
   var dest = op.destination;
@@ -870,6 +871,9 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op, inverseFlag, replayFlag )
 
   op.result = {};
 
+  // So we don't add the undo/redo onto our history stack while
+  // we're undoing.
+  //
   if (!replayFlag)
   {
     this.opHistoryEnd++;

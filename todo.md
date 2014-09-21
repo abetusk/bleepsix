@@ -19,15 +19,14 @@
 
 ## Schematic
 
-* **Import modules.**
 * Wire "grabbing" instead of free floating pick and move.
 * Need cursor icon for label.
 * ~~toolWire needs to take into account component rotation when highlighting net~~
 * ~~Power lines need to be treated as a net so nets connect in board.~~
+* ~~**Import modules.**~~
 
 ## Board
 
-* **Import modules.**
 * toolBoardNav rotate needs to split/join net.
 * toolTrace needs self intersection test.
 * rat's nest initially is wonky (somtimes?)
@@ -54,5 +53,9 @@
 * ~~Store sch_pin_id_net_map and call updateSchematicNetcodeMap appripriately (bug fix).~~
 * ~~zone sometimes makes thin connections to thermal reliefs.~~
 * ~~Flip needs to go into opCommand and special consideration needs to be done for through hole parts.~~
+* ~~**Import modules.**~~
+
 * BUG: There's a stray via that got into one of the board layouts.  I'm nto sure if adding/deleting put
   it there or if I accidentally did an 'undo' and screwed things up.  Project-id: 174c284d-b216-40d3-b78b-89b86f3d2a94
+
+

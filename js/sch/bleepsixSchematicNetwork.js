@@ -106,13 +106,6 @@ function bleepsixSchematicNetwork( serverURL )
       function(x,y) { console.log("error?"); console.log(x); console.log(y); });
 
   /*
-  this.socket.on( "mew", 
-      function(data) { p.mewResponse( data ); } );
-  this.socket.on( "meow", 
-      function(data) { p.meowResponse( data ); } );
-      */
-
-  /*
   this.socket.on( "newproject", 
       function(data) { p.newprojectResponse( data ); } );
       */
@@ -126,15 +119,6 @@ function bleepsixSchematicNetwork( serverURL )
 
   this.socket.on( "projectop", 
       function(data) { p.projectopResponse( data ); } );
-
-  /*
-  this.socket.on( "schauth",
-      function(data) { p.schauthResponse( data ); } );
-  this.socket.on( "schsnapshot",
-      function(data) { p.schsnapshotResponse( data ); } );
-  this.socket.on( "schfullpush", 
-      function(data) { p.schfullpushResponse( data ); } );
-      */
 
   this.socket.on( "anonymouscreate", 
       function(data) { p.anonymousCreateResponse( data ); } );
@@ -228,11 +212,6 @@ bleepsixSchematicNetwork.prototype.init = function()
     this.socket.emit( "anonymouscreate" );
     return;
   }
-
-  // Else we've got a userId and sessionId, so we need to see if the userId
-  // and sessionId are actually valid.  Send a 'meow' probe and wait for a
-  // 'mew' response to proceed.
-  //
 
   // If we don't have a projectId, then we emit a meow and will 
   // request a new projectId on authenticated 'mew' response.
