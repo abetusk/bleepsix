@@ -738,6 +738,7 @@ bleepsixBoardController.prototype.resize = function( w, h, ev )
   this.height = h;
 }
 
+/*
 bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 {
   if (typeof this.tool.keyDown !== 'undefined' )
@@ -746,6 +747,17 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
   }
 
 }
+*/
+
+bleepsixBoardController.prototype.keyUp = function( keycode, ch, ev )
+{
+  if (typeof this.tool.keyUp !== 'undefined' )
+  {
+    r = this.tool.keyUp( keycode, ch, ev );
+  }
+
+}
+
 
 var g_debug_pos = 300;
 
@@ -1035,6 +1047,8 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   $(canvas_id).keyup( function(e) {
     var key = e.which;
     var ch = String.fromCharCode(key);
+
+    return controller.keyUp( e.keyCode, ch, e );
   });
 
   $(canvas_id).resize( function(w, h, e) {

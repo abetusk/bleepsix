@@ -51,6 +51,9 @@ function toolEdge( x, y, initialPlaceFlag )
   this.cur_edge_point = [];
 
 
+  this.tildeModifier = false;
+  this.origSnapSpacing = g_snapgrid.spacing;
+
   this.state = "init";
   this.initialPlaceFlag = initialPlaceFlag;
   this.startedFlag = false;
@@ -208,6 +211,7 @@ toolEdge.prototype.placeEdge = function()
   g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
   g_board_controller.guiToolbox.defaultSelect();
   g_painter.dirty_flag = true;
+  g_snapgrid.spacing = this.origSnapSpacing;
 
   var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
   g_board_controller.board.updateRatsNest( undefined, undefined, map );
@@ -295,6 +299,7 @@ toolEdge.prototype.doubleClick = function( button, x, y )
     g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
+    g_snapgrid.spacing = this.origSnapSpacing;
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
@@ -403,10 +408,28 @@ toolEdge.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.guiToolbox.defaultSelect();
 
     g_painter.dirty_flag = true;
+    g_snapgrid.spacing = this.origSnapSpacing;
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
+  }
+
+  // tilde
+  //
+  else if (keycode == 192) {
+    //console.log("v", keycode, ch, ev );
+
+    this.tildeModifier = !this.tildeModifier;
+
+    if (this.tildeModifier)
+    {
+      g_snapgrid.spacing = 10 * this.origSnapSpacing;
+    } 
+    else 
+    {
+      g_snapgrid.spacing = this.origSnapSpacing;
+    }
 
   }
 
@@ -416,6 +439,7 @@ toolEdge.prototype.keyDown = function( keycode, ch, ev )
 
 toolEdge.prototype.keyUp = function( keycode, ch, ev )
 {
+  //console.log("^", keycode, ch, ev );
 }
 
 
