@@ -102,7 +102,7 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
     this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.net_number, id );
   }
 
-  else if ( type == "footprintData" )
+  else if ( ( type == "footprintData" ) || ( type == "module" ) )
   {
 
     this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
@@ -431,6 +431,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
 bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
 {
+
   inverseFlag = ( (typeof inverseFlag !== 'undefined') ? inverseFlag : false );
 
   var source = op.source;
@@ -448,7 +449,13 @@ bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
       for (var ind in id )
       {
         var ref = data.element[ind];
-        this._opBrdAddSingle( ref.type, ref.id, ref );
+        var _data = ref;
+        if (ref.type == "module")
+        {
+          _data = { "footprintData" : ref, "x" : ref.x, "y" : ref.y };
+        }
+
+        this._opBrdAddSingle( ref.type, ref.id, _data );
       }
 
     }
@@ -932,7 +939,6 @@ bleepsixSchBrdOp.prototype.opRedo = function( src )
   {
 
     var start_group_id = this.opHistory[ this.opHistoryEnd+1 ].groupId;
-
     while ( (this.opHistoryEnd < (this.opHistory.length-1) ) &&
             (this.opHistory[ this.opHistoryEnd+1 ].groupId == start_group_id) )
     {
