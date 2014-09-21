@@ -8,6 +8,7 @@ import json
 import uuid
 import subprocess as sp
 import sys
+import os.path
 
 cgitb.enable();
 
@@ -16,10 +17,18 @@ staging_base = "/home/meow/stage"
 
 u_id = -1
 
+# DISABLED
+#
+##############
+#
+# to enable this script, cut out this block
+#
 print "Content-Type: application/json"
 print
 print "{ \"type\" : \"error\", \"message\" : \"disabled\" }"
 sys.exit(0)
+#
+##############
 
 print "Content-Type: application/json"
 print
@@ -28,7 +37,8 @@ print
 form = cgi.FieldStorage()
 if "fileData" in form:
   u_id = uuid.uuid4()
-  fn = staging_base + "/" + str(u_id)
+  #fn = staging_base + "/" + str(u_id)
+  fn = os.path.join( staging_base, str(u_id) )
   f = open( fn, "wb" )
   f.write( form.getvalue('fileData') )
   f.close()
