@@ -122,15 +122,20 @@
       }
 
       .upload_button {
-        opacity: 0.3;
+        /* opacity: 0.3; */
+        opacity: 0.0;
         position: absolute;
         background: transparent url(img/upload.png) left top ; 
         background-size: 32px 32px;
         background-repeat: no-repeat;
         z-index: 1;
 
+        /*
         height: 32px;
         width: 32px;
+        */
+        height: 0px;
+        width: 0px;
       }
 
       .download_button
@@ -214,6 +219,44 @@
       var c = document.getElementById("canvas");
       c.focus();
     }
+
+    function position_html_button_elements(w, h) {
+      var top = [ "3px", "0px", "0px", "0px" ];
+      var tf = [ 0, 0, 0, 0 ];
+      console.log(w,h);
+
+      var left = [ "0px", "50px", "100px", "150px" ];
+      var base_left = [ 500, 700, 750, 900 ];
+
+      for (var i=0; i<base_left.length; i++) {
+        var offset = (1200-w);
+        if (offset < 0) offset = 0;
+        left[i] = String( base_left[i] - offset ) + 'px';
+      }
+
+      if (w<1000) {
+        top = [ "38px", "35px", "35px", "35px" ];
+        left = [ "70px", "100px", "130px", "180px"  ]
+      }
+
+      ele = document.getElementById('homeButton');
+      ele.style.top = top[0];
+      ele.style.left = left[0];
+
+      var ele = document.getElementById('uploadButton');
+      ele.style.top = top[1];
+      ele.style.left = left[1];
+
+      ele = document.getElementById('downloadButton');
+      ele.style.top = top[2];
+      ele.style.left = left[2];
+
+      ele = document.getElementById('snapButton');
+      ele.style.top = top[3];
+      ele.style.left = left[3];
+
+    }
+
 
     function loop() {
 
@@ -299,6 +342,8 @@
       }
 
 
+      position_html_button_elements( 1200, 700 );
+      /*
       var f = document.getElementById('uploadButton');
       f.style.top = '0px';
       f.style.left = '500px';
@@ -315,19 +360,23 @@
       var f = document.getElementById('homeButton');
       f.style.top = '4px';
       f.style.left = '900px';
+      */
 
 
       // camera snapshot
 
       $( "#snapElement" ).hover(
-      function() {
-        g_schematic_controller.drawSnapArea = true;
-        g_painter.dirty_flag = true;
-      },
-      function() {
-        g_schematic_controller.drawSnapArea = false;
-        g_painter.dirty_flag = true;
-      }
+
+        function() {
+          g_schematic_controller.drawSnapArea = true;
+          g_painter.dirty_flag = true;
+        },
+
+        function() {
+          g_schematic_controller.drawSnapArea = false;
+          g_painter.dirty_flag = true;
+        }
+
       );
 
 
@@ -353,6 +402,9 @@
         canv.width = w;
         canv.height = h;
         g_painter.setWidthHeight( w, h );
+
+        position_html_button_elements( w, h );
+        g_schematic_controller.resize(ee);
       });
 
 
@@ -537,11 +589,21 @@
     <iframe id='downloadFrame' style='display:none'>
     </iframe>
 
+    <!--
     <div class="upload_button" id='uploadButton'> 
       <input 
         class='upload_button' 
         id='fileElement' 
         type="file" 
+        onchange="handleFiles(this.files); canvasFocus();" 
+        onclick="this.value=null;"  />
+    </div>
+    -->
+    <div class="upload_button" id='uploadButton'> 
+      <input 
+        class='upload_button' 
+        id='fileElement' 
+        type="hidden" 
         onchange="handleFiles(this.files); canvasFocus();" 
         onclick="this.value=null;"  />
     </div>

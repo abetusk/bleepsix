@@ -45,9 +45,9 @@ function guiRegion( name )
 
 guiRegion.prototype.init = function ( x, y, w, h )
 {
-    this.width = w;
-	this.height = h;
-	this.move ( x, y );
+  this.width = w;
+  this.height = h;
+  this.move ( x, y );
 }
 
 guiRegion.prototype.handleEvent = function(ev)
@@ -71,11 +71,11 @@ guiRegion.prototype.setWorldMatrix = function ()
 {
   // local transform
   this.transform     = [ [ 1, 0, this.x ],
-					     [ 0, 1, this.y ],
+                         [ 0, 1, this.y ],
                          [ 0, 0, 1 ] ];
 
   this.inv_transform = [ [ 1, 0, -this.x ],
-					     [ 0, 1, -this.y ],
+                         [ 0, 1, -this.y ],
                          [ 0, 0, 1 ] ];
 
   if ( this.parent == null ) 
@@ -97,14 +97,14 @@ guiRegion.prototype.setWorldMatrix = function ()
 
 guiRegion.prototype.move = function ( x, y )
 {
-   this.x = x;
-   this.y = y;
-   this.setWorldMatrix ();
+  this.x = x;
+  this.y = y;
+  this.setWorldMatrix ();
    
-   for (var ind in this.guiChildren ) { 
-		cx = this.guiChildren[ind].x;
-		cy = this.guiChildren[ind].y;
-		this.guiChildren[ind].move ( cx, cy );
+  for (var ind in this.guiChildren ) { 
+    cx = this.guiChildren[ind].x;
+    cy = this.guiChildren[ind].y;
+    this.guiChildren[ind].move ( cx, cy );
    }
 }
 
@@ -122,12 +122,12 @@ guiRegion.prototype.drawChildren = function()
                            true, "rgba(0,0,0, 0.2)" );*/
   M = this.world_transform;
   g_painter.context.setTransform( M[0][0], M[1][0], M[0][1], M[1][1], M[0][2], M[1][2] );  
-  this.draw ();				  
-						   
+  this.draw ();
+
   for (var ind in this.guiChildren ) {
-    if (this.guiChildren[ind].visible) {		
+    if (this.guiChildren[ind].visible) {
         this.guiChildren[ind].drawChildren();
-	}
+    }
   }
 
 

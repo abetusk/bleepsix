@@ -517,6 +517,11 @@ bleepsixBoardController.prototype.mouseLeave = function( x, y )
 {
 }
 
+bleepsixBoardController.prototype.resize = function( x, y, ev )
+{
+  this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
+  g_painter.dirty_flag = true;
+}
 
 bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 {
@@ -527,6 +532,7 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 
 }
 
+var g_debug_pos = 300;
 
 bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 {
@@ -550,14 +556,24 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
     this.movingAction = !this.movingAction;
   }
   else if (ch == 'Y')
-    {
-      this.movingDebug = !this.movingDebug;
-    }
+  {
+    this.movingDebug = !this.movingDebug;
+  }
+
+  else if (ch == '8')
+  {
+    g_painter.dirty_flag = true;
+    g_debug_pos -= 50;
+    //this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
+    this.guiFootprintLibrary.move( g_debug_pos, 0 );
+  }
 
   else if (ch == '9')
   {
-    console.log("adding 'R' component to palette");
     g_painter.dirty_flag = true;
+    g_debug_pos += 50;
+    this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
+    //this.guiFootprintLibrary.move( g_debug_pos, 0 );
   }
 
   var r = true;
@@ -809,6 +825,8 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   $(canvas_id).resize( function(e) {
     console.log("resize");
     console.log(e);
+
+
   });
 
   $(canvas_id).keypress( function(e) {
@@ -830,6 +848,8 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   $(window).bind("capsUnknown", function(e) {
     controller.capState = "unknown";
   });
+
+
 
   $(window).capslockstate();
 

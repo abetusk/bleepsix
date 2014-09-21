@@ -7,11 +7,9 @@ import sys
 import json
 import uuid
 import subprocess as sp
+import sys
 
 cgitb.enable();
-
-#schjson_exec = "/tmp/pykicad/schjson.py"
-#staging_base = "/tmp/stage"
 
 schjson_exec = "/home/meow/pykicad/schjson.py"
 staging_base = "/home/meow/stage"
@@ -20,11 +18,12 @@ u_id = -1
 
 print "Content-Type: application/json"
 print
-print 
+print "{ \"type\" : \"error\", \"message\" : \"disabled\" }"
+sys.exit(0)
 
-#flog = open( "/tmp/bleepsix.log", "a")
-#flog.write("cp\n")
-#flog.close()
+print "Content-Type: application/json"
+print
+print 
 
 form = cgi.FieldStorage()
 if "fileData" in form:

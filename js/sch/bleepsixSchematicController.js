@@ -545,7 +545,17 @@ bleepsixSchematicController.prototype.mouseLeave = function( x, y )
 {
 }
 
+bleepsixSchematicController.prototype.resize = function( x, y, ev ) 
+{
+  this.guiLibrary.move( g_painter.width - this.guiLibrary.width, 0 );
 
+  //this.guiPalette.move( g_painter.height - this.guiPalette.height, 500 );
+
+  this.guiPalette.move( (g_painter.width - this.guiPalette.width)/4, 
+                         g_painter.height - this.guiPalette.height );
+
+  g_painter.dirty_flag = true;
+}
 
 bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 {
