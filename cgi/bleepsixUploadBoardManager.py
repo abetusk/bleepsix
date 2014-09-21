@@ -15,6 +15,21 @@ staging_base = "/home/meow/stage"
 
 u_id = -1
 
+# DISABLED
+#
+##############
+#
+# to enable this script, cut out this block
+#
+print "Content-Type: application/json"
+print
+print "{ \"type\" : \"error\", \"message\" : \"disabled\" }"
+sys.exit(0)
+#
+##############
+
+
+
 print "Content-Type: application/json"
 print
 print 
