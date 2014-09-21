@@ -3,19 +3,19 @@
 
 ## General
 
-* undo/redo batching and server communication
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
   one at a time?  If a board and a schematic is specified we should try to tie them together?
   UPDATE: this should probably be taken out altogether and expose another interface through
   the web page (meowcad) to upload.
 * Add timestamps to sessions, portfolios and the like.
-* Add in name verification to delete project.
 * DRC checks for both
 * ~~Produce drill file~~
 * ~~Through hole not rotation properly in gerber production?  for example: CR2032H not rotation~~
 * ~~Cross browser net highlights~~
 * ~~Export issues with zone.  KiCAD expects path not to overlap with any open regions.  Convert
   to appropriate polyscorners so KiCAD doesn't get confused (gerber is fine).~~ (fixed with weakpwh)
+* ~~undo/redo batching and server communication~~
+* ~~Add in name verification to delete project.~~
 
 ## Schematic
 
