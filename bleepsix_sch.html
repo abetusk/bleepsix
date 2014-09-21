@@ -395,6 +395,9 @@
       canv.height = h;
       g_painter.setWidthHeight( w, h );
 
+      position_html_button_elements( w, h );
+      g_schematic_controller.resize(w,h);
+
       $(window).resize( function(ee) {
         var w = $(window).width();
         var h = $(window).height();
@@ -404,7 +407,7 @@
         g_painter.setWidthHeight( w, h );
 
         position_html_button_elements( w, h );
-        g_schematic_controller.resize(ee);
+        g_schematic_controller.resize(w,h,ee);
       });
 
 

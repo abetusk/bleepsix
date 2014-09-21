@@ -822,11 +822,9 @@ bleepsixBoardController.prototype.init = function( canvas_id )
     var ch = String.fromCharCode(key);
   });
 
-  $(canvas_id).resize( function(e) {
+  $(canvas_id).resize( function(w, h, e) {
     console.log("resize");
     console.log(e);
-
-
   });
 
   $(canvas_id).keypress( function(e) {
