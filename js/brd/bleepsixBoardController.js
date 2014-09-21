@@ -65,6 +65,9 @@ function bleepsixBoardController() {
   this.mouse_cur_x = 0;
   this.mouse_cur_y = 0;
 
+  this.width = 1200;
+  this.height = 700;
+
   this.queued_display_module = 0;
 
   if (!brdControllerHeadless)
@@ -455,14 +458,25 @@ bleepsixBoardController.prototype.redraw = function ()
     g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 
     if (this.display_text_flag )
-      g_painter.drawText(this.display_text, 10, 680, "rgba(255,255,255,0.5)", 15);
+    {
+      //g_painter.drawText(this.display_text, 10, 680, "rgba(255,255,255,0.5)", 15);
+
+      var _height = this.height-20;
+      g_painter.drawText(this.display_text, 10, _height, "rgba(255,255,255,0.5)", 15);
+
+    }
 
     if (this.project_name_text_flag)
       g_painter.drawText(this.project_name_text, 60, 10, "rgba(255,255,255,0.5)", 15);
 
 
     if (action_text_touched)
-      g_painter.drawText(this.action_text, 10, 650, "rgba(255,255,255," + action_text_val + ")", 15);
+    {
+      //g_painter.drawText(this.action_text, 10, 650, "rgba(255,255,255," + action_text_val + ")", 15);
+
+      var _height = this.height-50;
+      g_painter.drawText(this.action_text, 10, _height, "rgba(255,255,255," + action_text_val + ")", 15);
+    }
 
 
     if (this.drawSnapArea)
@@ -517,10 +531,13 @@ bleepsixBoardController.prototype.mouseLeave = function( x, y )
 {
 }
 
-bleepsixBoardController.prototype.resize = function( x, y, ev )
+bleepsixBoardController.prototype.resize = function( w, h, ev )
 {
   this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
   g_painter.dirty_flag = true;
+
+  this.width = w;
+  this.height = h;
 }
 
 bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )

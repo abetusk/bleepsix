@@ -58,6 +58,8 @@ function toolEdgeShape( x, y, shape, initialPlaceFlag )
   this.edge_history = [];
   this.cur_edge_point = [];
 
+  this.groupId = String(guid());
+
 
   this.state = "init";
   this.initialPlaceFlag = initialPlaceFlag;
@@ -293,6 +295,7 @@ toolEdgeShape.prototype._placeRoundedRect = function()
                 x1 : edges[i][1][0], y1: edges[i][1][1],
                 width: this.edge_width,
                 layer: this.layer };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
   }
@@ -316,6 +319,7 @@ toolEdgeShape.prototype._placeRoundedRect = function()
                 start_angle: ang[i][0], end_angle: ang[i][1],
                 width: this.edge_width,
                 layer: this.layer };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
   }
 
@@ -357,6 +361,7 @@ toolEdgeShape.prototype._placeInroundedRect = function()
                 x1 : edges[i][1][0], y1: edges[i][1][1],
                 width: this.edge_width,
                 layer: this.layer };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
   }
@@ -380,6 +385,7 @@ toolEdgeShape.prototype._placeInroundedRect = function()
                 start_angle: ang[i][0], end_angle: ang[i][1],
                 width: this.edge_width,
                 layer: this.layer };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
   }
 
@@ -424,6 +430,7 @@ toolEdgeShape.prototype._placeRect = function()
                 x1 : b[0], y1: b[1],
                 width: this.edge_width,
                 layer: this.layer };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
   }

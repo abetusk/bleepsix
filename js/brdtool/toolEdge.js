@@ -146,6 +146,8 @@ toolEdge.prototype.dist1 = function( xy0, xy1 )
 toolEdge.prototype.placeEdge = function()
 {
 
+  var group_id = String(guid());
+
   // checking to see if we need to add a source connection
   //
   var eh = this.edge_history;
@@ -161,6 +163,7 @@ toolEdge.prototype.placeEdge = function()
                   x1 : eh[ind].x1, y1: eh[ind].y1,
                   width: eh[ind].width,
                   layer: eh[ind].layer };
+      op.groupId = group_id;
       g_board_controller.opCommand( op );
 
       /*
@@ -185,6 +188,7 @@ toolEdge.prototype.placeEdge = function()
                   x1 : cep[ind].x, y1: cep[ind].y,
                   width: this.edge_width,
                   layer: this.layer };
+      op.groupId = group_id;
       g_board_controller.opCommand( op );
 
       /*

@@ -203,7 +203,6 @@
     function position_html_button_elements(w, h) {
       var top = [ "3px", "0px", "0px", "0px" ];
       var tf = [ 0, 0, 0, 0 ];
-      console.log(w,h);
 
       var left = [ "0px", "50px", "100px", "150px" ];
       var base_left = [ 500, 700, 750, 900 ];
@@ -239,24 +238,24 @@
 
     function loop() {
     
-    frame = frame + 1;
-    if ( frame >= 30 ) {
-      var d = new Date();
-      g_msec = (d.getTime() - lastTime ) / frame;
-      lastTime = d;
-      frame = 0;
-    }
+      frame = frame + 1;
+      if ( frame >= 30 ) {
+        var d = new Date();
+        g_msec = (d.getTime() - lastTime ) / frame;
+        lastTime = d;
+        frame = 0;
+      }
 
-    if (g_show_fps)
-    {
-      var container = document.querySelector( 'section' );
-      container.innerHTML = "FPS: " + (1000.0/g_msec);
-    }
+      if (g_show_fps)
+      {
+        var container = document.querySelector( 'section' );
+        container.innerHTML = "FPS: " + (1000.0/g_msec);
+      }
 
 
-    g_board_controller.redraw();
-    //requestAnimationFrame( loop, 1 );
-    requestAnimationFrame( loop );
+      g_board_controller.redraw();
+      //requestAnimationFrame( loop, 1 );
+      requestAnimationFrame( loop );
     }
 
       $(document).ready( function() {

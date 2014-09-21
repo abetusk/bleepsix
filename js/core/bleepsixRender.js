@@ -78,7 +78,7 @@ bleepsixRender.prototype.setWidthHeight = function ( w , h) {
   this.width = w;
   this.height = h;
 
-  this.setView(w,h, this.zoom);
+  this.setView(w,h, this.zoom, this.view.cx, this.view.cy);
 }
 
 bleepsixRender.prototype.setGrid = function ( val )
@@ -87,11 +87,15 @@ bleepsixRender.prototype.setGrid = function ( val )
 	this.dirty_flag = true;
 }
 
-bleepsixRender.prototype.setView = function( x, y, z )
+bleepsixRender.prototype.setView = function( x, y, z, cx, cy )
 {
 	// set center and zoom
-	this.view.cx = x;
-	this.view.cy = y;
+	//this.view.cx = x;
+	//this.view.cy = y;
+
+  this.view.cx = ( (typeof cx === 'undefined') ? x : cx );
+  this.view.cy = ( (typeof cy === 'undefined') ? y : cy );
+
 	this.zoom = z;
 
 	// compute the view region

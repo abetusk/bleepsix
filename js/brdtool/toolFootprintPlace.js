@@ -67,6 +67,8 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
   this.cursorWidth = 1;
 
   this.highlightId = null;
+
+  this.groupId = String(guid());
 }
 
 toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
@@ -114,6 +116,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       net_op.type = "net";
       net_op.data = { net_number : net_obj.net_number,
                       net_name : net_obj.net_name };
+      net_op.groupId = this.groupId;
       g_board_controller.opCommand(net_op);
 
       var pad = this.cloned_footprint.pad[p_ind];
@@ -154,6 +157,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       op.type = "edit";
       op.id = [ ref.id ];
       op.data = { element : [ this.cloned_footprint ] , oldElement : [ saved_ref ] };
+      op.groupId = this.groupId;
       g_board_controller.opCommand( op );
 
       g_board_controller.tool = new toolBoardNav(x, y);
@@ -163,6 +167,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       var net_op = { source : "brd", destination: "sch" };
       net_op.action = "update";
       net_op.type = "schematicnetmap";
+      net_op.groupId = this.groupId;
       g_board_controller.opCommand( net_op );
 
       //var sch_pin_id_net_map = g_board_controller.schematic.getPinNetMap();
@@ -182,6 +187,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     op.action = "add";
     op.type = "footprintData";
     op.data = { footprintData : this.cloned_footprint, x: this.world_xy.x, y: this.world_xy.y };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
     /*

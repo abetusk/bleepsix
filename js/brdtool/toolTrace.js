@@ -64,6 +64,8 @@ function toolTrace( x, y, layerPair, initialPlaceFlag, highlightNets )
 
   this.state = "init";
 
+  this.groupId = String(guid());
+
   this.initialPlaceFlag = initialPlaceFlag;
 
   this.startedFlag = false;
@@ -279,6 +281,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
     op.type = "net";
     op.data = { net_number : new_net.net_number,
                 net_name : new_net.net_name };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
     this.netcode = new_net.net_number;
@@ -301,6 +304,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       op2.type = "edit";
       op2.id = [ pad_ref.id ];
       op2.data = { element : [ new_pad ], oldElement : [ old_pad ] };
+      op2.groupId = this.groupId;
 
       g_board_controller.opCommand( op2 );
 
@@ -330,6 +334,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       op2.id = [ pad_ref.id ];
       op2.data = { element : [ new_track ], oldElement : [ old_track ] };
 
+      op2.groupId = this.groupId;
       g_board_controller.opCommand( op2 );
 
     }
@@ -496,6 +501,7 @@ toolTrace.prototype.placeTrack = function()
     op.type = "net";
     op.data = { net_number : new_net.net_number,
                 net_name : new_net.net_name };
+    op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
     //nc = new_net.net_number;
@@ -528,6 +534,7 @@ toolTrace.prototype.placeTrack = function()
                   layer1 : this.layer[1], 
                   net_number: curNetCode };
                   //net_number: nc };
+      op.groupId = this.groupId;
       g_board_controller.opCommand( op );
 
       /*
@@ -550,6 +557,7 @@ toolTrace.prototype.placeTrack = function()
                   layer : th[ind].layer,
                   net_number: curNetCode };
                   //net_number: nc };
+      op.groupId = this.groupId;
       g_board_controller.opCommand( op );
 
       /*
@@ -588,6 +596,7 @@ toolTrace.prototype.placeTrack = function()
                     layer : this.cur_layer,
                     net_number: curNetCode };
                     //net_number: nc };
+        op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
 
@@ -624,6 +633,7 @@ toolTrace.prototype.placeTrack = function()
         op.action = "update";
         op.type = "mergenet";
         op.data = { net_number0 : dst_netcode, net_number1 : curNetCode };
+        op.groupId = this.groupId;
 
         g_board_controller.opCommand( op );
 
@@ -657,6 +667,7 @@ toolTrace.prototype.placeTrack = function()
         op.action = "update";
         op.type = "mergenet";
         op.data = { net_number0 : src_netcode, net_number1 : curNetCode };
+        op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
         curNetCode = op.result.net_number ;

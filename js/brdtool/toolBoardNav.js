@@ -439,12 +439,17 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
    */
 
   }
+
+  // 'F'lip
+  //
   else if (ch == 'F')
   {
 
     var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
     if (id_ref_ar.length > 0)
     {
+
+      var group_id = String(guid());
 
       for (var ind in id_ref_ar)
       {
@@ -460,6 +465,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           op.type = "flip";
           op.id = id_ref_ar[ind].id;
           op.data = { sourceLayer : src_layer, destinationLayer: dst_layer};
+          op.groupId = group_id;
           g_board_controller.opCommand( op );
 
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
@@ -568,9 +574,14 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     return true;
 
   }
+
+  // 'R'otate, 'E'tator
+  //
   else if ( (ch == 'R') || (ch == 'E') )
   {
     var ccw = ( (ch == 'R') ? true : false );
+
+    var group_id = String(guid());
 
     var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
@@ -581,6 +592,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       op.type = "rotate90";
       op.id = id_ref.id;
       op.data = { ccw : ccw };
+      op.groupId = group_id;
       g_board_controller.opCommand( op );
 
       //g_board_controller.board.rotate90( id_ref, ccw );
@@ -594,10 +606,15 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     }
 
   }
+
+  // rotate by 15 deg.
+  //
   else if (ch == 'Y')
   {
 
     //console.log("Y");
+
+    var group_id = String(guid());
 
     var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
@@ -614,6 +631,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       op.type = "rotate";
       op.id = id_ref.id;
       op.data = { ccw : ccw, cx : x, cy: y, angle : ang_rad, ccw: true };
+      op.groupId = group_id;
       g_board_controller.opCommand( op );
 
       //g_board_controller.board.rotateAboutPoint( [ id_ref ], x, y, 15 * Math.PI / 180, true );
@@ -626,17 +644,22 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   }
 
+  // add 'U'nknown part
+  //
   else if ( ch == 'U' )
   {
     //console.log("adding 'unknown' part");
 
+    var group_id = String(guid());
     var k = g_board_controller.board.makeUnknownModule( );
+
 
     var op = { source: "brd", destination: "brd" };
     op.action = "add";
     op.type = "footprintData";
     op.data = { footprintData : k,
                 x : 0, y: 0 };
+    op.groupId = group_id;
     g_board_controller.opCommand( op );
 
     //g_board_controller.board.addFootprintData( k , 0, 0 );
@@ -736,6 +759,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
 
   }
+
+  // 'D'elete
+  //
   else if (ch == 'D')
   {
     //console.log("(D)elete: wxy: " + wx + " " + wy );
@@ -747,6 +773,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     if (id_ref_ar.length > 0)
     {
+
+      var group_id = String(guid());
 
       var op = { source: "brd", destination: "brd" };
       op.action = "delete";
@@ -764,6 +792,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           var clonedData = {};
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
+          op.groupId = group_id;
           g_board_controller.opCommand( op );
 
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
@@ -792,6 +821,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           var clonedData = {};
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
+          op.groupId = group_id;
           g_board_controller.opCommand( op );
 
 
@@ -801,6 +831,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: ref.netcode };
+          split_op.groupId = group_id;
           g_board_controller.opCommand( split_op );
 
           g_board_controller.board.unhighlightNet();
@@ -827,6 +858,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           var clonedData = {};
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
+          op.groupId = group_id;
           g_board_controller.opCommand( op );
 
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
@@ -849,6 +881,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var clonedData = {};
       $.extend( true, clonedData, id_ref_ar[ind].ref );
       op.data.element.push( clonedData );
+      op.groupId = group_id;
       g_board_controller.opCommand( op );
 
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
@@ -859,8 +892,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       // EXPERIMENTAL
       g_board_controller.unhighlightNet( );
       // EXPERIMENTAL
-
-
 
       return true;
 

@@ -77,6 +77,9 @@ function bleepsixSchematicController() {
   this.mouse_cur_x = 0;
   this.mouse_cur_y = 0;
 
+  this.width = 1200;
+  this.height = 700;
+
   this.queued_display_component = 0;
 
   if (!schControllerHeadless)
@@ -472,14 +475,22 @@ bleepsixSchematicController.prototype.redraw = function ()
     g_painter.context.setTransform ( 1, 0, 0,  1, 0, 0 );
 
     if (this.display_text_flag)
-      g_painter.drawText(this.display_text, 10, 680, "rgba(0,0,0,0.4)", 15);
+    {
+      //g_painter.drawText(this.display_text, 10, 680, "rgba(0,0,0,0.4)", 15);
+      var _height = this.height-20;
+      g_painter.drawText(this.display_text, 10, _height, "rgba(0,0,0,0.4)", 15);
+    }
 
     if (this.project_name_text_flag)
       g_painter.drawText(this.project_name_text, 30, 10, "rgba(0,0,0,0.4)", 15);
 
 
     if (action_text_touched)
-      g_painter.drawText(this.action_text, 10, 650, "rgba(0,0,0," + action_text_val + ")", 15);
+    {
+      //g_painter.drawText(this.action_text, 10, 650, "rgba(0,0,0," + action_text_val + ")", 15);
+      var _height = this.height - 50;
+      g_painter.drawText(this.action_text, 10, _height, "rgba(0,0,0," + action_text_val + ")", 15);
+    }
 
     g_painter.dirty_flag = false;
 
@@ -545,7 +556,7 @@ bleepsixSchematicController.prototype.mouseLeave = function( x, y )
 {
 }
 
-bleepsixSchematicController.prototype.resize = function( x, y, ev ) 
+bleepsixSchematicController.prototype.resize = function( w, h, ev ) 
 {
   this.guiLibrary.move( g_painter.width - this.guiLibrary.width, 0 );
 
@@ -555,6 +566,9 @@ bleepsixSchematicController.prototype.resize = function( x, y, ev )
                          g_painter.height - this.guiPalette.height );
 
   g_painter.dirty_flag = true;
+
+  this.width = w;
+  this.height = h;
 }
 
 bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
