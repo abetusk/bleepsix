@@ -162,8 +162,6 @@ args = cgi.FieldStorage()
 if "userid" in args.keys():
   userid = args["userid"].value
 
-#userid = 
-
 msg_type = json_container["type"]
 
 obj = { "type" : "error" , "message" : "invalid function" }
