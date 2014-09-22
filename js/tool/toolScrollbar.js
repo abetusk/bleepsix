@@ -117,7 +117,10 @@ toolScrollbar.prototype.mouseUp = function( button, x, y )
     //g_schematic_controller.tool = this.orig_tool;
     //g_schematic_controller.tool.update(x,y);
     g_controller.tool = this.orig_tool;
-    g_controller.tool.update(x,y);
+    if ( typeof g_controller.tool.update !== 'undefined' )
+    {
+      g_controller.tool.update(x,y);
+    }
     g_painter.dirty_flag = true;
   }
 
