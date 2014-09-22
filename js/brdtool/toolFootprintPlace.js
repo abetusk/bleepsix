@@ -319,4 +319,8 @@ toolFootprintPlace.prototype.keyUp = function( keycode, ch, ev  )
 {
 }
 
+toolFootprintPlace.prototype.update = function( x, y )
+{
+}
+
 
