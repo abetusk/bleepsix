@@ -852,6 +852,8 @@ bleepsixSchematic.prototype.pickElement = function( ele, x, y )
 
   var bbox = ele["bounding_box"];
 
+  if (!bbox) return null;
+
   var x0 = bbox[0][0];
   var y0 = bbox[0][1];
   var w = bbox[1][0] - bbox[0][0];
