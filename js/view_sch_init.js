@@ -93,6 +93,14 @@ $(document).ready( function() {
     return val.split('=');
   });
 
+  var projectId = null;
+  if ( s.length > 0 )
+  {
+    if (s[0][0] == "projectId") { projectId = s[0][1]; }
+  }
+
+  console.log("projectId:", projectId);
+
   bleepsixBoardHeadless = true;
 
   meowmeow();
@@ -125,10 +133,6 @@ $(document).ready( function() {
   g_imgcache.add( "cursor:noconn", img_base + "/cursor_custom_noconn_s24.png" );
 
   requestAnimationFrame( loop, 1 );
-
-  var projectId = s[0][1];
-
-  console.log("projectId:", projectId);
 
   if ( (typeof userId !== "undefined") &&
        (typeof projectId !== "undefined") )
@@ -188,18 +192,18 @@ $(document).ready( function() {
   });
 
 
-  var container = { "type" : "schJSON", "projectId" : projectId };
-  var str_data = JSON.stringify( container );
-  $.ajax({
-    url: "bleepsixDataManager.py",
-    type: 'POST',
-    data: str_data,
-    success: function(xx) { g_schematic_controller.schematic.load_schematic(xx.json_sch); },
-    error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
-  });
-
-
-
+  if (projectId)
+  {
+    var container = { "type" : "schJSON", "projectId" : projectId };
+    var str_data = JSON.stringify( container );
+    $.ajax({
+      url: "bleepsixDataManager.py",
+      type: 'POST',
+      data: str_data,
+      success: function(xx) { g_schematic_controller.schematic.load_schematic(xx.json_sch); },
+      error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+    });
+  }
 
 });
 

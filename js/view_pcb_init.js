@@ -88,14 +88,11 @@ $(document).ready( function() {
     return val.split('=');
   });
 
-  //-----
-  //DEBUG
-  //
-  console.log(">>>", s );
-  for (var ind in s) { console.log( ind, s[ind] ); }
-  //
-  //-----
-
+  var projectId = null;
+  if (s.length > 0)
+  {
+    if (s[0][0] == "projectId") { projectId = s[0][1]; }
+  }
 
   bleepsixSchematicHeadless = true;
 
@@ -130,9 +127,7 @@ $(document).ready( function() {
 
   requestAnimationFrame( loop, 1 );
 
-  var projectId = s[0][1];
 
-  console.log("projectId:", projectId);
 
 
   if ( (typeof userId !== "undefined") && 
@@ -192,16 +187,18 @@ $(document).ready( function() {
   });
 
 
-  var container = { "type" : "brdJSON", "projectId" : projectId };
-  var str_data = JSON.stringify( container );
-  $.ajax({
-    url: "bleepsixDataManager.py",
-    type: 'POST',
-    data: str_data,
-    success: function(xx) { g_board_controller.board.load_board(xx.json_brd); },
-    error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
-  });
-
+  if (projectId)
+  {
+    var container = { "type" : "brdJSON", "projectId" : projectId };
+    var str_data = JSON.stringify( container );
+    $.ajax({
+      url: "bleepsixDataManager.py",
+      type: 'POST',
+      data: str_data,
+      success: function(xx) { g_board_controller.board.load_board(xx.json_brd); },
+      error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+    });
+  }
 
 });
 
