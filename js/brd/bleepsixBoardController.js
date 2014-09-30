@@ -38,7 +38,10 @@ if (typeof module !== 'undefined')
 
 
 
-function bleepsixBoardController() {
+function bleepsixBoardController( viewMode ) {
+
+  this.viewMode = ( (typeof viewMode === 'undefined') ? false : viewMode );
+
   this.canvas = null;
   this.context = null;
 
@@ -46,13 +49,6 @@ function bleepsixBoardController() {
 
   this.board = new bleepsixBoard();
   this.schematic = new bleepsixSchematic();
-
-  //HACKY!  though not really needed, we won't get component load
-  // errors if we set this flag.
-  //bleepsixSchematicHeadless = true;
-
-
-  //this.schematic.makeUnknownComponent();
 
   this.op = new bleepsixSchBrdOp( this.schematic, this.board );
 
@@ -76,10 +72,10 @@ function bleepsixBoardController() {
 
   if (!brdControllerHeadless)
   {
-    this.tool = new toolBoardNav ();
+    this.tool = new toolBoardNav ( undefined, undefined, this.viewMode );
     this.tabCommunication = new bleepsixTabCommunication();
   }
-  
+
   this.moving = false;
   this.movingFootprintLibrary = false;
   //this.movingToolbox = false;
@@ -96,8 +92,6 @@ function bleepsixBoardController() {
   {
     g_painter.adjustPan( 0, 0);
   }
-
-  this.op = new bleepsixSchBrdOp( this.schematic, this.board );
 
   this.display_text_flag = true;
   this.display_text = "bloop";
@@ -330,7 +324,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     {
       var brd_ele_ref = this.board.refLookup( msg.id[ind] );
       if (!brd_ele_ref) continue;
-      if (brd_ele_ref.type != "module") 
+      if (brd_ele_ref.type != "module")
         continue;
       delModuleList.push( { id: msg.id[ind], type: brd_ele_ref.type } );
     }
@@ -341,9 +335,6 @@ bleepsixBoardController.prototype.opCommand = function( msg )
   msg.groupId = group_id;
   msg.inverseFlag = false;
   msg.replayFlag = false;
-
-  //DEBUG
-  console.log(">>>", msg, group_id )
 
   // Apply the operation to the board
   //
@@ -410,7 +401,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     // sch to brd net mapping for highlighting and rats nest
     // calculation purposes.
     //
-    if ( msg.type == "splitnet") 
+    if ( msg.type == "splitnet")
     {
       var netop = { source: "brd", destination: "sch" };
       netop.scope = msg.scope;
@@ -427,7 +418,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       this.opHistoryUpdate( netop );
     }
 
-    else if (msg.type == "edit") 
+    else if (msg.type == "edit")
     {
       //...
     }
@@ -446,7 +437,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
     schop.scope = msg.scope;
     schop.action = msg.action;
     schop.type = "group";
-    
+
     schop.id = [];
     schop.data = { element : [] };
     schop.groupId = group_id;
@@ -534,7 +525,10 @@ bleepsixBoardController.prototype.highlightNetCodes = function ( sch_netcodes )
 
 bleepsixBoardController.prototype.unhighlightNet = function()
 {
-  this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, "" );
+  if (g_brdnetwork)
+  {
+    this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, "" );
+  }
 }
 
 
@@ -629,7 +623,7 @@ bleepsixBoardController.prototype.redraw = function ()
     g_painter.startDrawColor();
     g_painter.drawGrid();
 
-    if (this.board.displayable) 
+    if (this.board.displayable)
       this.board.drawBoard();
 
     this.tool.drawOverlay();
@@ -642,8 +636,12 @@ bleepsixBoardController.prototype.redraw = function ()
     // One of these drawChildren calls doesn't clean up after themselves
     // leading me to clean up after them and reset the transform.
     //
-    this.guiToolbox.drawChildren();
-    this.guiLayer.drawChildren();
+
+    if (!this.viewMode)
+    {
+      this.guiToolbox.drawChildren();
+      this.guiLayer.drawChildren();
+    }
     this.guiGrid.drawChildren();
 
 
@@ -700,7 +698,10 @@ bleepsixBoardController.prototype.redraw = function ()
     // in a bad state.  Need to look at this to make sure it plays
     // nice with the other gui elements.  For now leave it.
     //
-    this.guiFootprintLibrary.drawChildren();
+    if (!this.viewMode)
+    {
+      this.guiFootprintLibrary.drawChildren();
+    }
 
     g_painter.dirty_flag = false;
 
@@ -708,7 +709,7 @@ bleepsixBoardController.prototype.redraw = function ()
 
 }
 
-bleepsixBoardController.prototype.canvas_coords_from_global = function( x, y ) 
+bleepsixBoardController.prototype.canvas_coords_from_global = function( x, y )
 {
   var rect = this.canvas.getBoundingClientRect();
   var rl = rect.left;
@@ -721,11 +722,11 @@ bleepsixBoardController.prototype.canvas_coords_from_global = function( x, y )
   return [ x - rl - scrollx, y - rt - scrolly ];
 }
 
-bleepsixBoardController.prototype.mouseEnter = function( x, y ) 
+bleepsixBoardController.prototype.mouseEnter = function( x, y )
 {
 }
 
-bleepsixBoardController.prototype.mouseLeave = function( x, y ) 
+bleepsixBoardController.prototype.mouseLeave = function( x, y )
 {
 }
 
@@ -751,6 +752,8 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 
 bleepsixBoardController.prototype.keyUp = function( keycode, ch, ev )
 {
+  if (this.viewMode) { return true; }
+
   if (typeof this.tool.keyUp !== 'undefined' )
   {
     r = this.tool.keyUp( keycode, ch, ev );
@@ -763,7 +766,17 @@ var g_debug_pos = 300;
 
 bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 {
-  if ( ch == 'G' ) {      
+
+  if (this.viewMode) {
+    var r = true;
+   if (typeof this.tool.keyDown !== 'undefined' )
+   {
+     r = this.tool.keyDown( keycode, ch, ev );
+   }
+   return r;
+  }
+
+  if ( ch == 'G' ) {
       this.moving = !this.moving;
   }
   else if (ch == 'O')
@@ -816,6 +829,8 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 
 bleepsixBoardController.prototype.keyPress = function( keycode, ch, ev )
 {
+  if (this.viewMode) { return true; }
+
   //console.log( "keyPress: " + keycode + " " + ch  );
 
   if (typeof this.tool.keyPress !== 'undefined' )
@@ -823,13 +838,18 @@ bleepsixBoardController.prototype.keyPress = function( keycode, ch, ev )
 }
 
 
-bleepsixBoardController.prototype.mouseDown = function( button, x, y ) 
+bleepsixBoardController.prototype.mouseDown = function( button, x, y )
 {
 
-  if (this.guiFootprintLibrary.hitTest(x,y))
+  if (!this.viewMode)
   {
-    this.guiFootprintLibrary.mouseDown(button, x, y);
-    return;
+
+    if (this.guiFootprintLibrary.hitTest(x,y))
+    {
+      this.guiFootprintLibrary.mouseDown(button, x, y);
+      return;
+    }
+
   }
 
   /*
@@ -849,16 +869,21 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
   }
   */
 
-  if (this.guiToolbox.hitTest(x,y))
+  if (!this.viewMode)
   {
-    this.guiToolbox.mouseDown(button, x, y);
-    return;
-  }
 
-  if (this.guiLayer.hitTest(x,y))
-  {
-    this.guiLayer.mouseDown(button, x, y);
-    return;
+    if (this.guiToolbox.hitTest(x,y))
+    {
+      this.guiToolbox.mouseDown(button, x, y);
+      return;
+    }
+
+    if (this.guiLayer.hitTest(x,y))
+    {
+      this.guiLayer.mouseDown(button, x, y);
+      return;
+    }
+
   }
 
   if (this.guiGrid.hitTest(x,y))
@@ -897,6 +922,8 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
 bleepsixBoardController.prototype.doubleClick = function( e )
 {
 
+  if (this.viewMode) { return true; }
+
   if (this.guiToolbox.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
   {
     this.guiToolbox.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y  );
@@ -913,28 +940,31 @@ bleepsixBoardController.prototype.doubleClick = function( e )
     this.tool.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y )
 }
 
-bleepsixBoardController.prototype.mouseUp = function( button, x, y ) 
+bleepsixBoardController.prototype.mouseUp = function( button, x, y )
 {
   if (typeof this.tool.mouseUp !== 'undefined' )
     this.tool.mouseUp ( button, x, y );
 }
 
-bleepsixBoardController.prototype.mouseMove = function( x, y ) 
+bleepsixBoardController.prototype.mouseMove = function( x, y )
 {
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
 
-  if (this.movingFootprintLibrary)
-    this.guiFootprintLibrary.move(x, y);
+  if (!this.viewMode)
+  {
+    if (this.movingFootprintLibrary)
+      this.guiFootprintLibrary.move(x, y);
 
-  if (this.movingLayer)
-    this.guiLayer.move(x, y);
-  
+    if (this.movingLayer)
+      this.guiLayer.move(x, y);
+  }
+
   if (typeof this.tool.mouseMove !== 'undefined' )
     this.tool.mouseMove ( x, y );
 }
 
-bleepsixBoardController.prototype.mouseDrag = function( dx, dy ) 
+bleepsixBoardController.prototype.mouseDrag = function( dx, dy )
 {
 
   if (typeof this.tool.mouseDrag !== 'undefined' )
@@ -946,9 +976,17 @@ bleepsixBoardController.prototype.mouseWheel = function( delta )
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
 
-  if (this.guiFootprintLibrary.hitTest(x, y))
+  if (!this.viewMode)
   {
-    this.guiFootprintLibrary.mouseWheelXY(delta, x, y);
+    if (this.guiFootprintLibrary.hitTest(x, y))
+    {
+      this.guiFootprintLibrary.mouseWheelXY(delta, x, y);
+    }
+    else if (typeof this.tool.mouseWheel !== 'undefined' )
+    {
+      this.tool.mouseWheel ( delta );
+    }
+
   }
 
   /*
@@ -965,7 +1003,7 @@ bleepsixBoardController.prototype.mouseWheel = function( delta )
 
 }
 
-bleepsixBoardController.prototype.init = function( canvas_id ) 
+bleepsixBoardController.prototype.init = function( canvas_id )
 {
   this.canvas = $("#" + canvas_id)[0];
   this.context = this.canvas.getContext('2d');
@@ -1108,9 +1146,9 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   // put focus on the canvas
   $(canvas_id).focus();
 
-  // do first draw  
+  // do first draw
   g_painter.dirty_flag = true;
-  
+
   // give to schematic
   this.board.init ( g_painter );
 }

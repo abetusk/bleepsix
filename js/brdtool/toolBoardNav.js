@@ -24,10 +24,11 @@
 
 
 
-function toolBoardNav( x, y ) 
+function toolBoardNav( x, y, viewMode ) 
 {
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
+  this.viewMode = ( (typeof viewMode === 'undefined') ? false : viewMode );
 
   //console.log("toolBoardNav");
 
@@ -112,7 +113,11 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
         picked_id_ref = id_ref_ar[ind];
         if ( picked_id_ref.ref.type == "track" )
         {
-          g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+
+          if (!this.viewMode)
+          {
+            g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+          }
 
 
           g_board_controller.board.unhighlightNet();
@@ -129,7 +134,10 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
         }
       }
 
-      g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+      if (!this.viewMode)
+      {
+        g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+      }
 
       g_board_controller.board.unhighlightNet();
 
@@ -158,7 +166,10 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
 
     else
     {
-      g_board_controller.tool = new toolBoardSelect(x, y);
+      if (!this.viewMode)
+      {
+        g_board_controller.tool = new toolBoardSelect(x, y);
+      }
     }
 
   }
@@ -348,13 +359,8 @@ toolBoardNav.prototype.mouseWheel = function( delta )
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
 
-// TESTING
-
 toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 {
-  //console.log("toolBoardNav keyDown: " + keycode + " " + ch );
-  //console.log(ev);
-
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
   var wc = g_painter.devToWorld(x, y);
@@ -363,6 +369,20 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   var wx = wc["x"];
   var wy = wc["y"];
+
+
+  if (this.viewMode)
+  {
+    if ( ch == '1' ) {
+      g_painter.setGrid ( 0 );
+    } else if ( ch == '2' ) {
+      g_painter.setGrid ( 1 );
+    } else if ( ch == '3' ) {
+      g_painter.setGrid ( 2 );
+    } 
+
+    return true;
+  }
 
 
 
@@ -374,7 +394,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_painter.setGrid ( 2 );
   } 
 
-  else if ( keycode == 219 )  // left bracket ('[')
+  // left bracket ('[')
+  //
+  else if ( keycode == 219 )
   {
     g_board_controller.opUndo();
 
@@ -382,7 +404,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
   }
-  else if ( keycode == 221 ) // right bracket (']')
+
+  // right bracket (']')
+  //
+  else if ( keycode == 221 )
   {
     g_board_controller.opRedo();
 
@@ -503,7 +528,11 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'Z')
   {
 
-    g_board_controller.tool = new toolBoardZone(x, y);
+    if (!this.viewMode)
+    {
+      g_board_controller.tool = new toolBoardZone(x, y);
+    }
+
     g_board_controller.board.unhighlightNet();
 
 
@@ -531,7 +560,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.unhighlightNet( );
     // EXPERIMENTAL
 
-    g_board_controller.tool = new toolTrace(x, y, [0, 15], true, this.highlightNetcodes);
+    if (!this.viewMode)
+    {
+      g_board_controller.tool = new toolTrace(x, y, [0, 15], true, this.highlightNetcodes);
+    }
 
   }
 
@@ -549,7 +581,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     if (ida.length > 0) 
     {
       var t = g_painter.devToWorld(x, y);
-      g_board_controller.tool = new toolBoardMove(x, y, ida);
+
+      if (!this.viewMode)
+      {
+        g_board_controller.tool = new toolBoardMove(x, y, ida);
+      }
+
       //g_board_controller.tool.addElement( ida );
 
       g_board_controller.board.unhighlightNet();

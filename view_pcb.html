@@ -1,0 +1,154 @@
+<html>
+
+  <meta charset='utf-8'>
+
+  <head>
+
+    <link rel="shortcut icon" href="/simpleoutline.ico" />
+    <link rel="icon" href="/simpleoutline.ico" />
+
+    <script src='js/lib/socket.io.js'></script>
+
+    <script src='js/lib/union-find.js'></script>
+    <script src='js/lib/delaunay.js'></script>
+    <script src='js/lib/kruskal.js'></script>
+    <script src='js/lib/euclideanmst.js'></script>
+
+    <script src='js/lib/peg.js'></script>
+
+    <script src='js/lib/jquery.js'></script>
+    <script src='js/lib/jquery.mousewheel.js'/></script>
+    <script src='js/lib/jquery.capslockstate.js'/></script>
+    <script src='js/lib/jquery.cookie.js'/></script>
+    <script src='js/lib/jquery.getUrlParam.js'/></script>
+
+    <script src='js/lib/numeric.js'></script>
+    <script src='js/lib/oop.js'></script>
+
+    <script src='js/lib/aux.js'></script>
+    <script src='js/lib/snapGrid.js'></script>
+
+    <script src='js/lib/clipper.js'></script>
+    <script src='js/lib/bleepsixSchBrdOp.js'></script>
+    <script src='js/lib/bleepsixTabCommunication.js'></script>
+
+    <script src='js/core/bleepsixRender.js'></script>
+
+    <script src='js/brd/bleepsixBoardParameter.js'></script>
+
+    <script src='js/brd/bleepsixBoard.js'></script>
+    <script src='js/brd/bleepsixBoard_aux.js'></script>
+    <script src='js/brd/bleepsixBoard_bbox.js'></script>
+    <script src='js/brd/bleepsixBoard_netops.js'></script>
+    <script src='js/brd/bleepsixBoard_zone.js'></script>
+    <script src='js/brd/bleepsixBoard_ratsnest.js'></script>
+
+    <script src='js/brd/bleepsixBoardController.js'></script>
+    <script src='js/brd/bleepsixBoardNetwork.js'></script>
+    <script src='js/brd/bleepsixBoardParameter.js'></script>
+
+    <script src='js/sch/bleepsixSchematic.js'></script>
+    <script src='js/sch/bleepsixSchematic_event.js'></script>
+    <script src='js/sch/bleepsixSchematic_net.js'></script>
+
+
+    <script src='js/gui/guiRegion.js'></script>
+
+    <script src='js/gui/guiFootprintTile.js'></script>
+    <script src='js/gui/guiList.js'></script>
+    <script src='js/gui/guiScrollbar.js'></script>
+
+    <script src='js/gui/guiIcon.js'></script>
+    <script src='js/gui/guiDropIcon.js'></script>
+    <script src='js/gui/guiGrid.js'></script>
+    <script src='js/gui/guiTextbox.js'></script>
+    <script src='js/gui/guiAction.js'></script>
+
+
+    <script src='js/gui/guiFootprintLibrary.js'></script>
+    <script src='js/gui/guiBoardToolbox.js'></script>
+    <script src='js/gui/guiBoardLayer.js'></script>
+    <script src='js/gui/guiLayer.js'></script>
+
+    <script src='js/tool/toolScrollbar.js'></script>
+
+    <script src='js/brdtool/toolBoardNav.js'></script>
+    <script src='js/brdtool/toolTrace.js'></script>
+    <script src='js/brdtool/toolEdge.js'></script>
+    <script src='js/brdtool/toolEdgeShape.js'></script>
+    <script src='js/brdtool/toolFootprintPlace.js'></script>
+    <script src='js/brdtool/toolBoardMove.js'></script>
+    <script src='js/brdtool/toolBoardSelect.js'></script>
+    <script src='js/brdtool/toolBoardZone.js'></script>
+
+    <script src='js/helperFunctions.js'></script>
+
+    <link rel='stylesheet' type='text/css' href='/css/bleepsix_style.css' />
+
+    <script src='js/meowconfig.js'></script>
+    <script src='js/view_pcb_init.js'></script>
+
+  </head>
+  <body>
+
+    <!-- download trickery -->
+    <iframe id='downloadFrame' style='display:none'></iframe>
+
+    <div class="download_button" id='downloadButton'>
+      <input 
+        class='download_button' 
+        type="image" 
+        src='img/download_white.png' 
+        style=' height:32px; width:32px;' 
+        value='download' 
+        onclick="downloadProject(); canvasFocus();"  />
+    </div>
+
+    <div class="snapshot_button" id="snapButton">
+      <input 
+        id='snapElement' 
+        type='image' 
+        src='img/camera_white.png' 
+        style=' height: 32px; width: 32px;' 
+        value="click me" 
+        onclick="canvasFocus(); takeSnapShotPicture();" />
+    </div>
+
+    <div class="generic_button" id='homeButton'>
+      <input 
+        class='generic_button' 
+        type="image" 
+        src='img/kitty_head_white_outline_p32.png' 
+        style=' height:26px; width:26px;' 
+        value'download' 
+        onclick="canvasFocus(); goHome();"  />
+    </div>
+
+    <canvas 
+      id='canvas' 
+      width='1200' height='700' 
+      style='position:absolute; left: 0; top: 0; border:1px solid #111; z-index:0;' 
+      tabindex='0'> 
+    </canvas>
+
+  <section  style='position: absolute; left: 20px; top: 720px; '></section>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://meowcad.com/analytics/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+  </body>
+
+</html>

@@ -37,7 +37,10 @@ if ( typeof module !== 'undefined')
   var g_schnetwork = null;
 }
 
-function bleepsixSchematicController() {
+function bleepsixSchematicController( viewMode ) {
+
+  this.viewMode = ( (typeof viewMode == 'undefined') ? false : viewMode );
+
   this.canvas = null;
   this.context = null;
 
@@ -84,7 +87,7 @@ function bleepsixSchematicController() {
 
   if (!schControllerHeadless)
   {
-    this.tool = new toolNav ();
+    this.tool = new toolNav ( undefined, undefined, this.viewMode );
     this.tabCommunication = new bleepsixTabCommunication();
   }
 
@@ -528,10 +531,14 @@ bleepsixSchematicController.prototype.highlightBoardNetsFromSchematic= function 
     msg += sch_nc.toString();
   }
 
-  if ( msg.length > 0 )
-    this.tabCommunication.addMessage( "brd:" + g_schnetwork.projectId, msg );
-  else
-    this.tabCommunication.addMessage( "brd:" + g_schnetwork.projectId, "" );
+  if (!this.viewMode)
+  {
+    if ( msg.length > 0 )
+      this.tabCommunication.addMessage( "brd:" + g_schnetwork.projectId, msg );
+    else
+      this.tabCommunication.addMessage( "brd:" + g_schnetwork.projectId, "" );
+  }
+
 }
 
 
@@ -620,10 +627,14 @@ bleepsixSchematicController.prototype.redraw = function ()
     g_painter.endDraw ();
 	
     g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
-    this.guiPalette.drawChildren();
 
-    this.guiToolbox.drawChildren();
-    this.guiLibrary.drawChildren();
+    if (!this.viewMode)
+    {
+      this.guiPalette.drawChildren();
+
+      this.guiToolbox.drawChildren();
+      this.guiLibrary.drawChildren();
+    }
 
     this.guiGrid.drawChildren();
 
@@ -801,28 +812,33 @@ bleepsixSchematicController.prototype.mouseDown = function( button, x, y )
 
   //this.root.hitTest(x, y);
 
-  if (this.guiPalette.hitTest(x, y))
+  if (!this.viewMode)
   {
-    //console.log(" gui component hit, letting it handle it");
-    return;
-  }
 
-  if (this.guiLibrary.hitTest(x,y))
-  {
-    this.guiLibrary.mouseDown(button, x, y);
-    return;
-  }
+    if (this.guiPalette.hitTest(x, y))
+    {
+      //console.log(" gui component hit, letting it handle it");
+      return;
+    }
 
-  if (this.guiToolbox.hitTest(x,y))
-  {
-    this.guiToolbox.mouseDown(button, x, y);
-    return;
-  }
+    if (this.guiLibrary.hitTest(x,y))
+    {
+      this.guiLibrary.mouseDown(button, x, y);
+      return;
+    }
 
-  if (this.guiGrid.hitTest(x,y))
-  {
-    this.guiGrid.mouseDown(button, x, y);
-    return;
+    if (this.guiToolbox.hitTest(x,y))
+    {
+      this.guiToolbox.mouseDown(button, x, y);
+      return;
+    }
+
+    if (this.guiGrid.hitTest(x,y))
+    {
+      this.guiGrid.mouseDown(button, x, y);
+      return;
+    }
+
   }
 
   /*
@@ -921,13 +937,27 @@ bleepsixSchematicController.prototype.mouseWheel = function( delta )
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
 
-  if (this.guiLibrary.hitTest(x, y))
+  if (!this.viewMode)
   {
-    this.guiLibrary.mouseWheelXY(delta, x, y);
+
+    if (this.guiLibrary.hitTest(x, y))
+    {
+      this.guiLibrary.mouseWheelXY(delta, x, y);
+    }
+    else if (typeof this.tool.mouseWheel !== 'undefined' )
+    {
+      this.tool.mouseWheel ( delta );
+    }
+
   }
-  else if (typeof this.tool.mouseWheel !== 'undefined' )
+  else
   {
-    this.tool.mouseWheel ( delta );
+
+    if (typeof this.tool.mouseWheel !== 'undefined' )
+    {
+      this.tool.mouseWheel ( delta );
+    }
+
   }
 
 }

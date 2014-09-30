@@ -23,12 +23,11 @@
 */
 
 
-function toolNav( x, y ) 
+function toolNav( x, y, viewMode ) 
 {
+  this.viewMode = ( (typeof viewMode === 'undefined') ? false : viewMode );
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
-
-  //console.log("toolNav");
 
   this.mouse_down = false;
   this.mouse_cur_x = x;
@@ -85,6 +84,8 @@ toolNav.prototype.mouseDown = function( button, x, y )
   if (button == 3)
     this.mouse_drag_flag = true;
 
+  if (this.viewMode) { return; }
+
   // pass control to toolSelect 
   else if (button == 1)
 
@@ -110,6 +111,8 @@ toolNav.prototype.mouseDown = function( button, x, y )
 
 toolNav.prototype.doubleClick = function(button, x, y)
 {
+  if (this.viewMode) { return; }
+
   //console.log("toolNav.doubleClick");
   var world_coord = g_painter.devToWorld( x, y );
   var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
@@ -171,6 +174,10 @@ toolNav.prototype.mouseMove = function( x, y )
   var wx = this.mouse_world_xy.x;
   var wy = this.mouse_world_xy.y;
 
+  g_painter.dirty_flag = true;
+
+  if (this.viewMode) { return; }
+
   var id_ref = g_schematic_controller.schematic.pick( wx, wy );
 
   if (id_ref)
@@ -204,9 +211,6 @@ toolNav.prototype.mouseMove = function( x, y )
     g_schematic_controller.highlightBoardNetsFromSchematic( [] );
   }
 
-
-  g_painter.dirty_flag = true;
-
 }
 
 toolNav.prototype.mouseDrag = function( dx, dy ) 
@@ -226,6 +230,19 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 {
   //console.log("toolNav keyDown: " + keycode + " " + ch );
   //console.log(ev);
+
+  if (this.viewMode)
+  {
+    if ( ch == '1' ) {  // no grid
+      g_painter.setGrid ( 0 );
+    } else if ( ch == '2' ) {  // point grid
+      g_painter.setGrid ( 1 );
+    } else if ( ch == '3' ) {  // line grid
+      g_painter.setGrid ( 2 );
+    }
+
+    return true;
+  }
 
   if ( keycode == 188 )
   {

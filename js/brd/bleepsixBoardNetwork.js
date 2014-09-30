@@ -44,14 +44,15 @@
  * also be separate because it pushes the local json description
  * to a cgi that then gets processed and downloaded.  Though
  * files should be saved and loaded through this facility, boards
- * should be stored local to the browser and be able to be pushed 
+ * should be stored local to the browser and be able to be pushed
  * without this class functioning.
  *
  */
 
 
-function bleepsixBoardNetwork( serverURL )
+function bleepsixBoardNetwork( serverURL, muteFlag )
 {
+  this.muteFlag = ( (typeof muteFlag === 'undefined') ? false : muteFlag );
 
   serverURL = ( (typeof serverURL === 'undefined') ? 'https://localhost' : serverURL );
 
@@ -75,7 +76,10 @@ function bleepsixBoardNetwork( serverURL )
   this.initialized = false;
   this.connected = false;
 
-  this.socket = io.connect( this.serverURL );
+  if (!this.muteFlag)
+  {
+    this.socket = io.connect( this.serverURL );
+  }
 
   this.fail_count = 0;
   this.fail_max = 20;
@@ -85,54 +89,58 @@ function bleepsixBoardNetwork( serverURL )
 
 
   var p = this;
-  this.socket.on('connect', 
-      function() { /* console.log("connect!"); */ p.init();  });
-  this.socket.on('connect_error', 
-      function(x,y) { console.log("connect_error?"); console.log(x); console.log(y); });
-  this.socket.on('connect_timeout', 
-      function(x,y) { console.log("connect_timeout?"); console.log(x); console.log(y); });
 
-  this.socket.on('reconnect', 
-      function(x,y) { console.log("reconnect?"); console.log(x); console.log(y); });
-  this.socket.on('reconnect_error', 
-      function(x,y) { console.log("reconnect_error?"); console.log(x); console.log(y); });
-  this.socket.on('reconnect_timeout', 
-      function(x,y) { console.log("reconnect_timeout?"); console.log(x); console.log(y); });
+  if (!this.muteFlag)
+  {
+    this.socket.on('connect',
+        function() { /* console.log("connect!"); */ p.init();  });
+    this.socket.on('connect_error',
+        function(x,y) { console.log("connect_error?"); console.log(x); console.log(y); });
+    this.socket.on('connect_timeout',
+        function(x,y) { console.log("connect_timeout?"); console.log(x); console.log(y); });
 
-  this.socket.on('disconnect', 
-      function(x,y) { console.log("disconnect!"); p.connected = false; });
+    this.socket.on('reconnect',
+        function(x,y) { console.log("reconnect?"); console.log(x); console.log(y); });
+    this.socket.on('reconnect_error',
+        function(x,y) { console.log("reconnect_error?"); console.log(x); console.log(y); });
+    this.socket.on('reconnect_timeout',
+        function(x,y) { console.log("reconnect_timeout?"); console.log(x); console.log(y); });
 
-  this.socket.on('error', 
-      function(x,y) { console.log("error?"); console.log(x); console.log(y); });
+    this.socket.on('disconnect',
+        function(x,y) { console.log("disconnect!"); p.connected = false; });
 
-  /*
-  this.socket.on( "mew", 
-      function(data) { p.mewResponse( data ); } );
-  this.socket.on( "meow", 
-      function(data) { p.meowResponse( data ); } );
-      */
+    this.socket.on('error',
+        function(x,y) { console.log("error?"); console.log(x); console.log(y); });
 
-  /*
-  this.socket.on( "newproject", 
-      function(data) { p.newprojectResponse( data ); } );
-      */
+    /*
+    this.socket.on( "mew",
+        function(data) { p.mewResponse( data ); } );
+    this.socket.on( "meow",
+        function(data) { p.meowResponse( data ); } );
+        */
 
-  this.socket.on( "projectauth",
-      function(data) { p.projectauthResponse( data ); } );
-  this.socket.on( "projectsnapshot",
-      function(data) { p.projectsnapshotResponse( data ); } );
-  this.socket.on( "projectflush", 
-      function(data) { p.projectflushResponse( data ); } );
-  this.socket.on( "projectop", 
-      function(data) { p.projectopResponse( data ); } );
+    /*
+    this.socket.on( "newproject",
+        function(data) { p.newprojectResponse( data ); } );
+        */
 
-  this.socket.on( "anonymouscreate", 
-      function(data) { p.anonymousCreateResponse( data ); } );
+    this.socket.on( "projectauth",
+        function(data) { p.projectauthResponse( data ); } );
+    this.socket.on( "projectsnapshot",
+        function(data) { p.projectsnapshotResponse( data ); } );
+    this.socket.on( "projectflush",
+        function(data) { p.projectflushResponse( data ); } );
+    this.socket.on( "projectop",
+        function(data) { p.projectopResponse( data ); } );
+
+    this.socket.on( "anonymouscreate",
+        function(data) { p.anonymousCreateResponse( data ); } );
 
 
-  this.socket.on( "debug", 
-      function(data) { console.log("got debug message:"); console.log(data); });
+    this.socket.on( "debug",
+        function(data) { console.log("got debug message:"); console.log(data); });
 
+  }
 
 
   //setInterval( function() { p.slowSync(); }, 3000 );
@@ -212,7 +220,7 @@ bleepsixBoardNetwork.prototype.init = function()
     this.anonymous = true;
 
     // this will create an anonymous user, create a sessionId for the
-    // anonymous user and create a new project with a projectId 
+    // anonymous user and create a new project with a projectId
     // for us to use.
     //
     this.socket.emit( "anonymouscreate" );
@@ -226,7 +234,7 @@ bleepsixBoardNetwork.prototype.init = function()
   //DEBUG
   //console.log("userId: " + this.userId + ", sessionId: " + this.sessionId );
 
-  // If we don't have a projectId, then we emit a meow and will 
+  // If we don't have a projectId, then we emit a meow and will
   // request a new projectId on authenticated 'mew' response.
   // Otherwise, will generate an anonymous login.
   //
@@ -332,8 +340,8 @@ bleepsixBoardNetwork.prototype.newprojectResponse = function( data )
 
 bleepsixBoardNetwork.prototype.startLoadWaterfall = function()
 {
-  var cb = (function(xx) { 
-    return function(data) { 
+  var cb = (function(xx) {
+    return function(data) {
       xx.loadLocationWaterfall( data );
     } ;
   })(this);
@@ -592,8 +600,8 @@ bleepsixBoardNetwork.prototype.projectflush = function( data )
   msg.sessionId = this.sessionId;
   msg.projectId = this.projectId;
 
-  msg.json_sch = JSON.stringify( g_board_controller.schematic.kicad_sch_json ); 
-  msg.json_brd = JSON.stringify( g_board_controller.board.kicad_brd_json ); 
+  msg.json_sch = JSON.stringify( g_board_controller.schematic.kicad_sch_json );
+  msg.json_brd = JSON.stringify( g_board_controller.board.kicad_brd_json );
 
   this.socket.emit( "projectflush", msg );
 }
@@ -620,7 +628,7 @@ bleepsixBoardNetwork.prototype.anonymousCreateResponse = function( data )
 
   if (!data) { console.log("bleepsixBoardNetwork.anonymouseCreateResponse: ERROR: data NULL!"); return; }
 
-  if ( (data.type == "response") && 
+  if ( (data.type == "response") &&
        (data.status == "success") )
   {
 

@@ -3114,6 +3114,7 @@ bleepsixBoard.prototype.drawGhostElement = function( ele )
 
 bleepsixBoard.prototype.drawBoard = function()
 {
+
   this.updateBoundingBox();
   //this.updateRatsNest(undefined, undefined, this.kicad_brd_json.brd_to_sch_net_map );
 

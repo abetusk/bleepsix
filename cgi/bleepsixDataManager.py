@@ -68,6 +68,55 @@ def makeJSONSchematic( json_message ):
   obj = { "type" : "id", "id" : str(u_id), "notes" : "JSON KiCAD Schematic File ID"  }
   return obj
 
+def brdJSON( json_message ):
+
+  if "projectId" not in json_message:
+    obj = { "type" : "error", "notes" : "no projectId" }
+    return obj
+  projectId = json_message["projectId"]
+
+  db = redis.Redis()
+
+  p = db.hgetall( "project:" + str(projectId) )
+  if (not p) or (p["active"] != "1") or (p["permission"] != "world-read") :
+    obj = { "type" : "error", "notes" : "invalid project" }
+    return obj
+
+  snap = db.hgetall( "projectsnapshot:" + str(projectId) )
+  if not snap:
+    obj = { "type" : "error", "notes" : "could not get snapshot" }
+    return obj
+
+  json_brd = json.loads( snap["json_brd"] )
+
+  obj = { "type" : "jsonBRD", "json_brd" : json_brd }
+  return obj
+
+def schJSON( json_message ):
+
+  if "projectId" not in json_message:
+    obj = { "type" : "error", "notes" : "no projectId" }
+    return obj
+  projectId = json_message["projectId"]
+
+  db = redis.Redis()
+
+  p = db.hgetall( "project:" + str(projectId) )
+  if (not p) or (p["active"] != "1") or (p["permission"] != "world-read") :
+    obj = { "type" : "error", "notes" : "invalid project" }
+    return obj
+
+  snap = db.hgetall( "projectsnapshot:" + str(projectId) )
+  if not snap:
+    obj = { "type" : "error", "notes" : "could not get snapshot" }
+    return obj
+
+  json_sch = json.loads( snap["json_sch"] )
+
+  obj = { "type" : "jsonBRD", "json_sch" : json_sch }
+  return obj
+
+
 def makePNG( json_message ):
   u_id, fn = dumpToFile( str(json_message["data"]) )
 
@@ -167,15 +216,23 @@ msg_type = json_container["type"]
 obj = { "type" : "error" , "message" : "invalid function" }
 if msg_type == "createKiCADSchematic":
   obj = makeKiCADSchematic( json_container )
+
 elif msg_type == "createJSONSchematic":
   obj = makeJSONSchematic( json_container )
+
 elif msg_type == "createPNG":
   obj = makePNG( json_container );
-elif msg_type == "downloadProject":
 
+elif msg_type == "downloadProject":
   obj = readyProjectZipfile( json_container )
 
-s = "nothing"
+elif msg_type == "brdJSON":
+  obj = brdJSON( json_container )
+
+elif msg_type == "schJSON":
+  obj = schJSON( json_container )
+
+s = "nothing!"
 args = cgi.FieldStorage()
 for i in args.keys():
   s += ", " + str(i) + " " + str( args[i].value )
