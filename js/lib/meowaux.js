@@ -76,24 +76,7 @@ function load_footprint_location( userId, sessionId, projectId, callback, callba
     data: JSON.stringify(req),
     dataType: "json",
     success: callback,
-
-    /*
-    function(data) {
-      g_footprint_location = data;
-      g_footprint_location_ready = true;
-    },
-    */
-
     error: callback_err
-
-    /*
-    function(jqxr, textStatus, error ){
-      console.log("FAIL");
-      console.log(jqxr);
-      console.log(textStatus);
-      console.log(error);
-    }
-    */
   });
 
 }
@@ -185,25 +168,7 @@ function load_component_location( userId, sessionId, projectId, callback, callba
     data: JSON.stringify(req),
     dataType: "json",
     success: callback,
-
-    /*
-    function(data) {
-      g_component_location = data;
-      g_component_location_ready = true;
-    },
-    */
-
     error: callback_err
-
-    /*
-    function(jqxr, textStatus, error ){
-      console.log("FAIL");
-      console.log(jqxr);
-      console.log(textStatus);
-      console.log(error);
-    }
-    */
-
   });
 
 }
@@ -253,7 +218,6 @@ function load_component_cache_part( name, location, userId, sessionId, projectId
   }
   else 
   {
-    //console.log(" load_componet_cache_part: " + name + " already loaded");
   }
 }
 
