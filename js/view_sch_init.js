@@ -93,13 +93,21 @@ $(document).ready( function() {
     return val.split('=');
   });
 
+  /*
   var projectId = null;
   if ( s.length > 0 )
   {
-    if (s[0][0] == "projectId") { projectId = s[0][1]; }
+    if (s[0][0] == "project") { projectId = s[0][1]; }
   }
+  */
 
-  console.log("projectId:", projectId);
+  var viewUserId = $(document).getUrlParam('user');
+  if (!viewUserId)
+    viewUserId = undefined;
+
+  var projectId = $(document).getUrlParam('project');
+  if (!projectId)
+    projectId = undefined;
 
   bleepsixBoardHeadless = true;
 
@@ -134,11 +142,13 @@ $(document).ready( function() {
 
   requestAnimationFrame( loop, 1 );
 
-  if ( (typeof userId !== "undefined") &&
+  g_schnetwork = new bleepsixSchematicNetwork( MEOWURL, true );
+
+  if ( (typeof viewUserId !== "undefined") &&
        (typeof projectId !== "undefined") )
   {
-    load_component_location( null, null, projectId );
-    load_footprint_location( null, null, projectId );
+    load_component_location( viewUserId, null, projectId );
+    load_footprint_location( viewUserId, null, projectId );
   }
   else
   {
@@ -165,7 +175,6 @@ $(document).ready( function() {
 
   );
 
-  g_schnetwork = new bleepsixSchematicNetwork( MEOWURL, true );
 
   canvasFocus();
 
@@ -200,12 +209,24 @@ $(document).ready( function() {
       url: "bleepsixDataManager.py",
       type: 'POST',
       data: str_data,
-      success: function(xx) { g_schematic_controller.schematic.load_schematic(xx.json_sch); },
+      success: deferLoadSchematic,
       error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
     });
   }
 
 });
+
+/* we need to make sure the component library is loaded
+ * or the parts won't render properly.
+ */
+function deferLoadSchematic(xx) {
+  if (!g_component_location_ready)
+  {
+    setTimeout( function() { deferLoadSchematic(xx); }, 500 );
+    return;
+  }
+  g_schematic_controller.schematic.load_schematic(xx.json_sch); 
+}
 
 if ( !window.requestAnimationFrame ) {
     window.requestAnimationFrame = ( function() {

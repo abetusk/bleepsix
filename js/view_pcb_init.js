@@ -88,11 +88,21 @@ $(document).ready( function() {
     return val.split('=');
   });
 
+  /*
   var projectId = null;
   if (s.length > 0)
   {
-    if (s[0][0] == "projectId") { projectId = s[0][1]; }
+    if (s[0][0] == "project") { projectId = s[0][1]; }
   }
+  */
+
+  var viewUserId = $(document).getUrlParam('user');
+  if (!viewUserId)
+    viewUserId = undefined;
+
+  var projectId = $(document).getUrlParam('project');
+  if (!projectId)
+    projectId = undefined;
 
   bleepsixSchematicHeadless = true;
 
@@ -130,13 +140,11 @@ $(document).ready( function() {
 
 
 
-  if ( (typeof userId !== "undefined") && 
+  if ( (typeof viewUserId !== "undefined") && 
        (typeof projectId !== "undefined") )
   {
-    //load_footprint_location( userId, null, projectId );
-    //load_component_location( userId, null, projectId );
-    load_footprint_location( null, null, projectId );
-    load_component_location( null, null, projectId );
+    load_footprint_location( viewUserId, null, projectId );
+    load_component_location( viewUserId, null, projectId );
   }
   else
   {

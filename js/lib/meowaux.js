@@ -63,11 +63,24 @@ function load_footprint_location( userId, sessionId, projectId, callback, callba
 
   $.ajaxSetup({ cache : false });
   var req = { op : "MOD_LOC" };
+  /*
   if ( (typeof userId !== "undefined") && 
        (typeof sessionId !== "undefined") &&
        (typeof projectId !== 'undefined') )
   {
     req = { op : "MOD_LOC", userId : userId, sessionId : sessionId , projectId: projectId };
+  }
+  */
+
+  if ( (typeof userId !== "undefined") && 
+       (typeof sessionId !== "undefined") )
+  {
+    req = { op : "MOD_LOC", userId : userId, sessionId : sessionId };
+  }
+
+  if (typeof projectId !== 'undefined')
+  {
+    req.projectId = projectId;
   }
 
   $.ajax({
@@ -93,12 +106,26 @@ function load_footprint_cache_part( name, location, userId, sessionId, projectId
     var brd = g_board_controller.board;
 
     var req = { op: "MOD_ELE", name : name, location : location };
+    /*
     if ( (typeof userId !== 'undefined') && 
          (typeof sessionId !== 'undefined') &&
          (typeof projectId !== 'undefinfed') )
     {
       req.userId = userId;
       req.sessionId = sessionId;
+      req.projectId = projectId;
+    }
+    */
+
+    if ( (typeof userId !== 'undefined') && 
+         (typeof sessionId !== 'undefined') )
+    {
+      req.userId = userId;
+      req.sessionId = sessionId;
+    }
+
+    if (typeof projectId !== 'undefinfed')
+    {
       req.projectId = projectId;
     }
 
@@ -154,12 +181,31 @@ function load_component_location( userId, sessionId, projectId, callback, callba
   }
 
   $.ajaxSetup({ cache : false });
+
+  var req = { op : "COMP_LOC" };
+  /*
   var req = { op : "COMP_LOC" };
   if ( (typeof userId !== "undefined") && 
        (typeof sessionId !== "undefined") &&
        (typeof projectId !== 'undefined') )
   {
     req = { op : "COMP_LOC", userId : userId, sessionId : sessionId, projectId : projectId   };
+  }
+  */
+
+  if (typeof userId !== "undefined")
+  {
+    req.userId = userId;
+  }
+
+  if (typeof sessionId !== "undefined")
+  {
+    req.sessionId = sessionId;
+  }
+
+  if (typeof projectId !== 'undefined')
+  {
+    req.projectId = projectId;
   }
 
   $.ajax({
@@ -176,6 +222,7 @@ function load_component_location( userId, sessionId, projectId, callback, callba
 
 function load_component_cache_part( name, location, userId, sessionId, projectId )
 {
+
   if ( !(name in g_component_cache) )
   {
     g_schematic_controller.schematic.queued_display_component_count++;
@@ -184,12 +231,30 @@ function load_component_cache_part( name, location, userId, sessionId, projectId
     var schem = g_schematic_controller.schematic;
 
     var req = { op: "COMP_ELE", name : name, location: location };
+
+    /*
     if ( (typeof userId !== 'undefined') && 
          (typeof sessionId !== 'undefined') &&
          (typeof projectId !== 'undefined') )
     {
       req.userId = userId;
       req.sessionId = sessionId;
+      req.projectId = projectId;
+    }
+    */
+
+    if (typeof userId !== 'undefined')
+    {
+      req.userId = userId;
+    }
+
+    if (typeof sessionId !== 'undefined')
+    {
+      req.sessionId = sessionId;
+    }
+
+    if (typeof projectId !== 'undefined')
+    {
       req.projectId = projectId;
     }
 

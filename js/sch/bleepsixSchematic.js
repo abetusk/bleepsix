@@ -3601,6 +3601,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
       // blech, bad description, see here: 
       //   http://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
 
+
       g_schnetwork.fetchComponent( 
           name, 
           part_json, 

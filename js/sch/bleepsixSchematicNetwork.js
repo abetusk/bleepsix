@@ -85,6 +85,18 @@ function bleepsixSchematicNetwork( serverURL, muteFlag )
   this.json_sch = null;
   this.json_brd = null;
 
+  this.userId       = $.cookie("userId");
+  this.sessionId    = $.cookie("sessionId");
+  this.userName     = $.cookie("userName");
+
+  this.projectId = $(document).getUrlParam("project");
+  if (!this.projectId)
+    this.projectId = undefined;
+
+  this.viewUserId = $(document).getUrlParam("viewUser");
+  if (!this.viewUserId)
+    this.viewUserId = undefined;
+  //else this.userId = this.viewUserId;
 
   if (!this.muteFlag)
   {
@@ -193,6 +205,7 @@ bleepsixSchematicNetwork.prototype.init = function()
 {
   this.connected = true;
 
+  /*
   this.userId       = $.cookie("userId");
   this.sessionId    = $.cookie("sessionId");
   this.userName     = $.cookie("userName");
@@ -200,6 +213,7 @@ bleepsixSchematicNetwork.prototype.init = function()
   this.projectId = $(document).getUrlParam("project");
   if (!this.projectId)
     this.projectId = undefined;
+    */
 
   // No userId or sessionId, we assume an anonymous connection
   //
@@ -343,12 +357,30 @@ bleepsixSchematicNetwork.prototype.fetchComponent = function( name, location, ca
   }
 
   var req = { op: "COMP_ELE", name : name, location: location };
+
+  /*
   if ( ( this.userId ) &&
        ( this.sessionId ) &&
        ( this.projectId ) )
   {
     req.userId = this.userId;
     req.sessionId = this.sessionId;
+    req.projectId = this.projectId;
+  }
+  */
+  if ( ( this.userId ) &&
+       ( this.sessionId ) )
+  {
+    req.userId = this.userId;
+    req.sessionId = this.sessionId;
+  }
+  else if ( this.viewUserId )
+  {
+    req.userId = this.viewUserId;
+  }
+
+  if ( this.projectId )
+  {
     req.projectId = this.projectId;
   }
 
