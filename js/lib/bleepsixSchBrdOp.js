@@ -29,7 +29,7 @@ var schBrdOpHeadless = false;
 if ( typeof module !== 'undefined')
 {
   schBrdOpHeadless = true;
-  var bleepsixAux = require("../lib/aux.js");
+  var bleepsixAux = require("../lib/meowaux.js");
   var guid = bleepsixAux.guid;
   var s4 = bleepsixAux.s4;
   var simplecopy = bleepsixAux.simplecopy;

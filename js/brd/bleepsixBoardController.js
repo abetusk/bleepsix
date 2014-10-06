@@ -29,7 +29,7 @@ if (typeof module !== 'undefined')
   var bleepsixSchematic = require("../sch/bleepsixSchematicNode.js");
   var bleepsixBoard = require("./bleepsixBoardNode.js");
 
-  var bleepsixAux = require("../lib/aux.js");
+  var bleepsixAux = require("../lib/meowaux.js");
 
   var guid = bleepsixAux.guid;
   var s4 = bleepsixAux.s4;

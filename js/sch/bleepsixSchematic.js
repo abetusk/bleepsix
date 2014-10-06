@@ -33,7 +33,7 @@ if (typeof module !== 'undefined')
 
   var numeric = require("../lib/numeric.js");
   //var $ = require("../lib/jquery.js");
-  var bleepsixAux = require("../lib/aux.js");
+  var bleepsixAux = require("../lib/meowaux.js");
 
   var guid = bleepsixAux.guid;
   var s4 = bleepsixAux.s4;

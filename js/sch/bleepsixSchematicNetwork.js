@@ -35,7 +35,7 @@
 /* The hope is that we can keep the session information and
  * network communication localized to this class.
  *
- * This class assumes cookies are setup (along with the aux.js
+ * This class assumes cookies are setup (along with the meowaux.js
  * file loaded for some other functions).  This will set cookies
  * appropriately and worry about the network (socket.io) connection.
  *

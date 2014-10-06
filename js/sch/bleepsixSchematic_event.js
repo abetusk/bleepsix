@@ -7,7 +7,7 @@ if (typeof module !== 'undefined')
   var bleepsixSchematic = require("./bleepsixSchematic.js");
   module.exports = bleepsixSchematic;
 
-  var bleepsixAux = require("../lib/aux.js");
+  var bleepsixAux = require("../lib/meowaux.js");
   var simplecopy = bleepsixAux.simplecopy;
 }
 

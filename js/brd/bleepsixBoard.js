@@ -30,7 +30,7 @@ if (typeof module !== 'undefined')
   bleepsixBoardHeadless = true;
 
   var numeric = require("../lib/numeric.js");
-  var bleepsixAux = require("../lib/aux.js");
+  var bleepsixAux = require("../lib/meowaux.js");
 
   var guid = bleepsixAux.guid;
   var s4 = bleepsixAux.s4;
