@@ -361,6 +361,7 @@ toolBoardNav.prototype.mouseWheel = function( delta )
 
 toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 {
+
   var x = this.mouse_cur_x;
   var y = this.mouse_cur_y;
   var wc = g_painter.devToWorld(x, y);
@@ -683,7 +684,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   // add 'U'nknown part
   //
-  else if ( ch == 'U' )
+  else if ( ( ch == 'U' ) && ( ev.shiftKey ) )
   {
     //console.log("adding 'unknown' part");
 
