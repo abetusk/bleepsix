@@ -30,7 +30,7 @@
 * Don't highlight net 0
 * Highlight pin/pad when hovering (and not part of a net or of net 0)
 * Fix pad hilighting after initial placement
-* make unknown capital 'U' instead of lowercase 'u'
+* ~~make unknown capital 'U' instead of lowercase 'u'~~
 
 * toolBoardNav rotate needs to split/join net.
 * toolTrace needs self intersection test.

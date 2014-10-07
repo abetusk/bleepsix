@@ -22,6 +22,20 @@
 
 */
 
+/* 
+ *
+ * These are helper functions to aid in sending messages
+ * across tabs.  Since we're on the same domain, cookies
+ * are shared across the tabs.  We can use this as a low
+ * bandwidth channel to communicate state between the two
+ * tabs in question.
+ *
+ * The 'net highlight' feature uses these to communicate
+ * mouse hover in one tab to indicate which net is highlighted
+ * so the other tab can highlight them (from board to schematic,
+ * for example)
+ *
+ */
 
 var bleepsixTabCommunicationHeadless = false;
 if ( typeof module !== 'undefined')
@@ -71,18 +85,9 @@ bleepsixTabCommunication.prototype.addMessage = function( channelName, msg )
 
 bleepsixTabCommunication.prototype.hasNewMessage = function( channelName )
 {
-
   var msg = localStorage.getItem( "meowmsg:" + channelName );
   return msg != this.lastMessage[ channelName ] ;
-
-
-
-
-  //this.message = $.cookie( "meowmsg:" + this.id );
   this.message = localStorage.getItem( "meowmsg:" + this.id );
-
-  //console.log(">>> " + this.lastMessage + ", " + this.message );
-
   return this.lastMessage != this.message ;
 }
 
