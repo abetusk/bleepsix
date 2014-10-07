@@ -527,6 +527,7 @@ bleepsixSchematicController.prototype.highlightBoardNetsFromSchematic= function 
   for (var ii in sch_ncs )
   {
     var sch_nc = sch_ncs[ii];
+    if (sch_nc==0) continue;
     if (msg.length > 0) msg += ".";
     msg += sch_nc.toString();
   }

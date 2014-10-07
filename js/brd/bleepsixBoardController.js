@@ -495,7 +495,6 @@ bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( br
       {
         if ( !this.board._net_equal_bbs( parseInt(brd_nc), parseInt(ele.pad[p_ind].net_number) ) )
           continue;
-
         if (msg.length>0) msg += ".";
         msg += ele.id + "/" + ele.pad[p_ind].name;
       }
