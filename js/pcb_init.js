@@ -118,6 +118,8 @@
 
         requestAnimationFrame( loop, 1 );
 
+        g_brdnetwork = new bleepsixBoardNetwork( MEOWURL );
+
         var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
         var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );
         var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
@@ -151,7 +153,6 @@
           }
         );
 
-        g_brdnetwork = new bleepsixBoardNetwork( MEOWURL );
 
         canvasFocus();
 

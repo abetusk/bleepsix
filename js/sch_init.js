@@ -122,6 +122,7 @@
 
       requestAnimationFrame( loop, 1 );
 
+      g_schnetwork = new bleepsixSchematicNetwork( MEOWURL );
 
       var userId = ( g_schnetwork ? g_schnetwork.userId : undefined );
       var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
@@ -159,7 +160,6 @@
 
       );
 
-      g_schnetwork = new bleepsixSchematicNetwork( MEOWURL );
 
       canvasFocus();
 
