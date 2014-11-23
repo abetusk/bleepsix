@@ -213,6 +213,7 @@ toolBoardNav.prototype.mouseUp = function( button, x, y )
 
 toolBoardNav.prototype.mouseMove = function( x, y ) 
 {
+
   if ( this.mouse_drag_flag ) 
      this.mouseDrag ( x - this.mouse_cur_x, y - this.mouse_cur_y );
 
@@ -253,6 +254,37 @@ toolBoardNav.prototype.mouseMove = function( x, y )
         if ("brd_to_sch_net_map" in board.kicad_brd_json)
         {
 
+          // `netcode` is the net name of the picked element.
+          // We find all implied schematic nets from the board netcode.
+          // We then map back all implied board netcodes from the
+          // schematic netcodes. 
+          //
+          //          sch               brd
+          //           .  ________\_______x
+          //             /        /
+          //           ./__/____
+          //               \    \___/___ nc
+          //           .___/____/   \
+          //            \   \
+          //           . \________\_______x
+          //                      /
+          //
+          // Where 'nc' is also mapped back.
+          //
+          // I think we did this as an initial attempt.  On further
+          // reflection, this is too coarse and confusing.  Better to
+          // differentiate what's an implied board and schematic net
+          // and to color them differently depending.
+          //
+
+          var hi_netcodes = [];
+          var sub_pad_ids = [];
+
+          g_board_controller.board.getBoardNetCodesAndSubPads( netcode, undefined, hi_netcodes, sub_pad_ids );
+          g_board_controller.board.highlightNetCodesSubPads( hi_netcodes, sub_pad_ids );
+
+
+          /*
           var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
           var hi_netcodes = [];
 
@@ -266,6 +298,8 @@ toolBoardNav.prototype.mouseMove = function( x, y )
           }
 
           g_board_controller.board.highlightNetCodes( hi_netcodes );
+          */
+
           g_board_controller.highlightSchematicNetsFromBoard( netcode );
 
           this.highlightNetcodes = hi_netcodes;
@@ -295,8 +329,19 @@ toolBoardNav.prototype.mouseMove = function( x, y )
       var board = g_board_controller.board;
       if ("brd_to_sch_net_map" in board.kicad_brd_json)
       {
-        var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
+
         var hi_netcodes = [];
+        var sub_pad_ids = [];
+
+
+        var xy = pad_ref.id.split(",");
+        var base_pad_id = xy[0] + ":" + pad_ref.name;
+
+        g_board_controller.board.getBoardNetCodesAndSubPads( netcode, base_pad_id, hi_netcodes, sub_pad_ids );
+        g_board_controller.board.highlightNetCodesSubPads( hi_netcodes, sub_pad_ids );
+
+        /*
+        var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
         for (var i in sch_nets)
         {
           var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
@@ -305,12 +350,13 @@ toolBoardNav.prototype.mouseMove = function( x, y )
             hi_netcodes.push( map[j] );
           }
         }
+
         g_board_controller.board.highlightNetCodes( hi_netcodes );
+        */
 
-
-        // EXPERIMENTAL
+        // Highlight netcodes in companion schematic.
+        //
         g_board_controller.highlightSchematicNetsFromBoard( netcode );
-        // EXPERIMENTAL
 
         this.highlightNetcodes = hi_netcodes;
 

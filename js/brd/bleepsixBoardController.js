@@ -588,6 +588,10 @@ bleepsixBoardController.prototype.redraw = function ()
 
         if (msg.length > 0)
         {
+
+          //DEBUG
+          console.log("+++ tabComm")
+
           var hi_netcodes = [];
           var sch_nets = msg.split('.');
 

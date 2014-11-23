@@ -890,6 +890,37 @@ bleepsixBoard.prototype.highlightNetCodes = function( net_codes )
   g_painter.dirty_flag = true;
 }
 
+bleepsixBoard.prototype.highlightNetCodesSubPads = function( net_codes, mod_pad_ids )
+{
+  this.highlight_net.length = 0;
+  for (var n in net_codes)
+  {
+    var net_name = this.kicad_brd_json.net_code_map[ net_codes[n] ];
+    if (!net_name) continue;
+    var pgns = this.getBGLVarSubPads( net_name, mod_pad_ids );
+    for (var i in pgns)
+      this.highlight_net.push( this._pgn2pnt(pgns[i]) );
+  }
+  this.highlight_net_flag = true;
+  g_painter.dirty_flag = true;
+}
+
+bleepsixBoard.prototype.highlightNetsSubPads = function( net_names , mod_pad_ids )
+{
+
+  this.highlight_net.length = 0;
+  for (var n in net_names)
+  {
+    var net_name = net_names[n];
+    var pgns = this.getBGLVarSubPads( net_name, mod_pad_ids );
+    for (var i in pgns)
+      this.highlight_net.push( this._pgn2pnt(pgns[i]) );
+  }
+  this.highlight_net_flag = true;
+  g_painter.dirty_flag = true;
+
+}
+
 
 bleepsixBoard.prototype.unhighlightNet = function( net_name )
 {
@@ -897,6 +928,131 @@ bleepsixBoard.prototype.unhighlightNet = function( net_name )
   g_painter.dirty_flag = true;
 }
 
+bleepsixBoard.prototype.getBoardNetCodesAndSubPads = function( netcode, base_pad_id, hi_netcodes, mod_pad_ids )
+{
+  var brd = this.kicad_brd_json["element"];
+  var hi_nc_map = {};
+
+  // Get all netcodes to highlight and put them in hi_netcodes.
+  //
+  var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
+  for (var i in sch_nets)
+  {
+    var map = this.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
+    for (var j in map)
+    {
+      //hi_netcodes.push( map[j] );
+      hi_nc_map[ map[j] ] = 1;
+    }
+  }
+
+  // remove duplicates
+  //
+  for (var k in hi_nc_map) { hi_netcodes.push( parseInt(k) ); }
+
+
+  // The basic idea is to find a canonical pad in the board
+  // from the netcode.  Once found look up the originating
+  // schematic netcode in teh sch_pin_id_net_map.
+  // We then find all pads in the board that should be
+  // highlighted but whose netcode from the schematic,
+  // as described in the sch_pin_id_net_map, don't match.
+  // Those are the ones that need to be added to mod_pad_ids
+  // to give an indication that there is a net mismatch.
+  //
+
+  var hi_pad = {};
+  var hi_pad_array = [];
+
+  for (var ind in brd)
+  {
+    var ele = brd[ind];
+    var type = ele.type;
+
+    if (ele.type != "module") { continue; }
+    for ( var pad_ind in ele.pad )
+    {
+      var pad = ele.pad[pad_ind];
+      if (!( pad.net_number in hi_nc_map)) { continue; }
+
+      var xy = pad.id.split(",");
+      var tpad_id = xy[0] + ":" + pad.name; 
+      hi_pad[ tpad_id ] = pad;
+      hi_pad_array.push( tpad_id );
+    }
+
+  }
+
+  if (hi_pad_array.length == 0) { return; }
+
+  var canon_pad_id = base_pad_id;
+
+  if ( typeof canon_pad_id === "undefined" )
+  {
+    hi_pad_array.sort();
+    canon_pad_id = hi_pad_array[0];
+    //var canon_pad = hi_pad[ canon_pad_id ];
+  }
+
+  var spin_map = this.kicad_brd_json.sch_pin_id_net_map;
+  var canon_sch_nc = spin_map[ canon_pad_id ].netcode;
+
+  for (var pad_id in spin_map)
+  {
+    if (!(pad_id in hi_pad)) { continue; }
+    if (spin_map[pad_id].netcode != canon_sch_nc)
+    {
+      mod_pad_ids.push( pad_id );
+    }
+
+  }
+
+}
+
+bleepsixBoard.prototype.getBGLVarSubPads = function( bgl_name, mod_pad_ids )
+{
+  var neg_pgns = [];
+
+  var pgns = this.getBGLVar( bgl_name );
+
+  for (var mod_pad_ind in mod_pad_ids) {
+
+    var mod_pad_id = mod_pad_ids[mod_pad_ind];
+    var mod_pad = mod_pad_id.split(":");
+    var mod_id = mod_pad[0];
+    var pad_name = mod_pad[1];
+
+    var brd = this.kicad_brd_json["element"];
+    for (var ind in brd)
+    {
+      var ele = brd[ind];
+      var type = ele.type;
+
+      if (ele.type == "module")
+      {
+
+        if (ele.id != mod_id) { continue; }
+        for ( var pad_ind in ele.pad )
+        {
+
+          if ( ele.pad[pad_ind].name != pad_name ) { continue; }
+          var pad = ele.pad[pad_ind];
+          neg_pgns.push( this._build_element_polygon( { ref: ele, pad_ref: pad, id : pad.id, type: "xpad" } ) );
+
+        }
+      }
+
+    }
+
+  }
+
+  var rop_pgns = [];
+
+  this._clip_difference( rop_pgns, pgns, neg_pgns );
+
+  return rop_pgns;
+
+}
 
 bleepsixBoard.prototype.getBGLVar = function( bgl_name )
 {

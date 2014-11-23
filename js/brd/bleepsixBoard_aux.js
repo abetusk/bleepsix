@@ -448,7 +448,7 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
 
   }
 
-  if (type != "pad") return null;
+  if ((type != "pad") && (type != "xpad")) return null;
 
   var ref = ele.ref;
   var pad = ele.pad_ref;
@@ -469,15 +469,29 @@ bleepsixBoard.prototype._build_element_polygon = function( ele, ds, border_flag 
   u[0] += mod_x;
   u[1] += mod_y;
 
-  if (shape == "rectangle")
-    pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
-  else if (shape == "oblong")
-    pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
-  else if (shape == "circle")
-    pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds, clearance );
-  else if (shape == "trapeze")
-  {
-    console.log("bleepsixBoard._build_element_polygon: trapeze not implemented");
+  if (type == "pad") {
+    if (shape == "rectangle")
+      pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
+    else if (shape == "oblong")
+      pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
+    else if (shape == "circle")
+      pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds, clearance );
+    else if (shape == "trapeze")
+    {
+      console.log("bleepsixBoard._build_element_polygon: trapeze not implemented");
+    }
+  } else if (type == "xpad") {
+    clearance = -50;
+    if (shape == "rectangle")
+      pgn = this._realize_rect( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
+    else if (shape == "oblong")
+      pgn = this._realize_oblong( u[0], u[1], pad_sx, pad_sy, pad_ang, ds, border_flag, clearance );
+    else if (shape == "circle")
+      pgn = this._realize_circle( u[0], u[1], pad_sx/2, pad_ang, ds, clearance );
+    else if (shape == "trapeze")
+    {
+      console.log("bleepsixBoard._build_element_polygon: trapeze not implemented");
+    }
   }
 
   //this.debug_geom.push( this._pgn2pnt( pgn ) );
@@ -1126,6 +1140,53 @@ bleepsixBoard.prototype._realize_circle = function(x, y, r, ang, ds, clearance )
   {
     var theta = 2.0 * Math.PI * i / n;
     pnt.push( [ r * Math.cos(theta), r * Math.sin(theta) ] );
+  }
+
+  pnt = numeric.dot( pnt, this._Rt(ang) );
+  this._realize_translate(pnt, x, y);
+  return this._pnt2pgn(pnt);
+}
+
+bleepsixBoard.prototype._realize_cross = function( x, y, W, w, H, h, ang, ds, border_flag, clearance )
+{
+  ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );
+  border_flag = ( (typeof border_flag !== 'undefined') ? border_flag : false );
+  clearance = ( (typeof clearance !== 'undefined') ? clearance : 0 );
+
+  var W2 = (W/2) + clearance, 
+      H2 = (H/2) + clearance;
+
+  var pnt = [];
+  if (border_flag)
+  {
+    var tx, ty;
+
+    for (tx = -w2; tx < w2; tx += ds )
+      pnt.push( [  tx, -h2 ] );
+
+    for (ty = -h2; ty < h2; ty += ds )
+      pnt.push( [ +w2,  ty ] );
+
+    for (tx = w2; tx > -w2; tx -= ds )
+      pnt.push( [  tx, +h2 ] );
+
+    for (ty = h2; ty > -h2; ty -= ds )
+      pnt.push( [ -w2,  ty ] );
+
+    var dxy = ds / Math.sqrt(2);
+    for (tx = -w2, ty = -h2;  (tx < w2) && (ty < h2) ; tx += dxy, ty += dxy )
+      pnt.push( [ tx,  ty ] );
+
+    for (tx = -w2, ty = h2;  (tx < w2) && (ty > -h2) ; tx += dxy, ty -= dxy )
+      pnt.push( [ tx,  ty ] );
+
+  }
+  else
+  {
+    pnt = [ [ -w2, -h2 ],
+            [ +w2, -h2 ],
+            [ +w2, +h2 ],
+            [ -w2, +h2 ] ];
   }
 
   pnt = numeric.dot( pnt, this._Rt(ang) );
