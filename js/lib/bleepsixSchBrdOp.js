@@ -99,7 +99,7 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 
   else if ( type == "track" )
   {
-    this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.net_number, id );
+    this.board.addTrack( data.x0, data.y0, data.x1, data.y1, data.width, data.layer, data.netcode, id );
   }
 
   else if ( ( type == "footprintData" ) || ( type == "module" ) )
@@ -176,26 +176,17 @@ bleepsixSchBrdOp.prototype.opBrdAdd = function ( op, inverseFlag )
   if (inverseFlag)
   {
 
-    //console.log("opBrdAdd inverse add (remove): " + op.id );
-
     if ( type == "net" )
     {
-      //console.log("  removing net (" + op.data.net_number + ") NOT YET IMPLEMENTED for now");
       this.board.removeNet( op.data.net_number );
     }
     else
     {
       var ref = this.board.refLookup( op.id );
-
-      //console.log(ref);
-      //console.log("  removing part");
-
       this.board.remove( { id: op.id, ref: ref } );
     }
     return;
   }
-
-  //console.log("  opBrdAdd: " + type + ", " + action + ", " + op.id );
 
   this._opBrdAddSingle( type, op.id, data, op );
 

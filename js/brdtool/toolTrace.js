@@ -532,6 +532,7 @@ toolTrace.prototype.placeTrack = function()
                   width: th[ind].width,
                   layer0 : this.layer[0],
                   layer1 : this.layer[1], 
+                  netcode: curNetCode,
                   net_number: curNetCode };
                   //net_number: nc };
       op.groupId = this.groupId;
@@ -555,6 +556,7 @@ toolTrace.prototype.placeTrack = function()
                   x1 : th[ind].x1, y1 : th[ind].y1,
                   width: th[ind].width,
                   layer : th[ind].layer,
+                  netcode: curNetCode,
                   net_number: curNetCode };
                   //net_number: nc };
       op.groupId = this.groupId;
@@ -594,6 +596,7 @@ toolTrace.prototype.placeTrack = function()
                     //width: ctp[ind].width,
                     width: this.trace_width,
                     layer : this.cur_layer,
+                    netcode: curNetCode,
                     net_number: curNetCode };
                     //net_number: nc };
         op.groupId = this.groupId;

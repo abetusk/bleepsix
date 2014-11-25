@@ -1561,7 +1561,6 @@ bleepsixBoard.prototype.addTrack = function(x0, y0, x1, y1, width, layer, netcod
   track["timestamp"] = "0";
   track["width"] = width;
 
-  //this.updateTrackBoundingBox( track );
   this.updateLineBoundingBox( track );
 
   this.kicad_brd_json["element"].push(track);
