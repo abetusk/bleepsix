@@ -995,6 +995,7 @@ bleepsixBoard.prototype.getBoardNetCodesAndSubPads = function( netcode, base_pad
   }
 
   var spin_map = this.kicad_brd_json.sch_pin_id_net_map;
+  if (!spin_map[ canon_pad_id ]) { return; }
   var canon_sch_nc = spin_map[ canon_pad_id ].netcode;
 
   for (var pad_id in spin_map)

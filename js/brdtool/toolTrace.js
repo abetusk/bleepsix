@@ -624,7 +624,6 @@ toolTrace.prototype.placeTrack = function()
 
     if (dst_netcode > 0)
     {
-      //g_board_controller.board.mergeNets( dst_netcode, nc );
 
       if ( dst_netcode != curNetCode )
       {
@@ -637,13 +636,10 @@ toolTrace.prototype.placeTrack = function()
 
         g_board_controller.opCommand( op );
 
-        //g_board_controller.board.mergeNets( dst_netcode, curNetCode );
-        //curNetCode = dst_netcode;
         curNetCode = op.result.net_number ;
       }
 
     }
-    //else { console.log("dest join anonymous net"); }
 
   }
 
@@ -658,7 +654,6 @@ toolTrace.prototype.placeTrack = function()
 
     if (src_netcode > 0)
     {
-      //g_board_controller.board.mergeNets( src_netcode, nc );
 
       if ( src_netcode != curNetCode )
       {
@@ -671,11 +666,8 @@ toolTrace.prototype.placeTrack = function()
         g_board_controller.opCommand( op );
 
         curNetCode = op.result.net_number ;
-        //curNetCode = src_netcode;
       }
     }
-    //else if (src_netcode) { console.log("source join anonymous net"); }
-
   }
 
 
@@ -686,8 +678,6 @@ toolTrace.prototype.placeTrack = function()
 
   var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
   g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
-
 
   g_painter.dirty_flag = true;
 
@@ -735,7 +725,6 @@ toolTrace.prototype.handlePossibleConnection = function( ex, ey, layer )
   this._make_point_track( dst_track, this.cur_trace_point[n-1], this.trace_width );
   var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ] , layer );
 
-  //var dst_hit = this._choose_hit_element( hit_ele_dst );
   var dst_hit = this._choose_hit_element( hit_ele_dst, this.cur_trace_point[n-1]  );
 
   if (dst_hit)
@@ -822,8 +811,6 @@ toolTrace.prototype.mouseDown = function( button, x, y )
           //check for special case when direction blah blah blah
           //console.log("skipping extra add trace event (traces too close) [J]");
 
-          //console.log(this.cur_trace_point);
-          //console.log(this.trace);
           return;
         }
 
@@ -835,7 +822,6 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 
         if ( this.handlePossibleConnection( ex, ey, this.cur_layer ) )
         {
-          //console.log("handlePossibleConnection returned (J)");
           return;
         }
 
@@ -843,7 +829,6 @@ toolTrace.prototype.mouseDown = function( button, x, y )
         //
         if (!this.allow_place_flag)
         {
-          //console.log("intermediate state, not allowing placement");
           return;
         }
 
@@ -867,10 +852,8 @@ toolTrace.prototype.mouseDown = function( button, x, y )
 
         this.cur_trace_point.shift();
 
-        //this.cur_trace_point.push( { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } );
         var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
         this.cur_trace_point.push( { x : xy.x, y : xy.y } );
-
 
         this.jointStateAngled = !this.jointStateAngled;
 
@@ -892,15 +875,11 @@ toolTrace.prototype.doubleClick = function( button, x, y )
   //
   if (!this.allow_place_flag)
   {
-    //console.log("intermediate state, not allowing placement (doublclick)");
     return;
   }
 
-
   if (this.trace_history.length > 0)
   {
-
-
     this.placeTrack();
   }
   else
@@ -916,9 +895,6 @@ toolTrace.prototype.doubleClick = function( button, x, y )
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
-
-
 
     g_painter.dirty_flag = true;
   }

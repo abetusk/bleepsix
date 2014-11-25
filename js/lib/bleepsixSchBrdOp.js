@@ -349,9 +349,19 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   else if (type == "mergenet")
   {
-    var res = 
-      this.board.mergeNets( data.net_number0, data.net_number1 );
-    op.result = res;
+
+    if (!inverseFlag)
+    {
+      var res =
+        this.board.mergeNets( data.net_number0, data.net_number1 );
+      op.result = res;
+    }
+    else
+    {
+      var res = op.result;
+      this.board.mergeNetsUndo( res );
+    }
+
   }
 
   else if (type == "splitnet")
@@ -869,7 +879,9 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op )
   var type = op.type;
   var data = op.data;
 
-  op.result = {};
+  // Save result if we're undoing
+  //
+  if (!inverseFlag) { op.result = {}; }
 
   // So we don't add the undo/redo onto our history stack while
   // we're undoing.
@@ -916,8 +928,6 @@ bleepsixSchBrdOp.prototype.opUndo = function( src )
 
   if ( this.opHistoryEnd >= 0 )
   {
-
-    //console.log(this.opHistory[ this.opHistoryEnd ] );
 
     var start_group_id = this.opHistory[ this.opHistoryEnd ].groupId ;
     while ( ( this.opHistoryEnd >= 0 ) &&

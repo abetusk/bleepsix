@@ -1147,6 +1147,9 @@ bleepsixBoard.prototype._realize_circle = function(x, y, r, ang, ds, clearance )
   return this._pnt2pgn(pnt);
 }
 
+// IN DEVELOPMENT
+// It's just the _realize_rect function right now.
+//
 bleepsixBoard.prototype._realize_cross = function( x, y, W, w, H, h, ang, ds, border_flag, clearance )
 {
   ang = ( (typeof ang !== 'undefined' ) ? ang : 0.0 );

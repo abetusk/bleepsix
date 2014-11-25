@@ -184,10 +184,6 @@ bleepsixBoard.prototype.init = function( paint )
 
   // load ascii font
 
-
-  //DEBUG
-  //console.log("bleepsixBoard.init...");
-
   var brd = this;
   $.ajaxSetup({ cache : false });
   $.getJSON( "json/utf8_hershey_ascii.json",
@@ -1167,10 +1163,6 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
 
         if (pad.net_number == stale_netcode)
         {
-
-          //DEBUG
-          //console.log("renaming pad: ", pad);
-
           pad.net_number = new_netcode;
           pad.net_name = new_netname;
 
@@ -1301,11 +1293,15 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
   var netname0 = this.kicad_brd_json.net_code_map[ String(netcode0) ];
   var netname1 = this.kicad_brd_json.net_code_map[ String(netcode1) ];
 
+  // Normalize
+  //
   var net_array = [ netname0, netname1 ].sort();
 
   var stale_netcode = netcode0;
   var new_netcode = netcode1;
 
+  // Swap if necessary
+  //
   if (netname0 == net_array[0])
   {
     stale_netcode = netcode1;
@@ -1319,9 +1315,41 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
   var schpin_map = this.kicad_brd_json.sch_pin_id_net_map;
   this.updateSchematicNetcodeMap( schpin_map );
 
-  return { net_number: new_netcode, renamed_ids : renamed_ids } ;
+  return { old_net_number: stale_netcode,
+           old_net_name: net_array[1],
+           net_number: new_netcode,
+           net_name: net_array[0],
+           renamed_ids : renamed_ids } ;
 
 }
+
+
+bleepsixBoard.prototype.mergeNetsUndo = function( merge_data )
+{
+
+  ids = merge_data.renamed_ids;
+  for (var ind in ids)
+  {
+    ref = this.refLookup( ids[ind] );
+
+    if (ref.type == "track")
+    {
+      ref.netcode = merge_data.old_net_number;
+    }
+    else
+    {
+      ref.net_number = merge_data.old_net_number;
+      ref.net_name   = merge_data.old_net_name;
+    }
+  }
+
+  this.addNet( merge_data.old_net_number, merge_data.old_net_name );
+
+  var schpin_map = this.kicad_brd_json.sch_pin_id_net_map;
+  this.updateSchematicNetcodeMap( schpin_map );
+
+}
+
 
 bleepsixBoard.prototype._genNetName = function()
 {
@@ -1789,9 +1817,6 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
   footprint_entry["bounding_box"] = bbox;
 
   this.kicad_brd_json["element"].push( footprint_entry );
-
-  //DEBUG
-  //console.log( this.kicad_brd_json );
 
   if (!bleepsixBoardHeadless)
     g_painter.dirty_flag = true;
