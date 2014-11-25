@@ -1554,7 +1554,11 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     {
       op.id.push( this.selectedElement[ind].id );
 
-      var clonedData = simplecopy( this.selectedElement[ind].ref );
+      var ref = g_board_controller.board.refLookup( this.selectedElement[ind].id );
+
+      //var clonedData = simplecopy( this.selectedElement[ind].ref );
+      var clonedData = simplecopy( ref );
+
       op.data.element.push( clonedData );
     }
 
