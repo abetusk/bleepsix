@@ -848,12 +848,8 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   //
   else if (ch == 'D')
   {
-    //console.log("(D)elete: wxy: " + wx + " " + wy );
 
     var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
-
-    //console.log("got:");
-    //console.log(id_ref_ar);
 
     if (id_ref_ar.length > 0)
     {
