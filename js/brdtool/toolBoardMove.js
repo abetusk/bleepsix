@@ -623,19 +623,21 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
           }
 
+          /*
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: ref.netcode };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
 
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: brd_ele.netcode };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
+          */
 
         }
 
@@ -671,19 +673,21 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
           }
 
+          /*
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: ref.netcode };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
 
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: brd_ele.net_number };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
+          */
 
         }
 
@@ -718,19 +722,21 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
           }
 
+          /*
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: pad.net_number };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
 
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: brd_ele.netcode };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
+          */
 
         }
 
@@ -774,19 +780,21 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
             }
 
+            /*
             var split_op = { source: "brd", destination: "brd" };
             split_op.action = "update";
             split_op.type = "splitnet";
             split_op.data = { net_number: ele_pad.net_number };
-            split_op.groupId = this.group_id;
+            split_op.groupId = this.groupId;
             g_board_controller.opCommand( split_op );
 
             var split_op = { source: "brd", destination: "brd" };
             split_op.action = "update";
             split_op.type = "splitnet";
             split_op.data = { net_number: brd_pad.net_number };
-            split_op.groupId = this.group_id;
+            split_op.groupId = this.groupId;
             g_board_controller.opCommand( split_op );
+            */
 
           }
 
@@ -900,23 +908,27 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
           op.groupId = this.groupId;
           g_board_controller.opCommand( op );
 
+          /*
           var split_op = { source: "brd", destination: "brd" };
           split_op.action = "update";
           split_op.type = "splitnet";
           split_op.data = { net_number: brd_track_ref.netcode };
-          split_op.groupId = this.group_id;
+          split_op.groupId = this.groupId;
           g_board_controller.opCommand( split_op );
+          */
 
         }
 
       }
 
+      /*
       var split_op = { source: "brd", destination: "brd" };
       split_op.action = "update";
       split_op.type = "splitnet";
       split_op.data = { net_number: brd_ele.netcode };
-      split_op.groupId = this.group_id;
+      split_op.groupId = this.groupId;
       g_board_controller.opCommand( split_op );
+      */
 
     }
     else if (brd_type == "module")
@@ -948,23 +960,27 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
             op.groupId = this.groupId;
             g_board_controller.opCommand( op );
 
+            /*
             var split_op = { source: "brd", destination: "brd" };
             split_op.action = "update";
             split_op.type = "splitnet";
             split_op.data = { net_number: brd_track_ref.netcode };
-            split_op.groupId = this.group_id;
+            split_op.groupId = this.groupId;
             g_board_controller.opCommand( split_op );
+            */
 
           }
 
         }
 
+        /*
         var split_op = { source: "brd", destination: "brd" };
         split_op.action = "update";
         split_op.type = "splitnet";
         split_op.data = { net_number: pad.net_number };
-        split_op.groupId = this.group_id;
+        split_op.groupId = this.groupId;
         g_board_controller.opCommand( split_op );
+        */
 
       }
 
@@ -1285,7 +1301,7 @@ toolBoardMove.prototype._patchUpNets = function()
     split_op.action = "update";
     split_op.type = "splitnet";
     split_op.data = { net_number: nc };
-    split_op.groupId = this.group_id;
+    split_op.groupId = this.groupId;
     g_board_controller.opCommand( split_op );
   }
 
@@ -1339,17 +1355,25 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
       com = g_snapgrid.snapGrid(com);
 
 
+      // moveGroup pushes state?  Make sure to unset hideFlag
+      // before we push state.
+      //
+      for (var ind in this.origElements )
+      {
+        var ref = g_board_controller.board.refLookup( this.selectedElement[ind].id );
+        ref.hideFlag = false;
+      }
+
       if ( (wdx != 0) || (wdy != 0) ||
            (this.rotateCount != 0) )
       {
-
         var op = { "source" : "brd", "destination" : "brd" };
         op.action = "update";
         op.type = "moveGroup";
         op.id = [];
         op.data = { dx: wdx, dy: wdy,
-        rotateCount : this.rotateCount,
-        cx : com.x, cy: com.y };
+                    rotateCount : this.rotateCount,
+                    cx : com.x, cy: com.y };
 
         for (var ind in this.selectedElement)
         {
@@ -1359,8 +1383,6 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         g_board_controller.opCommand( op );
 
         this._patchUpNets();
-        //this._sendNetOps();
-
       }
 
 
@@ -1369,20 +1391,9 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
       //
       for (var ind in this.origElements )
       {
-        //this.origElements[ind].ref.hideFlag = false;
-
         var ref = g_board_controller.board.refLookup( this.origElements[ind].ref.id );
         ref.hideFlag = false;
       }
-
-
-      //TESTING
-      /*
-      var brd = g_board_controller.board.kicad_brd_json;
-      var map = brd.brd_to_sch_net_map;
-      g_board_controller.board.updateRatsNest( undefined, undefined, map );
-      */
-
 
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
@@ -1390,7 +1401,6 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
       var brd = g_board_controller.board.kicad_brd_json;
       var map = brd.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
 
     }
   }

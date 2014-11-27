@@ -1327,6 +1327,8 @@ bleepsixBoard.prototype.mergeNets = function( netcode0, netcode1 )
 bleepsixBoard.prototype.mergeNetsUndo = function( merge_data )
 {
 
+  if (typeof merge_data === "undefined") { return; }
+  if (!("renamed_ids" in merge_data)) { return; }
   ids = merge_data.renamed_ids;
   for (var ind in ids)
   {
