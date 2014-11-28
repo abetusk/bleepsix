@@ -703,14 +703,13 @@ function __dist2( a, b )
 //   
 bleepsixBoard.prototype.splitNet = function( orig_netcode )
 {
-  var net_ele_point_hash = {};
 
-  //console.log("bleepsixBoard_netops.splitNet");
+  var new_net_info = [];
+
+  var net_ele_point_hash = {};
 
   this._construct_netsplit_point_hash( net_ele_point_hash, orig_netcode );
   this._populate_netsplit_group_hash_names( net_ele_point_hash );
-
-  //console.log( net_ele_point_hash );
 
   var group_list = this._get_netsplit_group_list(net_ele_point_hash);
   if (group_list.length == 1 )
@@ -722,9 +721,6 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
   //
   if (this._bounding_box_netsplit( net_group_bin ) ) 
     return ;
-
-  //console.log("complex netsplit...");
-  //console.log(net_group_bin);
 
   var ds = 10;
 
@@ -741,13 +737,8 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
 
       var pgn = this._build_element_polygon( ele_list[ind] );
 
-      //console.log("pushing pgn onto group " + group_name);
-      //console.log( ele_list[ind] );
-
       group_polygons[group_name].push( pgn );
-
     }
-
   }
 
 
@@ -786,30 +777,23 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
   // now we need to regroup, finding groups of groups
 
   var collection = this._flood_fill_grouping_graph( group_intersect_graph );
-  //console.log("got:");
-  //console.log(collection);
 
   var first = true;
   for (var c in collection)
   {
-    //console.log("____ merge sets\n");
-    //console.log(collection[c]);
 
     if (first)
     {
-      //console.log(" ^--- first net collection, skipping (keeping net name)");
       first = false;
       continue;
     }
 
     var new_net = this.addNet();
-    //console.log("net structure:");
-    //console.log(new_net);
+    new_net_info.push( new_net );
 
     var li = collection[c];
     for (var ind in li)
     {
-      //console.log( "..: " + li[ind] );
 
       var net_bin_ar = net_group_bin[ li[ind] ];
       for (var i in net_bin_ar)
@@ -820,10 +804,7 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
           var ref = net_bin_ar[i].ref;
           var netcode = ref.netcode;
 
-          //console.log("track changing net code from " + netcode  + " to " + new_net.net_number);
-
           ref.netcode = new_net.net_number;
-
         }
 
         else if (net_bin_ar[i].type == "pad")
@@ -831,83 +812,17 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
           var pad_ref = net_bin_ar[i].pad_ref;
           var netcode = pad_ref.net_number;
 
-          //console.log("pad changine net code from " + netcode  + " to " + new_net.net_number);
-
           pad_ref.net_number = new_net.net_number;
           pad_ref.net_name = new_net.net_name;
         }
 
       }
 
-
     }
   }
 
-  // DEBUGGING
-
-
-  /*
-  var test_grouping_graph = {}
-  var test_vertex = [ 10, 15, 20, 25, 30, 35, 40, 45, 50 ];
-  for ( var v in test_vertex )
-  {
-    var x = test_vertex[v];
-    test_grouping_graph[x] = {};
-  }
-
-  for (var u in test_vertex)
-  {
-    for (var v in test_vertex )
-    {
-      if (u<=v) continue;
-
-      x = test_vertex[u];
-      y = test_vertex[v];
-
-      test_grouping_graph[x][y] = 0;
-      test_grouping_graph[y][x] = 0;
-
-      console.log(" ...? " + x + " " + y + " " + test_grouping_graph[x][y] + " " + test_grouping_graph[y][x] );
-    }
-  }
-
-  test_grouping_graph[10][15] = -1;
-  test_grouping_graph[15][10] = -1;
-
-  test_grouping_graph[10][20] = -1;
-  test_grouping_graph[20][10] = -1;
-
-  test_grouping_graph[10][30] = -1;
-  test_grouping_graph[30][10] = -1;
-
-  test_grouping_graph[30][35] = -1;
-  test_grouping_graph[35][30] = -1;
-
-  test_grouping_graph[25][40] = -1;
-  test_grouping_graph[40][25] = -1;
-
-  var grouping_map = this._flood_fill_grouping_graph( test_grouping_graph );
-
-  console.log("test_grouping_graph:");
-  console.log(test_grouping_graph);
-  console.log(grouping_map );
-
-
-  for (var g0 in group_intersect_graph)
-    for (var g1 in group_intersect_graph[g0])
-      console.log(" intersect graph " + g0 + " " + g1 + " " + group_intersect_graph[g0][g1] );
-
-  for (var group_name in group_union)
-  {
-    for (var ind in group_union[group_name])
-    {
-      var pgn = group_union[group_name][ind];
-      this.debug_geom.push( this._pgn2pnt( pgn ) );
-    }
-  }
-  */
-  // DEBUGGING
-
+  var split_result = { new_net : new_net_info, orig_net_number: orig_netcode };
+  return split_result;
 
 }
 

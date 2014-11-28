@@ -147,7 +147,6 @@ bleepsixBoardController.prototype.opHistoryUpdate = function ( msg )
 
 bleepsixBoardController.prototype.opUndo = function( )
 {
-  //this.op.opUndo();
 
   if ( this.opHistoryN > 0 )
   {
@@ -170,7 +169,6 @@ bleepsixBoardController.prototype.opUndo = function( )
         {
           ops[i].inverseFlag = true;
           ops[i].replayFlag = true;
-          //this.op.opCommand( ops[i], true, true );
           this.op.opCommand( ops[i] );
         }
 
@@ -190,11 +188,9 @@ bleepsixBoardController.prototype.opUndo = function( )
       else
       {
 
-        //this.opCommand( this.opHistory[ ind ], true, true );
         op.inverseFlag = true;
         op.replayFlag = true;
 
-        //this.op.opCommand( op, true, true );
         this.op.opCommand( op );
         if ( op.scope == "network" )
         {
@@ -220,30 +216,16 @@ bleepsixBoardController.prototype.opUndo = function( )
 
 bleepsixBoardController.prototype.opRedo = function( )
 {
-  //this.op.opRedo();
 
   if ( this.opHistoryN < this.opHistory.length )
   {
 
     var ind = this.opHistoryN;
-
-    //DEBUG
-    console.log(">> redoing...");
-    console.log( ind, this.opHistory );
-    console.log( this.opHistory[ind] );
-
     var start_group_id = this.opHistory[ ind ].groupId ;
-
-    //DEBUG
-    console.log( start_group_id, this.opHistory[ind].groupId );
 
     while ( ( this.opHistoryN < this.opHistory.length ) &&
             ( this.opHistory[ ind ].groupId == start_group_id ) )
     {
-
-      //DEBUG
-      console.log( ">>>", start_group_id, this.opHistory[ind].groupId );
-
       var op = this.opHistory[ind];
 
       if ( ("type" in op) && (op["type"] == "batch") )
@@ -255,7 +237,6 @@ bleepsixBoardController.prototype.opRedo = function( )
         {
           ops[i].inverseFlag = false;
           ops[i].replayFlag = true;
-          //this.op.opCommand( ops[i], false, true );
           this.op.opCommand( ops[i] );
         }
 
@@ -274,14 +255,9 @@ bleepsixBoardController.prototype.opRedo = function( )
       }
       else
       {
-        //DEBUG
-        console.log(">>normal redo op>>", op);
-
-        //this.opCommand( this.opHistory[ ind ], true, true );
         op.inverseFlag = false;
         op.replayFlag = true;
 
-        //this.op.opCommand( op, false, true );
         this.op.opCommand( op );
         if ( op.scope == "network" )
         {
@@ -588,10 +564,6 @@ bleepsixBoardController.prototype.redraw = function ()
 
         if (msg.length > 0)
         {
-
-          //DEBUG
-          console.log("+++ tabComm")
-
           var hi_netcodes = [];
           var sch_nets = msg.split('.');
 

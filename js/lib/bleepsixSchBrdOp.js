@@ -352,7 +352,28 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   else if (type == "splitnet")
   {
-    this.board.splitNet( data.net_number );
+
+    if (!inverseFlag)
+    {
+      var res =
+        this.board.splitNet( data.net_number );
+      op.result = res;
+    } else {
+
+      var split_res = op.result;
+      if (split_res)
+      {
+        var orig_net_number = split_res.orig_net_number;
+        var new_net = split_res.new_net;
+
+        for (var ind in new_net)
+        {
+          this.board.mergeNets( orig_net_number, new_net[ind].net_number );
+        }
+
+      }
+
+    }
   }
 
   else if (type == "schematicnetmap")

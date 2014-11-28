@@ -1432,7 +1432,7 @@ bleepsixBoard.prototype.removeNet = function( netcode, netname )
 
   if (net_ind == n)
   {
-    console.log("ERROR: bleepsixBoard.removeNet: could not find netocde " + netcode + " in equipot");
+    console.log("ERROR: bleepsixBoard.removeNet: could not find netocde " , netcode , " in equipot");
     console.trace();
     return false;
   }
