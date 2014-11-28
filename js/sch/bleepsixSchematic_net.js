@@ -643,7 +643,7 @@ bleepsixSchematic.prototype._net_label_groups = function( V, E )
 // should be highlighted.
 // TODO: highlight wirelines that connect to all component pins.
 //
-bleepsixSchematic.prototype.highlightNet = function( comp_id_pin_name )
+bleepsixSchematic.prototype.highlightNet = function( comp_id_pin_name, sec_comp_id_pin_name )
 {
   this.highlight_net = [];
 
@@ -658,11 +658,26 @@ bleepsixSchematic.prototype.highlightNet = function( comp_id_pin_name )
       pin : comp_id_ar[1]
     };
   }
-
   var comp_pin_id_lookup = {};
   for (var ind in comp_id_pin_name )
   {
     comp_pin_id_lookup[ comp_id_pin_name[ind] ] = 1;
+  }
+
+
+  var sec_comp_id_lookup = {};
+  for (var ind in sec_comp_id_pin_name )
+  {
+    var comp_id_ar = sec_comp_id_pin_name[ind].split('/');
+    sec_comp_id_lookup[comp_id_ar[0]] = { 
+      id : comp_id_ar[0],
+      pin : comp_id_ar[1]
+    };
+  }
+  var sec_comp_pin_id_lookup = {};
+  for (var ind in sec_comp_id_pin_name )
+  {
+    sec_comp_pin_id_lookup[ sec_comp_id_pin_name[ind] ] = 1;
   }
 
 
@@ -671,7 +686,7 @@ bleepsixSchematic.prototype.highlightNet = function( comp_id_pin_name )
     var ele = sch[ind];
     var type = ele.type;
 
-    if (!(ele.id in comp_id_lookup))
+    if ( (!(ele.id in comp_id_lookup)) && (!(ele.id in sec_comp_id_lookup)) )
       continue;
 
     if (type == "component")
@@ -688,6 +703,12 @@ bleepsixSchematic.prototype.highlightNet = function( comp_id_pin_name )
         {
           var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
           this.highlight_net.push({ x : p[0][0], y : p[0][1], size : 50, type : "box" });
+          this.highlight_net_flag = true;
+        }
+        else if (x in sec_comp_pin_id_lookup)
+        {
+          var p = this._findPinEndpoints( comp.pin[p_ind], ele.x, ele.y, ele.transform );
+          this.highlight_net.push({ x : p[0][0], y : p[0][1], size : 30, type : "circle" });
           this.highlight_net_flag = true;
         }
       }

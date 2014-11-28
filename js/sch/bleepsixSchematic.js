@@ -2581,6 +2581,10 @@ bleepsixSchematic.prototype.drawElement = function( ele )
   }
   */
 
+  // ????
+  // this will draw with every element draw?
+  /*
+
   if ( this.highlight_net_flag )
   {
 
@@ -2612,6 +2616,8 @@ bleepsixSchematic.prototype.drawElement = function( ele )
     }
   }
 
+  */
+
 }
 
 // we might have to worry about order...
@@ -2637,6 +2643,51 @@ bleepsixSchematic.prototype.drawSchematic = function( respect_headless )
     this.drawElement( sch[ind] );
 
   }
+
+  if ( this.highlight_net_flag )
+  {
+
+    for (var ind in this.highlight_net)
+    {
+      var hi_ele = this.highlight_net[ind];
+      var type = hi_ele.type;
+
+      if (type == "box")
+      {
+        var s2 = hi_ele.size/2;
+        g_painter.drawRectangle( 
+            hi_ele.x - s2, hi_ele.y - s2, 
+            hi_ele.size, hi_ele.size,
+            //1, "rgba(0,0,0,0.3)",
+            5, "rgba(0,0,0,0.8)",
+            true, "rgba(0,0,0,0.1)" );
+
+      }
+      else if (type == "rect")
+      {
+        var w = Math.abs(hi_ele.endx - hi_ele.startx);
+        var h = Math.abs(hi_ele.endy - hi_ele.starty);
+        g_painter.drawRectangle( 
+            hi_ele.startx - w/2, hi_ele.starty - h/2, 
+            w, h, 
+            1, "rgba(0,0,0,0.3)",
+            true, "rgba(0,0,0,0.01)" );
+      }
+      else if (type == "circle")
+      {
+        var r2 = hi_ele.size/2;
+        g_painter.circle( 
+            hi_ele.x, hi_ele.y, 
+            hi_ele.size,
+            5, "rgba(0,0,0,0.9)",
+            true, "rgba(0,0,0,0.1)" );
+
+      }
+
+    }
+  }
+
+
 
 }
 

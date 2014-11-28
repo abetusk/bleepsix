@@ -573,10 +573,27 @@ bleepsixSchematicController.prototype.redraw = function ()
 
       if (this.tabCommunication.hasNewMessage( channelName ))
       {
-        msg = this.tabCommunication.processMessage( channelName );
+        var msg = this.tabCommunication.processMessage( channelName );
+        var ele = msg.split('.');
+        var primary = [], secondary = [];
+        for (var ind in ele)
+        {
+          var f = ele[ind].split(";");
+
+          if (f.length>1)
+          {
+            if      (f[0] == "h") { primary.push( f[1] ); }
+            else if (f[0] == "s") { secondary.push( f[1] ); }
+          }
+          else
+          {
+            primary.push(f[0]);
+          }
+
+        }
 
         if (msg.length > 0)
-          this.schematic.highlightNet( msg.split('.') );
+          this.schematic.highlightNet( primary, secondary );
         else
           this.schematic.unhighlightNet();
 

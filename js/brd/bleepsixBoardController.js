@@ -453,12 +453,20 @@ bleepsixBoardController.prototype.fadeMessage = function ( msg )
 
 
 
-bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( brd_nc )
+bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( brd_nc, sub_pad_ids )
 {
+  if (typeof sub_pad_ids === "undefined") { sub_pad_ids = {}; }
+
   var brd = this.board.kicad_brd_json.element;
   var msg = "";
 
   var sch_netcodes = this.board.kicad_brd_json.sch_to_brd_net_map[ brd_nc ];
+
+  var sub_map = {};
+  for (var ind in sub_pad_ids)
+  {
+    sub_map[ sub_pad_ids[ind] ] = 1;
+  }
 
   for (var ind in brd)
   {
@@ -472,7 +480,11 @@ bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( br
         if ( !this.board._net_equal_bbs( parseInt(brd_nc), parseInt(ele.pad[p_ind].net_number) ) )
           continue;
         if (msg.length>0) msg += ".";
-        msg += ele.id + "/" + ele.pad[p_ind].name;
+
+        var tt = "h";
+        var tkey = ele.id + ":" + ele.pad[p_ind].name;
+        if (tkey in sub_map) { tt = "s"; }
+        msg += tt + ";" + ele.id + "/" + ele.pad[p_ind].name;
       }
     }
 

@@ -300,7 +300,7 @@ toolBoardNav.prototype.mouseMove = function( x, y )
           g_board_controller.board.highlightNetCodes( hi_netcodes );
           */
 
-          g_board_controller.highlightSchematicNetsFromBoard( netcode );
+          g_board_controller.highlightSchematicNetsFromBoard( netcode, sub_pad_ids );
 
           this.highlightNetcodes = hi_netcodes;
 
@@ -340,23 +340,9 @@ toolBoardNav.prototype.mouseMove = function( x, y )
         g_board_controller.board.getBoardNetCodesAndSubPads( netcode, base_pad_id, hi_netcodes, sub_pad_ids );
         g_board_controller.board.highlightNetCodesSubPads( hi_netcodes, sub_pad_ids );
 
-        /*
-        var sch_nets = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map[ netcode ];
-        for (var i in sch_nets)
-        {
-          var map = g_board_controller.board.kicad_brd_json.sch_to_brd_net_map[ sch_nets[i] ];
-          for (var j in map)
-          {
-            hi_netcodes.push( map[j] );
-          }
-        }
-
-        g_board_controller.board.highlightNetCodes( hi_netcodes );
-        */
-
         // Highlight netcodes in companion schematic.
         //
-        g_board_controller.highlightSchematicNetsFromBoard( netcode );
+        g_board_controller.highlightSchematicNetsFromBoard( netcode, sub_pad_ids );
 
         this.highlightNetcodes = hi_netcodes;
 
