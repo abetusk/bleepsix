@@ -121,8 +121,18 @@ toolComponentPlace.prototype.mouseDown = function( button, x, y )
   if (button == 1)
   {
 
-    //console.log("toolComponentPlace: placing component: " + this.component_name);
+    if ("pinData" in this.cloned_component)
+    {
+      for (var p_ind in this.cloned_component.pinData)
+      {
 
+      }
+    }
+
+    // Component is highlighted because we have a new
+    // component hovering over it.
+    // Replace the old component with the new one.
+    //
     if ( this.highlightId )
     {
       var ref = g_schematic_controller.schematic.refLookup( this.highlightId );

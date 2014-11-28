@@ -511,7 +511,6 @@ bleepsixSchematic.prototype._net_extend_VE_from_endpoints = function( V, E )
     if (type == "component")
     {
 
-
       var comp = this._lookup_comp( ele.name );
       if (!comp) continue;
       if (comp.name == "unknown") continue;
@@ -625,6 +624,20 @@ bleepsixSchematic.prototype._net_label_groups = function( V, E )
     this._net_label_groups_r( V, E, id, net );
     net++;
   }
+
+  // Label all unconnected vertex components
+  // with a unique net.
+  //
+  for (var id in V)
+  {
+    if (V[id].visited) { continue; }
+    if (V[id].net == 0)
+    {
+      V[id].visited = true;
+      V[id].net = net++;
+    }
+  }
+
 }
 
 // comp_id_pin_name is an array of <id>/<pin_name>
@@ -809,14 +822,6 @@ bleepsixSchematic.prototype.constructNet = function()
 
   this._net_label_groups(V, E);
 
-  /*
-  //DEBUG
-  console.log("V:");
-  console.log(V);
-  console.log("E:");
-  console.log(E);
-  */
-
   var sch_pin_net_map = {};
   for (var v in V)
   {
@@ -837,7 +842,6 @@ bleepsixSchematic.prototype.constructNet = function()
         ref.pinData = {};
 
       ref.pinData[ pin_number ] = { x : V[v].x, y: V[v].y, size : 50, type: "box", netcode: nc  };
-
     }
     else if (type == "wireline")
     {
@@ -851,8 +855,6 @@ bleepsixSchematic.prototype.constructNet = function()
 
 
   }
-
-  //console.log( sch_pin_net_map );
 
   this.kicad_sch_json.net_pin_id_map = sch_pin_net_map;
 
