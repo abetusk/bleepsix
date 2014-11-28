@@ -22,7 +22,6 @@
 
 */
 
-//bleepsixSchematic.prototype._conn_wire_intersect = function( conn, wire )
 bleepsixSchematic.prototype._point_wire_intersect = function( point, wire )
 {
   var eps = 0.0001;
@@ -55,7 +54,6 @@ bleepsixSchematic.prototype._point_wire_intersect = function( point, wire )
 // also appear in the list.
 // We only care about splitting wire types with conns.
 //
-//bleepsixSchematic.prototype._net_collect_conn_edges = function()
 bleepsixSchematic.prototype._net_extend_VE_from_conn_wires = function( V, E )
 {
   var edge = [];
@@ -274,7 +272,6 @@ bleepsixSchematic.prototype._net_extend_VE_from_power = function( V, E )
     {
 
       var data = power_name_list[pin_name];
-      //var power_comp = this._lookup_comp( power_name_list[pin_name] );
       var power_key = this._net_make_key( data.x, data.y );
 
       if (type == "component")
@@ -745,9 +742,6 @@ bleepsixSchematic.prototype.highlightNet_old = function( sch_netcodes )
     {
       var parent_id = ref.id;
       var pin_number = V[v].pin_number;
-
-      //if (!("pin" in ref)) ref.pin = {}
-      //ref.pin[ pin_number ]. 
     }
 
   }
@@ -860,99 +854,6 @@ bleepsixSchematic.prototype.constructNet = function()
 
   return sch_pin_net_map;
 
-
-  /*
-  var n = sch.element.length;
-  for (var ind=0; ind<n; ind++)
-  {
-    var ele = elements[ind];
-    var type = ele.type;
-
-    if (type == "wireline")
-    {
-      var x = parseInt(ele.startx);
-      var y = parseInt(ele.starty);
-      var key = String(x) + ":" + String(y);
-
-      if (key in "endpoints")
-        endpoints[key].push( ele.id );
-      else
-        endpoints[key] = [ ele.id ];
-
-      x = parseInt(ele.endx);
-      y = parseInt(ele.endy);
-      key = String(x) + ":" + String(y);
-
-      if (key in "endpoints")
-        endpoints[key].push( ele.id );
-      else
-        endpoints[key] = [ ele.id ];
-    }
-
-    else if (type == "connection")
-    {
-      var verts = this._net_conn_wire_intersect();
-    }
-
-    else if (type == "noconn")
-    {
-    }
-
-    else if (type == "component")
-    {
-    }
-
-    else if (type == "busline")
-    {
-    }
-
-    else if (type == "label")
-    {
-    }
-
-    else if (type == "entrybusbus")
-    {
-    }
-
-  }
-
-  */
-
 }
 
-
-
-bleepsixSchematic.prototype._calculate_netlist = function()
-{
-  var sch = this.kicad_sch_json.element;
-  var n = sch.length;
-
-  var ce_edge = this._net_collect_conn_edges();
-
-  var V = {};
-  var E = {};
-
-  var point_map = {};
-
-  for (var i=0; i<n; i++)
-  {
-    var ele = sch[i];
-    var type = ele.type;
-
-    if (type == "component")
-    {
-    }
-    else if (type == "wireline")
-    {
-    }
-    else if (type == "connection")
-    {
-    }
-
-  }
-
-
-  console.log(ce_edge);
-
-}
 
