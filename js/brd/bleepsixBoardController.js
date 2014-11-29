@@ -563,41 +563,80 @@ bleepsixBoardController.prototype.redraw = function ()
     }
   }
 
-  if ( g_brdnetwork )
+  if ( g_brdnetwork && g_brdnetwork.projectId )
   {
-    if ( g_brdnetwork.projectId )
+
+    var channelName = "brd:" + g_brdnetwork.projectId;
+
+    if ( this.tabCommunication.hasNewMessage( channelName ) )
     {
+      msg = this.tabCommunication.processMessage( channelName );
 
-      var channelName = "brd:" + g_brdnetwork.projectId;
-
-      if ( this.tabCommunication.hasNewMessage( channelName ) )
+      if (msg.length > 0)
       {
-        msg = this.tabCommunication.processMessage( channelName );
+        var hi_netcodes = [];
+        var sch_nets = msg.split('.');
 
-        if (msg.length > 0)
+        var found = false;
+
+        for (var i in sch_nets)
         {
-          var hi_netcodes = [];
-          var sch_nets = msg.split('.');
 
-          for (var i in sch_nets)
+          var f = sch_nets[i].split( /;|\/|,/ );
+
+          if (f.length == 1)
           {
             var map = this.board.kicad_brd_json.sch_to_brd_net_map[ parseInt(sch_nets[i]) ];
             for (var j in map)
             {
               hi_netcodes.push( map[j] );
             }
+
+            this.board.highlightNetCodes( hi_netcodes );
+            found = true;
+
+          }
+          else if (f.length==4)
+          {
+            var hs = f[0];
+            var mod_id = f[1];
+            var pad_name = f[2];
+            var nc = f[3];
+
+            var mod_ref = this.board.refLookup( mod_id );
+            for (var ind in mod_ref.pad)
+            {
+              if (mod_ref.pad[ind].name != pad_name) { continue; }
+              var pad_ref = mod_ref.pad[ind];
+
+              var hi_netcodes = [];
+              var sub_pad_ids = [];
+              var hi_pad_ids = [];
+              var pad_key = mod_id + ":" + pad_name;
+
+              this.board.getBoardNetCodesAndSubPads( pad_ref.net_number,
+                                                     pad_key,
+                                                     hi_netcodes,
+                                                     sub_pad_ids );
+              this.board.highlightNetCodesSubPads( hi_netcodes, sub_pad_ids );
+              found = true;
+
+              break;
+            }
           }
 
-          this.board.highlightNetCodes( hi_netcodes );
-
-        }
-        else
-        {
-          this.board.unhighlightNet();
+          if (found) { break; }
         }
 
-        g_painter.dirty_flag = true;
+        //this.board.highlightNetCodes( hi_netcodes );
+
       }
+      else
+      {
+        this.board.unhighlightNet();
+      }
+
+      g_painter.dirty_flag = true;
     }
   }
 

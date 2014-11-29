@@ -519,7 +519,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
 
 //--------------------------------------
 
-bleepsixSchematicController.prototype.highlightBoardNetsFromSchematic= function ( sch_ncs )
+bleepsixSchematicController.prototype.highlightBoardNetsFromSchematic = function ( sch_ncs )
 {
   var sch = this.schematic.kicad_sch_json.element;
   var msg = "";

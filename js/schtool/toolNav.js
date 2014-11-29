@@ -200,11 +200,32 @@ toolNav.prototype.mouseMove = function( x, y )
 
     if (ref.type == "wireline")
     {
+      //g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.data.netcode ] );
 
-      //DEBUG
-      //console.log("++w");
+      npim = g_schematic_controller.schematic.kicad_sch_json.net_pin_id_map;
+      var pin_arr = [];
 
-      g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.data.netcode ] );
+      for (var ind in npim)
+      {
+        if (npim[ind].netcode == ref.data.netcode)
+        {
+          pin_arr.push( ind );
+        }
+      }
+      pin_arr.sort();
+
+      if (pin_arr.length==0)
+      {
+        g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.data.netcode ] );
+      }
+      else
+      {
+        var id_pin = pin_arr[0].split( ":" );
+        var msg_ele = "h;" + id_pin[0] + "/" + id_pin[1] + "," + ref.data.netcode ;
+        g_schematic_controller.highlightBoardNetsFromSchematic( [ msg_ele ] );
+
+      }
+
       found = true;
     }
     else if (ref.type == "component")
@@ -215,31 +236,17 @@ toolNav.prototype.mouseMove = function( x, y )
              (Math.abs( ref.pinData[i].y - wy ) <= 25) )
         {
 
-         //DEBUG
-         //console.log("++c");
+          var msg_ele = "h;" + ref.id + "/" + i + "," + ref.pinData[i].netcode;
+          g_schematic_controller.highlightBoardNetsFromSchematic( [ msg_ele ] );
 
-         g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.pinData[i].netcode ] );
+          //g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.pinData[i].netcode ] );
           found = true;
           break;
         }
       }
     }
 
-    /*
-    else
-    {
-      g_schematic_controller.highlightBoardNetsFromSchematic( [] );
-    }
-    */
-
   }
-
-  /*
-  else
-  {
-    g_schematic_controller.highlightBoardNetsFromSchematic( [] );
-  }
-  */
 
   if (!found) {
     g_schematic_controller.highlightBoardNetsFromSchematic( [] );

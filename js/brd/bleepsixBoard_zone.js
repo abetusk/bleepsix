@@ -928,7 +928,9 @@ bleepsixBoard.prototype.unhighlightNet = function( net_name )
   g_painter.dirty_flag = true;
 }
 
-bleepsixBoard.prototype.getBoardNetCodesAndSubPads = function( netcode, base_pad_id, hi_netcodes, mod_pad_ids )
+bleepsixBoard.prototype.getBoardNetCodesAndSubPads =
+  function( netcode, base_pad_id, hi_netcodes, mod_pad_ids )
+  //function( netcode, base_pad_id, hi_netcodes, mod_pad_ids, hi_pad_array )
 {
   var brd = this.kicad_brd_json["element"];
   var hi_nc_map = {};
@@ -963,6 +965,7 @@ bleepsixBoard.prototype.getBoardNetCodesAndSubPads = function( netcode, base_pad
 
   var hi_pad = {};
   var hi_pad_array = [];
+  //if (typeof hi_pad_array == "undefined") { hi_pad_array = []; }
 
   for (var ind in brd)
   {
