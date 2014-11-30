@@ -703,9 +703,7 @@ function __dist2( a, b )
 //   
 bleepsixBoard.prototype.splitNet = function( orig_netcode )
 {
-
   var new_net_info = [];
-
   var net_ele_point_hash = {};
 
   this._construct_netsplit_point_hash( net_ele_point_hash, orig_netcode );
@@ -740,7 +738,6 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
       group_polygons[group_name].push( pgn );
     }
   }
-
 
   // Each entry in the group_polygons list are known connected.
   // group_union is the geometry of each of the group_polygons 
