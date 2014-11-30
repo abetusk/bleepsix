@@ -103,6 +103,24 @@ Speaking to the second issue, this gets back to the issue of social schematics a
 This is still a feature of the system that's not clear (in my mind) and needs to be addressed
 at some point.
 
+Performance issues
+==================
+
+  - It looks like sending multiple 'opCommands' is slow.  'opCommands' should be
+    batched.  For example, the net generation ('net' board command) was previously
+    addinga net per pin as a single command.  This went from 1.2s to .03 s by batching
+    the call (into a new one called 'nets').  I imagine the splitnet slowdown will
+    be the same (profiling splitnet looks like the actual splitting isn't the bottlneck
+    but the opCommand calls)
+  - moving groups/parts, especially large parts with many small pads over populated boards,
+    causes a noticeable performance hit.  There's no way getting around calling clipperlib
+    to do fine grained intersection testing (gross bounding boxes intersect, pad/geometry
+    bounding boxes intersect, they're interleaved), so as a compromise maybe what can be
+    done is to have the intersection test be called only when part movement has stabalized
+    for some amount of time (100ms or so, say) where intersection testing is only done via
+    bounding box.
+  
+
 #### UPDATE 2014-08-03
 
 Since the network sub component is basically in charge of updating the location and library list,
