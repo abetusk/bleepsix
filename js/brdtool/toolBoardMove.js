@@ -95,6 +95,46 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
   //this.allowPlaceFlag = false;
   this.allowPlaceFlag = this.canPlace();
 
+  var d = new Date();
+  this.move_prev_ms = d.getTime();
+  this.move_heuristic_ms = 100;
+
+  this.dirty = true;
+
+  setInterval( function(xx) { return function() { xx.tick(); }; }(this), 100 );
+
+}
+
+toolBoardMove.prototype.tick = function()
+{
+
+  if (this.dirty)
+  {
+
+    this.allowPlaceFlag = this.canPlace();
+
+    this.selectedElement = simplecopy( this.base_element_state );
+    var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
+
+    var wdx = world_xy["x"] - this.orig_world_xy["x"];
+    var wdy = world_xy["y"] - this.orig_world_xy["y"];
+
+    if (this.allowPlaceFlag)
+    {
+      for (var ind in this.selectedElement)
+      {
+        g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+        g_painter.dirty_flag = true;
+      }
+      this.updateSelectedRatsnest();
+    }
+    else
+    {
+      this.updateSelectedRatsnest();
+    }
+
+  }
+
 }
 
 toolBoardMove.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
@@ -449,13 +489,16 @@ toolBoardMove.prototype._hasCollisionFromTo = function()
 {
 
   if ( g_board_controller.board.intersectTest( this.orig_element_state, this.clearance ) )
+  {
     return true;
+  }
 
   if ( g_board_controller.board.intersectTest( this.selectedElement, this.clearance ) )
+  {
     return true;
+  }
 
   return false;
-
 
 }
 
@@ -900,7 +943,9 @@ toolBoardMove.prototype._patchUpNets = function()
   var splitnet_num = {};
 
   if ( !this._hasCollisionFromTo() )
+  {
     return;
+  }
 
   // Collect all the net numbers that we will be
   // replacing
@@ -1180,6 +1225,8 @@ toolBoardMove.prototype._patchUpNets = function()
 
   }
 
+  var count = 0;
+
   // This might be a significant slowdown.  If it becomes a
   // problem we'll have to speed up the split net...
   //
@@ -1190,7 +1237,11 @@ toolBoardMove.prototype._patchUpNets = function()
     split_op.data = { net_number: nc };
     split_op.groupId = this.groupId;
     g_board_controller.opCommand( split_op );
+
+    console.log(nc);
+    count++;
   }
+
 
   // finally update net maps and rats nest
   //
@@ -1269,7 +1320,28 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
+
+        // We have to hid them (again) to make sure it
+        // doesn't fail the intersectino test above
+        // because it's unhidden.
+        //
+        var se = this.selectedElement;
+        for (var ind in se)
+        {
+          var r = g_board_controller.board.refLookup( se[ind].id );
+          r.hideFlag = true;
+        }
+
         this._patchUpNets();
+
+        // restore state.
+        //
+        for (var ind in this.selectedElement)
+        {
+          var r = g_board_controller.board.refLookup( se[ind].id );
+          r.hideFlag = true;
+        }
+
       }
 
 
@@ -1341,34 +1413,25 @@ toolBoardMove.prototype.updateSelectedRatsnest = function( )
 
 }
 
+// clipperlib is just too slow for real time intersection testing.
+// As a compromise, call allowPlacement with a heuristic that will
+// only do bounding box intersections if we've recently moved.
+// Heuristic level of 0 is the full test, with polygon intersections
+// and only allow that to happen if we've stabalized.
+//
 toolBoardMove.prototype.canPlace = function()
 {
-
-  return g_board_controller.board.allowPlacement( this.ghostElement, this.clearance );
-
-  // old version where we had specific test for sub conditions.  allowPlacement might
-  // turn out to be really slow...
-  //
-  /*
-  var n = this.ghostElement.length;
-  if (n==1)
+  var d = new Date();
+  var cur_ms = d.getTime();
+  if ((cur_ms - this.move_prev_ms) > this.move_heuristic_ms)
   {
-    var ref = this.ghostElement[0].ref;
-    var type = ref.type;
-
-    if ( type == "track")
-      return true;
-
-    if ( type == "module" )
-      return !g_board_controller.board.intersectTestModule( this.ghostElement, this.clearance );
-    else
-      return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
-
+    this.dirty = false;
+    return g_board_controller.board.allowPlacement( this.ghostElement, this.clearance, undefined, 0 );
   }
-
-  //return !g_board_controller.board.intersectTestBoundingBox( this.ghostElement, this.clearance );
-  return !g_board_controller.board.intersectTest( this.ghostElement, this.clearance );
-  */
+  else
+  {
+    return g_board_controller.board.allowPlacement( this.ghostElement, this.clearance, undefined, 1 );
+  }
 
 }
 
@@ -1395,6 +1458,11 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
   if (this.mouse_drag_button == false)
   {
+
+    var d = new Date();
+    this.move_prev_ms = d.getTime();
+    this.dirty = true;
+
 
     var world_xy = g_painter.devToWorld( this.mouse_cur_x, this.mouse_cur_y );
 
@@ -1564,13 +1632,55 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
       wdy = ta["y"] - tb["y"];
     }
 
+    this.selectedElement = simplecopy( this.base_element_state );
+    this.ghostElement = simplecopy( this.base_element_state );
+    for (var ind in this.ghostElement)
+    {
+      g_board_controller.board.relativeMoveElement( this.ghostElement[ind], wdx, wdy );
+
+      var ele = this.ghostElement[ind].ref ;
+      var type = ele.type;
+
+      if ( type == "module")
+        g_board_controller.board._find_footprint_bbox( ele );
+      else if ( type == "track" )
+        g_board_controller.board._find_line_bbox( ele );
+
+      g_painter.dirty_flag = true;
+    }
+
+    this.allowPlaceFlag = this.canPlace();
+
+    if (this.allowPlaceFlag)
+    {
+      for (var ind in this.selectedElement)
+      {
+        g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
+        g_painter.dirty_flag = true;
+      }
+      this.updateSelectedRatsnest();
+    }
+    else
+    {
+      this.updateSelectedRatsnest();
+    }
+
+
+
+    /*
     for (var ind in this.selectedElement)
       g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
 
     var brd = g_board_controller.board.kicad_brd_json;
     var map = brd.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, this.selectedElement, map );
+    */
 
+    var d = new Date();
+    this.move_prev_ms = d.getTime();
+    this.dirty = true;
+
+    this.allowPlaceFlag = this.canPlace();
 
     g_painter.dirty_flag = true;
 
