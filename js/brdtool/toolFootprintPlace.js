@@ -69,22 +69,32 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
   this.highlightId = null;
 
   this.groupId = String(guid());
+
+  this.allowPlaceFlag = this.canPlace();
+
+  this.clearance = g_parameter.clearance;
+  this.ghostElement = null;
+
 }
 
 toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
 toolFootprintPlace.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom ( this.mouse_x, this.mouse_y, delta ); }
 
+toolFootprintPlace.prototype.drawGhostOverlay = function()
+{
+
+}
 
 toolFootprintPlace.prototype.drawOverlay = function()
 {
   var s = this.cursorSize / 2;
 
 
+  var ghostFlag = !this.allowPlaceFlag;
   g_board_controller.board.drawFootprint( this.cloned_footprint,
-                                    parseFloat(this.world_xy["x"]), 
-                                    parseFloat(this.world_xy["y"]), 
-                                    0, true );
-                                    //this.angle, true );
+                                          parseFloat(this.world_xy["x"]), 
+                                          parseFloat(this.world_xy["y"]), 
+                                          0, true, ghostFlag );
 
   if (this.highlightId)
   {
@@ -98,6 +108,202 @@ toolFootprintPlace.prototype.drawOverlay = function()
     g_painter.drawRectangle( x, y, w, h, 100, "rgb(128,128,128)", true, "rgba(255,255,255,0.25)");
   }
 }
+
+toolFootprintPlace.prototype.canPlace = function()
+{
+  var ignore_id_map = {};
+  if (this.highlightId) { ignore_id_map[ this.highlightId ] = 1; }
+
+  var ref = simplecopy( this.cloned_footprint );
+  ref.x = this.world_xy["x"];
+  ref.y = this.world_xy["y"];
+  g_board_controller.board.updateBoundingBox( ref );
+  var tf = g_board_controller.board.allowPlacement( [{ "ref": ref }], this.clearance, ignore_id_map );
+
+  return tf;
+  //return g_board_controller.board.allowPlacement( [ { "ref": this.cloned_footprint } ], this.clearance );
+}
+
+toolFootprintPlace.prototype._patchUpNets = function( id )
+{
+  var splitnet_num = {};
+
+  var brd = g_board_controller.board;
+
+  //if ( !this._hasCollisionFromTo() ) return;
+
+  // Collect all the net numbers that we will be
+  // replacing
+  //
+  var netReplaceSet = {};
+  var ref = brd.refLookup( id );
+
+  //DEBUG
+  console.log("cp0");
+
+  if ("pad" in ref)
+  {
+    for ( var pad_ind in ref.pad )
+    {
+      var pad = ref.pad[pad_ind];
+      netReplaceSet[ pad.net_number ] = true;
+    }
+  }
+  else { return; }
+
+  //DEBUG
+  console.log("cp1");
+
+
+  // Create the new nets, one for each unique net collected
+  // above.
+  //
+  var newnets = {};
+  for (var nc in netReplaceSet)
+  {
+    var net = brd.genNet();
+    newnets[ nc ] = net;
+
+    var net_op = { source: "brd", destination: "brd" };
+    net_op.action = "add";
+    net_op.type = "net";
+    net_op.data = { net_number : net.net_number,
+                net_name : net.net_name };
+    net_op.groupId = this.groupId;
+    g_board_controller.opCommand( net_op );
+
+  }
+
+  //DEBUG
+  console.log("cp2", newnets);
+
+
+  // Allocate the net numbers to the relevant elements
+  //
+
+  for (var pad_ind in ref.pad)
+  {
+    var nc = ref.pad[pad_ind].net_number;
+
+    var pad_ref = brd.refLookup( ref.pad[pad_ind].id );
+    var old_data = {};
+    var new_data = {};
+
+    $.extend( true, old_data, pad_ref );
+    $.extend( true, new_data, pad_ref );
+
+    new_data.net_number = newnets[ nc ].net_number;
+    new_data.net_name   = newnets[ nc ].net_name;
+
+    var update_op = { source: "brd", destination: "brd" };
+    update_op.action = "update";
+    update_op.type = "edit";
+    update_op.id = [ pad_ref.id ];
+    update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
+    update_op.groupId = this.groupId;
+    g_board_controller.opCommand( update_op );
+
+    //DEBUG
+    console.log("cp2.5", new_data );
+
+  }
+
+
+  var brd_eles = brd.kicad_brd_json.element;
+  for (var brd_ind in brd_eles)
+  {
+    var brd_ref = brd_eles[brd_ind];
+    var brd_type = brd_ref.type;
+
+    if (brd_ref.hideFlag) continue;
+    if (("name" in brd_ref) && (brd_ref.name == "unknown")) continue;
+
+    var ele_ref = ref;
+
+    ele_ref = brd.refLookup( ele_ref.id );
+    var ele_type = ele_ref.type;
+
+    if ( brd_type == "track" )
+    {
+
+      //DEBUG
+      console.log("cp3>");
+
+      var l0 = { x : parseFloat(brd_ref.x0) , y : parseFloat(brd_ref.y0) };
+      var l1 = { x : parseFloat(brd_ref.x1) , y : parseFloat(brd_ref.y1) };
+      var w = parseFloat(brd_ref.width) ;
+      var pgnBrd = brd._build_element_polygon( { type: "track", ref: brd_ref } );
+
+      for (var p_ind in ele_ref.pad)
+      {
+        var pad = ele_ref.pad[p_ind];
+
+        if ( !brd.shareLayer( brd_ref, pad ) ) continue;
+
+        //DEBUG
+        console.log("cp3>>");
+
+
+        if ( brd._box_line_intersect( pad.bounding_box, l0, l1, w ) )
+        {
+
+          //DEBUG
+          console.log("cp3>>>", pad, brd_ref);
+
+          var pgnEle = brd._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad } );
+
+          if ( brd._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
+          {
+            var op = { source: "brd", destination: "brd" };
+            op.action = "update";
+            op.type = "mergenet";
+            op.data = { net_number0: brd_ref.netcode, net_number1: pad.net_number };
+            op.groupId = this.groupId;
+            g_board_controller.opCommand( op );
+
+
+
+            //DEBUG
+            console.log("cp3>>>>>>");
+
+
+          }
+
+        }
+
+        splitnet_num[ pad.net_number ] = 1;
+        splitnet_num[ brd_ref.netcode ] = 1;
+
+      }
+
+    }
+
+  }
+
+  // This might be a significant slowdown.  If it becomes a
+  // problem we'll have to speed up the split net...
+  //
+  for (var nc in splitnet_num )
+  {
+    var split_op = { source: "brd", destination: "brd" };
+    split_op.action = "update";
+    split_op.type = "splitnet";
+    split_op.data = { net_number: nc };
+    split_op.groupId = this.groupId;
+    g_board_controller.opCommand( split_op );
+  }
+
+  // finally update net maps and rats nest
+  //
+  var map_op = { source: "brd", destination: "brd" };
+  map_op.action = "update";
+  map_op.type = "schematicnetmap";
+  map_op.groupId = this.groupId;
+  g_board_controller.opCommand( map_op );
+
+
+}
+
 
 toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 {
@@ -163,25 +369,19 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
 
-
       var net_op = { source : "brd", destination: "sch" };
       net_op.action = "update";
       net_op.type = "schematicnetmap";
       net_op.groupId = this.groupId;
       g_board_controller.opCommand( net_op );
 
-      //var sch_pin_id_net_map = g_board_controller.schematic.getPinNetMap();
-      //g_board_controller.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
+      this._patchUpNets( ref.id );
 
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
-
-      //console.log("TESTING");
       return;
     }
-
-    //console.log("toolFootprintPlace: placing footprint: " + this.footprint_name);
 
     var op = { source : "brd" , destination: "brd" };
     op.action = "add";
@@ -190,18 +390,12 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
-    /*
-    g_board_controller.board.addFootprintData( this.cloned_footprint, 
-                                             this.world_xy["x"], 
-                                             this.world_xy["y"] );
-                                             //0);
-                                             //this.angle );
-                                             */
+    //DEBUG
+    console.log(op);
 
-    //console.log("toolFootprintPlace: passing back to toolBoardNav");
+    this._patchUpNets( op.id );
 
     g_board_controller.tool = new toolBoardNav(x, y);
-    //g_board_controller.tool.mouseMove( x, y );  // easy way to setup?
     g_painter.dirty_flag = true;
   }
   else if (button == 3)
@@ -253,15 +447,22 @@ toolFootprintPlace.prototype.mouseMove = function( x, y )
     this.world_xy = g_painter.devToWorld( this.mouse_x, this.mouse_y );
     this.world_xy = g_snapgrid.snapGrid( this.world_xy );
 
+    this.ghostElement = simplecopy( this.cloned_footprint );
     var id_ref = g_board_controller.board.pick( this.world_xy.x, this.world_xy.y );
     if (id_ref && (id_ref.ref.type == "module"))
     {
+      this.world_xy.x = id_ref.ref.x;
+      this.world_xy.y = id_ref.ref.y;
+
       this.highlightId = ( this._moduleWithinReplaceDistance( id_ref.ref ) ? id_ref.id : null );
     }
     else
+    {
       this.highlightId = null;
+    }
 
-   g_painter.dirty_flag = true;
+    this.allowPlaceFlag = this.canPlace();
+    g_painter.dirty_flag = true;
 
   }
 
@@ -287,10 +488,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
 
     var id_ref = { id: this.cloned_footprint.id, ref : this.cloned_footprint };
     g_board_controller.board.rotate90( id_ref, true );
-
-    //console.log(" (r) angle now: " + this.cloned_footprint.angle );
-
-    //this.cloned_footprint.angle = this.angle;
+    this.allowPlaceFlag = this.canPlace();
     g_painter.dirty_flag = true;
   }
 
@@ -302,10 +500,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
 
     var id_ref = { id: this.cloned_footprint.id, ref : this.cloned_footprint };
     g_board_controller.board.rotate90( id_ref, false );
-
-    //console.log(" (e) angle now: " + this.cloned_footprint.angle );
-
-    //this.cloned_footprint.angle = this.angle;
+    this.allowPlaceFlag = this.canPlace();
     g_painter.dirty_flag = true;
   }
   else if (keycode == 191)

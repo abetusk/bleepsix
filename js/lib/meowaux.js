@@ -267,6 +267,7 @@ function load_component_cache_part( name, location, userId, sessionId, projectId
       success:
       ( function(a) {
           return function(data) {
+            g_component_cache[a] = data;
             schem.load_part(a, data);
           }
         }

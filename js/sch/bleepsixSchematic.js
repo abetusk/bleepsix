@@ -50,7 +50,9 @@ function bleepsixSchematic()
   this.component    = {};
   this.connection   = {};
 
-  this.kicad_sch_json = { "element":[] , "net_pin_id_map": {} };
+  this.kicad_sch_json = { "element":[] ,
+                          "net_pin_id_map": {},
+                          "component_lib" : {}  };
 
   // reference by id
   this.ref_lookup = {};
@@ -79,7 +81,7 @@ function bleepsixSchematic()
 
   this.debug = false;
 
-  this.local_component_cache = {};
+  //this.local_component_cache = {};
 
   //this.net_pin_id_map = {};
 
@@ -104,13 +106,16 @@ bleepsixSchematic.prototype.clear = function()
   this.position     = {};
   this.orientation  = {};
 
-  this.local_component_cache = {};
+  //this.local_component_cache = {};
 }
 
+// deprecated...
+/*
 bleepsixSchematic.prototype.setLocalComponentCache = function( component_cache )
 {
   this.local_component_cache = component_cache;
 }
+*/
 
 
 bleepsixSchematic.prototype._createId = function( parent_id )
@@ -757,18 +762,24 @@ bleepsixSchematic.prototype.pickComponentPin = function( comp, x, y)
   //var name = comp.name;
   var name = this.toCacheName( comp.name );
 
-  if ( !(name in g_component_cache) )
+  var component_lib = this.kicad_sch_json.component_lib;
+
+  //if ( !(name in g_component_cache) )
+  if ( !(name in component_lib) )
   {
-    console.log("ERROR: bleepsixSchematic.pickComponentPin, no entry in g_component_cache for " + name );
+    //console.log("ERROR: bleepsixSchematic.pickComponentPin, no entry in g_component_cache for " + name );
+    console.log("ERROR: bleepsixSchematic.pickComponentPin, no entry in component_lib for " + name );
     return -1;
   }
 
   var transform = comp.transform;
 
-  for ( var ind in g_component_cache[name].pin )
+  //for ( var ind in g_component_cache[name].pin )
+  for ( var ind in component_lib[name].pin )
   {
 
-    var pin = g_component_cache[name].pin[ind];
+    //var pin = g_component_cache[name].pin[ind];
+    var pin = component_lib[name].pin[ind];
     var u = numeric.dot( transform, [ parseInt(pin.x), parseInt(pin.y) ] );
 
     u[0] += parseInt(comp.x);
@@ -1134,7 +1145,10 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
   //var comp_name = this.toCacheName( comp_name_raw );
   var comp_name = cache_comp_name;
 
-  if ( !(comp_name in g_component_cache) )
+  var component_lib = this.kicad_sch_json.component_lib;
+
+  //if ( !(comp_name in g_component_cache) )
+  if ( !(comp_name in component_lib) )
   {
     console.log("bleepsixSchematic.addComponent: ERROR: " + comp_name + " not in component cache");
 
@@ -1147,7 +1161,8 @@ bleepsixSchematic.prototype.addComponent = function( cache_comp_name, x, y, tran
   //json_component = g_component_cache[comp_name];
   //json_component = {};
   //$.extend(true, json_component, g_component_cache[comp_name] );
-  json_component = simplecopy( g_component_cache[comp_name] );
+  //json_component = simplecopy( g_component_cache[comp_name] );
+  json_component = simplecopy( component_lib[comp_name] );
 
   json_component.text[0].reference = json_component.text[0].reference + "?";
 
@@ -2429,19 +2444,25 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
   }
   */
 
+  var component_lib = this.kicad_sch_json.component_lib;
+
   var comp_x = parseFloat(comp["x"]);
   var comp_y = parseFloat(comp["y"]);
 
-  if ( name in g_component_cache )
+  //if ( name in g_component_cache )
+  if ( name in component_lib)
   {
-    this.drawComponent( g_component_cache[ name ], comp["x"], comp["y"], comp["transform"]  );
+    //this.drawComponent( g_component_cache[ name ], comp["x"], comp["y"], comp["transform"]  );
+    this.drawComponent( component_lib[ name ], comp["x"], comp["y"], comp["transform"]  );
   }
   else
   {
 
-    if (!("unknown" in g_component_cache))
+    //if (!("unknown" in g_component_cache))
+    if (!("unknown" in component_lib))
     {
-      g_component_cache["unknown"] = this.makeUnknownComponent();
+      //g_component_cache["unknown"] = this.makeUnknownComponent();
+      component_lib["unknown"] = this.makeUnknownComponent();
     }
 
     if (!("unknown_text_field" in comp))
@@ -2449,7 +2470,8 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
       comp["unknown_text_field"] = this.makeUnknownComponentTextField( comp_x, comp_y );
     }
 
-    this.drawComponent( g_component_cache[ "unknown" ], comp["x"], comp["y"], comp["transform"]  );
+    //this.drawComponent( g_component_cache[ "unknown" ], comp["x"], comp["y"], comp["transform"]  );
+    this.drawComponent( component_lib[ "unknown" ], comp["x"], comp["y"], comp["transform"]  );
     this.drawComponentTextField( comp["unknown_text_field"], comp_x, comp_y, comp["transform"] );
     return;
   }
@@ -3301,17 +3323,24 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
 
   var bbox = [ [0,0],[0,0] ];
 
+  var component_lib = this.kicad_sch_json.component_lib;
 
-  if (name in g_component_cache)
+
+  //if (name in g_component_cache)
+  if (name in component_lib)
   {
-    bbox = g_component_cache[name]["bounding_box"];
+    //bbox = g_component_cache[name]["bounding_box"];
+    bbox = component_lib[name]["bounding_box"];
   }
   else
   {
-    if (!("unknown" in g_component_cache))
-      g_component_cache["unknown"] = this.makeUnknownComponent();
+    //if (!("unknown" in g_component_cache))
+    //  g_component_cache["unknown"] = this.makeUnknownComponent();
+    //bbox = g_component_cache["unknown"]["bounding_box"];
 
-    bbox = g_component_cache["unknown"]["bounding_box"];
+    if (!("unknown" in component_lib))
+      component_lib["unknown"] = this.makeUnknownComponent();
+    bbox = component_lib["unknown"]["bounding_box"];
   }
 
   var xl = bbox[0][0];
@@ -3413,10 +3442,11 @@ bleepsixSchematic.prototype.load_part = function(name, data)
 {
 
   // component_cache is the cache of unique parts
-  g_component_cache[name] = data;
+  //g_component_cache[name] = data;
+  this.kicad_sch_json.component_lib[name] = data;
 
-  //find_component_bounding_box( g_component_cache[name] );
-  this.find_component_bounding_box( g_component_cache[name] );
+  //this.find_component_bounding_box( g_component_cache[name] );
+  this.find_component_bounding_box( this.kicad_sch_json.component_lib[name] );
   
   this.queued_display_component_count--;
 
@@ -3582,6 +3612,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
   this._annoteSchematic();
 
   var sch = this.kicad_sch_json["element"];
+  var component_lib = this.kicad_sch_json.component_lib;
 
   for (var ind in sch)
   {
@@ -3597,7 +3628,9 @@ bleepsixSchematic.prototype.load_schematic = function( json )
     if (bleepsixSchematicHeadless)
       continue;
 
-    if (name in g_component_cache)
+
+    //if (name in g_component_cache)
+    if (name in component_lib)
     {
       // nothing to do...
     }
@@ -3643,6 +3676,11 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
       this.displayable = false;
 
+      // This should no longer be necessary as the component_lib
+      // is now required to have the component information that's
+      // in the schematic.
+      //
+      /* 
       var part_json = g_component_location[name].location;
 
       // A litle fancy footing here.
@@ -3659,6 +3697,7 @@ bleepsixSchematic.prototype.load_schematic = function( json )
 
           (function(xx) { 
             return function(nam, dat) { 
+              g_component_cache[nam] = dat;
               xx.load_part(nam, dat); 
             }; 
           })(this) ,
@@ -3672,6 +3711,8 @@ bleepsixSchematic.prototype.load_schematic = function( json )
         )
 
       this.queued_display_component_count++;
+
+      */
 
     }
   }

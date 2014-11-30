@@ -483,8 +483,8 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   // schematic updated with the netmap.
   //
 
-  this.schematic.constructNet();
-  var sch_net_code_map = this.schematic.getPinNetMap();
+  //this.schematic.constructNet();
+  //var sch_net_code_map = this.schematic.getPinNetMap();
 
   var net_op = { source: "sch", destination: "sch" };
   net_op.action = "update";
@@ -492,7 +492,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   net_op.groupId = group_id;
   net_op.inverseFlag = false;
   net_op.replayFlag = false;
-  net_op.data = sch_net_code_map;
+  //net_op.data = sch_net_code_map;
   this.op.opCommand( net_op );
 
 

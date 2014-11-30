@@ -3231,7 +3231,7 @@ bleepsixBoard.prototype.drawBoard = function()
               g_painter.drawGradientLine( lin.x0, lin.y0,
                                           lin.x1, lin.y1,
                                           30,
-                                          "rgba(255,255,255,0.6)",
+                                          "rgba(255,255,255,0.4)",
                                           "rgba(255,255,255,0.8)",
                                           this.draw_ratsnest_shimmer_p,
                  -10000, -10000, 10000, 10000 );
@@ -3239,7 +3239,7 @@ bleepsixBoard.prototype.drawBoard = function()
         }
         else
         {
-          g_painter.line( lin.x0, lin.y0, lin.x1, lin.y1, "rgba(255,255,255,0.6)", 30);
+          g_painter.line( lin.x0, lin.y0, lin.x1, lin.y1, "rgba(255,255,255,0.4)", 30);
         }
       }
     }

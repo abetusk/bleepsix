@@ -1022,7 +1022,7 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
     }
   }
 
-  console.log("net split, done");
+  //console.log("net split, done");
   return true;
 
 }

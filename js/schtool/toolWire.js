@@ -271,6 +271,19 @@ toolWire.prototype.placeWire = function()
     }
   }
 
+  /*
+  var net_op = { source: "sch", destination : "sch"  };
+  net_op.action = "update";
+  net_op.type = "net";
+  g_schematic_controller.opCommand( net_op );
+
+  var netmap_op = { source: "sch", destination : "sch"  };
+  netmap_op.action = "update";
+  netmap_op.type = "schematicnetmap";
+  g_schematic_controller.opCommand( netmap_op );
+  */
+
+
   g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_schematic_controller.guiToolbox.defaultSelect();
 

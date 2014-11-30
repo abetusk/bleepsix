@@ -4,6 +4,7 @@
 
 if (typeof module !== 'undefined')
 {
-  var bleepsixSchematic = require("./bleepsixSchematic_event.js");
+  //var bleepsixSchematic = require("./bleepsixSchematic_event.js");
+  var bleepsixSchematic = require("./bleepsixSchematic_net.js");
   module.exports = bleepsixSchematic;
 }

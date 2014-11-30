@@ -348,6 +348,8 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
 toolTrace.prototype.placeTrack = function()
 {
 
+  var netsUpdates = false;
+
   var inheritDestNetFlag = false;
   var curNetCode = -1;
 
@@ -504,6 +506,8 @@ toolTrace.prototype.placeTrack = function()
     op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
+    netsUpdated = true;
+
     //nc = new_net.net_number;
     curNetCode = new_net.net_number;
 
@@ -538,6 +542,9 @@ toolTrace.prototype.placeTrack = function()
       op.groupId = this.groupId;
       g_board_controller.opCommand( op );
 
+      netsUpdated = true;
+
+
       /*
       g_board_controller.board.addVia( th[ind].x, th[ind].y, 
                                 th[ind].width,
@@ -561,6 +568,9 @@ toolTrace.prototype.placeTrack = function()
                   //net_number: nc };
       op.groupId = this.groupId;
       g_board_controller.opCommand( op );
+
+      netsUpdated = true;
+
 
       /*
       g_board_controller.board.addTrack( th[ind].x0, th[ind].y0,
@@ -602,6 +612,7 @@ toolTrace.prototype.placeTrack = function()
         op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
+        netsUpdated = true;
 
         /*
         g_board_controller.board.addTrack( ctp[ind-1].x, ctp[ind-1].y,
@@ -640,6 +651,9 @@ toolTrace.prototype.placeTrack = function()
         g_board_controller.opCommand( op );
 
         curNetCode = op.result.net_number ;
+
+        netsUpdated = true;
+
       }
 
     }
@@ -669,10 +683,21 @@ toolTrace.prototype.placeTrack = function()
         g_board_controller.opCommand( op );
 
         curNetCode = op.result.net_number ;
+
+        netsUpdated = true;
+
       }
     }
   }
 
+  if (netsUpdated)
+  {
+    var sch_net_op = { source: "brd", destination: "sch" };
+    sch_net_op.action = "update";
+    sch_net_op.type = "net";
+    sch_net_op.groupId = this.groupId;
+    g_board_controller.opCommand( sch_net_op );
+  }
 
   g_board_controller.board.unhighlightNet(); 
 

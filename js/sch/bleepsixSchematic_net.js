@@ -22,6 +22,13 @@
 
 */
 
+if (typeof module !== 'undefined')
+{
+  var bleepsixSchematic = require("./bleepsixSchematic_event.js");
+  module.exports = bleepsixSchematic;
+}
+
+
 bleepsixSchematic.prototype._point_wire_intersect = function( point, wire )
 {
   var eps = 0.0001;
@@ -105,10 +112,14 @@ bleepsixSchematic.prototype._net_extend_VE_from_conn_wires = function( V, E )
 
 bleepsixSchematic.prototype._lookup_comp = function( name )
 {
-  if (name in this.local_component_cache)
-    return this.local_component_cache[name];
+  //if (name in this.local_component_cache)
+  //  return this.local_component_cache[name];
 
-  console.log("ERROR: bleepsixSchematic._lookup_comp: could not find " + name + " in local component cache");
+  if (name in this.kicad_sch_json.component_lib)
+    return this.kicad_sch_json.component_lib[name];
+
+  //console.log("ERROR: bleepsixSchematic._lookup_comp: could not find " + name + " in local component cache");
+  console.log("ERROR: bleepsixSchematic._lookup_comp: could not find " + name + " in component_lib");
   console.trace();
   return null;
 }

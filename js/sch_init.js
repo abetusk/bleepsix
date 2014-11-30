@@ -107,7 +107,7 @@
 
       g_controller = g_schematic_controller;
 
-      g_schematic_controller.schematic.setLocalComponentCache( g_component_cache );
+      //g_schematic_controller.schematic.setLocalComponentCache( g_component_cache );
 
 
       // setup image cache and preload some generic items

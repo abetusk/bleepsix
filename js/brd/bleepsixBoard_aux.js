@@ -1679,8 +1679,9 @@ bleepsixBoard.prototype.shareLayer = function( ref0, ref1 )
 //
 // returns true if placement allowed, false otherwise.
 //
-bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
+bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_id_map  )
 {
+  if (typeof ignore_id_map === "undefined") { ignore_id_map = {}; }
   clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
 
   var brd = this.kicad_brd_json.element;
@@ -1692,6 +1693,7 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance )
     if (brd_ref.hideFlag)       continue;
     if ((brd_type != "track") && (brd_type != "module")) continue;
     if ((brd_type == "module") && (brd_ref.name == "unknown")) continue;
+    if (brd_ref.id in ignore_id_map) { continue; }
 
     for (var i in id_ref_ar)
     {

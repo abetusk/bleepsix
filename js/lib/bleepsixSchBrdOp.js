@@ -378,6 +378,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   else if (type == "schematicnetmap")
   {
+    this.schematic.constructNet();
 
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
@@ -538,6 +539,9 @@ bleepsixSchBrdOp.prototype._opSchAddSingle = function ( type, id, data, op )
 
   else if ( type == "componentData" )
   {
+    //EXPERIMENTAL
+    this.schematic.load_part( data.componentData.name, data.componentData );
+
     this.schematic.addComponentData( data.componentData, data.x, data.y, data.transform, id, op.idText  );
   }
 
@@ -784,6 +788,10 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
       //
       for (var ind=0; ind<id.length; ind++)
       {
+
+        //EXPERIMENTAL
+        this.schematic.load_part( data.element[ind].ref.name, data.element[ind].ref );
+
         var clonedData = simplecopy( data.element[ind].ref );
         this.schematic.updateComponentData( clonedData, id[ind] );
       }
@@ -796,8 +804,13 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
   else if ( type == "net" )
   {
 
-    this.schematic.updateNets( data );
+    // EXPERIMENTAL
+    this.schematic.constructNet();
+    var x = this.schematic.getPinNetMap();
+    this.schematic.updateNets( x );
+    // EXPERIMENTAL
 
+    //this.schematic.updateNets( data );
   }
 
   else if (type == "boardnetmap")
@@ -811,7 +824,9 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
   else if (type == "schematicnetmap")
   {
+    this.schematic.constructNet();
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
+
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
 
     var map = this.board.kicad_brd_json.brd_to_sch_net_map;

@@ -556,7 +556,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
       for (var pad_ind in ref.pad)
       {
         var nc = ref.pad[pad_ind].net_number;
-        //ref.pad[pad_ind].net_number = newnets[ nc ].net_number;
 
         var brd_ref = board.refLookup( ref.id );
         var old_data = {};
@@ -604,8 +603,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
         var l1 = { x : parseFloat(ref.x1) , y : parseFloat(ref.y1) };
         var w = parseFloat(ref.width) + this.clearance;
 
-        //if ( !board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) ) continue;
-
         if ( board._box_line_intersect( brd_ele.bounding_box, l0, l1, w ) )
         {
 
@@ -623,22 +620,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
 
           }
 
-          /*
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: ref.netcode };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: brd_ele.netcode };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-          */
-
         }
 
       }
@@ -654,12 +635,13 @@ toolBoardMove.prototype._patchUpTrackNets = function()
         {
           var pad = brd_ele.pad[p_ind];
 
-          //if ( !board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) continue;
-
           if ( board._box_line_intersect( pad.bounding_box, l0, l1, w ) )
           {
 
-            var pgnBrd = board._build_element_polygon( { type: "pad", ref: brd_ele, pad_ref: pad, id : pad.id } );
+            var pgnBrd = board._build_element_polygon( { type    : "pad",
+                                                         ref     : brd_ele,
+                                                         pad_ref : pad,
+                                                         id      : pad.id } );
 
             if ( board._pgn_intersect_test( [ pgnBrd ], [ pgnTrack ] ) )
             {
@@ -672,22 +654,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
             }
 
           }
-
-          /*
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: ref.netcode };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: brd_ele.net_number };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-          */
 
         }
 
@@ -704,8 +670,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
         {
           var pad = ref.pad[p_ind];
 
-          //if ( !board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) continue;
-
           if ( board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) {
 
             var pgnEle = board._build_element_polygon( { type: "pad", ref: ref, pad_ref: pad, id : pad.id } );
@@ -721,22 +685,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
             }
 
           }
-
-          /*
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: pad.net_number };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: brd_ele.netcode };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-          */
 
         }
 
@@ -756,13 +704,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
           {
             var ele_pad = ref.pad[ele_p_ind];
 
-            /*
-            if ( !board._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, this.clearance ) )
-            {
-              continue;
-            }
-            */
-
             if ( board._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, this.clearance ) )
             {
 
@@ -779,22 +720,6 @@ toolBoardMove.prototype._patchUpTrackNets = function()
               }
 
             }
-
-            /*
-            var split_op = { source: "brd", destination: "brd" };
-            split_op.action = "update";
-            split_op.type = "splitnet";
-            split_op.data = { net_number: ele_pad.net_number };
-            split_op.groupId = this.groupId;
-            g_board_controller.opCommand( split_op );
-
-            var split_op = { source: "brd", destination: "brd" };
-            split_op.action = "update";
-            split_op.type = "splitnet";
-            split_op.data = { net_number: brd_pad.net_number };
-            split_op.groupId = this.groupId;
-            g_board_controller.opCommand( split_op );
-            */
 
           }
 
@@ -908,27 +833,9 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
           op.groupId = this.groupId;
           g_board_controller.opCommand( op );
 
-          /*
-          var split_op = { source: "brd", destination: "brd" };
-          split_op.action = "update";
-          split_op.type = "splitnet";
-          split_op.data = { net_number: brd_track_ref.netcode };
-          split_op.groupId = this.groupId;
-          g_board_controller.opCommand( split_op );
-          */
-
         }
 
       }
-
-      /*
-      var split_op = { source: "brd", destination: "brd" };
-      split_op.action = "update";
-      split_op.type = "splitnet";
-      split_op.data = { net_number: brd_ele.netcode };
-      split_op.groupId = this.groupId;
-      g_board_controller.opCommand( split_op );
-      */
 
     }
     else if (brd_type == "module")
@@ -942,8 +849,6 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
       for (var p_ind in pads)
       {
         var pad = pads[p_ind];
-
-        //if ( !board._box_line_intersect( pad.bounding_box, l0, l1, w ) ) continue;
 
         if ( board._box_line_intersect( pad.bounding_box, l0, l1, w ) )
         {
@@ -960,27 +865,9 @@ toolBoardMove.prototype._patchUpTrackNetsSingle = function()
             op.groupId = this.groupId;
             g_board_controller.opCommand( op );
 
-            /*
-            var split_op = { source: "brd", destination: "brd" };
-            split_op.action = "update";
-            split_op.type = "splitnet";
-            split_op.data = { net_number: brd_track_ref.netcode };
-            split_op.groupId = this.groupId;
-            g_board_controller.opCommand( split_op );
-            */
-
           }
 
         }
-
-        /*
-        var split_op = { source: "brd", destination: "brd" };
-        split_op.action = "update";
-        split_op.type = "splitnet";
-        split_op.data = { net_number: pad.net_number };
-        split_op.groupId = this.groupId;
-        g_board_controller.opCommand( split_op );
-        */
 
       }
 
@@ -1599,6 +1486,9 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
   } 
   else if (ch == 'D')
   {
+
+    var netsAffected = {};
+
     var op = { source: "brd", destination: "brd" };
     op.action = "delete";
     op.type = "group";
@@ -1611,6 +1501,11 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 
       var ref = g_board_controller.board.refLookup( this.selectedElement[ind].id );
 
+      if (ref.type == "track")
+      {
+        netsAffected[ ref.netcode ] = ref;
+      }
+
       //var clonedData = simplecopy( this.selectedElement[ind].ref );
       var clonedData = simplecopy( ref );
 
@@ -1620,6 +1515,15 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
+    for (var nc in netsAffected)
+    {
+      var split_op = { source: "brd", destination: "brd" };
+      split_op.action = "update";
+      split_op.type = "splitnet";
+      split_op.data = { net_number: nc };
+      split_op.groupId = this.groupId;
+      g_board_controller.opCommand( split_op );
+    }
 
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
