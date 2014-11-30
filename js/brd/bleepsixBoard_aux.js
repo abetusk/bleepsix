@@ -343,18 +343,6 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
           if ( parseInt( ref.layer ) == ilayer )
           {
             var hit_ele = { ref:ref, type: "track", id: ref.id };
-
-            //DEBUG
-            /*
-            console.log("?????");
-            console.log( ref.layer + " " + layer);
-            console.log( track_bbox_list[t_ind]);
-            console.log( tbbox );
-            console.log( hit_ele );
-            console.log("...");
-            */
-
-
             hit_element_list.push( hit_ele );
             break;
           }
@@ -1685,9 +1673,11 @@ bleepsixBoard.prototype.shareLayer = function( ref0, ref1 )
 //
 // returns true if placement allowed, false otherwise.
 //
-bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_id_map  )
+bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_id_map, heuristicLevel )
 {
   if (typeof ignore_id_map === "undefined") { ignore_id_map = {}; }
+  if (typeof heuristicLevel === "undefined") { heuristicLevel = 0; }
+
   clearance = ( (typeof clearance === 'undefined') ? 0 : clearance );
 
   var brd = this.kicad_brd_json.element;
@@ -1722,6 +1712,8 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_
         if ( !this._box_line_intersect( brd_ref.bounding_box, l0, l1, w ) )
           continue;
 
+        if (heuristicLevel>0) { return false; }
+
         var pgnBrd = this._build_element_polygon( { type: "track", ref: brd_ref } );
         var pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref, clearance: clearance } );
 
@@ -1748,6 +1740,7 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_
           continue;
 
         if ( !("pad" in ele_ref) ) continue;
+        if (heuristicLevel>0) { return false; }
 
         var pgnBrd = this._build_element_polygon( { type: "track", ref: brd_ref } );
 
@@ -1783,6 +1776,7 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_
           continue;
 
         if ( !("pad" in brd_ref) ) continue;
+        if (heuristicLevel>0) { return false; }
 
         var pgnEle = this._build_element_polygon( { type: "track", ref: ele_ref } );
 
@@ -1824,6 +1818,7 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_
             if ( !this.shareLayer( brd_pad, ele_pad) ) continue;
             if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance) )
               continue;
+            if (heuristicLevel>0) { return false; }
 
             var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: brd_pad } );
             var pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: ele_pad, clearance: clearance } );
