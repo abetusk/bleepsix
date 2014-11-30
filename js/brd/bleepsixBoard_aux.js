@@ -138,8 +138,11 @@ bleepsixBoard.prototype.refUpdate = function( oldId, newId )
 }
 
 
-bleepsixBoard.prototype.refLookup = function( id )
+bleepsixBoard.prototype.refLookup = function( id, silentFlag )
 {
+
+  if (typeof silentFlag === "undefined") { silentFlag = false; }
+
   if (id in this.ref_lookup)
     return this.ref_lookup[ id ];
 
@@ -177,8 +180,11 @@ bleepsixBoard.prototype.refLookup = function( id )
     }
   }
 
-  console.log("bleepsixBoard.refLookup: ERROR: id " + id + " not found!");
-  console.trace();
+  if (!silentFlag)
+  {
+    console.log("bleepsixBoard.refLookup: ERROR: id " + id + " not found!");
+    console.trace();
+  }
   return null;
 
 }

@@ -603,7 +603,7 @@ bleepsixBoardController.prototype.redraw = function ()
             var pad_name = f[2];
             var nc = f[3];
 
-            var mod_ref = this.board.refLookup( mod_id );
+            var mod_ref = this.board.refLookup( mod_id, true );
             if (!mod_ref) { continue; }
             for (var ind in mod_ref.pad)
             {

@@ -137,9 +137,7 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
   //
   var netReplaceSet = {};
   var ref = brd.refLookup( id );
-
-  //DEBUG
-  console.log("cp0");
+  g_board_controller.board.updateBoundingBox( ref );
 
   if ("pad" in ref)
   {
@@ -150,10 +148,6 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
     }
   }
   else { return; }
-
-  //DEBUG
-  console.log("cp1");
-
 
   // Create the new nets, one for each unique net collected
   // above.
@@ -173,10 +167,6 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
     g_board_controller.opCommand( net_op );
 
   }
-
-  //DEBUG
-  console.log("cp2", newnets);
-
 
   // Allocate the net numbers to the relevant elements
   //
@@ -202,10 +192,6 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
     update_op.data = { element: [ new_data ], oldElement: [ old_data ] };
     update_op.groupId = this.groupId;
     g_board_controller.opCommand( update_op );
-
-    //DEBUG
-    console.log("cp2.5", new_data );
-
   }
 
 
@@ -220,15 +206,8 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
 
     var ele_ref = ref;
 
-    ele_ref = brd.refLookup( ele_ref.id );
-    var ele_type = ele_ref.type;
-
     if ( brd_type == "track" )
     {
-
-      //DEBUG
-      console.log("cp3>");
-
       var l0 = { x : parseFloat(brd_ref.x0) , y : parseFloat(brd_ref.y0) };
       var l1 = { x : parseFloat(brd_ref.x1) , y : parseFloat(brd_ref.y1) };
       var w = parseFloat(brd_ref.width) ;
@@ -240,16 +219,8 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
 
         if ( !brd.shareLayer( brd_ref, pad ) ) continue;
 
-        //DEBUG
-        console.log("cp3>>");
-
-
         if ( brd._box_line_intersect( pad.bounding_box, l0, l1, w ) )
         {
-
-          //DEBUG
-          console.log("cp3>>>", pad, brd_ref);
-
           var pgnEle = brd._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad } );
 
           if ( brd._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
@@ -260,13 +231,6 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
             op.data = { net_number0: brd_ref.netcode, net_number1: pad.net_number };
             op.groupId = this.groupId;
             g_board_controller.opCommand( op );
-
-
-
-            //DEBUG
-            console.log("cp3>>>>>>");
-
-
           }
 
         }
@@ -310,6 +274,12 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
   if (button == 1)
   {
+
+    if (!this.allowPlaceFlag)
+    {
+      g_board_controller.fadeMessage( "Sorry, cannot place! There are too many intersections" );
+      return;
+    }
 
     // Generate new nets for each of the pads about to be created
     //
