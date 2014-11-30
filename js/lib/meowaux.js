@@ -310,7 +310,13 @@ function guid() {
 
 function simplecopy( src )
 {
-  return JSON.parse( JSON.stringify(src) );
+  try {
+    return JSON.parse( JSON.stringify(src) );
+  } catch(err)
+  {
+    console.log(err);
+    console.trace();
+  }
 }
 
 function imageCache()
@@ -458,3 +464,38 @@ function point_segment_distance(px, py, x1, y1, x2, y2)
 }
 
 
+var profile_cur = new Date();
+var profile_prv = new Date();
+var profile_cur_ms = profile_cur.getTime();
+var profile_prv_ms = profile_prv.getTime();
+
+
+function profile_start()
+{
+  profile_prv = new Date();
+  profile_prv_ms = profile_prv.getTime();
+
+  profile_cur = new Date();
+  profile_cur_ms = profile_cur.getTime();
+}
+
+function profile_cp()
+{
+  profile_cur    = new Date();
+  profile_cur_ms = profile_cur.getTime();
+  profile_prv    = profile_cur;
+  profile_prv_ms = profile_cur_ms;
+}
+
+function profile_cp_print( msg )
+{
+  if (typeof msg == "undefined") { msg = ""; }
+
+  profile_cur    = new Date();
+  profile_cur_ms = profile_cur.getTime();
+
+  console.log( msg, profile_cur_ms - profile_prv_ms );
+
+  profile_prv    = profile_cur;
+  profile_prv_ms = profile_cur_ms;
+}
