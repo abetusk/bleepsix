@@ -92,6 +92,17 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
     updateBBox = false;
   }
 
+  else if ( type == "nets" )
+  {
+    //this.board.addNet( data.netcode, data.netname, id );
+
+    for (var ind in data)
+    {
+      this.board.addNet( data[ind].net_number, this.board.getNetName( data[ind].net_number ) );
+    }
+    updateBBox = false;
+  }
+
   else if ( type == "via" )
   {
     this.board.addVia( data.x, data.y, data.width, data.layer0, data.layer1, data.net_number, id );
@@ -179,6 +190,13 @@ bleepsixSchBrdOp.prototype.opBrdAdd = function ( op, inverseFlag )
     if ( type == "net" )
     {
       this.board.removeNet( op.data.net_number );
+    }
+    else if (type == "nets" )
+    {
+      for (var ind in op.data)
+      {
+        this.board.removeNet( op.data[i].net_number );
+      }
     }
     else
     {
