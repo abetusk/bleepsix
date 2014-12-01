@@ -75,14 +75,37 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
   this.clearance = g_parameter.clearance;
   this.ghostElement = null;
 
+
+  var d = new Date();
+  this.move_prev_ms = d.getTime();
+  this.move_heuristic_ms = 100;
+
+  this.dirty = true;
+
+  setInterval( function(xx) { return function() { xx.tick(); }; }(this), 100 );
+
 }
 
-toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
-toolFootprintPlace.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom ( this.mouse_x, this.mouse_y, delta ); }
-
-toolFootprintPlace.prototype.drawGhostOverlay = function()
+toolFootprintPlace.prototype.tick = function()
 {
+  if (this.dirty)
+  {
+    this.allowPlaceFlag = this.canPlace();
 
+    if (this.allowPlaceFlag)
+    {
+      g_painter.dirty_flag = true;
+    }
+
+  }
+}
+
+toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) {
+  g_painter.adjustPan( dx, dy );
+}
+
+toolFootprintPlace.prototype.mouseWheel = function( delta )  {
+  g_painter.adjustZoom ( this.mouse_x, this.mouse_y, delta );
 }
 
 toolFootprintPlace.prototype.drawOverlay = function()
@@ -111,17 +134,29 @@ toolFootprintPlace.prototype.drawOverlay = function()
 
 toolFootprintPlace.prototype.canPlace = function()
 {
-  var ignore_id_map = {};
-  if (this.highlightId) { ignore_id_map[ this.highlightId ] = 1; }
-
   var ref = simplecopy( this.cloned_footprint );
   ref.x = this.world_xy["x"];
   ref.y = this.world_xy["y"];
   g_board_controller.board.updateBoundingBox( ref );
-  var tf = g_board_controller.board.allowPlacement( [{ "ref": ref }], this.clearance, ignore_id_map );
 
-  return tf;
-  //return g_board_controller.board.allowPlacement( [ { "ref": this.cloned_footprint } ], this.clearance );
+  var ignore_id_map = {};
+  if (this.highlightId)
+  {
+    ignore_id_map[ this.highlightId ] = 1;
+  }
+
+  var d = new Date();
+  var cur_ms = d.getTime();
+  if ((cur_ms - this.move_prev_ms) > this.move_heuristic_ms)
+  {
+    this.dirty = false;
+    return g_board_controller.board.allowPlacement( [{"ref":ref}], this.clearance, ignore_id_map, 0 );
+  }
+  else
+  {
+    return g_board_controller.board.allowPlacement( [{"ref":ref}], this.clearance, ignore_id_map, 1 );
+  }
+
 }
 
 toolFootprintPlace.prototype._patchUpNets = function( id )
@@ -130,7 +165,17 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
 
   var brd = g_board_controller.board;
 
-  //if ( !this._hasCollisionFromTo() ) return;
+  var ref = g_board_controller.board.refLookup( id );
+  ref.hideFlag = true;
+  if ( !g_board_controller.board.intersectTest( [{ref:ref}], this.clearance ) )
+  {
+    ref.hideFlag = false;
+    return;
+  }
+  ref.hideFlag = false;
+
+  console.log(">>>>", id);
+
 
   // Collect all the net numbers that we will be
   // replacing
@@ -244,9 +289,13 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
 
   }
 
+
+  // I'm not even sure we need this...
+  //
   // This might be a significant slowdown.  If it becomes a
   // problem we'll have to speed up the split net...
   //
+  /*
   for (var nc in splitnet_num )
   {
     var split_op = { source: "brd", destination: "brd" };
@@ -256,6 +305,8 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
     split_op.groupId = this.groupId;
     g_board_controller.opCommand( split_op );
   }
+  */
+
 
   // finally update net maps and rats nest
   //
@@ -264,7 +315,6 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
   map_op.type = "schematicnetmap";
   map_op.groupId = this.groupId;
   g_board_controller.opCommand( map_op );
-
 
 }
 
@@ -281,12 +331,30 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       return;
     }
 
+    //DEBUG
+    profile_start();
+
+    var net_op = { source : "brd" , destination: "brd" };
+    net_op.action = "add";
+    net_op.type = "nets";
+    net_op.data = [];
+    net_op.groupId = this.groupId;
+
+
     // Generate new nets for each of the pads about to be created
     //
     for (var p_ind in this.cloned_footprint.pad )
     {
       var net_obj = g_board_controller.board.genNet();
 
+      net_op.data.push( { net_number : net_obj.net_number,
+                          net_name : net_obj.net_name } );
+
+      var pad = this.cloned_footprint.pad[p_ind];
+      pad.net_number = net_obj.net_number;
+      pad.net_name = net_obj.net_name;
+
+      /*
       var net_op = { source : "brd" , destination: "brd" };
       net_op.action = "add";
       net_op.type = "net";
@@ -298,7 +366,17 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       var pad = this.cloned_footprint.pad[p_ind];
       pad.net_number = net_obj.net_number;
       pad.net_name = net_obj.net_name;
+      */
+
     }
+
+    if (net_op.data.length>0)
+    {
+      g_board_controller.opCommand(net_op);
+    }
+
+    //DEBUG
+    profile_cp_print("toolFootprintPlace>>>");
 
     if (this.highlightId)
     {
@@ -360,9 +438,6 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
-    //DEBUG
-    console.log(op);
-
     this._patchUpNets( op.id );
 
     g_board_controller.tool = new toolBoardNav(x, y);
@@ -414,6 +489,11 @@ toolFootprintPlace.prototype.mouseMove = function( x, y )
 
   if (!this.mouse_drag_button)
   {
+
+    var d = new Date();
+    this.move_prev_ms = d.getTime();
+    this.dirty = true;
+
     this.world_xy = g_painter.devToWorld( this.mouse_x, this.mouse_y );
     this.world_xy = g_snapgrid.snapGrid( this.world_xy );
 
