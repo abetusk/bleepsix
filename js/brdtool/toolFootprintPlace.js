@@ -82,12 +82,18 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
 
   this.dirty = true;
 
-  setInterval( function(xx) { return function() { xx.tick(); }; }(this), 100 );
+  this.shutdown = false;
+
+  //setInterval( function(xx) { return function() { xx.tick(); }; }(this), 100 );
+  setTimeout( function(xx) { return function() { xx.tick(); }; }(this), 100 );
 
 }
 
 toolFootprintPlace.prototype.tick = function()
 {
+
+  if (this.shutdown) { return; }
+
   if (this.dirty)
   {
     this.allowPlaceFlag = this.canPlace();
@@ -98,6 +104,9 @@ toolFootprintPlace.prototype.tick = function()
     }
 
   }
+
+  setTimeout( function(xx) { return function() { xx.tick(); }; }(this), 100 );
+
 }
 
 toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) {
@@ -414,6 +423,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       op.groupId = this.groupId;
       g_board_controller.opCommand( op );
 
+      this.shutdown = true;
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
 
@@ -440,6 +450,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
     this._patchUpNets( op.id );
 
+    this.shutdown = true;
     g_board_controller.tool = new toolBoardNav(x, y);
     g_painter.dirty_flag = true;
   }
@@ -526,6 +537,7 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
 
     //console.log("toolFootprintPlace: passing back to toolNav");
 
+    this.shutdown = true;
     g_board_controller.tool = new toolBoardNav( this.mouse_x, this.mouse_y );
     g_painter.dirty_flag = true;
 
