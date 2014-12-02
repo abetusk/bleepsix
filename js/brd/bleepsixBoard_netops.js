@@ -711,14 +711,18 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
 
   var group_list = this._get_netsplit_group_list(net_ele_point_hash);
   if (group_list.length == 1 )
+  {
     return ;
+  }
 
   var net_group_bin = this._get_netsplit_group_bin( net_ele_point_hash ) ;
 
   // successfully processed == true
   //
   if (this._bounding_box_netsplit( net_group_bin ) ) 
+  {
     return ;
+  }
 
   var ds = 10;
 
@@ -979,7 +983,7 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
     }
   }
 
-  console.log("bounding boxes do not intersect, simple netsplit");
+  //console.log("bounding boxes do not intersect, simple netsplit");
 
   // We have a simple netsplit, so go through, keep the
   // first group as is and label the rest of the gruops

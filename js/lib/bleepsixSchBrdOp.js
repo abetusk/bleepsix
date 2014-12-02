@@ -394,6 +394,42 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     }
   }
 
+  else if (type == "splitnets")
+  {
+
+    if (!inverseFlag)
+    {
+      op.result = [];
+      for (var ind in data)
+      {
+        var net_info = data[ind];
+        var res =
+          this.board.splitNet( net_info.net_number );
+        op.result.push(res);
+      }
+    } else {
+
+      // Reverse order
+      for (var op_ind=op.result.length-1; op_ind>=0; op_ind--)
+      {
+        var split_res = op.result[op_ind];
+        if (split_res)
+        {
+          var orig_net_number = split_res.orig_net_number;
+          var new_net = split_res.new_net;
+
+          for (var ind in new_net)
+          {
+            this.board.mergeNets( orig_net_number, new_net[ind].net_number );
+          }
+
+        }
+
+      }
+
+    }
+  }
+
   else if (type == "schematicnetmap")
   {
     this.schematic.constructNet();

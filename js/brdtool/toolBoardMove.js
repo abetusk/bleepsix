@@ -592,6 +592,12 @@ toolBoardMove.prototype._patchUpNets = function()
       $.extend( true, old_data, brd_track_ref );
       $.extend( true, new_data, brd_track_ref );
 
+      // We've created it from doing a refLookup,
+      // so it's hidden while we move it around
+      // in this tool.  Unhide it.
+      old_data.hideFlag = false;
+      new_data.hideFlag = false;
+
       new_data.netcode = newnets[ nc ].net_number;
 
       var update_op = { source: "brd", destination: "brd" };
@@ -810,6 +816,7 @@ toolBoardMove.prototype._patchUpNets = function()
 
   var count = 0;
 
+  /*
   // This might be a significant slowdown.  If it becomes a
   // problem we'll have to speed up the split net...
   //
@@ -824,7 +831,22 @@ toolBoardMove.prototype._patchUpNets = function()
     console.log(nc);
     count++;
   }
+  */
 
+  // This might be a significant slowdown.  If it becomes a
+  // problem we'll have to speed up the split net...
+  //
+  var split_op = { source: "brd", destination: "brd" };
+  split_op.action = "update";
+  split_op.type = "splitnets";
+  split_op.data = [] ; //{ net_number: nc };
+  split_op.groupId = this.groupId;
+
+  for (var nc in splitnet_num ) {
+    split_op.data.push( { net_number : nc } );
+    count++;
+  }
+  g_board_controller.opCommand( split_op );
 
   // finally update net maps and rats nest
   //
