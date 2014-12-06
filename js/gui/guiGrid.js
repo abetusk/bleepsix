@@ -214,8 +214,6 @@ guiGrid.prototype._eventMouseDown = function( ev )
 {
   if (ev.owner == this.name + ":nav")
   {
-    console.log("  handing over to toolNav");
-
 
     // DISABLED!
     // this needs to be registered by the instanstiator

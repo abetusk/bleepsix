@@ -265,8 +265,6 @@ toolNav.prototype.mouseWheel = function( delta )
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
 
-// TESTING
-
 toolNav.prototype.keyDown = function( keycode, ch, ev )
 {
   //console.log("toolNav keyDown: " + keycode + " " + ch );
@@ -302,6 +300,14 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     console.log("<??");
     */
 
+  }
+  else if ( keycode == 192 )
+  {
+    g_schematic_controller.schematic.draw_id_text_flag =
+      !g_schematic_controller.schematic.draw_id_text_flag;
+    g_schematic_controller.schematic.draw_bounding_box_flag =
+      !g_schematic_controller.schematic.draw_bounding_box_flag;
+    g_painter.dirty_flag = true;
   }
   else if ( keycode == 190 )
   {

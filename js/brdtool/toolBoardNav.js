@@ -438,6 +438,15 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   }
 
+  else if ( keycode == 192 )
+  {
+    g_board_controller.board.draw_id_text_flag =
+      !g_board_controller.board.draw_id_text_flag;
+    g_board_controller.board.flag_draw_bounding_box =
+      !g_board_controller.board.flg_draw_bounding_box;
+    g_painter.dirty_flag = true;
+  }
+
   // right bracket (']')
   //
   else if ( keycode == 221 )

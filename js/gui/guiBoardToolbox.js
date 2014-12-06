@@ -425,7 +425,6 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
   else if (ev.owner == this.name + ":via")
   {
     console.log("  IN DEVELOPMENT, sorry, tool via not implmeneted yet");
-    //console.log("  handing over to toolTrace (grid)");
   }
 
   else

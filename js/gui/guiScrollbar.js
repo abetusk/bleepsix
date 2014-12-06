@@ -36,8 +36,6 @@ function guiScrollbar( gui_name )
 
   this.bar_position = 0;
 
-  //console.log("scrollbar: " + w + " " + h );
-
   this.ready = false;
 
   this.once = false;
@@ -84,12 +82,8 @@ guiScrollbar.prototype.hitTest = function(x, y)
 guiScrollbar.prototype.mouseDown = function( button, x, y)
 {
 
-  //console.log("guiScrollbar");
-
-
   if (this.hitTest(x, y))
   {
-    //console.log("  hit");
     return true;
   }
 
@@ -100,7 +94,6 @@ guiScrollbar.prototype.mouseDown = function( button, x, y)
 
 guiScrollbar.prototype.mouseWheel = function(delta)
 {
-  //console.log("guiScrollbar.mouseWheel delta " + delta);
 }
 
 
@@ -111,7 +104,6 @@ guiScrollbar.prototype.mouseWheelXY = function(delta, x, y)
 
   if (this.hitTest(x,y))
   {
-    //console.log("guiScrollbar.mouseWheelXY hit");
   }
 
 }
@@ -148,7 +140,6 @@ guiScrollbar.prototype.updatePosition = function( r )
   var H = this.height - this.bar_height;
   this.bar_position = r*H;
 
-  //console.log("guiScrollbar.updatePosition: bar_position " + this.bar_position);
 }
 
 guiScrollbar.prototype.getPosition = function( )

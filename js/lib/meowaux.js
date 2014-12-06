@@ -39,7 +39,6 @@ var g_component_location_ready = false;
 
 function load_footprint_location( userId, sessionId, projectId, callback, callback_err )
 {
-
   if (typeof callback === 'undefined' )
   {
     callback = (function(xx) { 
@@ -359,7 +358,7 @@ imageCache.prototype.draw = function( name, x, y, w, h )
 
   if ( !this.image[name].ready )
   {
-    console.log("WARNING: " + name + " not ready");
+    //console.log("WARNING: " + name + " not ready");
     return;
   }
 

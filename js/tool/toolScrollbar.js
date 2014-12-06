@@ -27,18 +27,13 @@ function toolScrollbar( x, y, scrollbar, orig_tool )
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
 
-  //finished_callback = ( typeof finished_callback !== 'undefined' ? finished_callback : toolNav );
-
   this.orig_tool = orig_tool;
-
-  console.log("toolScrollbar constructor");
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
 
   this.mouse_start_x = x;
   this.mouse_start_y = y;
-
 
   this.scrollbar = scrollbar;
 
@@ -50,9 +45,6 @@ function toolScrollbar( x, y, scrollbar, orig_tool )
 
   this.begin_y = y - this.p*this.effective_height;
   this.end_y = this.begin_y + this.effective_height;
-
-  //this.start_y = this.mouse_start_y;
-  //this.end_y = this.mouse_start_y + this.effective_height;
 
 }
 
@@ -74,9 +66,6 @@ toolScrollbar.prototype.drawOverlay = function()
 
 toolScrollbar.prototype.mouseDown = function( button, x, y ) 
 {
-
-  console.log("toolScrollbar.mouseDown: handing back control ");
-
   if (typeof this.orig_tool === 'undefined' )
   {
     g_schematic_controller.tool = new toolNav(x, y);
@@ -96,9 +85,6 @@ toolScrollbar.prototype.mouseDown = function( button, x, y )
 
 toolScrollbar.prototype.mouseUp = function( button, x, y ) 
 {
-
-  console.log("toolScrollbar.mouseUp: handing back to toolNav");
-
   if (typeof this.orig_tool === 'undefined' )
   {
     if (g_controller.type == "schematic")
