@@ -1599,7 +1599,8 @@ bleepsixBoard.prototype.intersectTest = function( id_ref_ar, clearance )
           for (var jj in ele_pads)
           {
             var ele_pad = ele_pads[jj];
-            if ( !this.shareLayer( brd_pad, ele_ref ) ) continue;
+
+            if ( !this.shareLayer( brd_pad, ele_pad ) ) continue;
 
             if ( !this._box_box_intersect( brd_pad.bounding_box, ele_pad.bounding_box, clearance) )
               continue;
