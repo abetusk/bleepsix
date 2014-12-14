@@ -247,12 +247,16 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
       for (var ind in id_ref_ar)
       {
         this.board.relativeMoveElement( id_ref_ar[ind], -dx, -dy );
-        this.board.updateBoundingBox( id_ref_ar[ind].ref );
       }
 
       for (var i=0; (i<4) && (i<rotateCount); i++)
       {
         this.board.rotateAboutPoint90( id_ref_ar, cx, cy, true );
+      }
+
+      for (var ind in id_ref_ar)
+      {
+        this.board.updateBoundingBox( id_ref_ar[ind].ref );
       }
 
     }
@@ -432,6 +436,10 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   else if (type == "schematicnetmap")
   {
+
+    //DEBUG
+    console.log("cp: schematicnetmap (brd)");
+
     this.schematic.constructNet();
 
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
@@ -794,12 +802,16 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
       for (var ind in id_ref_ar)
       {
         this.schematic.relativeMoveElement( id_ref_ar[ind], -dx, -dy );
-        this.schematic.updateBoundingBox( id_ref_ar[ind].ref );
       }
 
       for (var i=0; (i<4) && (i<rotateCount); i++)
       {
         this.schematic.rotateAboutPoint90( id_ref_ar, cx, cy, true );
+      }
+
+      for (var ind in id_ref_ar)
+      {
+        this.schematic.updateBoundingBox( id_ref_ar[ind].ref );
       }
 
     }
@@ -878,6 +890,10 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
 
   else if (type == "schematicnetmap")
   {
+
+    //DEBUG
+    console.log("cp: schematicnetmap (sch)");
+
     this.schematic.constructNet();
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
 
