@@ -593,9 +593,13 @@ bleepsixSchematicController.prototype.redraw = function ()
         }
 
         if (msg.length > 0)
+        {
           this.schematic.highlightNet( primary, secondary );
+        }
         else
+        {
           this.schematic.unhighlightNet();
+        }
 
         g_painter.dirty_flag = true;
       }

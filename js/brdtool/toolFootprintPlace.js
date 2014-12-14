@@ -341,7 +341,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     }
 
     //DEBUG
-    profile_start();
+    //profile_start();
 
     var net_op = { source : "brd" , destination: "brd" };
     net_op.action = "add";
@@ -349,19 +349,35 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     net_op.data = [];
     net_op.groupId = this.groupId;
 
+    var pad_count=0;
+    for (var p_ind in this.cloned_footprint.pad ) { pad_count++; }
+
+    //new
+    var new_netcode = [];
+    if (pad_count>0) {
+      new_netcode = g_board_controller.board.genNets( undefined, undefined, pad_count );
+    }
 
     // Generate new nets for each of the pads about to be created
     //
+    var nc_ind = 0;
     for (var p_ind in this.cloned_footprint.pad )
     {
-      var net_obj = g_board_controller.board.genNet();
+      //var net_obj = g_board_controller.board.genNet();
 
-      net_op.data.push( { net_number : net_obj.net_number,
-                          net_name : net_obj.net_name } );
+      //net_op.data.push( { net_number : net_obj.net_number,
+      //                    net_name : net_obj.net_name } );
+
+      net_op.data.push( { net_number : new_netcode[nc_ind].net_number,
+                          net_name : new_netcode[nc_ind].net_name } );
 
       var pad = this.cloned_footprint.pad[p_ind];
-      pad.net_number = net_obj.net_number;
-      pad.net_name = net_obj.net_name;
+      //pad.net_number = net_obj.net_number;
+      //pad.net_name = net_obj.net_name;
+      pad.net_number = new_netcode[nc_ind].net_number;
+      pad.net_name = new_netcode[nc_ind].net_name;
+
+      nc_ind++;
 
       /*
       var net_op = { source : "brd" , destination: "brd" };
@@ -385,7 +401,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     }
 
     //DEBUG
-    profile_cp_print("toolFootprintPlace>>>");
+    //profile_cp_print("toolFootprintPlace>>>");
 
     if (this.highlightId)
     {
@@ -453,6 +469,7 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     this.shutdown = true;
     g_board_controller.tool = new toolBoardNav(x, y);
     g_painter.dirty_flag = true;
+
   }
   else if (button == 3)
   {

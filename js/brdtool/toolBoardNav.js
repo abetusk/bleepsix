@@ -49,6 +49,8 @@ function toolBoardNav( x, y, viewMode )
 
   this.highlightNetcodes = [];
 
+  this.clearance = g_parameter.clearance;
+
   if (g_board_controller)
   {
     this.mouseMove( x, y );
@@ -237,7 +239,6 @@ toolBoardNav.prototype.mouseMove = function( x, y )
 
   if (ida.length > 0)
   {
-
     for ( var ida_ind in ida )
     {
       var ref = ida[ida_ind].ref;
@@ -321,6 +322,7 @@ toolBoardNav.prototype.mouseMove = function( x, y )
   {
     var pad_ref = pad_ar[0].pad_ref;
     var netcode = parseInt( pad_ref.net_number );
+
     if (netcode >= 0)
     {
       //var net_name = g_board_controller.board.kicad_brd_json.net_code_map[ netcode ];
@@ -329,15 +331,14 @@ toolBoardNav.prototype.mouseMove = function( x, y )
       var board = g_board_controller.board;
       if ("brd_to_sch_net_map" in board.kicad_brd_json)
       {
-
         var hi_netcodes = [];
         var sub_pad_ids = [];
-
 
         var xy = pad_ref.id.split(",");
         var base_pad_id = xy[0] + ":" + pad_ref.name;
 
         g_board_controller.board.getBoardNetCodesAndSubPads( netcode, base_pad_id, hi_netcodes, sub_pad_ids );
+
         g_board_controller.board.highlightNetCodesSubPads( hi_netcodes, sub_pad_ids );
 
         // Highlight netcodes in companion schematic.
@@ -665,6 +666,24 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     var id_ref = g_board_controller.board.pick( wx, wy );
     if ( id_ref )
     {
+      var ref = g_board_controller.board.refLookup( id_ref.id );
+      var cloned_id_ref = simplecopy( id_ref );
+
+      ref.hideFlag = true;
+
+      var com = g_board_controller.board.centerOfMass( [ cloned_id_ref ] );
+
+      g_board_controller.board.rotateAboutPoint90( [ cloned_id_ref ], com.x, com.y, ccw );
+      g_board_controller.board.updateBoundingBox( cloned_id_ref.ref );
+
+      if ( g_board_controller.board.intersectTest( [ cloned_id_ref ] , this.clearance ) )
+      {
+        g_board_controller.fadeMessage( "Sorry, cannot rotate!  Too many intersections" );
+        ref.hideFlag = false;
+        return true;
+      }
+
+      ref.hideFlag = false;
 
       var op = { source: "brd", destination: "brd" };
       op.action = "update";

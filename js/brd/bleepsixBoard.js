@@ -1383,6 +1383,38 @@ bleepsixBoard.prototype._genNetName = function()
   return this.default_net_prefix + z + String(new_base_net_name);
 }
 
+bleepsixBoard.prototype._genNetNameVal = function( new_base_net_name )
+{
+  this.default_net_prefix = "N-";
+
+  if (typeof new_base_net_name === "undefined")
+  {
+
+    var equipot = this.kicad_brd_json.equipot;
+
+    var new_net_code = -1;
+    for (var ind in equipot)
+    {
+      if ( parseInt( equipot[ind].net_number ) > new_net_code )
+      {
+        new_net_code = parseInt( equipot[ind].net_number )
+
+        var s = "0" + equipot[ind].net_name;
+        var n = parseInt( s.replace( /[^0-9]*/g, '' ), 10 );
+        if (n > new_base_net_name)
+          new_base_net_name = n;
+
+      }
+    }
+
+    new_base_net_name += 1;
+
+  }
+
+  var z = Array( 6 - (String(new_base_net_name).length) ).join('0');
+  return this.default_net_prefix + z + String(new_base_net_name);
+}
+
 // Return a new netcode and netname as an object with net_number and net_name as keys.
 // Passing in an undefined for netcode and netname will automatically allocate them.
 //
@@ -1411,6 +1443,47 @@ bleepsixBoard.prototype.genNet = function( netcode, netname )
     netname = this._genNetName();
 
   return { net_number: netcode, net_name: netname };
+}
+
+// Return a new netcode and netname as an object with net_number and net_name as keys.
+// Passing in an undefined for netcode and netname will automatically allocate them.
+//
+bleepsixBoard.prototype.genNets = function( first_netcode, first_netname, n )
+{
+  var ret_nc = [];
+
+  this.default_net_prefix = "N-";
+
+  if (typeof first_netcode === 'undefined' )
+  {
+    if (!("equipot" in this.kicad_brd_json ))
+      this._initBoardNet();
+
+    var equipot = this.kicad_brd_json.equipot;
+
+    var new_net_code = -1;
+    for (var ind in equipot)
+      if ( parseInt( equipot[ind].net_number ) > new_net_code )
+        new_net_code = parseInt( equipot[ind].net_number )
+
+    for (var i=0; i<n; i++)
+    {
+      var netcode = new_net_code + i + 1;
+      var netname = this._genNetNameVal( netcode );
+      ret_nc.push( { net_number: netcode, net_name: netname } );
+    }
+  }
+  else
+  {
+    for (var i=0; i<n; i++)
+    {
+      var netcode = first_netcode + i ;
+      var netname = this._genNetNameVal( netcode );
+      ret_nc.push( { net_number: netcode, net_name: netname } );
+    }
+  }
+
+  return ret_nc;
 }
 
 bleepsixBoard.prototype.removeNet = function( netcode, netname )

@@ -368,6 +368,24 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
     this.opHistoryUpdate( schop );
 
+    // EXPERIMENTAL
+    var netop = { source: "brd", destination: "sch" };
+    netop.scope = msg.scope;
+    netop.action = "update";
+    netop.type = "schematicnetmap";
+    netop.groupId = group_id;
+    netop.inverseFlag = false;
+    netop.replayFlag = false;
+    this.op.opCommand( netop );
+
+    if ( g_brdnetwork && (msg.scope == "network") )
+      g_brdnetwork.projectop( netop );
+
+    this.opHistoryUpdate( netop );
+    // EXPERIMENTAL
+
+
+
   }
 
   if ( msg.action == "update" )
@@ -388,7 +406,7 @@ bleepsixBoardController.prototype.opCommand = function( msg )
       netop.replayFlag = false;
       this.op.opCommand( netop );
 
-      if ( g_brdnetwork && (msg.scop == "network") )
+      if ( g_brdnetwork && (msg.scope == "network") )
         g_brdnetwork.projectop( netop );
 
       this.opHistoryUpdate( netop );
@@ -434,6 +452,41 @@ bleepsixBoardController.prototype.opCommand = function( msg )
         g_brdnetwork.projectop( schop );
 
       this.opHistoryUpdate( schop );
+
+      var netop = { source: "brd", destination: "sch" };
+      netop.scope = msg.scope;
+      netop.action = "update";
+      netop.type = "schematicnetmap";
+      netop.groupId = group_id;
+      netop.inverseFlag = false;
+      netop.replayFlag = false;
+      this.op.opCommand( netop );
+
+      if ( g_brdnetwork && (msg.scope == "network") )
+      {
+        g_brdnetwork.projectop( netop );
+      }
+
+      this.opHistoryUpdate( netop );
+      // EXPERIMENTAL
+
+      // EXPERIMENTAL
+      var netop2 = { source: "brd", destination: "brd" };
+      netop2.scope = msg.scope;
+      netop2.action = "update";
+      netop2.type = "schematicnetmap";
+      netop2.groupId = group_id;
+      netop2.inverseFlag = false;
+      netop2.replayFlag = false;
+      this.op.opCommand( netop2 );
+
+      if ( g_brdnetwork && (msg.scope == "network") )
+      {
+        g_brdnetwork.projectop( netop2 );
+      }
+
+      this.opHistoryUpdate( netop2 );
+
     }
 
   }
@@ -491,9 +544,13 @@ bleepsixBoardController.prototype.highlightSchematicNetsFromBoard = function( br
   }
 
   if (msg.length>0)
+  {
     this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId, msg );
+  }
   else
+  {
     this.tabCommunication.addMessage( "sch:" + g_brdnetwork.projectId,  "");
+  }
 
 }
 

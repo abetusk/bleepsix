@@ -1217,7 +1217,7 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     var drot = ( (ch == 'R') ? 1 : 3 );
     this.rotateCount = (this.rotateCount+drot)%4;
 
-    com = g_board_controller.board.centerOfMass( this.base_element_state );
+    var com = g_board_controller.board.centerOfMass( this.base_element_state );
 
     // be careful, this might lead to 'drift' as we rotate things around
     //

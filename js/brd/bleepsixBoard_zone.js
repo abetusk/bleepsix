@@ -896,6 +896,7 @@ bleepsixBoard.prototype.highlightNetCodesSubPads = function( net_codes, mod_pad_
   for (var n in net_codes)
   {
     var net_name = this.kicad_brd_json.net_code_map[ net_codes[n] ];
+
     if (!net_name) continue;
     var pgns = this.getBGLVarSubPads( net_name, mod_pad_ids );
     for (var i in pgns)
