@@ -436,10 +436,6 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
   else if (type == "schematicnetmap")
   {
-
-    //DEBUG
-    console.log("cp: schematicnetmap (brd)");
-
     this.schematic.constructNet();
 
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
@@ -447,7 +443,6 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
     var map = this.board.kicad_brd_json.brd_to_sch_net_map;
     this.board.updateRatsNest( undefined, undefined, map );
-
   }
 
   else if (type == "edit")
