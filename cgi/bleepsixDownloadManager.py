@@ -16,6 +16,7 @@ staging_base    = "/home/meow/stage"
 logfile         = "/home/meow/log/bleepsixDownloadManager.log"
 
 g_filename = "download.file"
+file_id = None
 
 def print_header():
 #  print "Content-Disposition: attachment; filename=\"foo.txt\""
@@ -24,6 +25,10 @@ def print_header():
   print
 
 def print_error():
+
+  with open( logfile , 'a') as fp:
+    fp.write("ERROR on " + str(file_id) +  "\n")
+
   print "Content-Type: text/html"
   print
   print "<html><body>error occured</body></html>"
@@ -60,5 +65,7 @@ except IOError:
   print_error()
 
 
+with open( logfile , 'a') as fp:
+  fp.write("handled " + str(file_id) +  "\n")
 
 
