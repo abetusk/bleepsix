@@ -113,7 +113,7 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
   {
     callback = (function(xx) {
       return function(data) { xx.load_webkicad_library_json(data); };
-    });
+    })(this);
   }
 
   if ( typeof callback_err === 'undefined' )
