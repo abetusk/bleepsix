@@ -268,20 +268,42 @@
 
     function downloadProject( )
     {
-      var sch_data = g_schematic_controller.schematic.kicad_sch_json ;
-      var brd_data = g_schematic_controller.board.kicad_brd_json ;
 
-      var container = { "type" : "downloadProject", board: brd_data, schematic: sch_data };
-      var str_data = JSON.stringify( container );
+      var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
 
-      $.ajax({
-        url: "bleepsixDataManager.py",
-        type: 'POST',
-        data: str_data,
-        success: initiateDownload,
-        error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+      if (typeof projectId !== "undefined")
+      {
+        var form_data = { "projectId" : projectId }
 
-      });
+        $.ajax({
+          url: "downloadProject.py",
+          type: 'POST',
+          data: form_data,
+          success: initiateDownload,
+          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+        });
+      }
+      else
+      {
+
+
+        var sch_data = g_schematic_controller.schematic.kicad_sch_json ;
+        var brd_data = g_schematic_controller.board.kicad_brd_json ;
+
+        var container = { "type" : "downloadProject", board: brd_data, schematic: sch_data };
+        var str_data = JSON.stringify( container );
+
+        $.ajax({
+          url: "bleepsixDataManager.py",
+          type: 'POST',
+          data: str_data,
+          success: initiateDownload,
+          error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
+
+        });
+      }
+
     }
 
     function populateIframe(id,path)
