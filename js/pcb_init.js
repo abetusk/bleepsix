@@ -259,7 +259,7 @@
 
       function downloadProject( )
       {
-        var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
+        var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
 
         if (typeof projectId !== "undefined")
         {
