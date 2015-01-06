@@ -29,6 +29,28 @@ function canvasFocus()
   c.focus();
 }
 
+function goToProject() {
+
+  var s = location.search.replace('?', '').split('&').map(function(val){
+    return val.split('=');
+  });
+
+  var viewUserId = $(document).getUrlParam('user');
+  if (!viewUserId)
+    viewUserId = undefined;
+
+  var projectId = $(document).getUrlParam('project');
+  if (!projectId)
+    projectId = undefined;
+
+  url = "project?projectId=" + projectId;
+  window.open( url );
+  window.focus();
+
+
+}
+
+
 function position_html_button_elements(w, h) {
   var top = [ "3px", "0px", "0px", "0px" ];
   var tf = [ 0, 0, 0, 0 ];
@@ -47,17 +69,17 @@ function position_html_button_elements(w, h) {
     left = [ "70px", "100px", "130px", "180px"  ]
   }
 
-  ele = document.getElementById('homeButton');
+  ele = document.getElementById('projectButton');
   ele.style.top = top[0];
   ele.style.left = left[0];
 
-  ele = document.getElementById('downloadButton');
-  ele.style.top = top[2];
-  ele.style.left = left[2];
+  //ele = document.getElementById('downloadButton');
+  //ele.style.top = top[2];
+  //ele.style.left = left[2];
 
-  ele = document.getElementById('snapButton');
-  ele.style.top = top[3];
-  ele.style.left = left[3];
+  //ele = document.getElementById('snapButton');
+  //ele.style.top = top[3];
+  //ele.style.left = left[3];
 
 }
 
@@ -203,7 +225,10 @@ $(document).ready( function() {
       url: "bleepsixDataManager.py",
       type: 'POST',
       data: str_data,
-      success: function(xx) { g_board_controller.board.load_board(xx.json_brd); },
+      success: function(xx) {
+        g_board_controller.board.load_board(xx.json_brd);
+        g_board_controller.project_name_text = xx.userName + " / " + xx.projectName;
+      },
       error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
     });
   }

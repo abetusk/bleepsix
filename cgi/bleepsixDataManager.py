@@ -83,6 +83,11 @@ def brdJSON( json_message ):
     obj = { "type" : "error", "notes" : "invalid project" }
     return obj
 
+  u = db.hgetall( "user:" + str(p["userId"]) )
+  if (not p) or (p["active"] != "1"):
+    obj = { "type" : "error", "notes" : "invalid user" }
+    return obj
+
   snap = db.hgetall( "projectsnapshot:" + str(projectId) )
   if not snap:
     obj = { "type" : "error", "notes" : "could not get snapshot" }
@@ -90,7 +95,7 @@ def brdJSON( json_message ):
 
   json_brd = json.loads( snap["json_brd"] )
 
-  obj = { "type" : "jsonBRD", "json_brd" : json_brd }
+  obj = { "type" : "jsonBRD", "json_brd" : json_brd, "projectName" : p["name"], "userName" : u["userName"] }
   return obj
 
 def schJSON( json_message ):
@@ -107,6 +112,11 @@ def schJSON( json_message ):
     obj = { "type" : "error", "notes" : "invalid project" }
     return obj
 
+  u = db.hgetall( "user:" + str(p["userId"]) )
+  if (not p) or (p["active"] != "1"):
+    obj = { "type" : "error", "notes" : "invalid user" }
+    return obj
+
   snap = db.hgetall( "projectsnapshot:" + str(projectId) )
   if not snap:
     obj = { "type" : "error", "notes" : "could not get snapshot" }
@@ -114,7 +124,7 @@ def schJSON( json_message ):
 
   json_sch = json.loads( snap["json_sch"] )
 
-  obj = { "type" : "jsonBRD", "json_sch" : json_sch }
+  obj = { "type" : "jsonBRD", "json_sch" : json_sch, "projectName" : p["name"], "userName" : u["userName"] }
   return obj
 
 

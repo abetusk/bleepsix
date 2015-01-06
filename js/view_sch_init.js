@@ -28,6 +28,27 @@ function canvasFocus()
   c.focus();
 }
 
+function goToProject() {
+
+  var s = location.search.replace('?', '').split('&').map(function(val){
+    return val.split('=');
+  });
+
+  var viewUserId = $(document).getUrlParam('user');
+  if (!viewUserId)
+    viewUserId = undefined;
+
+  var projectId = $(document).getUrlParam('project');
+  if (!projectId)
+    projectId = undefined;
+
+  url = "project?projectId=" + projectId;
+  window.open( url );
+  window.focus();
+
+
+}
+
 function position_html_button_elements(w, h) {
   var top = [ "3px", "0px", "0px", "0px" ];
   var tf = [ 0, 0, 0, 0 ];
@@ -46,21 +67,21 @@ function position_html_button_elements(w, h) {
     left = [ "70px", "100px", "130px", "180px"  ]
   }
 
-  ele = document.getElementById('homeButton');
+  ele = document.getElementById('projectButton');
   ele.style.top = top[0];
   ele.style.left = left[0];
 
-  var ele = document.getElementById('uploadButton');
-  ele.style.top = top[1];
-  ele.style.left = left[1];
+  //var ele = document.getElementById('uploadButton');
+  //ele.style.top = top[1];
+  //ele.style.left = left[1];
 
-  ele = document.getElementById('downloadButton');
-  ele.style.top = top[2];
-  ele.style.left = left[2];
+  //ele = document.getElementById('downloadButton');
+  //ele.style.top = top[2];
+  //ele.style.left = left[2];
 
-  ele = document.getElementById('snapButton');
-  ele.style.top = top[3];
-  ele.style.left = left[3];
+  //ele = document.getElementById('snapButton');
+  //ele.style.top = top[3];
+  //ele.style.left = left[3];
 
 }
 
@@ -92,14 +113,6 @@ $(document).ready( function() {
   var s = location.search.replace('?', '').split('&').map(function(val){
     return val.split('=');
   });
-
-  /*
-  var projectId = null;
-  if ( s.length > 0 )
-  {
-    if (s[0][0] == "project") { projectId = s[0][1]; }
-  }
-  */
 
   var viewUserId = $(document).getUrlParam('user');
   if (!viewUserId)
@@ -161,6 +174,7 @@ $(document).ready( function() {
 
   // camera snapshot
   //
+  /*
   $( "#snapElement" ).hover(
 
     function() {
@@ -174,7 +188,7 @@ $(document).ready( function() {
     }
 
   );
-
+  */
 
   canvasFocus();
 
@@ -220,12 +234,15 @@ $(document).ready( function() {
  * or the parts won't render properly.
  */
 function deferLoadSchematic(xx) {
+
   if (!g_component_location_ready)
   {
     setTimeout( function() { deferLoadSchematic(xx); }, 500 );
     return;
   }
   g_schematic_controller.schematic.load_schematic(xx.json_sch); 
+
+  g_schematic_controller.project_name_text = xx.userName + " / " + xx.projectName;
 }
 
 if ( !window.requestAnimationFrame ) {

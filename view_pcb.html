@@ -94,6 +94,7 @@
     <!-- download trickery -->
     <iframe id='downloadFrame' style='display:none'></iframe>
 
+    <!--
     <div class="download_button" id='downloadButton'>
       <input 
         class='download_button' 
@@ -103,7 +104,9 @@
         value='download' 
         onclick="downloadProject(); canvasFocus();"  />
     </div>
+    -->
 
+    <!--
     <div class="snapshot_button" id="snapButton">
       <input 
         id='snapElement' 
@@ -113,15 +116,16 @@
         value="click me" 
         onclick="canvasFocus(); takeSnapShotPicture();" />
     </div>
+    -->
 
-    <div class="generic_button" id='homeButton'>
+    <div class="generic_button" id='projectButton'>
       <input 
         class='generic_button' 
         type="image" 
         src='img/kitty_head_white_outline_p32.png' 
         style=' height:26px; width:26px;' 
         value'download' 
-        onclick="canvasFocus(); goHome();"  />
+        onclick="canvasFocus(); goToProject();"  />
     </div>
 
     <canvas 
