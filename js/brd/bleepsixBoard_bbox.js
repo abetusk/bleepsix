@@ -60,6 +60,31 @@ bleepsixBoard.prototype._find_footprint_art_circle_bbox  = function( mod, art_en
 
 }
 
+bleepsixBoard.prototype._find_footprint_art_arc_bbox  = function( mod, art_entry )
+{
+  var bbox = mod.bounding_box;
+
+  var mod_x = parseFloat( mod.x );
+  var mod_y = parseFloat( mod.y );
+  var a = parseFloat( mod.angle );
+
+  var x = parseFloat( art_entry["x"] );
+  var y = parseFloat( art_entry["y"] );
+  var r = parseFloat( art_entry["r"] );
+
+  var v = numeric.dot( this._R(a), [x,y]);
+
+  var tx = v[0] + mod_x;
+  var ty = v[1] + mod_y;
+
+  bbox[0][0] = Math.min( bbox[0][0], tx - r );
+  bbox[0][1] = Math.min( bbox[0][1], ty - r );
+
+  bbox[1][0] = Math.max( bbox[1][0], tx + r );
+  bbox[1][1] = Math.max( bbox[1][1], ty + r );
+
+}
+
 bleepsixBoard.prototype._find_footprint_art_segment_bbox = function( mod, art_entry )
 {
 
@@ -295,7 +320,7 @@ bleepsixBoard.prototype._find_footprint_bbox = function( mod )
     if      (shape == "circle")     { this._find_footprint_art_circle_bbox  ( mod, art[ind] ); }
     else if (shape == "segment")    { this._find_footprint_art_segment_bbox ( mod, art[ind] ); }
     //else if (shape == "rectangle")  { find_footprint_art_rectangle_bbox ( bbox, art[ind] ); }
-    //else if (shape == "arc")        { find_footprint_art_arc_bbox       ( bbox, art[ind] ); }
+    else if (shape == "arc")        { this._find_footprint_art_arc_bbox       ( mod, art[ind] ); }
   }
 
   for (var ind in pad)
