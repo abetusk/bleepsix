@@ -2001,7 +2001,14 @@ bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y )
   */
   //if (da > 2.0*Math.PI) da -= 2.0 * Math.PI;
 
-  var ccw_flag = _is_arc_ccw( ea - sa );
+  //var ccw_flag = _is_arc_ccw( ea - sa );
+  var ccw_flag = false;
+  if (da < 0) { ccw_flag = true; }
+
+  //if (ea > 7.0) { return; }
+  //if ((r < 400) && (ea < 7)) { return ; }
+
+  //console.log( "r", r, "sa", sa, "ea", ea, "da", da );
 
   //g_painter.drawArc( cx + x, cy + y, r, sa, sa+da, false, line_width, color );
   g_painter.drawArc( cx + x, cy + y, r, sa, ea, ccw_flag, line_width, color );
