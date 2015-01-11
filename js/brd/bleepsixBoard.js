@@ -22,6 +22,18 @@
 
 */
 
+function _mod_2pi( ang ) {
+  var q = Math.floor( Math.abs(ang) / (2.0*Math.PI) );
+  if (ang<0) { q -= 1; }
+  return ang - q*Math.PI*2.0;
+
+}
+
+function _is_arc_ccw( ang ) {
+  if (_mod_2pi( ang ) > Math.PI ) { return true; }
+  else { return false; }
+}
+
 
 var bleepsixBoardHeadless = false;
 
@@ -1941,14 +1953,58 @@ bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y )
   var sa = parseFloat( art_entry["start_angle"] );
   var da = parseFloat( art_entry["angle"] );
 
-  if (da > 2.0*Math.PI)
-    da -= 2.0 * Math.PI;
-
   var line_width = parseFloat( art_entry["line_width"] );
   var layer = parseInt( art_entry["layer"] );
   var color = this.layer_color[layer];
 
-  g_painter.drawArc( cx + x, cy + y, r, sa, sa+da, false, line_width, color );
+  // This needs some major work.
+  // I can't figure out what KiCAD is really doing.
+  // I think it's taking a minimum of arcs.  That is,
+  // if the arc is more than Pi, it goes the other direction
+  // to take the shorter arc path from the start point to
+  // the end point.  This works for the SparkFun connector
+  // but fails for the Valve modules.  The Valve modules
+  // aren't really supported, so this hack stays in favor
+  // of SparkFun's modules.
+  //
+  // This could be an upstream problem as well.  As far
+  // as I can tell, the SparkFun module BATTCON_20MM
+  // should render whacko for the arcs, but KiCAD renders
+  // it alright, so I've tried to hack the thing together
+  // so it renders properly here too.
+  //
+  // I don't know what happens when arcs get beyond Pi.
+  //
+
+  /*
+  if (("start_x" in art_entry) && ("start_y" in art_entry)) {
+    var sx = parseFloat( art_entry["start_x"] );
+    var sy = parseFloat( art_entry["start_y"] );
+    
+    var sa = Math.atan2( sy-cy, sx-cx );
+    var ea = sa+da;
+
+    var arc_ccw = _is_arc_ccw( ea - sa );
+    g_painter.drawArc( cx + x, cy + y, r, ea, sa, arc_ccw , line_width, color );
+    return;
+  }
+  */
+
+
+  var ea = sa+da;
+
+  /*
+  var ccw_flag = true;
+  if ("counterclockwise_flag" in art_entry) {
+    ccw_flag = art_entry.counterclockwise_flag;
+  }
+  */
+  //if (da > 2.0*Math.PI) da -= 2.0 * Math.PI;
+
+  var ccw_flag = _is_arc_ccw( ea - sa );
+
+  //g_painter.drawArc( cx + x, cy + y, r, sa, sa+da, false, line_width, color );
+  g_painter.drawArc( cx + x, cy + y, r, sa, ea, ccw_flag, line_width, color );
 }
 
 //---------------

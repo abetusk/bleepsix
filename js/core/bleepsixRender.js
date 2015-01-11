@@ -276,11 +276,12 @@ bleepsixRender.prototype.drawArc= function( x, y, r, start_angle_rad, end_angle_
   var fill_flag  = ( typeof fill_flag  !== 'undefined' ? fill_flag : false );
   var fill_color = ( typeof fill_color !== 'undefined' ? fill_color : this.default_fill_color );
 
-  //console.log("drawArc: " + x + " " + y + " " + r + " " + start_angle_rad + " " + end_angle_rad + " " + ccw_flag );
-  //console.log("  " + line_width + " " + line_color + " " + fill_flag + " " + fill_color );
-
   ctx.beginPath();
-  ctx.arc( x, y, r, start_angle_rad , end_angle_rad ,  ccw_flag );
+
+  // start and end angle are CLOCKWISE.  ccw_flag only applies
+  // to the direction is traces from the start point to the end
+  // point.
+  ctx.arc( x, y, r, start_angle_rad, end_angle_rad,  ccw_flag );
 
   if (fill_flag) { 
     ctx.fillStyle = fill_color; 
