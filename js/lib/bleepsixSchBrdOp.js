@@ -529,8 +529,16 @@ bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
         {
           _data = { "footprintData" : ref, "x" : ref.x, "y" : ref.y };
         }
+        if ("hideFlag" in ref) { ref.hideFlag = false; }
 
-        this._opBrdAddSingle( ref.type, ref.id, _data );
+        var type = ref.type;
+        if ((type == "drawsegment") && (ref.shape == "arc"))
+        {
+          type = "drawarcsegment";
+          _data.end_angle = ref.start_angle + ref.angle;
+        }
+
+        this._opBrdAddSingle( type, ref.id, _data );
       }
 
     }
