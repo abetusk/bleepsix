@@ -165,7 +165,7 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       sch_nc = this.netcode;
 
-      equipot_ind = map[sch_nc][0];
+      //equipot_ind = map[sch_nc][0];
       //brd_nc = map[ this.netcode ][0];
       
       var group_id = String(guid());
