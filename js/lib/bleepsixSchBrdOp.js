@@ -195,7 +195,7 @@ bleepsixSchBrdOp.prototype.opBrdAdd = function ( op, inverseFlag )
     {
       for (var ind in op.data)
       {
-        this.board.removeNet( op.data[i].net_number );
+        this.board.removeNet( op.data[ind].net_number );
       }
     }
     else
