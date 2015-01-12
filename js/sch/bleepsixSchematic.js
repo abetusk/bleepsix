@@ -2775,6 +2775,12 @@ bleepsixSchematic.prototype.update_bbox_with_point = function( bbox, x, y )
   bbox[1][1] = Math.max( bbox[1][1], y );
 }
 
+bleepsixSchematic.prototype.find_part_art_segment_bbox = function( bbox, art_entry )
+{
+  this.update_bbox_with_point(bbox,  art_entry["startx"], art_entry["starty"] )
+  this.update_bbox_with_point(bbox,  art_entry["endx"], art_entry["endy"] )
+}
+
 //function find_part_art_arc_bbox ( bbox, art_entry )
 bleepsixSchematic.prototype.find_part_art_arc_bbox = function( bbox, art_entry )
 {
@@ -2961,6 +2967,7 @@ bleepsixSchematic.prototype.find_component_bounding_box = function( comp )
     else if (shape == "path")       { this.find_part_art_path_bbox      ( bbox, art[ind] ); }
     else if (shape == "rectangle")  { this.find_part_art_rectangle_bbox ( bbox, art[ind] ); }
     else if (shape == "arc")        { this.find_part_art_arc_bbox       ( bbox, art[ind] ); }
+    else if (shape == "segment")    { this.find_part_art_segment_bbox   ( bbox, art[ind] ); }
 
     /*
     if      (shape == "circle")     { find_part_art_circle_bbox    ( bbox, art[ind] ); }
