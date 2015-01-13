@@ -553,8 +553,8 @@ bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
         }
         if ("hideFlag" in ref) { ref.hideFlag = false; }
 
-        /*
         var type = ref.type;
+        /*
         if ((type == "drawsegment") && (ref.shape == "arc"))
         {
           type = "drawarcsegment";
