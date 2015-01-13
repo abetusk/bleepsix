@@ -165,17 +165,13 @@ toolBoardZone.prototype.mouseUp = function( button, x, y )
 
       sch_nc = this.netcode;
 
-      //equipot_ind = map[sch_nc][0];
-      //brd_nc = map[ this.netcode ][0];
-      
       var group_id = String(guid());
 
       var op = { source : "brd", destination: "brd" };
       op.action = "add";
       op.type = "czone";
 
-      //op.data  = { points : pnts, netcode: this.netcode, layer : this.layer };
-      op.data  = { points : pnts, netcode: sch_nc, layer : this.layer };
+      op.data  = { points : pnts, netcode: sch_nc, layer : this.layer, polyscorners:[] };
       op.groupId = group_id;
 
       g_board_controller.opCommand( op );

@@ -529,14 +529,38 @@ bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
         {
           _data = { "footprintData" : ref, "x" : ref.x, "y" : ref.y };
         }
+        else if (ref.type == "czone")
+        {
+
+          var pnts = [];
+          var pc = [];
+          if ( typeof ref.zcorner !== "undefined") {
+            for (var ii=0; ii<ref.zcorner.length; ii++) {
+               pnts.push( [ ref.zcorner[ii].x, ref.zcorner[ii].y ] );
+            }
+          }
+          if ( typeof ref.polyscorners !== "undefined") {
+            for (var ii=0; ii<ref.polyscorners.length; ii++) {
+              pc.push( [ ref.polyscorners[ii].x, ref.polyscorners[ii].y ] );
+            }
+          }
+
+          _data = { "points" : pnts,
+                    "polyscorners" : pc,
+                    netcode : ref.netcode,
+                    layer : ref.layer,
+                    id : ref.id  }
+        }
         if ("hideFlag" in ref) { ref.hideFlag = false; }
 
+        /*
         var type = ref.type;
         if ((type == "drawsegment") && (ref.shape == "arc"))
         {
           type = "drawarcsegment";
           _data.end_angle = ref.start_angle + ref.angle;
         }
+        */
 
         this._opBrdAddSingle( type, ref.id, _data );
       }
@@ -1023,7 +1047,7 @@ bleepsixSchBrdOp.prototype.opUndo = function( src )
     while ( ( this.opHistoryEnd >= 0 ) &&
             ( this.opHistory[ this.opHistoryEnd ].groupId == start_group_id ) )
     {
-      this.opCommand( this.opHistory[ this.opHistoryEnd ], true, true );
+      this.opCommand( this.opHistory[ this.opHistoryEnd ] );
       this.opHistoryEnd--;
     }
 
@@ -1047,7 +1071,7 @@ bleepsixSchBrdOp.prototype.opRedo = function( src )
             (this.opHistory[ this.opHistoryEnd+1 ].groupId == start_group_id) )
     {
       this.opHistoryEnd++;
-      this.opCommand( this.opHistory[ this.opHistoryEnd ], false, true );
+      this.opCommand( this.opHistory[ this.opHistoryEnd ] )
     }
   }
   else
