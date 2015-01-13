@@ -622,15 +622,37 @@ bleepsixBoard.prototype.rotateAboutPoint = function ( id_refs, x, y, rad_angle, 
               ( ref.type == "drawsegment" ) )
     {
 
-      var p = [ [ ref.x0 - x, ref.y0 - y ],
-                [ ref.x1 - x, ref.y1 - y ] ];
+      if (ref.shape == "arc")
+      {
 
-      var p_r = numeric.transpose( numeric.dot( R, numeric.transpose(p) ) );
-      ref.x0 = p_r[0][0] + x;
-      ref.y0 = p_r[0][1] + y;
+        var p = [ [ ref.x - x, ref.y - y ] ];
+        var p_r = numeric.transpose( numeric.dot( R, numeric.transpose(p) ) );
+        ref.x = p_r[0][0] + x;
+        ref.y = p_r[0][1] + y;
 
-      ref.x1 = p_r[1][0] + x;
-      ref.y1 = p_r[1][1] + y;
+        ref.start_angle -= rot_angle;
+        if (ref.start_angle > (2.0*Math.PI))
+        {
+          ref.start_angle -= 2.0 * Math.PI;
+        }
+        else if (ref.start_angle < -(2.0*Math.PI))
+        {
+          ref.start_angle += 2.0 * Math.PI;
+        }
+
+      }
+      else
+      {
+        var p = [ [ ref.x0 - x, ref.y0 - y ],
+                  [ ref.x1 - x, ref.y1 - y ] ];
+
+        var p_r = numeric.transpose( numeric.dot( R, numeric.transpose(p) ) );
+        ref.x0 = p_r[0][0] + x;
+        ref.y0 = p_r[0][1] + y;
+
+        ref.x1 = p_r[1][0] + x;
+        ref.y1 = p_r[1][1] + y;
+      }
 
     }
 

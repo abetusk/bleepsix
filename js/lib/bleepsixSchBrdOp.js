@@ -554,13 +554,14 @@ bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
         if ("hideFlag" in ref) { ref.hideFlag = false; }
 
         var type = ref.type;
-        /*
         if ((type == "drawsegment") && (ref.shape == "arc"))
         {
           type = "drawarcsegment";
-          _data.end_angle = ref.start_angle + ref.angle;
+          _data = { "x" : ref.x, "y" : ref.y,
+                    "r" : ref.r,
+                    "start_angle" : ref.start_angle, "end_angle" : ref.start_angle + ref.angle,
+                    "width" : ref.width, "layer" : ref.layer, "id" : id };
         }
-        */
 
         this._opBrdAddSingle( type, ref.id, _data );
       }
