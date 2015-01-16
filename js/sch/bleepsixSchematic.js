@@ -1943,7 +1943,6 @@ bleepsixSchematic.prototype.drawComponent = function( data, x, y, transform, dra
 
   if (draw_f01)
   {
-
     this.drawComponentTextField( data["text"][0], x, y, transform, true );
     this.drawComponentTextField( data["text"][1], x, y, transform, true );
 
