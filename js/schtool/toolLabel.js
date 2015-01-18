@@ -67,7 +67,7 @@ function toolLabel( x, y, type, initialPlaceFlag, initialName )
   var ele = document.getElementById("canvas");
   if (type == "label")
   {
-    ele.style.cursor = "url('img/cursor_custom_noconn_s24.png') 4 3, cursor";
+    ele.style.cursor = "url('img/cursor_custom_label_s24_black.png') 4 3, cursor";
   }
   else if (type == "heirlabel")
   {

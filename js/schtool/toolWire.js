@@ -75,7 +75,8 @@ function toolWire( x, y, initialPlaceFlag )
   this.highlightBoxColor = "rgba(0,0,0,0.4)";
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  //ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  ele.style.cursor = "url('img/cursor_custom_wire_s24_3.png') 4 3, cursor";
 
 
 }

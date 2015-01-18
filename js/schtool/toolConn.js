@@ -60,11 +60,12 @@ function toolConn( x, y, type, placeOption )
 
   if (type == "noconn")
   {
-    ele.style.cursor = "url('img/cursor_custom_noconn_s24.png') 4 3, cursor";
+    //ele.style.cursor = "url('img/cursor_custom_noconn_s24.png') 4 3, cursor";
+    ele.style.cursor = "url('img/cursor_custom_noconn_s24_2.png') 4 3, cursor";
   }
   else if ( (type == "conn") || (type == "connection") )
   {
-    ele.style.cursor = "url('img/cursor_custom_conn_s24.png') 4 3, cursor";
+    ele.style.cursor = "url('img/cursor_custom_conn_s24_2.png') 4 3, cursor";
   }
 
 
