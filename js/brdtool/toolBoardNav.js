@@ -135,16 +135,21 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
           return;
         }
 
-        if (!preferred_id_ref) { preferred_id_ref = picked_id_ref; }
+        if (!preferred_id_ref) {
+          preferred_id_ref = picked_id_ref;
+        }
 
         var tref = picked_id_ref.ref;
         if ("bounding_box" in tref)
         {
           var bbox = tref.bounding_box;
           var cur_size = Math.abs( (bbox[0][0] - bbox[1][0])*(bbox[0][1] - bbox[1][1]) );
-          if (cur_size > save_size)
+
+          if (save_size < 1) { save_size = cur_size; }
+          if (cur_size < save_size)
           {
             preferred_id_ref  = picked_id_ref;
+            save_size = cur_size;
           }
         }
 
