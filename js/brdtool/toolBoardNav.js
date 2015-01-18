@@ -100,53 +100,62 @@ toolBoardNav.prototype.mouseDown = function( button, x, y )
     this.mouse_drag_flag = true;
 
   // pass control to toolSelect 
+  //
   else if (button == 1)
-
   {
     var world_coord = g_painter.devToWorld( x, y );
 
+    // First get all elements that fall under the click point
+    //
     var id_ref_ar = g_board_controller.board.pickAll( world_coord.x, world_coord.y );
 
     if (id_ref_ar && (id_ref_ar.length > 0))
     {
+
       var picked_id_ref = null;
+      var preferred_id_ref = null;
+      var save_size = 0;
+
       for (var ind in id_ref_ar)
       {
+
+        // If it's a track, just pick the first one straight away
+        //
         picked_id_ref = id_ref_ar[ind];
         if ( picked_id_ref.ref.type == "track" )
         {
 
           if (!this.viewMode)
-          {
             g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
-          }
-
 
           g_board_controller.board.unhighlightNet();
-
-          // EXPERIMENTAL
           g_board_controller.unhighlightNet( );
-          // EXPERIMENTAL
-
-
-          
+         
           g_painter.dirty_flag = true;
-
           return;
         }
+
+        if (!preferred_id_ref) { preferred_id_ref = picked_id_ref; }
+
+        var tref = picked_id_ref.ref;
+        if ("bounding_box" in tref)
+        {
+          var bbox = tref.bounding_box;
+          var cur_size = Math.abs( (bbox[0][0] - bbox[1][0])*(bbox[0][1] - bbox[1][1]) );
+          if (cur_size > save_size)
+          {
+            preferred_id_ref  = picked_id_ref;
+          }
+        }
+
       }
 
       if (!this.viewMode)
-      {
-        g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
-      }
+        //g_board_controller.tool = new toolBoardMove(x, y, [ picked_id_ref ], false);
+        g_board_controller.tool = new toolBoardMove(x, y, [ preferred_id_ref ], false);
 
       g_board_controller.board.unhighlightNet();
-
-      // EXPERIMENTAL
       g_board_controller.unhighlightNet( );
-      // EXPERIMENTAL
-
 
       g_painter.dirty_flag = true;
 
