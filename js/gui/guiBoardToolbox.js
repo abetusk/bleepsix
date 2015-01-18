@@ -64,7 +64,7 @@ function guiBoardToolbox( name, bgColor  )
   w.fgColor = "rgb(255,255,255)";
   w.divColor = "rgba(255,255,255,0.2)";
   w.addIcon( this.name + ":trace", _draw_trace_icon );
-  w.addIcon( this.name + ":via" , _draw_via_icon );
+  //w.addIcon( this.name + ":via" , _draw_via_icon );
   w.move(0, cur_y);
 
   this.dropTrace = w;
@@ -132,6 +132,9 @@ function guiBoardToolbox( name, bgColor  )
 
   // dimension
   //
+
+  this.dropText = { selected:false, "contractSlim":function(){}, contract: function(){} };
+  /*
   var d = new guiDropIcon( this.name + ":droptext", this.iconWidth, this.iconWidth );
   d.bgColor = bgColor;
   d.fgColor = "rgb(255,255,255)";
@@ -146,13 +149,14 @@ function guiBoardToolbox( name, bgColor  )
   this.addChild( d );
 
   cur_y += d.height;
+  */
 
 
   this.iconNav.selected = true;
   this.dropEdge.selected = false;
   this.dropTrace.selected = false;
   this.dropZone.selected = false;
-  this.dropText.selected = false;
+  //this.dropText.selected = false;
 
 }
 
