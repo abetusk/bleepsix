@@ -78,7 +78,8 @@ function toolEdgeShape( x, y, shape, initialPlaceFlag )
   this.color = "rgba(255,255,0,0.4)";
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  //ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  ele.style.cursor = "url('img/cursor_custom_edge_s24.png') 4 3, cursor";
 
 }
 

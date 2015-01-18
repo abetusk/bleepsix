@@ -130,7 +130,10 @@ function toolTrace( x, y, layerPair, initialPlaceFlag, highlightNets )
 
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  if ( this.cur_layer < 10 )
+    ele.style.cursor = "url('img/cursor_custom_wire_s24_2.png') 4 3, cursor";
+  else
+    ele.style.cursor = "url('img/cursor_custom_wire_s24_red2.png') 4 3, cursor";
 
 }
 
@@ -1485,6 +1488,7 @@ toolTrace.prototype._via_intersect_test = function( virtual_trace, layer )
 
   //add the via
   var p = virtual_trace[ virtual_trace.length-1 ];
+
   var tracks = [];
   tracks.push( { x0: p.x, x1: p.x, y0: p.y, y1 : p.y, shape: "through",
     shape_code : "0", width: 2*clearance + this.via_width,
@@ -1628,6 +1632,23 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
       return;
     }
 
+    if (!this.startedFlag)
+    {
+      g_board_controller.guiLayer.toggleLayer();
+
+      this.cur_layer_ind = (this.cur_layer_ind+1)%2;
+      this.cur_layer = this.layer[ this.cur_layer_ind ];
+      this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
+
+      var ele = document.getElementById("canvas");
+      if ( this.cur_layer < 10 )
+        ele.style.cursor = "url('img/cursor_custom_wire_s24_2.png') 4 3, cursor";
+      else
+        ele.style.cursor = "url('img/cursor_custom_wire_s24_red2.png') 4 3, cursor";
+
+      g_painter.dirty_flag = true;
+      return;
+    }
 
 
     var ctp = this.cur_trace_point;
@@ -1697,6 +1718,14 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
     this.cur_layer_ind = (this.cur_layer_ind+1)%2;
     this.cur_layer = this.layer[ this.cur_layer_ind ];
     this.color = g_board_controller.board.layer_color[ this.layer[ this.cur_layer_ind ] ] ;
+
+    var ele = document.getElementById("canvas");
+    if ( this.cur_layer < 10 )
+      ele.style.cursor = "url('img/cursor_custom_wire_s24_2.png') 4 3, cursor";
+    else
+      ele.style.cursor = "url('img/cursor_custom_wire_s24_red2.png') 4 3, cursor";
+
+
 
     g_painter.dirty_flag = true;
   }

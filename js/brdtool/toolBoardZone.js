@@ -63,7 +63,8 @@ function toolBoardZone( x, y, initialPlaceFlag )
   }
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  //ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
+  ele.style.cursor = "url('img/cursor_custom_zone_s24.png') 4 3, cursor";
 
 
 }
