@@ -145,6 +145,9 @@ $(document).ready( function() {
   g_board_controller.init( "canvas" );
   g_context = g_board_controller.context;
 
+  // for view, just disable the rats nest view
+  g_board_controller.board.flag_draw_ratsnest = false;
+
   g_controller = g_board_controller;
 
 
