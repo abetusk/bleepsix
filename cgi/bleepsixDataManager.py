@@ -168,6 +168,21 @@ def readyProjectZipfile( json_message ):
 
     # Go through relevant layers and create gerber and gcode files for each
     #
+    # from http://en.wikibooks.org/wiki/Kicad/file_formats
+    #
+    # 0 Back - Solder
+    # 1 Inner-B, 2 Inner_frent (?)
+    # 3-14 Inner
+    # 15 Component-F
+    # 16 Adhestive/glue-B, 17 Adhestive/glue-F
+    # 18 Solder Paste-B, 19 Solder Paste-F
+    # 20 SilkScreen-B, 21 SilkScreen-F
+    # 22 SolderMask-B, 23 SolderMask-F
+    # 24 Drawings
+    # 25 Comments
+    # 26 ECO1, 27 ECO2
+    # 28 Edge Cuts
+
     layers = { -1: ".drl", 0 : "-B_Cu.gbl", 15 : "-F_Cu.gtl", 20 : "-B_SilkS.gbo", 21 : "-F_SilkS.gto", 28 : "-Edge_Cuts.gbr" }
     gerber_files = []
     gcode_files = []
