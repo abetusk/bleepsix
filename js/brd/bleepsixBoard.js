@@ -393,36 +393,34 @@ bleepsixBoard.prototype.flip = function( id_ref , swap_layer0, swap_layer1 )
     var new_bits = bits;
 
     // zero out both position
+    //
     new_bits &= (~ ( (1<<swap_layer0) | (1<<swap_layer1) ) );
     if (bits & (1 << swap_layer0))
       new_bits |= (1 << swap_layer1);
     if (bits & (1 << swap_layer1))
-      new_bits |= (1 << swap_layer0); 
+      new_bits |= (1 << swap_layer0);
 
-
-    /*
-    if (bits & (1<<swap_layer0))
+    // The solder mask and solder paste layers also need to be flipped
+    //
+    if ( ((swap_layer0==0) || (swap_layer0==15)) &&
+         ((swap_layer1==0) || (swap_layer1==15)) )
     {
-      new_bits &= (~(1<<swap_layer0));
-      new_bits |= (1<<swap_layer1);
-    }
+      var mask_layer0 = 22;
+      var mask_layer1 = 23;
+      new_bits &= (~ ( (1<<mask_layer0) | (1<<mask_layer1) ) );
+      if (bits & (1 << mask_layer0))
+        new_bits |= (1 << mask_layer1);
+      if (bits & (1 << mask_layer1))
+        new_bits |= (1 << mask_layer0);
 
-    if (bits & (1<<swap_layer1))
-    {
-      new_bits &= (~(1<<swap_layer1));
-      new_bits |= (1<<swap_layer0);
+      mask_layer0 = 18;
+      mask_layer1 = 19;
+      new_bits &= (~ ( (1<<mask_layer0) | (1<<mask_layer1) ) );
+      if (bits & (1 << mask_layer0))
+        new_bits |= (1 << mask_layer1);
+      if (bits & (1 << mask_layer1))
+        new_bits |= (1 << mask_layer0);
     }
-    */
-
-    //DEBUG
-    /*
-    console.log(">>>>>> FLIP", bits.toString(16), "-->", new_bits.toString(16) );
-    console.log( swap_layer0, swap_layer1 );
-    console.log( swap_layer0, swap_layer1 );
-    var x = 1<<swap_layer0;
-    var y = 1<<swap_layer1;
-    console.log( x.toString(16), y.toString(16) );
-    */
 
     ref.pad[p_ind].layer_mask = new_bits.toString(16);
 
