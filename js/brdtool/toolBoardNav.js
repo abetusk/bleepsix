@@ -995,6 +995,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
+      // Once for the actual board, again on the controller
+      // to pass the message...
+      //
       g_board_controller.board.unhighlightNet();
 
       // EXPERIMENTAL

@@ -899,8 +899,12 @@ bleepsixBoard.prototype.highlightNetCodesSubPads = function( net_codes, mod_pad_
 
     if (!net_name) continue;
     var pgns = this.getBGLVarSubPads( net_name, mod_pad_ids );
+
     for (var i in pgns)
+    {
       this.highlight_net.push( this._pgn2pnt(pgns[i]) );
+      var pnts = this._pgn2pnt( pgns[i] );
+    }
   }
   this.highlight_net_flag = true;
   g_painter.dirty_flag = true;
@@ -1100,6 +1104,13 @@ bleepsixBoard.prototype.getBGLVar = function( bgl_name )
       }
     }
 
+  }
+
+  for (var i in pgns) {
+    for (ii in pgns[i]) {
+      pgns[i][ii].X = Math.round( pgns[i][ii].X );
+      pgns[i][ii].Y = Math.round( pgns[i][ii].Y );
+    }
   }
 
   this._clip_union( rop_pgns, pgns );
