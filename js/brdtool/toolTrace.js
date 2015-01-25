@@ -559,6 +559,13 @@ toolTrace.prototype.placeTrack = function()
     else if (th[ind].shape == "track" )
     {
 
+      if ( (Math.abs(th[ind].x0 - th[ind].x1) < 1.0) &&
+           (Math.abs(th[ind].y0 - th[ind].y1) < 1.0) )
+      {
+        continue
+      }
+
+
       var op = { source: "brd", destination: "brd" };
       op.action = "add";
       op.type = "track";
@@ -600,6 +607,12 @@ toolTrace.prototype.placeTrack = function()
 
       if (this.dist1( ctp[ind-1], ctp[ind] ) > this.dist1_trace_eps )
       {
+
+        if ( (Math.abs(ctp[ind-1].x - ctp[ind].x) < 1.0) &&
+             (Math.abs(ctp[ind-1].y - ctp[ind].y) < 1.0) )
+        {
+          continue
+        }
 
         var op = { source: "brd", destination: "brd" };
         op.action = "add";
