@@ -246,7 +246,6 @@ bleepsixSchematicNetwork.prototype.init = function()
       g_schematic_controller.guiLibrary.fetchComponentList( this.userId, this.sessionId, this.projectId );
       load_component_location( this.userId, this.sessionId, this.projectId );
 
-
       this.socket.emit("projectauth", { userId: this.userId, sessionId:this.sessionId, projectId: this.projectId });
       return;
     }
@@ -588,7 +587,30 @@ bleepsixSchematicNetwork.prototype.deferLoadSchematic = function( json_sch )
     return;
   }
 
+
+
   g_schematic_controller.schematic.load_schematic( json_sch );
+  g_schematic_controller.schematic.updateBoundingBox( undefined );
+
+  var width = 1600, height = 1600;
+  var bbox = g_schematic_controller.schematic.getSchematicBoundingBox();
+  var cx = (bbox[0][0] + bbox[1][0])/2.0;
+  var cy = (bbox[0][1] + bbox[1][1])/2.0;
+
+  var dx = (bbox[1][0] - bbox[0][0]);
+  var dy = (bbox[1][1] - bbox[0][1]);
+
+  var dmax = ( (dx<dy) ? dy : dx );
+  var viewmax = ( (width < height) ? height : width );
+
+  var f = dmax / viewmax;
+  if (f < 1) f = 1.0;
+
+  var sch_fudge = 8.0;
+  f *= sch_fudge;
+
+  g_painter.setView( cx, cy, 1/f );
+
   return;
 }
 

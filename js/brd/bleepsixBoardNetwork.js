@@ -552,6 +552,28 @@ bleepsixBoardNetwork.prototype.refreshBoardState = function( json_brd, json_sch 
   g_board_controller.board.load_board( json_brd );
   g_board_controller.schematic.load_schematic( json_sch );
 
+
+  var width = 1600, height = 1600;
+  var bbox = g_board_controller.board.getBoardBoundingBox();
+  var cx = (bbox[0][0] + bbox[1][0])/2.0;
+  var cy = (bbox[0][1] + bbox[1][1])/2.0;
+
+  var dx = (bbox[1][0] - bbox[0][0]);
+  var dy = (bbox[1][1] - bbox[0][1]);
+
+  var dmax = ( (dx<dy) ? dy : dx );
+  var viewmax = ( (width < height) ? height : width );
+
+  var f = dmax / viewmax;
+  //if (f < 0.001) f = 0.1;
+  if (f < 4) f = 4;
+
+  var brd_fudge = 2.0;
+  f *= brd_fudge;
+
+  g_painter.setView( cx, cy, 1/f );
+
+
   var netop = { source: "brd", destination: "sch" };
   netop.scope = "local";
 
