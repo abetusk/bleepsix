@@ -276,7 +276,7 @@ toolComponentPlace.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
   }
 
-  else if (ch == 'T')
+  else if (ch == 'E')
   {
     var rot = [ [ 0, -1], [1, 0] ];
     this.transform = numeric.dot( rot, this.transform );
