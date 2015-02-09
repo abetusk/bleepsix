@@ -810,6 +810,16 @@ function distance_metric(a,b)
 // If points are dropped, some line segments become longer than they would had the points
 // not been dropped.  This creates airwire artifacts on some traces, for example.
 // 
+// sch_net_code_map is an object with board net codes as keys and an array of which schematic
+// nets they map to.  For example, if board netcode "N-00003" (board netcode 3, say) mapped
+// to schematic netcode 13 and 17, there would be:
+// {
+//   ...
+//   3 : [ 13, 17 ],
+//   ...
+// }
+// as a value in the 'sch_net_code_map'.
+//
 bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_array, sch_net_code_map )
 {
   // anything below this and it'll probably just bog down too much.
