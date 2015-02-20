@@ -442,7 +442,9 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
 
     var map = this.board.kicad_brd_json.brd_to_sch_net_map;
-    this.board.updateRatsNest( undefined, undefined, map );
+
+    //HACK - DEBUG
+    //this.board.updateRatsNest( undefined, undefined, map );
   }
 
   else if (type == "edit")
@@ -561,6 +563,13 @@ bleepsixSchBrdOp.prototype.opBrdDelete = function ( op, inverseFlag )
                     "r" : ref.r,
                     "start_angle" : ref.start_angle, "end_angle" : ref.start_angle + ref.angle,
                     "width" : ref.width, "layer" : ref.layer, "id" : id };
+        }
+
+        if ((type == "track") && (ref.shape == "through")) {
+
+          type = "via";
+          _data.x = _data.x0;
+          _data.y = _data.y0;
         }
 
         this._opBrdAddSingle( type, ref.id, _data );
@@ -924,7 +933,9 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
 
     var map = this.board.kicad_brd_json.brd_to_sch_net_map;
-    this.board.updateRatsNest( undefined, undefined, map );
+
+    //HACK - DEBUG
+    //this.board.updateRatsNest( undefined, undefined, map );
   }
 
 
