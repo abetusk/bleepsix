@@ -43,9 +43,13 @@ function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  )
     this.shutdown = true;
     g_board_controller.tool = new toolBoardNav(mouse_x, mouse_y);
 
-    var brd = g_board_controller.board.kicad_brd_json;
-    var map = brd.brd_to_sch_net_map;
-    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+    if (g_board_controller.board.flag_draw_ratsnest)
+    {
+      var brd = g_board_controller.board.kicad_brd_json;
+      var map = brd.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+    }
 
     return g_board_controller.tool;  // iffy, be careful
   }
@@ -132,11 +136,18 @@ toolBoardMove.prototype.tick = function()
         g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
         g_painter.dirty_flag = true;
       }
-      this.updateSelectedRatsnest();
+
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        this.updateSelectedRatsnest();
+      }
     }
     else
     {
-      this.updateSelectedRatsnest();
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        this.updateSelectedRatsnest();
+      }
     }
 
   }
@@ -287,9 +298,13 @@ toolBoardMove.prototype.doubleClick = function( button, x, y )
 
       g_painter.dirty_flag = true;
 
-      var brd = g_board_controller.board.kicad_brd_json;
-      var map = brd.brd_to_sch_net_map;
-      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        var brd = g_board_controller.board.kicad_brd_json;
+        var map = brd.brd_to_sch_net_map;
+        g_board_controller.board.updateRatsNest( undefined, undefined, map );
+      }
 
     }
 
@@ -963,9 +978,13 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
       g_board_controller.tool = new toolBoardNav(x, y);
       g_painter.dirty_flag = true;
 
-      var brd = g_board_controller.board.kicad_brd_json;
-      var map = brd.brd_to_sch_net_map;
-      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        var brd = g_board_controller.board.kicad_brd_json;
+        var map = brd.brd_to_sch_net_map;
+        g_board_controller.board.updateRatsNest( undefined, undefined, map );
+      }
 
     }
   }
@@ -1111,11 +1130,18 @@ toolBoardMove.prototype.mouseMove = function( x, y )
         g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
         g_painter.dirty_flag = true;
       }
-      this.updateSelectedRatsnest();
+
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        this.updateSelectedRatsnest();
+      }
     }
     else
     {
-      this.updateSelectedRatsnest();
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        this.updateSelectedRatsnest();
+      }
     }
 
     this.prev_world_xy["x"] = world_xy["x"];
@@ -1140,10 +1166,12 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     this.shutdown = true;
     g_board_controller.tool = new toolBoardNav(this.mouse_cur_x, this.mouse_cur_y);
 
-    //TESTING
-    var brd = g_board_controller.board.kicad_brd_json;
-    var map = brd.brd_to_sch_net_map;
-    g_board_controller.board.updateRatsNest( undefined, undefined, map );
+    if (g_board_controller.board.flag_draw_ratsnest)
+    {
+      var brd = g_board_controller.board.kicad_brd_json;
+      var map = brd.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+    }
 
     g_painter.dirty_flag = true;
 
@@ -1159,6 +1187,10 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     }
 
   } 
+  else if ((ch=='2') && ev.shiftKey)
+  {
+    g_board_controller.board.flag_draw_ratsnest = !g_board_controller.board.flag_draw_ratsnest;
+  }
   else if (ch == 'D')
   {
 
@@ -1204,11 +1236,13 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
     g_painter.dirty_flag = true;
 
-    var brd = g_board_controller.board.kicad_brd_json;
-    var map = brd.brd_to_sch_net_map;
-    g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
-
+    if (g_board_controller.board.flag_draw_ratsnest)
+    {
+      var brd = g_board_controller.board.kicad_brd_json;
+      var map = brd.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+    }
 
   }
   else if ( (ch == 'R') || (ch == 'E') )
@@ -1266,23 +1300,19 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
         g_painter.dirty_flag = true;
       }
-      this.updateSelectedRatsnest();
+
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        this.updateSelectedRatsnest();
+      }
     }
     else
     {
-      this.updateSelectedRatsnest();
+      if (g_board_controller.board.flag_draw_ratsnest)
+      {
+        this.updateSelectedRatsnest();
+      }
     }
-
-
-
-    /*
-    for (var ind in this.selectedElement)
-      g_board_controller.board.relativeMoveElement( this.selectedElement[ind], wdx, wdy );
-
-    var brd = g_board_controller.board.kicad_brd_json;
-    var map = brd.brd_to_sch_net_map;
-    g_board_controller.board.updateRatsNest( undefined, this.selectedElement, map );
-    */
 
     var d = new Date();
     this.move_prev_ms = d.getTime();
@@ -1361,9 +1391,13 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
         g_painter.dirty_flag = true;
 
-        var brd = g_board_controller.board.kicad_brd_json;
-        var map = brd.brd_to_sch_net_map;
-        g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+        if (g_board_controller.board.flag_draw_ratsnest)
+        {
+          var brd = g_board_controller.board.kicad_brd_json;
+          var map = brd.brd_to_sch_net_map;
+          g_board_controller.board.updateRatsNest( undefined, undefined, map );
+        }
 
         return;
 

@@ -1154,6 +1154,11 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 
 }
 
+bleepsixBoard.prototype.clearRatsNest = function()
+{
+  this.kicad_brd_json.net_code_airwire_map = {};
+}
+
 bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_net_code_map )
 {
 
