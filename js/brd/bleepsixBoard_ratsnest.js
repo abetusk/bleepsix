@@ -769,7 +769,6 @@ bleepsixBoard.prototype._ratsnest_coarse_conn_graph_r = function( ele, endpoint_
 
 }
 
-//bleepsixBoard.prototype._ratsnest_decorate_id_ref_with_coarse_group = function( endpoint_hash )
 bleepsixBoard.prototype._ratsnest_decorate_coarse_group_with_group_name = function( endpoint_hash )
 {
   var group_name = 1;
@@ -875,8 +874,9 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
   var collection = this._flood_fill_grouping_graph( group_graph );
 
 
-  // Stuff into net_id_refs
+  // Collect into net_id_refs
   //
+  var gid_to_nc = {};
   var net_id_refs = {};
   for (var ind in brd)
   {
@@ -893,6 +893,8 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
         var z = group_graph[Bnc][xx];
         if (z in net_id_refs) { net_id_refs[z].push( {ref:ele,type:"track"} ); }
         else { net_id_refs[z] = [ { ref:ele, type:"track"} ]; }
+
+        gid_to_nc[z] = ele.netcode;
         break;
       }
 
@@ -911,8 +913,10 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
         for (var xx in group_graph[Bnc])
         {
           var z = group_graph[Bnc][xx];
-          if (z in net_id_refs) { net_id_refs[z].push( {ref:ele,type:"module"} ); }
-          else { net_id_refs[z] = [ { ref:ele, type:"module"} ]; }
+          if (z in net_id_refs) { net_id_refs[z].push( { pad_ref:pad, ref:ele, type:"pad"} ); }
+          else { net_id_refs[z] = [ { pad_ref:pad, ref:ele, type:"pad"} ]; }
+
+          gid_to_nc[z] = pad.net_number;
           break;
         }
 
@@ -920,8 +924,9 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
     }
   }
 
-  //var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array, sch_net_code_map );
-
+  // From the net_id_refs, create the vertices for use
+  // in EuclideanMST.
+  //
   for (var gid in net_id_refs)
   {
     var net_id_ref = net_id_refs[gid];
@@ -950,7 +955,6 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
         jitter_x = Math.random();
         jitter_y = Math.random();
 
-        //verts.push( [ cx + u[0], cy + u[1] ] );
         verts.push( [ cx + u[0] + jitter_x, cy + u[1] + jitter_y ] );
 
       }
@@ -966,7 +970,6 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
           var x1 = parseFloat(ref.x1);
           var y1 = parseFloat(ref.y1);
 
-          //verts.push( [ x1, y1 ] );
           jitter_x = Math.random();
           jitter_y = Math.random();
           verts.push( [ x1 + jitter_x, y1 + jitter_y ] );
@@ -979,12 +982,9 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
 
           for (var dt=ds; dt < dl; dt += ds)
           {
-            //verts.push( [ x0 + (dx*dt/dl), y0 + (dy*dt/dl) ] );
             jitter_x = Math.random();
             jitter_y = Math.random();
             verts.push( [ x0 + (dx*dt/dl) + jitter_x, y0 + (dy*dt/dl) + jitter_y ] );
-
-
           }
 
         }
@@ -998,8 +998,6 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
     else if (verts.length == 2)
       edges = [[ 0, 1 ]] ;
 
-
-    //var min_seg_len_sq = (ds+1)*(ds+1);
     var min_seg_len_sq = (ds+5)*(ds+5);
 
     var filtered_edge = [];
@@ -1009,8 +1007,6 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
       var u =  edges[ind][0];
       var v =  edges[ind][1];
       var seg = {
-        //x0 : verts[u][0], y0 : verts[u][1],
-        //x1 : verts[v][0], y1 : verts[v][1]
         x0 : verts[u][0] + Math.random(), y0 : verts[u][1] + Math.random(),
         x1 : verts[v][0] + Math.random(), y1 : verts[v][1] + Math.random()
         };
@@ -1019,7 +1015,15 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
       if (l2 <= min_seg_len_sq)
         continue;
 
-      this.kicad_brd_json.net_code_airwire_map[ gid ].push( seg );
+      var nc = gid_to_nc[ gid ];
+
+      if (!(gid in this.kicad_brd_json.net_code_airwire_map))
+      {
+        //this.kicad_brd_json.net_code_airwire_map[ gid ] = [];
+        this.kicad_brd_json.net_code_airwire_map[ nc ] = [];
+      }
+      //this.kicad_brd_json.net_code_airwire_map[ gid ].push( seg );
+      this.kicad_brd_json.net_code_airwire_map[ nc ].push( seg );
     }
 
   }
@@ -1058,13 +1062,7 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
   if (ds <=  0) ds = 200;
 
   var jitter_x = 0, jittery_y = 0;
-
   var net_id_ref = this._filter_copper_elements( netcode, undefined, id_ref_array, sch_net_code_map );
-
-  //DEBUG
-  //console.log(">>>>> _update_single_ratsnest");
-  //console.log(net_id_ref);
-
   var verts = [];
 
   for (var ind in net_id_ref)
@@ -1089,7 +1087,6 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
       jitter_x = Math.random();
       jitter_y = Math.random();
 
-      //verts.push( [ cx + u[0], cy + u[1] ] );
       verts.push( [ cx + u[0] + jitter_x, cy + u[1] + jitter_y ] );
 
     }
@@ -1105,7 +1102,6 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
         var x1 = parseFloat(ref.x1);
         var y1 = parseFloat(ref.y1);
 
-        //verts.push( [ x1, y1 ] );
         jitter_x = Math.random();
         jitter_y = Math.random();
         verts.push( [ x1 + jitter_x, y1 + jitter_y ] );
@@ -1118,12 +1114,9 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
 
         for (var dt=ds; dt < dl; dt += ds)
         {
-          //verts.push( [ x0 + (dx*dt/dl), y0 + (dy*dt/dl) ] );
           jitter_x = Math.random();
           jitter_y = Math.random();
           verts.push( [ x0 + (dx*dt/dl) + jitter_x, y0 + (dy*dt/dl) + jitter_y ] );
-
-
         }
 
       }
@@ -1137,8 +1130,6 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
   else if (verts.length == 2)
     edges = [[ 0, 1 ]] ;
 
-
-  //var min_seg_len_sq = (ds+1)*(ds+1);
   var min_seg_len_sq = (ds+5)*(ds+5);
 
   var filtered_edge = [];
@@ -1148,8 +1139,6 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
     var u =  edges[ind][0];
     var v =  edges[ind][1];
     var seg = {
-      //x0 : verts[u][0], y0 : verts[u][1],
-      //x1 : verts[v][0], y1 : verts[v][1]
       x0 : verts[u][0] + Math.random(), y0 : verts[u][1] + Math.random(),
       x1 : verts[v][0] + Math.random(), y1 : verts[v][1] + Math.random()
       };
@@ -1158,6 +1147,10 @@ bleepsixBoard.prototype._update_single_ratsnest = function( netcode, ds, id_ref_
     if (l2 <= min_seg_len_sq)
       continue;
 
+    if (!(netcode in this.kicad_brd_json.net_code_airwire_map))
+    {
+      this.kicad_brd_json.net_code_airwire_map[ netcode ] = [];
+    }
     this.kicad_brd_json.net_code_airwire_map[ netcode ].push( seg );
   }
 
@@ -1173,8 +1166,6 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
     if (!("net_code_airwire_map" in this.kicad_brd_json))
       this.kicad_brd_json.net_code_airwire_map = {};
 
-    //EXPERIMENTAL
-    //
     // Board nets might have been split (but still be connected via a schematic net)
     // in which case we need to remove elements from the airwire map that are of
     // the same schematic net.  This operation is much cheaper than doing a board
@@ -1195,54 +1186,17 @@ bleepsixBoard.prototype.updateRatsNest = function( netcode, id_ref_array, sch_ne
 
       }
     }
-    //
-    //EXPERIMENTAL
-
-
 
     this.kicad_brd_json.net_code_airwire_map[netcode] = [];
 
-    //this._update_single_ratsnest( netcode, undefined, id_ref_array, sch_net_code_map );
-    //if (!bleepsixBoardHeadless_ratsnest) { g_painter.dirty_flag = true; }
-    setTimeout(
-      (function(xx, xx_nc) {
-        return function() {
-          xx._update_single_ratsnest( xx_nc, undefined, id_ref_array, sch_net_code_map );
-          if (!bleepsixBoardHeadless_ratsnest) { g_painter.dirty_flag = true; }
-        };
-      })(this,netcode),
-      100
-    );
-
-
+    this._update_single_ratsnest( netcode, undefined, id_ref_array, sch_net_code_map );
+    if (!bleepsixBoardHeadless_ratsnest) { g_painter.dirty_flag = true; }
     return;
   }
 
-
   this.kicad_brd_json.net_code_airwire_map = {};
-
-  //this._update_all_ratsnest( undefined, id_ref_array, sch_net_code_map );
-  //if (!bleepsixBoardHeadless_ratsnest) { g_painter.dirty_flag = true; }
-
-  for (var nc in this.kicad_brd_json.net_code_map)
-  {
-    this.kicad_brd_json.net_code_airwire_map[nc] = [];
-
-    //this._update_single_ratsnest( nc, undefined , id_ref_array, sch_net_code_map );
-
-    console.log(">>", nc);
-    setTimeout(
-      (function(xx, xx_nc) {
-        return function() {
-          xx._update_single_ratsnest( xx_nc, undefined, id_ref_array, sch_net_code_map );
-          if (!bleepsixBoardHeadless_ratsnest) { g_painter.dirty_flag = true; }
-
-        };
-      })(this,nc),
-      100
-    );
-
-  }
+  this._update_all_ratsnest( undefined, id_ref_array, sch_net_code_map );
+  if (!bleepsixBoardHeadless_ratsnest) { g_painter.dirty_flag = true; }
 
 }
 

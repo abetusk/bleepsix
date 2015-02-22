@@ -440,11 +440,8 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
-
     var map = this.board.kicad_brd_json.brd_to_sch_net_map;
-
-    //HACK - DEBUG
-    //this.board.updateRatsNest( undefined, undefined, map );
+    this.board.updateRatsNest( undefined, undefined, map );
   }
 
   else if (type == "edit")
@@ -931,11 +928,8 @@ bleepsixSchBrdOp.prototype.opSchUpdate = function ( op, inverseFlag )
     var sch_pin_id_net_map = this.schematic.getPinNetMap();
 
     this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
-
     var map = this.board.kicad_brd_json.brd_to_sch_net_map;
-
-    //HACK - DEBUG
-    //this.board.updateRatsNest( undefined, undefined, map );
+    this.board.updateRatsNest( undefined, undefined, map );
   }
 
 
