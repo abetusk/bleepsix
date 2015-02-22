@@ -433,8 +433,23 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   }
 
 
+  if ((ch=='2') && ev.shiftKey)
+  {
+    console.log("!!");
 
-  if ( ch == '1' ) {
+    g_board_controller.board.flag_draw_ratsnest = !g_board_controller.board.flag_draw_ratsnest;
+    if (g_board_controller.board.flag_draw_ratsnest)
+    {
+      g_board_controller.board.updateRatsNest();
+    }
+    else
+    {
+      g_board_controller.board.clearRatsNest();
+    }
+    g_painter.dirty_flag=true;
+  }
+
+  else if ( ch == '1' ) {
     g_painter.setGrid ( 0 );
   } else if ( ch == '2' ) {
     g_painter.setGrid ( 1 );
@@ -508,6 +523,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
     console.log("cli");
   }
+
 
   //else if (keycode == 192) { console.log("cli"); }
 
