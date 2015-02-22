@@ -1019,10 +1019,8 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
 
       if (!(gid in this.kicad_brd_json.net_code_airwire_map))
       {
-        //this.kicad_brd_json.net_code_airwire_map[ gid ] = [];
         this.kicad_brd_json.net_code_airwire_map[ nc ] = [];
       }
-      //this.kicad_brd_json.net_code_airwire_map[ gid ].push( seg );
       this.kicad_brd_json.net_code_airwire_map[ nc ].push( seg );
     }
 
