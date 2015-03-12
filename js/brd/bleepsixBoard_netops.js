@@ -212,7 +212,6 @@ bleepsixBoard.prototype._local_net_populate_r = function( v, V, verts, E, local_
     {
       if ( !( V[v].ref.id in via_info ) )
       {
-        console.log("bang");
         via_info[ V[v].ref.id ] = {};
       }
       via_info[ V[v].ref.id ][ local_net_code ] = 1;
@@ -304,8 +303,6 @@ bleepsixBoard.prototype._local_net_flatten_from_via = function( via_info )
     for (var net_code in via_info[via_id])
     {
       var x = set.find(net_code);
-
-      console.log(" renaming " + net_code + " --> " + x )
 
       if (x == net_code)
         continue;
@@ -415,11 +412,7 @@ bleepsixBoard.prototype.updateLocalNet = function( )
 
   }
 
-  console.log("via_info:" );
-  console.log(via_info);
-
   this._local_net_flatten_from_via( via_info );
-
 
 }
 
