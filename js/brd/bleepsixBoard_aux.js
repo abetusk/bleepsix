@@ -340,12 +340,24 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
         if (this._box_box_intersect( track_bbox_list[t_ind], tbbox ))
         {
 
-          if ( parseInt( ref.layer ) == ilayer )
-          {
+          // WARNING, BE CAREFUL!  This will probably need to change at some point
+          // but I'm not sure if we're storing via information.
+          // NOT IMPLEMENTED:
+          //   - bureid via
+          //   - blind via
+          //   - end position in anything other than 0
+          // We're going to assume the via goes from layer 15 to 0.
+          //
+          if ( ("shape" in ref) && (ref["shape"] == "through") ) {
+            var hit_ele = { ref:ref, type: "track", id: ref.id };
+            hit_element_list.push( hit_ele );
+            break;
+          } else if ( parseInt( ref.layer ) == ilayer ) {
             var hit_ele = { ref:ref, type: "track", id: ref.id };
             hit_element_list.push( hit_ele );
             break;
           }
+
         }
 
       }
