@@ -36,7 +36,8 @@ function bleepsixRender( canvas_param )
   if (bleepsixRenderHeadless) {
     this.canvas = canvas_param;
   } else {
-    this.canvas = $( "#" + canvas_param )[0];
+    //this.canvas = $( "#" + canvas_param )[0];
+    this.canvas = document.getElementById( canvas_param );
   }
   this.context = this.canvas.getContext('2d');
 
