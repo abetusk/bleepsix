@@ -624,6 +624,17 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     //g_board_controller.board.addConnection( wx, wy );
     //g_painter.dirty_flag = true;
   }
+  else if (ch == 'L')
+  {
+    g_board_controller.board.unhighlightNet();
+    g_board_controller.unhighlightNet( );
+
+    if (!this.viewMode)
+    {
+      g_board_controller.tool = new toolDistance(x, y, true);
+    }
+
+  }
   else if (ch == 'X')
   {
 
@@ -812,10 +823,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
     console.log("update rat's nest done");
-
-  }
-  else if ( ch == 'L')
-  {
 
   }
 
