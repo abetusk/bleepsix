@@ -1393,6 +1393,32 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
         this._magnet_pad( virtual_trace[n-1], dst_hit.ref, dst_hit.pad_ref );
         virtual_trace = this._make_joint_trace( virtual_trace );
 
+        // final check to make sure 'magnetized' track doesn't also
+        // interect anything else.  
+        // The final candidate for placed track might need to re-update
+        // it's concept of what's the source and destination hit list,
+        // so update those as well to determine placment.
+        // If the fiddled track does intersect something, , just don't move.
+        // Otherwise, commit the change.
+        //
+        // TODO: make this more modular so we can reuse it in other places.
+        //
+        //
+        var fin_src_track = {}, fin_dst_track = {};
+        this._make_point_track( fin_src_track, virtual_trace[0], this.trace_width + 2*clearance );
+        this._make_point_track( fin_dst_track, virtual_trace[n-1], this.trace_width + 2*clearance );
+
+        var fin_hit_ele_src = g_board_controller.board.trackBoardIntersect( [ fin_src_track ], layer );
+        var fin_hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ fin_dst_track ], layer );
+        var fin_tracks = this._make_tracks_from_points( virtual_trace, layer,  2*clearance );
+        var fin_hit_ele_list = g_board_controller.board.trackBoardIntersect( fin_tracks, layer );
+        if (this._hitlist_has_middle_geometry( fin_hit_ele_list, fin_hit_ele_src, fin_hit_ele_dst ))
+        {
+          this.allow_place_flag = false;
+          return;
+        }
+
+
         if (this.state != "destination_magnet_pad")
         {
           //this._save_current_trace();
