@@ -71,18 +71,12 @@ function toolWire( x, y, initialPlaceFlag )
   }
 
   this.highlightBoxFlag = false;
-
-  // dummy values, just displaying structure
-  //
   this.highlightBox = { x:0, y:0, w:0, h:0 };
-
   this.highlightBoxWidth = 10;
   this.highlightBoxColor = "rgba(0,0,0,0.4)";
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "url('img/cursor_custom_wire_s24_3.png') 4 3, cursor";
-
-
 }
 
 toolWire.prototype._isHorizontalWire = function( wire )
@@ -611,9 +605,6 @@ toolWire.prototype.mouseMove = function( x, y )
     }
     else if (this.laydownFormat == 'J')
     {
-
-      //DEBUG
-      console.log("jif", this.jointIntermediateFlag, " fv", this.forceVertical, "fh", this.forceHorizontal );
 
       if ( this.dist1( this.mouse_world_xy , this.cur_wire[0] ) < 10 )
       {

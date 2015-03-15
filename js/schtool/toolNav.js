@@ -44,6 +44,10 @@ function toolNav( x, y, viewMode )
   this.mouse_world_xy = g_painter.devToWorld(x, y);
   this.snap_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
+  this.highlightBoxFlag = false;
+  this.highlightBox = { x:0, y:0, w:0, h:0 };
+  this.highlightBoxWidth = 10;
+  this.highlightBoxColor = "rgba(0,0,0,0.4)";
 }
 
 toolNav.prototype.update = function(x, y)
@@ -71,6 +75,19 @@ toolNav.prototype.drawOverlay = function()
                              this.cursorSize ,
                              this.cursorWidth ,
                              "rgb(128, 128, 128 )" );
+
+  }
+
+  if ( this.highlightBoxFlag )
+  {
+    g_painter.drawRectangle( this.highlightBox.x,
+                             this.highlightBox.y,
+                             this.highlightBox.w,
+                             this.highlightBox.h,
+                             this.highlightBoxWidth,
+                             "rgb(128,128,128)",
+                             true,
+                             this.highlightBoxColor );
   }
 
   g_schematic_controller.display_text = "x: " + this.snap_world_xy.x + ", y: " + this.snap_world_xy.y;
@@ -178,11 +195,47 @@ toolNav.prototype.mouseMove = function( x, y )
 
   if (this.viewMode) { return; }
 
+  this.snap_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
+
   var found = false;
   var id_ref = g_schematic_controller.schematic.pick( wx, wy );
 
-  // DEBUG
-  //console.log("++");
+  // highlight pin logic
+  //
+  if (!this.mouse_drag_flag)
+  {
+    var snapx = this.snap_xy.x;
+    var snapy = this.snap_xy.y;
+
+    var hi_id_ref = g_schematic_controller.schematic.pick( snapx, snapy );
+    this.highlightBoxFlag = false;
+
+    if (hi_id_ref)
+    { 
+      var ref = hi_id_ref.ref;
+
+      if (hi_id_ref.ref.type == "component")
+      { 
+        var pin = g_schematic_controller.schematic.pickComponentPin( hi_id_ref.ref, snapx, snapy );
+        if (pin)
+        { 
+          var comp = g_controller.schematic._lookup_comp( hi_id_ref.ref.name );
+
+          if (comp && ("transform" in ref))
+          { 
+            var p = numeric.dot( ref.transform, [ parseInt(pin.x), parseInt(pin.y) ] );
+
+            var w = 50;
+            var pinx = parseInt(hi_id_ref.ref.x) + p[0];
+            var piny = parseInt(hi_id_ref.ref.y) + p[1];
+            this.highlightBoxFlag = true;
+            this.highlightBox = { x: pinx - w/2, y: piny - w/2, w: w, h: w};
+          }
+        }
+      }
+    }
+  }
+
 
   if (!id_ref)
   {
@@ -200,8 +253,6 @@ toolNav.prototype.mouseMove = function( x, y )
 
     if (ref.type == "wireline")
     {
-      //g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.data.netcode ] );
-
       npim = g_schematic_controller.schematic.kicad_sch_json.net_pin_id_map;
       var pin_arr = [];
 
