@@ -45,13 +45,14 @@ function toolWire( x, y, initialPlaceFlag )
 
   this.mouse_drag_flag = false;
 
-  this.laydownFormat = "J";  // F for free, J for jointed
+  // F for free, J for jointed
+  //
+  this.laydownFormat = "J";
   this.wireType = "wireline";
 
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   this.cur_wire = [];
-  //this.wire = [ { x : this.mouse_world_xy["x"], y : this.mouse_world_xy["y"] } ];
   this.wire = []; 
 
   // which direction the first of the potential two wires goes in
@@ -70,12 +71,15 @@ function toolWire( x, y, initialPlaceFlag )
   }
 
   this.highlightBoxFlag = false;
-  this.highlightBox = { x:0, y:0, w:0, h:0 };  // dummy values, just displaying structure
+
+  // dummy values, just displaying structure
+  //
+  this.highlightBox = { x:0, y:0, w:0, h:0 };
+
   this.highlightBoxWidth = 10;
   this.highlightBoxColor = "rgba(0,0,0,0.4)";
 
   var ele = document.getElementById("canvas");
-  //ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
   ele.style.cursor = "url('img/cursor_custom_wire_s24_3.png') 4 3, cursor";
 
 
@@ -104,6 +108,8 @@ toolWire.prototype._initWireState = function()
 
   var x = this.mouse_world_xy.x;
   var y = this.mouse_world_xy.y;
+
+  /*
   // If we start from a connection, only allow perpendicular
   // wires to jut out from that wire.
   // It is appropriate to defer placing a connection until
@@ -127,6 +133,7 @@ toolWire.prototype._initWireState = function()
     }
 
   }
+  */
 
   this.wire.push( { x : x, y : y } );
   if (this.laydownFormat == 'F')
@@ -272,19 +279,6 @@ toolWire.prototype.placeWire = function()
     }
   }
 
-  /*
-  var net_op = { source: "sch", destination : "sch"  };
-  net_op.action = "update";
-  net_op.type = "net";
-  g_schematic_controller.opCommand( net_op );
-
-  var netmap_op = { source: "sch", destination : "sch"  };
-  netmap_op.action = "update";
-  netmap_op.type = "schematicnetmap";
-  g_schematic_controller.opCommand( netmap_op );
-  */
-
-
   g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_schematic_controller.guiToolbox.defaultSelect();
 
@@ -359,7 +353,6 @@ toolWire.prototype.handlePossibleConnection = function( ex, ey )
       op.type = "connection";
       op.data = { x: ex, y: ey };
       g_schematic_controller.opCommand( op );
-      //g_schematic_controller.schematic.addConnection( ex, ey );
 
       this.placeWire();
       return true;
@@ -441,7 +434,6 @@ toolWire.prototype.mouseDown = function( button, x, y )
     {
 
       var d = this.dist1( this.cur_wire[1], this.cur_wire[0] ) ;
-      //console.log("d: " + d);
 
       if ( this.dist1( this.cur_wire[1], this.cur_wire[0] ) < this.dist1_wire_eps )
       {
@@ -449,6 +441,7 @@ toolWire.prototype.mouseDown = function( button, x, y )
         if ( this.dist1( this.cur_wire[2], this.cur_wire[1] ) < this.dist1_wire_eps )
         {
           //check for special case when direction blah blah blah
+          //
           console.log("skipping extra add wire event (wires too close) [J]");
 
           console.log(this.cur_wire);
@@ -516,8 +509,6 @@ toolWire.prototype.doubleClick = function( button, x, y )
 
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
-
-
   }
 }
 
@@ -621,6 +612,9 @@ toolWire.prototype.mouseMove = function( x, y )
     else if (this.laydownFormat == 'J')
     {
 
+      //DEBUG
+      console.log("jif", this.jointIntermediateFlag, " fv", this.forceVertical, "fh", this.forceHorizontal );
+
       if ( this.dist1( this.mouse_world_xy , this.cur_wire[0] ) < 10 )
       {
         this.jointIntermediateFlag = true;
@@ -693,15 +687,12 @@ toolWire.prototype.mouseWheel = function( delta )
 }
 
 //-----------------------------
-// TESTING
 
 toolWire.prototype.keyDown = function( keycode, ch, ev )
 {
-  //console.log("toolWire keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
-    //console.log("handing back to toolNav");
     g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_schematic_controller.guiToolbox.defaultSelect();
 
@@ -709,16 +700,12 @@ toolWire.prototype.keyDown = function( keycode, ch, ev )
 
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
-
   }
 
 }
 
 //-----------------------------
 
-toolWire.prototype.keyUp = function( keycode, ch, ev )
-{
-  //console.log("toolWire keyUp: " + keycode + " " + ch );
-}
+toolWire.prototype.keyUp = function( keycode, ch, ev ) { }
 
 
