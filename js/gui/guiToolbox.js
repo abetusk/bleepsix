@@ -109,6 +109,17 @@ function guiToolbox( name )
 
   cur_y += lab.height;
 
+  // Help
+  //
+  var help = new guiIcon( name + ":help" );
+  help.init( 0, cur_y, sz, sz);
+  help.drawShape = (function(xx) { return function() { xx._draw_help_icon(); }; })(this);
+  help.bgColor = "rgba(0,0,0, 0.0)";
+  this.addChild( help );
+
+  cur_y += help.height;
+
+
 
   this.iconNav.selected = true;
   this.dropWire.selected = false;
@@ -234,6 +245,16 @@ guiToolbox.prototype._draw_label_icon = function()
   var mx = this.iconWidth/2, my = this.iconWidth/2;
   var h = this.iconWidth/1.2;
   g_painter.drawTextSimpleFont( "L", mx, my, "rgba(0,0,0,0.9)", h, "Calibri");
+
+}
+
+guiToolbox.prototype._draw_help_icon = function()
+{
+  var mx = this.iconWidth/2, my = this.iconWidth/2;
+  var h = this.iconWidth/1.2;
+
+  g_painter.drawRectangle( 0, 0, this.iconWidth, this.iconWidth, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
+  g_painter.drawTextSimpleFont( "?", mx, my, "rgba(0,0,0,0.9)", h, "Calibri");
 
 }
 
@@ -461,6 +482,12 @@ guiToolbox.prototype._eventMouseDown = function( ev )
       this.dropLabel.contract();
 
     g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":help")
+  {
+    g_schematic_controller.tool = new toolHelp();
+    console.log("help");
   }
 
 }
