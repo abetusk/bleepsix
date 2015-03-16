@@ -380,6 +380,10 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
          (!comp_ref.reference.match( /^#FLG/ )) )
     {
 
+      var mod_x=0, mod_y=0;
+      if ("x" in comp_ref) { mod_x = comp_ref.x; }
+      if ("y" in comp_ref) { mod_y = comp_ref.y; }
+
       var module = 
         this.board.makeUnknownModule( 1000, 
                                       comp_ref.id, 
@@ -394,7 +398,7 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
       brdop.scope = msg.scope;
       brdop.action = msg.action;
       brdop.type = "footprintData";
-      brdop.data = { footprintData: module , x: 0, y: 0 };
+      brdop.data = { footprintData: module , x: mod_x, y: mod_y };
       brdop.id = comp_ref.id;
       brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
       brdop.groupId = group_id;
