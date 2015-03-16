@@ -92,6 +92,10 @@ toolHelp.prototype.drawOverlay = function()
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;
 
+  g_painter.drawText( "~     - Toggle debug view",
+      txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
+  txt_y+=txt_dy;
+
   txt_y+=txt_dy
 
   g_painter.drawText( "To associate an unknown part,",
