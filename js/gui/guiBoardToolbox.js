@@ -128,6 +128,17 @@ function guiBoardToolbox( name, bgColor  )
   cur_y += t.height;
   */
 
+  // Help
+  //
+  var help = new guiIcon( name + ":help" );
+  help.init( 0, cur_y, sz, sz);
+  help.drawShape = _draw_help_icon;
+  help.bgColor = bgColor;
+  help.fgColor = "rgb(255,255,255)";
+  this.addChild( help );
+
+  cur_y += help.height;
+
 
 
   // dimension
@@ -171,6 +182,26 @@ function _draw_nav_icon()
 
   var r = parseInt(8 * __icon_width /10);
   g_imgcache.draw( "cursor", 3, 1, r, r );
+
+}
+
+function _draw_help_icon()
+{
+  /*
+  var sz = 10;
+  var sx = __icon_width/2-sz/2, sy = __icon_width/2-sz/2;
+
+  var r = parseInt(8 * __icon_width /10);
+  g_imgcache.draw( "cursor", 3, 1, r, r );
+  */
+
+  var mx = __icon_width/2, my = __icon_width/2;
+  var dx = __icon_width/6, dy = __icon_width/6;
+  var color = "rgba(0,0,138,0.6)";
+  var width = 2;
+  var h = __icon_width/1.2;
+
+  g_painter.drawTextSimpleFont( "?", mx, my, "rgba(0,0,0,0.9)", h, "Calibri");
 
 }
 
@@ -705,6 +736,12 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.dropEdge.contract();
     this.dropZone.contract();
 
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":help")
+  {
+    g_board_controller.tool = new toolBoardHelp();
     g_painter.dirty_flag = true;
   }
 
