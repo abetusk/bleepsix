@@ -426,7 +426,6 @@ guiBoardToolbox.prototype.edgeSelect = function()
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
 }
 
-
 // children will be in weird places, so don't confine it to the box of the
 // guiBoardToolbox.
 //
@@ -614,6 +613,7 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
     this.dropEdge.selected = false;
     this.dropTrace.selected = false;
+    this.dropZone.selected = false;
 
     g_painter.dirty_flag = true;
 
