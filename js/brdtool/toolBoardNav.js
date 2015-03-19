@@ -534,6 +534,10 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
+    g_board_controller.board.unhighlightNet();
+    g_board_controller.unhighlightNet( );
+
+
   }
 
   else if ( keycode == 192 )
@@ -553,6 +557,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
     var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
     g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+    g_board_controller.board.unhighlightNet();
+    g_board_controller.unhighlightNet( );
 
   }
 
