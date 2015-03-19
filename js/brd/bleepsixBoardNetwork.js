@@ -393,7 +393,7 @@ bleepsixBoardNetwork.prototype.loadBoardWaterfallEnd = function()
   } else {
 
     console.log("board, waiting for json_brd and json_sch to be non-null");
-    setTimeout( (function() { return function() { xx.loadBoardWaterfallEnd(); } })(this), 500 );
+    setTimeout( (function(xx) { return function() { xx.loadBoardWaterfallEnd(); } })(this), 500 );
 
   }
 
