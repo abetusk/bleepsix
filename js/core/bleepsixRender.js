@@ -340,10 +340,13 @@ bleepsixRender.prototype.fillRect = function( x, y, w, h, fill_color )
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  //ctx.fillStyle = fill_color; 
+
+  //console.log(fill_color);
 
   ctx.beginPath();
   ctx.rect( x - w/2, y - h/2, w, h );
+  ctx.fillStyle = fill_color; 
   ctx.fill();
   ctx.closePath();
 
@@ -1391,13 +1394,15 @@ bleepsixRender.prototype.drawImage =
   var ctx = this.context;
   //var angle_radian = 0.0;
 
-  ctx.translate( x, y );
+  //ctx.translate( x, y );
   //ctx.rotate( angle_radian );
 
+  //ctx.globalAlpha = 0.5;
   ctx.drawImage( img, x, y, w, h );
+  //ctx.globalAlpha = 1.0;
 
   //ctx.rotate( -angle_radian );
-  ctx.translate( -x, -y );
+  //ctx.translate( -x, -y );
 
 }
 

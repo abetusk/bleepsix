@@ -856,7 +856,7 @@ bleepsixSchematic.prototype.constructNet = function()
     var ref = V[v].ref;
     var type = V[v].type;
 
-    if ( type == "pin") 
+    if (type == "pin") 
     {
       var parent_id = ref.id;
       var pin_number = V[v].pin_number;
@@ -877,6 +877,31 @@ bleepsixSchematic.prototype.constructNet = function()
           size : 50 , type : "rect" ,
           netcode: nc
         };
+    }
+
+    // Power is still iffy...since the power components are
+    // treated differently in that they don't have a corresponding
+    // part in the board layout, we run into trouble by treating
+    // it like a normal component.  For example, associating
+    // a sch_pin_net_map entry to it runs into all sorts of lookup
+    // errors because it doesn't appear in the board layout.
+    //
+    // We at least want the netcode associated with the power
+    // component, so we stuff it in the 'powerPinData' and hope
+    // that this is good enough.
+    //
+    else if (type == "power")
+    {
+      var parent_id = ref.id;
+      var pin_number = V[v].pin_number;
+
+      var obj = { netcode : nc, pin : pin_number, id : parent_id }
+      //sch_pin_net_map[ id ] = obj;
+
+      if (!("powerPinData" in ref))
+        ref.powerPinData = {};
+
+      ref.powerPinData[ pin_number ] = { x : V[v].x, y: V[v].y, size : 50, type: "box", netcode: nc  };
     }
 
 

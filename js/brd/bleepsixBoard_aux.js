@@ -30,6 +30,123 @@ if (typeof module !== 'undefined')
   var clipper = require("../lib/clipper_unminified.js");
 }
 
+/*
+bleepsixBoard.prototype.DRC = function()
+{
+  sch = g_board_controller.schematic.kicad_sch_json;
+  sch_net_pin_map = sch.net_pin_id_map;
+
+  brd = this.kicad_brd_json;
+  brd_to_sch = brd.brd_to_sch_net_map;
+  sch_to_brd = brd.sch_to_brd_net_map;
+
+  // Make sure VCC and GND are present and not of the same
+  // net as each other.
+  //
+  // Make sure all pins labelled 'W' are attached to
+  // VCC or GND (or some other PWR element).
+  //
+
+  //---
+
+  // For every netcode in the schematic, if it
+  // maps to a single pin component in the board,
+  // and it's not a noconn, DRC error.
+  //
+
+  //---
+
+  // Collect no-conns in sch
+  //
+  var noconn_pin_map = {};
+
+  // first collect noconns
+  for (var ind in sch.element)
+  {
+    var ele = sch.element[ind];
+    if (ele.type == "noconn") {
+      var xykey = Math.floor(ele.x) + ":" + Math.floor(ele.y);
+      noconn_pin_map[xykey] = { associated:false, comp_data:{}, pin_data:{} };
+    }
+  }
+
+  // Find where noconns place on schematic pins.
+  //
+  for (var ind in sch.element)
+  {
+    var ele = sch.element[ind];
+    if (ele.type == "component")
+    {
+      if (!("pinData" in ele)) { continue; }
+      for (var p_ind in ele.pinData)
+      {
+        var xykey = Math.floor(ele.pinData[p_ind].x) + ":" + Math.floor(ele.pinData[p_ind].y);
+        if (xykey in noconn_pin_map) {
+          noconn_pin_map[xykey].associated = true;
+          noconn_pin_map[xykey].pin_data = ele.pinData[p_ind];
+          noconn_pin_map[xykey].comp_data = ele;
+          noconn_pin_map[xykey].pin_id = ele.id + ":" + p_ind;
+        }
+      }
+    }
+  }
+
+
+  // Noconn maps to a board netcode which maps back to
+  // schematic netcodes.  If that final map back
+  // has multiple schematic netcodes, we know a noconn
+  // connection has multiple connections and represents
+  // a DRC error.
+  //
+  var noconn_drc_fail = [];
+  for (var ind in noconn_pin_map) {
+    var sch_nc = noconn_pin_map[ind].pin_data.netcode;
+
+    var brd_ncs = sch_to_brd[sch_nc];
+    var uniq = {};
+    for (var ii in brd_ncs) {
+      var sch_ncs = brd_to_sch[brd_ncs[ii]];
+      for (var jj in sch_ncs) {
+        uniq[sch_ncs[jj]] = 1;
+      }
+    }
+    var count=0;
+    for (var ii in uniq) { count++; }
+    if (count>1) { noconn_drc_fail.push(noconn_pin_map[ind]) ; }
+
+  }
+
+  console.log("failing noconn drc:", noconn_drc_fail);
+
+  // sch->brd nets and brd->sch nets should be 1-1 and onto.
+  //
+  for (var sch_nc in sch_to_brd) {
+    if (sch_to_brd[sch_nc].length > 1) {
+      var count=0;
+      var uniq = {};
+      for (var ii in sch_to_brd[sch_nc]) { uniq[ sch_to_brd[sch_nc][ii] ] = 1; }
+      for (var ii in uniq) { count++; }
+      if (count>1) {
+        console.log("schematic net maps to multiple board nets", sch_nc, sch_to_brd[sch_nc]);
+      }
+    }
+  }
+
+  for (var brd_nc in brd_to_sch) {
+    if (brd_to_sch[brd_nc].length > 1) {
+      var count=0;
+      var uniq = {};
+      for (var ii in brd_to_sch[brd_nc]) { uniq[ brd_to_sch[brd_nc][ii] ] = 1; }
+      for (var ii in uniq) { count++; }
+      if (count>1) {
+        console.log("board net maps to multiple schematic nets", brd_nc, brd_to_sch[brd_nc]);
+      }
+    }
+  }
+
+}
+*/
+
 bleepsixBoard.prototype.areBoardNetsEqual = function( brd_net0, brd_net1)
 {
   var a = parseInt( brd_net0 );

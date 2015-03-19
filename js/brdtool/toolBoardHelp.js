@@ -33,9 +33,6 @@ function toolBoardHelp( x, y, viewMode )
   this.y = y;
 
   g_painter.dirty_flag=true;
-
-  console.log(">>>");
-
 }
 
 
@@ -95,6 +92,10 @@ toolBoardHelp.prototype.drawOverlay = function()
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;
 
+  g_painter.drawText( "C     - DRC checks (rudimentary)",
+      txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
+  txt_y+=txt_dy;
+
   g_painter.drawText( "[/]   - Undo/Redo (session only)",
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;
@@ -118,10 +119,6 @@ toolBoardHelp.prototype.drawOverlay = function()
 
 toolBoardHelp.prototype.mouseDown = function( button, x, y ) 
 {
-
-  console.log(">>>>>>>>");
-
-
   g_board_controller.tool = new toolBoardNav();
   g_painter.dirty_flag=true;
   return true;
