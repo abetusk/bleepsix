@@ -941,7 +941,7 @@ toolBoardMove.prototype.mouseUp = function( button, x, y )
         g_board_controller.opCommand( op );
 
 
-        // We have to hid them (again) to make sure it
+        // We have to hide them (again) to make sure it
         // doesn't fail the intersectino test above
         // because it's unhidden.
         //

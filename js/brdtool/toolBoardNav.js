@@ -607,38 +607,42 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   else if (ch == 'F')
   {
 
-    var id_ref_ar = g_board_controller.board.pickAll( wx, wy );
-    if (id_ref_ar.length > 0)
-    {
+    var id_ref = g_board_controller.board.pick( wx, wy );
+    if (id_ref) {
 
-      var group_id = String(guid());
+      var ref = g_board_controller.board.refLookup( id_ref.id );
+      var cloned_id_ref = simplecopy( id_ref );
 
-      for (var ind in id_ref_ar)
+      ref.hideFlag = true;
+
+      var src_layer = g_board_controller.guiLayer.getActiveLayer();
+      var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
+
+      g_board_controller.board.flip( cloned_id_ref, src_layer, dst_layer );
+      g_board_controller.board.updateBoundingBox( cloned_id_ref.ref );
+
+      if ( g_board_controller.board.intersectTest( [ cloned_id_ref ] , this.clearance ) )
       {
-        var ref = id_ref_ar[ind]["ref"];
-        if (ref["type"] == "module")
-        {
-
-          var src_layer = g_board_controller.guiLayer.getActiveLayer();
-          var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
-
-          var op = { source: "brd", destination: "brd" };
-          op.action = "update";
-          op.type = "flip";
-          op.id = id_ref_ar[ind].id;
-          op.data = { sourceLayer : src_layer, destinationLayer: dst_layer};
-          op.groupId = group_id;
-          g_board_controller.opCommand( op );
-
-          var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
-          g_board_controller.board.updateRatsNest( undefined, undefined, map );
-
-
-        }
+        g_board_controller.fadeMessage( "Sorry, cannot flip!  Too many intersections" );
+        ref.hideFlag = false;
+        return true;
       }
 
+      ref.hideFlag = false;
+
+      var op = { source: "brd", destination: "brd" };
+      op.action = "update";
+      op.type = "flip";
+      op.id = id_ref.id;
+      op.data = { sourceLayer : src_layer, destinationLayer: dst_layer};
+      op.groupId = group_id;
+      g_board_controller.opCommand( op );
+
+      var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
     }
-    
+
   }
   else if (ch == 'I')
   {
@@ -796,6 +800,23 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var x = id_ref.ref.x;
       var y = id_ref.ref.y;
 
+      var ref = g_board_controller.board.refLookup( id_ref.id );
+      var cloned_id_ref = simplecopy( id_ref );
+
+      ref.hideFlag = true;
+
+      g_board_controller.board.rotateAboutPoint( [ cloned_id_ref ], x, y, ang_rad, true )
+      g_board_controller.board.updateBoundingBox( cloned_id_ref.ref );
+
+      if ( g_board_controller.board.intersectTest( [ cloned_id_ref ] , this.clearance ) )
+      {
+        g_board_controller.fadeMessage( "Sorry, cannot rotate!  Too many intersections" );
+        ref.hideFlag = false;
+        return true;
+      }
+
+      ref.hideFlag = false;
+
       var op = { source: "brd", destination: "brd" };
       op.action = "update";
       op.type = "rotate";
@@ -803,6 +824,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       op.data = { ccw : ccw, cx : x, cy: y, angle : ang_rad, ccw: true };
       op.groupId = group_id;
       g_board_controller.opCommand( op );
+
+      var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+      g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
       this.mouseMove( this.mouse_cur_x, this.mouse_cur_y );
     }
