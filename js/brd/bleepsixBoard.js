@@ -3336,7 +3336,7 @@ bleepsixBoard.prototype.drawBoard = function()
   {
     g_painter.drawPoint( this.debug_point[ind].X, 
                          this.debug_point[ind].Y , 
-                         "rgba(255,128,64,0.8)" );
+                         "rgba(255,128,64,0.8)", 300 );
   }
 
   for (var ind in this.debug_edge)

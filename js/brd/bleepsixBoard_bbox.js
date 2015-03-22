@@ -60,6 +60,22 @@ bleepsixBoard.prototype._find_footprint_art_circle_bbox  = function( mod, art_en
 
 }
 
+function __norm_ang_pos( a ) {
+  //var n_a = a + (Math.PI*2.0);
+  var n_a = a;
+  var q = Math.floor( n_a / (2.0*Math.PI) );
+  if ((q < 0) || (q > 2)) { n_a -= 2.0*Math.PI*q; }
+  if (n_a < 0) n_a += 2.0*Math.PI;
+  return n_a;
+}
+
+function __norm_ang_pos_neg( a ) {
+  var n_a = a + (Math.PI*2.0);
+  var q = Math.floor( n_a / (2.0*Math.PI) );
+  if ((q < 0) || (q > 2)) { n_a -= 2.0*Math.PI*q; }
+  return n_a;
+}
+
 bleepsixBoard.prototype._find_footprint_art_arc_bbox  = function( mod, art_entry )
 {
   var bbox = mod.bounding_box;
@@ -73,15 +89,46 @@ bleepsixBoard.prototype._find_footprint_art_arc_bbox  = function( mod, art_entry
   var r = parseFloat( art_entry["r"] );
 
   var v = numeric.dot( this._R(a), [x,y]);
-
   var tx = v[0] + mod_x;
   var ty = v[1] + mod_y;
 
-  bbox[0][0] = Math.min( bbox[0][0], tx - r );
-  bbox[0][1] = Math.min( bbox[0][1], ty - r );
+  //---
 
-  bbox[1][0] = Math.max( bbox[1][0], tx + r );
-  bbox[1][1] = Math.max( bbox[1][1], ty + r );
+  var mod_a_n = __norm_ang_pos(a);
+  var start_art_ang = __norm_ang_pos( art_entry.start_angle - a );
+  var end_art_ang = start_art_ang + art_entry.angle;
+
+  var sx = Math.cos( start_art_ang )*r;
+  var sy = Math.sin( start_art_ang )*r;
+  this._update_bbox_with_point(bbox, tx+sx, ty+sy);
+
+  var ex = Math.cos( end_art_ang )*r;
+  var ey = Math.sin( end_art_ang )*r;
+  this._update_bbox_with_point(bbox, tx+ex, ty+ey);
+
+  if ( ((Math.PI/2.0) <= end_art_ang) &&
+       (start_art_ang <= (Math.PI/2.0)) )
+  {
+    this._update_bbox_with_point(bbox, tx, ty+r);
+  }
+  
+  if ( ((Math.PI) <= end_art_ang) &&
+       (start_art_ang <= (Math.PI)) )
+  {
+    this._update_bbox_with_point(bbox, tx-r, ty);
+  }
+
+  if ( ((3.0*Math.PI/2.0) <= end_art_ang) &&
+       (start_art_ang <= (3.0*Math.PI/2.0)) )
+  {
+    this._update_bbox_with_point(bbox, tx, ty-r);
+  }
+
+  if ( ((2.0*Math.PI) <= end_art_ang) &&
+       (start_art_ang <= (2.0*Math.PI)) )
+  {
+    this._update_bbox_with_point(bbox, tx+r, ty-r);
+  }
 
 }
 

@@ -1144,13 +1144,14 @@ bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_
 
 
 
-bleepsixRender.prototype.drawPoint = function( x, y, color ) 
+bleepsixRender.prototype.drawPoint = function( x, y, color, sz ) 
 {
   var ctx = this.context;
   color    = ( typeof color !== 'undefined' ? color : this.default_color );
+  sz       = ( typeof sz !== 'undefined' ? sz : 2 );
 
   ctx.beginPath();
-  ctx.rect( x, y, 2, 2 );
+  ctx.rect( x, y, sz, sz );
 
   ctx.fillStyle = color;
   ctx.fill();
