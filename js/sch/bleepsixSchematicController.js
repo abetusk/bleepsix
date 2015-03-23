@@ -943,6 +943,25 @@ bleepsixSchematicController.prototype.mouseMove = function( x, y )
 
   //if (this.movingDebug) this.guiTextboxTest.move(x,y);
 
+  if (!this.viewMode)
+  { 
+
+    if (this.guiToolbox.hitTest(x,y))
+    { 
+
+      if (!this.guiToolbox.enter_flag) {
+        this.guiToolbox.mouseEnter(x,y);
+      }
+      this.guiToolbox.mouseMove(x, y);
+      return;
+    } else {
+      if (this.guiToolbox.enter_flag) {
+        this.guiToolbox.mouseLeave(x,y);
+      }
+    }
+
+  }
+
   
   if ( this.schematic.displayable )
   {

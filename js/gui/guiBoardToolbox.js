@@ -52,6 +52,9 @@ function guiBoardToolbox( name, bgColor  )
   this.iconNav.drawShape = _draw_nav_icon;
   this.iconNav.bgColor = bgColor;
   this.iconNav.fgColor = "rgb(255,255,255)";
+  //this.iconNav.tooltip_text = "nav";
+  //this.iconNav.tooltip_flag = true;
+
   this.addChild( this.iconNav );
 
   cur_y += this.iconNav.height;
@@ -64,8 +67,10 @@ function guiBoardToolbox( name, bgColor  )
   w.fgColor = "rgb(255,255,255)";
   w.divColor = "rgba(255,255,255,0.2)";
   w.addIcon( this.name + ":trace", _draw_trace_icon );
-  //w.addIcon( this.name + ":via" , _draw_via_icon );
   w.move(0, cur_y);
+  w.tooltip_text = "place trace (x)";
+  w.tooltip_flag = true;
+  w.tooltip_width = w.tooltip_text.length * w.tooltip_font_size/1.6;
 
   this.dropTrace = w;
   this.addChild( w );
@@ -81,6 +86,10 @@ function guiBoardToolbox( name, bgColor  )
   z.divColor = "rgba(255,255,255,0.2)";
   z.addIcon( this.name + ":zone", _draw_zone_icon );
   z.move(0, cur_y);
+  z.tooltip_text = "(z)one copper pour";
+  z.tooltip_flag = true;
+  z.tooltip_width = z.tooltip_text.length * z.tooltip_font_size/1.6;
+
 
   this.dropZone = z;
   this.addChild( z );
@@ -95,16 +104,16 @@ function guiBoardToolbox( name, bgColor  )
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
   u.divColor = "rgba(255,255,255,0.2)";
-  //u.addIcon( this.name + ":edge", _draw_edge_icon );
   u.addIcon( this.name + ":edge", 
       (function(s) { return function() { s._draw_edge_icon(); }; })(this)  );
-  //u.addIcon( this.name + ":text", _draw_text_icon );
   u.addIcon( this.name + ":box", _draw_box_icon );
-  //u.addIcon( this.name + ":circle", _draw_circle_icon );
-  //u.addIcon( this.name + ":arc", _draw_arc_icon );
   u.addIcon( this.name + ":roundedbox", _draw_roundedbox_icon );
   u.addIcon( this.name + ":inroundedbox", _draw_inroundedbox_icon );
   u.move(0, cur_y);
+  u.tooltip_text = "place edge";
+  u.tooltip_flag = true;
+  u.tooltip_width = u.tooltip_text.length * u.tooltip_font_size/1.6;
+
 
   this.dropEdge = u;
   this.addChild( u );

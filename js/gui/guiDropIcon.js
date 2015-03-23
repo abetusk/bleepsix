@@ -113,7 +113,7 @@ guiDropIcon.prototype._icon_tab_draw_bottom = function()
 
 }
 
-guiDropIcon.prototype.addIcon = function(name, draw )
+guiDropIcon.prototype.addIcon = function(name, draw)
 {
 
   if (this.vertical)
@@ -328,5 +328,16 @@ guiDropIcon.prototype.draw = function()
                            1, this.fgColor ); 
                            //1, "rgb(0,0,0)")
                            //true, this.bgColor );
+
+  if (this.tooltip_display) {
+    g_painter.drawRectangle( this.tooltip_x, this.tooltip_y,
+                             this.tooltip_width, this.tooltip_height,
+                             0, "rgba(128,128,128,0.5)",
+                             true, this.bgColor);
+    g_painter.drawText( this.tooltip_text, this.tooltip_x, this.tooltip_y,
+                        this.fgColor, this.tooltip_font_size, 0, 'L', 'T');
+                        
+  }
+
 }
 

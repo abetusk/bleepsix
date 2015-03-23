@@ -49,6 +49,9 @@ function guiToolbox( name )
   this.iconNav.init( 0, cur_y, sz, sz);
   this.iconNav.drawShape = (function(xx) { return function() { xx._draw_nav_icon(); }; })(this);
   this.iconNav.bgColor = "rgba(0,0,0, 0.0)";
+  this.iconNav.tooltip_text = "nav";
+  this.iconNav.tooltip_flag = true;
+
   this.addChild( this.iconNav );
 
   cur_y += this.iconNav.height;
@@ -59,6 +62,11 @@ function guiToolbox( name )
   var w = new guiDropIcon( this.name + ":dropwire", this.iconWidth , this.iconWidth );
   w.addIcon( this.name + ":wire", 
       (function(xx) { return function() { xx._draw_wire_icon(); }; })(this) );
+
+  w.tooltip_text = "place wire (w)";
+  w.tooltip_flag = true;
+  w.tooltip_width = w.tooltip_text.length * w.tooltip_font_size/1.6;
+
 
   // BUS not implementd right now, just take it out, we'll put it back in later
   //
@@ -80,6 +88,10 @@ function guiToolbox( name )
   u.addIcon( this.name + ":conn", 
       (function(xx) { return function() { xx._draw_conn_icon(); }; })(this) );
 
+  u.tooltip_text = "place no-connection (x)";
+  u.tooltip_flag = true;
+  u.tooltip_width = u.tooltip_text.length * u.tooltip_font_size/1.6;
+
   u.move(0, cur_y);
 
   this.dropConn = u;
@@ -91,6 +103,10 @@ function guiToolbox( name )
   var lab = new guiDropIcon( this.name + ":label", this.iconWidth, this.iconWidth );
   lab.addIcon( this.name +":label", 
       (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
+
+  lab.tooltip_text = "place no-connection (x)";
+  lab.tooltip_flag = true;
+  lab.tooltip_width = lab.tooltip_text.length * lab.tooltip_font_size/1.6;
 
   // Other labels not implemented right now.  Will implement later, take them out
   // here for now.
@@ -119,20 +135,15 @@ function guiToolbox( name )
 
   cur_y += help.height;
 
-
-
   this.iconNav.selected = true;
   this.dropWire.selected = false;
   this.dropConn.selected = false;
   this.dropLabel.selected = false;
-
-
 }
 guiToolbox.inherits ( guiRegion );
 
 guiToolbox.prototype._draw_nav_icon = function()
 {
-
   var sz = 10;
   var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
 
@@ -140,8 +151,6 @@ guiToolbox.prototype._draw_nav_icon = function()
   g_imgcache.draw( "cursor", 3, 1, r, r );
 
   g_painter.drawRectangle( 0, 0, this.iconWidth, this.iconWidth, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
-
-
 }
 
 guiToolbox.prototype._draw_grid_tab_icon = function()
@@ -202,7 +211,6 @@ guiToolbox.prototype._draw_noconn_icon = function()
 
   g_painter.line( mx-dx, my-dy, mx+dx, my+dy, color, width );
   g_painter.line( mx-dx, my+dy, mx+dx, my-dy, color, width );
-
 }
 
 guiToolbox.prototype._draw_conn_icon = function()
@@ -212,7 +220,6 @@ guiToolbox.prototype._draw_conn_icon = function()
   var width = 2;
 
   g_painter.circle( mx, my, r, width, color, true, color);
-
 }
 
 guiToolbox.prototype._draw_conn_tab_icon = function()
@@ -255,7 +262,6 @@ guiToolbox.prototype._draw_help_icon = function()
 
   g_painter.drawRectangle( 0, 0, this.iconWidth, this.iconWidth, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
   g_painter.drawTextSimpleFont( "?", mx, my, "rgba(0,0,0,0.9)", h, "Calibri");
-
 }
 
 
@@ -512,13 +518,9 @@ guiToolbox.prototype.handleEvent = function(ev)
     return this._eventMouseDown(ev);
   else if ( ev.type == "doubleClick" )
     return this._eventDoubleClick(ev);
-
-
 }
 
 guiToolbox.prototype.draw = function()
 {
 
 }
-
-

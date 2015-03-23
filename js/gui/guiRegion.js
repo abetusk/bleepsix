@@ -35,6 +35,19 @@ function guiRegion( name )
   this.bgColor = "rgba(0,0,0,0.2)";
   this.name = name;
 
+  this.enter_flag = false;
+  this.tooltip_flag = false;
+  this.tooltip_text = "";
+  this.tooltip_delay = 1000;
+  this.tooltip_tm = null;
+  this.tooltip_display = false;
+  this.tooltip_x = 40;
+  this.tooltip_y = 0;
+  this.tooltip_width = 100;
+  this.tooltip_height = 15;
+  this.tooltip_font_size = this.tooltip_height;
+
+
   this.transform       = [ [ 1, 0, 0], [0, 1, 0], [0, 0, 1] ];
   this.world_transform = [ [ 1, 0, 0], [0, 1, 0], [0, 0, 1] ];
   this.inv_transform   = [ [ 1, 0, 0], [0, 1, 0], [0, 0, 1] ];
@@ -110,9 +123,16 @@ guiRegion.prototype.move = function ( x, y )
 
 guiRegion.prototype.draw = function()
 {
-   g_painter.drawRectangle( 0, 0, this.width, this.height,  
+  g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
+
+  if (this.tooltip_display) {
+    g_painter.drawRectange( this.tooltip_x, this.tooltip_y,
+                            this.tooltip_width, this.tooltip_height,
+                            0, "rgba(128,128,128,0.5)",
+                            true, this.bgColor);
+  }
 }
 
 guiRegion.prototype.drawChildren = function()
@@ -139,8 +159,6 @@ guiRegion.prototype.drawChildren = function()
 //
 guiRegion.prototype.hitTest = function(x, y)
 {
-  // experimenting
-
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
 
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
@@ -156,11 +174,71 @@ guiRegion.prototype.hitTest = function(x, y)
       }
     }
 
-    //console.log( "guiRegion: " + this.name + " hit\n");
     return this;
   }
 
   return null;
+}
+
+guiRegion.prototype.tooltip_func = function() {
+  this.tooltip_tm = null;
+  this.tooltip_display = true;
+  g_painter.dirty_flag = true;
+
+  console.log("bang");
+}
+
+
+guiRegion.prototype.mouseEnter = function(x,y) {
+  if (this.tooltip_flag) {
+    this.tooltip_tm = setTimeout( (function(xx) { return function() { xx.tooltip_func(); } })(this), this.tooltip_delay );
+  }
+
+  this.enter_flag = true;
+  r = this.hitTest(x, y);
+  if (r)
+    return r.mouseEnter();
+}
+
+guiRegion.prototype.mouseLeave = function(x,y) {
+  this.enter_flag = false;
+
+  if (this.tooltip_display) {
+    g_painter.dirty_flag = true;
+  }
+  this.tooltip_display = false;
+  if (this.tooltip_tm) {
+    clearTimeout(this.tooltip_tm);
+  }
+
+  for (var ind in this.guiChildren) {
+    if (this.guiChildren[ind].enter_flag) {
+      this.guiChildren[ind].mouseLeave();
+    }
+  }
+
+}
+
+guiRegion.prototype.mouseMove = function( x, y )
+{
+  r = this.hitTest(x, y);
+
+  for (var ind in this.guiChildren) {
+    if (this.guiChildren[ind].hitTest(x,y)) {
+      if (!this.guiChildren[ind].enter_flag) {
+        this.guiChildren[ind].mouseEnter();
+      }
+    } else if (this.guiChildren[ind].enter_flag) {
+      this.guiChildren[ind].mouseLeave();
+    }
+  }
+
+  if (r == this) 
+    return this;
+  else if (r)
+    return r.mouseMove(x, y);
+
+  return r;
 }
 
 guiRegion.prototype.mouseDown = function( button, x, y )

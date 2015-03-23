@@ -40,6 +40,19 @@ function guiIcon( name )
 guiIcon.inherits( guiRegion );
 
 
+/*
+guiIcon.prototype.mouseMove = function(button, x, y)
+{
+  var ev = { type: "mouseMove", owner: this.name, ref: this, button : button, x : x, y : y };
+
+  console.log("mousemove...");
+
+  this.parent.handleEvent(ev);
+
+  return true;
+}
+*/
+
 guiIcon.prototype.mouseDown = function(button, x, y)
 {
   var ev = { type: "mouseDown", owner: this.name, ref: this, button : button, x : x, y : y };
@@ -71,6 +84,14 @@ guiIcon.prototype.draw = function()
                              //1, "rgb(0,0,0)" );
   }
 
+  if (this.tooltip_display) {
+    g_painter.drawRectangle( this.tooltip_x, this.tooltip_y,
+                             this.tooltip_width, this.tooltip_height,
+                             0, "rgba(128,128,128,0.5)",
+                             true, this.bgColor);
+    g_painter.drawText( this.tooltip_text, this.tooltip_x, this.tooltip_y,
+                        this.fgColor, this.tooltip_font_size, 0, 'L', 'T');
+  }
 
 
   if (this.drawShape)
