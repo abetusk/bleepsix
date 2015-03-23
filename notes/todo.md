@@ -7,8 +7,32 @@
   one at a time?  If a board and a schematic is specified we should try to tie them together?
   UPDATE: this should probably be taken out altogether and expose another interface through
   the web page (meowcad) to upload.
+* Add KiCAD export
+* Add Eagle import
+* Consider context aware functionality (for mobile)
+  - every action needs a 'tap to execute' followed by a 'tap to execute' model.
+  - undo (button) needs to present
+  - trash or some other cancel button needs to be present
+  - pan/zoom issues?
+* Accessibility?
+* Undo/Redo buttons
+* Tooltips
+* CLI
+  - might solve some mobile issues?
+  - might solve some accessibility issues?
+  - have the mouse interact (select a point, have it show up in the CLI)
+  - tab complete
+  - enter on blank or esc to quit, enter in toolnav to enable
+  - help prominent
+  - try to match bash shell nicesims (ctrl skip word, arrows etc)
+* Load Adafruit, Dangerous Prototypes and Sparkfun libraries
+* Download spinner
+* Initial loading indicator (spinner or something)
+* Formalize KiCAD JSON spec
 * Add timestamps to sessions, portfolios and the like.
-* DRC checks for both
+
+
+* ~~DRC checks for both~~
 * ~~Produce drill file~~
 * ~~Through hole not rotation properly in gerber production?  for example: CR2032H not rotation~~
 * ~~Cross browser net highlights~~
@@ -20,31 +44,32 @@
 ## Schematic
 
 * Wire "grabbing" instead of free floating pick and move.
-* Need cursor icon for label.
+
+* ~~Need cursor icon for label.~~
 * ~~toolWire needs to take into account component rotation when highlighting net~~
 * ~~Power lines need to be treated as a net so nets connect in board.~~
 * ~~**Import modules.**~~
 
 ## Board
 
-* Highlighting nets across tabs are just fucked up.  They highlight pads they shouldn't, they're all over
-  the place.  Fix them.
-* Don't highlight net 0
-* Highlight pin/pad when hovering (and not part of a net or of net 0)
-* Fix pad hilighting after initial placement
-* ~~make unknown capital 'U' instead of lowercase 'u'~~
-
-* toolBoardNav rotate needs to split/join net.
 * toolTrace needs self intersection test.
-* rat's nest initially is wonky (somtimes?)
-* toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
-  if it intersects geometry initially.
 * toolTrace gets confused when trying to connect two lines without an intermediate click.
-* Shift auto placed parts so they don't stack on top of each other.
 * Move text for modules.
 * Add via tool.
-* Need cursor for edges, track fcolor, zone and text.
 * DXF imports edges/copper.
+
+* ~~Highlighting nets across tabs are just fucked up.  They highlight pads they shouldn't, they're all over
+  the place.  Fix them.~~
+* ~~Don't highlight net 0~~
+* ~~Highlight pin/pad when hovering (and not part of a net or of net 0)~~
+* ~~Fix pad hilighting after initial placement~~
+* ~~make unknown capital 'U' instead of lowercase 'u'~~
+* ~~toolBoardNav rotate needs to split/join net.~~
+* ~~rat's nest initially is wonky (somtimes?)~~
+* ~~toolTrace needs some work with regards to the initial joint pair.  Sometimes it gets confused
+  if it intersects geometry initially.~~
+* ~~Shift auto placed parts so they don't stack on top of each other.~~
+* ~~Need cursor for edges, track fcolor, zone and text.~~
 * ~~toolTrace net highlighting still not working.  Sometimes shows wrong highlighted net.~~
 * ~~rat's nest needs to be recalculated consistently.  Sometimes it just disappears after operation.~~
 * ~~toolTrace needs to either highlight net show the airwire so we know where we're
@@ -62,7 +87,7 @@
 * ~~Flip needs to go into opCommand and special consideration needs to be done for through hole parts.~~
 * ~~**Import modules.**~~
 
-* BUG: There's a stray via that got into one of the board layouts.  I'm nto sure if adding/deleting put
-  it there or if I accidentally did an 'undo' and screwed things up.  Project-id: 174c284d-b216-40d3-b78b-89b86f3d2a94
+* ~~BUG: There's a stray via that got into one of the board layouts.  I'm nto sure if adding/deleting put
+  it there or if I accidentally did an 'undo' and screwed things up.  Project-id: 174c284d-b216-40d3-b78b-89b86f3d2a94~~
 
 
