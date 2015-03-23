@@ -184,8 +184,6 @@ guiRegion.prototype.tooltip_func = function() {
   this.tooltip_tm = null;
   this.tooltip_display = true;
   g_painter.dirty_flag = true;
-
-  console.log("bang");
 }
 
 

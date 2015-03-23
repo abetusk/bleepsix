@@ -68,7 +68,7 @@ function guiBoardToolbox( name, bgColor  )
   w.divColor = "rgba(255,255,255,0.2)";
   w.addIcon( this.name + ":trace", _draw_trace_icon );
   w.move(0, cur_y);
-  w.tooltip_text = "place trace (x)";
+  w.tooltip_text = " place trace (x)";
   w.tooltip_flag = true;
   w.tooltip_width = w.tooltip_text.length * w.tooltip_font_size/1.6;
 
@@ -86,7 +86,7 @@ function guiBoardToolbox( name, bgColor  )
   z.divColor = "rgba(255,255,255,0.2)";
   z.addIcon( this.name + ":zone", _draw_zone_icon );
   z.move(0, cur_y);
-  z.tooltip_text = "(z)one copper pour";
+  z.tooltip_text = " (z)one copper pour";
   z.tooltip_flag = true;
   z.tooltip_width = z.tooltip_text.length * z.tooltip_font_size/1.6;
 
@@ -110,7 +110,7 @@ function guiBoardToolbox( name, bgColor  )
   u.addIcon( this.name + ":roundedbox", _draw_roundedbox_icon );
   u.addIcon( this.name + ":inroundedbox", _draw_inroundedbox_icon );
   u.move(0, cur_y);
-  u.tooltip_text = "place edge";
+  u.tooltip_text = " place edge";
   u.tooltip_flag = true;
   u.tooltip_width = u.tooltip_text.length * u.tooltip_font_size/1.6;
 
