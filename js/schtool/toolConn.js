@@ -25,8 +25,6 @@
 
 function toolConn( x, y, type, placeOption )
 {
-  console.log("toolConn");
-
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof x !== 'undefined' ? y : 0 );
 
@@ -48,27 +46,21 @@ function toolConn( x, y, type, placeOption )
   this.cursorSize = 6;
   this.cursorWidth = 1;
 
-
-  //this.placeOption = "once";  // "persistent" ?
-  this.placeOption = placeOption;  // "persistent" ?
+  // "persistent" ?
+  this.placeOption = placeOption;
 
   this.mouse_world_xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   var ele = document.getElementById("canvas");
 
-  console.log(type);
-
   if (type == "noconn")
   {
-    //ele.style.cursor = "url('img/cursor_custom_noconn_s24.png') 4 3, cursor";
     ele.style.cursor = "url('img/cursor_custom_noconn_s24_2.png') 4 3, cursor";
   }
   else if ( (type == "conn") || (type == "connection") )
   {
     ele.style.cursor = "url('img/cursor_custom_conn_s24_2.png') 4 3, cursor";
   }
-
-
 }
 
 //-----------------------------
@@ -235,8 +227,6 @@ toolConn.prototype.mouseWheel = function( delta )
 
 toolConn.prototype.keyDown = function( keycode, ch, ev )
 {
-  console.log("toolConn keyDown: " + keycode + " " + ch );
-
   if ((ch == 'Q') || (keycode == 27))
   {
     console.log("handing back to toolNav");
@@ -248,7 +238,6 @@ toolConn.prototype.keyDown = function( keycode, ch, ev )
 
     g_painter.dirty_flag = true;
   }
-
 }
 
 //-----------------------------
@@ -257,5 +246,3 @@ toolConn.prototype.keyUp = function( keycode, ch, ev )
 {
   console.log("toolConn keyUp: " + keycode + " " + ch );
 }
-
-

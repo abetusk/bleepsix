@@ -88,6 +88,10 @@ toolHelp.prototype.drawOverlay = function()
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;
 
+  g_painter.drawText( "L     - Label (named net)",
+      txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
+  txt_y+=txt_dy;
+
   g_painter.drawText( "[/]   - Undo/Redo (session only)",
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;

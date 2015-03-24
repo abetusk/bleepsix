@@ -63,7 +63,7 @@ function guiToolbox( name )
   w.addIcon( this.name + ":wire", 
       (function(xx) { return function() { xx._draw_wire_icon(); }; })(this) );
 
-  w.tooltip_text = " place wire (w)";
+  w.tooltip_text = " place wire (W)";
   w.tooltip_flag = true;
   w.tooltip_width = w.tooltip_text.length * w.tooltip_font_size/1.6;
 
@@ -84,11 +84,15 @@ function guiToolbox( name )
 
   var u = new guiDropIcon( this.name + ":dropconn", this.iconWidth , this.iconWidth );
   u.addIcon( this.name + ":noconn", 
-      (function(xx) { return function() { xx._draw_noconn_icon(); }; })(this) );
+      (function(xx) { return function() { xx._draw_noconn_icon(); }; })(this),
+      " place no-connection (X)"
+      );
   u.addIcon( this.name + ":conn", 
-      (function(xx) { return function() { xx._draw_conn_icon(); }; })(this) );
+      (function(xx) { return function() { xx._draw_conn_icon(); }; })(this),
+      " place connection (J)"
+      );
 
-  u.tooltip_text = " place no-connection (x)";
+  u.tooltip_text = " place no-connection (X)";
   u.tooltip_flag = true;
   u.tooltip_width = u.tooltip_text.length * u.tooltip_font_size/1.6;
 
@@ -104,7 +108,7 @@ function guiToolbox( name )
   lab.addIcon( this.name +":label", 
       (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
 
-  lab.tooltip_text = " place no-connection (x)";
+  lab.tooltip_text = " place label (L)";
   lab.tooltip_flag = true;
   lab.tooltip_width = lab.tooltip_text.length * lab.tooltip_font_size/1.6;
 

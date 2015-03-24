@@ -41,7 +41,7 @@ function guiRegion( name )
   this.tooltip_delay = 1000;
   this.tooltip_tm = null;
   this.tooltip_display = false;
-  this.tooltip_x = 40;
+  this.tooltip_x = 50;
   this.tooltip_y = 0;
   this.tooltip_width = 100;
   this.tooltip_height = 15;
@@ -132,6 +132,11 @@ guiRegion.prototype.draw = function()
                             this.tooltip_width, this.tooltip_height,
                             0, "rgba(128,128,128,0.5)",
                             true, this.bgColor);
+    var tx = this.tooltip_x;
+    var ty = this.tooltip_y;
+    var sz = this.tooltip_height;
+    var p = [ [ 0, 0], [ 0, sz/2 ], [ -sz/2, 0] ];
+    g_painter.drawBarePolygon( p, tx, ty, this.bgColor );
   }
 }
 

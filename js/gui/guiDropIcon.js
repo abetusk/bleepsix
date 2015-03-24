@@ -71,6 +71,8 @@ function guiDropIcon( name, width, height, verticalFlag )
   this.selected = false;
   this.vertical = verticalFlag;
   this.showDropdown = false;
+
+  this.tooltip_texts = {};
 }
 guiDropIcon.inherits( guiRegion );
 
@@ -113,7 +115,7 @@ guiDropIcon.prototype._icon_tab_draw_bottom = function()
 
 }
 
-guiDropIcon.prototype.addIcon = function(name, draw)
+guiDropIcon.prototype.addIcon = function(name, draw, alt_tooltip_text)
 {
 
   if (this.vertical)
@@ -134,6 +136,10 @@ guiDropIcon.prototype.addIcon = function(name, draw)
   ic.drawShape = draw;
   //ic.bgColor = "rgba(0,0,0,0.2)";
   ic.bgColor = this.bgColor;
+
+  if (typeof alt_tooltip_text !== "undefined") {
+    this.tooltip_texts[name] = alt_tooltip_text;
+  }
 
   if (this.iconList.length == 0)
   {
@@ -309,6 +315,10 @@ guiDropIcon.prototype.handleEvent = function(ev)
         this.mainIcon.name = ev.ref.name;
         this.mainIcon.drawShape = ev.ref.drawShape;
 
+        if (ev.ref.name in this.tooltip_texts) {
+          this.tooltip_text = this.tooltip_texts[ev.ref.name];
+        }
+
         this.toggleList();
       }
     }
@@ -337,6 +347,11 @@ guiDropIcon.prototype.draw = function()
     g_painter.drawText( this.tooltip_text, this.tooltip_x, this.tooltip_y,
                         this.fgColor, this.tooltip_font_size, 0, 'L', 'T');
                         
+    var tx = this.tooltip_x;
+    var ty = this.tooltip_y;
+    var sz = this.tooltip_height;
+    var p = [ [ 0, sz/4], [ 0, 3*sz/4 ], [ -sz/2, sz/2] ];
+    g_painter.drawBarePolygon( p, tx, ty, this.bgColor );
   }
 
 }
