@@ -3,20 +3,27 @@
 
 ## General
 
+## important
+* Load Adafruit, Dangerous Prototypes and Sparkfun libraries
+* Download spinner
+* Initial loading indicator (spinner or something)
+* Add Eagle import
+
+## moderate
+* Formalize KiCAD JSON spec
 * Fix upload, both in schematic and in board.  Need to decide how exactly to do this.  Add elements
   one at a time?  If a board and a schematic is specified we should try to tie them together?
   UPDATE: this should probably be taken out altogether and expose another interface through
   the web page (meowcad) to upload.
 * Add KiCAD export
-* Add Eagle import
 * Consider context aware functionality (for mobile)
   - every action needs a 'tap to execute' followed by a 'tap to execute' model.
   - undo (button) needs to present
   - trash or some other cancel button needs to be present
   - pan/zoom issues?
+
+## low
 * Accessibility?
-* Undo/Redo buttons
-* Tooltips
 * CLI
   - might solve some mobile issues?
   - might solve some accessibility issues?
@@ -25,13 +32,11 @@
   - enter on blank or esc to quit, enter in toolnav to enable
   - help prominent
   - try to match bash shell nicesims (ctrl skip word, arrows etc)
-* Load Adafruit, Dangerous Prototypes and Sparkfun libraries
-* Download spinner
-* Initial loading indicator (spinner or something)
-* Formalize KiCAD JSON spec
 * Add timestamps to sessions, portfolios and the like.
 
 
+* ~~Tooltips~~
+* ~~Undo/Redo buttons~~
 * ~~DRC checks for both~~
 * ~~Produce drill file~~
 * ~~Through hole not rotation properly in gerber production?  for example: CR2032H not rotation~~
@@ -53,11 +58,11 @@
 ## Board
 
 * toolTrace needs self intersection test.
-* toolTrace gets confused when trying to connect two lines without an intermediate click.
 * Move text for modules.
 * Add via tool.
 * DXF imports edges/copper.
 
+* ~~toolTrace gets confused when trying to connect two lines without an intermediate click.~~ ??
 * ~~Highlighting nets across tabs are just fucked up.  They highlight pads they shouldn't, they're all over
   the place.  Fix them.~~
 * ~~Don't highlight net 0~~
