@@ -115,6 +115,8 @@
       var img_base = "img";
       g_imgcache = new imageCache();
       g_imgcache.add( "cursor", img_base + "/cursor_custom_base_s24.png" );
+      g_imgcache.add( "undo", img_base + "/undo_s24.png" );
+      g_imgcache.add( "redo", img_base + "/redo_s24.png" );
 
       //g_imgcache.add( "cursor:wire", img_base + "/cursor_custom_wire_s24.png" );
       g_imgcache.add( "cursor:wire", img_base + "/cursor_custom_wire_s24_2.png" );

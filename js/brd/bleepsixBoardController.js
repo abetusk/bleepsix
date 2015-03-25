@@ -725,6 +725,8 @@ bleepsixBoardController.prototype.redraw = function ()
     {
       this.guiToolbox.drawChildren();
       this.guiLayer.drawChildren();
+
+      this.guiUndoRedo.drawChildren();
     }
     this.guiGrid.drawChildren();
 
@@ -817,6 +819,11 @@ bleepsixBoardController.prototype.mouseLeave = function( x, y )
 bleepsixBoardController.prototype.resize = function( w, h, ev )
 {
   this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
+
+  var ur_x = g_painter.width - this.guiFootprintLibrary.width - this.guiUndoRedo.width;
+  var ur_y = g_painter.height - this.guiUndoRedo.height;
+  this.guiUndoRedo.move( ur_x, ur_y );
+
   g_painter.dirty_flag = true;
 
   this.width = w;
@@ -968,6 +975,12 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
       return;
     }
 
+    if (this.guiUndoRedo.hitTest(x,y))
+    {
+      this.guiUndoRedo.mouseDown(button, x, y);
+      return;
+    }
+
   }
 
   if (this.guiGrid.hitTest(x,y))
@@ -1020,6 +1033,12 @@ bleepsixBoardController.prototype.doubleClick = function( e )
     return;
   }
 
+  if (this.guiUndoRedo.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
+  {
+    this.guiUndoRedo.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y  );
+    return;
+  }
+
   if (typeof this.tool.doubleClick !== 'undefined' )
     this.tool.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y )
 }
@@ -1064,6 +1083,12 @@ bleepsixBoardController.prototype.mouseMove = function( x, y )
     if (this.guiLayer.hitTest(x,y))
     {
       this.guiLayer.mouseMove(x, y);
+      return;
+    }
+
+    if (this.guiUndoRedo.hitTest(x,y))
+    {
+      this.guiUndoRedo.mouseMove(x, y);
       return;
     }
 
@@ -1143,6 +1168,11 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
   this.guiFootprintLibrary = new guiFootprintLibrary( "library", userId, sessionId, projectId );
   this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
+
+  this.guiUndoRedo = new guiBoardUndoRedo( "undo-redo" );
+  this.guiUndoRedo.move( g_painter.width - this.guiFootprintLibrary.width - this.guiUndoRedo.width,
+                         g_painter.height - this.guiUndoRedo.height );
+
 
   var controller = this;
 

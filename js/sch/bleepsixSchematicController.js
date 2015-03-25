@@ -226,38 +226,23 @@ bleepsixSchematicController.prototype.opUndo = function ( )
     console.log("bleepsixSchematicController.opUndo: already at first element, can't undo any further");
   }
 
-  //DEBUG
-  this._opDebugPrint();
-
   this.schematicUpdate = true;
   g_painter.dirty_flag = true;
 }
 
 bleepsixSchematicController.prototype.opRedo = function ( )
 {
-  //this.op.opRedo();
 
   if ( this.opHistoryN < this.opHistory.length )
   {
 
     var ind = this.opHistoryN;
 
-    //DEBUG
-    console.log(">> redoing...");
-    console.log( ind, this.opHistory );
-    console.log( this.opHistory[ind] );
-
     var start_group_id = this.opHistory[ ind ].groupId ;
-
-    //DEBUG
-    console.log( start_group_id, this.opHistory[ind].groupId );
 
     while ( ( this.opHistoryN < this.opHistory.length ) &&
             ( this.opHistory[ ind ].groupId == start_group_id ) )
     {
-
-      //DEBUG
-      console.log( ">>>", start_group_id, this.opHistory[ind].groupId );
 
       var op = this.opHistory[ind];
 
@@ -270,7 +255,6 @@ bleepsixSchematicController.prototype.opRedo = function ( )
         {
           ops[i].inverseFlag = false;
           ops[i].replayFlag = true;
-          //this.op.opCommand( ops[i], false, true );
           this.op.opCommand( ops[i] );
         }
 
@@ -289,15 +273,9 @@ bleepsixSchematicController.prototype.opRedo = function ( )
       }
       else
       {
-
-        //DEBUG
-        console.log(">>normal redo op>>", op);
-
-        //this.opCommand( this.opHistory[ ind ], true, true );
         op.inverseFlag = false;
         op.replayFlag = true;
 
-        //this.op.opCommand( op, false, true );
         this.op.opCommand( op );
         if ( op.scope == "network" )
         {
@@ -308,16 +286,13 @@ bleepsixSchematicController.prototype.opRedo = function ( )
 
       this.opHistoryN++;
       ind = this.opHistoryN;
-
     }
 
   }
   else
   {
-    console.log("bleepsixSchematicController.opUndo: already at first element, can't undo any further");
+    console.log("bleepsixSchematicController.opRedo: already at last element, can't redo any further");
   }
-
-
 
   this.schematicUpdate = true;
   g_painter.dirty_flag = true;
@@ -660,6 +635,8 @@ bleepsixSchematicController.prototype.redraw = function ()
 
       this.guiToolbox.drawChildren();
       this.guiLibrary.drawChildren();
+
+      this.guiUndoRedo.drawChildren();
     }
 
     this.guiGrid.drawChildren();
@@ -756,6 +733,9 @@ bleepsixSchematicController.prototype.resize = function( w, h, ev )
 
   this.guiPalette.move( (g_painter.width - this.guiPalette.width)/4, 
                          g_painter.height - this.guiPalette.height );
+
+  this.guiUndoRedo.move( g_painter.width - this.guiLibrary.width - this.guiUndoRedo.width,
+                         g_painter.height - this.guiUndoRedo.height );
 
   g_painter.dirty_flag = true;
 
@@ -856,6 +836,12 @@ bleepsixSchematicController.prototype.mouseDown = function( button, x, y )
     if (this.guiToolbox.hitTest(x,y))
     {
       this.guiToolbox.mouseDown(button, x, y);
+      return;
+    }
+
+    if (this.guiUndoRedo.hitTest(x,y))
+    {
+      this.guiUndoRedo.mouseDown(button, x, y);
       return;
     }
 
@@ -960,6 +946,20 @@ bleepsixSchematicController.prototype.mouseMove = function( x, y )
       }
     }
 
+    if (this.guiUndoRedo.hitTest(x,y))
+    {
+
+      if (!this.guiUndoRedo.enter_flag) {
+        this.guiUndoRedo.mouseEnter(x,y);
+      }
+      this.guiUndoRedo.mouseMove(x, y);
+      return;
+    } else {
+      if (this.guiUndoRedo.enter_flag) {
+        this.guiUndoRedo.mouseLeave(x,y);
+      }
+    }
+
   }
 
   
@@ -1036,8 +1036,14 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   var sessionId = ( g_schnetwork ? g_schnetwork.sessionId : undefined );
   var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
   this.guiLibrary = new guiLibrary( "library", userId, sessionId, projectId );
-
   this.guiLibrary.move( g_painter.width - this.guiLibrary.width, 0);
+
+  this.guiUndoRedo = new guiUndoRedo( "undo-redo" );
+  var ur_x = g_painter.width - this.guiLibrary.width - this.guiUndoRedo.width;
+  var ur_y = g_painter.height - this.guiUndoRedo.width;
+  this.guiUndoRedo.move( ur_x, ur_y );
+
+
 
   var controller = this;
 
