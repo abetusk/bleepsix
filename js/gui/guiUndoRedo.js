@@ -24,7 +24,7 @@
 
 function guiUndoRedo( name, bgColor  ) 
 {
-  bgColor = ((typeof bgColor !== 'undefined') ? bgColor : "rgba(255,255,255,0.4)" );
+  bgColor = ((typeof bgColor !== 'undefined') ? bgColor : "rgba(0,0,0,0.25)" );
   this.constructor ( name )   
 
   this.bgColor = bgColor;
