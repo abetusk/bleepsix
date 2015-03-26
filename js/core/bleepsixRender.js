@@ -1387,20 +1387,24 @@ bleepsixRender.prototype.drawTextSimpleFont =
     undefined , undefined, undefined, font );
 }
 
-// rotate text angle_deg clockwise
+// Should we include a rotation angle?
 //
-bleepsixRender.prototype.drawImage = 
-  function( img, x, y, w, h )
+// a is alpha (default to 1.0)
+//
+bleepsixRender.prototype.drawImage = function( img, x, y, w, h, a )
 {
+  a = ( (typeof a === "undefined") ? 1.0 : a );
+
   var ctx = this.context;
   //var angle_radian = 0.0;
 
   //ctx.translate( x, y );
   //ctx.rotate( angle_radian );
 
-  //ctx.globalAlpha = 0.5;
+  var s_a = ctx.globalAlpha;
+  ctx.globalAlpha = a;
   ctx.drawImage( img, x, y, w, h );
-  //ctx.globalAlpha = 1.0;
+  ctx.globalAlpha = s_a;
 
   //ctx.rotate( -angle_radian );
   //ctx.translate( -x, -y );

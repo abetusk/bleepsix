@@ -32,8 +32,11 @@ function guiIcon( name )
   //this.bgColor = "rgba(" + this.uniq + ",0,0," + "0.2)";
   //this.bgColor = "rgba(0,0," + this.uniq +",0.7)";
   this.bgColor = "rgba(0," + this.uniq +",0,0.5)";
+  //this.bgColor = "rgba(0,0,0,0.2)";
   //this.fgColor = "rgb(0,0,0)";
   this.fgColor = "rgb(0,0,0)";
+
+  this.bgColorTT = this.bgColor;
 
   this.drawShape = null;
 }
@@ -88,9 +91,16 @@ guiIcon.prototype.draw = function()
     g_painter.drawRectangle( this.tooltip_x, this.tooltip_y,
                              this.tooltip_width, this.tooltip_height,
                              0, "rgba(128,128,128,0.5)",
-                             true, this.bgColor);
+                             true, this.bgColorTT);
     g_painter.drawText( this.tooltip_text, this.tooltip_x, this.tooltip_y,
                         this.fgColor, this.tooltip_font_size, 0, 'L', 'T');
+
+    var tx = this.tooltip_x;
+    var ty = this.tooltip_y;
+    var sz = this.tooltip_height;
+    var p = [ [ 0, sz/4], [ 0, 3*sz/4 ], [ -sz/2, sz/2] ];
+    g_painter.drawBarePolygon( p, tx, ty, this.bgColorTT );
+
   }
 
 

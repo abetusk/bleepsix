@@ -571,10 +571,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     var id = g_schematic_controller.schematic.pick( wx, wy );
     if ( id && (id["ref"]["type"] == "component") )
     {
-
-      //console.log("R id:");
-      //console.log(id);
-
       var op = { source: "sch", destination: "sch"  }
       op.action = "update";
       op.type = "componentRotate90";
@@ -590,10 +586,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     var id = g_schematic_controller.schematic.pick( wx, wy );
     if ( id && (id["ref"]["type"] == "component") )
     {
-
-      //console.log("E id:");
-      //console.log(id);
-
       var op = { source: "sch", destination : "sch" }
       op.action = "update";
       op.type = "componentRotate90";
@@ -680,7 +672,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
         {
 
           op.id.push( id_ref_ar[ind].id );
-          //op.data.element.push( { type: "connection", x: ref.x, y: ref.y } );
           var clonedData = {};
           $.extend( true, clonedData, id_ref_ar[ind].ref );
           op.data.element.push( clonedData );
@@ -701,10 +692,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
           var clonedData = {};
           $.extend(true, clonedData, ref );
           op.data.element.push( clonedData );
-
-          //console.log("pushing ref for removal:");
-          //console.log(ref);
-
           g_schematic_controller.opCommand( op );
 
           return true;

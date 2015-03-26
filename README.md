@@ -13,3 +13,6 @@ All other non source file content not explicitely covered by a
 previously stated license is under CC-BY-SA.
 
 
+`img/undo_s24.png` and `img/redo_s24.png` taken from Ionicons (http://ionicons.com).
+Other icons provided by Font Awesome (http://fortawesome.github.io/Font-Awesome/).
+

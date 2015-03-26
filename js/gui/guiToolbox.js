@@ -129,12 +129,55 @@ function guiToolbox( name )
 
   cur_y += lab.height;
 
+  // Rotate
+  //
+  var rot  = new guiDropIcon( this.name + ":droprotate", this.iconWidth , this.iconWidth );
+  rot.addIcon( this.name + ":rot_ccw", 
+      (function(xx) { return function() { xx._draw_rotccw_icon(); }; })(this),
+      " rotate counterclocwise (R)"
+      );
+  rot.addIcon( this.name + ":rot_cw", 
+      (function(xx) { return function() { xx._draw_rotcw_icon(); }; })(this),
+      " rotate clockwise (E)"
+      );
+
+  rot.tooltip_text = " rotate counterclockwise (R)";
+  rot.tooltip_flag = true;
+  rot.tooltip_width = rot.tooltip_text.length * rot.tooltip_font_size/1.6;
+
+  rot.move(0, cur_y);
+
+  this.dropRotate = rot;
+  this.addChild( rot );
+
+  cur_y += lab.height;
+
+
+  // Delete
+  //
+  var deldel = new guiIcon( name + ":delete" );
+  deldel.init( 0, cur_y, sz, sz);
+  deldel.drawShape = (function(xx) { return function() { xx._draw_delete_icon(); }; })(this);
+  deldel.bgColor = "rgba(0,0,0, 0.0)";
+  deldel.bgColorTT = "rgba(0,0,0, 0.2)";
+
+  deldel.tooltip_text = " delete (D)";
+  deldel.tooltip_flag = true;
+  deldel.tooltip_width = deldel.tooltip_text.length * deldel.tooltip_font_size/1.6;
+
+  this.iconDelete = deldel;
+  this.addChild( deldel );
+
+  cur_y += deldel.height;
+
   // Help
   //
   var help = new guiIcon( name + ":help" );
   help.init( 0, cur_y, sz, sz);
   help.drawShape = (function(xx) { return function() { xx._draw_help_icon(); }; })(this);
   help.bgColor = "rgba(0,0,0, 0.0)";
+
+  this.iconHelp = help;
   this.addChild( help );
 
   cur_y += help.height;
@@ -143,6 +186,9 @@ function guiToolbox( name )
   this.dropWire.selected = false;
   this.dropConn.selected = false;
   this.dropLabel.selected = false;
+  this.dropRotate.selected = false;
+  this.iconDelete.selected = false;
+  this.iconHelp.selected = false;
 }
 guiToolbox.inherits ( guiRegion );
 
@@ -259,6 +305,35 @@ guiToolbox.prototype._draw_label_icon = function()
 
 }
 
+guiToolbox.prototype._draw_rotccw_icon = function()
+{
+  var sz = 10;
+  var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
+
+  var r = parseInt(8 * this.iconWidth /10);
+  g_imgcache.draw( "rotate_ccw", 3, 1, r, r, 0.6);
+}
+
+guiToolbox.prototype._draw_rotcw_icon = function()
+{
+  var sz = 10;
+  var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
+
+  var r = parseInt(8 * this.iconWidth /10);
+  g_imgcache.draw( "rotate_cw", 3, 1, r, r, 0.6);
+}
+
+guiToolbox.prototype._draw_delete_icon = function()
+{
+  var sz = 10;
+  var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
+
+  var r = parseInt(8 * this.iconWidth /10);
+  g_imgcache.draw( "trash", 3, 1, r, r, 0.6);
+
+  g_painter.drawRectangle( 0, 0, this.iconWidth, this.iconWidth, 0, "rgb(0,0,0)", true, "rgba(0,0,0,0.2)");
+}
+
 guiToolbox.prototype._draw_help_icon = function()
 {
   var mx = this.iconWidth/2, my = this.iconWidth/2;
@@ -275,6 +350,23 @@ guiToolbox.prototype.defaultSelect = function()
   this.dropWire.selected = false;
   this.dropConn.selected = false;
   this.dropLabel.selected = false;
+  this.dropRotate.selected = false;
+  this.iconDelete.selected = false;
+  this.iconHelp.selected = false;
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+}
+
+guiToolbox.prototype.deleteSelect = function()
+{
+  this.iconNav.selected = false;
+  this.dropWire.selected = false;
+  this.dropConn.selected = false;
+  this.dropLabel.selected = false;
+  this.dropRotate.selected = false;
+  this.iconDelete.selected = true;
+  this.iconHelp.selected = false;
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
@@ -286,6 +378,10 @@ guiToolbox.prototype.wireSelect = function()
   this.dropWire.selected = true;
   this.dropConn.selected = false;
   this.dropLabel.selected = false;
+  this.dropRotate.selected = false;
+  this.iconDelete.selected = false;
+  this.iconHelp.selected = false;
+
 
   var ele = document.getElementById("canvas");
   ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
@@ -360,6 +456,7 @@ guiToolbox.prototype._handleWireEvent = function(ev)
   //this.iconConnTab.visible = true;
   this.dropConn.iconTab.visible = true;
   this.dropLabel.iconTab.visible = true;
+  this.dropRotate.iconTab.visible = true;
 
   if (ev.owner == this.name + ":wire")
   {
@@ -371,6 +468,10 @@ guiToolbox.prototype._handleWireEvent = function(ev)
     this.dropConn.selected = false;
     this.iconNav.selected = false;
     this.dropLabel.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
 
     g_painter.dirty_flag = true;
@@ -388,6 +489,7 @@ guiToolbox.prototype._handleConnEvent = function(ev)
 {
 
   this.dropLabel.iconTab.visible = true;
+  this.dropRotate.iconTab.visible = true;
 
   if (ev.owner == this.name + ":conn")
   {
@@ -398,6 +500,10 @@ guiToolbox.prototype._handleConnEvent = function(ev)
     this.dropWire.selected = false;
     this.iconNav.selected = false;
     this.dropLabel.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
     g_painter.dirty_flag = true;
   }
@@ -410,6 +516,10 @@ guiToolbox.prototype._handleConnEvent = function(ev)
     this.dropWire.selected = false;
     this.iconNav.selected = false;
     this.dropLabel.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
     g_painter.dirty_flag = true;
 
@@ -419,6 +529,8 @@ guiToolbox.prototype._handleConnEvent = function(ev)
 
 guiToolbox.prototype._handleLabelEvent = function(ev)
 {
+  this.dropRotate.iconTab.visible = true;
+
   if (ev.owner == this.name + ":label")
   {
     g_schematic_controller.tool = new toolLabel(0, 0, "label", false);
@@ -428,8 +540,41 @@ guiToolbox.prototype._handleLabelEvent = function(ev)
     this.dropConn.selected = false;
     this.dropWire.selected = false;
     this.iconNav.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
     g_painter.dirty_flag = true;
+  }
+
+}
+
+guiToolbox.prototype._handleRotateEvent = function(ev)
+{
+
+  if ( (ev.owner != this.name + ":rot_ccw") &&
+       (ev.owner != this.name + ":rot_cw") )
+    return;
+
+  this.dropRotate.selected = true;
+
+  this.dropConn.selected = false;
+  this.dropWire.selected = false;
+  this.iconNav.selected = false;
+  this.dropLabel.selected = false;
+  this.iconDelete.selected = false;
+  this.iconHelp.selected = false;
+
+  g_painter.dirty_flag = true;
+
+  if (ev.owner == this.name + ":rot_ccw")
+  {
+    g_schematic_controller.tool = new toolRotate(0, 0, "ccw");
+  }
+  else if (ev.owner == this.name + ":rot_cw")
+  {
+    g_schematic_controller.tool = new toolRotate(0, 0, "cw");
   }
 
 }
@@ -437,6 +582,7 @@ guiToolbox.prototype._handleLabelEvent = function(ev)
 
 guiToolbox.prototype._eventMouseDown = function( ev )
 {
+
   if (ev.owner == this.name + ":nav")
   {
     var ele = document.getElementById("canvas");
@@ -450,6 +596,10 @@ guiToolbox.prototype._eventMouseDown = function( ev )
     this.dropConn.selected = false;
     this.dropWire.selected = false;
     this.dropLabel.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
     g_painter.dirty_flag = true;
 
@@ -469,17 +619,24 @@ guiToolbox.prototype._eventMouseDown = function( ev )
     this._handleLabelEvent(ev);
   }
 
+  else if ( ev.owner.match(/:(rot_ccw|rot_cw)$/) )
+  {
+    this._handleRotateEvent(ev);
+  }
+
   else if (ev.owner == this.name + ":dropwire:tab")
   {
     if ( this.dropWire.showDropdown )
     {
       this.dropConn.contractSlim();
       this.dropLabel.contractSlim();
+      this.dropRotate.contractSlim();
     }
     else
     {
       this.dropConn.contract();
       this.dropLabel.contract();
+      this.dropRotate.contract();
     }
 
   }
@@ -487,17 +644,66 @@ guiToolbox.prototype._eventMouseDown = function( ev )
   else if (ev.owner == this.name + ":dropconn:tab")
   {
     if ( this.dropConn.showDropdown )
+    {
       this.dropLabel.contractSlim();
+      this.dropRotate.contractSlim();
+    }
     else
+    {
       this.dropLabel.contract();
+      this.dropRotate.contract();
+    }
 
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":droplabel:tab")
+  {
+    if ( this.dropLabel.showDropdown )
+    {
+      this.dropRotate.contractSlim();
+    }
+    else
+    {
+      this.dropRotate.contract();
+    }
+
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":droprotate:tab")
+  {
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":delete")
+  {
+    this.iconDelete.selected = true;
+
+    this.dropWire.selected = false;
+    this.dropConn.selected = false;
+    this.iconNav.selected = false;
+    this.dropLabel.selected = false;
+    this.dropRotate.selected = false;
+    this.iconHelp.selected = false;
+
+    g_schematic_controller.tool = new toolDelete();
     g_painter.dirty_flag = true;
   }
 
   else if (ev.owner == this.name + ":help")
   {
+    this.iconHelp.selected = true;
+
+    this.dropWire.selected = false;
+    this.dropConn.selected = false;
+    this.iconNav.selected = false;
+    this.dropLabel.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+
     g_schematic_controller.tool = new toolHelp();
-    console.log("help");
+    g_painter.dirty_flag = true;
   }
 
 }

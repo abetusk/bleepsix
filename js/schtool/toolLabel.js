@@ -25,8 +25,6 @@
 
 function toolLabel( x, y, type, initialPlaceFlag, initialName )
 {
-  console.log("toolLabel");
-
   x = ( typeof x !== 'undefined' ? x : 0 );
   y = ( typeof y !== 'undefined' ? y : 0 );
   type = ( typeof type !== 'undefined' ? type : 'label' );
@@ -179,8 +177,6 @@ toolLabel.prototype.dist1 = function( xy0, xy1 )
 //toolLabel.prototype._addLabelType = function( type, x, y ) 
 toolLabel.prototype._addLabel = function()
 {
-  console.log("toolLabel._addLabelType");
-
   var op = { source: "sch", destination: "sch" };
   op.action = "add";
   op.type = this.label.type;
@@ -195,7 +191,6 @@ toolLabel.prototype._addLabel = function()
 
 toolLabel.prototype._handoff = function()
 {
-  console.log("handing back to toolNav");
   g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
   g_schematic_controller.guiToolbox.defaultSelect();
 
@@ -385,16 +380,6 @@ toolLabel.prototype.keyDown = function( keycode, ch, ev )
   {
     this._handoff( );
     return;
-    /*
-    console.log("handing back to toolNav");
-    g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
-    g_schematic_controller.guiToolbox.defaultSelect();
-
-    var ele = document.getElementById("canvas");
-    ele.style.cursor = "auto";
-
-    g_painter.dirty_flag = true;
-    */
   }
 
   if (this.state == "positionChoose")
@@ -434,16 +419,12 @@ toolLabel.prototype.keyDown = function( keycode, ch, ev )
 
     else if (keycode == 32) // SPACE
     {
-      //DEBUG
-      console.log("SPACE");
       pass_key = false;
       g_schematic_controller.schematic.updateLabelBoundingBox( this.label );
     }
 
     else if (keycode == 13) // ESC
     {
-      //DEBUG
-      console.log("...");
     }
 
     else if ( (keycode == 37)  ||   // left arrow
@@ -480,9 +461,6 @@ toolLabel.prototype._clamp_add_edit_pos = function( ds )
 
 //-----------------------------
 
-toolLabel.prototype.keyUp = function( keycode, ch, ev )
-{
-  console.log("toolLabel keyUp: " + keycode + " " + ch );
-}
+toolLabel.prototype.keyUp = function( keycode, ch, ev ) { }
 
 

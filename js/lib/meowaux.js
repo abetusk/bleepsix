@@ -348,7 +348,7 @@ imageCache.prototype.remove = function( name )
   }
 }
 
-imageCache.prototype.draw = function( name, x, y, w, h )
+imageCache.prototype.draw = function( name, x, y, w, h, a )
 {
   if (!(name in this.image))
   {
@@ -363,7 +363,7 @@ imageCache.prototype.draw = function( name, x, y, w, h )
   }
 
   var img = this.image[name].image;
-  g_painter.drawImage( img, x, y, w, h );
+  g_painter.drawImage( img, x, y, w, h, a );
 
 }
 

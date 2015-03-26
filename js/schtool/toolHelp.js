@@ -116,6 +116,11 @@ toolHelp.prototype.drawOverlay = function()
 toolHelp.prototype.mouseDown = function( button, x, y ) 
 {
   g_schematic_controller.tool = new toolNav();
+  g_schematic_controller.guiToolbox.defaultSelect();
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
   g_painter.dirty_flag=true;
   return true;
 }
@@ -132,6 +137,11 @@ toolHelp.prototype.mouseMove = function( x, y ) { g_painter.dirty_flag=true; }
 toolHelp.prototype.keyDown = function( keycode, ch, ev )
 {
   g_schematic_controller.tool = new toolNav();
+  g_schematic_controller.guiToolbox.defaultSelect();
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
   return true;
 }
 
