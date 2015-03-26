@@ -46,6 +46,7 @@ function guiRegion( name )
   this.tooltip_width = 100;
   this.tooltip_height = 15;
   this.tooltip_font_size = this.tooltip_height;
+  this.bgColorTT = this.bgColorTT;
 
 
   this.transform       = [ [ 1, 0, 0], [0, 1, 0], [0, 0, 1] ];
@@ -131,13 +132,14 @@ guiRegion.prototype.draw = function()
     g_painter.drawRectange( this.tooltip_x, this.tooltip_y,
                             this.tooltip_width, this.tooltip_height,
                             0, "rgba(128,128,128,0.5)",
-                            true, this.bgColor);
+                            true, this.bgColorTT);
     var tx = this.tooltip_x;
     var ty = this.tooltip_y;
     var sz = this.tooltip_height;
     var p = [ [ 0, 0], [ 0, sz/2 ], [ -sz/2, 0] ];
-    g_painter.drawBarePolygon( p, tx, ty, this.bgColor );
+    g_painter.drawBarePolygon( p, tx, ty, this.bgColorTT );
   }
+
 }
 
 guiRegion.prototype.drawChildren = function()

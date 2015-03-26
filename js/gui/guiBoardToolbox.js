@@ -137,6 +137,49 @@ function guiBoardToolbox( name, bgColor  )
   cur_y += t.height;
   */
 
+
+  // Rotate
+  //
+  var rot = new guiDropIcon( this.name + ":droprotate", this.iconWidth , this.iconWidth );
+  rot.bgColor = bgColor;
+  rot.fgColor = "rgb(255,255,255)";
+  rot.divColor = "rgba(255,255,255,0.2)";
+  rot.addIcon( this.name + ":rot_ccw", 
+      (function(s) { return function() { s._draw_rot_ccw_icon(); }; })(this),
+      " rotate counterclockwise (R)" );
+  rot.addIcon( this.name + ":rot_cw", 
+      (function(s) { return function() { s._draw_rot_cw_icon(); }; })(this),
+      " rotate clockwise (E)" );
+
+  rot.move(0, cur_y);
+  rot.tooltip_text = " rotate counterclockwise (R) ";
+  rot.tooltip_flag = true;
+  rot.tooltip_width = rot.tooltip_text.length * rot.tooltip_font_size/1.6;
+
+
+  this.dropRotate = rot;
+  this.addChild( rot );
+
+  cur_y += rot.height;
+
+  // Delete
+  //
+  var deldel = new guiIcon( name + ":delete" );
+  deldel.init( 0, cur_y, sz, sz);
+  deldel.drawShape = _draw_delete_icon;
+  deldel.bgColor = bgColor;
+  deldel.fgColor = "rgb(255,255,255)";
+
+  deldel.bgColorTT = bgColor;
+  deldel.tooltip_text = " delete (D) ";
+  deldel.tooltip_flag = true;
+  deldel.tooltip_width = deldel.tooltip_text.length * deldel.tooltip_font_size/1.6;
+
+  this.iconDelete = deldel;
+  this.addChild( deldel );
+
+  cur_y += deldel.height;
+
   // Help
   //
   var help = new guiIcon( name + ":help" );
@@ -144,6 +187,8 @@ function guiBoardToolbox( name, bgColor  )
   help.drawShape = _draw_help_icon;
   help.bgColor = bgColor;
   help.fgColor = "rgb(255,255,255)";
+
+  this.iconHelp = help;
   this.addChild( help );
 
   cur_y += help.height;
@@ -191,6 +236,16 @@ function _draw_nav_icon()
 
   var r = parseInt(8 * __icon_width /10);
   g_imgcache.draw( "cursor", 3, 1, r, r );
+
+}
+
+function _draw_delete_icon()
+{
+  var sz = 10;
+  var sx = __icon_width/2-sz/2, sy = __icon_width/2-sz/2;
+
+  var r = parseInt(8 * __icon_width /10);
+  g_imgcache.draw( "delete", 3, 1, r, r );
 
 }
 
@@ -298,6 +353,24 @@ guiBoardToolbox.prototype._draw_edge_icon = function()
   g_painter.line( mx+dx, my-dy, mx-dx, my+dy, color, width );
 }
 
+guiBoardToolbox.prototype._draw_rot_ccw_icon = function()
+{
+  var sz = 10;
+  var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
+
+  var r = parseInt(8 * this.iconWidth /10);
+  g_imgcache.draw( "rotate_ccw", 3, 1, r, r );
+}
+
+guiBoardToolbox.prototype._draw_rot_cw_icon = function()
+{
+  var sz = 10;
+  var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
+
+  var r = parseInt(8 * this.iconWidth /10);
+  g_imgcache.draw( "rotate_cw", 3, 1, r, r );
+}
+
 function _draw_box_icon()
 {
   var mx = __icon_width/2, my = __icon_width/2;
@@ -402,19 +475,29 @@ function _draw_inroundedbox_icon()
 
 guiBoardToolbox.prototype.defaultSelect = function()
 {
+  this.iconHelp.selected = false;
+  this.iconDelete.selected = false;
+  this.dropRotate.selected = false;
   this.dropEdge.selected = false;
   this.dropTrace.selected = false;
   this.dropZone.selected = false;
   this.dropText.selected = false;
+
   this.iconNav.selected = true;
+
   var ele = document.getElementById("canvas");
   ele.style.cursor = "auto";
 }
 
 guiBoardToolbox.prototype.traceSelect = function()
 {
+  this.iconHelp.selected = false;
+  this.iconDelete.selected = false;
+  this.dropRotate.selected = false;
   this.dropEdge.selected = false;
+
   this.dropTrace.selected = true;
+
   this.dropZone.selected = false;
   this.dropText.selected = false;
   this.iconNav.selected = false;
@@ -425,7 +508,12 @@ guiBoardToolbox.prototype.traceSelect = function()
 
 guiBoardToolbox.prototype.edgeSelect = function()
 {
+  this.iconHelp.selected = false;
+  this.iconDelete.selected = false;
+  this.dropRotate.selected = false;
+
   this.dropEdge.selected = true;
+
   this.dropTrace.selected = false;
   this.dropZone.selected = false;
   this.dropText.selected = false;
@@ -482,6 +570,10 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
     this.dropZone.selected = false;
     this.dropEdge.selected = false;
     this.dropText.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
     g_painter.dirty_flag = true;
 
   }
@@ -501,6 +593,10 @@ guiBoardToolbox.prototype._handleZoneEvent = function(ev)
     this.dropZone.selected = true;
     this.dropEdge.selected = false;
     this.dropText.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
     g_painter.dirty_flag = true;
   }
@@ -553,6 +649,10 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
     this.dropZone.selected = false;
     this.dropEdge.selected = true;
     this.dropText.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
     g_painter.dirty_flag = true;
   }
 
@@ -602,6 +702,10 @@ guiBoardToolbox.prototype._handleTextEvent = function(ev)
     this.dropZone.selected = false;
     this.dropEdge.selected = false;
     this.dropText.selected = true;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
     g_painter.dirty_flag = true;
   }
 
@@ -623,6 +727,10 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.dropEdge.selected = false;
     this.dropTrace.selected = false;
     this.dropZone.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
 
     g_painter.dirty_flag = true;
 
@@ -638,12 +746,14 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
       this.dropEdge.contractSlim();
       this.dropZone.contractSlim();
       this.dropText.contractSlim();
+      this.dropRotate.contractSlim();
     }
     else
     {
       this.dropEdge.contract();
       this.dropZone.contract();
       this.dropText.contract();
+      this.dropRotate.contract();
     }
 
   }
@@ -657,11 +767,13 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     {
       this.dropEdge.contractSlim();
       this.dropText.contractSlim();
+      this.dropRotate.contractSlim();
     }
     else
     {
       this.dropEdge.contract();
       this.dropText.contract();
+      this.dropRotate.contract();
     }
   }
 
@@ -671,8 +783,15 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
     this.dropTrace.contract();
     this.dropZone.contract();
-    if (this.dropEdge.showDropdown) { this.dropText.contractSlim(); }
-    else { this.dropText.contract(); }
+    if (this.dropEdge.showDropdown)
+    {
+      this.dropText.contractSlim();
+      this.dropRotate.contractSlim();
+    }
+    else {
+      this.dropText.contract();
+      this.dropRotate.contract();
+    }
 
   }
 
@@ -683,6 +802,7 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.dropTrace.contract();
     this.dropEdge.contract();
     this.dropZone.contract();
+    this.dropRotate.contract();
 
   }
 
@@ -693,12 +813,14 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
       this.dropEdge.contractSlim();
       this.dropZone.contractSlim();
       this.dropText.contractSlim();
+      this.dropRotate.contractSlim();
     }
     else
     {
       this.dropEdge.contract();
       this.dropZone.contract();
       this.dropText.contract();
+      this.dropRotate.contract();
     }
 
   }
@@ -711,11 +833,13 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     {
       this.dropEdge.contractSlim();
       this.dropText.contractSlim();
+      this.dropRotate.contractSlim();
     }
     else
     {
       this.dropEdge.contract();
       this.dropText.contract();
+      this.dropRotate.contract();
     }
 
     g_painter.dirty_flag = true;
@@ -730,10 +854,12 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     if (this.dropEdge.showDropdown)
     {
       this.dropText.contractSlim();
+      this.dropRotate.contractSlim();
     }
     else
     {
       this.dropText.contract();
+      this.dropRotate.contract();
     }
 
     g_painter.dirty_flag = true;
@@ -744,6 +870,16 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.dropTrace.contract();
     this.dropEdge.contract();
     this.dropZone.contract();
+    this.dropRotate.contract();
+
+    if (this.dropText.showDropdown)
+    {
+      this.dropRotate.contractSlim();
+    }
+    else
+    {
+      this.dropRotate.contract();
+    }
 
     g_painter.dirty_flag = true;
   }
@@ -785,9 +921,4 @@ guiBoardToolbox.prototype.handleEvent = function(ev)
 
 }
 
-guiBoardToolbox.prototype.draw = function()
-{
-
-}
-
-
+guiBoardToolbox.prototype.draw = function() { }

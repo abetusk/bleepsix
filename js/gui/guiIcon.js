@@ -100,9 +100,7 @@ guiIcon.prototype.draw = function()
     var sz = this.tooltip_height;
     var p = [ [ 0, sz/4], [ 0, 3*sz/4 ], [ -sz/2, sz/2] ];
     g_painter.drawBarePolygon( p, tx, ty, this.bgColorTT );
-
   }
-
 
   if (this.drawShape)
     this.drawShape();
