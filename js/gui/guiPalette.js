@@ -54,7 +54,9 @@ function guiPalette( name )
     {  "name" :  "CRYSTAL" , "location" : "eeschema/json/device/CRYSTAL.json" },  
     {  "name" :  "NPN" , "location" : "eeschema/json/device/NPN.json" },  
     {  "name" :  "PNP" , "location" : "eeschema/json/device/PNP.json" },  
-    {  "name" :  "DIODE" , "location" : "eeschema/json/device/DIODE.json" }
+    {  "name" :  "DIODE" , "location" : "eeschema/json/device/DIODE.json" },
+    {  "name" :  "MOS_N" , "location" : "eeschema/json/device/MOS_N.json" },
+    {  "name" :  "MOS_P" , "location" : "eeschema/json/device/MOS_P.json" }
   ] ;
 
   //this.default_power_list = [ "PWR_FLAG", "VCC", "GND", "PWR_FLAG" ];
