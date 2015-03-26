@@ -217,6 +217,8 @@ guiLibrary.prototype.listPick = function(list_ele)
     var projectId = ( g_schnetwork ? g_schnetwork.projectId : undefined );
     load_component_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
 
+    g_painter.dirty_flag=true;
+
 
     this.guiChildren[1].component_name = list_ele.name;
     this.guiChildren[1].refresh();
