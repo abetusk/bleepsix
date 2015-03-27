@@ -192,25 +192,26 @@ bleepsixRender.prototype.drawGrid = function()
 	if ( y_start > y_stop ) { t = start; y_start = y_stop; y_stop = t; } 
 	
 	if ( this.gridMode == 1 ) {
+
 		// Dots		
+    //
 		ctx.lineWidth = 1.0;
 		rect_l = 15.0 / (10.0 * this.zoom) ;
 		rect_c = rect_l / 2.0;
-		ctx.fillStyle = "#808080";
+		ctx.fillStyle = "rgba(0,0,0,0.3)";
 		ctx.beginPath ();
 		for (var x = x_start; x < x_stop; x += gridstep ) {
 		  for (var y = y_start; y < y_stop; y+= gridstep) {
-			ctx.fillRect( x - rect_c, y - rect_c , rect_l, rect_l);
+        ctx.fillRect( x - rect_c, y - rect_c , rect_l, rect_l);
 		  }
 		} 
 		ctx.stroke ();
 	}
 	if ( this.gridMode == 2 ) {
-		// Lines
 
+		// Lines
+    //
     ctx.lineWidth = 4.0 / (10.0 * this.zoom);
-		//ctx.strokeStyle = "#808080";
-		//ctx.strokeStyle = "rgba(128,128,128,0.3)";
 		ctx.strokeStyle = "rgba(128,128,128,0.5)";
 		ctx.beginPath();
 		for (var x=x_start; x < x_stop; x += gridstep ) {
@@ -224,6 +225,7 @@ bleepsixRender.prototype.drawGrid = function()
     ctx.lineJoin = "round";
 		ctx.stroke();
 	}
+
 }
 
 bleepsixRender.prototype.startDraw = function()
