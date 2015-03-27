@@ -1152,6 +1152,17 @@ toolBoardMove.prototype.mouseMove = function( x, y )
 
 }
 
+toolBoardMove.prototype.cleanup = function()
+{
+  for (var ind in this.origElements)
+  {
+    this.origElements[ind].ref.hideFlag = false;
+  }
+
+  this.shutdown = true;
+  g_painter.dirty_flag = true;
+}
+
 toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
 {
 

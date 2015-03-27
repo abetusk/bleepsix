@@ -444,6 +444,18 @@ toolMove.prototype.mouseMove = function( x, y )
 
 }
 
+toolMove.prototype.cleanup = function()
+{
+
+  // make original elements visible again
+  //
+  for ( var ind in this.origElements )
+  {
+    this.origElements[ind].ref.hideFlag = false;
+  }
+
+}
+
 toolMove.prototype.keyDown = function( keycode, ch, ev )
 {
 

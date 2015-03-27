@@ -538,6 +538,7 @@ guiBoardToolbox.prototype.hitTest = function(x, y)
 guiBoardToolbox.prototype._handleTraceEvent = function(ev)
 {
   var handoff = true;
+  var oldtool = g_board_controller.tool;
 
   if (ev.owner == this.name + ":trace")
   {
@@ -556,6 +557,8 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
 
   if (handoff)
   {
+    if ("cleanup" in oldtool) oldtool.cleanup();
+
     this.iconNav.selected = false;
     this.dropTrace.selected = true;
     this.dropZone.selected = false;
@@ -578,6 +581,9 @@ guiBoardToolbox.prototype._handleZoneEvent = function(ev)
 
   if (ev.owner == this.name + ":zone")
   {
+    if ("cleanup" in g_board_controller.tool)
+      g_board_controller.tool.cleanup();
+
     g_board_controller.tool = new toolBoardZone( 0, 0, false );
 
     this.iconNav.selected = false;
@@ -597,6 +603,8 @@ guiBoardToolbox.prototype._handleZoneEvent = function(ev)
 guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
 {
   var handoff = true;
+  var oldtool = g_board_controller.tool;
+
   if (ev.owner == this.name + ":edge")
   {
     g_board_controller.tool = new toolEdge( 0, 0, false );
@@ -634,6 +642,9 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
 
   if (handoff)
   {
+
+    if ("cleanup" in oldtool) oldtool.cleanup();
+
     this.iconNav.selected = false;
     this.dropTrace.selected = false;
     this.dropZone.selected = false;
@@ -709,6 +720,9 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
 
+
+    if ("cleanup" in g_board_controller.tool)
+      g_board_controller.tool.cleanup();
 
     g_board_controller.tool = new toolBoardNav();
 
@@ -808,8 +822,10 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.iconHelp.selected = false;
 
     if (ev.owner == this.name + ":rot_ccw") {
+      if ("cleanup" in g_board_controller.tool) g_board_controller.tool.cleanup();
       g_board_controller.tool = new toolBoardRotate( undefined, undefined, "ccw");
     } else if (ev.owner == this.name + ":rot_cw") {
+      if ("cleanup" in g_board_controller.tool) g_board_controller.tool.cleanup();
       g_board_controller.tool = new toolBoardRotate( undefined, undefined, "cw");
     }
     g_painter.dirty_flag = true;
@@ -826,6 +842,7 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.iconDelete.selected = true;
     this.iconHelp.selected = false;
 
+    if ("cleanup" in g_board_controller.tool) g_board_controller.tool.cleanup();
     g_board_controller.tool = new toolBoardDelete();
     g_painter.dirty_flag = true;
   }
@@ -841,7 +858,7 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
     this.iconDelete.selected = false;
     this.iconHelp.selected = true;
 
-    g_painter.dirty_flag = true;
+    if ("cleanup" in g_board_controller.tool) g_board_controller.tool.cleanup();
     g_board_controller.tool = new toolBoardHelp();
     g_painter.dirty_flag = true;
   }

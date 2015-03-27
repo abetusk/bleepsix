@@ -460,6 +460,8 @@ guiToolbox.prototype._handleWireEvent = function(ev)
 
   if (ev.owner == this.name + ":wire")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
 
     g_schematic_controller.tool = new toolWire(0, 0, false);
 
@@ -493,6 +495,9 @@ guiToolbox.prototype._handleConnEvent = function(ev)
 
   if (ev.owner == this.name + ":conn")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolConn(0, 0, "connection");
 
     this.dropConn.selected = true;
@@ -509,6 +514,9 @@ guiToolbox.prototype._handleConnEvent = function(ev)
   }
   else if (ev.owner == this.name + ":noconn")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolConn(0, 0, "noconn");
 
     this.dropConn.selected = true;
@@ -533,6 +541,9 @@ guiToolbox.prototype._handleLabelEvent = function(ev)
 
   if (ev.owner == this.name + ":label")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolLabel(0, 0, "label", false);
 
     this.dropLabel.selected = true;
@@ -570,10 +581,16 @@ guiToolbox.prototype._handleRotateEvent = function(ev)
 
   if (ev.owner == this.name + ":rot_ccw")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolRotate(0, 0, "ccw");
   }
   else if (ev.owner == this.name + ":rot_cw")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolRotate(0, 0, "cw");
   }
 
@@ -588,6 +605,8 @@ guiToolbox.prototype._eventMouseDown = function( ev )
     var ele = document.getElementById("canvas");
     ele.style.cursor = "auto";
 
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
 
     g_schematic_controller.tool = new toolNav();
 
@@ -687,6 +706,9 @@ guiToolbox.prototype._eventMouseDown = function( ev )
     this.dropRotate.selected = false;
     this.iconHelp.selected = false;
 
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolDelete();
     g_painter.dirty_flag = true;
   }
@@ -702,6 +724,9 @@ guiToolbox.prototype._eventMouseDown = function( ev )
     this.dropRotate.selected = false;
     this.iconDelete.selected = false;
 
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolHelp();
     g_painter.dirty_flag = true;
   }
@@ -712,11 +737,17 @@ guiToolbox.prototype._eventDoubleClick = function( ev )
 {
   if (ev.owner == this.name + ":conn")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolConn( 0, 0, "connection", "persist");
     return;
   }
   else if (ev.owner == this.name + ":noconn")
   {
+    if ("cleanup" in g_schematic_controller.tool)
+      g_schematic_controller.tool.cleanup();
+
     g_schematic_controller.tool = new toolConn( 0, 0, "noconn", "persist");
     return;
   }
