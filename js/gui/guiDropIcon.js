@@ -340,6 +340,7 @@ guiDropIcon.prototype.draw = function()
                            //true, this.bgColor );
 
   if (this.tooltip_display) {
+    this.tooltip_width = this.tooltip_text.length * this.tooltip_font_size/1.6;
     g_painter.drawRectangle( this.tooltip_x, this.tooltip_y,
                              this.tooltip_width, this.tooltip_height,
                              0, "rgba(128,128,128,0.5)",
