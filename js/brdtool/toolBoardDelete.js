@@ -95,15 +95,17 @@ toolBoardDelete.prototype.mouseDown = function( button, x, y )
     var wy = wc["y"];
 
     var id_ref_orig = g_board_controller.board.pick( wx, wy );
-    if (id_ref_org) {
+    if (id_ref_orig) {
 
       var id_ref = simplecopy( id_ref_orig );
+      var group_id = String(guid());
 
       var op = { source: "brd", destination: "brd" };
       op.action = "delete";
       op.type = "group";
       op.id = [ id_ref.id ];
       op.data = { element: [ id_ref.ref ] };
+      op.groupId = group_id;
       g_board_controller.opCommand( op );
 
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
@@ -156,11 +158,6 @@ toolBoardDelete.prototype.mouseMove = function( x, y )
 
   if ( ! this.mouse_drag_flag ) 
   {
-
-    this.end_point.x = this.mouse_world_xy["x"];
-    this.end_point.y = this.mouse_world_xy["y"];
-    g_painter.dirty_flag = true;
-
   }
 
 }

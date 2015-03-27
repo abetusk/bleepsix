@@ -155,11 +155,6 @@ toolBoardRotate.prototype.mouseMove = function( x, y )
 
   if ( ! this.mouse_drag_flag ) 
   {
-
-    this.end_point.x = this.mouse_world_xy["x"];
-    this.end_point.y = this.mouse_world_xy["y"];
-    g_painter.dirty_flag = true;
-
   }
 
 }

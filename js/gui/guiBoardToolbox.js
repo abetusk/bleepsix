@@ -245,20 +245,12 @@ function _draw_delete_icon()
   var sx = __icon_width/2-sz/2, sy = __icon_width/2-sz/2;
 
   var r = parseInt(8 * __icon_width /10);
-  g_imgcache.draw( "delete", 3, 1, r, r );
+  g_imgcache.draw( "delete", 3, 1, r, r, 0.8 );
 
 }
 
 function _draw_help_icon()
 {
-  /*
-  var sz = 10;
-  var sx = __icon_width/2-sz/2, sy = __icon_width/2-sz/2;
-
-  var r = parseInt(8 * __icon_width /10);
-  g_imgcache.draw( "cursor", 3, 1, r, r );
-  */
-
   var mx = __icon_width/2, my = __icon_width/2;
   var dx = __icon_width/6, dy = __icon_width/6;
   var color = "rgba(0,0,138,0.6)";
@@ -266,7 +258,6 @@ function _draw_help_icon()
   var h = __icon_width/1.2;
 
   g_painter.drawTextSimpleFont( "?", mx, my, "rgba(0,0,0,0.9)", h, "Calibri");
-
 }
 
 function _draw_gridinch_icon()
@@ -359,7 +350,7 @@ guiBoardToolbox.prototype._draw_rot_ccw_icon = function()
   var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
 
   var r = parseInt(8 * this.iconWidth /10);
-  g_imgcache.draw( "rotate_ccw", 3, 1, r, r );
+  g_imgcache.draw( "rotate_ccw", 3, 1, r, r, 0.8 );
 }
 
 guiBoardToolbox.prototype._draw_rot_cw_icon = function()
@@ -368,7 +359,7 @@ guiBoardToolbox.prototype._draw_rot_cw_icon = function()
   var sx = this.iconWidth/2-sz/2, sy = this.iconWidth/2-sz/2;
 
   var r = parseInt(8 * this.iconWidth /10);
-  g_imgcache.draw( "rotate_cw", 3, 1, r, r );
+  g_imgcache.draw( "rotate_cw", 3, 1, r, r, 0.8 );
 }
 
 function _draw_box_icon()
@@ -584,6 +575,7 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
 
 guiBoardToolbox.prototype._handleZoneEvent = function(ev)
 {
+
   if (ev.owner == this.name + ":zone")
   {
     g_board_controller.tool = new toolBoardZone( 0, 0, false );
@@ -597,7 +589,6 @@ guiBoardToolbox.prototype._handleZoneEvent = function(ev)
     this.iconDelete.selected = false;
     this.iconHelp.selected = false;
 
-
     g_painter.dirty_flag = true;
   }
 
@@ -609,7 +600,6 @@ guiBoardToolbox.prototype._handleEdgeEvent = function(ev)
   if (ev.owner == this.name + ":edge")
   {
     g_board_controller.tool = new toolEdge( 0, 0, false );
-
   }
 
   else if (ev.owner == this.name + ":box")
@@ -806,6 +796,56 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
 
   }
 
+  else if (ev.owner.match(/:rot_cc?w/))
+  {
+    this.iconNav.selected = false;
+    this.dropTrace.selected = false;
+    this.dropZone.selected = false;
+    this.dropEdge.selected = false;
+    this.dropText.selected = false;
+    this.dropRotate.selected = true;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = false;
+
+    if (ev.owner == this.name + ":rot_ccw") {
+      g_board_controller.tool = new toolBoardRotate( undefined, undefined, "ccw");
+    } else if (ev.owner == this.name + ":rot_cw") {
+      g_board_controller.tool = new toolBoardRotate( undefined, undefined, "cw");
+    }
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":delete")
+  {
+    this.iconNav.selected = false;
+    this.dropTrace.selected = false;
+    this.dropZone.selected = false;
+    this.dropEdge.selected = false;
+    this.dropText.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = true;
+    this.iconHelp.selected = false;
+
+    g_board_controller.tool = new toolBoardDelete();
+    g_painter.dirty_flag = true;
+  }
+
+  else if (ev.owner == this.name + ":help")
+  {
+    this.iconNav.selected = false;
+    this.dropTrace.selected = false;
+    this.dropZone.selected = false;
+    this.dropEdge.selected = false;
+    this.dropText.selected = false;
+    this.dropRotate.selected = false;
+    this.iconDelete.selected = false;
+    this.iconHelp.selected = true;
+
+    g_painter.dirty_flag = true;
+    g_board_controller.tool = new toolBoardHelp();
+    g_painter.dirty_flag = true;
+  }
+
   else if (ev.owner == this.name + ":droptrace:tab")
   {
     if (this.dropTrace.showDropdown)
@@ -881,12 +921,6 @@ guiBoardToolbox.prototype._eventMouseDown = function( ev )
       this.dropRotate.contract();
     }
 
-    g_painter.dirty_flag = true;
-  }
-
-  else if (ev.owner == this.name + ":help")
-  {
-    g_board_controller.tool = new toolBoardHelp();
     g_painter.dirty_flag = true;
   }
 
