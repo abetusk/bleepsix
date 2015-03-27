@@ -84,7 +84,7 @@ guiBoardUndoRedo.prototype.drawUndo = function()
   var sz = this.iconWidth;
 
   g_painter.drawRectangle( d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, bgColor );
-  g_imgcache.draw( "undo", 0, 0, sz, sz );
+  g_imgcache.draw( "undo", 0, 0, sz, sz, 0.7);
 }
 
 guiBoardUndoRedo.prototype.drawRedo = function()
@@ -95,7 +95,7 @@ guiBoardUndoRedo.prototype.drawRedo = function()
 
 
   g_painter.drawRectangle( d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, bgColor );
-  g_imgcache.draw( "redo", 0, 0, sz, sz );
+  g_imgcache.draw( "redo", 0, 0, sz, sz, 0.7 );
 }
 
 // children will be in weird places, so don't confine it to the box of the
