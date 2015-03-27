@@ -51,7 +51,7 @@ function toolBoardDelete( x, y, initialPlaceFlag )
   this.origSnapSpacing = g_snapgrid.spacing;
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_edge_s24.png') 4 3, cursor";
+  ele.style.cursor = "url('img/cursor_custom_trash_w_s24.png') 4 3, cursor";
 
 }
 

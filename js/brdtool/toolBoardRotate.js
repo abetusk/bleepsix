@@ -51,7 +51,15 @@ function toolBoardRotate( x, y, type )
   this.origSnapSpacing = g_snapgrid.spacing;
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_edge_s24.png') 4 3, cursor";
+
+  if (type == "ccw")
+  {
+    ele.style.cursor = "url('img/cursor_custom_ccw_w_s24.png') 4 3, cursor";
+  }
+  else if (type == "cw")
+  {
+    ele.style.cursor = "url('img/cursor_custom_cw_w_s24.png') 4 3, cursor";
+  }
 
 }
 

@@ -47,9 +47,13 @@ function toolRotate( x, y, type )
 
   var ele = document.getElementById("canvas");
 
-  if (type == "noconn")
+  if (type == "ccw")
   {
-    ele.style.cursor = "url('img/cursor_custom_noconn_s24_2.png') 4 3, cursor";
+    ele.style.cursor = "url('img/cursor_custom_ccw_b_s24.png') 4 3, cursor";
+  }
+  else if (type == "cw")
+  {
+    ele.style.cursor = "url('img/cursor_custom_cw_b_s24.png') 4 3, cursor";
   }
 
 }
