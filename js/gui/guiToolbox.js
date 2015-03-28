@@ -104,8 +104,8 @@ function guiToolbox( name )
   cur_y += w.height;
 
 
-  var lab = new guiDropIcon( this.name + ":label", this.iconWidth, this.iconWidth );
-  lab.addIcon( this.name +":label", 
+  var lab = new guiDropIcon( this.name + ":droplabel", this.iconWidth, this.iconWidth );
+  lab.addIcon( this.name +":droplabel", 
       (function(xx) { return function() { xx._draw_label_icon(); }; })(this) );
 
   lab.tooltip_text = " place label (L)";
@@ -539,7 +539,7 @@ guiToolbox.prototype._handleLabelEvent = function(ev)
 {
   this.dropRotate.iconTab.visible = true;
 
-  if (ev.owner == this.name + ":label")
+  if (ev.owner == this.name + ":droplabel")
   {
     if ("cleanup" in g_schematic_controller.tool)
       g_schematic_controller.tool.cleanup();

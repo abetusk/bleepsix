@@ -32,6 +32,9 @@ function toolBoardHelp( x, y, viewMode )
   this.x = x;
   this.y = y;
 
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
   g_painter.dirty_flag=true;
 }
 
@@ -140,6 +143,11 @@ toolBoardHelp.prototype.mouseMove = function( x, y ) { g_painter.dirty_flag=true
 toolBoardHelp.prototype.keyDown = function( keycode, ch, ev )
 {
   g_board_controller.tool = new toolBoardNav();
+  g_board_controller.guiToolbox.defaultSelect();
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
   return true;
 }
 

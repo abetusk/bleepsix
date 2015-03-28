@@ -45,6 +45,9 @@ toolHelp.prototype.drawOverlay = function()
   var font_height = 18;
   var hjustify="L", vjustify="T";
 
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
   var M = g_painter.transform;
   g_painter.context.setTransform ( 1, 0, 0, 1, 0, 0 );
 

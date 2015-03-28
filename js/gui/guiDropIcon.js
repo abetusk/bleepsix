@@ -333,7 +333,8 @@ guiDropIcon.prototype.handleEvent = function(ev)
 
 guiDropIcon.prototype.draw = function()
 {
-  if (this.showDropdown || this.selected )
+  //if (this.showDropdown || this.selected )
+  if (this.selected)
    g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            1, this.fgColor ); 
                            //1, "rgb(0,0,0)")
