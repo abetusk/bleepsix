@@ -398,28 +398,41 @@ bleepsixSchematicController.prototype.opCommand = function ( msg )
   //
   else if ((msg.action == "update") && (msg.type == "edit"))
   {
-    console.log("update edit NOT IMPLEMENTED YET");
-    /*
-    var comp_ref = this.schematic.refLookup( msg.id );
-    var module = 
-      this.board.makeUnknownModule( 1000, 
-                                    comp_ref.id, 
-                                    [ comp_ref.text[0].id, comp_ref.text[1].id ] );
-    module.text[0].text = comp_ref.text[0].text;
-    module.text[0].visible = comp_ref.text[0].visible;
+    var sch_ref = this.schematic.refLookup( msg.id );
+    var old_brd_ref = this.board.refLookup( msg.id );
+    var old_copy = simplecopy( old_brd_ref );
+    var new_copy = simplecopy( old_brd_ref );
 
-    module.text[1].text = comp_ref.text[1].text;
-    module.text[1].visible = comp_ref.text[1].visible;
+    if ( ("text" in new_copy) && ("text" in sch_ref) )
+    {
 
-    var brdop = { source: "sch", destination: "brd" };
-    brdop.scope = msg.scope;
-    brdop.action = msg.action;
-    brdop.type = "footprintData";
-    brdop.data = { footprintData: module , x: 0, y: 0 };
-    brdop.id = comp_ref.id;
-    brdop.idText = [ comp_ref.text[0].id, comp_ref.text[1].id ] ;
-    this.op.opCommand( brdop );
-    */
+      if ( (0 in new_copy.text) && (0 in sch_ref.text) )
+      {
+        new_copy.text[0].text = sch_ref.text[0].text;
+      }
+
+      if ( (1 in new_copy.text) && (1 in sch_ref.text) )
+      {
+        new_copy.text[1].text = sch_ref.text[1].text;
+      }
+
+      var updateop = { source: "sch", destination: "brd" };
+      updateop.scope = msg.scope;
+      updateop.action = msg.action;
+      updateop.type = "edit";
+
+      updateop.id = [ msg.id ];
+      updateop.data = { element : [ new_copy ], oldElement: [ old_copy ] };
+
+      updateop.groupId = group_id;
+      updateop.inverseFlag = false;
+      updateop.replayFlag = false;
+      this.op.opCommand( updateop );
+
+      if ( g_schnetwork && (msg.scope == "network") )
+        g_schnetwork.projectop( updateop );
+
+    }
 
   }
 

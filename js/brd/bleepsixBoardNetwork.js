@@ -49,6 +49,12 @@
  *
  */
 
+var bleepsixBoardNetworkHeadless = false;
+if (typeof module !== 'undefined')
+{
+  bleepsixBoardNetworkHeadless = true;
+}
+
 
 function bleepsixBoardNetwork( serverURL, muteFlag )
 {
@@ -672,6 +678,10 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
   if (msg.type == "op")
   {
     g_board_controller.op.opCommand( msg.op );
+
+    if (!bleepsixBoardNetworkHeadless)
+      g_painter.dirty_flag = true;
+
   }
 
 }
