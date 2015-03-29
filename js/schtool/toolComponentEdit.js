@@ -708,7 +708,18 @@ toolComponentEdit.prototype._addch = function( ch, indicator )
   var p = this.edit_pos;
 
   if ((p<0) || (p>s.length))
+  {
+
+    if ((ref.text[ind].text.length==0) &&
+        (indicator != "del") &&
+        (indicator != "bs"))
+    {
+      this.edit_pos=1;
+      ref.text[ind].text = ch;
+      g_painter.dirty_flag = true;
+    }
     return;
+  }
 
   var lpos=p, rpos=p;
   var ds = 1;
