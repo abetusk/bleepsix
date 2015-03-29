@@ -2327,6 +2327,7 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
   // Even though text co-ordinates are stored in what appears to be absolute positon,
   // the actual position is the vector of that position minus the component position
   // with the transform applied.
+  //
   var local_text_coord = [ parseFloat(text_field["x"]) - comp_x , parseFloat(text_field["y"]) - comp_y ];
   if (is_cache_component)
     local_text_coord = [ parseFloat(text_field["x"]) , parseFloat(text_field["y"]) ];
@@ -2375,9 +2376,6 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
 
     if (det > 0)
     {
-      //if      (hjustify == "R") hjustify = "L";
-      //else if (hjustify == "L") hjustify = "R";
-
       if      (vjustify == "T") vjustify = "B";
       else if (vjustify == "B") vjustify = "T";
     }
@@ -2386,7 +2384,6 @@ bleepsixSchematic.prototype.drawComponentTextField = function( text_field, comp_
   {
     //still need to implement this
     //
-
   }
 
 
@@ -2503,77 +2500,7 @@ bleepsixSchematic.prototype.drawSchematicComponent = function( comp )
   //
   for ( text_ind in comp["text"] )
   {
-
     this.drawComponentTextField( comp["text"][text_ind], comp_x, comp_y, T );
-    continue;
-
-    var t = comp["text"][text_ind];
-    if (! t["visible"]) { continue; }
-
-    var orient_vector = [ 1.0, 0.0 ];
-    if (t["orientation"] == "V") { orient_vector = [ 0.0, 1.0 ]; }
-    var orient_vector_t = numeric.dot( T, orient_vector );
-    var ang = ( ( Math.abs(orient_vector_t[0]) < 0.5 ) ? -90.0 : 0.0 );
-
-    // Even though text co-ordinates are stored in what appears to be absolute positon,
-    // the actual position is the vector of that position minus the component position
-    // with the transform applied.
-    var local_text_coord = [ parseFloat(t["x"]) - comp_x , parseFloat(t["y"]) - comp_y ];
-
-    //console.log("local_text_coord:");
-    //console.log(local_text_coord);
-
-    var local_text_coord_t = numeric.dot( T, local_text_coord );
-
-    //console.log("local_text_coord_t:");
-    //console.log(local_text_coord_t);
-
-    var tx = local_text_coord_t[0] + comp_x;
-    var ty = local_text_coord_t[1] + comp_y;
-
-    //console.log("final text draw (" + t["text"] + ") " + tx + " " + ty );
-
-    var text_color = "rgb(0,136,136)";
-
-    var font_width  = t["size"];
-    var font_height = font_width / 0.6;
-    var pix_font    = font_height;
-
-    //var sz = pin["text_size_number"];
-    var sz          = font_height;
-
-    var hjustify = t["hjustify"];
-    var vjustify = t["vjustify"];
-    if (t["orientation"] == "H")
-    {
-      if      ( (hjustify == "L") && ( orient_vector_t[0] < -0.5 ) ) hjustify = "R";
-      else if ( (hjustify == "L") && ( orient_vector_t[1] >  0.5 ) ) hjustify = "R";
-      else if ( (hjustify == "R") && ( orient_vector_t[0] < -0.5 ) ) hjustify = "L";
-      else if ( (hjustify == "R") && ( orient_vector_t[1] >  0.5 ) ) hjustify = "L";
-
-      if      ( (vjustify == "B") && ( orient_vector_t[0] < -0.5) ) vjustify = "T";
-      else if ( (vjustify == "B") && ( orient_vector_t[1] >  0.5) ) vjustify = "T";
-      else if ( (vjustify == "T") && ( orient_vector_t[0] < -0.5) ) vjustify = "B";
-      else if ( (vjustify == "T") && ( orient_vector_t[1] >  0.5) ) vjustify = "B";
-    }
-    else if (t["orientation"] == "V")
-    {
-      //still need to implement this
-
-      //console.log("blonk: " + comp["text"][text_ind] );
-    }
-
-
-    //console.log("hjustify: " + hjustify + ", vjustify: " + vjustify);
-    //console.log("orieng_vector_t " + orient_vector_t[0] + " " + orient_vector_t[1] + " " + (orient_vector_t[0] < -0.5) );
-    //console.log(orient_vector_t);
-
-    //g_painter.drawText( t["text"], tx, ty, text_color, font_height, ang, t["hjustify"], t["vjustify"] );
-    g_painter.drawText( t["text"], tx, ty, text_color, font_height, ang, hjustify, vjustify);
-
-    if (this.draw_bounding_box_flag)
-      this.drawBoundingBox( t["bounding_box"] );
-
   }
 
 }
@@ -2594,50 +2521,6 @@ bleepsixSchematic.prototype.drawElement = function( ele )
   else if (type == "busline")    { this.drawSchematicLine( ele ); }
   else if (type == "entrybusbus"){ this.drawSchematicLine( ele ); }
   else                           { this.drawSchematicLine( ele ); }
-
-  /*
-  if ( ("highlightFlag" in ele) && ele.highlightFlag )
-  {
-    this.drawBoundingBox( ele );
-  }
-  */
-
-  // ????
-  // this will draw with every element draw?
-  /*
-
-  if ( this.highlight_net_flag )
-  {
-
-    for (var ind in this.highlight_net)
-    {
-      var hi_ele = this.highlight_net[ind];
-      var type = hi_ele.type;
-
-      if (type == "box")
-      {
-        var s2 = hi_ele.size/2;
-        g_painter.drawRectangle( 
-            hi_ele.x - s2, hi_ele.y - s2, 
-            hi_ele.size, hi_ele.size,
-            1, "rgba(0,0,0,0.3)",
-            true, "rgba(0,0,0,0.01)" );
-
-      }
-      else if (type == "rect")
-      {
-        var w = Math.abs(hi_ele.endx - hi_ele.startx);
-        var h = Math.abs(hi_ele.endy - hi_ele.starty);
-        g_painter.drawRectangle( 
-            hi_ele.startx - w/2, hi_ele.starty - h/2, 
-            w, h, 
-            1, "rgba(0,0,0,0.3)",
-            true, "rgba(0,0,0,0.01)" );
-      }
-    }
-  }
-
-  */
 
 }
 
@@ -2679,7 +2562,6 @@ bleepsixSchematic.prototype.drawSchematic = function( respect_headless )
         g_painter.drawRectangle( 
             hi_ele.x - s2, hi_ele.y - s2, 
             hi_ele.size, hi_ele.size,
-            //1, "rgba(0,0,0,0.3)",
             5, "rgba(0,0,0,0.8)",
             true, "rgba(0,0,0,0.1)" );
 

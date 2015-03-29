@@ -194,7 +194,6 @@ toolRotate.prototype.keyDown = function( keycode, ch, ev )
 {
   if ((ch == 'Q') || (keycode == 27))
   {
-    console.log("handing back to toolNav");
     g_schematic_controller.tool = new toolNav( this.mouse_cur_x, this.mouse_cur_y );
     g_schematic_controller.guiToolbox.defaultSelect();
 
