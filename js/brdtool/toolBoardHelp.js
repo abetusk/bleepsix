@@ -127,7 +127,11 @@ toolBoardHelp.prototype.drawOverlay = function()
 toolBoardHelp.prototype.mouseDown = function( button, x, y ) 
 {
   g_board_controller.tool = new toolBoardNav();
-  g_painter.dirty_flag=true;
+  g_board_controller.guiToolbox.defaultSelect();
+
+  var ele = document.getElementById("canvas");
+  ele.style.cursor = "auto";
+
   return true;
 }
 
