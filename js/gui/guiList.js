@@ -153,6 +153,37 @@ guiList.prototype.addList = function( id, name, parent )
   return ele;
 }
 
+guiList.prototype._filter_r = function( text, cur_index, ele ) 
+{
+  var list = ele.list;
+
+  for (var ind in list)
+  {
+
+    if ( list[ind].type == "list" )
+    {
+      cur_index += this._filter_r( text, cur_index, list[ind] );
+      continue;
+    }
+
+    var re = new RegExp( text, "g" );
+    if ( list[ind].data.match( re ) ) {
+      //console.log( cur_index, list[ind].data );
+    }
+
+  }
+
+  return cur_index;
+
+}
+
+guiList.prototype.filter = function( text ) 
+{
+  console.log("guiList>>", text);
+
+  this._filter_r( text, 0, this );
+}
+
 //-----------------------------
 
 guiList.prototype._pickElement_r = function( ele, state ) 
@@ -169,13 +200,6 @@ guiList.prototype._pickElement_r = function( ele, state )
 
     if ( ( state.local_y <= y1 ) && ( y0 <= state.local_y ) )
     {
-      /*
-      console.log("hit?  " + ele.list[ind].name + 
-                  " ind: "  + ind + 
-                  " y0 " + y0 + " y1 " + y1 + 
-                  ", y" + state.local_y + " , " + ele.list[ind].type );
-                 */
-
       return ele.list[ind];
     }
 

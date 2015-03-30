@@ -24,87 +24,86 @@
 
 function guiLibrary( name, userId, sessionId, projectId ) 
 {
-
   this.constructor(name);
-
-  //this.bgColor = "rgba(0,0,255, 0.2)";
   this.bgColor = "rgba(0,0,0, 0.2)";
-
   this.border = 10;
-
   this.height = 600;
   this.width = 200;
-
   this.myname = "foo";
 
+  this.textHeight = 20;
+  this.guisearch_selected = false;
+
+  //--
+  // Component list
+  //--
+
   var guilist = new guiList("guiLibrary:list" );
-  guilist.init( this.border, this.border, this.width, this.height - this.width );
-  //guilist.move( this.border,this.border);
 
-  guilist.indexN = 40;
+  //guilist.init( this.border, this.border, this.width, this.height - this.width );
+  guilist.init( this.border, 2*this.border + this.textHeight, this.width, this.height - this.width - this.textHeight );
+
+  //guilist.indexN = 40;
+  guilist.indexN = 38;
   guilist.updateList();
-
-  var foo = this;
-  guilist.registerPickCallback( function(data) { foo.listPick(data); }  );
-
+  guilist.registerPickCallback( (function(xx) { return function(data) { xx.listPick(data); }; })(this) );
   this.addChild( guilist );
+  this.guiList = guilist;
 
+  //--
 
-
-
-  /*
-  $.ajaxSetup({cache :false });
-  $.getJSON( "json/component_list_default.json",
-              function(data) {
-                foo.load_webkicad_library_json(data);
-              }
-           ).fail( function(jqxr, textStatus, error) { console.log("FAIL:" + textStatus + error); } );
-           */
   this.fetchComponentList( userId, sessionId, projectId );
 
+  //--
+  // Pickable component
+  //--
 
   var guiComp = new guiComponentTile( "guiLibrary:component", "" );
   guiComp.x = this.border;
-
-  //guiComp.y = this.height/2 + 3*this.border;
-  guiComp.y = (this.height - this.width) + 3*this.border;
-
+  //guiComp.y = (this.height - this.width) + 3*this.border;
+  guiComp.y = (this.height - this.width) + 4*this.border;
   guiComp.width = this.width;
-
-  //guiComp.height = this.height/2;
   guiComp.height = this.width;
-
-  var bar = this;
-  guiComp.registerPickCallback( function(data) { bar.tilePick(data); } );
+  guiComp.registerPickCallback( (function(xx) { return function(data) { xx.tilePick(data); }; })(this) );
 
   this.addChild( guiComp );
+  this.guiComponent = guiComp;
 
+  //--
+  // Search box
+  //--
 
-  /*
-  var lib = this;
-  $.ajaxSetup({ cache : false });
-  $.getJSON( "library_list.json",
-              function(data) {
-                lib.load_library(data);
-              }
-           ).fail(
-            function(jqxr, textStatus, error) {
-              lib.load_library_error(jqxr, textStatus, error);
-            }
-           );
-  */
+  var guisearch = new guiTextbox("guiLibrary:search");
+  guisearch.init( this.border, this.border, this.width, this.textHeight );
+  guisearch.registerTextCallback( (function(xx) { return function(data) { xx.searchUpdate(data); }; })(this) );
+  this.addChild( guisearch );
+  this.guiSearch = guisearch;
+
+  //--
+
 
   this.height += 4*this.border ;
   this.width  += 2*this.border ;
-  //this.move(900, 25);
   this.move(300, 25);
 
   g_painter.dirty_flag = true;
+}
+guiLibrary.inherits ( guiRegion );
 
-
+guiLibrary.prototype.searchUpdate = function( txt )
+{
+  this.guiList.filter( txt );
 }
 
-guiLibrary.inherits ( guiRegion );
+guiLibrary.prototype.hasFocusedElement = function()
+{
+  return this.guisearch_selected;
+}
+
+guiLibrary.prototype.focusedElement = function()
+{
+  return this.guiChildren[2];
+}
 
 guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId, callback, callback_err )
 {
@@ -126,8 +125,6 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
       };
   }
 
-  var foo = this;
-
   $.ajaxSetup({cache :false });
 
   var req = { op : "COMP_LIST" };
@@ -143,36 +140,13 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
     type: "POST",
     data: JSON.stringify(req),
 
-
     /* FUCKING JQUERY!!!
      * http://stackoverflow.com/questions/10456240/jquery-ajax-call-return-json-parsing-error
      */
-    //dataType: "application/json",
     dataType: "json",
 
-
     success: callback,
-    /*
-    function(data) {
-
-      //DEBUG
-      //console.log("got:");
-      //console.log(data);
-
-      foo.load_webkicad_library_json(data);
-    },
-    */
-
     error:  callback_err
-
-    /*
-    function(jqxr, textStatus, error) { 
-      console.log("FAIL:");
-      console.log( jqxr );
-      console.log( textStatus )
-      console.log( error ); 
-    }
-    */
   });
 
 }
@@ -245,18 +219,11 @@ guiLibrary.prototype.load_library_error = function(jqxr, textStatus, error)
   console.log(error);
 }
 
-/*
-guiLibrary.prototype.hitTest = function(x, y)
-{
-  for (var ind in this.guiChildren)
-  {
-    this.guiChildren[ind].hitTest(x,y);
-  }
-}
-*/
-
 guiLibrary.prototype.mouseDown = function(button, x, y )
 {
+
+  this.guisearch_selected = false;
+
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
 
   if (this.guiChildren[1].visible && this.guiChildren[1].ready )
@@ -277,6 +244,12 @@ guiLibrary.prototype.mouseDown = function(button, x, y )
     return this.guiChildren[0].mouseDown(button, x, y);
   }
 
+  if (this.guiChildren[2].hitTest(x,y))
+  {
+    this.guisearch_selected=true;
+    return this.guiChildren[2].mouseDown(button, x, y);
+  }
+
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
        (0 <= u[1]) && (u[1] <= this.height) )
   {
@@ -291,38 +264,11 @@ guiLibrary.prototype.mouseDown = function(button, x, y )
 guiLibrary.prototype.mouseWheel = function(delta)
 {
   console.log("guiLibrary.mouseWheel delta " + delta);
-
-  /*
-  this.indexStart += delta;
-  if (this.indexStart < 0)
-    this.indexStart = 0;
-
-  this.indexEnd = this.indexStart + this.indexN;
- */
 }
-
-/*
-guiLibrary.prototype.mouseWheelXY = function(delta, x, y)
-{
-  console.log("???");
-}
-*/
 
 guiLibrary.prototype.draw = function()
 {
-
   g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
-
-                           /*
-  for (var ind in this.library_list)
-  {
-    var sz = 15;
-    g_painter.drawText( this.library_list[ind], 0, sz*ind, "rgb(128, 0, 0)", sz, 0, "L", "T" );
-  }
- */
-
 }
-
-

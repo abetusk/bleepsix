@@ -30,29 +30,41 @@ function guiTextbox( name )
   this.uniq = parseInt(256.0*Math.random());
   //this.bgColor = "rgba(" + this.uniq + ",0,0," + "0.2)";
   //this.bgColor = "rgba(0,0," + this.uniq +",0.7)";
-  this.bgColor = "rgba(" + this.uniq +",0,0,0.2)";
+  //this.bgColor = "rgba(" + this.uniq +",0,0,0.2)";
+  this.bgColor = "rgba(150,150,150,0.2)";
+  //this.borderColor = "rgba(255,255,255,0.2)";
+  this.borderColor = "rgba(55,55,55,0.2)";
 
   this.drawShape = null;
 
+  this.textCallback = null;
+
+  /*
   this.borderTop = 5;
   this.borderBottom = 15;
   this.borderSize = 5;
+  */
+  this.borderTop = 0;
+  this.borderBottom = 0;
+  this.borderSize = 0;
 
   this.text = "";
-  this.textSize = 10 ;
+  this.textSize = 10;
   this.textMaxLength = 64;
+  this.text_cursor = 0;
 
   this.textHeight = this.textSize;
   this.textWidth = this.textHeight * 0.6;
 
   this.button = new guiIcon( name + ":button" );
   this.button.init( 5, this.textSize + 5, 10, 10 );
-  this.addChild( this.button );
+  //this.addChild( this.button );
 
   this.width = this.textWidth * 20 + 2*this.borderSize ;
-  this.height = this.textHeight + this.button.height + this.borderTop + this.borderBottom;
 
-  //console.log("uniq: " + this.uniq);
+  //this.height = this.textHeight + this.button.height + this.borderTop + this.borderBottom;
+  this.height = this.textHeight + this.borderTop + this.borderBottom;
+
 }
 guiTextbox.inherits( guiRegion );
 
@@ -62,7 +74,7 @@ guiTextbox.prototype.init = function(x, y, w, h )
   this.height = h;
   this.move(x,y);
 
-  this.button.init( 5, this.textSize + 5, 10, 10 );
+  //this.button.init( 5, this.textSize + 5, 10, 10 );
 }
 
 guiTextbox.prototype.keyDown = function(keycode, ch, ev)
@@ -88,11 +100,18 @@ guiTextbox.prototype.mouseDown = function(button, x, y)
   return true;
 }
 
+guiTextbox.prototype.mouseUp = function(button, x, y)
+{
+  console.log("guiTextbox.mouseUp(" + this.name + "): " + button + " " + x + " " + y);
+
+  //var ev = { type: "mouseDown", owner: this.name, ref: this, button : button, x : x, y : y };
+  //this.parent.handleEvent(ev);
+
+  return true;
+}
+
 guiTextbox.prototype.doubleClick = function(ev, x, y)
 {
-  //console.log("guiTextbox.doubleClick(" + this.name + ")");
-  //console.log(ev);
-
   var ev = { type: "doubleClick", owner: this.name, button : ev.button, x : x, y : y };
 
   this.parent.handleEvent(ev);
@@ -100,14 +119,114 @@ guiTextbox.prototype.doubleClick = function(ev, x, y)
   return true;
 }
 
+//-- Keyboard functions
+
+guiTextbox.prototype._mv_cursor = function( ds )
+{
+  this.text_cursor += ds;
+  if (this.text_cursor<0)
+    this.text_cursor=0;
+  if (this.text_cursor > this.text.length)
+    this.text_cursor=this.text_length;
+}
+
+guiTextbox.prototype.registerTextCallback = function( f )
+{
+  this.textCallback = f;
+}
+
+guiTextbox.prototype.keyPress = function(keycode, ch, ev)
+{
+  if ((keycode >= 20) && (keycode <= 126))
+  {
+    this.text += ch;
+    this._mv_cursor(+1);
+
+    if (this.textCallback) { this.textCallback( this.text ); }
+
+    g_painter.dirty_flag = true;
+  }
+
+  return true;
+}
+
+
+guiTextbox.prototype.keyDown = function(keycode, ch, ev)
+{
+  var pass_key = true;
+
+  // esc
+  //
+  if (keycode == 27)
+  {
+
+  }
+
+  // backspace
+  //
+  else if (keycode == 8)
+  {
+    pass_key = false;
+
+    var p = this.text_cursor;
+
+    if (p>0) {
+      this._mv_cursor(-1);
+      p = this.text_cursor;
+      var new_text = this.text.slice(0, p) + this.text.slice(p+1,this.text.length);
+      this.text = new_text;
+
+      if (this.textCallback) { this.textCallback( this.text ); }
+
+      g_painter.dirty_flag=true;
+    }
+  }
+
+  // 37 - left
+  else if (keycode == 37)
+  {
+    this._mv_cursor(-1);
+  }
+
+  // 39 - right
+  else if (keycode == 39)
+  {
+    this._mv_cursor(+1);
+  }
+
+  // 38 - up
+  else if (keycode == 38)
+  {
+    console.log("...history-");
+  }
+
+  // 40 - down
+  else if (keycode == 40)
+  {
+    console.log("...history+");
+  }
+
+
+
+
+  return pass_key;
+
+}
+
+guiTextbox.prototype.keyUp = function(keycode, ch, ev)
+{
+  console.log("guiTextbox.keyUp:", keycode, ch, ev);
+  return true;
+}
+
+//--
+
 guiTextbox.prototype.draw = function()
 {
-
-   g_painter.drawRectangle( 0, 0, this.width, this.height,  
-                           0, "rgb(0,0,0)", 
+  g_painter.drawRectangle( 0, 0, this.width, this.height,  
+                           2, this.borderColor,
                            true, this.bgColor );
 
-  if (this.drawShape)
-    this.drawShape();
+  g_painter.drawText( this.text, 0, 0, "rgba(0,0,0,0.5)", 15, 0, "L", "T" );
 }
 

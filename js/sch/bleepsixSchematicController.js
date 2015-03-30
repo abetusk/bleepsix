@@ -51,6 +51,9 @@ function bleepsixSchematicController( viewMode ) {
   this.toolLibrary = null;
   //this.palette = null;
 
+  this.focus_flag = false;
+  this.focus = null;
+
   this.schematic = new bleepsixSchematic();
   this.board = new bleepsixBoard();
 
@@ -756,16 +759,6 @@ bleepsixSchematicController.prototype.resize = function( w, h, ev )
   this.height = h;
 }
 
-bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
-{
-  if (typeof this.tool.keyDown !== 'undefined' )
-  {
-    r = this.tool.keyDown( keycode, ch, ev );
-    return r;
-  }
-
-}
-
 
 bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 {
@@ -807,10 +800,17 @@ bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 
   var r = true;
 
-  if (typeof this.tool.keyDown !== 'undefined' )
+  if (!this.focus_flag)
   {
-    r = this.tool.keyDown( keycode, ch, ev );
+    if (typeof this.tool.keyDown !== 'undefined' )
+    {
+      r = this.tool.keyDown( keycode, ch, ev );
+    }
+  } else {
+    r = this.focus.keyDown( keycode, ch, ev );
   }
+
+
 
   return r;
 
@@ -820,14 +820,30 @@ bleepsixSchematicController.prototype.keyPress = function( keycode, ch, ev )
 {
   //console.log( "keyPress: " + keycode + " " + ch  );
 
-  if (typeof this.tool.keyPress !== 'undefined' )
-    this.tool.keyPress( keycode, ch, ev );
+  if (!this.viewMode)
+  {
+
+    if (this.focus_flag)
+    {
+      this.focus.keyPress( keycode, ch, ev );
+    }
+
+  }
+
+  if (!this.focus_flag)
+  {
+    if (typeof this.tool.keyPress !== 'undefined' )
+      this.tool.keyPress( keycode, ch, ev );
+  }
+
 }
 
 
 bleepsixSchematicController.prototype.mouseDown = function( button, x, y ) 
 {
 
+  this.focus_flag = false;
+  this.focus = null;
 
   //this.root.hitTest(x, y);
 
@@ -842,7 +858,15 @@ bleepsixSchematicController.prototype.mouseDown = function( button, x, y )
 
     if (this.guiLibrary.hitTest(x,y))
     {
+
       this.guiLibrary.mouseDown(button, x, y);
+
+      if (this.guiLibrary.hasFocusedElement())
+      {
+        this.focus_flag = true;
+        this.focus = this.guiLibrary.focusedElement();
+      }
+
       return;
     }
 

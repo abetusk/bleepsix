@@ -291,6 +291,25 @@ guiRegion.prototype.mouseWheelXY = function(delta, x, y)
   return r;
 }
 
+//-- keyboard callbacks
+
+guiRegion.prototype.keyDown = function( keycode, ch, ev )
+{
+  console.log("guiRegion.keyDown", keycode, ch, ev);
+}
+
+guiRegion.prototype.keyUp = function( keycode, ch, ev )
+{
+  console.log("guiRegion.keyUp", keycode, ch, ev);
+}
+
+guiRegion.prototype.keyPress = function( keycode, ch, ev )
+{
+  console.log("guiRegion.keyPress", keycode, ch, ev);
+}
+
+
+
 guiRegion.prototype.addChild = function( child )
 {
    
