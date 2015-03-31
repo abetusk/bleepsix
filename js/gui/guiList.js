@@ -121,7 +121,7 @@ guiList.prototype.add = function( id, name, data, parent )
       return null;
   }
 
-  var ele = { id: id, name : name, data : data, type: "element" };
+  var ele = { id: id, name : name, data : data, type: "element", highlighted : false };
   l.push(ele);
 
   return ele;
@@ -145,7 +145,7 @@ guiList.prototype.addList = function( id, name, parent )
       return null;
   }
 
-  var ele = { id: id , name : name, type : "list", expanded : false, list : []  };
+  var ele = { id: id , name : name, type : "list", expanded : false, list : [], highlighted:false };
   l.push(ele);
 
   this.listHash[id] = ele.list;
@@ -153,35 +153,66 @@ guiList.prototype.addList = function( id, name, parent )
   return ele;
 }
 
-guiList.prototype._filter_r = function( text, cur_index, ele ) 
+guiList.prototype.clear_highlights_r = function( ele ) 
 {
   var list = ele.list;
+
+  for (var ind in list)
+  {
+    list[ind].highlighted = false;
+    if ( list[ind].type == "list" )
+    {
+      this.clear_highlights_r( list[ind] );
+      continue;
+    }
+
+  }
+
+}
+
+guiList.prototype._filter_r = function( text, ele ) 
+{
+  var list = ele.list;
+  var ele_found = false;
 
   for (var ind in list)
   {
 
     if ( list[ind].type == "list" )
     {
-      cur_index += this._filter_r( text, cur_index, list[ind] );
+      var tf = this._filter_r( text, list[ind] );
+      if (tf) {
+        ele_found=true;
+        list[ind].highlighted=true;
+      } else {
+        list[ind].highlighted=false;
+      }
       continue;
     }
 
-    var re = new RegExp( text, "g" );
-    if ( list[ind].data.match( re ) ) {
-      //console.log( cur_index, list[ind].data );
+    var re = new RegExp( text, "ig" );
+    if ( list[ind].data.match( re ) )
+    {
+      list[ind].highlighted = true;
+      ele_found=true;
+    }
+    else
+    {
+      list[ind].highlighted = false;
     }
 
   }
 
-  return cur_index;
+  return ele_found;
 
 }
 
 guiList.prototype.filter = function( text ) 
 {
-  console.log("guiList>>", text);
-
-  this._filter_r( text, 0, this );
+  if (text.length>0)
+    this._filter_r( text, this );
+  else
+    this.clear_highlights_r( this );
 }
 
 //-----------------------------
@@ -295,7 +326,6 @@ guiList.prototype.mouseDown = function( button, x, y)
     else if (ele.type == "element")
     {
       this.pickedData = ele.data;
-
       this.pickedName = ele.data;
 
       if (this.pickCallback) 
@@ -456,6 +486,17 @@ guiList.prototype._draw_r = function( indent, cur_index, ele )
                                    1, "rgba(100,100,100,0.1)" );
 
         }
+      }
+
+      if (list[ind].highlighted)
+      {
+        g_painter.drawRectangle( indent, 
+                                 this.textSize*d,
+                                 this.width - indent - this.x - 5,
+                                 this.textSize,
+                                 0, "rgb(0,0,0)",
+                                 1, "rgba(200,100,100,0.15)" );
+
       }
 
       this.drawBox( indent, d*this.textSize, list[ind] );

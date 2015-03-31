@@ -49,7 +49,7 @@ function guiTextbox( name )
   this.borderSize = 0;
 
   this.text = "";
-  this.textSize = 10;
+  this.textSize = 14;
   this.textMaxLength = 64;
   this.text_cursor = 0;
 
@@ -91,12 +91,8 @@ guiTextbox.prototype.handleEevent = function(ev)
 
 guiTextbox.prototype.mouseDown = function(button, x, y)
 {
-  console.log("guiTextbox.mouseDown(" + this.name + "): " + button + " " + x + " " + y);
-
   var ev = { type: "mouseDown", owner: this.name, ref: this, button : button, x : x, y : y };
-
   this.parent.handleEvent(ev);
-
   return true;
 }
 
@@ -227,6 +223,6 @@ guiTextbox.prototype.draw = function()
                            2, this.borderColor,
                            true, this.bgColor );
 
-  g_painter.drawText( this.text, 0, 0, "rgba(0,0,0,0.5)", 15, 0, "L", "T" );
+  g_painter.drawText( this.text, 2, 2, "rgba(0,0,0,0.5)", this.textSize, 0, "L", "T" );
 }
 
