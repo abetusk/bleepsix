@@ -818,22 +818,16 @@ bleepsixSchematicController.prototype.keyDown = function( keycode, ch, ev )
 
 bleepsixSchematicController.prototype.keyPress = function( keycode, ch, ev )
 {
-  //console.log( "keyPress: " + keycode + " " + ch  );
-
-  if (!this.viewMode)
-  {
-
-    if (this.focus_flag)
-    {
-      this.focus.keyPress( keycode, ch, ev );
-    }
-
-  }
+  if (this.viewMode) { return true; }
 
   if (!this.focus_flag)
   {
     if (typeof this.tool.keyPress !== 'undefined' )
       this.tool.keyPress( keycode, ch, ev );
+  }
+  else
+  {
+    this.focus.keyPress( keycode, ch, ev );
   }
 
 }
@@ -1049,7 +1043,8 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   this.canvas = $("#" + canvas_id)[0];
   this.context = this.canvas.getContext('2d');
 
-  /* hmm, guiPalette needs to know about g_controller.... */
+  // hmm, guiPalette needs to know about g_controller....
+  //
   this.guiPalette = new guiPalette( "palette" );
   this.guiPalette.move( (g_painter.width - this.guiPalette.width)/4, g_painter.height - this.guiPalette.height );
 
@@ -1060,9 +1055,6 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
 
   this.guiGrid = new guiGrid( "grid", "rgba(0,0,0,0.2)" );
   this.guiGrid.move(0,0);
-
-  //EXPERIMENTAL
-  //this.guiLibrary = new guiLibrary( "library" );
 
   /*
   var userId = $.cookie("userId");
@@ -1170,28 +1162,6 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
   });
 
   $(window).capslockstate();
-
-
-
-  /*
-   (function(){
-      var doCheck = true;
-      var check = function(){
-        console.log("check");
-      };
-      window.addEventListener("resize",function(){
-        if(doCheck){
-          check();
-          doCheck = false;
-          setTimeout(function(){
-            console.log("settimeout");
-            doCheck = true;
-            check();
-          },500)
-        }
-      });
-   })();
-  */
 
   // get rid of right click menu popup
   $(document).bind("contextmenu", function(e) { return false; });

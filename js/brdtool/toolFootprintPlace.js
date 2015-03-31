@@ -551,14 +551,12 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
 
   if (keycode == 27)
   {
-
-    //console.log("toolFootprintPlace: passing back to toolNav");
-
     this.shutdown = true;
     g_board_controller.tool = new toolBoardNav( this.mouse_x, this.mouse_y );
+    g_board_controller.guiToolbox.defaultSelect();
     g_painter.dirty_flag = true;
-
   }
+
   else if (ch == 'R')
   {
     this.angle += Math.PI / 2.0;

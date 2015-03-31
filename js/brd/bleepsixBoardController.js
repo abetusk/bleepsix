@@ -47,6 +47,9 @@ function bleepsixBoardController( viewMode ) {
 
   this.type = "board";
 
+  this.focus_flag = false;
+  this.focus = null;
+
   this.board = new bleepsixBoard();
   this.schematic = new bleepsixSchematic();
 
@@ -830,17 +833,6 @@ bleepsixBoardController.prototype.resize = function( w, h, ev )
   this.height = h;
 }
 
-/*
-bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
-{
-  if (typeof this.tool.keyDown !== 'undefined' )
-  {
-    r = this.tool.keyDown( keycode, ch, ev );
-  }
-
-}
-*/
-
 bleepsixBoardController.prototype.keyUp = function( keycode, ch, ev )
 {
   if (this.viewMode) { return true; }
@@ -860,11 +852,11 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 
   if (this.viewMode) {
     var r = true;
-   if (typeof this.tool.keyDown !== 'undefined' )
-   {
-     r = this.tool.keyDown( keycode, ch, ev );
-   }
-   return r;
+    if (typeof this.tool.keyDown !== 'undefined' )
+    {
+      r = this.tool.keyDown( keycode, ch, ev );
+    }
+    return r;
   }
 
   if ( ch == 'G' ) {
@@ -909,9 +901,14 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
 
   var r = true;
 
-  if (typeof this.tool.keyDown !== 'undefined' )
+  if (!this.focus_flag)
   {
-    r = this.tool.keyDown( keycode, ch, ev );
+    if (typeof this.tool.keyDown !== 'undefined' )
+    {
+      r = this.tool.keyDown( keycode, ch, ev );
+    }
+  } else {
+    r = this.focus.keyDown( keycode, ch, ev );
   }
 
   return r;
@@ -922,15 +919,24 @@ bleepsixBoardController.prototype.keyPress = function( keycode, ch, ev )
 {
   if (this.viewMode) { return true; }
 
-  //console.log( "keyPress: " + keycode + " " + ch  );
+  if (!this.focus_flag)
+  {
+    if (typeof this.tool.keyPress !== 'undefined' )
+      this.tool.keyPress( keycode, ch, ev );
+  }
+  else
+  {
+    this.focus.keyPress( keycode, ch, ev );
+  }
 
-  if (typeof this.tool.keyPress !== 'undefined' )
-    this.tool.keyPress( keycode, ch, ev );
 }
 
 
 bleepsixBoardController.prototype.mouseDown = function( button, x, y )
 {
+
+  this.focus_flag = false;
+  this.focus = null;
 
   if (!this.viewMode)
   {
@@ -938,27 +944,17 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
     if (this.guiFootprintLibrary.hitTest(x,y))
     {
       this.guiFootprintLibrary.mouseDown(button, x, y);
+
+      if (this.guiFootprintLibrary.hasFocusedElement())
+      { 
+        this.focus_flag = true;
+        this.focus = this.guiFootprintLibrary.focusedElement();
+      }
+
       return;
     }
 
   }
-
-  /*
-  if (this.guiLayer.hitTest(x,y))
-  {
-    this.guiLayer.mouseDown(button, x, y);
-    return;
-  }
-  */
-
-
-  /*
-  if (this.guiPalette.hitTest(x, y))
-  {
-    console.log(" gui component hit, letting it handle it");
-    return;
-  }
-  */
 
   if (!this.viewMode)
   {
@@ -988,27 +984,6 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
     this.guiGrid.mouseDown(button, x, y);
     return;
   }
-
-  /*
-  if (this.guiAction.hitTest(x,y))
-  {
-    this.guiAction.mouseDown(button, x, y);
-    return;
-  }
- */
-
-  /*
-  for (var ind in this.guiChild)
-  {
-    if ( (typeof this.guiChild[ind].hitTest !== 'undefined') &&
-         (this.guiChild[ind].hitTest(x, y)) )
-    {
-      if (typeof this.guiChild[ind].mouseDown !== 'undefined' )
-        this.guiChild[ind].mouseDown(button, x, y);
-      return;
-    }
-  }
- */
 
   if (typeof this.tool.mouseDown !== 'undefined' )
   {

@@ -102,7 +102,7 @@ guiLibrary.prototype.hasFocusedElement = function()
 
 guiLibrary.prototype.focusedElement = function()
 {
-  return this.guiChildren[2];
+  return this.guiSearch;
 }
 
 guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId, callback, callback_err )
@@ -154,8 +154,7 @@ guiLibrary.prototype.fetchComponentList = function( userId, sessionId, projectId
 
 guiLibrary.prototype.load_webkicad_library_json = function(data)
 {
-
-  this.guiChildren[0].clearList();
+  this.guiList.clearList();
 
   var parent = null;
 
@@ -165,7 +164,7 @@ guiLibrary.prototype.load_webkicad_library_json = function(data)
 
     if (ele.type == "list")
     {
-      this.guiChildren[0].addList( ele.id, ele.name );
+      this.guiList.addList( ele.id, ele.name );
       parent = ele.id ;
 
       for (var comp_ind in ele.list)
@@ -173,7 +172,7 @@ guiLibrary.prototype.load_webkicad_library_json = function(data)
         var comp = ele.list[comp_ind];
         if (comp.type == "element")
         {
-          this.guiChildren[0].add( comp.id, comp.name, comp.data, parent);
+          this.guiList.add( comp.id, comp.name, comp.data, parent);
         }
       }
     }
@@ -193,9 +192,8 @@ guiLibrary.prototype.listPick = function(list_ele)
 
     g_painter.dirty_flag=true;
 
-
-    this.guiChildren[1].component_name = list_ele.name;
-    this.guiChildren[1].refresh();
+    this.guiComponent.component_name = list_ele.name;
+    this.guiComponent.refresh();
   }
 }
 
@@ -226,28 +224,28 @@ guiLibrary.prototype.mouseDown = function(button, x, y )
 
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
 
-  if (this.guiChildren[1].visible && this.guiChildren[1].ready )
+  if (this.guiComponent.visible && this.guiComponent.ready )
   {
-    var r = this.guiChildren[1].hitTest(x, y);
+    var r = this.guiComponent.hitTest(x, y);
 
     if (r)
     {
-      g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiChildren[1].component_name );
+      g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiComponent.component_name );
       g_schematic_controller.guiToolbox.defaultSelect();
       return true;
     }
 
   }
 
-  if (this.guiChildren[0].hitTest(x, y))
+  if (this.guiList.hitTest(x, y))
   {
-    return this.guiChildren[0].mouseDown(button, x, y);
+    return this.guiList.mouseDown(button, x, y);
   }
 
-  if (this.guiChildren[2].hitTest(x,y))
+  if (this.guiSearch.hitTest(x,y))
   {
     this.guisearch_selected=true;
-    return this.guiChildren[2].mouseDown(button, x, y);
+    return this.guiSearch.mouseDown(button, x, y);
   }
 
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
