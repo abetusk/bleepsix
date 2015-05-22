@@ -41,14 +41,14 @@ function bleepsixRender( canvas_param )
   }
   this.context = this.canvas.getContext('2d');
 
-  this.gridMode = 2;		// 0=none, 1=dots, 2=lines
-  
+  this.gridMode = 2;    // 0=none, 1=dots, 2=lines
+
   this.pixel_per_unit = 1.0;
 
   this.width = this.canvas.width;
   this.height = this.canvas.height;
 
-  this.view = new Object(); 
+  this.view = new Object();
   this.view.cx = this.width / 2;
   this.view.cy = this.height / 2;
   this.view.x1 = 0;
@@ -62,8 +62,8 @@ function bleepsixRender( canvas_param )
   //this.zoom = 1.0;   // initial zoom
   this.zoom_factor = 7.0/8.0;
 
-  this.setView ( 3000, 2000, this.zoom );  	// set view for first time
-  //this.setView ( 0, 0, this.zoom );  	// set view for first time
+  this.setView ( 3000, 2000, this.zoom );    // set view for first time
+  //this.setView ( 0, 0, this.zoom );    // set view for first time
 
   this.dirty_flag = true;
 
@@ -84,34 +84,34 @@ bleepsixRender.prototype.setWidthHeight = function ( w , h) {
 
 bleepsixRender.prototype.setGrid = function ( val )
 {
-	this.gridMode = val;
-	this.dirty_flag = true;
+  this.gridMode = val;
+  this.dirty_flag = true;
 }
 
 bleepsixRender.prototype.setView = function( x, y, z, cx, cy )
 {
-	// set center and zoom
-	//this.view.cx = x;
-	//this.view.cy = y;
+  // set center and zoom
+  //this.view.cx = x;
+  //this.view.cy = y;
 
   this.view.cx = ( (typeof cx === 'undefined') ? x : cx );
   this.view.cy = ( (typeof cy === 'undefined') ? y : cy );
 
-	this.zoom = z;
+  this.zoom = z;
 
-	// compute the view region
+  // compute the view region
   var dx = this.width / (z * 2.0);
-	var dy = this.height / (z * 2.0);
+  var dy = this.height / (z * 2.0);
   this.view.x1 = this.view.cx - dx;
   this.view.y1 = this.view.cy - dy;
   this.view.x2 = this.view.cx + dx;
   this.view.y2 = this.view.cy + dy;
 
-	//console.log ( "zoom: " + this.zoom );
-	//console.log ( "view: " + this.view.x1 + " " + this.view.y1 + " " + this.view.x2 + " " + this.view.y2 );
+  //console.log ( "zoom: " + this.zoom );
+  //console.log ( "view: " + this.view.x1 + " " + this.view.y1 + " " + this.view.x2 + " " + this.view.y2 );
 
   // update the transform
-  this.transform = [ 
+  this.transform = [
             [ z, 0, -this.view.x1*z ],
             [ 0, z, -this.view.y1*z ],
             [ 0, 0, 1 ] ];
@@ -160,7 +160,7 @@ bleepsixRender.prototype.adjustZoom = function(x, y, z)
    w.y = w.y - ny*2.0*ry + ny;
 
    this.setView ( w.x, w.y, newzoom );
-  
+
    this.dirty_flag = true;
 }
 
@@ -168,63 +168,63 @@ bleepsixRender.prototype.adjustPan = function(x, y)
 {
    var z = this.zoom;
    this.setView ( this.view.cx - x/z, this.view.cy - y/z, z );
-   
+
    this.dirty_flag = true;
 }
 
 bleepsixRender.prototype.drawGrid = function()
 {
-	if ( this.gridMode == 0 ) return;
+  if ( this.gridMode == 0 ) return;
 
-	var ctx = this.context;
-	var view = this.view;
-	var M = this.transform;
-	var start, stop, t;		
-	var lt = Math.pow ( 10, Math.floor( Math.log( view.x2-view.x1 ) / Math.log(10) ) );
-	var gridstep = lt / 10.0 ;
-	
-	x_start = gridstep * (Math.floor( view.x1 /gridstep));		// round = int()
-	x_stop = gridstep * (Math.floor( view.x2 / gridstep)+1);	// round = int()
-	if ( x_start > x_stop ) { t = x_start; x_start = x_stop; x_stop = t; } 
+  var ctx = this.context;
+  var view = this.view;
+  var M = this.transform;
+  var start, stop, t;
+  var lt = Math.pow ( 10, Math.floor( Math.log( view.x2-view.x1 ) / Math.log(10) ) );
+  var gridstep = lt / 10.0 ;
 
-	y_start = gridstep * (Math.floor( view.y1 / gridstep));
-	y_stop = gridstep * (Math.floor( view.y2 / gridstep)+1);
-	if ( y_start > y_stop ) { t = start; y_start = y_stop; y_stop = t; } 
-	
-	if ( this.gridMode == 1 ) {
+  x_start = gridstep * (Math.floor( view.x1 /gridstep));    // round = int()
+  x_stop = gridstep * (Math.floor( view.x2 / gridstep)+1);  // round = int()
+  if ( x_start > x_stop ) { t = x_start; x_start = x_stop; x_stop = t; }
 
-		// Dots		
+  y_start = gridstep * (Math.floor( view.y1 / gridstep));
+  y_stop = gridstep * (Math.floor( view.y2 / gridstep)+1);
+  if ( y_start > y_stop ) { t = start; y_start = y_stop; y_stop = t; }
+
+  if ( this.gridMode == 1 ) {
+
+    // Dots
     //
-		ctx.lineWidth = 1.0;
-		rect_l = 15.0 / (10.0 * this.zoom) ;
-		rect_c = rect_l / 2.0;
-		ctx.fillStyle = "rgba(0,0,0,0.3)";
-		ctx.beginPath ();
-		for (var x = x_start; x < x_stop; x += gridstep ) {
-		  for (var y = y_start; y < y_stop; y+= gridstep) {
+    ctx.lineWidth = 1.0;
+    rect_l = 15.0 / (10.0 * this.zoom) ;
+    rect_c = rect_l / 2.0;
+    ctx.fillStyle = "rgba(128,128,128,0.3)";
+    ctx.beginPath ();
+    for (var x = x_start; x < x_stop; x += gridstep ) {
+      for (var y = y_start; y < y_stop; y+= gridstep) {
         ctx.fillRect( x - rect_c, y - rect_c , rect_l, rect_l);
-		  }
-		} 
-		ctx.stroke ();
-	}
-	if ( this.gridMode == 2 ) {
+      }
+    }
+    ctx.stroke ();
+  }
+  if ( this.gridMode == 2 ) {
 
-		// Lines
+    // Lines
     //
     ctx.lineWidth = 4.0 / (10.0 * this.zoom);
-		ctx.strokeStyle = "rgba(128,128,128,0.5)";
-		ctx.beginPath();
-		for (var x=x_start; x < x_stop; x += gridstep ) {
-		  ctx.moveTo ( x, view.y1 );
-		  ctx.lineTo ( x, view.y2 );
-		}		
-		for (var y=y_start; y < y_stop; y += gridstep ) {
-		  ctx.moveTo ( view.x1, y );
-		  ctx.lineTo ( view.x2, y );
-		}
+    ctx.strokeStyle = "rgba(128,128,128,0.5)";
+    ctx.beginPath();
+    for (var x=x_start; x < x_stop; x += gridstep ) {
+      ctx.moveTo ( x, view.y1 );
+      ctx.lineTo ( x, view.y2 );
+    }
+    for (var y=y_start; y < y_stop; y += gridstep ) {
+      ctx.moveTo ( view.x1, y );
+      ctx.lineTo ( view.x2, y );
+    }
     ctx.lineJoin = "round";
-		ctx.stroke();
-	}
+    ctx.stroke();
+  }
 
 }
 
@@ -239,7 +239,7 @@ bleepsixRender.prototype.startDraw = function()
   //this.context.save ();
 
   // setup world space (just once)
-  M = this.transform;  
+  M = this.transform;
   this.context.setTransform( M[0][0], M[1][0], M[0][1], M[1][1], M[0][2], M[1][2] );
 }
 
@@ -254,7 +254,7 @@ bleepsixRender.prototype.startDrawColor = function( color )
   this.context.fillStyle =  color;
   this.context.fillRect( 0, 0, this.width, this.height );
 
-  M = this.transform;  
+  M = this.transform;
   this.context.setTransform( M[0][0], M[1][0], M[0][1], M[1][1], M[0][2], M[1][2] );
 }
 
@@ -286,8 +286,8 @@ bleepsixRender.prototype.drawArc= function( x, y, r, start_angle_rad, end_angle_
   // point.
   ctx.arc( x, y, r, start_angle_rad, end_angle_rad,  ccw_flag );
 
-  if (fill_flag) { 
-    ctx.fillStyle = fill_color; 
+  if (fill_flag) {
+    ctx.fillStyle = fill_color;
     ctx.fill();
   }
 
@@ -342,13 +342,13 @@ bleepsixRender.prototype.fillRect = function( x, y, w, h, fill_color )
 {
   var ctx = this.context;
 
-  //ctx.fillStyle = fill_color; 
+  //ctx.fillStyle = fill_color;
 
   //console.log(fill_color);
 
   ctx.beginPath();
   ctx.rect( x - w/2, y - h/2, w, h );
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
   ctx.fill();
   ctx.closePath();
 
@@ -371,7 +371,7 @@ bleepsixRender.prototype.fillRectHoleCircle = function( x, y, w, h, ix, iy, ir, 
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
 
@@ -386,7 +386,7 @@ bleepsixRender.prototype.fillRectHoleOblong = function( x, y, w, h, ix, iy, ibx,
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
   this._rect_path( x, y, w, h );
@@ -401,7 +401,7 @@ bleepsixRender.prototype.strokeRectHoleCircle = function( x, y, w, h, ix, iy, ir
   var ctx = this.context;
 
   ctx.lineWidth = line_width;
-  ctx.strokeStyle = line_color; 
+  ctx.strokeStyle = line_color;
 
   ctx.beginPath();
   ctx.rect(x - w/2, y - h/2, w, h);
@@ -420,7 +420,7 @@ bleepsixRender.prototype.strokeRectHoleOblong = function( x, y, w, h, ix, iy, ib
   var ctx = this.context;
 
   ctx.lineWidth = line_width;
-  ctx.strokeStyle = line_color; 
+  ctx.strokeStyle = line_color;
 
   ctx.beginPath();
   ctx.rect(x - w/2, y - h/2, w, h);
@@ -528,7 +528,7 @@ bleepsixRender.prototype.fillOblong = function( x, y, obx, oby, fill_color )
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
   this._oblong_contour_path( x, y, obx, oby );
@@ -554,7 +554,7 @@ bleepsixRender.prototype.fillOblongHoleCircle = function( x, y, obx, oby, ix, iy
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
 
@@ -573,7 +573,7 @@ bleepsixRender.prototype.fillOblongHoleOblong = function( x, y, obx, oby, ix, iy
   var obs = ( (obx > oby) ? (obx - oby) : (oby - obx) );
   var obs2 = obs/2;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
   this._oblong_contour_path(x, y, obx, oby);
@@ -588,7 +588,7 @@ bleepsixRender.prototype.strokeOblongHoleCircle = function( x, y, obx, oby, ix, 
   var ctx = this.context;
 
   ctx.lineWidth = line_width;
-  ctx.strokeStyle = line_color; 
+  ctx.strokeStyle = line_color;
 
   ctx.beginPath();
   this._oblong_contour_path(x, y, obx, oby);
@@ -611,7 +611,7 @@ bleepsixRender.prototype.strokeOblongHoleOblong = function( x, y, obx, oby, ix, 
   var obs2 = obs/2;
 
   ctx.lineWidth = line_width;
-  ctx.strokeStyle = line_color; 
+  ctx.strokeStyle = line_color;
 
   ctx.beginPath();
   this._oblong_contour_path(x, y, obx, oby);
@@ -650,20 +650,20 @@ bleepsixRender.prototype.oblongHoleOblong = function( x, y, obx, oby, ibx, iby, 
 
 
 // drawEllipseByCenter and drawEllipse
-// based of off Steve Tranby answer to 
+// based of off Steve Tranby answer to
 // http://stackoverflow.com/questions/2172798/how-to-draw-an-oval-in-html5-canvas
 //
 //
-bleepsixRender.prototype.drawEllipseByCenter = function(cx, cy, w, h) 
+bleepsixRender.prototype.drawEllipseByCenter = function(cx, cy, w, h)
 {
   var ctx = this.context;
   this.drawEllipse(cx - w/2.0, cy - h/2.0, w, h);
 }
 
-bleepsixRender.prototype.drawEllipse = 
-function(x, y, w, h, 
-    line_width, line_color, 
-    fill_flag, fill_color) 
+bleepsixRender.prototype.drawEllipse =
+function(x, y, w, h,
+    line_width, line_color,
+    fill_flag, fill_color)
 {
 
   var line_width = ( typeof line_width !== 'undefined' ? line_width : this.default_line_width );
@@ -691,7 +691,7 @@ function(x, y, w, h,
 
   if (fill_flag)
   {
-    ctx.fillStyle = fill_color; 
+    ctx.fillStyle = fill_color;
     ctx.fill();
   }
 
@@ -717,8 +717,8 @@ bleepsixRender.prototype.circle = function( x, y, r, line_width, line_color, fil
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, false );
 
-  if (fill_flag) { 
-    ctx.fillStyle = fill_color; 
+  if (fill_flag) {
+    ctx.fillStyle = fill_color;
     ctx.fill();
   }
 
@@ -742,7 +742,7 @@ bleepsixRender.prototype.fillCircle = function( x, y, r, fill_color )
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, false );
@@ -767,7 +767,7 @@ bleepsixRender.prototype.fillCircleHoleCircle = function( x, y, r, ix, iy, ir, f
 {
   var ctx = this.context;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, true );
@@ -786,7 +786,7 @@ bleepsixRender.prototype.fillCircleHoleOblong = function( x, y, r, obx, oby, fil
   var obs = ( (obx > oby) ? (obx - oby) : (oby - obx) );
   var obs2 = obs/2;
 
-  ctx.fillStyle = fill_color; 
+  ctx.fillStyle = fill_color;
 
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, true );
@@ -819,7 +819,7 @@ bleepsixRender.prototype.strokeCircleHoleCircle = function( x, y, r, ix, iy, ir,
   var ctx = this.context;
 
   ctx.lineWidth = line_width;
-  ctx.strokeStyle = line_color; 
+  ctx.strokeStyle = line_color;
 
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, true );
@@ -842,7 +842,7 @@ bleepsixRender.prototype.strokeCircleHoleOblong = function( x, y, r, obx, oby, l
   var obs2 = obs/2;
 
   ctx.lineWidth = line_width;
-  ctx.strokeStyle = line_color; 
+  ctx.strokeStyle = line_color;
 
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, true );
@@ -909,8 +909,8 @@ bleepsixRender.prototype.circle = function( x, y, r, line_width, line_color, fil
   ctx.beginPath();
   ctx.arc( x, y, r, 0, 2 * Math.PI, false );
 
-  if (fill_flag) { 
-    ctx.fillStyle = fill_color; 
+  if (fill_flag) {
+    ctx.fillStyle = fill_color;
     ctx.fill();
   }
 
@@ -979,7 +979,7 @@ bleepsixRender.prototype.drawGradientLine_old = function(x0, y0, x1, y1, line_wi
 }
 */
 
-bleepsixRender.prototype.drawGradientLine = function(x0, y0, x1, y1, 
+bleepsixRender.prototype.drawGradientLine = function(x0, y0, x1, y1,
     line_width, end_color, mid_color, pos, gx0, gy0, gx1, gy1 )
 {
   var ctx = this.context;
@@ -1032,7 +1032,7 @@ bleepsixRender.prototype.drawPath= function( path,  x, y, color, line_width, clo
   ctx.beginPath();
 
   var ind = 0;
-  for (ind=0; ind < path.length; ind++) 
+  for (ind=0; ind < path.length; ind++)
   //for (ind in path)
   {
     if (ind == 0) { ctx.moveTo(x + path[ind][0], y + path[ind][1]); }
@@ -1053,7 +1053,7 @@ bleepsixRender.prototype.drawBarePolygon = function( path,  x, y, color )
   color         = ( typeof color !== 'undefined' ? color : this.default_stroke_color );
 
   ctx.lineWdith = 0;
-  ctx.fillStyle = color; 
+  ctx.fillStyle = color;
   ctx.beginPath();
 
   var ind = 0;
@@ -1064,7 +1064,7 @@ bleepsixRender.prototype.drawBarePolygon = function( path,  x, y, color )
   }
 
   ctx.lineTo( x + path[0][0], y + path[0][1] );
-  ctx.fill(); 
+  ctx.fill();
 }
 
 bleepsixRender.prototype.drawBarePolygons = function( paths,  x, y, color )
@@ -1073,7 +1073,7 @@ bleepsixRender.prototype.drawBarePolygons = function( paths,  x, y, color )
   color         = ( typeof color !== 'undefined' ? color : this.default_stroke_color );
 
   ctx.lineWdith = 0;
-  ctx.fillStyle = color; 
+  ctx.fillStyle = color;
   ctx.beginPath();
 
   for (var k in paths)
@@ -1090,7 +1090,7 @@ bleepsixRender.prototype.drawBarePolygons = function( paths,  x, y, color )
     ctx.lineTo( x + path[0][0], y + path[0][1] );
   }
 
-  ctx.fill(); 
+  ctx.fill();
 }
 
 bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_width, closePathFlag )
@@ -1101,18 +1101,18 @@ bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_
   line_width    = ( typeof line_width !== 'undefined' ? line_width : this.default_line_width  );
   //closePathFlag = ( typeof closePathFlag !== 'undefined' ? closePathFlag : true);
   closePathFlag = ( typeof closePathFlag !== 'undefined' ? closePathFlag : fill );
-  
+
 
   //ctx.lineWidth = ( (line_width > 0) ? line_width : this.default_line_width );
   //ctx.strokeStyle = ( (color) ? color : this.default_stroke_color );
 
-  if (fill) 
-  { 
-    ctx.fillStyle = color; 
+  if (fill)
+  {
+    ctx.fillStyle = color;
     ctx.lineWidth = 0;
   }
   else
-  { 
+  {
     ctx.strokeStyle = color;
     ctx.lineCap = "round";
     ctx.lineWidth = line_width;
@@ -1128,17 +1128,17 @@ bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_
   }
 
 
-  if (fill) 
+  if (fill)
   {
     ctx.lineTo( x + path[0][0], y + path[0][1] );
-    ctx.fill(); 
+    ctx.fill();
     ctx.lineJoin = "round";
-    ctx.stroke(); 
+    ctx.stroke();
   }
   else
-  { 
+  {
     ctx.lineJoin = "round";
-    ctx.stroke(); 
+    ctx.stroke();
   }
 
 }
@@ -1146,7 +1146,7 @@ bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_
 
 
 
-bleepsixRender.prototype.drawPoint = function( x, y, color, sz ) 
+bleepsixRender.prototype.drawPoint = function( x, y, color, sz )
 {
   var ctx = this.context;
   color    = ( typeof color !== 'undefined' ? color : this.default_color );
@@ -1208,15 +1208,15 @@ bleepsixRender.prototype._font_text_width = function(text, font, xsize)
 
 }
 
-bleepsixRender.prototype.drawTextFont = 
+bleepsixRender.prototype.drawTextFont =
   function( text,
-            font, 
-            x, y, 
+            font,
+            x, y,
             color,
             sizex, sizey,
             line_width,
-            angle_deg, 
-            offset_flag_h, 
+            angle_deg,
+            offset_flag_h,
             offset_flag_v,
             flip_text_flag  )
 {
@@ -1302,7 +1302,7 @@ bleepsixRender.prototype.drawTextFont =
     ch_x += dx;
   }
 
-  ctx.stroke(); 
+  ctx.stroke();
 
   //ctx.translate( -x + sx, -y - sy );
 
@@ -1319,9 +1319,9 @@ bleepsixRender.prototype.drawTextFont =
 
 // rotate text angle_deg clockwise
 //
-bleepsixRender.prototype.drawText = 
-  function( s, x, y, 
-            color, size, angle_deg, 
+bleepsixRender.prototype.drawText =
+  function( s, x, y,
+            color, size, angle_deg,
             offset_flag_h, offset_flag_v,
             flip_text_flag,
             italic_flag,
@@ -1354,7 +1354,7 @@ bleepsixRender.prototype.drawText =
   if (flip_text_flag) ctx.scale(-1, 1);
 
   if      (offset_flag_h == 'L') { ctx.textAlign = "left"; }
-  else if (offset_flag_h == 'C') { ctx.textAlign = "center"; } 
+  else if (offset_flag_h == 'C') { ctx.textAlign = "center"; }
   else if (offset_flag_h == 'R') { ctx.textAlign = "right"; }
 
   if      (offset_flag_v == 'T') { ctx.textBaseline = "top"; }
@@ -1378,13 +1378,13 @@ bleepsixRender.prototype.drawText =
 
 }
 
-bleepsixRender.prototype.drawTextSimpleFont = 
-  function( s, x, y, 
+bleepsixRender.prototype.drawTextSimpleFont =
+  function( s, x, y,
             color, size,
             font
           )
 {
-  this.drawText( s, x, y, color, size, 
+  this.drawText( s, x, y, color, size,
     undefined , "C", "C",
     undefined , undefined, undefined, font );
 }
