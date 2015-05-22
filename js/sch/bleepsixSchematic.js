@@ -3264,28 +3264,18 @@ bleepsixSchematic.prototype.load_part = function(name, data)
 {
 
   // component_cache is the cache of unique parts
-  //g_component_cache[name] = data;
+  //
   this.kicad_sch_json.component_lib[name] = data;
-
-  //this.find_component_bounding_box( g_component_cache[name] );
   this.find_component_bounding_box( this.kicad_sch_json.component_lib[name] );
   
   this.queued_display_component_count--;
-
   if (this.queued_display_component_count == 0)
   {
     this.updateBoundingBox();
-
     this.displayable = true;
     g_painter.dirty_flag = true;
-
-
-
   }
 
-  //console.log( name + " loaded");
-  //console.log(data);
-  
 }
 
 bleepsixSchematic.prototype.load_part_error = function(part_json, jqxr, textStatus, error)

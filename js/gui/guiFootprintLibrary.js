@@ -196,6 +196,8 @@ guiFootprintLibrary.prototype.listPick = function(list_ele)
     var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
     var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );
     var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
+
+    //load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
     load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
 
     this.guiFootprint.footprint_name = list_ele.name;

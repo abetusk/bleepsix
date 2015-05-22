@@ -23,7 +23,7 @@
 */
 
 
-var g_footprint_cache = {};
+//var g_footprint_cache = {};
 var g_footprint_location = {};
 var g_footprint_library_map = {};
 
@@ -96,7 +96,8 @@ function load_footprint_location( userId, sessionId, projectId, callback, callba
 function load_footprint_cache_part( name, location, userId, sessionId, projectId )
 {
 
-  if ( !(name in g_footprint_cache) )
+  //if ( !(name in g_footprint_cache) )
+  if ( !(name in g_board_controller.board.kicad_brd_json.footprint_lib ) )
   {
 
     g_board_controller.board.queued_display_footprint_count++;
@@ -105,17 +106,6 @@ function load_footprint_cache_part( name, location, userId, sessionId, projectId
     var brd = g_board_controller.board;
 
     var req = { op: "MOD_ELE", name : name, location : location };
-    /*
-    if ( (typeof userId !== 'undefined') && 
-         (typeof sessionId !== 'undefined') &&
-         (typeof projectId !== 'undefinfed') )
-    {
-      req.userId = userId;
-      req.sessionId = sessionId;
-      req.projectId = projectId;
-    }
-    */
-
     if ( (typeof userId !== 'undefined') && 
          (typeof sessionId !== 'undefined') )
     {

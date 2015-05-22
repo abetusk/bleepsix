@@ -30,26 +30,26 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
 
   this.angle = 0.0;
 
-  var ref_name = g_board_controller.board.getReferenceName( g_footprint_cache[ footprint_name ] );
+  var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
+
+  //var ref_name = g_board_controller.board.getReferenceName( g_footprint_cache[ footprint_name ] );
+  var ref_name = g_board_controller.board.getReferenceName( footprint_lib[ footprint_name ] );
 
   this.cloned_footprint = {};
   if ( typeof footprint_data === 'undefined' )
   {
-    $.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
+    //$.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
+    this.cloned_footprint = simplecopy( footprint_lib[ footprint_name ] );
   }
   else
   {
-    $.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
-    //g_board_controller.board.extendComponentText( this.cloned_footprint, footprint_data );
+    //$.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
+    this.cloned_footprint = simplecopy( footprint_lib[ footprint_name ] );
 
     this.cloned_footprint.name = footprint_data.name;
     this.angle = 0.0;
 
-    //console.log( this.cloned_footprint );
-
   }
-
-  //this.cloned_footprint.text[0].reference = ref_name;
 
   this.mouse_x = mouse_x;
   this.mouse_y = mouse_y;
@@ -582,7 +582,6 @@ toolFootprintPlace.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (keycode == 191)
   {
-    //console.log(g_footprint_cache[this.footprint_name]);
   }
 
 }

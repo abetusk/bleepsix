@@ -67,9 +67,7 @@ function bleepsixBoard()
   this.net          = {};
   this.netlist      = {};
 
-  this.kicad_brd_json = { "element":[] , "units" : "deci-mils" };
-
-  //console.log("STARTING:", this.kicad_brd_json );
+  this.kicad_brd_json = { "element":[] , "units" : "deci-mils", "footprint_lib" : {} };
 
   this.displayable = true;
 
@@ -3669,9 +3667,11 @@ bleepsixBoard.prototype.load_part = function(name, data)
 
   // footprint_cache is the cache of footprint modules
   //
-  g_footprint_cache[name] = data;
+  //g_footprint_cache[name] = data;
+  this.kicad_brd_json.footprint_lib[name] = data;
 
-  this._find_footprint_bbox( g_footprint_cache[name] );
+  //this._find_footprint_bbox( g_footprint_cache[name] );
+  this._find_footprint_bbox( this.kicad_brd_json.footprint_lib[name] );
   
   this.queued_display_footprint_count--;
 
@@ -3763,6 +3763,12 @@ bleepsixBoard.prototype.load_board = function( json )
 
   this.kicad_brd_json = json;
 
+  // Schema update requires us to add in elements if they don't exist..
+  // sorry
+  if (!("footprint_lib" in this.kicad_brd_json)) {
+    this.kicad_brd_json["footprint_lib"] = {};
+  }
+
   // The board contains all information to display without need to call
   // on the footprint cache.
   //
@@ -3809,7 +3815,8 @@ bleepsixBoard.prototype.load_board = function( json )
     if (bleepsixBoardHeadless)
       continue;
 
-    if (name in g_footprint_cache)
+    //if (name in g_footprint_cache)
+    if (name in this.kicad_brd_json.footprint_lib)
     {
       // nothing to do...
     }

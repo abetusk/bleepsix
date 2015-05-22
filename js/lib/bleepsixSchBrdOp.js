@@ -116,6 +116,9 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
   else if ( ( type == "footprintData" ) || ( type == "module" ) )
   {
 
+    // EXPERIMENTAL
+    this.board.load_part( data.footprintData.name, data.footprintData );
+
     this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
 
     var ref = this.board.refLookup( id );
@@ -454,19 +457,10 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       for (var ind=0; ind< data.oldElement.length; ind++)
       {
-        /*
-        var ref = this.board.refLookup( data.element[ind].id );
-        $.extend( true, ref, data.oldElement[ind] );
-        this.board.refUpdate( id[ind], data.oldElement[ind].id );
-        */
-
         var clonedData = simplecopy( data.oldElement[ind] );
         this.board.dataReplace( data.element[ind].id, clonedData );
         this.board.refUpdate( id[ind], data.oldElement[ind].id );
       }
-
-      //var sch_pin_id_net_map = this.schematic.getPinNetMap();
-      //this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
 
     }
     else
@@ -477,11 +471,12 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
       //
       for (var ind=0; ind<id.length; ind++)
       {
-        /*
-        var ref = this.board.refLookup( data.oldElement[ind].id );
-        $.extend( true, ref, data.element[ind] );
-        this.board.refUpdate( data.oldElement[ind].id, id[ind] );
-        */
+        // Update can replace a part.  This can be called from
+        // a tool like toolFootprintPlace which will overwrite
+        // another part that might not be cached.  Make sure
+        // it's loaded into the boards local parts cache.
+        //
+        this.board.load_part( data.element[ind].name, data.element[ind] );
 
         var clonedData = simplecopy( data.element[ind] );
         this.board.dataReplace( data.oldElement[ind].id, clonedData );
@@ -489,12 +484,7 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
 
       }
 
-      //var sch_pin_id_net_map = this.schematic.getPinNetMap();
-      //this.board.updateSchematicNetcodeMap( sch_pin_id_net_map );
-
-
     }
-
     
   }
 
