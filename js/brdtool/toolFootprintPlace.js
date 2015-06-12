@@ -31,20 +31,16 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
   this.angle = 0.0;
 
   var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
-
-  //var ref_name = g_board_controller.board.getReferenceName( g_footprint_cache[ footprint_name ] );
-  var ref_name = g_board_controller.board.getReferenceName( footprint_lib[ footprint_name ] );
+  var ref_name = g_board_controller.board.getReferenceName(footprint_lib[footprint_name]);
 
   this.cloned_footprint = {};
   if ( typeof footprint_data === 'undefined' )
   {
-    //$.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
-    this.cloned_footprint = simplecopy( footprint_lib[ footprint_name ] );
+    this.cloned_footprint = simplecopy(footprint_lib[ footprint_name]);
   }
   else
   {
-    //$.extend(true, this.cloned_footprint, g_footprint_cache[ footprint_name ] );
-    this.cloned_footprint = simplecopy( footprint_lib[ footprint_name ] );
+    this.cloned_footprint = simplecopy(footprint_lib[footprint_name]);
 
     this.cloned_footprint.name = footprint_data.name;
     this.angle = 0.0;
@@ -75,7 +71,6 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
   this.clearance = g_parameter.clearance;
   this.ghostElement = null;
 
-
   var d = new Date();
   this.move_prev_ms = d.getTime();
   this.move_heuristic_ms = 100;
@@ -84,9 +79,7 @@ function toolFootprintPlace( mouse_x, mouse_y , footprint_name, footprint_data )
 
   this.shutdown = false;
 
-  //setInterval( function(xx) { return function() { xx.tick(); }; }(this), 100 );
   setTimeout( function(xx) { return function() { xx.tick(); }; }(this), 100 );
-
 }
 
 toolFootprintPlace.prototype.tick = function()
@@ -182,9 +175,6 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
     return;
   }
   ref.hideFlag = false;
-
-  console.log(">>>>", id);
-
 
   // Collect all the net numbers that we will be
   // replacing
@@ -340,9 +330,6 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       return;
     }
 
-    //DEBUG
-    //profile_start();
-
     var net_op = { source : "brd" , destination: "brd" };
     net_op.action = "add";
     net_op.type = "nets";
@@ -363,45 +350,20 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
     var nc_ind = 0;
     for (var p_ind in this.cloned_footprint.pad )
     {
-      //var net_obj = g_board_controller.board.genNet();
-
-      //net_op.data.push( { net_number : net_obj.net_number,
-      //                    net_name : net_obj.net_name } );
-
       net_op.data.push( { net_number : new_netcode[nc_ind].net_number,
                           net_name : new_netcode[nc_ind].net_name } );
 
       var pad = this.cloned_footprint.pad[p_ind];
-      //pad.net_number = net_obj.net_number;
-      //pad.net_name = net_obj.net_name;
       pad.net_number = new_netcode[nc_ind].net_number;
       pad.net_name = new_netcode[nc_ind].net_name;
 
       nc_ind++;
-
-      /*
-      var net_op = { source : "brd" , destination: "brd" };
-      net_op.action = "add";
-      net_op.type = "net";
-      net_op.data = { net_number : net_obj.net_number,
-                      net_name : net_obj.net_name };
-      net_op.groupId = this.groupId;
-      g_board_controller.opCommand(net_op);
-
-      var pad = this.cloned_footprint.pad[p_ind];
-      pad.net_number = net_obj.net_number;
-      pad.net_name = net_obj.net_name;
-      */
-
     }
 
     if (net_op.data.length>0)
     {
       g_board_controller.opCommand(net_op);
     }
-
-    //DEBUG
-    //profile_cp_print("toolFootprintPlace>>>");
 
     if (this.highlightId)
     {

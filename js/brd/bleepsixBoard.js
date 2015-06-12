@@ -2708,13 +2708,11 @@ bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang,
 
 }
 
-bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f01, ghostFlag )
+bleepsixBoard.prototype.drawFootprint = function(data, x, y, rad_angle, draw_f01, ghostFlag, library_flag)
 {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
-
-
   draw_f01 = ( typeof draw_f01 !== 'undefined' ? draw_f01 : false );
-  debug_flag = ( typeof debug_flag !== 'undefined' ? debug_flag : false );
+  library_flag = ( typeof library_flag !== 'undefined' ? library_flag : false );
 
   var ind, p_ind;
   var name = data["name"];
@@ -2763,11 +2761,19 @@ bleepsixBoard.prototype.drawFootprint = function( data, x, y, rad_angle, draw_f0
   //
   if (draw_f01)
   {
-    if ("text" in data) {
-      if (data["text"].length > 0 )
-        this.drawFootprintTextField( data["text"][0], 0, 0, -ang );
-      if (data["text"].length > 1 )
-        this.drawFootprintTextField( data["text"][1], 0, 0, -ang );
+
+    if (library_flag) {
+      if ("text" in data) {
+        if (data["text"].length > 0 )
+          this.drawFootprintTextField(data["text"][0], 0, 0, -ang, data.library_name);
+      }
+    } else {
+      if ("text" in data) {
+        if (data["text"].length > 0 )
+          this.drawFootprintTextField( data["text"][0], 0, 0, -ang );
+        if (data["text"].length > 1 )
+          this.drawFootprintTextField( data["text"][1], 0, 0, -ang );
+      }
     }
   }
 
@@ -2896,9 +2902,10 @@ bleepsixBoard.prototype._angleMod = function( rad )
 // angle and sub fields (such as text) should be modified via,
 // say, rotationAboutPoint
 //
-bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_y, g_rad_ang )
+bleepsixBoard.prototype.drawFootprintTextField = function(text_field, fp_x, fp_y, g_rad_ang, override_text)
 {
   //var flag = ( (typeof flag !== 'undefined') ? flag : 'N' );
+  var txt_override_flag = ( (typeof override_text !== 'undefined') ? true : false );
 
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
 
@@ -2911,6 +2918,8 @@ bleepsixBoard.prototype.drawFootprintTextField = function( text_field, fp_x, fp_
 
 
   var s = text_field["text"];
+  if (txt_override_flag) s = override_text;
+
   var x = parseFloat( text_field["x"] );
   var y = parseFloat( text_field["y"] );
   var line_width = parseFloat( text_field["penwidth"] );

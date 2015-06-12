@@ -33,14 +33,13 @@ function guiFootprintTile( gui_name, footprint_name )
   this.ready = false;
 
   this.bbox = [ [0, 0], [0,0] ];
-  bbox = this.bbox;
+  var bbox = this.bbox;
 
   var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
-  //if ( footprint_name in g_footprint_cache )
   if ( footprint_name in footprint_lib )
   {
-    //this.bbox = g_footprint_cache[ footprint_name ]["coarse_bounding_box"];
-    this.bbox = footprint_lib[ footprint_name ]["coarse_bounding_box"];
+    this.footprint = 
+    this.bbox = footprint_lib[footprint_name]["coarse_bounding_box"];
     bbox = this.bbox;
     this.ready = true;
   }
@@ -54,19 +53,9 @@ function guiFootprintTile( gui_name, footprint_name )
   if (mM > 0)
     this.rescale = this.width / mM;
 
-
-  // debugging...
-  this.uniq = parseInt(256.0*Math.random());
-  //this.bgColor = "rgba(" + this.uniq + ",0,0," + "0.2)";
-
   this.bgColor = "rgba(0,0,0," + "0.2)";
-
   this.guiPickCallback = null;
-
   this.once = false;
-
-  //console.log("guiFootprintTile loaded");
-
 }
 
 guiFootprintTile.inherits ( guiRegion );
@@ -80,14 +69,12 @@ guiFootprintTile.prototype.refresh = function()
 {
 
   this.bbox = [ [0, 0], [0,0] ];
-  bbox = this.bbox;
+  var bbox = this.bbox;
 
   var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
-  //if ( this.footprint_name in g_footprint_cache )
   if ( this.footprint_name in footprint_lib )
   {
-    //this.bbox = g_footprint_cache[ this.footprint_name ]["coarse_bounding_box"];
-    this.bbox = footprint_lib[ this.footprint_name ]["coarse_bounding_box"];
+    this.bbox = footprint_lib[this.footprint_name]["coarse_bounding_box"];
     bbox = this.bbox;
     this.ready = true;
 
@@ -110,10 +97,10 @@ guiFootprintTile.prototype.draw = function()
 
   this.refresh();
 
-  if (this.ready )
+  if (this.ready)
   {
     var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
-    //if ( this.footprint_name in g_footprint_cache )
+
     if ( this.footprint_name in footprint_lib )
     {
 
@@ -131,12 +118,19 @@ guiFootprintTile.prototype.draw = function()
       g_painter.context.save();
       g_painter.context.transform( r, 0, 0, r, s-com_x, s+com_y );
 
-      //g_board_controller.board.drawFootprint( g_footprint_cache[this.footprint_name], 0, 0, orientation, true );
-      g_board_controller.board.drawFootprint( footprint_lib[this.footprint_name], 0, 0, orientation, true );
+      var ofx = 0;
+      var ofy = 0;
 
+      var footprint = footprint_lib[this.footprint_name];
+
+      if ("x" in footprint)
+        ofx = footprint.x;
+
+      if ("y" in footprint)
+        ofy = footprint.y;
+
+      g_board_controller.board.drawFootprint(footprint, ofx, -ofy, orientation, true, false, true);
       g_painter.context.restore();
-
-
     }
     else
     {
