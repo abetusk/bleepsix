@@ -183,8 +183,12 @@ guiPalette.prototype.hitTest = function(x, y)
         if ("cleanup" in g_schematic_controller.tool)
           g_schematic_controller.tool.cleanup();
 
+        var ix = Math.floor(x);
+        var iy = Math.floor(y);
+
         //console.log("guiPalette: got child hit " + this.guiChildren[ind].component_name );
-        g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiChildren[ind].component_name );
+        //g_schematic_controller.tool = new toolComponentPlace( x, y, this.guiChildren[ind].component_name );
+        g_schematic_controller.tool = new toolComponentPlace( ix, iy, this.guiChildren[ind].component_name );
 
         g_schematic_controller.guiToolbox.defaultSelect();
         g_painter.dirty_flag = true;

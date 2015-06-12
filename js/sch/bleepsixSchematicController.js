@@ -733,12 +733,12 @@ bleepsixSchematicController.prototype.canvas_coords_from_global = function( x, y
   return [ x - rl - scrollx, y - rt - scrolly ];
 }
 
-bleepsixSchematicController.prototype.mouseEnter = function( x, y ) 
-{
+bleepsixSchematicController.prototype.mouseEnter = function( x, y ) {
+  console.log(">> controller mouse enter");
 }
 
-bleepsixSchematicController.prototype.mouseLeave = function( x, y ) 
-{
+bleepsixSchematicController.prototype.mouseLeave = function( x, y ) {
+  console.log(">> controller mouse leave");
 }
 
 bleepsixSchematicController.prototype.resize = function( w, h, ev ) 

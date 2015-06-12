@@ -70,6 +70,8 @@ function bleepsixRender( canvas_param )
   this.default_line_width = 5;
   this.default_stroke_color = "rgb( 0, 160, 0 )";
   this.default_fill_color = "rgb( 0, 160, 0 )";
+
+  this.line_join_type = "round";
 }
 
 bleepsixRender.prototype.setWidthHeight = function ( w , h) {
@@ -222,7 +224,7 @@ bleepsixRender.prototype.drawGrid = function()
       ctx.moveTo ( view.x1, y );
       ctx.lineTo ( view.x2, y );
     }
-    ctx.lineJoin = "round";
+    ctx.lineJoin = this.line_join_type;
     ctx.stroke();
   }
 
@@ -941,12 +943,12 @@ bleepsixRender.prototype.line = function(x0, y0, x1, y1, color, line_width )
   //ctx.strokeStyle = ( (color) ? color : this.default_stroke_color );
   ctx.lineWidth = line_width;
   ctx.strokeStyle = color;
-  ctx.lineCap = "round";
+  ctx.lineCap = this.line_join_type;
 
   ctx.beginPath();
   ctx.moveTo(x0, y0);
   ctx.lineTo(x1, y1);
-  ctx.lineJoin = "round";
+  ctx.lineJoin = this.line_join_type;
   ctx.stroke();
 }
 
@@ -1007,12 +1009,12 @@ bleepsixRender.prototype.drawGradientLine = function(x0, y0, x1, y1,
   */
 
   ctx.strokeStyle = grad;
-  ctx.lineCap = "round";
+  ctx.lineCap = this.line_join_type;
 
   ctx.beginPath();
   ctx.moveTo(x0, y0);
   ctx.lineTo(x1, y1);
-  ctx.lineJoin = "round";
+  ctx.lineJoin = this.line_join_type;
   ctx.stroke();
 }
 
@@ -1027,7 +1029,7 @@ bleepsixRender.prototype.drawPath= function( path,  x, y, color, line_width, clo
   //ctx.strokeStyle = ( (color) ? color : this.default_stroke_color );
   ctx.lineWidth = line_width;
   ctx.strokeStyle = color;
-  ctx.lineCap = "round";
+  ctx.lineCap = this.line_join_type;
 
   ctx.beginPath();
 
@@ -1042,7 +1044,7 @@ bleepsixRender.prototype.drawPath= function( path,  x, y, color, line_width, clo
   if (closePathFlag && (path.length > 2))
     ctx.lineTo(x + path[0][0], y + path[0][1]);
 
-  ctx.lineJoin = "round";
+  ctx.lineJoin = this.line_join_type;
   ctx.stroke();
 
 }
@@ -1114,7 +1116,7 @@ bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_
   else
   {
     ctx.strokeStyle = color;
-    ctx.lineCap = "round";
+    ctx.lineCap = this.line_join_type;
     ctx.lineWidth = line_width;
   }
 
@@ -1132,12 +1134,12 @@ bleepsixRender.prototype.drawPolygon = function( path,  x, y, color, fill, line_
   {
     ctx.lineTo( x + path[0][0], y + path[0][1] );
     ctx.fill();
-    ctx.lineJoin = "round";
+    ctx.lineJoin = this.line_join_type;
     ctx.stroke();
   }
   else
   {
-    ctx.lineJoin = "round";
+    ctx.lineJoin = this.line_join_type;
     ctx.stroke();
   }
 
@@ -1264,7 +1266,7 @@ bleepsixRender.prototype.drawTextFont =
   var B = scale * sizey;
 
   ctx.strokeStyle = color;
-  ctx.lineJoin = "round";
+  ctx.lineJoin = this.line_join_type;
   ctx.lineWidth = line_width;
   ctx.beginPath();
 
