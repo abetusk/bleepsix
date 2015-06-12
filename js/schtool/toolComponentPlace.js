@@ -73,7 +73,8 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
   this.drawHighlightRect = true;
 
   this.world_xy = g_painter.devToWorld( mouse_x, mouse_y );
-  this.snap_world_xy = g_snapgrid.snapGrid (this.world_xy);
+  this.world_xy = g_snapgrid.snapGrid(this.world_xy);
+  this.snap_world_xy = g_snapgrid.snapGrid(this.world_xy);
 
   this.cursorSize = 6;
   this.cursorWidth = 1;
