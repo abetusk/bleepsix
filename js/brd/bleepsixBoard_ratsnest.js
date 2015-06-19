@@ -1017,7 +1017,7 @@ bleepsixBoard.prototype._update_all_ratsnest = function( ds, id_ref_array, sch_n
 
       var nc = gid_to_nc[ gid ];
 
-      if (!(gid in this.kicad_brd_json.net_code_airwire_map))
+      if (!(nc in this.kicad_brd_json.net_code_airwire_map))
       {
         this.kicad_brd_json.net_code_airwire_map[ nc ] = [];
       }
