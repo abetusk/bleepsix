@@ -3300,6 +3300,60 @@ bleepsixBoard.prototype.drawGhostElement = function( ele )
 }
 
 
+bleepsixBoard.prototype._BOARD_SANITY = function()
+{
+  var brd = this.kicad_brd_json;
+  var ele_list = brd.element;
+
+  var err_count=0;
+
+  for (var ind in ele_list) {
+
+
+    if (("x" in ele_list[ind]) && (isNaN(ele_list[ind].x))) {
+      console.log("SANITY ERROR: isNaN(x) kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+    if (("y" in ele_list[ind]) && (isNaN(ele_list[ind].y))) {
+      console.log("SANITY ERROR: isNaN(y) kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+    if (("x0" in ele_list[ind]) && (isNaN(ele_list[ind].x0))) {
+      console.log("SANITY ERROR: isNaN(x0) kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+    if (("y0" in ele_list[ind]) && (isNaN(ele_list[ind].y0))) {
+      console.log("SANITY ERROR: isNaN(y0) kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+    if ((ele_list[ind].type === "module") && (!("text" in ele_list[ind]))) {
+      console.log("SANITY ERROR: type 'module' but 'text' DNE kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+    if ((ele_list[ind].shape === "track") && (ele_list[ind].type === "module")) {
+      console.log("SANITY ERROR: shape 'track' but type == 'module' kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+    if (!this.refLookup(ele_list[ind].id)) {
+      console.log("SANITY ERROR: refLookup FAILED for id " + ele_list[ind].id + " kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
+      err_count++;
+    }
+
+  }
+
+  if (err_count>0) {
+    var z = simplecopy( this );
+    console.log("SANITY ERROR!!! BOARD DUMP:");
+    console.log(z);
+  }
+
+}
 
 bleepsixBoard.prototype.drawBoard = function()
 {
@@ -3407,6 +3461,10 @@ bleepsixBoard.prototype.drawBoard = function()
       }
     }
   }
+
+  // SANITY
+  this._BOARD_SANITY();
+
 }
 
 
