@@ -883,22 +883,6 @@ bleepsixBoardController.prototype.keyDown = function( keycode, ch, ev )
     this.movingDebug = !this.movingDebug;
   }
 
-  else if (ch == '8')
-  {
-    g_painter.dirty_flag = true;
-    g_debug_pos -= 50;
-    //this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
-    this.guiFootprintLibrary.move( g_debug_pos, 0 );
-  }
-
-  else if (ch == '9')
-  {
-    g_painter.dirty_flag = true;
-    g_debug_pos += 50;
-    this.guiFootprintLibrary.move( g_painter.width - this.guiFootprintLibrary.width, 0);
-    //this.guiFootprintLibrary.move( g_debug_pos, 0 );
-  }
-
   var r = true;
 
   if (!this.focus_flag)
