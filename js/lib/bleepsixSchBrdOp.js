@@ -471,12 +471,16 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
       //
       for (var ind=0; ind<id.length; ind++)
       {
+
         // Update can replace a part.  This can be called from
         // a tool like toolFootprintPlace which will overwrite
         // another part that might not be cached.  Make sure
         // it's loaded into the boards local parts cache.
         //
-        this.board.load_part( data.element[ind].name, data.element[ind] );
+        if (data.element[ind].type == "module")
+        {
+          this.board.load_part( data.element[ind].name, data.element[ind] );
+        }
 
         var clonedData = simplecopy( data.element[ind] );
         this.board.dataReplace( data.oldElement[ind].id, clonedData );

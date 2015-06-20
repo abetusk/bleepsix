@@ -333,7 +333,6 @@ bleepsixBoardController.prototype.opCommand = function( msg )
 
   this.opHistoryUpdate( msg );
 
-
   if ( (msg.action == "add") && ((msg.type == "footprint") || (msg.type == "footprintData")) )
   {
     var ucomp = this.schematic.makeUnknownComponent();

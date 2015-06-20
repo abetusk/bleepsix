@@ -31,7 +31,6 @@
 
 function toolBoardMove( mouse_x, mouse_y, id_ref_array, processInitialMouseUp  ) 
 {
-
   mouse_x = ( typeof mouse_x !== 'undefined' ? mouse_x : 0 );
   mouse_y = ( typeof mouse_y !== 'undefined' ? mouse_y : 0 );
   processInitialMouseUp = ( typeof processInitialMouseUp !== 'undefined' ? processInitialMouseUp : true );
@@ -492,8 +491,10 @@ toolBoardMove.prototype._createPadModuleNets = function( pads )
     var old_pad = {};
     var new_pad = {};
 
-    $.extend( true, old_pad, brd_pad_ref );
-    $.extend( true, new_pad, brd_pad_ref );
+    //$.extend( true, old_pad, brd_pad_ref );
+    //$.extend( true, new_pad, brd_pad_ref );
+    old_pad = simplecopy(brd_pad_ref);
+    new_pad = simplecopy(brd_pad_ref);
 
     new_pad.net_number = newnet.net_number;
     new_pad.net_name = newnet.net_name;
@@ -604,8 +605,10 @@ toolBoardMove.prototype._patchUpNets = function()
       var old_data = {};
       var new_data = {};
 
-      $.extend( true, old_data, brd_track_ref );
-      $.extend( true, new_data, brd_track_ref );
+      //$.extend( true, old_data, brd_track_ref );
+      //$.extend( true, new_data, brd_track_ref );
+      old_data = simplecopy(brd_track_ref);
+      new_data = simplecopy(brd_track_ref);
 
       // We've created it from doing a refLookup,
       // so it's hidden while we move it around
@@ -637,8 +640,10 @@ toolBoardMove.prototype._patchUpNets = function()
         var old_data = {};
         var new_data = {};
 
-        $.extend( true, old_data, pad_ref );
-        $.extend( true, new_data, pad_ref );
+        //$.extend( true, old_data, pad_ref );
+        //$.extend( true, new_data, pad_ref );
+        old_data = simplecopy(pad_ref);
+        new_data = simplecopy(pad_ref);
 
         new_data.net_number = newnets[ nc ].net_number;
         new_data.net_name   = newnets[ nc ].net_name;
