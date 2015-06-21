@@ -28,6 +28,24 @@ if (typeof module !== 'undefined')
   module.exports = bleepsixBoard;
 }
 
+/*
+bleepsixBoard.prototype.getNetName = function(net_number)
+{
+  var nc_map = this.kicad_brd_json.net_code_map;
+  if (net_number in nc_map)
+  {
+    return nc_map[net_number];
+  }
+
+  var z = Array( 6 - (String(net_number).length) ).join('0');
+  var net_name = "XXX-" + z + String(net_number);
+
+  console.log("ERROR: getNetName: asking for net_number DNE", net_number, "returning", net_name);
+  console.trace();
+
+  return net_name;
+}
+*/
 
 
 bleepsixBoard.prototype._pad_by_name = function( pad, name )
@@ -61,15 +79,6 @@ bleepsixBoard.prototype.updateSchematicNetcodeMap = function( sch_pin_id_net_map
     var sch_netcode = parseInt(sch_pin_id_net_map[pin_id].netcode);
 
     var ref = this.refLookup( parent_id );
-
-
-    //DEBUG
-    if (!ref)
-    {
-      console.log(">>>> updateSchematicNetcodeMap, trying to lookup:", parent_id);
-      console.log(">>>> pin_name:", pin_name, ", sch_netcode:", sch_netcode);
-    }
-
 
     if (!ref) continue;
     if (! ( "pad" in ref ) ) continue;
@@ -578,73 +587,6 @@ bleepsixBoard.prototype.updateLocalNet_slow = function( )
   console.log("...");
 
   return;
-
-  //DEBUG
-
-  /*
-  var test_layer = 15;
-  var edges = EuclideanMST.euclideanMST( layer_points[test_layer], __dist2 );
-  var filtered_edge = [];
-
-  for (var e_ind in edges)
-  {
-    var u = layer_points[ test_layer ][ edges[e_ind][0] ];
-    var v = layer_points[ test_layer ][ edges[e_ind][1] ];
-
-    var d = __dist2( u, v );
-    if ( d < 2*ds )
-      continue;
-
-    filtered_edge.push( edges[e_ind] );
-
-    //this.debug_edge.push( [[u[0], u[1]], [v[0],v[1]] ] );
-  }
-  g_painter.dirty_flag = true;
-
-  //var group_net = {};
-  //var group_net_id = 1;
-
-  for (var e_ind in filtered_edge)
-  {
-    var a = [];
-    a.push( layer_points[ test_layer ][ filtered_edge[e_ind][0] ] );
-    a.push( layer_points[ test_layer ][ filtered_edge[e_ind][1] ] );
-
-    for (var i=0; i<2; i++)
-    {
-      var key = test_layer + ":" + a[i][0] + "," + a[i][1];
-      var pgn = layer_point_hash[ key ];
-
-      console.log("..> " + key );
-      console.log( layer_point_hash[key] );
-
-      if (pgn.id in group_net)
-      {
-        console.log("  " + pgn.id + " already allcoated (" + group_net[ pgn.id ] + ")");
-        continue;
-      }
-
-      this.debug_edge.push( a );
-
-      group_net[ pgn.id ] = group_net_id++;
-    }
-
-  }
-
-  console.log( " --> group_net_id: "  + group_net_id );
-  console.log(group_net);
-  */
-
-  //console.log(edges);
-
-  /*
-  var test_layer = 0;
-  for (var ind in layer_elements[test_layer])
-  {
-    this.debug_pgns.push( layer_elements[test_layer][ind] );
-  }
-  */
-
 }
 
 
@@ -703,18 +645,21 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
   this._populate_netsplit_group_hash_names( net_ele_point_hash );
 
   var group_list = this._get_netsplit_group_list(net_ele_point_hash);
-  if (group_list.length == 1 )
-  {
-    return ;
-  }
 
-  var net_group_bin = this._get_netsplit_group_bin( net_ele_point_hash ) ;
+  // We just have one group, nothing to split, return immediately.
+  //
+  if (group_list.length == 1 ) return ;
+
+  var net_group_bin = this._get_netsplit_group_bin(net_ele_point_hash);
 
   // successfully processed == true
   //
-  if (this._bounding_box_netsplit( net_group_bin ) ) 
+  var bb_ns_res = this._bounding_box_netsplit( net_group_bin );
+
+  if (bb_ns_res.processed)
   {
-    return ;
+    var split_result = { new_net : bb_ns_res.new_net_info, orig_net_number: orig_netcode };
+    return split_result;
   }
 
   var ds = 10;
@@ -807,7 +752,8 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
           var netcode = pad_ref.net_number;
 
           pad_ref.net_number = new_net.net_number;
-          pad_ref.net_name = new_net.net_name;
+          //pad_ref.net_name = new_net.net_name;
+          //pad_ref.net_name = this.getNetName(new_net.net_number);
         }
 
       }
@@ -898,7 +844,9 @@ bleepsixBoard.prototype._get_netsplit_group_bin = function( net_ele_point_hash )
     {
       var ele = ele_list[ind];
       if (!(ele.id in ele_hash))
+      {
         ele_hash[ele.id] = ele;
+      }
 
       group_list[ ele.group_name ] = 1;
     }
@@ -910,7 +858,9 @@ bleepsixBoard.prototype._get_netsplit_group_bin = function( net_ele_point_hash )
     net_ele_group_bin[g] = [];
 
   for (var id in ele_hash)
+  {
     net_ele_group_bin[ ele_hash[id].group_name ].push( ele_hash[id] );
+  }
 
   return net_ele_group_bin;
 
@@ -946,7 +896,7 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
       if (ele.type == "pad")
         var ref = ele.pad_ref;
 
-      if ( ele.group_name in group_bbox)
+      if (ele.group_name in group_bbox)
       {
         this._update_bbox_with_point( group_bbox[ ele.group_name ], ref.bounding_box[0][0], ref.bounding_box[0][1] );
         this._update_bbox_with_point( group_bbox[ ele.group_name ], ref.bounding_box[1][0], ref.bounding_box[1][1] );
@@ -972,17 +922,18 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
     {
       if (ind0 <= ind1) continue;
       if (this._box_box_intersect( group_bbox[ind0], group_bbox[ind1] ))
-        return false;
+      {
+        return { processed: false };
+      }
     }
   }
-
-  //console.log("bounding boxes do not intersect, simple netsplit");
 
   // We have a simple netsplit, so go through, keep the
   // first group as is and label the rest of the gruops
   // with a new net.
   //
   var first = true;
+  var new_net_list = [];
   for (var group_name in net_ele_groups)
   {
 
@@ -994,6 +945,7 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
     // create a new net
     //
     var new_net = this.addNet();
+    new_net_list.push(new_net);
 
     // and associate it to the appropriate group
     //
@@ -1010,14 +962,12 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
       {
         var pad_ref = ele_list[ind].pad_ref;
         pad_ref.net_number = new_net.net_number;
-        pad_ref.net_name = new_net.net_name;
       }
 
     }
   }
 
-  //console.log("net split, done");
-  return true;
+  return { processed: true, new_net_info : new_net_list };
 
 }
 
@@ -1053,7 +1003,6 @@ bleepsixBoard.prototype._get_netsplit_group_list = function( net_ele_point_hash 
   return group_list;
 
 }
-
 
 bleepsixBoard.prototype._populate_netsplit_group_hash_names = function( net_ele_point_hash )
 {

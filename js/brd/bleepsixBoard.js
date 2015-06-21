@@ -1102,36 +1102,6 @@ bleepsixBoard.prototype._initBoardNet = function()
 
   this.kicad_brd_json["sch_pin_id_net_map"] = {};
 
-  /*
-$NCLASS
-Name "Default"
-Desc "This is the default net class."
-Clearance 0.254
-TrackWidth 0.3048
-ViaDia 1.19888
-ViaDrill 0.635
-uViaDia 0.508
-uViaDrill 0.127
-AddNet ""
-AddNet "/CLK"
-AddNet "/MISO"
-AddNet "/MOSI"
-AddNet "/RST"
-AddNet "GND"
-AddNet "N-000006"
-AddNet "N-000008"
-AddNet "N-000009"
-AddNet "N-000010"
-AddNet "N-000011"
-AddNet "N-000024"
-AddNet "N-000025"
-AddNet "N-000027"
-AddNet "N-000030"
-AddNet "N-000031"
-AddNet "VCC"
-$EndNCLASS
-*/
-
   // Holds information about clearance, via/drill sizes for different nets.
   // Default should always exist.  Stuff in some reasonable (?) values here (for now?).
   this.kicad_brd_json["net_class"] = {
@@ -1194,7 +1164,7 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode )
         if (pad.net_number == stale_netcode)
         {
           pad.net_number = new_netcode;
-          pad.net_name = new_netname;
+          //pad.net_name = new_netname;
 
           renamed_ids.push( pad.id );
         }
@@ -1371,7 +1341,7 @@ bleepsixBoard.prototype.mergeNetsUndo = function( merge_data )
     else
     {
       ref.net_number = merge_data.old_net_number;
-      ref.net_name   = merge_data.old_net_name;
+      //ref.net_name   = merge_data.old_net_name;
     }
   }
 
@@ -2067,7 +2037,9 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
   if ( this.flag_display_net_name && 
        (net_number > 0) )
   {
-    var net_name_len = pad_entry.net_name.length;
+    //var net_name_len = pad_entry.net_name.length;
+    var net_name = this.getNetName(pad_entry.net_number);
+    var net_name_len = net_name.length;
 
     var net_name_char_width = d / (net_name_len + 3) ;
     var net_name_char_height = net_name_char_width / 0.6;
@@ -2078,7 +2050,8 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
     var dv = numeric.dot( this._R( fin_rad_angle ), [0, -r/2]  )
 
 
-    g_painter.drawText( pad_entry.net_name, 
+    //g_painter.drawText( pad_entry.net_name, 
+    g_painter.drawText( net_name,
                        cx + x + du[0], 
                        cy + y + du[1],
                        this.net_name_text_color,
@@ -2232,7 +2205,16 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
        (net_number > 0) )
   {
     var fudge = -5;
-    var net_name_len = pad_entry.net_name.length;
+
+    var net_name = this.getNetName(pad_entry.net_number);
+
+    if (typeof net_name === "undefined") {
+      console.log("ERROR net_name UNDEFINED", pad_entry.net_number);
+      console.trace();
+      net_name = "N-UNKNOWN";
+    }
+
+    var net_name_len = net_name.length;
 
     var net_name_char_width = major_len / (net_name_len + 3) ;
     var net_name_char_height = net_name_char_width / 0.6 ;
@@ -2242,11 +2224,11 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
     var du = numeric.dot( this._R( -fin_rad_angle ), [0,  (minor_len/4) - fudge ]  )
     var dv = numeric.dot( this._R( -fin_rad_angle ), [0, -(minor_len/4) - fudge ]  )
 
-    g_painter.drawText( pad_entry.net_name, 
+
+    g_painter.drawText( net_name, 
                        cx + x + du[0], 
                        cy + y + du[1],
                        this.net_name_text_color,
-                       //"rgba(255,255,255,0.5)", 
                        net_name_char_height, 
                        fin_angle, "C", "C" );
 
@@ -2254,7 +2236,6 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
                        cx + x + dv[0], 
                        cy + y + dv[1],
                        this.pad_text_color,
-                       //"rgba(255,255,255,0.5)", 
                        net_name_char_height, 
                        fin_angle , "C", "C");
 
@@ -2390,7 +2371,9 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
        (net_number > 0) )
   {
     var fudge = -5;
-    var net_name_len = pad_entry.net_name.length;
+    //var net_name_len = pad_entry.net_name.length;
+    var net_name = this.getNetName(pad_entry.net_number);
+    var net_name_len = net_name.length;
 
     var net_name_char_width = major_len / (net_name_len + 3) ;
     var net_name_char_height = net_name_char_width / 0.6 ;
@@ -2400,7 +2383,8 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
     var du = numeric.dot( this._R( -fin_rad_angle ), [0,  (minor_len/4) - fudge ]  )
     var dv = numeric.dot( this._R( -fin_rad_angle ), [0, -(minor_len/4) - fudge ]  )
 
-    g_painter.drawText( pad_entry.net_name, 
+    //g_painter.drawText( pad_entry.net_name, 
+    g_painter.drawText( net_name, 
                        cx + x + du[0], 
                        cy + y + du[1],
                        this.net_name_text_color,
@@ -3344,6 +3328,44 @@ bleepsixBoard.prototype._BOARD_SANITY = function()
       console.log("SANITY ERROR: refLookup FAILED for id " + ele_list[ind].id + " kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
       err_count++;
     }
+
+    var ele = ele_list[ind];
+    var type = ele.type;
+
+    if ((type == "module") && ("pad" in ele)) {
+
+      var mod_id = ele.id;
+
+      for (var pad_ind in ele.pad) {
+
+        // First check that ids match up
+        //
+        var pad_id = ele.pad[pad_ind].id;
+        var pad_id_parts = ele.pad[pad_ind].id.split(",");
+        if (pad_id_parts[0] != mod_id) {
+          console.log("SANITY ERROR: pad " + pad_id + " DOES NOT HAVE PROPER PARENT MODULE ID OF " + mod_id);
+          err_count++;
+
+
+          // There's not much point in going on, this is a pretty huge error.
+          //
+          continue;
+        }
+
+        var pad_net_number = ele.pad[pad_ind].net_number;
+        var pad_net_name = this.getNetName(pad_net_number);
+
+        var pad_err = 0;
+
+        if (!(pad_net_number in brd.net_code_map)) {
+          console.log("SANITY ERROR: pad " + ele.id + ":" + pad_ind + " net_name " + pad_net_number + " not found in kicad_brd_json.net_code_map");
+          err_count++;
+        }
+      }
+    } else if (type == "track") {
+      var nc = ele.netcode;
+    }
+
 
   }
 

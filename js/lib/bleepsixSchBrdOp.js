@@ -87,18 +87,15 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 
   if      ( type == "net" )
   {
-    //this.board.addNet( data.netcode, data.netname, id );
-    this.board.addNet( data.net_number, this.board.getNetName( data.net_number ) );
+    this.board.addNet(data.net_number, data.net_name);
     updateBBox = false;
   }
 
   else if ( type == "nets" )
   {
-    //this.board.addNet( data.netcode, data.netname, id );
-
     for (var ind in data)
     {
-      this.board.addNet( data[ind].net_number, this.board.getNetName( data[ind].net_number ) );
+      this.board.addNet(data[ind].net_number, data[ind].net_name);
     }
     updateBBox = false;
   }
@@ -382,7 +379,9 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     {
       var res =
         this.board.splitNet( data.net_number );
+
       op.result = res;
+
     } else {
 
       var split_res = op.result;
