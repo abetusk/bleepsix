@@ -2207,6 +2207,14 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
     var fudge = -5;
     //var net_name_len = pad_entry.net_name.length;
     var net_name = this.getNetName(pad_entry.net_number);
+
+    if (typeof net_name === "undefined") {
+      console.log("ERROR net_name UNDEFINED", pad_entry.net_number);
+      console.trace();
+
+      net_name = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+
+    }
     var net_name_len = net_name.length;
 
     var net_name_char_width = major_len / (net_name_len + 3) ;
