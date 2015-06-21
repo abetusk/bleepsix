@@ -382,7 +382,9 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
     {
       var res =
         this.board.splitNet( data.net_number );
+
       op.result = res;
+
     } else {
 
       var split_res = op.result;

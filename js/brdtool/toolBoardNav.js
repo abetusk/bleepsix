@@ -907,6 +907,9 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           op.groupId = group_id;
           g_board_controller.opCommand( op );
 
+          //DEBUG
+          console.log(">>>>> OP", op);
+
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
           g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
@@ -964,6 +967,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           g_board_controller.opCommand( op );
 
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
+
           g_board_controller.board.updateRatsNest( undefined, undefined, map );
 
           g_board_controller.board.unhighlightNet();

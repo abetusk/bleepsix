@@ -78,8 +78,6 @@ function toolTrace( x, y, layerPair, initialPlaceFlag, highlightNets )
   // Needs to be taken from board design constraints.
   // Hardcoded for now.
   //
-  //this.trace_width = 100;
-  //this.via_width = 472;
   this.trace_width = g_parameter.traceWidth;
   this.via_width = g_parameter.viaWidth;
 
@@ -100,9 +98,6 @@ function toolTrace( x, y, layerPair, initialPlaceFlag, highlightNets )
       break;
     this.cur_layer_ind++;
   }
-
-  //console.log("toolTrace " + this.cur_layer_ind + ": " + this.cur_layer );
-
 
   this.ghost_color = "rgba(255,255,255,0.1)";
 
@@ -142,9 +137,6 @@ toolTrace.prototype._initTraceState = function()
   var xy = g_snapgrid.snapGrid( this.mouse_world_xy );
 
   this.startedFlag = true;
-
-  //var x = this.mouse_world_xy.x;
-  //var y = this.mouse_world_xy.y;
 
   var x = xy.x;
   var y = xy.y;
@@ -250,8 +242,6 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
   if (!ele_id_ref)
     return ele_id_ref;
 
-  //console.log("CP");
-
   var type = ele_id_ref.type;
   var giveNetName = false;
 
@@ -269,8 +259,6 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       giveNetName = true;
     }
   }
-
-  //console.log("giveNetName: " + giveNetName);
 
   if (!giveNetName)
     return ele_id_ref;
@@ -359,100 +347,6 @@ toolTrace.prototype.placeTrack = function()
   this.ele_src = this._giveElementNetName( this.ele_src );
   this.ele_dst = this._giveElementNetName( this.ele_dst );
 
-  /*
-  if (this.ele_src)
-  {
-    var type = this.ele_src.type;
-    var giveSrcNetName = false;
-
-    if (type == "pad")
-    {
-      if (parseFloat(this.ele_src.pad_ref.net_number) <= 0)
-      {
-        giveSrcNetName = true;
-      }
-    }
-    else if (type == "track")
-    {
-      if (parseFloat(this.ele_src.ref.netcode) <= 0)
-      {
-        giveSrcNetName = true;
-      }
-    }
-
-
-    if (giveSrcNetName)
-    {
-      var new_net = g_board_controller.board.genNet();
-
-      var op = { source: "brd", destination: "brd" };
-      op.action = "add";
-      op.type = "net";
-      op.data = { net_number : new_net.net_number,
-                  net_name : new_net.net_name };
-      g_board_controller.opCommand( op );
-
-      this.netcode = new_net.net_number;
-
-      if (type == "pad")
-      {
-        var old_pad = {};
-        var new_pad = {};
-
-        var pad_ref = g_board_controller.board.refLookup( this.ele_src.pad_ref.id );
-
-        $.extend( true, old_pad, pad_ref );
-        $.extend( true, new_pad, pad_ref );
-
-        new_pad.net_number = this.netcode;
-        new_pad.net_name = g_board_controller.board.getNetName( this.netcode );
-
-        var op2 = { source: "brd", destination: "brd" };
-        op2.action = "update";
-        op2.type = "edit";
-        op2.id = [ pad_ref.id ];
-        op2.data = { element : [ new_pad ], oldElement : [ old_pad ] };
-
-        g_board_controller.opCommand( op2 );
-
-        var dummy_pad_ref = g_board_controller.board.refLookup( this.ele_src.pad_ref.id );
-        var dummy_ref = g_board_controller.board.refLookup( this.ele_src.id );
-
-        this.ele_src = { type : "pad", ref: dummy_ref, id : dummy_ref.id, 
-                        pad_ref : dummy_pad_ref, name: dummy_pad_ref.name };
-
-      }
-      else if (type == "track")
-      {
-        var old_track = {};
-        var new_track = {};
-
-        var track_ref = g_board_controller.board.refLookup( this.ele_src.ref.id );
-
-        $.extend( true, old_track, track_ref );
-        $.extend( true, new_track, track_ref );
-
-        new_track.net_number = this.netcode;
-        new_track.net_name = g_board_controller.board.getNetName( this.netcode );
-
-        var op2 = { source: "brd", destination: "brd" };
-        op2.action = "update";
-        op2.type = "edit";
-        op2.id = [ pad_ref.id ];
-        op2.data = { element : [ new_track ], oldElement : [ old_track ] };
-
-        g_board_controller.opCommand( op2 );
-
-      }
-
-    }
-
-
-  }
-*/
-
-  //var nc = this.netcode;
-  //if (nc <= 0)
   if ( this.netcode <= 0 )
   {
     if (this.ele_dst)
@@ -726,34 +620,6 @@ toolTrace.prototype.placeTrack = function()
   g_painter.dirty_flag = true;
 
 }
-
-//-----------------------------
-
-/*
-toolTrace.prototype.isConnection = function( trace, ex, ey)
-{
-  var trace_startx = parseInt( trace["startx"] );
-  var trace_starty = parseInt( trace["starty"] );
-
-  var trace_endx = parseInt( trace["endx"] );
-  var trace_endy = parseInt( trace["endy"] );
-
-  var mx = Math.min( trace_startx, trace_endx );
-  var my = Math.min( trace_starty, trace_endy );
-
-  var Mx = Math.max( trace_startx, trace_endx );
-  var My = Math.max( trace_starty, trace_endy );
-
-  if ( ( mx == ex) && (Mx == ex) && 
-       ( my <= ey) && (My >= ey) )
-    return true;
-  else if ( (my == ey) && (My == ey) &&
-            (mx <= ex) && (Mx >= ex) )
-    return true; 
-
-  return false;
-}
-*/
 
 //-----------------------------
 

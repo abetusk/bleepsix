@@ -705,6 +705,10 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
   var group_list = this._get_netsplit_group_list(net_ele_point_hash);
   if (group_list.length == 1 )
   {
+
+    // ???
+    //console.log("ERROR:>>> group_list.length == 1?", group_list);
+
     return ;
   }
 
@@ -712,9 +716,11 @@ bleepsixBoard.prototype.splitNet = function( orig_netcode )
 
   // successfully processed == true
   //
-  if (this._bounding_box_netsplit( net_group_bin ) ) 
+  var bb_ns_res = this._bounding_box_netsplit( net_group_bin );
+  if (bb_ns_res.processed)
   {
-    return ;
+    var split_result = { new_net : bb_ns_res.new_net_info, orig_net_number: orig_netcode };
+    return split_result;
   }
 
   var ds = 10;
@@ -972,7 +978,10 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
     {
       if (ind0 <= ind1) continue;
       if (this._box_box_intersect( group_bbox[ind0], group_bbox[ind1] ))
-        return false;
+      {
+        //return false;
+        return { processed: false };
+      }
     }
   }
 
@@ -983,6 +992,7 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
   // with a new net.
   //
   var first = true;
+  var new_net_list = [];
   for (var group_name in net_ele_groups)
   {
 
@@ -994,6 +1004,7 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
     // create a new net
     //
     var new_net = this.addNet();
+    new_net_list.push(new_net);
 
     // and associate it to the appropriate group
     //
@@ -1017,7 +1028,8 @@ bleepsixBoard.prototype._bounding_box_netsplit = function( net_ele_groups )
   }
 
   //console.log("net split, done");
-  return true;
+  //return true;
+  return { processed: true, new_net_info : new_net_list };
 
 }
 
