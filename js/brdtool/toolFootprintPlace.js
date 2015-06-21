@@ -386,11 +386,9 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
         for (var ind in pads)
         {
           var pad = pads[ind];
-          if (!("id" in pad))
-            pad.id = g_board_controller.board._createId( this.cloned_footprint.id );
+          pad.id = g_board_controller.board._createId( this.cloned_footprint.id );
         }
       }
-
 
       var op = { source: "brd", destination: "brd" };
       op.action = "update";
@@ -401,8 +399,6 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
       g_board_controller.opCommand( op );
 
       this.shutdown = true;
-      g_board_controller.tool = new toolBoardNav(x, y);
-      g_painter.dirty_flag = true;
 
       var net_op = { source : "brd", destination: "sch" };
       net_op.action = "update";
@@ -414,6 +410,10 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
       var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
       g_board_controller.board.updateRatsNest( undefined, undefined, map );
+
+
+      g_board_controller.tool = new toolBoardNav(x, y);
+      g_painter.dirty_flag = true;
 
       return;
     }
