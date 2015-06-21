@@ -170,9 +170,6 @@ toolTrace.prototype._initTraceState = function()
 
 toolTrace.prototype.drawOverlay = function()
 {
-
-  //g_board_controller.board.updateRatsNest( 0 );
-
   var th = this.trace_history;
   for ( var ind in th )
   {
@@ -288,7 +285,6 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       $.extend( true, new_pad, pad_ref );
 
       new_pad.net_number = this.netcode;
-      //new_pad.net_name = g_board_controller.board.getNetName( this.netcode );
 
       var op2 = { source: "brd", destination: "brd" };
       op2.action = "update";
@@ -315,9 +311,6 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
 
       $.extend( true, old_track, track_ref );
       $.extend( true, new_track, track_ref );
-
-      //new_track.net_number = this.netcode;
-      //new_track.net_name = g_board_controller.board.getNetName( this.netcode );
 
       new_track.netcode = this.netcode;
       new_track.net_number = this.netcode; //??
@@ -406,16 +399,9 @@ toolTrace.prototype.placeTrack = function()
     op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
-    //DEBUG
-    console.log("toolTrace>>>> add net", op );
-
     netsUpdated = true;
 
-    //nc = new_net.net_number;
     curNetCode = new_net.net_number;
-
-    //var net_obj = g_board_controller.board.addNet();
-    //nc = net_obj.net_number;
   }
   else
   {
@@ -446,18 +432,6 @@ toolTrace.prototype.placeTrack = function()
       g_board_controller.opCommand( op );
 
       netsUpdated = true;
-
-      //DEBUG
-      console.log("toolTrace>>>> add via", op );
-
-
-      /*
-      g_board_controller.board.addVia( th[ind].x, th[ind].y, 
-                                th[ind].width,
-                                 this.layer[0], 
-                                 this.layer[1],
-                                 nc );
-                                 */
     }
     else if (th[ind].shape == "track" )
     {
@@ -483,30 +457,15 @@ toolTrace.prototype.placeTrack = function()
       g_board_controller.opCommand( op );
 
       netsUpdated = true;
-
-      //DEBUG
-      console.log("toolTrace>>>> add track", op );
-
-
-      /*
-      g_board_controller.board.addTrack( th[ind].x0, th[ind].y0,
-                                   th[ind].x1, th[ind].y1,
-                                   th[ind].width,
-                                   th[ind].layer, 
-                                   nc );
-                                   //this.netcode );
-                                   */
     }
   }
 
   // also need to add the cur_trace
+  //
   if (this.laydownFormat == 'J')
   {
 
     var ctp = this.cur_trace_point;
-
-    //console.log("ctp:");
-    //console.log(ctp);
 
     for (var ind=1; ind < ctp.length; ind++)
     {
@@ -534,22 +493,8 @@ toolTrace.prototype.placeTrack = function()
         op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
-        //DEBUG
-        console.log("toolTrace>>>> add track (2)", op );
-
-
         netsUpdated = true;
-
-        /*
-        g_board_controller.board.addTrack( ctp[ind-1].x, ctp[ind-1].y,
-                                     ctp[ind].x,   ctp[ind].y,
-                                     this.trace_width, 
-                                     this.cur_layer,
-                                     nc );
-                                     */
-
       }
-      //else console.log("skipping addTrack: points are too close");
 
     }
   }
@@ -579,11 +524,6 @@ toolTrace.prototype.placeTrack = function()
         curNetCode = op.result.net_number ;
 
         netsUpdated = true;
-
-        //DEBUG
-        console.log("toolTrace>>>> upate mergenet (dst)", op );
-
-
 
       }
 
@@ -617,11 +557,6 @@ toolTrace.prototype.placeTrack = function()
 
         netsUpdated = true;
 
-        //DEBUG
-        console.log("toolTrace>>>> upate mergenet (src)", op );
-
-
-
       }
     }
   }
@@ -633,10 +568,6 @@ toolTrace.prototype.placeTrack = function()
     sch_net_op.type = "net";
     sch_net_op.groupId = this.groupId;
     g_board_controller.opCommand( sch_net_op );
-
-    //DEBUG
-    console.log("toolTrace>>>> upate net (final)", sch_net_op );
-
 
   }
 
@@ -1211,17 +1142,8 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   var hit_ele_src = g_board_controller.board.trackBoardIntersect( [ src_track ], layer );
   var hit_ele_dst = g_board_controller.board.trackBoardIntersect( [ dst_track ], layer );
 
-  //console.log("cp");
-  //console.log( hit_ele_list );
-  //console.log( hit_ele_src );
-  //console.log( hit_ele_dst );
-
-
   if (this._hitlist_has_middle_geometry( hit_ele_list, hit_ele_src, hit_ele_dst ))
   {
-
-    //console.log("has_middle_geometry");
-
     this._load_prev_trace();
 
     this.allow_place_flag = false;
@@ -1233,10 +1155,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
   {
     this._save_current_trace();
   }
-
-
-  //var src_hit = this._choose_hit_element( hit_ele_src );
-  //var dst_hit = this._choose_hit_element( hit_ele_dst );
 
   var src_hit = this._choose_hit_element( hit_ele_src, virtual_trace[0]  );
   var dst_hit = this._choose_hit_element( hit_ele_dst, virtual_trace[n-1]  );
@@ -1282,7 +1200,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
       // Else, just return without updating anything.
       //
       var pad_center = g_board_controller.board.getPadCenter( dst_hit.ref, dst_hit.pad_ref );
-      //if ( (parseInt( dst_hit.pad_ref.net_number ) == this.netcode ) ||
+
       if ( board.areBoardNetsEqual( dst_hit.pad_ref.net_number, this.netcode ) ||
            (this.dist1( virtual_trace[n-1], pad_center ) < this.small_magnet_size) )
       {
@@ -1349,7 +1267,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
     {
 
       var d = this._point_trace_distance( virtual_trace[n-1], dst_hit.ref);
-      //if ( (parseInt( dst_hit.ref.netcode ) == this.netcode ) ||
+
       if ( board.areBoardNetsEqual( dst_hit.ref.netcode, this.netcode ) ||
            (d < this.small_trace_magnet_size) )
       {
@@ -1365,7 +1283,6 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
         this.state = "destination_magnet_trace";
         this.allow_place_flag = true;
 
-        //console.log("track magnet activated");
         this.netcode_dst = parseInt(dst_hit.ref.netcode);
         this.ele_dst = dst_hit;
 
@@ -1522,11 +1439,9 @@ toolTrace.prototype.mouseWheel = function( delta )
 
 toolTrace.prototype.keyDown = function( keycode, ch, ev )
 {
-  //console.log("toolTrace keyDown: " + keycode + " " + ch );
 
   if ((ch == 'Q') || (keycode == 27))
   {
-    //console.log("handing back to toolBoardNav");
     g_board_controller.board.unhighlightNet(); 
 
     g_board_controller.tool = new toolBoardNav( this.mouse_cur_x, this.mouse_cur_y );
@@ -1591,7 +1506,6 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
     if ( this._via_intersect_test( ctp, 0 ) )
     {
-      //console.log("via interects, ignoring via place request");
       return;
     }
 
