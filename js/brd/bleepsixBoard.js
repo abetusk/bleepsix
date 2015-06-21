@@ -3760,14 +3760,13 @@ bleepsixBoard.prototype.update_footprint_lib = function(name, data)
 bleepsixBoard.prototype.load_part = function(name, data)
 {
   // decorate with type
+  //
   data.type = "module";
 
   // footprint_cache is the cache of footprint modules
   //
-  //g_footprint_cache[name] = data;
   this.kicad_brd_json.footprint_lib[name] = data;
 
-  //this._find_footprint_bbox( g_footprint_cache[name] );
   this._find_footprint_bbox( this.kicad_brd_json.footprint_lib[name] );
   
   this.queued_display_footprint_count--;
@@ -3775,7 +3774,9 @@ bleepsixBoard.prototype.load_part = function(name, data)
   if (this.queued_display_footprint_count == 0)
   {
     this.displayable = true;
-    g_painter.dirty_flag = true;
+
+    if (!bleepsixBoardHeadless)
+      g_painter.dirty_flag = true;
   }
 
 }

@@ -112,11 +112,8 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
 
   else if ( ( type == "footprintData" ) || ( type == "module" ) )
   {
-
-    // EXPERIMENTAL
-    //this.board.load_part( data.footprintData.name, data.footprintData );
+   
     this.board.update_footprint_lib( data.footprintData.name, data.footprintData );
-
     this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
 
     var ref = this.board.refLookup( id );
@@ -1024,7 +1021,6 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op )
   if ( dest == "sch" )
 
   {
-
     if      ( action == "add" )    { this.opSchAdd( op, inverseFlag ); }
     else if ( action == "update" ) { this.opSchUpdate( op, inverseFlag ); }
     else if ( action == "delete" ) { this.opSchDelete( op, inverseFlag ); }
@@ -1032,7 +1028,6 @@ bleepsixSchBrdOp.prototype.opCommand = function ( op )
 
   else if ( dest == "brd" )
   {
-
     if      ( action == "add" )    { this.opBrdAdd( op, inverseFlag ); }
     else if ( action == "update" ) { this.opBrdUpdate( op, inverseFlag ); }
     else if ( action == "delete" ) { this.opBrdDelete( op, inverseFlag ); }

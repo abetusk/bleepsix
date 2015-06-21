@@ -680,7 +680,9 @@ bleepsixBoardNetwork.prototype.projectopResponse = function( msg )
     g_board_controller.op.opCommand( msg.op );
 
     if (!bleepsixBoardNetworkHeadless)
+    {
       g_painter.dirty_flag = true;
+    }
 
   }
 
