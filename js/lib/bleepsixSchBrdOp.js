@@ -114,7 +114,8 @@ bleepsixSchBrdOp.prototype._opBrdAddSingle = function ( type, id, data, op )
   {
 
     // EXPERIMENTAL
-    this.board.load_part( data.footprintData.name, data.footprintData );
+    //this.board.load_part( data.footprintData.name, data.footprintData );
+    this.board.update_footprint_lib( data.footprintData.name, data.footprintData );
 
     this.board.addFootprintData( data.footprintData, data.x, data.y, id, op.idText, op.idPad  );
 
@@ -478,7 +479,8 @@ bleepsixSchBrdOp.prototype.opBrdUpdate = function ( op, inverseFlag )
         //
         if (data.element[ind].type == "module")
         {
-          this.board.load_part( data.element[ind].name, data.element[ind] );
+          //this.board.load_part( data.element[ind].name, data.element[ind] );
+          this.board.update_footprint_lib( data.element[ind].name, data.element[ind] );
         }
 
         var clonedData = simplecopy( data.element[ind] );

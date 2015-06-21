@@ -3749,6 +3749,14 @@ bleepsixBoard.prototype.updateModuleBoundingBox = function( mod_entry )
 
 }
 
+bleepsixBoard.prototype.update_footprint_lib = function(name, data)
+{
+  if (!(name in this.kicad_brd_json.footprint_lib)) {
+    this.queued_display_footprint_count++;
+    this.load_part(name, data);
+  }
+}
+
 bleepsixBoard.prototype.load_part = function(name, data)
 {
   // decorate with type
