@@ -2205,16 +2205,15 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
        (net_number > 0) )
   {
     var fudge = -5;
-    //var net_name_len = pad_entry.net_name.length;
+
     var net_name = this.getNetName(pad_entry.net_number);
 
     if (typeof net_name === "undefined") {
       console.log("ERROR net_name UNDEFINED", pad_entry.net_number);
       console.trace();
-
-      net_name = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-
+      net_name = "N-UNKNOWN";
     }
+
     var net_name_len = net_name.length;
 
     var net_name_char_width = major_len / (net_name_len + 3) ;
@@ -2225,12 +2224,11 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
     var du = numeric.dot( this._R( -fin_rad_angle ), [0,  (minor_len/4) - fudge ]  )
     var dv = numeric.dot( this._R( -fin_rad_angle ), [0, -(minor_len/4) - fudge ]  )
 
-    //g_painter.drawText( pad_entry.net_name, 
+
     g_painter.drawText( net_name, 
                        cx + x + du[0], 
                        cy + y + du[1],
                        this.net_name_text_color,
-                       //"rgba(255,255,255,0.5)", 
                        net_name_char_height, 
                        fin_angle, "C", "C" );
 
@@ -2238,7 +2236,6 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
                        cx + x + dv[0], 
                        cy + y + dv[1],
                        this.pad_text_color,
-                       //"rgba(255,255,255,0.5)", 
                        net_name_char_height, 
                        fin_angle , "C", "C");
 
@@ -3356,44 +3353,14 @@ bleepsixBoard.prototype._BOARD_SANITY = function()
         }
 
         var pad_net_number = ele.pad[pad_ind].net_number;
-        //var pad_net_name = ele.pad[pad_ind].net_name;
         var pad_net_name = this.getNetName(pad_net_number);
 
         var pad_err = 0;
 
-        /*
-        if (!(pad_net_name in brd.net_name_map)) {
-          console.log("SANITY ERROR: pad " + ele.id + ":" + pad_ind + " net_name " + pad_net_name + " not found in kicad_brd_json.net_name_map");
-          pad_err++;
-        }
-        */
-
         if (!(pad_net_number in brd.net_code_map)) {
           console.log("SANITY ERROR: pad " + ele.id + ":" + pad_ind + " net_name " + pad_net_number + " not found in kicad_brd_json.net_code_map");
-          pad_err++;
+          err_count++;
         }
-
-        err_count += pad_err;
-
-        /*
-        if (pad_err == 0) {
-          var map_net_name = brd.net_code_map[pad_net_number];
-          var map_net_num = brd.net_name_map[pad_net_name];
-
-          if (map_net_name != pad_net_name) {
-            console.log("SANITY ERROR: pad " + ele.id + ":" + pad_ind + " net_name(" + pad_net_number + ") " + pad_net_name +
-                " != map_net_name[ " + map_net_num + "] " + map_net_name);
-            err_count++;
-          }
-
-          if (map_net_num != pad_net_number) {
-            console.log("SANITY ERROR: pad " + ele.id + ":" + pad_ind + " net_number " + pad_net_number + "(" + pad_net_name + ")" + 
-                " != map_code_map[" + map_net_name + "] " + map_net_num);
-            err_count++;
-          }
-        }
-        */
-
       }
     } else if (type == "track") {
       var nc = ele.netcode;
