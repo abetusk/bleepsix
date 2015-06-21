@@ -288,7 +288,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       $.extend( true, new_pad, pad_ref );
 
       new_pad.net_number = this.netcode;
-      new_pad.net_name = g_board_controller.board.getNetName( this.netcode );
+      //new_pad.net_name = g_board_controller.board.getNetName( this.netcode );
 
       var op2 = { source: "brd", destination: "brd" };
       op2.action = "update";
@@ -316,8 +316,11 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       $.extend( true, old_track, track_ref );
       $.extend( true, new_track, track_ref );
 
-      new_track.net_number = this.netcode;
-      new_track.net_name = g_board_controller.board.getNetName( this.netcode );
+      //new_track.net_number = this.netcode;
+      //new_track.net_name = g_board_controller.board.getNetName( this.netcode );
+
+      new_track.netcode = this.netcode;
+      new_track.net_number = this.netcode; //??
 
       var op2 = { source: "brd", destination: "brd" };
       op2.action = "update";
@@ -403,6 +406,9 @@ toolTrace.prototype.placeTrack = function()
     op.groupId = this.groupId;
     g_board_controller.opCommand( op );
 
+    //DEBUG
+    console.log("toolTrace>>>> add net", op );
+
     netsUpdated = true;
 
     //nc = new_net.net_number;
@@ -441,6 +447,9 @@ toolTrace.prototype.placeTrack = function()
 
       netsUpdated = true;
 
+      //DEBUG
+      console.log("toolTrace>>>> add via", op );
+
 
       /*
       g_board_controller.board.addVia( th[ind].x, th[ind].y, 
@@ -474,6 +483,9 @@ toolTrace.prototype.placeTrack = function()
       g_board_controller.opCommand( op );
 
       netsUpdated = true;
+
+      //DEBUG
+      console.log("toolTrace>>>> add track", op );
 
 
       /*
@@ -522,6 +534,10 @@ toolTrace.prototype.placeTrack = function()
         op.groupId = this.groupId;
         g_board_controller.opCommand( op );
 
+        //DEBUG
+        console.log("toolTrace>>>> add track (2)", op );
+
+
         netsUpdated = true;
 
         /*
@@ -564,6 +580,11 @@ toolTrace.prototype.placeTrack = function()
 
         netsUpdated = true;
 
+        //DEBUG
+        console.log("toolTrace>>>> upate mergenet (dst)", op );
+
+
+
       }
 
     }
@@ -596,6 +617,11 @@ toolTrace.prototype.placeTrack = function()
 
         netsUpdated = true;
 
+        //DEBUG
+        console.log("toolTrace>>>> upate mergenet (src)", op );
+
+
+
       }
     }
   }
@@ -607,6 +633,11 @@ toolTrace.prototype.placeTrack = function()
     sch_net_op.type = "net";
     sch_net_op.groupId = this.groupId;
     g_board_controller.opCommand( sch_net_op );
+
+    //DEBUG
+    console.log("toolTrace>>>> upate net (final)", sch_net_op );
+
+
   }
 
   g_board_controller.board.unhighlightNet(); 

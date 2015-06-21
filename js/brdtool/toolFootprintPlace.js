@@ -227,7 +227,7 @@ toolFootprintPlace.prototype._patchUpNets = function( id )
     $.extend( true, new_data, pad_ref );
 
     new_data.net_number = newnets[ nc ].net_number;
-    new_data.net_name   = newnets[ nc ].net_name;
+    //new_data.net_name   = newnets[ nc ].net_name;
 
     var update_op = { source: "brd", destination: "brd" };
     update_op.action = "update";
@@ -355,7 +355,6 @@ toolFootprintPlace.prototype.mouseDown = function( button, x, y )
 
       var pad = this.cloned_footprint.pad[p_ind];
       pad.net_number = new_netcode[nc_ind].net_number;
-      pad.net_name = new_netcode[nc_ind].net_name;
 
       nc_ind++;
     }

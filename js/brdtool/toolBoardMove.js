@@ -497,7 +497,7 @@ toolBoardMove.prototype._createPadModuleNets = function( pads )
     new_pad = simplecopy(brd_pad_ref);
 
     new_pad.net_number = newnet.net_number;
-    new_pad.net_name = newnet.net_name;
+    //new_pad.net_name = newnet.net_name;
 
     var op2 = { source: "brd", destination: "brd" };
     op2.action = "update";
@@ -646,7 +646,7 @@ toolBoardMove.prototype._patchUpNets = function()
         new_data = simplecopy(pad_ref);
 
         new_data.net_number = newnets[ nc ].net_number;
-        new_data.net_name   = newnets[ nc ].net_name;
+        //new_data.net_name   = newnets[ nc ].net_name;
 
         var update_op = { source: "brd", destination: "brd" };
         update_op.action = "update";
