@@ -116,10 +116,10 @@ toolFootprintPlace.prototype.drawOverlay = function()
 
 
   var ghostFlag = !this.allowPlaceFlag;
-  g_board_controller.board.drawFootprint( this.cloned_footprint,
-                                          parseFloat(this.world_xy["x"]), 
-                                          parseFloat(this.world_xy["y"]), 
-                                          0, true, ghostFlag );
+  g_board_controller.board.drawFootprint(this.cloned_footprint,
+                                         parseFloat(this.world_xy["x"]), 
+                                         parseFloat(this.world_xy["y"]), 
+                                         0, true, ghostFlag, true);
 
   if (this.highlightId)
   {

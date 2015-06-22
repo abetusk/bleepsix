@@ -2558,9 +2558,10 @@ bleepsixBoard.prototype._findTextDegAngle = function( loc_deg_ang, glob_deg_ang 
 //
 // g_rad_angle ccw
 //
-bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang, ghostFlag )
+bleepsixBoard.prototype.drawFootprintPad = function(pad_entry, x, y, g_rad_ang, ghostFlag, noTextFlag)
 {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
+  noTextFlag = ( ( typeof noTextFlag === 'undefined' ) ? false : noTextFlag );
 
 
   var name = pad_entry["name"];
@@ -2597,98 +2598,25 @@ bleepsixBoard.prototype.drawFootprintPad = function( pad_entry, x, y, g_rad_ang,
 
   if      ( shape == "rectangle" ) 
   { 
-    //g_painter.drawRectangle( fp_x + x, fp_y + y, sizex, sizey, 0, null, true, "rgba(255,0,0,0.3)"  );  
-    //g_painter.drawRectangle( fp_x + x, fp_y + y, sizex, sizey, 0, null, true, color );  
-
     this._draw_pad_rect( pad_entry, x, y, g_rad_ang, ghostFlag );
 
-    if (!ghostFlag)
+    if ((!ghostFlag) && (!noTextFlag))
       this._draw_pad_rect_text( pad_entry, x, y, g_rad_ang );
   }
   else if ( shape == "circle" )
   {
-    //g_painter.circle( cx + x, cy + y, sizex/2, 0, null, true, color );  
-
     this._draw_pad_circle( pad_entry, x, y, g_rad_ang, ghostFlag);
 
-    if (!ghostFlag)
+    if ((!ghostFlag) && (!noTextFlag))
       this._draw_pad_circle_text( pad_entry, x, y, g_rad_ang );
   }
   else if ( shape == "oblong" )
   {
     this._draw_pad_oblong( pad_entry, x, y, g_rad_ang, ghostFlag );
 
-    if (!ghostFlag)
+    if ((!ghostFlag) && (!noTextFlag))
       this._draw_pad_oblong_text( pad_entry, x, y, g_rad_ang );
   }
-
-
-  // WILL NEED to update to better adapt text size to 
-  // pad sizes.  I don't know how KiCAD is doing this really...
-  // it looks like if one dimension is much larger than the 
-  // other (twice maybe?) then it takes the text size to be
-  // the minimum.  But if not (that is, it's squre or close to it), 
-  // then it doesn't scale the text to the edges.  Maybe half in that
-  // case?
-  // 
-  //
-
-
-  /*
-  var loc_rad_ang = this._angleMod( parseFloat( pad_entry.angle ) );
-  var loc_deg_ang = -loc_rad_ang * 180.0 / Math.PI;
-  var g_deg_ang = g_rad_ang * 180.0 / Math.PI;
-  
-  var fin_angle = -g_deg_ang;
-
-  if ( (shape == "rectangle") || 
-       (shape == "oblong") )
-  {
-
-    if ( sizey > sizex )
-    {
-      if (sizey < 1.5*sizex) text_size = 0.5*sizex;
-      else                   text_size = sizex;
-      //fin_angle = this._findTextDegAngle( loc_deg_ang - 90, g_deg_ang );
-      var a = loc_deg_ang + 90;
-      fin_angle = this._findTextDegAngle( a, g_deg_ang );
-
-      //console.log("sizey > sizex: fin_angle: " + fin_angle + ", locangle: " + a + ", globangle: " + g_deg_ang );
-
-    }
-    else
-    {
-      if (sizex < 1.5*sizey) text_size = 0.5 * sizey;
-      else                   text_size = sizey;
-      fin_angle = this._findTextDegAngle( loc_deg_ang, g_deg_ang );
-    }
-
-  }
-  else if (shape == "circle")
-  {
-    text_size = 0.5*sizex;
-  }
-
-  var net_number = parseInt( pad_entry["net_number"] );
-
-  if ( this.flag_display_net_name && 
-       (net_number > 0) )
-  {
-    var net_name_len = pad_entry.net_name.length;
-
-    //g_painter.drawText( pad_entry.net_name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle, "C", "C" );
-    //g_painter.drawText( name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle , "C", "C");
-
-  }
-  else
-  {
-    if ( (this.flag_text_zoom_speedup) &&
-         ((text_size * g_painter.zoom )  < this.display_text_zoom_threshold) )
-        return;
-
-    //g_painter.drawText( name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle , "C", "C");
-  }
- */
 
 }
 
@@ -2785,7 +2713,8 @@ bleepsixBoard.prototype.drawFootprint = function(data, x, y, rad_angle, draw_f01
 
     // holes: http://www.storminthecastle.com/2013/07/24/how-you-can-draw-regular-polygons-with-the-html5-canvas-api/
     // pass in cw angles (in radians)
-    this.drawFootprintPad( pad[ind], 0, 0, -ang, ghostFlag );
+    var noTextFlag = library_flag;
+    this.drawFootprintPad(pad[ind], 0, 0, -ang, ghostFlag, noTextFlag);
   }
 
   g_painter.context.rotate( ang );
