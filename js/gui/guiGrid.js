@@ -72,12 +72,12 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   var u = new guiDropIcon( this.name + ":dropgrid", this.iconWidth, this.iconWidth, true );
   u.bgColor = this.bgColor;
   u.divColor = this.divColor;
-  u.addIcon( this.name + ":50", this._make_text_draw_function("50") );
-  u.addIcon( this.name + ":25", this._make_text_draw_function("25") );
-  u.addIcon( this.name + ":10", this._make_text_draw_function("10") );
-  u.addIcon( this.name + ":5" , this._make_text_draw_function("5") );
-  u.addIcon( this.name + ":2" , this._make_text_draw_function("2") );
-  u.addIcon( this.name + ":1" , this._make_text_draw_function("1") );
+  u.addIcon( this.name + ":dropgrid:50", this._make_text_draw_function("50") );
+  u.addIcon( this.name + ":dropgrid:25", this._make_text_draw_function("25") );
+  u.addIcon( this.name + ":dropgrid:10", this._make_text_draw_function("10") );
+  u.addIcon( this.name + ":dropgrid:5" , this._make_text_draw_function("5") );
+  u.addIcon( this.name + ":dropgrid:2" , this._make_text_draw_function("2") );
+  u.addIcon( this.name + ":dropgrid:1" , this._make_text_draw_function("1") );
   u.move(cur_x, 0);
   //u.move(0, 0);
 
@@ -103,6 +103,51 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   }
 
 
+  var cl = new guiDropIcon(this.name + ":dropclearance", this.iconWidth, this.iconWidth, true);
+  cl.bgColor = this.bgColor;
+  cl.divColor = this.divColor;
+
+  for (var i=20; i>=1; i--) {
+    var nam = this.name + ":dropclearance:" + i;
+    //var f = this._make_text_draw_function(i);
+    var f = this._make_clearance_draw_function(i);
+    cl.addIcon(nam, f);
+    if (i*10==g_parameter.traceWidth) {
+      cl.mainIcon.name = name;
+      cl.mainIcon.drawShape = f;
+    }
+  }
+
+  cl.move(cur_x, 0);
+
+  this.dropClearance = cl;
+  this.addChild(cl);
+  cur_x += cl.width;
+
+  //cl.parent.handleEvent({ "name":this.name + ":dropclearance:" + g_parameter.traceWidth });
+
+
+  var tw = new guiDropIcon(this.name + ":droptracewidth", this.iconWidth, this.iconWidth, true);
+  tw.bgColor = this.bgColor;
+  tw.divColor = this.divColor;
+
+  for (var i=20; i>=1; i--) {
+    var nam = this.name + ":droptracewidth:" + i;
+    //var f = this._make_text_draw_function(i);
+    var f = this._make_tracewidth_draw_function(i);
+    tw.addIcon(nam, f);
+    if (i*10==g_parameter.traceWidth) {
+      tw.mainIcon.name = name;
+      tw.mainIcon.drawShape = f;
+    }
+  }
+
+  tw.move(cur_x, 0);
+
+  this.dropClearance = tw;
+  this.addChild(tw);
+  cur_x += tw.width;
+
   this.move(5,5);
 
 }
@@ -114,6 +159,61 @@ guiGrid.prototype._make_text_draw_function = function( txt )
   return function()
   {
     g_painter.drawText(txt.toString(), t.iconWidth/2, t.iconHeight/2, "rgba(0,0,0,0.5)", 12, 0, "C", "C");
+  }
+
+}
+
+guiGrid.prototype._make_tracewidth_draw_function = function( txt )
+{
+  var t = this;
+  return function() {
+    var sx = __icon_width/5, sy = __icon_width/3;
+    var dx = __icon_width/5, dy = __icon_width/3;
+    var color = "rgba(0,255,0,0.45)", width = 4;
+
+    var layer = g_board_controller.guiLayer.selectedLayer;
+    if (typeof g_board_controller.board.layer_color[layer] !== 'undefined')
+    {
+      color = g_board_controller.board.layer_color[layer];
+      var color_parts = color.split(",");
+      color = color_parts[0] + "," + color_parts[1] + "," + color_parts[2] + ",0.15)";
+    }
+
+    var p = [ [ 0,     0 ],
+              [ dx,    0 ],
+              [ 2*dx, dy ],
+              [ 3*dx, dy ] ];
+
+    var mini_trace_width = 4;
+    var v = parseInt(txt);
+    if (!isNaN(v)) { mini_trace_width = Math.floor(v/4); }
+    g_painter.drawPath( p, sx, sy, color, mini_trace_width, false);
+    g_painter.drawText(txt.toString(), t.iconWidth/2, t.iconHeight/2, "rgba(0,0,0,0.7)", 12, 0, "C", "C");
+  }
+
+}
+
+guiGrid.prototype._make_clearance_draw_function = function( txt )
+{
+  var t = this;
+  return function() {
+    var sx = __icon_width/5, sy = __icon_width/3;
+    var dx = __icon_width/5, dy = __icon_width/3;
+    var color = "rgba(255,255,255,0.15)", width = 4;
+
+    var mini_trace_width = 4;
+    var v = parseInt(txt);
+    if (!isNaN(v)) { mini_trace_width = Math.floor(1+v/4); }
+
+    var p0 = [ [ 2*dx, 0 ], [3*dx + mini_trace_width, dy ] ];
+    var p1 = [ [   dx, 0], [2*dx + mini_trace_width, dy ] ];
+
+    var p = [ [ 0,     0 ],
+              [ dx,   dy ] ];
+
+    g_painter.drawPath( p, sx, sy, color, 4, false);
+    g_painter.drawPath( p, sx+2*mini_trace_width, sy, color, 4, false);
+    g_painter.drawText(txt.toString(), t.iconWidth/2, t.iconHeight/2, "rgba(0,0,0,0.7)", 12, 0, "C", "C");
   }
 
 }
@@ -165,53 +265,38 @@ guiGrid.prototype._handleUnitEvent = function(ev)
 
 guiGrid.prototype._handleSpacingEvent = function(ev)
 {
+  var parts = ev.owner.split(":");
+  if (parts.length!=3) { return; }
+  var v = parseInt(parts[2]);
+  if (isNaN(v)) { return; }
 
-  if (ev.owner == this.name + ":50") 
-  {
-    console.log("50");
-    g_snapgrid = new snapGrid(true, "deci-mil", 50);
-  }
-  else if (ev.owner == this.name + ":25") 
-  {
-    console.log("25");
-    g_snapgrid = new snapGrid(true, "deci-mil", 25);
-  }
+  g_snapgrid = new snapGrid(true, "deci-mil", v);
+}
 
-  else if (ev.owner == this.name + ":20") 
-  {
-    console.log("20");
-    g_snapgrid = new snapGrid(true, "deci-mil", 20);
-  }
+guiGrid.prototype._handleClearanceEvent = function(ev)
+{
+  var parts = ev.owner.split(":");
+  if (parts.length!=3) { return; }
+  var v = parseInt(parts[2]);
+  if (isNaN(v)) { return; }
 
-  else if (ev.owner == this.name + ":10") 
-  {
-    console.log("10");
-    g_snapgrid = new snapGrid(true, "deci-mil", 10);
-  }
+  g_parameter.clearance = v*10;
+}
 
-  else if (ev.owner == this.name + ":5") 
-  {
-    console.log("5");
-    g_snapgrid = new snapGrid(true, "deci-mil", 5);
-  }
+guiGrid.prototype._handleTraceWidthEvent = function(ev)
+{
+  var parts = ev.owner.split(":");
+  if (parts.length!=3) { return; }
+  var v = parseInt(parts[2]);
+  if (isNaN(v)) { return; }
 
-  else if (ev.owner == this.name + ":2") 
-  {
-    console.log("2");
-    g_snapgrid = new snapGrid(true, "deci-mil", 2);
-  }
-
-  else if (ev.owner == this.name + ":1") 
-  {
-    console.log("1");
-    g_snapgrid = new snapGrid(true, "deci-mil", 1);
-  }
-
+  g_parameter.traceWidth = v*10;
 }
 
 
 guiGrid.prototype._eventMouseDown = function( ev )
 {
+
   if (ev.owner == this.name + ":nav")
   {
 
@@ -229,9 +314,21 @@ guiGrid.prototype._eventMouseDown = function( ev )
   {
     this._handleUnitEvent(ev);
   }
-  else if ( ev.owner.match(/:(\d+)$/) )
+
+  //else if ( ev.owner.match(/:(\d+)$/) )
+  else if ( ev.owner.match(/:dropgrid:(\d+)$/) )
   {
     this._handleSpacingEvent(ev);
+  }
+
+  else if ( ev.owner.match(/:dropclearance:(\d+)$/) )
+  {
+    this._handleClearanceEvent(ev);
+  }
+
+  else if ( ev.owner.match(/:droptracewidth:(\d+)$/) )
+  {
+    this._handleTraceWidthEvent(ev);
   }
 
   else if (ev.owner == this.name + ":dropunit:tab")
