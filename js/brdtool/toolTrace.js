@@ -1122,7 +1122,7 @@ toolTrace.prototype._make_tracks_from_points = function( virtual_trace, layer, c
 // 
 toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 {
-  var clearance = 100;
+  var clearance = g_parameter.clearance;
 
 
 
@@ -1337,7 +1337,7 @@ toolTrace.prototype.handleMagnetPoint = function( virtual_trace, layer )
 
 toolTrace.prototype._via_intersect_test = function( virtual_trace, layer )
 {
-  var clearance = 100;
+  var clearance = g_parameter.clearance;
 
   //add the via
   var p = virtual_trace[ virtual_trace.length-1 ];
@@ -1453,6 +1453,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
     g_painter.dirty_flag = true;
   }
 
+  // '+'
   else if ( keycode == 187 )
   {
 
@@ -1463,6 +1464,7 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
   }
 
+  // '-'
   else if ( keycode == 189 )
   {
 

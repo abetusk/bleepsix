@@ -371,8 +371,10 @@ bleepsixBoard.prototype.makeUnknownModule = function( size, id, text_ids )
 // doing complex boolean intersection operations for all of the geometry 
 // in the board.
 //
-bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, layer )
+bleepsixBoard.prototype._find_possible_track_intersections = function(tracks, layer, clearance)
 {
+  clearance = ((typeof clearance === "undefined") ? g_parameter.clearance : clearance);
+
   var ilayer = parseInt(layer);
   var bit_layer = (1<<ilayer);
 
@@ -382,7 +384,7 @@ bleepsixBoard.prototype._find_possible_track_intersections = function( tracks, l
 
   var tx = parseFloat( tracks[0].x0 );
   var ty = parseFloat( tracks[0].y0 );
-  var w = parseFloat( tracks[0].width );
+  var w = parseFloat( tracks[0].width ) + 2*clearance;
 
   var track_bbox_list = [];
 

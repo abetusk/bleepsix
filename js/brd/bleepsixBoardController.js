@@ -751,7 +751,8 @@ bleepsixBoardController.prototype.redraw = function ()
     }
 
     if (this.project_name_text_flag)
-      g_painter.drawText(this.project_name_text, 60, 10, "rgba(255,255,255,0.5)", 15);
+      //g_painter.drawText(this.project_name_text, 60, 10, "rgba(255,255,255,0.5)", 15);
+      g_painter.drawText(this.project_name_text, 120, 10, "rgba(255,255,255,0.5)", 15);
 
 
     if (action_text_touched)
