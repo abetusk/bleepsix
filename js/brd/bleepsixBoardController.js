@@ -1119,7 +1119,8 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiLayer = new guiBoardLayer( "layer" );
   this.guiLayer.move( 0, 450 );
 
-  this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
+  //this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
+  this.guiGrid = new guiBoardGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid.move(0,0);
 
   var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );

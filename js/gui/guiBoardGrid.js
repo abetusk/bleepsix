@@ -22,7 +22,7 @@
 
 */
 
-function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag ) 
+function guiBoardGrid( name , bgColor, fgColor, divColor, displayUnitFlag ) 
 {
   bgColor = ( (typeof bgColor === 'undefined') ? "rgba(0, 0, 255, 0.2)" : bgColor );
   fgColor = ( (typeof bgColor === 'undefined') ? "rgba(0, 0, 255, 0.2)" : fgColor );
@@ -30,13 +30,22 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   displayUnitFlag = ( (typeof displayUnitFlag === 'undefined') ? false : displayUnitFlag );
   this.constructor ( name )   
 
+  //this.bgColor = "rgba( 255, 0, 0, 0.2 )";
+  //this.bgColor = "rgba( 0, 0, 255, 0.2 )";
   this.bgColor = bgColor;
   this.fgColor = fgColor;
   this.divColor = divColor;
 
+  //this.width = 25;
+  //this.width = 20;
+  //this.iconWidth = 20;
   this.width = 24;
   this.iconWidth = 24;
+
+  //this.height = 20;
   this.height = 24;
+
+  //this.height = 4* this.iconWidth;
   this.iconHeight = this.iconWidth;
 
   this.tabHeight = this.iconWidth;
@@ -46,6 +55,7 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
 
   var cur_x = 0;
   var sz = this.iconWidth;
+
 
 
   // DISABLED FOR NOW
@@ -58,6 +68,7 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   //
 
   var c = this;
+  //var u = new guiDropIcon( this.name + ":dropgrid", 20, 20, true );
   var u = new guiDropIcon( this.name + ":dropgrid", this.iconWidth, this.iconWidth, true );
   u.bgColor = this.bgColor;
   u.divColor = this.divColor;
@@ -68,6 +79,7 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   u.addIcon( this.name + ":dropgrid:2" , this._make_text_draw_function("2") );
   u.addIcon( this.name + ":dropgrid:1" , this._make_text_draw_function("1") );
   u.move(cur_x, 0);
+  //u.move(0, 0);
 
   cur_x += u.width;
 
@@ -81,6 +93,7 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
     w.bgColor = this.bgColor;
     w.divColor = this.divColor;
     w.addIcon( this.name + ":imperial", this._make_text_draw_function("in") );
+    //w.addIcon( this.name + ":metric" , this._make_text_draw_function("mm") );
     w.move(cur_x, 0);
 
     this.dropUnit = w;
@@ -90,12 +103,57 @@ function guiGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   }
 
 
+  var cl = new guiDropIcon(this.name + ":dropclearance", this.iconWidth, this.iconWidth, true);
+  cl.bgColor = this.bgColor;
+  cl.divColor = this.divColor;
+
+  for (var i=20; i>=1; i--) {
+    var nam = this.name + ":dropclearance:" + i;
+    //var f = this._make_text_draw_function(i);
+    var f = this._make_clearance_draw_function(i);
+    cl.addIcon(nam, f);
+    if (i*10==g_parameter.traceWidth) {
+      cl.mainIcon.name = name;
+      cl.mainIcon.drawShape = f;
+    }
+  }
+
+  cl.move(cur_x, 0);
+
+  this.dropClearance = cl;
+  this.addChild(cl);
+  cur_x += cl.width;
+
+  //cl.parent.handleEvent({ "name":this.name + ":dropclearance:" + g_parameter.traceWidth });
+
+
+  var tw = new guiDropIcon(this.name + ":droptracewidth", this.iconWidth, this.iconWidth, true);
+  tw.bgColor = this.bgColor;
+  tw.divColor = this.divColor;
+
+  for (var i=20; i>=1; i--) {
+    var nam = this.name + ":droptracewidth:" + i;
+    //var f = this._make_text_draw_function(i);
+    var f = this._make_tracewidth_draw_function(i);
+    tw.addIcon(nam, f);
+    if (i*10==g_parameter.traceWidth) {
+      tw.mainIcon.name = name;
+      tw.mainIcon.drawShape = f;
+    }
+  }
+
+  tw.move(cur_x, 0);
+
+  this.dropClearance = tw;
+  this.addChild(tw);
+  cur_x += tw.width;
+
   this.move(5,5);
 
 }
-guiGrid.inherits ( guiRegion );
+guiBoardGrid.inherits ( guiRegion );
 
-guiGrid.prototype._make_text_draw_function = function( txt )
+guiBoardGrid.prototype._make_text_draw_function = function( txt )
 {
   var t = this;
   return function()
@@ -105,10 +163,66 @@ guiGrid.prototype._make_text_draw_function = function( txt )
 
 }
 
+guiBoardGrid.prototype._make_tracewidth_draw_function = function( txt )
+{
+  var t = this;
+  return function() {
+    var sx = __icon_width/5, sy = __icon_width/3;
+    var dx = __icon_width/5, dy = __icon_width/3;
+    var color = "rgba(0,255,0,0.45)", width = 4;
+
+    var layer = g_board_controller.guiLayer.selectedLayer;
+    if (typeof g_board_controller.board.layer_color[layer] !== 'undefined')
+    {
+      color = g_board_controller.board.layer_color[layer];
+      var color_parts = color.split(",");
+      color = color_parts[0] + "," + color_parts[1] + "," + color_parts[2] + ",0.15)";
+    }
+
+    var p = [ [ 0,     0 ],
+              [ dx,    0 ],
+              [ 2*dx, dy ],
+              [ 3*dx, dy ] ];
+
+    var mini_trace_width = 4;
+    var v = parseInt(txt);
+    if (!isNaN(v)) { mini_trace_width = Math.floor(v/4); }
+    g_painter.drawPath( p, sx, sy, color, mini_trace_width, false);
+    g_painter.drawText(txt.toString(), t.iconWidth/2, t.iconHeight/2, "rgba(0,0,0,0.7)", 12, 0, "C", "C");
+  }
+
+}
+
+guiBoardGrid.prototype._make_clearance_draw_function = function( txt )
+{
+  var t = this;
+  return function() {
+    var sx = __icon_width/5, sy = __icon_width/3;
+    var dx = __icon_width/5, dy = __icon_width/3;
+    var color = "rgba(255,255,255,0.15)", width = 4;
+
+    var mini_trace_width = 4;
+    var v = parseInt(txt);
+    if (!isNaN(v)) { mini_trace_width = Math.floor(1+v/4); }
+
+    var p0 = [ [ 2*dx, 0 ], [3*dx + mini_trace_width, dy ] ];
+    var p1 = [ [   dx, 0], [2*dx + mini_trace_width, dy ] ];
+
+    var p = [ [ 0,     0 ],
+              [ dx,   dy ] ];
+
+    g_painter.drawPath( p, sx, sy, color, 4, false);
+    g_painter.drawPath( p, sx+2*mini_trace_width, sy, color, 4, false);
+    g_painter.drawText(txt.toString(), t.iconWidth/2, t.iconHeight/2, "rgba(0,0,0,0.7)", 12, 0, "C", "C");
+  }
+
+}
+
+
 // children will be in weird places, so don't confine it to the box of the
-// guiGrid.
+// guiBoardGrid.
 //
-guiGrid.prototype.hitTest = function(x, y)
+guiBoardGrid.prototype.hitTest = function(x, y)
 {
 
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
@@ -135,7 +249,7 @@ guiGrid.prototype.hitTest = function(x, y)
   return null;
 }
 
-guiGrid.prototype._handleUnitEvent = function(ev)
+guiBoardGrid.prototype._handleUnitEvent = function(ev)
 {
 
   if (ev.owner == this.name + ":imperial")
@@ -149,7 +263,7 @@ guiGrid.prototype._handleUnitEvent = function(ev)
 
 }
 
-guiGrid.prototype._handleSpacingEvent = function(ev)
+guiBoardGrid.prototype._handleSpacingEvent = function(ev)
 {
   var parts = ev.owner.split(":");
   if (parts.length!=3) { return; }
@@ -159,7 +273,7 @@ guiGrid.prototype._handleSpacingEvent = function(ev)
   g_snapgrid = new snapGrid(true, "deci-mil", v);
 }
 
-guiGrid.prototype._handleClearanceEvent = function(ev)
+guiBoardGrid.prototype._handleClearanceEvent = function(ev)
 {
   var parts = ev.owner.split(":");
   if (parts.length!=3) { return; }
@@ -169,7 +283,7 @@ guiGrid.prototype._handleClearanceEvent = function(ev)
   g_parameter.clearance = v*10;
 }
 
-guiGrid.prototype._handleTraceWidthEvent = function(ev)
+guiBoardGrid.prototype._handleTraceWidthEvent = function(ev)
 {
   var parts = ev.owner.split(":");
   if (parts.length!=3) { return; }
@@ -180,7 +294,7 @@ guiGrid.prototype._handleTraceWidthEvent = function(ev)
 }
 
 
-guiGrid.prototype._eventMouseDown = function( ev )
+guiBoardGrid.prototype._eventMouseDown = function( ev )
 {
 
   if (ev.owner == this.name + ":nav")
@@ -238,7 +352,7 @@ guiGrid.prototype._eventMouseDown = function( ev )
 
 }
 
-guiGrid.prototype.handleEvent = function(ev)
+guiBoardGrid.prototype.handleEvent = function(ev)
 {
   if ( ev.type == "mouseDown" )
     return this._eventMouseDown(ev);
@@ -248,7 +362,7 @@ guiGrid.prototype.handleEvent = function(ev)
 
 }
 
-guiGrid.prototype.draw = function()
+guiBoardGrid.prototype.draw = function()
 {
 
 }
