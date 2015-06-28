@@ -86,8 +86,19 @@ function toolTrace( x, y, layerPair, initialPlaceFlag, highlightNets )
 
   // DEPENDENCE ON guiBoardLayer
   // FIGURE OUT HOW TO TAKE OUT
+  //
+  // How about this:
+  // - assume only two layers while we're in this tool
+  // - pass in two layers along with other auxiliary information (color etc.)
+  // - pass in channel to publish layer changes to
+  // - have guiLayer listen on the channel to handle changes in state
+  // - not sure why this tool would need to listen to the same channel...
+  //
+  // right now it's easier to make it explicit.
+  //
 
-  this.layer = g_board_controller.guiLayer.layer ;
+  //this.layer = g_board_controller.guiLayer.layer ;
+  this.layer = g_board_controller.guiLayer.layerPair ;
   this.cur_layer = g_board_controller.guiLayer.selectedLayer;
   this.color = g_board_controller.board.layer_color[ this.cur_layer ];
 
@@ -1342,15 +1353,26 @@ toolTrace.prototype._via_intersect_test = function( virtual_trace, layer )
   //add the via
   var p = virtual_trace[ virtual_trace.length-1 ];
 
+  // We're only allowing vias that pierce all layers 0-15.
+  // We'll have to update these for buried or blind vias.
+  //
   var tracks = [];
   tracks.push( { x0: p.x, x1: p.x, y0: p.y, y1 : p.y, shape: "through",
     shape_code : "0", width: 2*clearance + this.via_width,
     layer0: 0, layer1: 15 } );
 
-  var hit_ele_list0 = g_board_controller.board.trackBoardIntersect( tracks, 0 );
-  var hit_ele_list1 = g_board_controller.board.trackBoardIntersect( tracks, 15 );
+  var hit_ele_list0 = g_board_controller.board.trackBoardIntersect(tracks, 0);
+  var hit_ele_list1 = g_board_controller.board.trackBoardIntersect(tracks, 15);
+
+  // We'll have to generalize this but for now we can keep it.
+  //
+  var hit_ele_list2 = g_board_controller.board.trackBoardIntersect(tracks, 1);
+  var hit_ele_list3 = g_board_controller.board.trackBoardIntersect(tracks, 2);
+
 
   if ( (hit_ele_list0.length > 0) ||
+       (hit_ele_list2.length > 0) ||
+       (hit_ele_list3.length > 0) ||
        (hit_ele_list1.length > 0) )
   {
     return true;

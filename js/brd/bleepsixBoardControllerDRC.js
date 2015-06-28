@@ -126,11 +126,6 @@ bleepsixBoardController.prototype._check_floating_pins = function()
   for (var nc in netcode_map) {
     if (netcode_map[nc]==1) {
 
-      //DEBUG
-      //console.log("unassociated netcode!", nc, nc_to_pin[nc].id );
-      //console.log( this.schematic.refLookup( nc_to_pin[nc].parent_id ) );
-      //console.log( this.board.refLookup( nc_to_pin[nc].parent_id ) );
-
       var uele = {
         id : nc_to_pin[nc].parent_id
         //ind :  nc_to_pin[nc].pin_ind
@@ -211,10 +206,6 @@ bleepsixBoardController.prototype._check_pwr_connects = function()
   var un_net = [];
   for (var nc in pwr_net) {
     if (pwr_net[nc] < 0) {
-
-      //DEBUG
-      //console.log("PWR net unassociated!", nc);
-
       un_net.push( { netcode: nc, pwr : pwr_net_ele[nc] } );
     }
   }
@@ -238,9 +229,6 @@ bleepsixBoardController.prototype.DRC = function()
   //
   drc.pwr_unconn = this._check_pwr_connects();
 
-  //DEBUG
-  //console.log("unconnected power:", drc.pwr_unconn);
-
   // Make sure all pins labelled 'W' are attached to
   // VCC or GND (or some other PWR element).
   //
@@ -252,9 +240,6 @@ bleepsixBoardController.prototype.DRC = function()
   // and it's not a noconn, DRC error.
   //
   drc.float_pin = this._check_floating_pins();
-
-  //DEBUG
-  //console.log("floating pins:", drc.float_pin);
 
   //---
 

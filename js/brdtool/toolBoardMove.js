@@ -1152,7 +1152,6 @@ toolBoardMove.prototype.mouseMove = function( x, y )
     this.prev_world_xy["x"] = world_xy["x"];
     this.prev_world_xy["y"] = world_xy["y"];
 
-
   }
 
 }
@@ -1229,7 +1228,6 @@ toolBoardMove.prototype.keyDown = function( keycode, ch, ev )
         netsAffected[ ref.netcode ] = ref;
       }
 
-      //var clonedData = simplecopy( this.selectedElement[ind].ref );
       var clonedData = simplecopy( ref );
 
       op.data.element.push( clonedData );

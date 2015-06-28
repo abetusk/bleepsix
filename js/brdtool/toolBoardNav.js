@@ -503,8 +503,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   if ((ch=='2') && ev.shiftKey)
   {
-    console.log("!!");
-
     g_board_controller.board.flag_draw_ratsnest = !g_board_controller.board.flag_draw_ratsnest;
     if (g_board_controller.board.flag_draw_ratsnest)
     {
@@ -596,7 +594,7 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if ((keycode == 186) || (ch == ':'))
   {
-    console.log("cli");
+
   }
 
   else if (ch == 'A') {
@@ -906,9 +904,6 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
           op.data.element.push( clonedData );
           op.groupId = group_id;
           g_board_controller.opCommand( op );
-
-          //DEBUG
-          console.log(">>>>> OP", op);
 
           var map = g_board_controller.board.kicad_brd_json.brd_to_sch_net_map;
           g_board_controller.board.updateRatsNest( undefined, undefined, map );

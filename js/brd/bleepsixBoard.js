@@ -92,6 +92,8 @@ function bleepsixBoard()
   this.layer_color[21] = "rgba(  0, 255, 255, 0.4)";
   this.layer_color[20] = "rgba(255,   0, 255, 0.4)";
   this.layer_color[15] = "rgba(255,   0,   0, 0.4)";
+  this.layer_color[2]  = "rgba(255, 127,   0, 0.4)";
+  this.layer_color[1]  = "rgba(  0, 255, 255, 0.4)";
   this.layer_color[0]  = "rgba(  0, 255,   0, 0.4)";
 
   this.flag_draw_ratsnest               = true;
@@ -3776,11 +3778,6 @@ bleepsixBoard.prototype._setupNetMappings = function()
 
   this.kicad_brd_json["net_code_map"] = net_code_map;
   this.kicad_brd_json["net_name_map"] = net_name_map;
-
-  //DBEUG
-  //console.log("net name maps");
-  //console.log(net_code_map);
-  //console.log(net_name_map);
 }
 
 // Load full brd from json data (brd file assumed to be converted to json format)
@@ -3842,16 +3839,12 @@ bleepsixBoard.prototype.load_board = function( json )
     if (bleepsixBoardHeadless)
       continue;
 
-    //if (name in g_footprint_cache)
     if (name in this.kicad_brd_json.footprint_lib)
     {
       // nothing to do...
     }
     else
     {
-      //this.displayable = false;
-
-      //var part_json = "json/" + name + ".json";
       if ( (!(name in g_footprint_location)) &&
            ( name != 'unknown' ) )
       {
@@ -3866,15 +3859,10 @@ bleepsixBoard.prototype.load_board = function( json )
       }
       else if (name == 'unknown')
       {
-        //DEBUG
-        //console.log("footprint of special type 'unknown'");
         continue;
       }
 
-      //console.log(g_footprint_location[name]);
       var part_json = g_footprint_location[name].location;
-
-      //console.log("trying to load " + part_json);
 
 
       // A litle fancy footing here.
@@ -3883,8 +3871,6 @@ bleepsixBoard.prototype.load_board = function( json )
       // the current value of name and data, then scope is withdrawn and the old values stick.
       // blech, bad description, see here: 
       //   http://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
-
-      //console.log("bleepsixBoard.load_board: fetching footprint: " + name +" from " + part_json);
 
       if (bleepsixBoardHeadless)
         continue;
@@ -3904,38 +3890,10 @@ bleepsixBoard.prototype.load_board = function( json )
           })(this)
         );
 
-
-      /*
-      var Board = this;
-      $.ajaxSetup({ cache : false });
-      $.getJSON( part_json,
-        ( function(a) {
-            return function(data) {
-              Board.load_part(a, data);
-            }
-          }
-        )(name)
-      ).fail(
-        ( function(a) {
-            return function(jqxhr, textStatus, error) {
-              Board.load_part_error(a, jqxhr, textStatus, error);
-            }
-          }
-        )(part_json)
-      );			
-      */
-
       this.queued_display_footprint_count++;
 
     }
   }
-
-  /*
-  // The case where all our library components are cached, we need to ask for a redraw
-  //
-  if (this.queued_display_footprint_count == 0)
-    g_painter.dirty_flag = true;
-   */
 
 }
 

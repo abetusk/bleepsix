@@ -292,13 +292,11 @@ bleepsixBoard.prototype._make_thermal_pad_geometry = function( mod, pad, thickne
 
 }
 
-//bleepsixBoard.prototype._net_equal_old = function( brd_net0, brd_net1 )
 bleepsixBoard.prototype._net_equal_experimental = function( brd_net0, brd_net1 )
 {
   var a = parseInt( brd_net0 );
   var b = parseInt( brd_net1 );
 
-  //var sch_net_code_map = this.kicad_brd_json.sch_to_brd_net_map;
   var brd_nc_map = this.kicad_brd_json.brd_to_sch_net_map;
 
   var a_list = [];
@@ -309,23 +307,18 @@ bleepsixBoard.prototype._net_equal_experimental = function( brd_net0, brd_net1 )
   if (b in sch_net_code_map )
     b_list = sch_net_code_map[b];
 
-//DEBUG
-console.log("_net_equal orig ", a , b );
-console.log("_net_equal lists ", a_list, b_list);
-
   for (var ii in a_list)
-{
+  {
     for (var jj in b_list)
-{
+    {
       if ( a_list[ii] == b_list[jj] )
-{
+      {
         return true;
-}
-}
-}
+      }
+    }
+  }
 
   return false;
-
 }
 
 // Check to see if board nets have a schematic net in common 

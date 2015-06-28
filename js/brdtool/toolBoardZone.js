@@ -29,7 +29,11 @@ function toolBoardZone( x, y, initialPlaceFlag )
   y = ((typeof y !== 'undefined') ? y : 0 );
   initialPlaceFlag = ((typeof initialPlaceFlag !== 'undefined') ? initialPlaceFlag : true );
 
-  //console.log("toolBoardZone");
+  this.debug = false;
+
+  if (this.debug) {
+    console.log("toolBoardZone");
+  }
 
   this.mouse_cur_x = x;
   this.mouse_cur_y = y;
@@ -49,7 +53,6 @@ function toolBoardZone( x, y, initialPlaceFlag )
   // be in an equivalent schematic netcode
   //
   this.netcode = 0;
-  //this.netname = "";
 
   this.layer = g_board_controller.guiLayer.selectedLayer;
 
@@ -63,9 +66,7 @@ function toolBoardZone( x, y, initialPlaceFlag )
   }
 
   var ele = document.getElementById("canvas");
-  //ele.style.cursor = "url('img/cursor_custom_wire_s24.png') 4 3, cursor";
   ele.style.cursor = "url('img/cursor_custom_zone_s24.png') 4 3, cursor";
-
 
 }
 
@@ -92,7 +93,6 @@ toolBoardZone.prototype.debug_print = function()
   console.log("  region_box_threshold " + this.region_box_threshold_size );
   console.log("  drawing_box_flag " + this.drawing_box_flag );
   console.log("  mouse_drag_flag " + this.drawing_box_flag );
-  //console.log("  netcode " + this.netcode +  ", netname " + this.netname + ", " + this.layer );
   console.log("  netcode " + this.netcode +   ", layer " + this.layer );
 }
 
@@ -114,8 +114,6 @@ toolBoardZone.prototype.drawOverlay = function()
   var mouse_x = Math.floor(this.cur_world_coord.x);
   var mouse_y = Math.floor(this.cur_world_coord.y);
   g_board_controller.display_text = "x: " + mouse_x + ", y: " + mouse_y;
-
-
 }
 
 toolBoardZone.prototype.mouseDown = function( button, x, y )
@@ -219,8 +217,6 @@ toolBoardZone.prototype.mouseMove = function( x, y )
     var dx = Math.abs( this.cur_world_coord["x"] - this.orig_world_coord["x"]) ;
     var dy = Math.abs( this.cur_world_coord["y"] - this.orig_world_coord["y"]) ;
 
-    //if ( ( Math.abs( this.cur_world_coord["x"] - this.orig_world_coord["x"]) > this.region_box_threshold_size ) ||
-     //    ( Math.abs( this.cur_world_coord["y"] - this.orig_world_coord["y"]) > this.region_box_threshold_size ) )
     if ( ( Math.abs( dx ) > this.region_box_threshold_size ) ||
          ( Math.abs( dy ) > this.region_box_threshold_size ) )
       this.drawing_box_flag = true;
@@ -316,24 +312,28 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'Z')
   {
-    //console.log("Z!");
 
     this._setNextNetcode();
 
-    //console.log("netcode now : " + this.netcode + " " + this.netname );
-    //console.log(">>> netcode now (sch) : " + this.netcode );
+    if (this.debug) {
+      console.log("Z!");
+      console.log("netcode now : " + this.netcode + " " + this.netname );
+      console.log(">>> netcode now (sch) : " + this.netcode );
+    }
 
   }
 
 
   else if (ch == 'A')
   {
-    //console.log("A.");
 
     this._setPrevNetcode();
 
-    //console.log("netcode now : " + this.netcode + " " + this.netname );
-    //console.log(">>> netcode now : " + this.netcode );
+    if (this.debug) {
+      console.log("A.");
+      console.log("netcode now : " + this.netcode + " " + this.netname );
+      console.log(">>> netcode now : " + this.netcode );
+    }
 
   }
 
@@ -353,8 +353,4 @@ toolBoardZone.prototype.keyDown = function( keycode, ch, ev )
 
 }
 
-toolBoardZone.prototype.keyUp = function( keycode, ch, ev  )
-{
-}
-
-
+toolBoardZone.prototype.keyUp = function( keycode, ch, ev  ) { }

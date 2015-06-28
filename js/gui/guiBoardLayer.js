@@ -27,7 +27,6 @@ function guiBoardLayer( name, bgColor  )
   bgColor = ((typeof bgColor !== 'undefined') ? bgColor : "rgba(255,255,255,0.4)" );
   this.constructor ( name )   
 
-  //this.bgColor = "rgba( 0, 0, 255, 0.2 )";
   this.bgColor = bgColor;
 
   this.iconWidth = 24;
@@ -42,13 +41,16 @@ function guiBoardLayer( name, bgColor  )
   var cur_y = 0;
   var sz = this.iconWidth;
 
-  // "top" layer
+  // "top" layers
   //
   var u = new guiDropIcon( this.name + ":droplayertop", this.iconWidth , this.iconWidth );
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
   u.divColor = "rgba(255,255,255,0.2)";
-  u.addIcon( this.name + ":layertop", (function(s) { return function() { s._draw_top_icon(); }; })(this)  );
+  u.addIcon( this.name + ":layertop0", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,0)  );
+  u.addIcon( this.name + ":layertop1", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,1)  );
+  u.addIcon( this.name + ":layertop2", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,2)  );
+  u.addIcon( this.name + ":layertop15", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,15)  );
   u.move(0, cur_y);
 
   this.dropLayerTop = u;
@@ -57,13 +59,16 @@ function guiBoardLayer( name, bgColor  )
   cur_y += u.height;
 
 
-  // "bottom" layer
+  // "bottom" layers
   //
   var b = new guiDropIcon( this.name + ":doprlayerbottom", this.iconWidth, this.iconWidth );
   b.bgColor = bgColor;
   b.fgColor = "rgb(255,255,255)";
   b.divColor = "rgba(255,255,255,0.2)";
-  b.addIcon( this.name + ":layerbottom", (function(s) { return function() { s._draw_bottom_icon(); }; })(this) );
+  b.addIcon( this.name + ":layerbottom15", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,15) );
+  b.addIcon( this.name + ":layerbottom1", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this, 1) );
+  b.addIcon( this.name + ":layerbottom2", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this, 2) );
+  b.addIcon( this.name + ":layerbottom0", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this, 0) );
   b.move(0, cur_y);
 
   this.dropLayerBottom = b;
@@ -74,9 +79,14 @@ function guiBoardLayer( name, bgColor  )
   this.dropLayerTop.selected = true;
   this.dropLayerBottom.selected = false;
 
-  this.layer = [ 0, 15 ];
+  // Most of these values should be passed in from the controller, say.
+  // For now we hardcode them here.
+  //
+  this.layerPair = [0, 15];
   this.layerIndex = 0;
-  this.selectedLayer = this.layer[ this.layerIndex ] ;
+  this.layerMap = { 0:0, 15:1, 1:2, 2:3 };
+  this.layerColor = { 0:"rgba(0,255,0,0.4)", 15:"rgba(255,0,0,0.4)", 1:"rgba(0,255,255,0.4)", 2:"rgba(255,127,0,0.4)" };
+  this.selectedLayer = this.layerPair[ this.layerIndex ] ;
 
 }
 
@@ -84,30 +94,16 @@ guiBoardLayer.inherits ( guiRegion );
 
 //-------------------------------
 
-guiBoardLayer.prototype._draw_top_icon = function()
+guiBoardLayer.prototype._draw_layer_icon = function(layer_num)
 {
   var sx = this.iconWidth/2;
   var sy = this.iconWidth/2;
   var d = 2;
   var textColor = "rgba(0,0,0,0.5)";
-  var fgColor = "rgba(0,255,0,0.3)";
+  var fgColor = this.layerColor[layer_num];
 
-  g_painter.drawRectangle( d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, fgColor );
-  //g_painter.drawTextSimpleFont( "0", sx, sy, textColor, 15, "Calibri");
-  g_painter.drawTextSimpleFont( this.layer[0], sx, sy, textColor, 15, "Calibri");
-}
-
-guiBoardLayer.prototype._draw_bottom_icon = function()
-{
-  var sx = this.iconWidth/2;
-  var sy = this.iconWidth/2;
-  var d = 2;
-  var textColor = "rgba(0,0,0,0.5)";
-  var fgColor = "rgba(255,0,0,0.3)";
-
-  g_painter.drawRectangle( d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, fgColor );
-  //g_painter.drawTextSimpleFont( "15", sx, sy, textColor, 15, "Calibri");
-  g_painter.drawTextSimpleFont( this.layer[1], sx, sy, textColor, 15, "Calibri");
+  g_painter.drawRectangle(d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, fgColor);
+  g_painter.drawTextSimpleFont(layer_num, sx, sy, textColor, 15, "Calibri");
 }
 
 // children will be in weird places, so don't confine it to the box of the
@@ -131,57 +127,37 @@ guiBoardLayer.prototype.hitTest = function(x, y)
   return null;
 }
 
-/*
-guiBoardLayer.prototype._handleTopEvent = function(ev)
-{
-
-  if (ev.owner == this.name + ":layertop")
-  {
-    console.log(" layertop");
-  }
-
-}
-
-
-guiBoardLayer.prototype._handleBottomEvent = function(ev)
-{
-  if (ev.owner == this.name + ":layerbottom")
-  {
-    console.log(" layerbottom");
-  }
-
-}
-*/
-
 guiBoardLayer.prototype._eventMouseDown = function( ev )
 {
+  var re;
 
-  if ( ev.owner.match(/:layertop$/) )
+  if ( re = ev.owner.match(/:layertop(\d+)$/) )
   {
-    console.log("layertop");
+    var layerNum = re[1];
     this.dropLayerTop.contract();
     this.dropLayerBottom.contract();
     this.dropLayerTop.selected = true;
     this.dropLayerBottom.selected = false;
 
-    this.selectedLayer = this.layer[0];
+    this.layerPair[0] = layerNum;
+    this.selectedLayer = parseInt(layerNum);
   }
 
-  else if ( ev.owner.match(/:layerbottom$/) )
+  //else if ( ev.owner.match(/:layerbottom$/) )
+  else if ( re = ev.owner.match(/:layerbottom(\d+)$/) )
   {
-    console.log("layerbottom");
+    var layerNum = re[1];
     this.dropLayerTop.contract();
     this.dropLayerBottom.contract();
     this.dropLayerTop.selected = false;
     this.dropLayerBottom.selected = true;
 
-    this.selectedLayer = this.layer[1];
+    this.layerPair[1] = layerNum;
+    this.selectedLayer = parseInt(layerNum);
   }
 
   else if (ev.owner == this.name + ":droplayertop:tab")
   {
-    console.log("  layertop tab!");
-
     if (this.dropLayerTop.showDropdown)
     {
       this.dropLayerBottom.contractSlim();
@@ -194,8 +170,6 @@ guiBoardLayer.prototype._eventMouseDown = function( ev )
 
   else if (ev.owner == this.name + ":droplayerbottom:tab")
   {
-    console.log("  layerbottom tab");
-
     this.dropLayerTop.contract();
   }
 
@@ -222,24 +196,19 @@ guiBoardLayer.prototype.toggleLayer = function()
   this.dropLayerBottom.selected = !this.dropLayerBottom.selected ;
 
   this.layerIndex = (this.layerIndex + 1)%2;
-  this.selectedLayer = this.layer[ this.layerIndex ] ;
+  this.selectedLayer = this.layerPair[ this.layerIndex ] ;
 
 }
 
 guiBoardLayer.prototype.getActiveLayer = function()
 {
-  return this.layer[ this.layerIndex ];
+  return this.layerPair[ this.layerIndex ];
 }
 
 guiBoardLayer.prototype.getInactiveLayer = function()
 {
   var ind = (this.layerIndex + 1)%2;
-  return this.layer[ ind ];
+  return this.layerPair[ ind ];
 }
 
-guiBoardLayer.prototype.draw = function()
-{
-
-}
-
-
+guiBoardLayer.prototype.draw = function() { }

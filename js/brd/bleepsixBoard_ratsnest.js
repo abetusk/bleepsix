@@ -44,22 +44,9 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
 
   if (orig_netcode < 0) return false;
 
-  /*
-  netcode = orig_netcode;
-  if (sch_net_code_map && (netcode in sch_net_code_map))
-    netcode = sch_net_code_map[ orig_netcode ];
-    */
-
   var mapNetList = [ orig_netcode ];
   if (sch_net_code_map && (orig_netcode in sch_net_code_map))
     mapNetList = sch_net_code_map[ orig_netcode ];
-
-
-  //DEBUG
-  //console.log(">>> filter single (orig_netcode " + orig_netcode + ")" );
-  //console.log( sch_net_code_map);
-  //console.log(mapNetList);
-
 
   if (type == "track")
   {
@@ -97,15 +84,7 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
 
   else if (type == "module")
   {
-
     var pads = ele.pad;
-
-    /*
-    //DEBUG
-    console.log("ele, pads:");
-    console.log(ele);
-    console.log(pads);
-    */
 
     for (var p_ind in pads)
     {
@@ -122,14 +101,6 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
       var eleNetList = [ ele_net_number ];
       if (sch_net_code_map && (orig_netcode in sch_net_code_map))
         eleNetList = sch_net_code_map[ ele_net_number ];
-
-      /*
-      //DEBUG
-      console.log("considering pad(" + p_ind + "): " + pad.net_number );
-      console.log(pad);
-      console.log("\n");
-      */
-
 
       var foundFlag = false;
       for (var ii in eleNetList)
@@ -154,25 +125,10 @@ bleepsixBoard.prototype._filter_copper_element_single = function( res, ele, orig
         continue;
       }
 
-      /*
-      //DEBUG
-      console.log(">>>> pad filter (" + foundFlag + ") (" + layer + ")" );
-      console.log( pad );
-      console.log( mapNetList );
-      console.log("\n");
-      */
-
       if (!foundFlag)
       {
         continue;
       }
-
-
-      /*
-      if ((netcode >= 0) &&
-          (netcode != parseInt(pad.net_number)) )
-        return false;
-        */
 
       res.push( { id: pad.id, ref: ele, pad_ref: pad, type :"pad" } );
 

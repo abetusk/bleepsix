@@ -52,7 +52,6 @@ function guiLayer( name )
   for (var i=0; i < guilist.indexN; i++)
   {
     this.guiChildren[0].addList( "i" + i, "name" + i );
-
     this.guiChildren[0].add( "i:" + i + "::", "foo" + i, "dat" + i, "i" + i );
   }
 
@@ -63,11 +62,8 @@ function guiLayer( name )
 
   g_painter.dirty_flag = true;
 
-
 }
-
 guiLayer.inherits ( guiRegion );
-
 
 guiLayer.prototype.listPick = function(list_ele)
 {

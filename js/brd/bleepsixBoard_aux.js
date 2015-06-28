@@ -312,10 +312,6 @@ bleepsixBoard.prototype.makeUnknownModule = function( size, id, text_ids )
   id = ((typeof id !== 'undefined') ? id : this._createId());
   text_ids = ((typeof text_ids !== 'undefined') ? text_ids : [ this._createId(id), this._createId(id) ] );
 
-
-  //DEBUG
-  //console.log("makeUnknownModule: " + id );
-
   var unknownModule = {
     id : id,
     name : "unknown",
@@ -1886,6 +1882,10 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_
           if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
           {
 
+            // Don't allow via pad intersections.
+            // 
+            if (brd_ref.shape == "through") { return false; }
+
             pgnEle = this._build_element_polygon( { type: "pad", ref: ele_ref, pad_ref: pad } );
             if ( !this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
               return false;
@@ -1921,6 +1921,11 @@ bleepsixBoard.prototype.allowPlacement = function( id_ref_ar, clearance, ignore_
           var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad, clearance: clearance } );
           if ( this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
           {
+
+            // Don't allow via pad intersections.
+            // 
+            if (ele_ref.shape == "through") { return false; }
+
             var pgnBrd = this._build_element_polygon( { type: "pad", ref: brd_ref, pad_ref: pad } );
             if ( !this._pgn_intersect_test( [ pgnBrd ], [ pgnEle ] ) )
               return false;
