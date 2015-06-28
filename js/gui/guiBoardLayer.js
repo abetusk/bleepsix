@@ -139,11 +139,11 @@ guiBoardLayer.prototype._eventMouseDown = function( ev )
     this.dropLayerTop.selected = true;
     this.dropLayerBottom.selected = false;
 
+    this.layerIndex = 0;
     this.layerPair[0] = layerNum;
     this.selectedLayer = parseInt(layerNum);
   }
 
-  //else if ( ev.owner.match(/:layerbottom$/) )
   else if ( re = ev.owner.match(/:layerbottom(\d+)$/) )
   {
     var layerNum = re[1];
@@ -152,6 +152,7 @@ guiBoardLayer.prototype._eventMouseDown = function( ev )
     this.dropLayerTop.selected = false;
     this.dropLayerBottom.selected = true;
 
+    this.layerIndex = 1;
     this.layerPair[1] = layerNum;
     this.selectedLayer = parseInt(layerNum);
   }
