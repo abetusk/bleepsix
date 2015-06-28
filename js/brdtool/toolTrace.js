@@ -1517,9 +1517,28 @@ toolTrace.prototype.keyDown = function( keycode, ch, ev )
 
       var ele = document.getElementById("canvas");
       if ( this.cur_layer < 10 )
-        ele.style.cursor = "url('img/cursor_custom_wire_s24_2.png') 4 3, cursor";
+      {
+        if (this.cur_layer==0)
+        {
+          ele.style.cursor = "url('img/cursor_custom_wire_s24_2.png') 4 3, cursor";
+        }
+        else if (this.cur_layer==1)
+        {
+          ele.style.cursor = "url('img/cursor_custom_wire_s24_teal.png') 4 3, cursor";
+        }
+        else if (this.cur_layer==2)
+        {
+          ele.style.cursor = "url('img/cursor_custom_wire_s24_orange.png') 4 3, cursor";
+        }
+        else
+        {
+          ele.style.cursor = "url('img/cursor_custom_wire_s24_2.png') 4 3, cursor";
+        }
+      }
       else
+      {
         ele.style.cursor = "url('img/cursor_custom_wire_s24_red2.png') 4 3, cursor";
+      }
 
       g_painter.dirty_flag = true;
       return;

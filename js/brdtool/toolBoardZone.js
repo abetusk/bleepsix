@@ -66,7 +66,33 @@ function toolBoardZone( x, y, initialPlaceFlag )
   }
 
   var ele = document.getElementById("canvas");
-  ele.style.cursor = "url('img/cursor_custom_zone_s24.png') 4 3, cursor";
+
+  //ele.style.cursor = "url('img/cursor_custom_zone_s24.png') 4 3, cursor";
+
+  if ( this.layer < 10 )
+  {
+    if (this.layer==0)
+    {
+      ele.style.cursor = "url('img/cursor_custom_zone_s24_green.png') 4 3, cursor";
+    }
+    else if (this.layer==1)
+    {
+      ele.style.cursor = "url('img/cursor_custom_zone_s24_teal.png') 4 3, cursor";
+    }
+    else if (this.layer==2)
+    {
+      ele.style.cursor = "url('img/cursor_custom_zone_s24_orange.png') 4 3, cursor";
+    }
+    else
+    {
+      ele.style.cursor = "url('img/cursor_custom_zone_s24_green.png') 4 3, cursor";
+    }
+  }
+  else
+  {
+    ele.style.cursor = "url('img/cursor_custom_zone_s24_red.png') 4 3, cursor";
+  }
+
 
 }
 
