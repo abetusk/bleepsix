@@ -611,10 +611,21 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
       var ref = g_board_controller.board.refLookup( id_ref.id );
       var cloned_id_ref = simplecopy( id_ref );
 
+      if (ref.type != "module") {
+        g_board_controller.fadeMessage( "Sorry, cannot flip track!" );
+        ref.hideFlag = false;
+        return true;
+      }
+
       ref.hideFlag = true;
 
-      var src_layer = g_board_controller.guiLayer.getActiveLayer();
-      var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
+      //var src_layer = g_board_controller.guiLayer.getActiveLayer();
+      //var dst_layer = g_board_controller.guiLayer.getInactiveLayer();
+
+      var src_layer = 0;
+      var dst_layer = 15;
+      if      (ref.layer == 15) { src_layer = 15; dst_layer =  0; }
+      else if (ref.layer ==  0) { src_layer =  0; dst_layer = 15; }
 
       g_board_controller.board.flip( cloned_id_ref, src_layer, dst_layer );
       g_board_controller.board.updateBoundingBox( cloned_id_ref.ref );
