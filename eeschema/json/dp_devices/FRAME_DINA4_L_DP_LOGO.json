@@ -1,0 +1,2053 @@
+{
+  "art": [
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          7100.0
+        ], 
+        [
+          0.0, 
+          5250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          3550.0
+        ], 
+        [
+          0.0, 
+          1850.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          1850.0
+        ], 
+        [
+          0.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          6950.0
+        ], 
+        [
+          150.0, 
+          5250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          5250.0
+        ], 
+        [
+          150.0, 
+          3550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          3550.0
+        ], 
+        [
+          150.0, 
+          1850.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          1850.0
+        ], 
+        [
+          150.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          5250.0
+        ], 
+        [
+          150.0, 
+          5250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          3550.0
+        ], 
+        [
+          150.0, 
+          3550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          1850.0
+        ], 
+        [
+          150.0, 
+          1850.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          0.0
+        ], 
+        [
+          2675.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          2675.0, 
+          0.0
+        ], 
+        [
+          5200.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          0.0
+        ], 
+        [
+          10400.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          150.0, 
+          150.0
+        ], 
+        [
+          2675.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          2675.0, 
+          150.0
+        ], 
+        [
+          5200.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          5200.0, 
+          150.0
+        ], 
+        [
+          7725.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          150.0
+        ], 
+        [
+          10250.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          2675.0, 
+          0.0
+        ], 
+        [
+          2675.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          5200.0, 
+          0.0
+        ], 
+        [
+          5200.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          0.0
+        ], 
+        [
+          7725.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          0.0
+        ], 
+        [
+          10400.0, 
+          1850.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          1850.0
+        ], 
+        [
+          10400.0, 
+          3550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          5250.0
+        ], 
+        [
+          10400.0, 
+          7100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          150.0
+        ], 
+        [
+          10250.0, 
+          1850.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          1850.0
+        ], 
+        [
+          10250.0, 
+          3550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          3550.0
+        ], 
+        [
+          10250.0, 
+          5250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          5250.0
+        ], 
+        [
+          10250.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          5250.0
+        ], 
+        [
+          10250.0, 
+          5250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          3550.0
+        ], 
+        [
+          10250.0, 
+          3550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          1850.0
+        ], 
+        [
+          10250.0, 
+          1850.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          7100.0
+        ], 
+        [
+          7725.0, 
+          7100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          7100.0
+        ], 
+        [
+          5200.0, 
+          7100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          5200.0, 
+          7100.0
+        ], 
+        [
+          2675.0, 
+          7100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          2675.0, 
+          7100.0
+        ], 
+        [
+          0.0, 
+          7100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          6950.0
+        ], 
+        [
+          7725.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          6950.0
+        ], 
+        [
+          5200.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          5200.0, 
+          6950.0
+        ], 
+        [
+          2675.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          2675.0, 
+          6950.0
+        ], 
+        [
+          150.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          2675.0, 
+          7100.0
+        ], 
+        [
+          2675.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          5200.0, 
+          7100.0
+        ], 
+        [
+          5200.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "3", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          7100.0
+        ], 
+        [
+          7725.0, 
+          6950.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          0.0, 
+          5250.0
+        ], 
+        [
+          0.0, 
+          3550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          5200.0, 
+          0.0
+        ], 
+        [
+          7725.0, 
+          0.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10400.0, 
+          3550.0
+        ], 
+        [
+          10400.0, 
+          5250.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "11", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7725.0, 
+          7100.0
+        ], 
+        [
+          2675.0, 
+          7100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "A", 
+      "y": 6048.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "B", 
+      "y": 4348.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "C", 
+      "y": 2648.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "D", 
+      "y": 948.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "1", 
+      "y": 23.0, 
+      "x": 1361.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "2", 
+      "y": 23.0, 
+      "x": 3886.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "3", 
+      "y": 23.0, 
+      "x": 6411.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "4", 
+      "y": 23.0, 
+      "x": 8936.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "A", 
+      "y": 6048.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "B", 
+      "y": 4348.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "C", 
+      "y": 2648.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "D", 
+      "y": 948.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "1", 
+      "y": 6973.0, 
+      "x": 1361.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "2", 
+      "y": 6973.0, 
+      "x": 3886.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "3", 
+      "y": 6973.0, 
+      "x": 6411.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "4", 
+      "y": 6973.0, 
+      "x": 8936.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "A", 
+      "y": 6048.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "B", 
+      "y": 4348.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "C", 
+      "y": 2648.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "D", 
+      "y": 948.0, 
+      "x": 23.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "1", 
+      "y": 23.0, 
+      "x": 1361.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "2", 
+      "y": 23.0, 
+      "x": 3886.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "3", 
+      "y": 23.0, 
+      "x": 6411.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "4", 
+      "y": 23.0, 
+      "x": 8936.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "A", 
+      "y": 6048.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "B", 
+      "y": 4348.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "C", 
+      "y": 2648.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "D", 
+      "y": 948.0, 
+      "x": 10273.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "1", 
+      "y": 6973.0, 
+      "x": 1361.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "2", 
+      "y": 6973.0, 
+      "x": 3886.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "3", 
+      "y": 6973.0, 
+      "x": 6411.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "4", 
+      "y": 6973.0, 
+      "x": 8936.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "102"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "16", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6600.0, 
+          1375.0
+        ], 
+        [
+          6650.0, 
+          1375.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "16", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6650.0, 
+          1375.0
+        ], 
+        [
+          6625.0, 
+          1225.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "16", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6625.0, 
+          1225.0
+        ], 
+        [
+          6600.0, 
+          1375.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 16, 
+      "start_angle": 1.5707963267948966, 
+      "end_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 25.0, 
+      "counterclockwise": true, 
+      "y": 1375.0, 
+      "x": 6625.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 16, 
+      "start_angle": 0.0, 
+      "end_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 25.0, 
+      "counterclockwise": true, 
+      "y": 1375.0, 
+      "x": 6625.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "16", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6650.0, 
+          1375.0
+        ], 
+        [
+          6600.0, 
+          1375.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 16, 
+      "start_angle": -1.5707963267948966, 
+      "end_angle": 0.0, 
+      "shape": "arc", 
+      "r": 25.0, 
+      "counterclockwise": true, 
+      "y": 1175.0, 
+      "x": 6625.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 16, 
+      "start_angle": 0.0, 
+      "end_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 25.0, 
+      "counterclockwise": true, 
+      "y": 1175.0, 
+      "x": 6625.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 16, 
+      "start_angle": 1.5707963267948966, 
+      "end_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 25.0, 
+      "counterclockwise": true, 
+      "y": 1175.0, 
+      "x": 6625.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 16, 
+      "start_angle": 3.141592653589793, 
+      "end_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 25.0, 
+      "counterclockwise": true, 
+      "y": 1175.0, 
+      "x": 6625.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          150.0
+        ], 
+        [
+          9050.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          750.0
+        ], 
+        [
+          9700.0, 
+          750.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          150.0
+        ], 
+        [
+          6250.0, 
+          350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          350.0
+        ], 
+        [
+          9050.0, 
+          350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          350.0
+        ], 
+        [
+          6250.0, 
+          750.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          750.0
+        ], 
+        [
+          10250.0, 
+          350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          9050.0, 
+          350.0
+        ], 
+        [
+          9050.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          9050.0, 
+          350.0
+        ], 
+        [
+          9700.0, 
+          350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          9050.0, 
+          150.0
+        ], 
+        [
+          10250.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          9700.0, 
+          750.0
+        ], 
+        [
+          9700.0, 
+          350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          9700.0, 
+          750.0
+        ], 
+        [
+          6250.0, 
+          750.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          9700.0, 
+          350.0
+        ], 
+        [
+          10250.0, 
+          350.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          350.0
+        ], 
+        [
+          10250.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          750.0
+        ], 
+        [
+          6250.0, 
+          1050.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          1550.0
+        ], 
+        [
+          6250.0, 
+          1550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          1550.0
+        ], 
+        [
+          10250.0, 
+          1050.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          1050.0
+        ], 
+        [
+          10250.0, 
+          1050.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6250.0, 
+          1050.0
+        ], 
+        [
+          6250.0, 
+          1550.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          10250.0, 
+          1050.0
+        ], 
+        [
+          10250.0, 
+          750.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "66", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6425.0, 
+          1100.0
+        ], 
+        [
+          6400.0, 
+          1125.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "66", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6400.0, 
+          1125.0
+        ], 
+        [
+          6600.0, 
+          1500.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "66", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6600.0, 
+          1500.0
+        ], 
+        [
+          6650.0, 
+          1500.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "66", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6650.0, 
+          1500.0
+        ], 
+        [
+          6850.0, 
+          1125.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "66", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6850.0, 
+          1125.0
+        ], 
+        [
+          6825.0, 
+          1100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "66", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          6825.0, 
+          1100.0
+        ], 
+        [
+          6425.0, 
+          1100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "Date:", 
+      "y": 200.0, 
+      "x": 6300.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">LAST_DATE_TIME", 
+      "y": 200.0, 
+      "x": 6750.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "Sheet:", 
+      "y": 200.0, 
+      "x": 9100.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">SHEET", 
+      "y": 200.0, 
+      "x": 9650.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "REV:", 
+      "y": 600.0, 
+      "x": 9750.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "TITLE:", 
+      "y": 900.0, 
+      "x": 6300.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "Project:", 
+      "y": 600.0, 
+      "x": 6300.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">DRAWING_NAME", 
+      "y": 900.0, 
+      "x": 6950.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">LICENSE", 
+      "y": 1400.0, 
+      "x": 6950.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">URL1", 
+      "y": 1250.0, 
+      "x": 6950.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">URL2", 
+      "y": 1100.0, 
+      "x": 6950.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">PROJECT", 
+      "y": 400.0, 
+      "x": 6300.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }
+  ], 
+  "name": "FRAME_DINA4_L_DP_LOGO", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": false, 
+      "italic": false, 
+      "y": "0", 
+      "x": "0", 
+      "size": "0"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "FRAME_DINA4_L_DP_LOGO", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": false, 
+      "italic": false, 
+      "y": "0", 
+      "x": "0", 
+      "size": "0"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "100", 
+  "draw_pin_name": true, 
+  "pin": [], 
+  "draw_pin_number": true, 
+  "unit_count": 3
+}

@@ -1,0 +1,330 @@
+{
+  "art": [
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          8869.0, 
+          -3.0
+        ], 
+        [
+          8869.0, 
+          200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          8869.0, 
+          200.0
+        ], 
+        [
+          10750.0, 
+          200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          8869.0, 
+          200.0
+        ], 
+        [
+          7050.0, 
+          200.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7050.0, 
+          400.0
+        ], 
+        [
+          8869.0, 
+          400.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          8869.0, 
+          400.0
+        ], 
+        [
+          10750.0, 
+          400.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7050.0, 
+          600.0
+        ], 
+        [
+          10750.0, 
+          600.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "4", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          8869.0, 
+          200.0
+        ], 
+        [
+          8869.0, 
+          400.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "24", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7050.0, 
+          750.0
+        ], 
+        [
+          7050.0, 
+          800.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "24", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          7050.0, 
+          800.0
+        ], 
+        [
+          7100.0, 
+          800.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">DRAWING_NAME", 
+      "y": 450.0, 
+      "x": 7150.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">LAST_DATE_TIME", 
+      "y": 250.0, 
+      "x": 7150.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "90"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">SHEET", 
+      "y": 50.0, 
+      "x": 7700.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "Sheet:", 
+      "y": 50.0, 
+      "x": 7150.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">CNAME", 
+      "y": 650.0, 
+      "x": 7150.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "Rev:", 
+      "y": 50.0, 
+      "x": 8903.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">DESIGNER", 
+      "y": 250.0, 
+      "x": 8907.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": ">CREVISION", 
+      "y": 46.0, 
+      "x": 9248.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 800.0, 
+      "width": 24.0, 
+      "shape": "rectangle", 
+      "y": 800.0, 
+      "x": 7038.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }, 
+    {
+      "line_width": "0", 
+      "height": 3700.0, 
+      "width": 24.0, 
+      "shape": "rectangle", 
+      "y": 2650.0, 
+      "x": 8888.0, 
+      "de_morgan_alternate_shape": "1", 
+      "unit": "0", 
+      "fill": "F"
+    }
+  ], 
+  "name": "FRAME-A4L_None", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": false, 
+      "italic": false, 
+      "y": "0", 
+      "x": "0", 
+      "size": "0"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "FRAME-A4L_None", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": false, 
+      "italic": false, 
+      "y": "0", 
+      "x": "0", 
+      "size": "0"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "100", 
+  "draw_pin_name": true, 
+  "pin": [], 
+  "draw_pin_number": true, 
+  "unit_count": 2
+}

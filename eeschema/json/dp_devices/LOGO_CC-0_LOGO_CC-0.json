@@ -1,0 +1,221 @@
+{
+  "art": [
+    {
+      "line_width": 10, 
+      "start_angle": 1.5707963267948966, 
+      "end_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 49.0, 
+      "counterclockwise": true, 
+      "y": 100.0, 
+      "x": -400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "10", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -450.0, 
+          100.0
+        ], 
+        [
+          -450.0, 
+          -100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 10, 
+      "start_angle": 3.141592653589793, 
+      "end_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 49.0, 
+      "counterclockwise": true, 
+      "y": -100.0, 
+      "x": -400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "10", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          -400.0, 
+          -150.0
+        ], 
+        [
+          400.0, 
+          -150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 10, 
+      "start_angle": -1.5707963267948966, 
+      "end_angle": 0.0, 
+      "shape": "arc", 
+      "r": 49.0, 
+      "counterclockwise": true, 
+      "y": -100.0, 
+      "x": 400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "10", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          450.0, 
+          -100.0
+        ], 
+        [
+          450.0, 
+          100.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": 10, 
+      "start_angle": 0.0, 
+      "end_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 49.0, 
+      "counterclockwise": true, 
+      "y": 100.0, 
+      "x": 400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "count": 2, 
+      "line_width": "10", 
+      "convert": "0", 
+      "shape": "path", 
+      "path": [
+        [
+          400.0, 
+          150.0
+        ], 
+        [
+          -400.0, 
+          150.0
+        ]
+      ], 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "direction": "0", 
+      "de_morgan_alternate_shape": "0", 
+      "shape": "text", 
+      "text": "CC-0", 
+      "y": -40.0, 
+      "x": -175.0, 
+      "direction_unit": "deci-degrees", 
+      "type": "0", 
+      "unit": "0", 
+      "size": "100"
+    }, 
+    {
+      "line_width": "6", 
+      "shape": "circle", 
+      "r": 17.0, 
+      "y": 100.0, 
+      "x": -400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "6", 
+      "shape": "circle", 
+      "r": 17.0, 
+      "y": -100.0, 
+      "x": -400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "6", 
+      "shape": "circle", 
+      "r": 17.0, 
+      "y": -100.0, 
+      "x": 400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }, 
+    {
+      "line_width": "6", 
+      "shape": "circle", 
+      "r": 17.0, 
+      "y": 100.0, 
+      "x": 400.0, 
+      "de_morgan_alternate_shape": "0", 
+      "unit": "0", 
+      "fill": "N"
+    }
+  ], 
+  "name": "LOGO_CC-0_LOGO_CC-0", 
+  "reference": "U", 
+  "text": [
+    {
+      "orientation": "H", 
+      "reference": "U", 
+      "hjustify": "C", 
+      "number": 0, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": false, 
+      "italic": false, 
+      "y": "0", 
+      "x": "0", 
+      "size": "0"
+    }, 
+    {
+      "orientation": "H", 
+      "reference": "LOGO_CC-0_LOGO_CC-0", 
+      "hjustify": "C", 
+      "number": 1, 
+      "vjustify": "C", 
+      "visible": false, 
+      "bold": false, 
+      "italic": false, 
+      "y": "0", 
+      "x": "0", 
+      "size": "0"
+    }
+  ], 
+  "power_flag": "N", 
+  "units_locked": "0", 
+  "text_offset": "100", 
+  "draw_pin_name": true, 
+  "pin": [], 
+  "draw_pin_number": true, 
+  "unit_count": 2
+}
