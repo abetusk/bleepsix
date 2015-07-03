@@ -1,0 +1,292 @@
+{
+  "library_name": "BUTTON-18MM", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 3641.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2362.0, 
+      "starty": 1476.0, 
+      "endy": 1476.0, 
+      "endx": -1968.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1968.0, 
+      "starty": 1476.0, 
+      "endy": -1476.0, 
+      "endx": -1968.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1968.0, 
+      "starty": -1476.0, 
+      "endy": -1476.0, 
+      "endx": -2362.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2362.0, 
+      "starty": -1476.0, 
+      "endy": 1476.0, 
+      "endx": -2362.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1968.0, 
+      "starty": 1476.0, 
+      "endy": 1476.0, 
+      "endx": 2362.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2362.0, 
+      "starty": 1476.0, 
+      "endy": -1476.0, 
+      "endx": 2362.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2362.0, 
+      "starty": -1476.0, 
+      "endy": -1476.0, 
+      "endx": 1968.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1968.0, 
+      "starty": -1476.0, 
+      "endy": 1476.0, 
+      "endx": 1968.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2755.0, 
+      "starty": 1968.0, 
+      "endy": 1968.0, 
+      "endx": -1574.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1574.0, 
+      "starty": 1968.0, 
+      "endy": -1968.0, 
+      "endx": -1574.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1574.0, 
+      "starty": -1968.0, 
+      "endy": -1968.0, 
+      "endx": -2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2755.0, 
+      "starty": -1968.0, 
+      "endy": 1968.0, 
+      "endx": -2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1574.0, 
+      "starty": 1968.0, 
+      "endy": 1968.0, 
+      "endx": 2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2755.0, 
+      "starty": 1968.0, 
+      "endy": -1968.0, 
+      "endx": 2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2755.0, 
+      "starty": -1968.0, 
+      "endy": -1968.0, 
+      "endx": 1574.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1574.0, 
+      "starty": -1968.0, 
+      "endy": 1968.0, 
+      "endx": 1574.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "BUTTON-18MM", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">Name\"", 
+      "sizex": 240.0, 
+      "number": "2", 
+      "sizey": 240.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">Name", 
+      "y": -1380.0, 
+      "x": -20.0, 
+      "rotation": "0", 
+      "penwidth": 19.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">Value\"", 
+      "sizex": 240.0, 
+      "number": "3", 
+      "sizey": 240.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">Value", 
+      "y": -880.0, 
+      "x": 220.0, 
+      "rotation": "0", 
+      "penwidth": 19.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "Hole", 
+      "drill_diam": 1574.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1574.0, 
+      "sizey": 1574.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "type": "HOLE", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 393.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 589.0, 
+      "sizey": 589.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -2165.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 393.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 589.0, 
+      "sizey": 589.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 2165.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

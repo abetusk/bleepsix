@@ -1,0 +1,154 @@
+{
+  "library_name": "E2,5-4R", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 240.0, 
+      "startx": -50.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 30.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -1100.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -1000.0, 
+      "starty": 100.0, 
+      "endy": -100.0, 
+      "endx": -1000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 240.0, 
+      "startx": 500.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -500.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": -5.597270911145815, 
+      "start_angle": -0.3668866150611579, 
+      "shape": "arc", 
+      "r": 749.9073276078851, 
+      "start_x": "200", 
+      "start_y": "-250", 
+      "y": "19", 
+      "x": "-500"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "25", 
+      "angle": 0.6841690667817772, 
+      "start_angle": -0.3668866150611579, 
+      "shape": "arc", 
+      "r": 749.9073276078851, 
+      "start_x": "200", 
+      "start_y": "-250", 
+      "y": "19", 
+      "x": "-500"
+    }
+  ], 
+  "name": "E2,5-4R", 
+  "keyword": [
+    " <b>ELECTROLYTIC CAPACITOR</b><p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -150.0, 
+      "x": 1300.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1150.0, 
+      "x": 1800.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "+", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 630.0, 
+      "sizey": 630.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -500.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 320.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 630.0, 
+      "sizey": 630.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 500.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

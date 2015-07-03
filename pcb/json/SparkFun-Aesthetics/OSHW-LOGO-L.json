@@ -1,0 +1,379 @@
+{
+  "library_name": "OSHW-LOGO-L", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.16406094968746698, 
+      "start_angle": 1.1785234795946566, 
+      "shape": "arc", 
+      "r": 946.9260794803362, 
+      "start_x": "362", 
+      "start_y": "875", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 502.0, 
+      "starty": 803.0, 
+      "endy": 1085.0, 
+      "endx": 848.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 848.0, 
+      "starty": 1085.0, 
+      "endy": 848.0, 
+      "endx": 1085.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 1085.0, 
+      "starty": 848.0, 
+      "endy": 502.0, 
+      "endx": 803.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.32986722862692824, 
+      "start_angle": 0.5587112472884722, 
+      "shape": "arc", 
+      "r": 947.0021119300633, 
+      "start_x": "803", 
+      "start_y": "502", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 923.0, 
+      "starty": 213.0, 
+      "endy": 167.0, 
+      "endx": 1367.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 1367.0, 
+      "starty": 167.0, 
+      "endy": -167.0, 
+      "endx": 1367.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 1367.0, 
+      "starty": -167.0, 
+      "endy": -213.0, 
+      "endx": 923.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.32986722862692824, 
+      "start_angle": -0.22679884805388587, 
+      "shape": "arc", 
+      "r": 947.2581485529697, 
+      "start_x": "923", 
+      "start_y": "-213", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 803.0, 
+      "starty": -502.0, 
+      "endy": -848.0, 
+      "endx": 1085.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 1085.0, 
+      "starty": -848.0, 
+      "endy": -1085.0, 
+      "endx": 848.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 848.0, 
+      "starty": -1085.0, 
+      "endy": -803.0, 
+      "endx": 502.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.32986722862692824, 
+      "start_angle": -1.0120850795064245, 
+      "shape": "arc", 
+      "r": 947.0021119300633, 
+      "start_x": "502", 
+      "start_y": "-803", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 213.0, 
+      "starty": -923.0, 
+      "endy": -1367.0, 
+      "endx": 167.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 167.0, 
+      "starty": -1367.0, 
+      "endy": -1367.0, 
+      "endx": -167.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -167.0, 
+      "starty": -1367.0, 
+      "endy": -923.0, 
+      "endx": -213.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.32986722862692824, 
+      "start_angle": -1.7975951748487824, 
+      "shape": "arc", 
+      "r": 947.2581485529697, 
+      "start_x": "-213", 
+      "start_y": "-923", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -502.0, 
+      "starty": -803.0, 
+      "endy": -1085.0, 
+      "endx": -848.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -848.0, 
+      "starty": -1085.0, 
+      "endy": -848.0, 
+      "endx": -1085.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -1085.0, 
+      "starty": -848.0, 
+      "endy": -502.0, 
+      "endx": -803.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.32986722862692824, 
+      "start_angle": -2.582881406301321, 
+      "shape": "arc", 
+      "r": 947.0021119300633, 
+      "start_x": "-803", 
+      "start_y": "-502", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -923.0, 
+      "starty": -213.0, 
+      "endy": -167.0, 
+      "endx": -1367.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -1367.0, 
+      "starty": -167.0, 
+      "endy": 167.0, 
+      "endx": -1367.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -1367.0, 
+      "starty": 167.0, 
+      "endy": 213.0, 
+      "endx": -923.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.32986722862692824, 
+      "start_angle": 2.9147938055359073, 
+      "shape": "arc", 
+      "r": 947.2581485529697, 
+      "start_x": "-923", 
+      "start_y": "213", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -803.0, 
+      "starty": 502.0, 
+      "endy": 848.0, 
+      "endx": -1085.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -1085.0, 
+      "starty": 848.0, 
+      "endy": 1085.0, 
+      "endx": -848.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -848.0, 
+      "starty": 1085.0, 
+      "endy": 803.0, 
+      "endx": -502.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": -0.16406094968746698, 
+      "start_angle": 2.1295075740833687, 
+      "shape": "arc", 
+      "r": 947.0021119300633, 
+      "start_x": "-502", 
+      "start_y": "803", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": -362.0, 
+      "starty": 875.0, 
+      "endy": 397.0, 
+      "endx": -164.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": 1.1780972450961724, 
+      "start_angle": 1.9625430432928161, 
+      "shape": "arc", 
+      "r": 429.54045211132325, 
+      "start_x": "-164", 
+      "start_y": "397", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "layer": "21", 
+      "angle": 4.317944569433972, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 430.0, 
+      "start_x": "-430", 
+      "start_y": "0", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 59.0, 
+      "startx": 164.0, 
+      "starty": 397.0, 
+      "endy": 875.0, 
+      "endx": 362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "OSHW-LOGO-L", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

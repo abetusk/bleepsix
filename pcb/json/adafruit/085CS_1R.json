@@ -1,0 +1,364 @@
+{
+  "library_name": "085CS_1R", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 40.0, 
+      "startx": 2244.0, 
+      "starty": 374.0, 
+      "endy": 275.0, 
+      "endx": 2342.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2342.0, 
+      "starty": 275.0, 
+      "endy": -275.0, 
+      "endx": 2342.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2342.0, 
+      "starty": -275.0, 
+      "endy": -374.0, 
+      "endx": 2244.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2244.0, 
+      "starty": -374.0, 
+      "endy": 374.0, 
+      "endx": 2244.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2283.0, 
+      "starty": 295.0, 
+      "endy": -295.0, 
+      "endx": 2283.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2244.0, 
+      "starty": -374.0, 
+      "endy": -275.0, 
+      "endx": -2342.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2342.0, 
+      "starty": -275.0, 
+      "endy": 275.0, 
+      "endx": -2342.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2342.0, 
+      "starty": 275.0, 
+      "endy": 374.0, 
+      "endx": -2244.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2244.0, 
+      "starty": 374.0, 
+      "endy": -374.0, 
+      "endx": -2244.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2283.0, 
+      "starty": -295.0, 
+      "endy": 295.0, 
+      "endx": -2283.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2027.0, 
+      "starty": 728.0, 
+      "endy": -728.0, 
+      "endx": 2027.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2027.0, 
+      "starty": -728.0, 
+      "endy": -728.0, 
+      "endx": -2027.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2027.0, 
+      "starty": -728.0, 
+      "endy": 728.0, 
+      "endx": -2027.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2027.0, 
+      "starty": 728.0, 
+      "endy": 728.0, 
+      "endx": 2027.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2007.0, 
+      "starty": 531.0, 
+      "endy": 531.0, 
+      "endx": 1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1299.0, 
+      "starty": 531.0, 
+      "endy": 688.0, 
+      "endx": 1259.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1988.0, 
+      "starty": -531.0, 
+      "endy": -531.0, 
+      "endx": 1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1299.0, 
+      "starty": -531.0, 
+      "endy": -688.0, 
+      "endx": 1259.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2755.0, 
+      "starty": -866.0, 
+      "endy": 866.0, 
+      "endx": -2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2755.0, 
+      "starty": -866.0, 
+      "endy": 866.0, 
+      "endx": 2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2755.0, 
+      "starty": -866.0, 
+      "endy": -866.0, 
+      "endx": 2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2755.0, 
+      "starty": 866.0, 
+      "endy": 866.0, 
+      "endx": 2755.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1299.0, 
+      "starty": 393.0, 
+      "endy": 393.0, 
+      "endx": 2224.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2224.0, 
+      "starty": 393.0, 
+      "endy": -393.0, 
+      "endx": 2224.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2224.0, 
+      "starty": -393.0, 
+      "endy": -393.0, 
+      "endx": 1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1299.0, 
+      "starty": -393.0, 
+      "endy": 393.0, 
+      "endx": 1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2224.0, 
+      "starty": 393.0, 
+      "endy": 393.0, 
+      "endx": -1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1299.0, 
+      "starty": 393.0, 
+      "endy": -393.0, 
+      "endx": -1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1299.0, 
+      "starty": -393.0, 
+      "endy": -393.0, 
+      "endx": -2224.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2224.0, 
+      "starty": -393.0, 
+      "endy": 393.0, 
+      "endx": -2224.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "085CS_1R", 
+  "keyword": [
+    " <b>Aluminum electrolytic capacitors</b> reflow soldering<p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -750.0, 
+      "x": -1090.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1750.0, 
+      "x": -590.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "+", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1141.0, 
+      "sizey": 984.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1870.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1141.0, 
+      "sizey": 984.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1870.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

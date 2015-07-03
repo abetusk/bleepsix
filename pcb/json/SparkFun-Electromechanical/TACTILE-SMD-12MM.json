@@ -1,0 +1,304 @@
+{
+  "library_name": "TACTILE-SMD-12MM", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": 1968.0, 
+      "starty": 511.0, 
+      "endy": 275.0, 
+      "endx": 1968.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1968.0, 
+      "starty": 275.0, 
+      "endy": 78.0, 
+      "endx": 1771.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1968.0, 
+      "starty": -78.0, 
+      "endy": -393.0, 
+      "endx": 1968.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": -1574.0, 
+      "endy": -1968.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1968.0, 
+      "starty": -2362.0, 
+      "endy": -2362.0, 
+      "endx": 1968.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": -1968.0, 
+      "endy": -1574.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": -393.0, 
+      "endy": 393.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": 1574.0, 
+      "endy": 1968.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1968.0, 
+      "starty": 2362.0, 
+      "endy": 2362.0, 
+      "endx": -1968.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": 1968.0, 
+      "endy": 1574.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": 393.0, 
+      "endy": -393.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2362.0, 
+      "starty": 1968.0, 
+      "endy": 2362.0, 
+      "endx": -1968.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": 1968.0, 
+      "endy": 2362.0, 
+      "endx": 1968.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2362.0, 
+      "starty": -1968.0, 
+      "endy": -2362.0, 
+      "endx": 1968.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1968.0, 
+      "starty": -2362.0, 
+      "endy": -1968.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 1377.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 275.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 118.0, 
+      "y": -1771.0, 
+      "x": -1771.0
+    }, 
+    {
+      "line_width": 275.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 118.0, 
+      "y": -1771.0, 
+      "x": 1771.0
+    }, 
+    {
+      "line_width": 275.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 118.0, 
+      "y": 1771.0, 
+      "x": 1771.0
+    }, 
+    {
+      "line_width": 275.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 118.0, 
+      "y": 1771.0, 
+      "x": -1771.0
+    }
+  ], 
+  "name": "TACTILE-SMD-12MM", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "4", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 629.0, 
+      "sizey": 610.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": -984.0, 
+      "posx": -2746.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 629.0, 
+      "sizey": 610.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 984.0, 
+      "posx": -2746.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 629.0, 
+      "sizey": 610.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 984.0, 
+      "posx": 2746.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 629.0, 
+      "sizey": 610.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": -984.0, 
+      "posx": 2746.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

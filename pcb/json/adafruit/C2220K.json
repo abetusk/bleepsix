@@ -1,0 +1,184 @@
+{
+  "library_name": "C2220K", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 40.0, 
+      "startx": -1072.0, 
+      "starty": -954.0, 
+      "endy": -954.0, 
+      "endx": 1072.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 1072.0, 
+      "starty": 954.0, 
+      "endy": 954.0, 
+      "endx": -1072.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1102.0, 
+      "starty": 984.0, 
+      "endy": 984.0, 
+      "endx": -866.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -866.0, 
+      "starty": 984.0, 
+      "endy": -984.0, 
+      "endx": -866.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -866.0, 
+      "starty": -984.0, 
+      "endy": -984.0, 
+      "endx": -1102.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1102.0, 
+      "starty": -984.0, 
+      "endy": 984.0, 
+      "endx": -1102.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 866.0, 
+      "starty": 984.0, 
+      "endy": 984.0, 
+      "endx": 1102.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1102.0, 
+      "starty": 984.0, 
+      "endy": -984.0, 
+      "endx": 1102.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1102.0, 
+      "starty": -984.0, 
+      "endy": -984.0, 
+      "endx": 866.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 866.0, 
+      "starty": -984.0, 
+      "endy": 984.0, 
+      "endx": 866.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "C2220K", 
+  "keyword": [
+    " <b>Ceramic Chip Capacitor KEMET 2220 Reflow solder</b><p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -961.0, 
+      "x": -302.0, 
+      "rotation": "0", 
+      "penwidth": 32.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1764.0, 
+      "x": 98.0, 
+      "rotation": "0", 
+      "penwidth": 32.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 728.0, 
+      "sizey": 2165.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1003.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 728.0, 
+      "sizey": 2165.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1003.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

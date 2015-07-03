@@ -1,0 +1,326 @@
+{
+  "library_name": "ALPS_POT_KIT", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": 2649.0, 
+      "starty": -1940.0, 
+      "endy": 1940.0, 
+      "endx": 2649.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2649.0, 
+      "starty": 1940.0, 
+      "endy": 1940.0, 
+      "endx": -2104.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2104.0, 
+      "starty": 1940.0, 
+      "endy": -1940.0, 
+      "endx": -2104.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2104.0, 
+      "starty": -1940.0, 
+      "endy": -1940.0, 
+      "endx": 2649.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2104.0, 
+      "starty": -1940.0, 
+      "endy": -1940.0, 
+      "endx": -610.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 610.0, 
+      "starty": -1940.0, 
+      "endy": -1940.0, 
+      "endx": 2649.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2104.0, 
+      "starty": 1940.0, 
+      "endy": -1940.0, 
+      "endx": -2104.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2649.0, 
+      "starty": 1940.0, 
+      "endy": 1940.0, 
+      "endx": 610.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -610.0, 
+      "starty": 1940.0, 
+      "endy": 1940.0, 
+      "endx": -2104.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2649.0, 
+      "starty": -1940.0, 
+      "endy": 1940.0, 
+      "endx": 2649.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "23", 
+      "shape": "circle", 
+      "r": 393.0, 
+      "y": -1732.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "23", 
+      "shape": "circle", 
+      "r": 393.0, 
+      "y": 1732.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "22", 
+      "shape": "circle", 
+      "r": 640.0, 
+      "y": 1732.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "22", 
+      "shape": "circle", 
+      "r": 420.0, 
+      "y": -984.0, 
+      "x": 2755.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "22", 
+      "shape": "circle", 
+      "r": 420.0, 
+      "y": 0.0, 
+      "x": 2755.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "22", 
+      "shape": "circle", 
+      "r": 420.0, 
+      "y": 984.0, 
+      "x": 2755.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "23", 
+      "shape": "circle", 
+      "r": 196.0, 
+      "y": -984.0, 
+      "x": 2755.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "23", 
+      "shape": "circle", 
+      "r": 196.0, 
+      "y": 0.0, 
+      "x": 2755.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "23", 
+      "shape": "circle", 
+      "r": 196.0, 
+      "y": 984.0, 
+      "x": 2755.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 1181.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "22", 
+      "shape": "circle", 
+      "r": 640.0, 
+      "y": -1732.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "ALPS_POT_KIT", 
+  "text": [
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": 74.0, 
+      "x": -1431.0, 
+      "rotation": "900", 
+      "penwidth": 40.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "misc": " \">VALUE\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 74.0, 
+      "x": 1718.0, 
+      "rotation": "900", 
+      "penwidth": 40.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "P$1", 
+      "drill_diam": 393.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 740.0, 
+      "sizey": 740.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 984.0, 
+      "posx": 2755.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "P$2", 
+      "drill_diam": 393.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 740.0, 
+      "sizey": 740.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 2755.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "P$3", 
+      "drill_diam": 393.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 740.0, 
+      "sizey": 740.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": -984.0, 
+      "posx": 2755.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "P$4", 
+      "drill_diam": 787.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1180.0, 
+      "sizey": 1180.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 1732.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "P$5", 
+      "drill_diam": 787.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1180.0, 
+      "sizey": 1180.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": -1732.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

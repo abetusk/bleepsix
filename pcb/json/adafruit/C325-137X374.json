@@ -1,0 +1,184 @@
+{
+  "library_name": "C325-137X374", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": -5620.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -5000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -5000.0, 
+      "starty": -750.0, 
+      "endy": 0.0, 
+      "endx": -5000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -4650.0, 
+      "starty": -750.0, 
+      "endy": 0.0, 
+      "endx": -4650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -4650.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 5620.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -4650.0, 
+      "starty": 0.0, 
+      "endy": 750.0, 
+      "endx": -4650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -5000.0, 
+      "starty": 0.0, 
+      "endy": 750.0, 
+      "endx": -5000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 7300.0, 
+      "starty": -2650.0, 
+      "endy": 2650.0, 
+      "endx": 7300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -7300.0, 
+      "starty": -2650.0, 
+      "endy": 2650.0, 
+      "endx": -7300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -7300.0, 
+      "starty": 2650.0, 
+      "endy": 2650.0, 
+      "endx": 7300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 7300.0, 
+      "starty": -2650.0, 
+      "endy": -2650.0, 
+      "endx": -7300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "C325-137X374", 
+  "keyword": [
+    " <b>CAPACITOR</b><p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 700.0, 
+      "number": "0", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -2430.0, 
+      "x": -5780.0, 
+      "rotation": "0", 
+      "penwidth": 70.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 700.0, 
+      "number": "1", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1480.0, 
+      "x": -2170.0, 
+      "rotation": "0", 
+      "penwidth": 70.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 470.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 705.0, 
+      "sizey": 705.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -6400.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 470.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 705.0, 
+      "sizey": 705.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 6400.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

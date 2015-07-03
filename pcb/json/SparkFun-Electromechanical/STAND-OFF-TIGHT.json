@@ -1,0 +1,131 @@
+{
+  "library_name": "STAND-OFF-TIGHT", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "layer": "24", 
+      "angle": 3.141592653589793, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 730.0, 
+      "start_x": "0", 
+      "start_y": "-730", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "24", 
+      "angle": 3.141592653589793, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 730.0, 
+      "start_x": "0", 
+      "start_y": "730", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "24", 
+      "angle": -3.141592653589793, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 730.0, 
+      "start_x": "0", 
+      "start_y": "730", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "24", 
+      "angle": 3.141592653589793, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 730.0, 
+      "start_x": "0", 
+      "start_y": "730", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "24", 
+      "shape": "circle", 
+      "r": 1100.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "STAND-OFF-TIGHT", 
+  "keyword": [
+    " <b>Stand Off</b><p>"
+  ], 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "Hole", 
+      "drill_diam": 1200.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1200.0, 
+      "sizey": 1200.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00E0FFFF", 
+      "shape": "circle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "C", 
+      "type": "HOLE", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

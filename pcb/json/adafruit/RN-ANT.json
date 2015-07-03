@@ -1,0 +1,208 @@
+{
+  "library_name": "RN-ANT", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": 80.0, 
+      "endy": -850.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": -1710.0, 
+      "endy": -1710.0, 
+      "endx": -690.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -690.0, 
+      "starty": -1710.0, 
+      "endy": -2700.0, 
+      "endx": -690.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -690.0, 
+      "starty": -2700.0, 
+      "endy": -2700.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": -2700.0, 
+      "endy": -3570.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": -3570.0, 
+      "endy": -3570.0, 
+      "endx": -690.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -690.0, 
+      "starty": -3570.0, 
+      "endy": -4560.0, 
+      "endx": -690.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -690.0, 
+      "starty": -4560.0, 
+      "endy": -4560.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": -4560.0, 
+      "endy": -5430.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": -5430.0, 
+      "endy": -5430.0, 
+      "endx": -1080.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": 0.0, 
+      "starty": -850.0, 
+      "endy": -850.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 200.0, 
+      "startx": -1730.0, 
+      "starty": -850.0, 
+      "endy": -1710.0, 
+      "endx": -1730.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 350.0, 
+      "startx": -1650.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -500.0, 
+      "layer": "15", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "RN-ANT", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "GND", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1000.0, 
+      "sizey": 350.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -450.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "FEED", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 10.0, 
+      "sizey": 10.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": -850.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

@@ -1,0 +1,277 @@
+{
+  "library_name": "TACTILE-SWITCH-1101NE", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -1181.0, 
+      "starty": -433.0, 
+      "endy": 433.0, 
+      "endx": -1181.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1181.0, 
+      "starty": -433.0, 
+      "endy": 433.0, 
+      "endx": 1181.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "angle": -1.5707963267948966, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 98.0, 
+      "start_x": "-1082", 
+      "start_y": "-688", 
+      "y": "-590", 
+      "x": "-1082"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1082.0, 
+      "starty": -688.0, 
+      "endy": -688.0, 
+      "endx": 1082.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 98.0, 
+      "start_x": "1082", 
+      "start_y": "-688", 
+      "y": "-590", 
+      "x": "1082"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 0.0, 
+      "shape": "arc", 
+      "r": 99.0, 
+      "start_x": "1181", 
+      "start_y": "590", 
+      "y": "590", 
+      "x": "1082"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1082.0, 
+      "starty": 688.0, 
+      "endy": 688.0, 
+      "endx": -1082.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "21", 
+      "angle": -1.5707963267948966, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 99.0, 
+      "start_x": "-1181", 
+      "start_y": "590", 
+      "y": "590", 
+      "x": "-1082"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1181.0, 
+      "starty": 590.0, 
+      "endy": 433.0, 
+      "endx": -1181.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -1181.0, 
+      "starty": -433.0, 
+      "endy": -590.0, 
+      "endx": -1181.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1181.0, 
+      "starty": -433.0, 
+      "endy": -590.0, 
+      "endx": 1181.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1181.0, 
+      "starty": 590.0, 
+      "endy": 433.0, 
+      "endx": 1181.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -590.0, 
+      "starty": -295.0, 
+      "endy": -295.0, 
+      "endx": 590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 590.0, 
+      "starty": 295.0, 
+      "endy": 295.0, 
+      "endx": -590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -590.0, 
+      "starty": 295.0, 
+      "endy": -295.0, 
+      "endx": -590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 590.0, 
+      "starty": 295.0, 
+      "endy": -295.0, 
+      "endx": 590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -787.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -393.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -393.0, 
+      "starty": 0.0, 
+      "endy": -196.0, 
+      "endx": 39.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 118.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 787.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "TACTILE-SWITCH-1101NE", 
+  "keyword": [
+    " SparkFun SKU# COM-08229"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 300.0, 
+      "number": "0", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -637.0, 
+      "x": -581.0, 
+      "rotation": "0", 
+      "penwidth": 24.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 300.0, 
+      "number": "1", 
+      "sizey": 300.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1212.0, 
+      "x": -281.0, 
+      "rotation": "0", 
+      "penwidth": 24.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 3.141592653589793, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 905.0, 
+      "sizey": 629.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1240.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 1800
+    }, 
+    {
+      "angle": 3.141592653589793, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 905.0, 
+      "sizey": 629.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1240.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 1800
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

@@ -1,0 +1,232 @@
+{
+  "library_name": "C275-205X316", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": -6000.0, 
+      "starty": -4000.0, 
+      "endy": -4000.0, 
+      "endx": 6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 6200.0, 
+      "starty": -3800.0, 
+      "endy": 3800.0, 
+      "endx": 6200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 6000.0, 
+      "starty": 4000.0, 
+      "endy": 4000.0, 
+      "endx": -6000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -6200.0, 
+      "starty": 3800.0, 
+      "endy": -3800.0, 
+      "endx": -6200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -2650.0, 
+      "starty": -750.0, 
+      "endy": 0.0, 
+      "endx": -2650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -2650.0, 
+      "starty": 0.0, 
+      "endy": 750.0, 
+      "endx": -2650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -3000.0, 
+      "starty": -750.0, 
+      "endy": 0.0, 
+      "endx": -3000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -3000.0, 
+      "starty": 0.0, 
+      "endy": 750.0, 
+      "endx": -3000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 200.0, 
+      "start_x": "6000", 
+      "start_y": "-4000", 
+      "y": "-3800", 
+      "x": "6000"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": -1.5707963267948966, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 200.0, 
+      "start_x": "6000", 
+      "start_y": "4000", 
+      "y": "3800", 
+      "x": "6000"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": -1.5707963267948966, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 200.0, 
+      "start_x": "-6200", 
+      "start_y": "3800", 
+      "y": "3800", 
+      "x": "-6000"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 200.0, 
+      "start_x": "-6200", 
+      "start_y": "-3800", 
+      "y": "-3800", 
+      "x": "-6000"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -4550.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -3000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -2650.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 4550.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "C275-205X316", 
+  "keyword": [
+    " <b>CAPACITOR</b><p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 700.0, 
+      "number": "0", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -3800.0, 
+      "x": -4600.0, 
+      "rotation": "0", 
+      "penwidth": 70.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 700.0, 
+      "number": "1", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 2050.0, 
+      "x": 100.0, 
+      "rotation": "0", 
+      "penwidth": 70.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 470.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 705.0, 
+      "sizey": 705.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -5400.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 470.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 705.0, 
+      "sizey": 705.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 5400.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

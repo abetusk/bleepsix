@@ -1,0 +1,385 @@
+{
+  "library_name": "TRIMMER_3314G", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": -768.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": -137.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 137.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": 768.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -453.0, 
+      "starty": 885.0, 
+      "endy": 885.0, 
+      "endx": 453.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -137.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": 137.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -885.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": -768.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 768.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": 885.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 885.0, 
+      "starty": -885.0, 
+      "endy": 885.0, 
+      "endx": 885.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 885.0, 
+      "starty": 885.0, 
+      "endy": 885.0, 
+      "endx": 453.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -453.0, 
+      "starty": 885.0, 
+      "endy": 885.0, 
+      "endx": -885.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -885.0, 
+      "starty": 885.0, 
+      "endy": -885.0, 
+      "endx": -885.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 100.0, 
+      "starty": -471.0, 
+      "endy": 471.0, 
+      "endx": 100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": -1.361356816555577, 
+      "start_angle": 1.3615886890452171, 
+      "shape": "arc", 
+      "r": 481.4987019712514, 
+      "start_x": "100", 
+      "start_y": "471", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": -1.361356816555577, 
+      "start_angle": 0.0, 
+      "shape": "arc", 
+      "r": 482.0, 
+      "start_x": "482", 
+      "start_y": "0", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -100.0, 
+      "starty": -471.0, 
+      "endy": 471.0, 
+      "endx": -100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": 1.361356816555577, 
+      "start_angle": 1.7800039645445762, 
+      "shape": "arc", 
+      "r": 481.4987019712514, 
+      "start_x": "-100", 
+      "start_y": "471", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": 1.361356816555577, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 482.0, 
+      "start_x": "-482", 
+      "start_y": "0", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 482.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -610.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": -295.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -295.0, 
+      "starty": -885.0, 
+      "endy": -1122.0, 
+      "endx": -295.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -295.0, 
+      "starty": -1122.0, 
+      "endy": -1122.0, 
+      "endx": -610.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -610.0, 
+      "starty": -1122.0, 
+      "endy": -885.0, 
+      "endx": -610.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 295.0, 
+      "starty": -885.0, 
+      "endy": -885.0, 
+      "endx": 610.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 610.0, 
+      "starty": -885.0, 
+      "endy": -1122.0, 
+      "endx": 610.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 610.0, 
+      "starty": -1122.0, 
+      "endy": -1122.0, 
+      "endx": 295.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 295.0, 
+      "starty": -1122.0, 
+      "endy": -885.0, 
+      "endx": 295.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -255.0, 
+      "starty": 1122.0, 
+      "endy": 1122.0, 
+      "endx": 255.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 255.0, 
+      "starty": 1122.0, 
+      "endy": 885.0, 
+      "endx": 255.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 255.0, 
+      "starty": 885.0, 
+      "endy": 885.0, 
+      "endx": -255.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -255.0, 
+      "starty": 885.0, 
+      "endy": 1122.0, 
+      "endx": -255.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "TRIMMER_3314G", 
+  "keyword": [
+    " SMD Trimmer 4.5 x 4.5 mm"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 700.0, 
+      "number": "0", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -1224.0, 
+      "x": 219.0, 
+      "rotation": "0", 
+      "penwidth": 70.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 511.0, 
+      "sizey": 511.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": -1082.0, 
+      "posx": -452.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "3", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 511.0, 
+      "sizey": 511.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": -1082.0, 
+      "posx": 452.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 511.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 1082.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

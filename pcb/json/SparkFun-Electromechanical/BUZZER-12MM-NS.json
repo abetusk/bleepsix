@@ -1,0 +1,122 @@
+{
+  "library_name": "BUZZER-12MM-NS", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 2322.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 80.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 500.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "BUZZER-12MM-NS", 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 240.0, 
+      "number": "0", 
+      "sizey": 240.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -880.0, 
+      "x": -520.0, 
+      "rotation": "0", 
+      "penwidth": 24.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 240.0, 
+      "number": "1", 
+      "sizey": 240.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1320.0, 
+      "x": -530.0, 
+      "rotation": "0", 
+      "penwidth": 24.0
+    }, 
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"+\"", 
+      "sizex": 700.0, 
+      "number": "2", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "+", 
+      "y": -100.0, 
+      "x": 1050.0, 
+      "rotation": "0", 
+      "penwidth": 56.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 354.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 531.0, 
+      "sizey": 531.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1279.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "+", 
+      "drill_diam": 354.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 531.0, 
+      "sizey": 531.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1279.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

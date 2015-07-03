@@ -1,0 +1,288 @@
+{
+  "library_name": "CR1220-SMD", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -3874.0, 
+      "starty": 645.0, 
+      "endy": 645.0, 
+      "endx": -2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2622.0, 
+      "starty": 645.0, 
+      "endy": 1445.0, 
+      "endx": -2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2622.0, 
+      "starty": 1445.0, 
+      "endy": 2622.0, 
+      "endx": -1506.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1506.0, 
+      "starty": 2622.0, 
+      "endy": 2622.0, 
+      "endx": 1566.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1566.0, 
+      "starty": 2622.0, 
+      "endy": 1506.0, 
+      "endx": 2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2622.0, 
+      "starty": 1506.0, 
+      "endy": 606.0, 
+      "endx": 2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2622.0, 
+      "starty": 606.0, 
+      "endy": 606.0, 
+      "endx": 3874.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 3874.0, 
+      "starty": 606.0, 
+      "endy": -645.0, 
+      "endx": 3874.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 3874.0, 
+      "starty": -645.0, 
+      "endy": -645.0, 
+      "endx": 2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2622.0, 
+      "starty": -645.0, 
+      "endy": -2618.0, 
+      "endx": 2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2622.0, 
+      "starty": -2618.0, 
+      "endy": -2618.0, 
+      "endx": 2300.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2300.0, 
+      "starty": -2618.0, 
+      "endy": -1733.0, 
+      "endx": 1457.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1457.0, 
+      "starty": -1733.0, 
+      "endy": -1733.0, 
+      "endx": -1200.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1200.0, 
+      "starty": -1733.0, 
+      "endy": -2618.0, 
+      "endx": -2100.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2100.0, 
+      "starty": -2618.0, 
+      "endy": -2618.0, 
+      "endx": -2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2622.0, 
+      "starty": -2618.0, 
+      "endy": -645.0, 
+      "endx": -2622.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2622.0, 
+      "starty": -645.0, 
+      "endy": -645.0, 
+      "endx": -3874.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -3874.0, 
+      "starty": -645.0, 
+      "endy": 645.0, 
+      "endx": -3874.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 360.0, 
+      "y": 0.0, 
+      "x": -3249.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 360.0, 
+      "y": -60.0, 
+      "x": 3307.0
+    }
+  ], 
+  "name": "CR1220-SMD", 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 660.0, 
+      "number": "0", 
+      "sizey": 660.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -1875.0, 
+      "x": -80.0, 
+      "rotation": "0", 
+      "penwidth": 52.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 660.0, 
+      "number": "1", 
+      "sizey": 660.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 2121.0, 
+      "x": 280.0, 
+      "rotation": "0", 
+      "penwidth": 52.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1535.0, 
+      "sizey": 1535.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "+$1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1259.0, 
+      "sizey": 1259.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -3228.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "+$2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1259.0, 
+      "sizey": 1259.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 3228.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

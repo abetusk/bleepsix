@@ -1,0 +1,232 @@
+{
+  "library_name": "JST-PH-2-THM-RA", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 50.0, 
+      "startx": -1181.0, 
+      "starty": -2480.0, 
+      "endy": -2480.0, 
+      "endx": 1181.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1181.0, 
+      "starty": -2480.0, 
+      "endy": 551.0, 
+      "endx": 1181.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1181.0, 
+      "starty": 551.0, 
+      "endy": -2480.0, 
+      "endx": -1181.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -866.0, 
+      "starty": 551.0, 
+      "endy": 551.0, 
+      "endx": -1181.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1181.0, 
+      "starty": 551.0, 
+      "endy": 551.0, 
+      "endx": 866.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -866.0, 
+      "starty": 551.0, 
+      "endy": 118.0, 
+      "endx": -866.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -866.0, 
+      "starty": 118.0, 
+      "endy": 118.0, 
+      "endx": 826.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 826.0, 
+      "starty": 118.0, 
+      "endy": 551.0, 
+      "endx": 826.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 826.0, 
+      "starty": 551.0, 
+      "endy": 551.0, 
+      "endx": 866.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -118.0, 
+      "starty": -2480.0, 
+      "endy": -1338.0, 
+      "endx": -118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -118.0, 
+      "starty": -1338.0, 
+      "endy": -1338.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 118.0, 
+      "starty": -1338.0, 
+      "endy": -2480.0, 
+      "endx": 118.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "JST-PH-2-THM-RA", 
+  "keyword": [
+    " <b>S2B-PH-K-S</b>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": 1746.0, 
+      "x": -62.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"+\"", 
+      "sizex": 560.0, 
+      "number": "2", 
+      "sizey": 560.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "+", 
+      "y": 1105.0, 
+      "x": 191.0, 
+      "rotation": "0", 
+      "penwidth": 67.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"-\"", 
+      "sizex": 560.0, 
+      "number": "3", 
+      "sizey": 560.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "-", 
+      "y": 1026.0, 
+      "x": -562.0, 
+      "rotation": "0", 
+      "penwidth": 67.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 314.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 560.0, 
+      "sizey": 560.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -393.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 314.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 560.0, 
+      "sizey": 560.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 393.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

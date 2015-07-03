@@ -1,0 +1,186 @@
+{
+  "library_name": "OSHWLOGO_0.3", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 160.0, 
+      "startx": 300.0, 
+      "starty": -200.0, 
+      "endy": -600.0, 
+      "endx": 300.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 160.0, 
+      "layer": "25", 
+      "angle": -1.5707963267948966, 
+      "start_angle": 0.0, 
+      "shape": "arc", 
+      "r": 300.0, 
+      "start_x": "300", 
+      "start_y": "-600", 
+      "y": "-600", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 160.0, 
+      "layer": "25", 
+      "angle": -1.5707963267948966, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 300.0, 
+      "start_x": "0", 
+      "start_y": "-900", 
+      "y": "-600", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 160.0, 
+      "startx": -300.0, 
+      "starty": -600.0, 
+      "endy": -500.0, 
+      "endx": -300.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 0.0, 
+      "shape": "arc", 
+      "r": 120.0, 
+      "start_x": "500", 
+      "start_y": "680", 
+      "y": "680", 
+      "x": "380"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 380.0, 
+      "starty": 800.0, 
+      "endy": 800.0, 
+      "endx": -400.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 100.0, 
+      "start_x": "-400", 
+      "start_y": "800", 
+      "y": "700", 
+      "x": "-400"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -500.0, 
+      "starty": 700.0, 
+      "endy": -100.0, 
+      "endx": -500.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 3.141592653589793, 
+      "shape": "arc", 
+      "r": 100.0, 
+      "start_x": "-500", 
+      "start_y": "-100", 
+      "y": "-100", 
+      "x": "-400"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -400.0, 
+      "starty": -200.0, 
+      "endy": -200.0, 
+      "endx": 380.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "angle": 1.5707963267948966, 
+      "start_angle": -1.5625320521352455, 
+      "shape": "arc", 
+      "r": 121.00413216084813, 
+      "start_x": "380", 
+      "start_y": "-200", 
+      "y": "-79", 
+      "x": "379"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 500.0, 
+      "starty": -80.0, 
+      "endy": 680.0, 
+      "endx": 500.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 240.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 1300.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "OSHWLOGO_0.3", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

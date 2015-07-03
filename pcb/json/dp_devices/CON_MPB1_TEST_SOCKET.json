@@ -1,0 +1,264 @@
+{
+  "library_name": "CON_MPB1_TEST_SOCKET", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": 477.0, 
+      "starty": -2017.0, 
+      "endy": -2017.0, 
+      "endx": 1141.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 1141.0, 
+      "starty": -2017.0, 
+      "endy": 2017.0, 
+      "endx": 1141.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 1141.0, 
+      "starty": 2017.0, 
+      "endy": 2017.0, 
+      "endx": 477.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -477.0, 
+      "starty": -2017.0, 
+      "endy": -2017.0, 
+      "endx": -1141.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -1141.0, 
+      "starty": -2017.0, 
+      "endy": 2017.0, 
+      "endx": -1141.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -1141.0, 
+      "starty": 2017.0, 
+      "endy": 2017.0, 
+      "endx": -477.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -477.0, 
+      "starty": -2017.0, 
+      "endy": -2017.0, 
+      "endx": -236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -236.0, 
+      "starty": -2017.0, 
+      "endy": -2017.0, 
+      "endx": 236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 236.0, 
+      "starty": -2017.0, 
+      "endy": -2017.0, 
+      "endx": 477.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -236.0, 
+      "starty": -2017.0, 
+      "endy": -1919.0, 
+      "endx": -236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -236.0, 
+      "starty": -1919.0, 
+      "endy": -1919.0, 
+      "endx": 236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 236.0, 
+      "starty": -1919.0, 
+      "endy": -2017.0, 
+      "endx": 236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -477.0, 
+      "starty": 2017.0, 
+      "endy": 2017.0, 
+      "endx": -236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -236.0, 
+      "starty": 2017.0, 
+      "endy": 2017.0, 
+      "endx": 236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 236.0, 
+      "starty": 2017.0, 
+      "endy": 2017.0, 
+      "endx": 477.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -236.0, 
+      "starty": 2017.0, 
+      "endy": 1919.0, 
+      "endx": -236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -236.0, 
+      "starty": 1919.0, 
+      "endy": 1919.0, 
+      "endx": 236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 236.0, 
+      "starty": 1919.0, 
+      "endy": 2017.0, 
+      "endx": 236.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "shape": "circle", 
+      "r": 393.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "CON_MPB1_TEST_SOCKET", 
+  "keyword": [
+    " 2.0 mm  diameter Test and measurement socket PCB mount"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 700.0, 
+      "number": "0", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -2150.0, 
+      "x": 150.0, 
+      "rotation": "0", 
+      "penwidth": 56.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "P1", 
+      "drill_diam": 551.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 826.0, 
+      "sizey": 826.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 1968.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "P2", 
+      "drill_diam": 551.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 826.0, 
+      "sizey": 826.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": -1968.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

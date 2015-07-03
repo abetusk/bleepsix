@@ -1,0 +1,256 @@
+{
+  "library_name": "R0805W", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": -161.0, 
+      "starty": -250.0, 
+      "endy": -250.0, 
+      "endx": 161.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -161.0, 
+      "starty": 250.0, 
+      "endy": 250.0, 
+      "endx": 161.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 20.0, 
+      "startx": -776.0, 
+      "starty": -387.0, 
+      "endy": -387.0, 
+      "endx": 776.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 20.0, 
+      "startx": 776.0, 
+      "starty": -387.0, 
+      "endy": 387.0, 
+      "endx": 776.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 20.0, 
+      "startx": 776.0, 
+      "starty": 387.0, 
+      "endy": 387.0, 
+      "endx": -776.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 20.0, 
+      "startx": -776.0, 
+      "starty": 387.0, 
+      "endy": -387.0, 
+      "endx": -776.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 160.0, 
+      "starty": 275.0, 
+      "endy": 275.0, 
+      "endx": 415.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 415.0, 
+      "starty": 275.0, 
+      "endy": -276.0, 
+      "endx": 415.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 415.0, 
+      "starty": -276.0, 
+      "endy": -276.0, 
+      "endx": 160.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 160.0, 
+      "starty": -276.0, 
+      "endy": 275.0, 
+      "endx": 160.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -420.0, 
+      "starty": 275.0, 
+      "endy": 275.0, 
+      "endx": -164.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -164.0, 
+      "starty": 275.0, 
+      "endy": -276.0, 
+      "endx": -164.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -164.0, 
+      "starty": -276.0, 
+      "endy": -276.0, 
+      "endx": -420.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -420.0, 
+      "starty": -276.0, 
+      "endy": 275.0, 
+      "endx": -420.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -78.0, 
+      "starty": 196.0, 
+      "endy": 196.0, 
+      "endx": 78.0, 
+      "layer": "17", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 78.0, 
+      "starty": 196.0, 
+      "endy": -196.0, 
+      "endx": 78.0, 
+      "layer": "17", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 78.0, 
+      "starty": -196.0, 
+      "endy": -196.0, 
+      "endx": -78.0, 
+      "layer": "17", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -78.0, 
+      "starty": -196.0, 
+      "endy": 196.0, 
+      "endx": -78.0, 
+      "layer": "17", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "R0805W", 
+  "keyword": [
+    " <b>RESISTOR</b><p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -150.0, 
+      "x": 750.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1100.0, 
+      "x": 1250.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "1", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 590.0, 
+      "sizey": 393.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -370.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "2", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 590.0, 
+      "sizey": 393.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 370.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

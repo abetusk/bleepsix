@@ -1,0 +1,414 @@
+{
+  "library_name": "PANASONIC_G", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 40.0, 
+      "startx": -2007.0, 
+      "starty": -2007.0, 
+      "endy": -2007.0, 
+      "endx": 1102.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 1102.0, 
+      "starty": -2007.0, 
+      "endy": -1102.0, 
+      "endx": 2007.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2007.0, 
+      "starty": -1102.0, 
+      "endy": 1102.0, 
+      "endx": 2007.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2007.0, 
+      "starty": 1102.0, 
+      "endy": 2007.0, 
+      "endx": 1102.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 1102.0, 
+      "starty": 2007.0, 
+      "endy": 2007.0, 
+      "endx": -2007.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2007.0, 
+      "starty": 2007.0, 
+      "endy": -2007.0, 
+      "endx": -2007.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2007.0, 
+      "starty": -393.0, 
+      "endy": -2007.0, 
+      "endx": -2007.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2007.0, 
+      "starty": -2007.0, 
+      "endy": -2007.0, 
+      "endx": 1102.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 1102.0, 
+      "starty": -2007.0, 
+      "endy": -1102.0, 
+      "endx": 2007.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2007.0, 
+      "starty": -1102.0, 
+      "endy": -393.0, 
+      "endx": 2007.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2007.0, 
+      "starty": 393.0, 
+      "endy": 1102.0, 
+      "endx": 2007.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 2007.0, 
+      "starty": 1102.0, 
+      "endy": 2007.0, 
+      "endx": 1102.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": 1102.0, 
+      "starty": 2007.0, 
+      "endy": 2007.0, 
+      "endx": -2007.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -2007.0, 
+      "starty": 2007.0, 
+      "endy": 393.0, 
+      "endx": -2007.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "21", 
+      "angle": -2.73318560862312, 
+      "start_angle": 2.938562216772941, 
+      "shape": "arc", 
+      "r": 1949.0330936133435, 
+      "start_x": "-1909", 
+      "start_y": "393", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "21", 
+      "angle": 2.73318560862312, 
+      "start_angle": -2.938562216772941, 
+      "shape": "arc", 
+      "r": 1949.0330936133435, 
+      "start_x": "-1909", 
+      "start_y": "-393", 
+      "y": "0", 
+      "x": "0"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1279.0, 
+      "starty": -1456.0, 
+      "endy": 1437.0, 
+      "endx": -1279.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1299.0, 
+      "starty": -1417.0, 
+      "endy": -1082.0, 
+      "endx": -1594.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1594.0, 
+      "starty": -1082.0, 
+      "endy": -610.0, 
+      "endx": -1830.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1830.0, 
+      "starty": -610.0, 
+      "endy": -177.0, 
+      "endx": -1909.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1909.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": -1909.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1909.0, 
+      "starty": 177.0, 
+      "endy": 610.0, 
+      "endx": -1830.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1830.0, 
+      "starty": 610.0, 
+      "endy": 1082.0, 
+      "endx": -1594.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1594.0, 
+      "starty": 1082.0, 
+      "endy": 1417.0, 
+      "endx": -1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1299.0, 
+      "starty": 1417.0, 
+      "endy": -1397.0, 
+      "endx": -1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "startx": -1299.0, 
+      "starty": -1397.0, 
+      "endy": -1417.0, 
+      "endx": -1299.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 40.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 1948.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2303.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": -1929.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1929.0, 
+      "starty": 177.0, 
+      "endy": -177.0, 
+      "endx": -1929.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1929.0, 
+      "starty": -177.0, 
+      "endy": -177.0, 
+      "endx": -2303.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2303.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": -2303.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1929.0, 
+      "starty": 177.0, 
+      "endy": 177.0, 
+      "endx": 2303.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2303.0, 
+      "starty": 177.0, 
+      "endy": -177.0, 
+      "endx": 2303.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2303.0, 
+      "starty": -177.0, 
+      "endy": -177.0, 
+      "endx": 1929.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1929.0, 
+      "starty": -177.0, 
+      "endy": 177.0, 
+      "endx": 1929.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "PANASONIC_G", 
+  "keyword": [
+    " <b>Panasonic Aluminium Electrolytic Capacitor VS-Serie Package G</b>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 400.0, 
+      "number": "0", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -488.0, 
+      "x": -203.0, 
+      "rotation": "0", 
+      "penwidth": 32.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 400.0, 
+      "number": "1", 
+      "sizey": 400.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1253.0, 
+      "x": 197.0, 
+      "rotation": "0", 
+      "penwidth": 32.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1535.0, 
+      "sizey": 629.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -1673.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "+", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1535.0, 
+      "sizey": 629.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 1673.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

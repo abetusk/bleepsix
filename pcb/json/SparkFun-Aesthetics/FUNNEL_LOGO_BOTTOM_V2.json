@@ -1,0 +1,244 @@
+{
+  "library_name": "FUNNEL_LOGO_BOTTOM_V2", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 210.0, 
+      "startx": 1080.0, 
+      "starty": 1350.0, 
+      "endy": 1350.0, 
+      "endx": -1120.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 210.0, 
+      "startx": -1120.0, 
+      "starty": 1350.0, 
+      "endy": 1350.0, 
+      "endx": -1140.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 210.0, 
+      "startx": -1360.0, 
+      "starty": -1120.0, 
+      "endy": 1060.0, 
+      "endx": -1360.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 210.0, 
+      "startx": 1370.0, 
+      "starty": -1080.0, 
+      "endy": 1110.0, 
+      "endx": 1370.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 210.0, 
+      "startx": 1120.0, 
+      "starty": -1370.0, 
+      "endy": -1370.0, 
+      "endx": -1060.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 210.0, 
+      "layer": "20", 
+      "angle": 1.5707963267948966, 
+      "start_angle": -1.4968572891369563, 
+      "shape": "arc", 
+      "r": 270.7397274136177, 
+      "start_x": "1120", 
+      "start_y": "-1370", 
+      "y": "-1100", 
+      "x": "1100"
+    }, 
+    {
+      "line_width": 210.0, 
+      "layer": "20", 
+      "angle": 1.5707963267948966, 
+      "start_angle": -3.067653615931853, 
+      "shape": "arc", 
+      "r": 270.7397274136177, 
+      "start_x": "-1360", 
+      "start_y": "-1120", 
+      "y": "-1100", 
+      "x": "-1090"
+    }, 
+    {
+      "line_width": 210.0, 
+      "layer": "20", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 1.6475682180646747, 
+      "shape": "arc", 
+      "r": 260.76809620810593, 
+      "start_x": "-1120", 
+      "start_y": "1350", 
+      "y": "1090", 
+      "x": "-1100"
+    }, 
+    {
+      "line_width": 210.0, 
+      "layer": "20", 
+      "angle": 1.5707963267948966, 
+      "start_angle": 0.07393903765794034, 
+      "shape": "arc", 
+      "r": 270.7397274136177, 
+      "start_x": "1370", 
+      "start_y": "1100", 
+      "y": "1080", 
+      "x": "1100"
+    }, 
+    {
+      "line_width": 240.0, 
+      "startx": 0.0, 
+      "starty": 30.0, 
+      "endy": -1260.0, 
+      "endx": 1280.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 240.0, 
+      "startx": 10.0, 
+      "starty": 40.0, 
+      "endy": -1240.0, 
+      "endx": -1280.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 220.0, 
+      "startx": -1090.0, 
+      "starty": -1060.0, 
+      "endy": -1300.0, 
+      "endx": -1210.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 220.0, 
+      "startx": 1110.0, 
+      "starty": -1100.0, 
+      "endy": -1320.0, 
+      "endx": 1180.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 240.0, 
+      "startx": 0.0, 
+      "starty": -60.0, 
+      "endy": 750.0, 
+      "endx": 0.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 240.0, 
+      "startx": 50.0, 
+      "starty": -90.0, 
+      "endy": -90.0, 
+      "endx": -70.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 10.0, 
+      "startx": 114.0, 
+      "starty": 760.0, 
+      "endy": 920.0, 
+      "endx": 114.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 10.0, 
+      "startx": 114.0, 
+      "starty": 920.0, 
+      "endy": 920.0, 
+      "endx": 70.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 10.0, 
+      "startx": 70.0, 
+      "starty": 920.0, 
+      "endy": 828.0, 
+      "endx": -115.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 10.0, 
+      "startx": -115.0, 
+      "starty": 828.0, 
+      "endy": 758.0, 
+      "endx": -115.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 10.0, 
+      "startx": -115.0, 
+      "starty": 758.0, 
+      "endy": 760.0, 
+      "endx": 114.0, 
+      "layer": "20", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "FUNNEL_LOGO_BOTTOM_V2", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

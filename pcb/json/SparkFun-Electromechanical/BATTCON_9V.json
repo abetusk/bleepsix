@@ -1,0 +1,181 @@
+{
+  "library_name": "BATTCON_9V", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 70.0, 
+      "startx": -20870.0, 
+      "starty": -3370.0, 
+      "endy": -3370.0, 
+      "endx": 760.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 70.0, 
+      "startx": 760.0, 
+      "starty": -3370.0, 
+      "endy": 8430.0, 
+      "endx": 760.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 70.0, 
+      "startx": 760.0, 
+      "starty": 8430.0, 
+      "endy": 8430.0, 
+      "endx": -20870.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 70.0, 
+      "startx": -20870.0, 
+      "starty": 8430.0, 
+      "endy": -3370.0, 
+      "endx": -20870.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 500.0, 
+      "y": -1870.0, 
+      "x": -15460.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 500.0, 
+      "y": -1870.0, 
+      "x": -4840.0
+    }, 
+    {
+      "line_width": 50.0, 
+      "layer": "25", 
+      "shape": "circle", 
+      "r": 500.0, 
+      "y": 6930.0, 
+      "x": -10150.0
+    }
+  ], 
+  "name": "BATTCON_9V", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 1.5707963267948966, 
+      "misc": " \">Name\"", 
+      "sizex": 500.0, 
+      "number": "2", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">Name", 
+      "y": 2500.0, 
+      "x": -1250.0, 
+      "rotation": "900", 
+      "penwidth": 40.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 1.5707963267948966, 
+      "misc": " \">Value\"", 
+      "sizex": 500.0, 
+      "number": "3", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">Value", 
+      "y": 2500.0, 
+      "x": -500.0, 
+      "rotation": "900", 
+      "penwidth": 40.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "+", 
+      "drill_diam": 750.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1125.0, 
+      "sizey": 1125.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 750.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1125.0, 
+      "sizey": 1125.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 5100.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

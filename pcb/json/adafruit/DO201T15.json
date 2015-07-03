@@ -1,0 +1,355 @@
+{
+  "library_name": "DO201T15", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": -500.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 0.0, 
+      "starty": 0.0, 
+      "endy": -230.0, 
+      "endx": 450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 450.0, 
+      "starty": -230.0, 
+      "endy": 230.0, 
+      "endx": 450.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 450.0, 
+      "starty": 230.0, 
+      "endy": 0.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 0.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 900.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -2000.0, 
+      "starty": 1100.0, 
+      "endy": -1100.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 2000.0, 
+      "starty": -1100.0, 
+      "endy": 1100.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -2000.0, 
+      "starty": -1100.0, 
+      "endy": -1100.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 2000.0, 
+      "starty": 1100.0, 
+      "endy": 1100.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 500.0, 
+      "startx": 3000.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": 2450.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 500.0, 
+      "startx": -3000.0, 
+      "starty": 0.0, 
+      "endy": 0.0, 
+      "endx": -2450.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -150.0, 
+      "starty": -180.0, 
+      "endy": -250.0, 
+      "endx": -150.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -150.0, 
+      "starty": -250.0, 
+      "endy": -250.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 0.0, 
+      "starty": -250.0, 
+      "endy": 0.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 150.0, 
+      "starty": 180.0, 
+      "endy": 250.0, 
+      "endx": 150.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 150.0, 
+      "starty": 250.0, 
+      "endy": 250.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 0.0, 
+      "starty": 250.0, 
+      "endy": 0.0, 
+      "endx": 0.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1650.0, 
+      "starty": 1100.0, 
+      "endy": 1100.0, 
+      "endx": -1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1350.0, 
+      "starty": 1100.0, 
+      "endy": -1100.0, 
+      "endx": -1350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1350.0, 
+      "starty": -1100.0, 
+      "endy": -1100.0, 
+      "endx": -1650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1650.0, 
+      "starty": -1100.0, 
+      "endy": 1100.0, 
+      "endx": -1650.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2350.0, 
+      "starty": 250.0, 
+      "endy": 250.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2000.0, 
+      "starty": 250.0, 
+      "endy": -250.0, 
+      "endx": -2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2000.0, 
+      "starty": -250.0, 
+      "endy": -250.0, 
+      "endx": -2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2350.0, 
+      "starty": -250.0, 
+      "endy": 250.0, 
+      "endx": -2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2000.0, 
+      "starty": 250.0, 
+      "endy": 250.0, 
+      "endx": 2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2350.0, 
+      "starty": 250.0, 
+      "endy": -250.0, 
+      "endx": 2350.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2350.0, 
+      "starty": -250.0, 
+      "endy": -250.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2000.0, 
+      "starty": -250.0, 
+      "endy": 250.0, 
+      "endx": 2000.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "DO201T15", 
+  "keyword": [
+    " <B>DIODE</B><p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -1000.0, 
+      "x": -1000.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1100.0, 
+      "x": 500.0, 
+      "rotation": "0", 
+      "penwidth": 50.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "C", 
+      "drill_diam": 590.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 885.0, 
+      "sizey": 885.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -3000.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "A", 
+      "drill_diam": 590.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 885.0, 
+      "sizey": 885.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 3000.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

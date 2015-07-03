@@ -1,0 +1,191 @@
+{
+  "library_name": "DC_MOTOR", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 0.0, 
+      "startx": -327.0, 
+      "starty": -2618.0, 
+      "endy": -2618.0, 
+      "endx": 327.0, 
+      "layer": "28", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "28", 
+      "angle": 3.141592653589793, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 256.0, 
+      "start_x": "327", 
+      "start_y": "-2618", 
+      "y": "-2362", 
+      "x": "327"
+    }, 
+    {
+      "line_width": 0.0, 
+      "startx": 327.0, 
+      "starty": -2106.0, 
+      "endy": -2106.0, 
+      "endx": -327.0, 
+      "layer": "28", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "28", 
+      "angle": 3.141592653589793, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 256.0, 
+      "start_x": "-327", 
+      "start_y": "-2106", 
+      "y": "-2362", 
+      "x": "-327"
+    }, 
+    {
+      "line_width": 0.0, 
+      "startx": -327.0, 
+      "starty": 2106.0, 
+      "endy": 2106.0, 
+      "endx": 327.0, 
+      "layer": "28", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "28", 
+      "angle": 3.141592653589793, 
+      "start_angle": -1.5707963267948966, 
+      "shape": "arc", 
+      "r": 256.0, 
+      "start_x": "327", 
+      "start_y": "2106", 
+      "y": "2362", 
+      "x": "327"
+    }, 
+    {
+      "line_width": 0.0, 
+      "startx": 327.0, 
+      "starty": 2618.0, 
+      "endy": 2618.0, 
+      "endx": -327.0, 
+      "layer": "28", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 0.0, 
+      "layer": "28", 
+      "angle": 3.141592653589793, 
+      "start_angle": 1.5707963267948966, 
+      "shape": "arc", 
+      "r": 256.0, 
+      "start_x": "-327", 
+      "start_y": "2618", 
+      "y": "2362", 
+      "x": "-327"
+    }, 
+    {
+      "line_width": 100.0, 
+      "layer": "24", 
+      "shape": "circle", 
+      "r": 3346.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }, 
+    {
+      "line_width": 100.0, 
+      "layer": "24", 
+      "shape": "circle", 
+      "r": 984.0, 
+      "y": 0.0, 
+      "x": 0.0
+    }
+  ], 
+  "name": "DC_MOTOR", 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "M2", 
+      "drill_diam": 444.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 787.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": 2362.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "M1", 
+      "drill_diam": 444.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 787.0, 
+      "sizey": 787.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00C0FFFF", 
+      "shape": "oblong", 
+      "drill_y": 0.0, 
+      "posy": -2362.0, 
+      "posx": 0.0, 
+      "shape_code": "O", 
+      "type": "STD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

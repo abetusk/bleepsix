@@ -1,0 +1,382 @@
+{
+  "library_name": "139CLL-2R", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 80.0, 
+      "startx": -3188.0, 
+      "starty": -1535.0, 
+      "endy": 1535.0, 
+      "endx": -3188.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -3188.0, 
+      "starty": 1535.0, 
+      "endy": 1535.0, 
+      "endx": 3188.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 3188.0, 
+      "starty": 1535.0, 
+      "endy": -1535.0, 
+      "endx": 3188.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 3188.0, 
+      "starty": -1535.0, 
+      "endy": -1535.0, 
+      "endx": -3188.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 2814.0, 
+      "starty": 236.0, 
+      "endy": 334.0, 
+      "endx": 2716.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 2716.0, 
+      "starty": 334.0, 
+      "endy": -334.0, 
+      "endx": 2716.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 2716.0, 
+      "starty": -334.0, 
+      "endy": -236.0, 
+      "endx": 2814.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": 2814.0, 
+      "starty": -236.0, 
+      "endy": 236.0, 
+      "endx": 2814.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -2814.0, 
+      "starty": -236.0, 
+      "endy": -334.0, 
+      "endx": -2716.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -2716.0, 
+      "starty": -334.0, 
+      "endy": 334.0, 
+      "endx": -2716.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -2716.0, 
+      "starty": 334.0, 
+      "endy": 236.0, 
+      "endx": -2814.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 100.0, 
+      "startx": -2814.0, 
+      "starty": 236.0, 
+      "endy": -236.0, 
+      "endx": -2814.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2519.0, 
+      "starty": 1200.0, 
+      "endy": 1200.0, 
+      "endx": -2519.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2519.0, 
+      "starty": 1200.0, 
+      "endy": 629.0, 
+      "endx": -2519.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2519.0, 
+      "starty": 629.0, 
+      "endy": -629.0, 
+      "endx": -2519.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2519.0, 
+      "starty": -629.0, 
+      "endy": -1200.0, 
+      "endx": -2519.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": -2519.0, 
+      "starty": -1200.0, 
+      "endy": -1200.0, 
+      "endx": 2519.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2519.0, 
+      "starty": -1200.0, 
+      "endy": -629.0, 
+      "endx": 2519.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2519.0, 
+      "starty": -629.0, 
+      "endy": 629.0, 
+      "endx": 2519.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2519.0, 
+      "starty": 629.0, 
+      "endy": 1200.0, 
+      "endx": 2519.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2500.0, 
+      "starty": 787.0, 
+      "endy": 787.0, 
+      "endx": 1771.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1771.0, 
+      "starty": 787.0, 
+      "endy": 1161.0, 
+      "endx": 1673.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 2500.0, 
+      "starty": -787.0, 
+      "endy": -787.0, 
+      "endx": 1771.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 80.0, 
+      "startx": 1771.0, 
+      "starty": -787.0, 
+      "endy": -1161.0, 
+      "endx": 1673.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1771.0, 
+      "starty": 393.0, 
+      "endy": 393.0, 
+      "endx": 2696.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2696.0, 
+      "starty": 393.0, 
+      "endy": -393.0, 
+      "endx": 2696.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2696.0, 
+      "starty": -393.0, 
+      "endy": -393.0, 
+      "endx": 1771.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 1771.0, 
+      "starty": -393.0, 
+      "endy": 393.0, 
+      "endx": 1771.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2696.0, 
+      "starty": 393.0, 
+      "endy": 393.0, 
+      "endx": -1771.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1771.0, 
+      "starty": 393.0, 
+      "endy": -393.0, 
+      "endx": -1771.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -1771.0, 
+      "starty": -393.0, 
+      "endy": -393.0, 
+      "endx": -2696.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2696.0, 
+      "starty": -393.0, 
+      "endy": 393.0, 
+      "endx": -2696.0, 
+      "layer": "25", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "139CLL-2R", 
+  "keyword": [
+    " <b>Aluminum electrolytic capacitors</b> reflow soldering<p>"
+  ], 
+  "text": [
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">NAME\"", 
+      "sizex": 500.0, 
+      "number": "0", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">NAME", 
+      "y": -250.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \">VALUE\"", 
+      "sizex": 500.0, 
+      "number": "1", 
+      "sizey": 500.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": ">VALUE", 
+      "y": 1250.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 40.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "+", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1377.0, 
+      "sizey": 1102.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 2440.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "-", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1377.0, 
+      "sizey": 1102.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -2440.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}

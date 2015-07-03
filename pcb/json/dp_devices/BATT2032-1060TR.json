@@ -1,0 +1,376 @@
+{
+  "library_name": "BATT2032-1060TR", 
+  "layer": "15", 
+  "attribute1": "00000000", 
+  "art": [
+    {
+      "line_width": 60.0, 
+      "startx": -4330.0, 
+      "starty": -3149.0, 
+      "endy": -3149.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -2362.0, 
+      "starty": -3149.0, 
+      "endy": -3149.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 2362.0, 
+      "starty": -3149.0, 
+      "endy": -3149.0, 
+      "endx": 3740.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 3740.0, 
+      "starty": -3149.0, 
+      "endy": -2598.0, 
+      "endx": 4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 4330.0, 
+      "starty": -2598.0, 
+      "endy": -1381.0, 
+      "endx": 4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 4330.0, 
+      "starty": -1381.0, 
+      "endy": 1381.0, 
+      "endx": 4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 4330.0, 
+      "starty": 1381.0, 
+      "endy": 3149.0, 
+      "endx": 4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 4330.0, 
+      "starty": 3149.0, 
+      "endy": 3149.0, 
+      "endx": 2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 2362.0, 
+      "starty": 3149.0, 
+      "endy": 3149.0, 
+      "endx": -2362.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -2362.0, 
+      "starty": 3149.0, 
+      "endy": 3149.0, 
+      "endx": -4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -4330.0, 
+      "starty": 3149.0, 
+      "endy": 1381.0, 
+      "endx": -4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -4330.0, 
+      "starty": 1381.0, 
+      "endy": -1381.0, 
+      "endx": -4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -4330.0, 
+      "starty": -1381.0, 
+      "endy": -3149.0, 
+      "endx": -4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 4330.0, 
+      "starty": -1381.0, 
+      "endy": -1381.0, 
+      "endx": 5590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 5590.0, 
+      "starty": -1381.0, 
+      "endy": -708.0, 
+      "endx": 5590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 5590.0, 
+      "starty": 708.0, 
+      "endy": 1381.0, 
+      "endx": 5590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 5590.0, 
+      "starty": 1381.0, 
+      "endy": 1381.0, 
+      "endx": 4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -4330.0, 
+      "starty": -1381.0, 
+      "endy": -1381.0, 
+      "endx": -5590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -5590.0, 
+      "starty": -1381.0, 
+      "endy": -708.0, 
+      "endx": -5590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -5590.0, 
+      "starty": 708.0, 
+      "endy": 1381.0, 
+      "endx": -5590.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -5590.0, 
+      "starty": 1381.0, 
+      "endy": 1381.0, 
+      "endx": -4330.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": -5590.0, 
+      "starty": -708.0, 
+      "endy": 708.0, 
+      "endx": -5590.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "startx": 5590.0, 
+      "starty": -708.0, 
+      "endy": 708.0, 
+      "endx": 5590.0, 
+      "layer": "24", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": 1.8500490071139892, 
+      "start_angle": -0.9250126959700946, 
+      "shape": "arc", 
+      "r": 3943.010271353601, 
+      "start_x": "2362", 
+      "start_y": "-3149", 
+      "y": "0", 
+      "x": "-11"
+    }, 
+    {
+      "line_width": 60.0, 
+      "layer": "21", 
+      "angle": -1.8500490071139892, 
+      "start_angle": -2.2165799576196985, 
+      "shape": "arc", 
+      "r": 3943.010271353601, 
+      "start_x": "-2362", 
+      "start_y": "-3149", 
+      "y": "0", 
+      "x": "11"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2165.0, 
+      "starty": 1377.0, 
+      "endy": 1377.0, 
+      "endx": 2165.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2165.0, 
+      "starty": 1377.0, 
+      "endy": -1377.0, 
+      "endx": 2165.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": 2165.0, 
+      "starty": -1377.0, 
+      "endy": -1377.0, 
+      "endx": -2165.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }, 
+    {
+      "line_width": 50.0, 
+      "startx": -2165.0, 
+      "starty": -1377.0, 
+      "endy": 1377.0, 
+      "endx": -2165.0, 
+      "layer": "21", 
+      "shape": "segment"
+    }
+  ], 
+  "name": "BATT2032-1060TR", 
+  "keyword": [
+    " CR2032 20mm Coin cell battery socket"
+  ], 
+  "text": [
+    {
+      "layer": "25", 
+      "angle": 0.0, 
+      "misc": " \"ref**\"", 
+      "sizex": 0.0, 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "ref**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "26", 
+      "angle": 0.0, 
+      "misc": " \"val**\"", 
+      "sizex": 0.0, 
+      "number": "1", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "text": "val**", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "layer": "21", 
+      "angle": 0.0, 
+      "misc": " \"(+)\"", 
+      "sizex": 700.0, 
+      "number": "2", 
+      "sizey": 700.0, 
+      "visible": true, 
+      "flag": "N", 
+      "text": "(+)", 
+      "y": -1650.0, 
+      "x": 5200.0, 
+      "rotation": "0", 
+      "penwidth": 84.0
+    }
+  ], 
+  "timestamp_op": "00000000", 
+  "rotation_cost_180": "0", 
+  "attribute2": "~~", 
+  "y": 0.0, 
+  "rotation_cost_misc": "0", 
+  "pad": [
+    {
+      "angle": 0.0, 
+      "name": "B-", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1023.0, 
+      "sizey": 1417.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": -5767.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }, 
+    {
+      "angle": 0.0, 
+      "name": "B+", 
+      "drill_diam": 0.0, 
+      "deltax": 0.0, 
+      "deltay": 0.0, 
+      "sizex": 1023.0, 
+      "sizey": 1417.0, 
+      "drill_x": 0.0, 
+      "layer_mask": "00888000", 
+      "shape": "rectangle", 
+      "drill_y": 0.0, 
+      "posy": 0.0, 
+      "posx": 5767.0, 
+      "shape_code": "R", 
+      "type": "SMD", 
+      "drill_shape": "circle", 
+      "orientation": 0
+    }
+  ], 
+  "timestamp": "00000000", 
+  "units": "deci-mils", 
+  "x": 0.0, 
+  "rotation_cost_90": "0", 
+  "angle": 0.0, 
+  "orientation": "0"
+}
