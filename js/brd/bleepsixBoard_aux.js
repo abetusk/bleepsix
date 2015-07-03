@@ -276,11 +276,14 @@ bleepsixBoard.prototype.refLookup = function( id, silentFlag )
     if (brd[ind].type == "module")
     {
       var t_ind;
-      for (t_ind=0; t_ind<brd[ind].text.length; t_ind++)
+      if ("text" in brd[ind])
       {
-        this.ref_lookup[ brd[ind].text[t_ind].id ] = brd[ind].text[t_ind];
-        if ( id == brd[ind].text[t_ind].id )
-          return this.ref_lookup[ id ];
+        for (t_ind=0; t_ind<brd[ind].text.length; t_ind++)
+        {
+          this.ref_lookup[ brd[ind].text[t_ind].id ] = brd[ind].text[t_ind];
+          if ( id == brd[ind].text[t_ind].id )
+            return this.ref_lookup[ id ];
+        }
       }
 
       var p_ind;

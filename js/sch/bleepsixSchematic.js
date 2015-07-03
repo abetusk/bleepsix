@@ -3154,6 +3154,11 @@ bleepsixSchematic.prototype.updateComponentBoundingBox = function( comp_entry )
 
   var name = this.toCacheName( raw_name );
   var bbox = [ [0,0],[0,0] ];
+
+  if (!("component_lib" in this.kicad_sch_json)) {
+    this.kicad_sch_json["component_lib"] = {};
+  }
+
   var component_lib = this.kicad_sch_json.component_lib;
 
 
