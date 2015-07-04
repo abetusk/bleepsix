@@ -1,10 +1,13 @@
 bleepsix
 ========
 
+![brd_capture](https://raw.githubusercontent.com/abetusk/www.meowcad.com/release/html/img/misc/brd_cap_screen.png)
+
+
 Overview
 ---
 
-This is the codebase for the web application to MeowCAD.  This includes the schematic capture and board capture portions.  See it live at
+This is the codebase for the web application portion MeowCAD.  This includes the schematic capture and board capture portions (the board capture is pictured above).  See it live at
 
 [MeowCAD](https://meowcad.com)
 
