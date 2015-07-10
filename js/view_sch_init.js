@@ -241,9 +241,34 @@ function deferLoadSchematic(xx) {
     return;
   }
   g_schematic_controller.schematic.load_schematic(xx.json_sch); 
-
   g_schematic_controller.project_name_text = xx.userName + " / " + xx.projectName;
+
+  _view_sch_recenter();
 }
+
+function _view_sch_recenter()
+{
+  var width = 1600, height = 1600;
+  var bbox = g_schematic_controller.schematic.getSchematicBoundingBox();
+  var cx = (bbox[0][0] + bbox[1][0])/2.0;
+  var cy = (bbox[0][1] + bbox[1][1])/2.0;
+
+  var dx = (bbox[1][0] - bbox[0][0]);
+  var dy = (bbox[1][1] - bbox[0][1]);
+
+  var dmax = ( (dx<dy) ? dy : dx );
+  var viewmax = ( (width < height) ? height : width );
+
+  var f = dmax / viewmax;
+  if (f < 1) f = 1.0;
+
+  var sch_fudge = 8.0;
+  f *= sch_fudge;
+
+  g_painter.setView( cx, cy, 1/f );
+}
+
+
 
 if ( !window.requestAnimationFrame ) {
     window.requestAnimationFrame = ( function() {

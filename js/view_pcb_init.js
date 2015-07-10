@@ -231,12 +231,38 @@ $(document).ready( function() {
       success: function(xx) {
         g_board_controller.board.load_board(xx.json_brd);
         g_board_controller.project_name_text = xx.userName + " / " + xx.projectName;
+
+        _view_pcb_recenter();
+
       },
       error: function(jqxhr, status, err) { console.log(jqxhr); console.log(status); console.log(err); }
     });
   }
 
 });
+
+function _view_pcb_recenter()
+{
+  var width = 1600, height = 1600;
+  var bbox = g_board_controller.board.getBoardBoundingBox();
+  var cx = (bbox[0][0] + bbox[1][0])/2.0;
+  var cy = (bbox[0][1] + bbox[1][1])/2.0;
+
+  var dx = (bbox[1][0] - bbox[0][0]);
+  var dy = (bbox[1][1] - bbox[0][1]);
+
+  var dmax = ( (dx<dy) ? dy : dx );
+  var viewmax = ( (width < height) ? height : width );
+
+  var f = dmax / viewmax;
+  if (f < 4) f = 4;
+
+  var brd_fudge = 2.0;
+  f *= brd_fudge;
+
+  g_painter.setView( cx, cy, 1/f );
+}
+
 
 if ( !window.requestAnimationFrame ) {
   window.requestAnimationFrame = ( function() {
