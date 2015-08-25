@@ -104,6 +104,7 @@ toolNav.prototype.mouseDown = function( button, x, y )
   if (this.viewMode) { return; }
 
   // pass control to toolSelect 
+  //
   else if (button == 1)
 
   {
@@ -130,7 +131,6 @@ toolNav.prototype.doubleClick = function(button, x, y)
 {
   if (this.viewMode) { return; }
 
-  //console.log("toolNav.doubleClick");
   var world_coord = g_painter.devToWorld( x, y );
   var id_ref =  g_schematic_controller.schematic.pick( world_coord["x"], world_coord["y"] );
 
@@ -290,7 +290,6 @@ toolNav.prototype.mouseMove = function( x, y )
           var msg_ele = "h;" + ref.id + "/" + i + "," + ref.pinData[i].netcode;
           g_schematic_controller.highlightBoardNetsFromSchematic( [ msg_ele ] );
 
-          //g_schematic_controller.highlightBoardNetsFromSchematic( [ ref.pinData[i].netcode ] );
           found = true;
           break;
         }
@@ -318,8 +317,6 @@ toolNav.prototype.mouseWheel = function( delta )
 
 toolNav.prototype.keyDown = function( keycode, ch, ev )
 {
-  //console.log("toolNav keyDown: " + keycode + " " + ch );
-  //console.log(ev);
 
   if (this.viewMode)
   {
@@ -334,23 +331,14 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     return true;
   }
 
+
   if ( keycode == 188 )
   {
-
-    /*
-    var ele = document.getElementById("canvas");
-
-    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_test_s24.png') 4 3, cursor";
-    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_wire_s24.png') 4 3, cursor";
-    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_bus_s24.png') 4 3, cursor";
-    //ele.style.cursor = "url('/bleepsix/img/cursor_custom_noconn_s24.png') 4 3, cursor";
-    ele.style.cursor = "url('/bleepsix/img/cursor_custom_conn_s24.png') 4 3, cursor";
-
-    //$("#canvas").css(" cursor: url('/bleepsix/img/cursor_custom_test_s24.png') 3 2 , auto; ");
-    
-    console.log("<??");
-    */
-
+    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, -1 );
+  }
+  else if ( keycode == 190 )
+  {
+    g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, 1 );
   }
   else if ( keycode == 192 )
   {
@@ -359,16 +347,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_schematic_controller.schematic.draw_bounding_box_flag =
       !g_schematic_controller.schematic.draw_bounding_box_flag;
     g_painter.dirty_flag = true;
-  }
-  else if ( keycode == 190 )
-  {
-
-    /*
-    var ele = document.getElementById("canvas");
-    ele.style.cursor = " auto ";
-    console.log(">??");
-    */
-
   }
 
   if ( keycode == 219 ) // '['
@@ -396,17 +374,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     g_painter.setGrid ( 1 );
   } else if ( ch == '3' ) {  // line grid
     g_painter.setGrid ( 2 );
-  } else if (ch == 'A') {
-    /*
-    comp_name = "C";
-    console.log("adding component '" + comp_name + 
-                "' " + wc["x"] + " " + wc["y"] + 
-                " (mouse: " + this.mouse_cur_x + " " + this.mouse_cur_y + ")");
-    g_schematic_controller.schematic.addComponent( comp_name, wx, wy );
-    */
-
   }
-
   else if (ch == 'I')
   {
     console.log(">>> (I)nformation");
@@ -421,44 +389,14 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
 
   else if (ch == 'L')
   {
-    //console.log("logging out!");
-    //g_schnetwork.logout();
     g_schematic_controller.tool = 
       new toolLabel( this.mouse_cur_x, this.mouse_cur_y, "label" );
     
   }
   else if (ch == 'V')
   {
-    //TEST FILE DOWNLOAD
-    /*
-    $.fileDownload( "gplv3.txt" )
-    .done( function(msg) { alert('done: ' + msg); return true; })
-    .fail( function(msg, err,c ) { alert('fail: ' + c + "," + err + "," + msg); return true; }) ;
-    */
-    //populateIframe( "downloadIframe", "gplv3.txt" );
-    //populateIframe( "downloadIframe", "foo.txt" );
-    //formSubmitTest("testing string");
-    //formSubmitTest( g_schematic_controller.schematic.kicad_sch_json );
-    //submitSchematic( g_schematic_controller.schematic.kicad_sch_json );
-
-    //var foo = document.getElementById('downloadForm');
-    //foo.submit();
-    //console.log("..");
-
-    // DUMMY (DEBUG) TESTS
-    //
-    //window.location.href = "https://google.com";
-    //return;
-
-    //g_schnetwork.schfullpush();
-
-    //console.log("LOADING (schsnapshot)");
-    //g_schnetwork.schsnapshot();
-
     //DEBUG
     g_schematic_controller.schematic.constructNet();
-
-
   }
   else if (ch == 'U')
   {
@@ -467,34 +405,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'K')
   {
-
     g_schematic_controller.op._opDebugPrint();
-
-    /*
-    console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
-    console.log( "  opHistoryIndex: " + g_schematic_controller.opHistoryIndex );
-    console.log( "  opHistoryStart: " + g_schematic_controller.opHistoryStart );
-    console.log( "  opHistoryEnd: " + g_schematic_controller.opHistoryEnd );
-    console.log( g_schematic_controller.opHistory );
-    */
-
-
-  }
-  else if (ch == 'B')
-  {
-
-    /*
-    //uploadSchematic( g_schematic_controller.schematic.kicad_sch_json );
-    uploadSchematic( );
-
-    console.log("SAVING (schfullpush)");
-    g_schnetwork.schfullpush();
-    */
-
-    //console.log("DEBUG: g_schematic_controller.schematic.ref_lookup");
-    //console.log( g_schematic_controller.schematic.ref_lookup);
-
-
   }
   else if (ch == 'C')  // copy
   {
@@ -510,15 +421,8 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   
   }
 
-  else if (ch == 'P')
-  {
-    //takeSnapShotPicture();
-  }
   else if (ch == 'J')
   {
-
-    //console.log("connection? " + wx + " " + wy );
-
     var op = { source: "sch", destination : "sch"  };
     op.action = "add";
     op.type = "connection";
@@ -528,9 +432,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'X')
   {
-
-    //console.log("connection? " + wx + " " + wy );
-
     var op = { source: "sch", destination: "sch" };
     op.action = "add";
     op.type = "noconn";
@@ -549,10 +450,6 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
       g_schematic_controller.tool = new toolMove(x, y);
       g_schematic_controller.tool.addElement( ida );
       return true;
-    }
-    else
-    {
-      //console.log("...nope");
     }
 
   }
@@ -629,12 +526,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   }
   else if (ch == 'D')
   {
-    //console.log("(D)elete: wxy: " + wx + " " + wy );
-
     var id_ref_ar = g_schematic_controller.schematic.pickAll( wx, wy );
-
-    //console.log("got:");
-    //console.log(id_ref_ar);
 
     if (id_ref_ar.length > 0)
     {
@@ -711,18 +603,9 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
     }
 
   }
-  else if (ch == 'M')
-  {
-    //console.log("move...\n");
-  }
 
   if (keycode == '32') return false;
   return true;
 }
 
-toolNav.prototype.keyUp = function( keycode, ch, ev )
-{
-  //console.log("toolNav keyUp: " + keycode + " " + ch );
-}
-
-
+toolNav.prototype.keyUp = function( keycode, ch, ev ) { }
