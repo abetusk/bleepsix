@@ -107,7 +107,7 @@ toolBoardHelp.prototype.drawOverlay = function()
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;
 
-  g_painter.drawText( "</>   - Zoom In/Out (','/'.' also work) ",
+  g_painter.drawText( "</>   - Zoom Out/In (','/'.' also work) ",
       txt_x, txt_y, text_color, font_height, 0, hjustify, vjustify);
   txt_y+=txt_dy;
 
