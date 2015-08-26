@@ -154,8 +154,12 @@ toolBoardMove.prototype.tick = function()
   setTimeout( function(xx) { return function() { xx.tick(); }; }(this), 100 );
 }
 
-toolBoardMove.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
-toolBoardMove.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta ); }
+toolBoardMove.prototype.mouseDrag  = function(dx, dy) { g_painter.adjustPan( dx, dy ); }
+toolBoardMove.prototype.mouseWheel = function(delta)
+{
+  delta = clamp(delta, -1, 1);
+  g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
+}
 
 
 

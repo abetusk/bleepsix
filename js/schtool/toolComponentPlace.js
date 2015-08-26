@@ -83,7 +83,10 @@ function toolComponentPlace( mouse_x, mouse_y , component_name , component_data 
 }
 
 toolComponentPlace.prototype.mouseDrag  = function( dx, dy ) { g_painter.adjustPan( dx, dy ); }
-toolComponentPlace.prototype.mouseWheel = function( delta )  { g_painter.adjustZoom ( this.mouse_x, this.mouse_y, delta ); }
+toolComponentPlace.prototype.mouseWheel = function( delta )  {
+  delta = clamp(delta, -1, 1);
+  g_painter.adjustZoom ( this.mouse_x, this.mouse_y, delta );
+}
 
 
 toolComponentPlace.prototype.drawOverlay = function()

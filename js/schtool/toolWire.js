@@ -674,6 +674,7 @@ toolWire.prototype.mouseDrag = function( dx, dy )
 
 toolWire.prototype.mouseWheel = function( delta )
 {
+  delta = clamp(delta, -1, 1);
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
 

@@ -106,7 +106,9 @@ toolFootprintPlace.prototype.mouseDrag  = function( dx, dy ) {
   g_painter.adjustPan( dx, dy );
 }
 
-toolFootprintPlace.prototype.mouseWheel = function( delta )  {
+toolFootprintPlace.prototype.mouseWheel = function( delta )
+{
+  delta = clamp(delta, -1, 1);
   g_painter.adjustZoom ( this.mouse_x, this.mouse_y, delta );
 }
 

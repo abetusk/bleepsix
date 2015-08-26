@@ -22,6 +22,27 @@
 
 */
 
+var g_debounce_dt = 40;
+var g_debounce = true;
+
+function debounce(dt) {
+  dt = ( ((typeof dt)==="undefined") ? g_debounce_dt : dt );
+
+  console.log(">>>", dt);
+
+
+  if (!g_debounce) { return false; }
+  g_debounce=false;
+  setTimeout(function() { g_debounce = true; console.log("debounce"); }, dt);
+  return true;
+}
+
+function clamp(v, m, M) {
+  if (v<m) { v = m; }
+  else if (v>M) { v = M; }
+  return v;
+}
+
 
 //var g_footprint_cache = {};
 var g_footprint_location = {};
