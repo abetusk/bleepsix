@@ -474,6 +474,29 @@ toolBoardNav.prototype.mouseWheel = function( delta )
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
 
+toolBoardNav.prototype._recenter = function()
+{
+  var width = 1600, height = 1600;
+  var bbox = g_board_controller.board.getBoardBoundingBox();
+  var cx = (bbox[0][0] + bbox[1][0])/2.0;
+  var cy = (bbox[0][1] + bbox[1][1])/2.0;
+
+  var dx = (bbox[1][0] - bbox[0][0]);
+  var dy = (bbox[1][1] - bbox[0][1]);
+
+  var dmax = ( (dx<dy) ? dy : dx );
+  var viewmax = ( (width < height) ? height : width );
+
+  var f = dmax / viewmax;
+  if (f < 4) f = 4;
+
+  var brd_fudge = 3.0;
+  f *= brd_fudge;
+
+  g_painter.setView( cx, cy, 1/f );
+}
+
+
 toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
 {
 
@@ -590,6 +613,12 @@ toolBoardNav.prototype.keyDown = function( keycode, ch, ev )
   {
     g_painter.adjustPan( 0, -50 );
     return false;
+  }
+
+  else if (ch=='0')
+  {
+    this._recenter();
+    g_painter.dirty_flag=true;
   }
 
   else if ((keycode == 186) || (ch == ':'))
