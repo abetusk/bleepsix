@@ -67,6 +67,8 @@ function guiBoardToolbox( name, bgColor  )
   w.fgColor = "rgb(255,255,255)";
   w.divColor = "rgba(255,255,255,0.2)";
   w.addIcon( this.name + ":trace", _draw_trace_icon );
+  w.addIcon( this.name + ":via",
+      (function(s) { return function() { s._draw_via_icon(); } })(this) )
   w.move(0, cur_y);
   w.tooltip_text = " place trace (X)";
   w.tooltip_flag = true;
@@ -331,6 +333,15 @@ function _draw_zone_icon()
 
 //--- art and edge drawing functions
 
+guiBoardToolbox.prototype._draw_via_icon = function()
+{
+  var mx = this.iconWidth/2, my = this.iconWidth/2;
+  var r = this.iconWidth/5;
+  var color = "rgba(255,255,255,0.6)";
+
+  g_painter.circle( mx, my, r, 0, color, true, color );
+}
+
 //function _draw_edge_icon()
 guiBoardToolbox.prototype._draw_edge_icon = function()
 {
@@ -547,7 +558,7 @@ guiBoardToolbox.prototype._handleTraceEvent = function(ev)
 
   else if (ev.owner == this.name + ":via")
   {
-    console.log("  IN DEVELOPMENT, sorry, tool via not implmeneted yet");
+    g_board_controller.tool = new toolVia(0, 0, g_board_controller.guiLayer.layer, false);
   }
 
   else
