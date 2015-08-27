@@ -1107,7 +1107,8 @@ bleepsixSchematicController.prototype.init = function( canvas_id )
     controller.mouseMove( xy[0], xy[1] );
   });
 
-  $(canvas_id).mousewheel( function(e, delta, detlax, deltay) {
+  $(canvas_id).mousewheel( function(e, delta, deltax, deltay) {
+    console.log(delta, deltax, deltay);
     controller.mouseWheel( delta );
     return false;
   });

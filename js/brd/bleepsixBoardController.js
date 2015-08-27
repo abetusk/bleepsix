@@ -1104,6 +1104,8 @@ bleepsixBoardController.prototype.mouseWheel = function( delta )
 
 }
 
+var g_dt;
+
 bleepsixBoardController.prototype.init = function( canvas_id )
 {
   this.canvas = $("#" + canvas_id)[0];
@@ -1168,7 +1170,16 @@ bleepsixBoardController.prototype.init = function( canvas_id )
     controller.mouseMove( xy[0], xy[1] );
   });
 
-  $(canvas_id).mousewheel( function(e, delta, detlax, deltay) {
+
+  g_dt = new Date();
+
+  $(canvas_id).mousewheel( function(e, delta, deltax, deltay, f) {
+    var dt_now = new Date();
+    console.log(e, delta, deltax, deltay, f);
+    console.log(e.deltaX, e.deltaY, e.deltaFactor);
+    console.log(dt_now - g_dt);
+    g_dt = dt_now;
+
     controller.mouseWheel( delta );
     return false;
   });
