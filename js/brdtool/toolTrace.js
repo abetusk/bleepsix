@@ -329,7 +329,7 @@ toolTrace.prototype._giveElementNetName = function( ele_id_ref )
       var op2 = { source: "brd", destination: "brd" };
       op2.action = "update";
       op2.type = "edit";
-      op2.id = [ pad_ref.id ];
+      op2.id = [ track_ref.id ];
       op2.data = { element : [ new_track ], oldElement : [ old_track ] };
 
       op2.groupId = this.groupId;
