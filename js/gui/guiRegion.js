@@ -61,7 +61,7 @@ guiRegion.prototype.init = function ( x, y, w, h )
 {
   this.width = w;
   this.height = h;
-  this.move ( x, y );
+  this.move(x, y);
 }
 
 guiRegion.prototype.handleEvent = function(ev)

@@ -112,6 +112,9 @@ function bleepsixBoardController( viewMode ) {
   this.action_text_fade = { sustainDur : 1500, dropoffDur : 500, T :0 , lastT : curt };
 
   this.drawSnapArea = false;
+
+  this.movingLayer = false;
+  this.movingDisplayLayers = false;
 }
 
 
@@ -727,6 +730,7 @@ bleepsixBoardController.prototype.redraw = function ()
     {
       this.guiToolbox.drawChildren();
       this.guiLayer.drawChildren();
+      this.guiDisplayLayers.drawChildren();
 
       this.guiUndoRedo.drawChildren();
     }
@@ -955,6 +959,12 @@ bleepsixBoardController.prototype.mouseDown = function( button, x, y )
       return;
     }
 
+    if (this.guiDisplayLayers.hitTest(x,y))
+    {
+      this.guiDisplayLayers.mouseDown(button, x, y);
+      return;
+    }
+
     if (this.guiUndoRedo.hitTest(x,y))
     {
       this.guiUndoRedo.mouseDown(button, x, y);
@@ -992,6 +1002,12 @@ bleepsixBoardController.prototype.doubleClick = function( e )
     return;
   }
 
+  if (this.guiDisplayLayers.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
+  {
+    this.guiDisplayLayers.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y  );
+    return;
+  }
+
   if (this.guiUndoRedo.hitTest( this.mouse_cur_x, this.mouse_cur_y ))
   {
     this.guiUndoRedo.doubleClick( e, this.mouse_cur_x, this.mouse_cur_y  );
@@ -1020,6 +1036,8 @@ bleepsixBoardController.prototype.mouseMove = function( x, y )
 
     if (this.movingLayer)
       this.guiLayer.move(x, y);
+    if (this.movingDisplayLayers)
+      this.guiDisplayLayers.move(x, y);
   }
 
   if (!this.viewMode)
@@ -1042,6 +1060,12 @@ bleepsixBoardController.prototype.mouseMove = function( x, y )
     if (this.guiLayer.hitTest(x,y))
     {
       this.guiLayer.mouseMove(x, y);
+      return;
+    }
+
+    if (this.guiDisplayLayers.hitTest(x,y))
+    {
+      this.guiDisplayLayers.mouseMove(x, y);
       return;
     }
 
@@ -1118,6 +1142,9 @@ bleepsixBoardController.prototype.init = function( canvas_id )
 
   this.guiLayer = new guiBoardLayer( "layer" );
   this.guiLayer.move( 0, 450 );
+
+  this.guiDisplayLayers = new guiBoardDisplayLayers( "displaylayers" );
+  this.guiDisplayLayers.move( 300, 30 );
 
   //this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid = new guiBoardGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );

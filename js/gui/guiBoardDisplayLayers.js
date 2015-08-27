@@ -44,12 +44,13 @@ function guiBoardDisplayLayers(name, bgColor)
   this.layer_desc = { 0: "B.Cu", 1:"Inner1.Cu", 2:"Inner2.Cu", 15:"F.Cu",
                       20:"B.SilkS", 21:"F.SilkS", 22:"B.SolderM", 23:"F.SolderM", 28:"Edge.Cuts" }
 
-  // "top" layers
+  // layers to filter/display
   //
-  var u = new guiDropIcon( this.name + ":displaylayer", this.iconWidth , this.iconWidth );
+  var u = new guiDropIcon(this.name + ":displaylayer", this.iconWidth , this.iconWidth, false, true);
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
   u.divColor = "rgba(255,255,255,0.2)";
+  u.addIcon(this.name + ":layerval: ", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this," ") );
   u.addIcon(this.name + ":layerval:HiC", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,"HiC") );
   u.addIcon(this.name + ":layerval:0", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,0) );
   u.addIcon(this.name + ":layerval:1", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,1) );
@@ -75,7 +76,7 @@ function guiBoardDisplayLayers(name, bgColor)
   //
   this.layerColor = { 0:"rgba(0,255,0,0.4)", 15:"rgba(255,0,0,0.4)", 1:"rgba(0,255,255,0.4)", 2:"rgba(255,127,0,0.4)",
      20:"rgba(0,255,0,0.4)", 21:"rgba(255,0,0,0.4)", 22:"rgba(0,255,255,0.4)", 23:"rgba(255,127,0,0.4)",
-     28:"rgba(255,127,0,0.4)", "HiC":"rgba(255,127,0,0.4)" };
+     28:"rgba(255,127,0,0.4)", "HiC":"rgba(255,127,0,0.4)", " ":"rgba(12,48,64,0.3)" };
 
 }
 
