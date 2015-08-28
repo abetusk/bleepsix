@@ -315,6 +315,27 @@ toolNav.prototype.mouseWheel = function( delta )
   g_painter.adjustZoom ( this.mouse_cur_x, this.mouse_cur_y, delta );
 }
 
+toolNav.prototype._recenter = function() {
+  var width = 1600, height = 1600;
+  var bbox = g_schematic_controller.schematic.getSchematicBoundingBox();
+  var cx = (bbox[0][0] + bbox[1][0])/2.0;
+  var cy = (bbox[0][1] + bbox[1][1])/2.0;
+
+  var dx = (bbox[1][0] - bbox[0][0]);
+  var dy = (bbox[1][1] - bbox[0][1]);
+
+  var dmax = ( (dx<dy) ? dy : dx );
+  var viewmax = ( (width < height) ? height : width );
+
+  var f = dmax / viewmax;
+  if (f < 1) f = 1.0;
+
+  var sch_fudge = 8.0;
+  f *= sch_fudge;
+
+  g_painter.setView( cx, cy, 1/f );
+}
+
 toolNav.prototype.keyDown = function( keycode, ch, ev )
 {
 
@@ -340,6 +361,35 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   {
     g_painter.adjustZoom( this.mouse_cur_x, this.mouse_cur_y, 1 );
   }
+
+  else if (keycode == 37)
+  {
+    g_painter.adjustPan( 50, 0 );
+    return false;
+  }
+  else if (keycode == 38)
+  {
+    g_painter.adjustPan( 0, 50 );
+    return false;
+  }
+  else if (keycode == 39)
+  {
+    g_painter.adjustPan( -50, 0 );
+    return false;
+  }
+  else if (keycode == 40)
+  {
+    g_painter.adjustPan( 0, -50 );
+    return false;
+  }
+
+  else if (ch == '0')
+  {
+    this._recenter();
+    g_painter.dirty_flag = true;
+  }
+
+
   else if ( keycode == 192 )
   {
     g_schematic_controller.schematic.draw_id_text_flag =
@@ -375,6 +425,7 @@ toolNav.prototype.keyDown = function( keycode, ch, ev )
   } else if ( ch == '3' ) {  // line grid
     g_painter.setGrid ( 2 );
   }
+
   else if (ch == 'I')
   {
     console.log(">>> (I)nformation");
