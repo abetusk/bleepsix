@@ -38,6 +38,9 @@ function guiDropIcon( name, width, height, verticalFlag, leftFlag )
   this.fgColor = "rgb(0,0,0)";
   this.divColor = "rgba(0,0,0,0.2)";
 
+  this.dimColor = "rgba(0,0,0,0.2)";
+  this.box_highlight=true;
+
   this.width = width;
   this.height = height;
 
@@ -75,6 +78,8 @@ function guiDropIcon( name, width, height, verticalFlag, leftFlag )
   this.showDropdown = false;
 
   this.tooltip_texts = {};
+
+  this.multiSelect = false;
 }
 guiDropIcon.inherits( guiRegion );
 
@@ -161,6 +166,8 @@ guiDropIcon.prototype.addIcon = function(name, draw, alt_tooltip_text)
   ic.visible = false;
   ic.drawShape = draw;
   ic.bgColor = this.bgColor;
+  ic.fgColor = this.fgColor;
+  ic.box_highlight = this.box_highlight;
 
   if (typeof alt_tooltip_text !== "undefined") {
     this.tooltip_texts[name] = alt_tooltip_text;
@@ -351,20 +358,40 @@ guiDropIcon.prototype.handleEvent = function(ev)
   else
   {
 
-    if (this.showDropdown)
+    if (!this.multiSelect)
     {
 
-      if (ev.owner != this.tabName)
+      if (this.showDropdown)
       {
-        this.mainIcon.name = ev.ref.name;
-        this.mainIcon.drawShape = ev.ref.drawShape;
 
-        if (ev.ref.name in this.tooltip_texts) {
-          this.tooltip_text = this.tooltip_texts[ev.ref.name];
+        if (ev.owner != this.tabName)
+        {
+          this.mainIcon.name = ev.ref.name;
+          this.mainIcon.drawShape = ev.ref.drawShape;
+
+          if (ev.ref.name in this.tooltip_texts) {
+            this.tooltip_text = this.tooltip_texts[ev.ref.name];
+          }
+
+          this.toggleList();
         }
-
-        this.toggleList();
       }
+
+    }
+    else
+    {
+
+      if ((ev.type == "mouseDown") && (ev.owner != this.tabName))
+      {
+        for (var i=0; i<this.iconList.length; i++) {
+          if (ev.ref.name == this.iconList[i].name) {
+            this.iconList[i].selected = !this.iconList[i].selected;
+            g_painter.dirty_flag = true;
+          }
+        }
+      }
+
+
     }
 
   }
@@ -377,12 +404,17 @@ guiDropIcon.prototype.handleEvent = function(ev)
 
 guiDropIcon.prototype.draw = function()
 {
-  //if (this.showDropdown || this.selected )
+
   if (this.selected)
-   g_painter.drawRectangle( 0, 0, this.width, this.height,  
-                           1, this.fgColor ); 
-                           //1, "rgb(0,0,0)")
-                           //true, this.bgColor );
+  {
+    if (this.box_highlight) {
+      g_painter.drawRectangle(0, 0, this.width, this.height,  
+                              1, this.fgColor); 
+    } else {
+      g_painter.drawRectangle(1, 1, this.width-2, this.height-2,
+                              0, this.dimColor, true, this.dimColor); 
+    }
+  }
 
   if (this.tooltip_display) {
     this.tooltip_width = this.tooltip_text.length * this.tooltip_font_size/1.6;

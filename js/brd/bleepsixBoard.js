@@ -82,10 +82,12 @@ function bleepsixBoard()
   this.debug = false;
 
   this.layer_color = [];
+  this.layer_color_lo = {};
 
   for (var i=0; i<64; i++)
   {
     this.layer_color[i] = "rgba(255,255,255,0.8)" ;
+    this.layer_color_lo[i] = "rgba(255,255,255,0.1)" ;
   }
 
   this.layer_color[28] = "rgba(255, 255,   0, 0.4)";
@@ -95,6 +97,44 @@ function bleepsixBoard()
   this.layer_color[2]  = "rgba(255, 127,   0, 0.4)";
   this.layer_color[1]  = "rgba(  0, 255, 255, 0.4)";
   this.layer_color[0]  = "rgba(  0, 255,   0, 0.4)";
+
+
+  this.layer_color_lo[28] = "rgba(255, 255,   0, 0.1)";
+  this.layer_color_lo[21] = "rgba(  0, 255, 255, 0.1)";
+  this.layer_color_lo[20] = "rgba(255,   0, 255, 0.1)";
+  this.layer_color_lo[15] = "rgba(255,   0,   0, 0.1)";
+  this.layer_color_lo[2]  = "rgba(255, 127,   0, 0.1)";
+  this.layer_color_lo[1]  = "rgba(  0, 255, 255, 0.1)";
+  this.layer_color_lo[0]  = "rgba(  0, 255,   0, 0.1)";
+  this.layer_color_lo[-1] = "rgba(255,255,255,0.1)" ;
+
+  // There are three states:
+  //   Show
+  //   Low
+  //   Grey
+  //   Hide
+  // Show is the normal state
+  // Low shows ups the alpha
+  // Grey displays the layer in a grey background
+  // Hide hides completely
+  //
+  this.layer_display = {
+    "-1" : { state: "show" },
+    0 : { state: "show" },
+    1 : { state: "show" },
+    2 : { state: "show" },
+    15 : { state: "show" },
+    20 : { state: "show" },
+    21 : { state: "show" },
+    28 : { state: "show" }
+  };
+
+  this.layer_display_color = {
+    show : { color: "rgba(255,255,255,1.0)", opacity: 1.0 }, // shouldn't happend
+    low : { color: "rgba(255,255,255,1.0)", opacity: 0.1 }, // color ignored
+    grey : { color: "rgba(255,255,255,0.1)", opacity: 0.1 }, // opacity ignored?
+    hide : { color: "rgba(255,255,255,0.1)", opacity: 0.1 } // ignored
+  };
 
   this.flag_draw_ratsnest               = true;
 
@@ -133,7 +173,10 @@ function bleepsixBoard()
 
 
   this.net_name_text_color = "rgba(255,255,255,0.8)";
+  this.net_name_text_color_lo = "rgba(255,255,255,0.1)";
+
   this.pad_text_color = "rgba(255,255,255,0.8)";
+  this.pad_text_color_lo = "rgba(255,255,255,0.1)";
 
   this.debug_geom = [];
   this.debug_pgns = [];
@@ -1899,10 +1942,178 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
 
 }
 
+//
+// Display layers helper functions
+//
+
+bleepsixBoard.prototype.displayFootprintTextColor = function(layer, flag_field)
+{
+  if (ghostFlag) return "rgba(255,255,255,0.25)";
+
+  var state = this.layer_display[layer].state;
+  var color = this.layer_color[layer];
+
+  if (state=="show") {
+    color = "rgba(255,255,255,0.7)";
+    if ( flag_field.match(/M/) )
+      color = "rgba(0,0,255,0.7)";
+    return color;
+  }
+
+  if ((state=="low") || (state=="grey")) {
+    color = "rgba(255,255,255,0.1)";
+    if ( flag_field.match(/M/) )
+      color = "rgba(0,0,255,0.1)";
+    return color;
+  }
+
+  return "rgba(0,0,0,0.0)";
+}
+
+bleepsixBoard.prototype.displayLayerColor = function(layer)
+{
+  var state = this.layer_display[layer].state;
+
+  if (this.layer_display[layer].state == "show") {
+    if (layer<0) { return "rgba(255,255,255,0.8)"; }
+    return this.layer_color[layer];
+  }
+
+  if (state == "hide") { return "rgba(0,0,0,0.0)"; }
+  if (state == "grey") { return "rgba(255,255,255,0.05)"; }
+  if (state == "low") { return this.layer_color_lo[layer]; }
+
+  return "rgba(255,255,255,1.0)";
+}
+
+//--
+
+bleepsixBoard.prototype.displayPadTextColor = function(layer)
+{
+  var state = this.layer_display[layer].state;
+
+  if (this.layer_display[layer].state == "show") {
+    if (layer<0) { return "rgba(255,255,255,0.8)"; }
+    return this.pad_text_color;
+  }
+
+  if (state == "hide") { return "rgba(0,0,0,0.0)"; }
+  if (state == "grey") { return "rgba(255,255,255,0.05)"; }
+  if (state == "low") { return this.pad_text_color_lo; }
+
+  return "rgba(255,255,255,1.0)";
+}
+
+//--
+
+bleepsixBoard.prototype.displayNetNameTextColor = function(layer)
+{
+  var state = this.layer_display[layer].state;
+
+  if (this.layer_display[layer].state == "show") {
+    if (layer<0) { return "rgba(255,255,255,0.8)"; }
+    return this.net_name_text_color;
+  }
+
+  if (state == "hide") { return "rgba(0,0,0,0.0)"; }
+  if (state == "grey") { return "rgba(255,255,255,0.05)"; }
+  if (state == "low") { return this.net_name_text_color_lo; }
+
+  return "rgba(255,255,255,1.0)";
+}
+
+//--
+
+bleepsixBoard.prototype.padEffectiveLayer = function(layer_mask)
+{
+  if ( (layer_mask & 1) && (layer_mask & (1<<15)) ) {
+    var state0 = this.layer_display[0].state;
+    var state15 = this.layer_display[15].state;
+
+    if ((state0=="show") && (state15=="show")) {
+      return 0;
+    }
+
+  } else if (layer_mask & 1) {
+    return 0;
+  } else if (layer_mask & (1<<15)) {
+    return 15;
+  }
+
+  return 0;
+}
+
+bleepsixBoard.prototype.displayPadState = function(layer_mask)
+{
+  if ( (layer_mask & 1) && (layer_mask & (1<<15)) ) {
+    var state0 = this.layer_display[0].state;
+    var state15 = this.layer_display[15].state;
+
+    if ((state0=="show") && (state15=="show")) {
+      return "show";
+    }
+
+  } else if (layer_mask & 1) {
+    return this.layer_display[0].state;
+  } else if (layer_mask & (1<<15)) {
+    return this.layer_display[15].state;
+  }
+
+  return "show";
+}
+
+bleepsixBoard.prototype.padColor = function(layer_mask, ghostFlag)
+{
+  var color = "rgba(255,255,255,0.5)";
+
+  if ( (layer_mask & 1) && (layer_mask & (1<<15)) ) {
+    var state0 = this.layer_display[0].state;
+    var state15 = this.layer_display[15].state;
+
+    if ((state0=="show") && (state15=="show")) {
+      color = "rgba(255,255,0,0.5)";
+    } else if (state0=="show") {
+      color = this.displayLayerColor(0);
+    } else {
+      color = this.displayLayerColor(15);
+    }
+
+  } else if (layer_mask & 1) {
+    color = this.displayLayerColor(0);
+  } else if (layer_mask & (1<<15)) {
+    color = this.displayLayerColor(15);
+  }
+
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
+
+  return color;
+}
+
+
+
+//--
+
+bleepsixBoard.prototype.displayDefaultColor = function(layer)
+{
+  var state = this.layer_display[layer].state;
+
+  if (this.layer_display[layer].state == "show") {
+    if (layer<0) { return "rgba(255,255,255,0.5)"; }
+    return "rgba(255,255,255,0.5)";
+  }
+
+  if (state == "hide") { return "rgba(0,0,0,0.0)"; }
+  if (state == "grey") { return "rgba(255,255,255,0.05)"; }
+  if (state == "low") { return "rgba(255,255,255,0.1)"; }
+
+  return "rgba(255,255,255,1.0)";
+}
+
+
 // ------
 // helper module drawing functions
 // ------
- 
+
 bleepsixBoard.prototype.drawFootprintSegment = function( art_entry, x, y )
 {
   var sx = parseFloat( art_entry["startx"] );
@@ -1912,9 +2123,10 @@ bleepsixBoard.prototype.drawFootprintSegment = function( art_entry, x, y )
 
   var line_width = parseFloat( art_entry["line_width"] );
   var layer = parseInt( art_entry["layer"] );
-  var color = this.layer_color[layer];
 
-  //g_painter.line( sx + x, sy + y, ex + x, ey + y, "rgb(0, 160, 160)", line_width);
+  //var color = this.layer_color[layer];
+  var color = this.displayLayerColor(layer);
+
   g_painter.line( sx + x, sy + y, ex + x, ey + y, color, line_width);
 
 }
@@ -1928,9 +2140,10 @@ bleepsixBoard.prototype.drawFootprintCircle = function( art_entry, x, y )
 
   var line_width = parseFloat( art_entry["line_width"] );
   var layer = parseInt( art_entry["layer"] );
-  var color = this.layer_color[layer];
 
-  //g_painter.circle( cx + x, cy + y, r, line_width, "rgb(0,160,160)" );
+  //var color = this.layer_color[layer];
+  var color = this.displayLayerColor(layer);
+
   g_painter.circle( cx + x, cy + y, r, line_width, color );
 }
 
@@ -1945,7 +2158,9 @@ bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y )
 
   var line_width = parseFloat( art_entry["line_width"] );
   var layer = parseInt( art_entry["layer"] );
-  var color = this.layer_color[layer];
+
+  //var color = this.layer_color[layer];
+  var color = this.displayLayerColor(layer);
 
   // This needs some major work.
   // I can't figure out what KiCAD is really doing.
@@ -2036,6 +2251,9 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
   var d = sizex;
   var r = d / 2;
 
+  var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+  var effective_layer = this.padEffectiveLayer(layer_mask);
+
   if ( this.flag_display_net_name && 
        (net_number > 0) )
   {
@@ -2051,21 +2269,28 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
     var du = numeric.dot( this._R( fin_rad_angle ), [0, r/2]  )
     var dv = numeric.dot( this._R( fin_rad_angle ), [0, -r/2]  )
 
+    var net_name_text_color = this.displayNetNameTextColor(effective_layer);
+    var pad_text_color = this.displayPadTextColor(effective_layer);
+
 
     //g_painter.drawText( pad_entry.net_name, 
     g_painter.drawText( net_name,
                        cx + x + du[0], 
                        cy + y + du[1],
-                       this.net_name_text_color,
-                       //"rgba(255,255,255,0.5)", 
+
+                       //this.net_name_text_color,
+                       net_name_text_color,
+
                        net_name_char_height, 
                        fin_angle, "C", "C" );
 
     g_painter.drawText( name, 
                        cx + x + dv[0], 
                        cy + y + dv[1],
-                       this.pad_text_color,
-                       //"rgba(255,255,255,0.5)", 
+
+                       //this.pad_text_color,
+                       pad_text_color,
+
                        text_size, 
                        fin_angle , "C", "C");
 
@@ -2076,10 +2301,15 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
          ((text_size * g_painter.zoom )  < this.display_text_zoom_threshold) )
         return;
 
+    var c = this.displayDefaultColor(effective_layer)
+
     g_painter.drawText( name, 
                         cx + x, 
                         cy + y, 
-                        "rgba(255,255,255,0.5)", 
+
+                        //"rgba(255,255,255,0.5)", 
+                        c,
+
                         text_size, 
                         fin_angle , "C", "C");
   }
@@ -2101,6 +2331,8 @@ bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_a
   var ang = parseFloat(pad_entry.angle);
 
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+
+  /*
   var color = "rgba(255,255,255, 0.5)";
 
   if ( (layer_mask & 1) && (layer_mask & (1<<15)) )
@@ -2111,6 +2343,10 @@ bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_a
     color = this.layer_color[15];
 
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
+    */
+
+  var color = this.padColor(layer_mask, ghostFlag);
+
 
   var name = pad_entry.name;
 
@@ -2200,8 +2436,11 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
   var fin_deg_angle = fin_angle;
   var fin_rad_angle = fin_deg_angle * Math.PI / 180.0;
 
-
   var net_number = parseInt( pad_entry["net_number"] );
+
+  var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+  var effective_layer = this.padEffectiveLayer(layer_mask);
+
 
   if ( this.flag_display_net_name && 
        (net_number > 0) )
@@ -2226,18 +2465,26 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
     var du = numeric.dot( this._R( -fin_rad_angle ), [0,  (minor_len/4) - fudge ]  )
     var dv = numeric.dot( this._R( -fin_rad_angle ), [0, -(minor_len/4) - fudge ]  )
 
+    var net_name_text_color = this.displayNetNameTextColor(effective_layer);
+    var pad_text_color = this.displayPadTextColor(effective_layer);
 
     g_painter.drawText( net_name, 
                        cx + x + du[0], 
                        cy + y + du[1],
-                       this.net_name_text_color,
+
+                       //this.net_name_text_color,
+                       net_name_text_color,
+
                        net_name_char_height, 
                        fin_angle, "C", "C" );
 
     g_painter.drawText( name, 
                        cx + x + dv[0], 
                        cy + y + dv[1],
-                       this.pad_text_color,
+
+                       //this.pad_text_color,
+                       pad_text_color,
+
                        net_name_char_height, 
                        fin_angle , "C", "C");
 
@@ -2248,7 +2495,10 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
          ((text_size * g_painter.zoom )  < this.display_text_zoom_threshold) )
         return;
 
-    g_painter.drawText( name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle , "C", "C");
+    var color = this.displayDefaultColor(-1);
+
+    //g_painter.drawText( name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle , "C", "C");
+    g_painter.drawText( name, cx + x, cy + y, color, text_size, fin_angle , "C", "C");
   }
 
 
@@ -2268,6 +2518,8 @@ bleepsixBoard.prototype._draw_pad_rect = function( pad_entry, x, y, glob_rad_ang
   var ang = parseFloat(pad_entry.angle);
 
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+
+  /*
   var color = "rgba(255,255,255, 0.5)";
 
   if ( (layer_mask & 1) && (layer_mask & (1<<15)) )
@@ -2278,6 +2530,9 @@ bleepsixBoard.prototype._draw_pad_rect = function( pad_entry, x, y, glob_rad_ang
     color = this.layer_color[15];
 
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
+  */
+
+  var color = this.padColor(layer_mask, ghostFlag);
 
   var name = pad_entry.name;
 
@@ -2369,6 +2624,10 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
 
   var net_number = parseInt( pad_entry["net_number"] );
 
+  var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+  var effective_layer = this.padEffectiveLayer(layer_mask);
+
+
   if ( this.flag_display_net_name && 
        (net_number > 0) )
   {
@@ -2385,20 +2644,28 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
     var du = numeric.dot( this._R( -fin_rad_angle ), [0,  (minor_len/4) - fudge ]  )
     var dv = numeric.dot( this._R( -fin_rad_angle ), [0, -(minor_len/4) - fudge ]  )
 
+    var net_name_text_color = this.displayNetNameTextColor(effective_layer);
+    var pad_text_color = this.displayPadTextColor(effective_layer);
+
+
     //g_painter.drawText( pad_entry.net_name, 
     g_painter.drawText( net_name, 
                        cx + x + du[0], 
                        cy + y + du[1],
-                       this.net_name_text_color,
-                       //"rgba(255,255,255,0.5)", 
+
+                       //this.net_name_text_color,
+                       net_name_text_color,
+
                        net_name_char_height, 
                        fin_angle, "C", "C" );
 
     g_painter.drawText( name, 
                        cx + x + dv[0], 
                        cy + y + dv[1],
-                       this.pad_text_color,
-                       //"rgba(255,255,255,0.5)", 
+
+                       //this.pad_text_color,
+                       pad_text_color,
+
                        net_name_char_height, 
                        fin_angle , "C", "C");
 
@@ -2409,7 +2676,10 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
          ((text_size * g_painter.zoom )  < this.display_text_zoom_threshold) )
         return;
 
-    g_painter.drawText( name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle , "C", "C");
+    var color = this.displayDefaultColor(-1);
+
+    //g_painter.drawText( name, cx + x, cy + y, "rgba(255,255,255,0.5)", text_size, fin_angle , "C", "C");
+    g_painter.drawText( name, cx + x, cy + y, color, text_size, fin_angle , "C", "C");
   }
 
 
@@ -2429,6 +2699,8 @@ bleepsixBoard.prototype._draw_pad_oblong = function( pad_entry, x, y, glob_rad_a
   var ang = parseFloat(pad_entry.angle);
 
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+
+  /*
   var color = "rgba(255,255,255, 0.5)";
 
   if ( (layer_mask & 1) && (layer_mask & (1<<15)) )
@@ -2439,6 +2711,10 @@ bleepsixBoard.prototype._draw_pad_oblong = function( pad_entry, x, y, glob_rad_a
     color = this.layer_color[15];
 
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
+  */
+
+  var color = this.padColor(layer_mask, ghostFlag);
+
 
   var name = pad_entry.name;
 
@@ -2550,6 +2826,7 @@ bleepsixBoard.prototype._findTextDegAngle = function( loc_deg_ang, glob_deg_ang 
 
 }
 
+
 // Footprint pad angle applied after posisiont.  So, to place a pad,
 //   move to position posx, posy, then apply the rotation.  
 //
@@ -2564,7 +2841,6 @@ bleepsixBoard.prototype.drawFootprintPad = function(pad_entry, x, y, g_rad_ang, 
 {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
   noTextFlag = ( ( typeof noTextFlag === 'undefined' ) ? false : noTextFlag );
-
 
   var name = pad_entry["name"];
   var shape = pad_entry["shape"];
@@ -2583,6 +2859,8 @@ bleepsixBoard.prototype.drawFootprintPad = function(pad_entry, x, y, g_rad_ang, 
   var sy = cy - sizey/2;
 
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
+
+  /*
   var color = "rgba(255,255,255, 0.5)";
 
   if ( (layer_mask & 1) && (layer_mask & (1<<15)) )
@@ -2593,6 +2871,9 @@ bleepsixBoard.prototype.drawFootprintPad = function(pad_entry, x, y, g_rad_ang, 
     color = this.layer_color[15];
 
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
+  */
+
+  var color = this.padColor(layer_mask, ghostFlag);
 
 
   // TODO: other shapes
@@ -2767,7 +3048,9 @@ bleepsixBoard.prototype.drawBoardText = function( text )
   //var width = parseInt( text["penwidth"] );
   var width = parseInt( text["width"] );
 
-  var color = this.layer_color[layer];
+  //var color = this.layer_color[layer];
+  var color = this.displayLayerColor(layer);
+
   var angle_deg = parseFloat( text["angle"] ) * 180.0 / Math.PI;
 
   var texts = s.split( "\n" );
@@ -2842,9 +3125,6 @@ bleepsixBoard.prototype.drawFootprintTextField = function(text_field, fp_x, fp_y
   var sizey = parseFloat( text_field["sizey"] );
 
   var layer = parseInt( text_field["layer"] );
-  var color = this.layer_color[layer];
-
-  if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var loc_rad_ang = this._angleMod( parseFloat(text_field.angle) );
   var loc_deg_ang = -loc_rad_ang * 180.0 / Math.PI ;
@@ -2854,10 +3134,15 @@ bleepsixBoard.prototype.drawFootprintTextField = function(text_field, fp_x, fp_y
 
   loc_deg_ang = this._findTextDegAngle( loc_deg_ang, g_deg_ang );
 
+  /*
+  var color = this.layer_color[layer];
+  if (ghostFlag) color = "rgba(255,255,255,0.25)";
   color = "rgba(255,255,255,0.7)";
-
   if ( text_field["flag"].match(/M/) )
     color = "rgba(0,0,255,0.7)";
+    */
+
+  var color = this.displayFootprintTextColor(layer, text_field["flag"]);
 
   //g_painter.drawText( s , fp_x + x, fp_y + y, color, text_size, loc_deg_ang, "C", "C", is_flipped);
 
@@ -2894,7 +3179,8 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
   var width = parseInt( ele["width"] );
   var text_size = width * 0.9;
 
-  var color = this.layer_color[layer];
+  //var color = this.layer_color[layer];
+  var color = this.displayLayerColor(layer);
 
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
@@ -2909,7 +3195,12 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
   if ( shape == "track" )
     g_painter.line( x0, y0, x1, y1, color, width );
   else if (shape == "through")  //via
-    g_painter.circle( x0, y0, width/2, 0, color, true, "rgba(255,255,255,0.4)");
+  {
+    //g_painter.circle( x0, y0, width/2, 0, color, true, "rgba(255,255,255,0.4)");
+
+    var alt_color = this.displayDefaultColor(layer);
+    g_painter.circle( x0, y0, width/2, 0, color, true, alt_color);
+  }
 
 
   // draw text 
@@ -2982,9 +3273,14 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
     return;
   }
 
+  var net_name_text_color = this.displayNetNameTextColor(layer);
+
   g_painter.drawText( net_name, 
                       x, y, 
-                      this.net_name_text_color,
+
+                      //this.net_name_text_color,
+                      net_name_text_color,
+
                       text_height,
                       ang, "C", "C" );
 
@@ -2997,7 +3293,6 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
   var layer = parseInt( ele["layer"] );
-  var color = this.layer_color[layer];
   var shape = ele["shape"];
 
   var x0 = parseFloat( ele["x0"] );
@@ -3008,7 +3303,11 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
 
   var width = parseFloat( ele["width"] );
 
+  /*
+  var color = this.layer_color[layer];
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
+  */
+  var color = this.displayLayerColor(layer);
 
   //if (layer == 28) color = "rgba(255,255,0,0.4)";
 
@@ -3063,7 +3362,6 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
 {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
 
-
   var n = ele.zcorner.length;
   for (var ind=0; ind < ele.zcorner.length; ind++)
   {
@@ -3078,8 +3376,11 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
     var pc = ele.polyscorners;
     var layer = parseInt(ele.layer);
 
+    /*
     var color = ( ( typeof this.layer_color[layer] !== 'undefined' ) ? this.layer_color[layer] : "rgba(255,0,0,0.3)" );
     if (ghostFlag) color = "rgba(255,255,255,0.25)";
+    */
+    var color = this.displayLayerColor(layer);
 
     if (pc.length > 0 )
     {
@@ -3087,64 +3388,19 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
       {
         pgn.push( [ pc[i].x0, pc[i].y0 ] );
       }
-      //g_painter.drawBarePolygon( pgn, 0, 0, "rgba(255,0,0,0.3)" );
       g_painter.drawBarePolygon( pgn, 0, 0, color );
-
-      //g_painter.drawPolygon( pgn, 0, 0, 
-      //                       "rgba(255,0,0,0.3)", true,
-      //                       ele.min_thickness, true
-      //                     );
     }
   }
-
-  return;
-
-  for (var ind=1; ind < ele.zcorner.length; ind++)
-  {
-    var p0 = ele.zcorner[ind-1];
-    var p1 = ele.zcorner[ind];
-    g_painter.line( p0.x, p0.y, p1.x, p1.y, "rgba(255,255,255,0.4)", 100 );
-  }
-
-  if (ele.zcorner.length > 1)
-  {
-    var k = ele.zcorner.length-1;
-    g_painter.line( ele.zcorner[0].x, ele.zcorner[0].y,
-                    ele.zcorner[k].x, ele.zcorner[k].y,
-                    "rgba(255,255,255,0.4)", 100);
-  }
-
-  for (var ind=1; ind < ele.polyscorners.length; ind++)
-  {
-    var p0 = ele.polyscorners[ind-1];
-    var p1 = ele.polyscorners[ind];
-    g_painter.line( p0.x0, p0.y0, p1.x0, p1.y0, "rgba(255,255,255,0.2)", 100 );
-  }
-
-  /*
-  if (ele.polyscorners.length > 1)
-  {
-    var k = ele.polyscorners.length-1;
-    g_painter.line( ele.polyscorners[0].x, ele.polyscorners[0].y,
-                    ele.polyscorners[k].x, ele.polyscorners[k].y,
-                    "rgba(255,255,255,0.4)", 100);
-  }
- */
-
 }
 
 bleepsixBoard.prototype.drawBoardModule = function( ele, ghostFlag )
 {
-
   var x = parseFloat( ele["x"] );
   var y = parseFloat( ele["y"] );
   var orientation = parseFloat( ele["orientation"] );
   var rad_angle = parseFloat( ele["angle"] );
 
-  //this.drawFootprint( ele, x, y, rad_angle );
-  //this.drawFootprint( ele, x, y, 0 );
   this.drawFootprint( ele, x, y, 0, true, ghostFlag );
-
 }
 
 
@@ -3165,6 +3421,7 @@ bleepsixBoard.prototype.tick = function()
       var p = a / this.draw_ratsnest_shimmer_duration;
 
       // reset time, we're done
+      //
       if (p >= 1.0)
       {
         this.draw_ratsnest_shimmer_last_time = d;

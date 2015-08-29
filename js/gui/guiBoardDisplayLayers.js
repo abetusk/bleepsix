@@ -30,7 +30,7 @@ function guiBoardDisplayLayers(name, bgColor)
   this.bgColor = bgColor;
 
   this.iconWidth = 24;
-  this.width = this.iconWdith + 5;
+  this.width = this.iconWidth;
 
   this.height = 4* this.iconWidth;
   this.iconHeight = this.iconWidth;
@@ -42,15 +42,19 @@ function guiBoardDisplayLayers(name, bgColor)
   var sz = this.iconWidth;
 
   this.layer_desc = { 0: "B.Cu", 1:"Inner1.Cu", 2:"Inner2.Cu", 15:"F.Cu",
-                      20:"B.SilkS", 21:"F.SilkS", 22:"B.SolderM", 23:"F.SolderM", 28:"Edge.Cuts" }
+                      20:"B.SilkS", 21:"F.SilkS", 22:"B.SolderM", 23:"F.SolderM", 28:"Edge.Cuts", " ":"default" }
 
   // layers to filter/display
   //
-  var u = new guiDropIcon(this.name + ":displaylayer", this.iconWidth , this.iconWidth, false, true);
+  //var u = new guiDropIcon(this.name + ":displaylayer", this.iconWidth , this.iconWidth, false, true);
+  var u = new guiDropIcon(this.name + ":displaylayer", this.iconWidth , this.iconWidth, true);
+  u.multiSelect = true;
+  u.box_highlight=false;
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
   u.divColor = "rgba(255,255,255,0.2)";
   u.addIcon(this.name + ":layerval: ", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this," ") );
+  u.addIcon(this.name + ":layerval:All", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,"All") );
   u.addIcon(this.name + ":layerval:HiC", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,"HiC") );
   u.addIcon(this.name + ":layerval:0", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,0) );
   u.addIcon(this.name + ":layerval:1", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,1) );
@@ -66,10 +70,13 @@ function guiBoardDisplayLayers(name, bgColor)
   this.dropDisplayLayer = u;
   this.addChild(u);
 
+  this.dropDown = u;
+
   cur_y += u.height;
 
+  this.board= null;
 
-  this.dropDisplayLayer.selected = true;
+  //this.dropDisplayLayer.selected = true;
 
   // Most of these values should be passed in from the controller, say.
   // For now we hardcode them here.
@@ -91,9 +98,11 @@ guiBoardDisplayLayers.prototype._draw_layer_icon = function(layer_name)
   var d = 2;
   var textColor = "rgba(0,0,0,0.5)";
   var fgColor = this.layerColor[layer_name];
+  var sz = this.iconWidth-6;
 
   g_painter.drawRectangle(d, d, this.iconWidth - 2*d, this.iconWidth - 2*d, 0, "rgb(0,0,0)", true, fgColor);
   g_painter.drawTextSimpleFont(layer_name, sx, sy, textColor, 15, "Calibri");
+  g_imgcache.draw( "eye", 3, 3, sz, sz, 0.1 );
 }
 
 // children will be in weird places, so don't confine it to the box of the
@@ -124,12 +133,7 @@ guiBoardDisplayLayers.prototype._eventMouseDown = function( ev )
   if ( re = ev.owner.match(/:layerval:(.+)$/) )
   {
     var layerVal = re[1];
-    this.dropDisplayLayer.contract();
-    this.dropDisplayLayer.selected = true;
-
     this.selectedLayer = layerVal;
-
-    console.log(">>>", this.selectedLayer);
   }
 
   else if (ev.owner == this.name + ":droplayer:tab") { }
@@ -143,11 +147,31 @@ guiBoardDisplayLayers.prototype._eventDoubleClick = function( ev )
 
 guiBoardDisplayLayers.prototype.handleEvent = function(ev)
 {
+  var r;
   if ( ev.type == "mouseDown" )
-    return this._eventMouseDown(ev);
+    r = this._eventMouseDown(ev);
   else if ( ev.type == "doubleClick" )
-    return this._eventDoubleClick(ev);
+    r = this._eventDoubleClick(ev);
 
+
+  for (var i=0; i<this.dropDown.iconList.length; i++) {
+    var ele = this.dropDown.iconList[i];
+    var z = ele.name.split(":");
+    var nam = z[2];
+    var descr = this.layer_desc[nam];
+
+    if ((nam!=" ") && (nam!="HiC") && (nam!="All")) {
+      if (!(nam in g_board_controller.board.layer_display)) { continue; }
+      if (!ele.selected) {
+        g_board_controller.board.layer_display[nam].state = "show";
+      } else {
+        g_board_controller.board.layer_display[nam].state = "low";
+      }
+    }
+
+  }
+
+  return r;
 }
 
 guiBoardDisplayLayers.prototype.draw = function() { }

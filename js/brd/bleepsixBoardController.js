@@ -831,6 +831,10 @@ bleepsixBoardController.prototype.resize = function( w, h, ev )
   var ur_y = g_painter.height - this.guiUndoRedo.height;
   this.guiUndoRedo.move( ur_x, ur_y );
 
+  ur_x = g_painter.width - this.guiFootprintLibrary.width - this.guiDisplayLayers.width;
+  ur_y = 0;
+  this.guiDisplayLayers.move( ur_x, ur_y );
+
   g_painter.dirty_flag = true;
 
   this.width = w;
@@ -1143,9 +1147,6 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiLayer = new guiBoardLayer( "layer" );
   this.guiLayer.move( 0, 450 );
 
-  this.guiDisplayLayers = new guiBoardDisplayLayers( "displaylayers" );
-  this.guiDisplayLayers.move( 300, 30 );
-
   //this.guiGrid = new guiGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid = new guiBoardGrid( "toolbox", "rgba(255,255,255,0.5)", undefined, "rgba(255,255,255,0.2)", true );
   this.guiGrid.move(0,0);
@@ -1160,6 +1161,9 @@ bleepsixBoardController.prototype.init = function( canvas_id )
   this.guiUndoRedo.move( g_painter.width - this.guiFootprintLibrary.width - this.guiUndoRedo.width,
                          g_painter.height - this.guiUndoRedo.height );
 
+  this.guiDisplayLayers = new guiBoardDisplayLayers( "displaylayers" );
+  this.guiDisplayLayers.move( g_painter.width - this.guiFootprintLibrary.width - this.guiDisplayLayers.width,
+                              50 );
 
   var controller = this;
 
