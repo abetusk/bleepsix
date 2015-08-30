@@ -49,13 +49,13 @@ function guiBoardDisplayLayers(name, bgColor)
   //var u = new guiDropIcon(this.name + ":displaylayer", this.iconWidth , this.iconWidth, false, true);
   var u = new guiDropIcon(this.name + ":displaylayer", this.iconWidth , this.iconWidth, true);
   u.multiSelect = true;
-  u.box_highlight=false;
+  //u.box_highlight=false;
+  u.reverse_highlight=true;
   u.bgColor = bgColor;
   u.fgColor = "rgb(255,255,255)";
   u.divColor = "rgba(255,255,255,0.2)";
   u.addIcon(this.name + ":layerval: ", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this," ") );
-  u.addIcon(this.name + ":layerval:All", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,"All") );
-  u.addIcon(this.name + ":layerval:HiC", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,"HiC") );
+  //u.addIcon(this.name + ":layerval:HiC", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,"HiC") );
   u.addIcon(this.name + ":layerval:0", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,0) );
   u.addIcon(this.name + ":layerval:1", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,1) );
   u.addIcon(this.name + ":layerval:2", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,2) );
@@ -81,9 +81,28 @@ function guiBoardDisplayLayers(name, bgColor)
   // Most of these values should be passed in from the controller, say.
   // For now we hardcode them here.
   //
-  this.layerColor = { 0:"rgba(0,255,0,0.4)", 15:"rgba(255,0,0,0.4)", 1:"rgba(0,255,255,0.4)", 2:"rgba(255,127,0,0.4)",
-     20:"rgba(0,255,0,0.4)", 21:"rgba(255,0,0,0.4)", 22:"rgba(0,255,255,0.4)", 23:"rgba(255,127,0,0.4)",
-     28:"rgba(255,127,0,0.4)", "HiC":"rgba(255,127,0,0.4)", " ":"rgba(12,48,64,0.3)" };
+  this.layerColor = {
+
+     0:"rgba(0,255,0,0.4)",
+     1:"rgba(0,255,255,0.4)",
+     2:"rgba(255,127,0,0.4)",
+     15:"rgba(255,0,0,0.4)",
+
+     20:"rgba(0,0,255,0.2)",
+     21:"rgba(0,255,255,0.2)",
+     22:"rgba(255,255,0,0.1)",
+     23:"rgba(255,255,0,0.1)",
+     28:"rgba(255,255,0,0.4)",
+     "HiC":"rgba(100,100,100,0.4)",
+     " ":"rgba(12,48,64,0.3)" };
+
+
+  this.saved_state = {};
+  for (var i in this.layerColor) {
+    if (i===" ") { continue; }
+    this.saved_state[i] = "show";
+  }
+
 
 }
 
@@ -167,7 +186,64 @@ guiBoardDisplayLayers.prototype.handleEvent = function(ev)
       } else {
         g_board_controller.board.layer_display[nam].state = "low";
       }
+    } else if (nam==" ") {
+      this.dropDown.iconList[i].selected = false;
+
+      /*
+      if (ele.selected) {
+        this.saved_state = {};
+        for (var x in g_board_controller.board.layer_display) {
+          this.saved_state[x] = g_board_controller.board.layer_display[x];
+          g_board_controller.board.layer_display[x].state = "show";
+        }
+
+        for (var ii=0; ii<this.dropDown.iconList.length; ii++) {
+          this.dropDown.iconList[ii].selected = true;
+        }
+      } else {
+
+        this.saved_state = {};
+        for (var x in g_board_controller.board.layer_display) {
+          this.saved_state[x] = g_board_controller.board.layer_display[x];
+          g_board_controller.board.layer_display[x].state = "show";
+        }
+
+        for (var ii=0; ii<this.dropDown.iconList.length; ii++) {
+          var ee = this.dropDown.iconList[ii];
+          var zz = ele.name.split(":");
+          var tnam = zz[2];
+
+          if (tnam in this.saved_state) {
+            if (this.saved_state[tnam].state === "show") {
+              this.dropDown.iconList[ii].selected = true;
+            } else {
+              this.dropDown.iconList[ii].selected = false;
+            }
+          } else {
+            this.dropDown.iconList[ii].selected = true;
+          }
+        }
+
+      }
+      break;
+      */
+
     }
+
+    /*
+    else if (nam=="All") {
+
+      console.log(">>>>");
+
+      ele.selected = false;
+      for (var ii=0; ii<this.dropDown.iconList.length; ii++) {
+        this.dropDown.iconList[ii].selected = false;
+      }
+      for (var z in g_board_controller.board.layer_display) {
+        g_board_controller.board.layer_display[z].state = "show";
+      }
+    }
+    */
 
   }
 

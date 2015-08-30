@@ -80,6 +80,7 @@ function guiDropIcon( name, width, height, verticalFlag, leftFlag )
   this.tooltip_texts = {};
 
   this.multiSelect = false;
+  this.reverse_highlight=false;
 }
 guiDropIcon.inherits( guiRegion );
 
@@ -168,6 +169,7 @@ guiDropIcon.prototype.addIcon = function(name, draw, alt_tooltip_text)
   ic.bgColor = this.bgColor;
   ic.fgColor = this.fgColor;
   ic.box_highlight = this.box_highlight;
+  ic.reverse_highlight = this.reverse_highlight;
 
   if (typeof alt_tooltip_text !== "undefined") {
     this.tooltip_texts[name] = alt_tooltip_text;

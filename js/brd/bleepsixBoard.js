@@ -2445,6 +2445,13 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
   if ( this.flag_display_net_name && 
        (net_number > 0) )
   {
+
+    if ( (this.flag_text_zoom_speedup) &&
+         ((text_size * g_painter.zoom )  < this.display_text_zoom_threshold) )
+      return;
+
+
+
     var fudge = -5;
 
     var net_name = this.getNetName(pad_entry.net_number);
