@@ -84,13 +84,17 @@ function bleepsixBoard()
   this.layer_color = [];
   this.layer_color_lo = {};
 
+  this.layer_display = {};
   for (var i=0; i<64; i++)
   {
     this.layer_color[i] = "rgba(255,255,255,0.8)" ;
     this.layer_color_lo[i] = "rgba(255,255,255,0.1)" ;
+    this.layer_display[i] = {state:"show"};
   }
+  this.layer_display["-1"] = {state:"show"};
 
   this.layer_color[28] = "rgba(255, 255,   0, 0.4)";
+  this.layer_color[26] = "rgba(255, 255,   0, 0.4)";
   this.layer_color[21] = "rgba(  0, 255, 255, 0.4)";
   this.layer_color[20] = "rgba(255,   0, 255, 0.4)";
   this.layer_color[15] = "rgba(255,   0,   0, 0.4)";
@@ -100,6 +104,7 @@ function bleepsixBoard()
 
 
   this.layer_color_lo[28] = "rgba(255, 255,   0, 0.1)";
+  this.layer_color_lo[26] = "rgba(255, 255,   0, 0.1)";
   this.layer_color_lo[21] = "rgba(  0, 255, 255, 0.1)";
   this.layer_color_lo[20] = "rgba(255,   0, 255, 0.1)";
   this.layer_color_lo[15] = "rgba(255,   0,   0, 0.1)";
@@ -118,6 +123,7 @@ function bleepsixBoard()
   // Grey displays the layer in a grey background
   // Hide hides completely
   //
+  /*
   this.layer_display = {
     "-1" : { state: "show" },
     0 : { state: "show" },
@@ -126,8 +132,12 @@ function bleepsixBoard()
     15 : { state: "show" },
     20 : { state: "show" },
     21 : { state: "show" },
+    22 : { state: "show" }
+    23 : { state: "show" }
+    26 : { state: "show" }
     28 : { state: "show" }
   };
+  */
 
   this.layer_display_color = {
     show : { color: "rgba(255,255,255,1.0)", opacity: 1.0 }, // shouldn't happend
@@ -1950,7 +1960,15 @@ bleepsixBoard.prototype.displayFootprintTextColor = function(layer, flag_field)
 {
   if (ghostFlag) return "rgba(255,255,255,0.25)";
 
-  var state = this.layer_display[layer].state;
+  var state = "show";
+
+  if (layer in this.layer_display) {
+    state = this.layer_display[layer].state;
+  } else {
+    console.log("ERROR!!! LAYER", layer, "NOT FOUND IN LAYER_DISPLAY");
+
+    this.layer_display[layer] = {state:"show"};
+  }
   var color = this.layer_color[layer];
 
   if (state=="show") {
