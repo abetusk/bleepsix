@@ -127,6 +127,8 @@
         g_imgcache.add( "cursor:zone", img_base + "/cursor_custom_zone_s24.png" );
         g_imgcache.add( "cursor:label", img_base + "/cursor_custom_label_s24_white.png" );
 
+        g_imgcache.add( "eye", img_base + "/eye-4x.png" );
+
         requestAnimationFrame( loop, 1 );
 
         g_brdnetwork = new bleepsixBoardNetwork( MEOWURL );

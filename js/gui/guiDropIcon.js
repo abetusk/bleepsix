@@ -22,11 +22,12 @@
 
 */
 
-function guiDropIcon( name, width, height, verticalFlag )
+function guiDropIcon( name, width, height, verticalFlag, leftFlag )
 {
   this.constructor(name);
 
   verticalFlag = ( (typeof verticalFlag !== 'undefined') ? verticalFlag : false );
+  leftFlag = ( (typeof leftFlag !== 'undefined') ? leftFlag : false );
 
   // debugging...
   this.uniq = parseInt(256.0*Math.random());
@@ -36,6 +37,9 @@ function guiDropIcon( name, width, height, verticalFlag )
   this.bgColor = "rgba(0,0,0,0.2)";
   this.fgColor = "rgb(0,0,0)";
   this.divColor = "rgba(0,0,0,0.2)";
+
+  this.dimColor = "rgba(0,0,0,0.2)";
+  this.box_highlight=true;
 
   this.width = width;
   this.height = height;
@@ -70,9 +74,13 @@ function guiDropIcon( name, width, height, verticalFlag )
 
   this.selected = false;
   this.vertical = verticalFlag;
+  this.right = !leftFlag;
   this.showDropdown = false;
 
   this.tooltip_texts = {};
+
+  this.multiSelect = false;
+  this.reverse_highlight=false;
 }
 guiDropIcon.inherits( guiRegion );
 
@@ -91,6 +99,23 @@ guiDropIcon.prototype._icon_tab_draw_right = function()
 
   var l = (y+h)/5;
   //g_painter.line( 0, l, 0, 4*l, "rgba(0,0,0,0.2)", 1 );
+  g_painter.line( 0, l, 0, 4*l, this.divColor, 1 );
+
+}
+
+guiDropIcon.prototype._icon_tab_draw_left = function()
+{
+  var x = 0;
+  var y = this.iconWidth/3;
+  var w = this.iconWidth/3;
+  var h = this.iconWidth - y;
+
+  var color = this.bgColor;
+
+  var path = [ [w, 0], [w, y+h], [0, y+h] , [0, y] ];
+  g_painter.drawBarePolygon(path, 0, 0, color);
+
+  var l = (y+h)/5;
   g_painter.line( 0, l, 0, 4*l, this.divColor, 1 );
 
 }
@@ -117,25 +142,34 @@ guiDropIcon.prototype._icon_tab_draw_bottom = function()
 
 guiDropIcon.prototype.addIcon = function(name, draw, alt_tooltip_text)
 {
+  var x = 0;
+  var y = 0;
 
   if (this.vertical)
   {
-    var x = 0;
-    var y = this.iconHeight * (this.iconList.length + 1);
+    x = 0;
+    y = this.iconHeight * (this.iconList.length + 1);
   }
   else
   {
-    var x = this.iconWidth;
-    var y = this.iconHeight * this.iconList.length + this.iconListOffset;
+    if (this.right) {
+      x = this.iconWidth;
+      y = this.iconHeight * this.iconList.length + this.iconListOffset;
+    } else {
+      x = -this.iconWidth;
+      y = this.iconHeight * this.iconList.length + this.iconListOffset;
+    }
   }
 
   var ic = new guiIcon(name);
   this.iconDraw = draw;
-  ic.init( x, y, this.iconWidth, this.iconHeight );
+  ic.init(x, y, this.iconWidth, this.iconHeight );
   ic.visible = false;
   ic.drawShape = draw;
-  //ic.bgColor = "rgba(0,0,0,0.2)";
   ic.bgColor = this.bgColor;
+  ic.fgColor = this.fgColor;
+  ic.box_highlight = this.box_highlight;
+  ic.reverse_highlight = this.reverse_highlight;
 
   if (typeof alt_tooltip_text !== "undefined") {
     this.tooltip_texts[name] = alt_tooltip_text;
@@ -147,30 +181,31 @@ guiDropIcon.prototype.addIcon = function(name, draw, alt_tooltip_text)
     this.mainIcon.init( 0, 0, this.width, this.height );
     this.mainIcon.visible = true;
     this.mainIcon.drawShape = draw;
-    //this.mainIcon.bgColor = "rgba(0,0,0,0.2)";
     this.mainIcon.bgColor = this.bgColor;
     this.addChild( this.mainIcon );
 
-    //this.iconTab = new guiIcon(name + ":tab" );
-    this.iconTab = new guiIcon(this.name + ":tab" );
+    this.iconTab = new guiIcon(this.name + ":tab");
 
     if (this.vertical)
     {
       this.iconTabDraw = (function(a) { return function() { a._icon_tab_draw_bottom();} })(this) ;
-      this.iconTab.init( 0, this.iconHeight, this.tabWidth, this.tabHeight );
+      this.iconTab.init(0, this.iconHeight, this.tabWidth, this.tabHeight);
     }
     else
     {
-      this.iconTabDraw = (function(a) { return function() { a._icon_tab_draw_right();} })(this) ;
-      this.iconTab.init( x, 0, this.tabWidth, this.tabHeight );
+      if (this.right) {
+        this.iconTabDraw = (function(a) { return function() { a._icon_tab_draw_right();} })(this) ;
+        this.iconTab.init(x, 0, this.tabWidth, this.tabHeight);
+      } else {
+        this.iconTabDraw = (function(a) { return function() { a._icon_tab_draw_left();} })(this) ;
+        this.iconTab.init(-this.tabWidth, 0, this.tabWidth, this.tabHeight);
+      }
     }
     this.iconTab.draw = this.iconTabDraw;
     this.iconTab.visible = true;
 
-    //this.tabName = name + ":tab";
     this.tabName = this.name + ":tab";
-
-    this.addChild( this.iconTab );
+    this.addChild(this.iconTab);
   }
 
   this.iconList.push(ic);
@@ -191,7 +226,6 @@ guiDropIcon.prototype.hitTest = function(x, y)
   }
 
   return null;
-
 }
 
 guiDropIcon.prototype._positionTab = function()
@@ -218,19 +252,38 @@ guiDropIcon.prototype._positionTab = function()
 
     if (this.showDropdown)
     {
-      this.tabHeight = this.iconHeight/3;
-      this.tabWidth = this.iconWidth;
-      this.iconTab.init(  this.iconWidth, this.iconList.length * this.iconHeight + this.iconListOffset,
-                          this.iconWidth, this.iconHeight/3 );
-      this.iconTab.draw =  (function(a) { return function() { a._icon_tab_draw_bottom();} })(this) ;
+
+      if (this.right) {
+        this.tabHeight = this.iconHeight/3;
+        this.tabWidth = this.iconWidth;
+        this.iconTab.init(  this.iconWidth, this.iconList.length * this.iconHeight + this.iconListOffset,
+                            this.iconWidth, this.iconHeight/3 );
+        this.iconTab.draw =  (function(a) { return function() { a._icon_tab_draw_bottom();} })(this) ;
+      } else {
+        this.tabHeight = this.iconHeight/3;
+        this.tabWidth = this.iconWidth;
+        this.iconTab.init( -this.iconWidth, this.iconList.length * this.iconHeight + this.iconListOffset,
+                            this.iconWidth, this.iconHeight/3 );
+        this.iconTab.draw =  (function(a) { return function() { a._icon_tab_draw_bottom();} })(this) ;
+      }
     }
     else
     {
-      this.tabHeight = this.iconHeight;
-      this.tabWidth = this.iconWidth/3;
-      this.iconTab.init( this.iconWidth, 0,
-                         this.iconWidth/3, this.iconHeight );
-      this.iconTab.draw =  (function(a) { return function() { a._icon_tab_draw_right();} })(this) ;
+
+      if (this.right) {
+        this.tabHeight = this.iconHeight;
+        this.tabWidth = this.iconWidth/3;
+        this.iconTab.init( this.iconWidth, 0,
+                           this.iconWidth/3, this.iconHeight );
+        this.iconTab.draw =  (function(a) { return function() { a._icon_tab_draw_right();} })(this) ;
+      } else {
+        this.tabHeight = this.iconHeight;
+        this.tabWidth = this.iconWidth/3;
+        this.iconTab.init( -this.iconWidth/3, 0,
+                           this.iconWidth/3, this.iconHeight );
+        this.iconTab.draw =  (function(a) { return function() { a._icon_tab_draw_left();} })(this) ;
+      }
+
     }
 
   }
@@ -307,20 +360,40 @@ guiDropIcon.prototype.handleEvent = function(ev)
   else
   {
 
-    if (this.showDropdown)
+    if (!this.multiSelect)
     {
 
-      if (ev.owner != this.tabName)
+      if (this.showDropdown)
       {
-        this.mainIcon.name = ev.ref.name;
-        this.mainIcon.drawShape = ev.ref.drawShape;
 
-        if (ev.ref.name in this.tooltip_texts) {
-          this.tooltip_text = this.tooltip_texts[ev.ref.name];
+        if (ev.owner != this.tabName)
+        {
+          this.mainIcon.name = ev.ref.name;
+          this.mainIcon.drawShape = ev.ref.drawShape;
+
+          if (ev.ref.name in this.tooltip_texts) {
+            this.tooltip_text = this.tooltip_texts[ev.ref.name];
+          }
+
+          this.toggleList();
         }
-
-        this.toggleList();
       }
+
+    }
+    else
+    {
+
+      if ((ev.type == "mouseDown") && (ev.owner != this.tabName))
+      {
+        for (var i=0; i<this.iconList.length; i++) {
+          if (ev.ref.name == this.iconList[i].name) {
+            this.iconList[i].selected = !this.iconList[i].selected;
+            g_painter.dirty_flag = true;
+          }
+        }
+      }
+
+
     }
 
   }
@@ -333,12 +406,17 @@ guiDropIcon.prototype.handleEvent = function(ev)
 
 guiDropIcon.prototype.draw = function()
 {
-  //if (this.showDropdown || this.selected )
+
   if (this.selected)
-   g_painter.drawRectangle( 0, 0, this.width, this.height,  
-                           1, this.fgColor ); 
-                           //1, "rgb(0,0,0)")
-                           //true, this.bgColor );
+  {
+    if (this.box_highlight) {
+      g_painter.drawRectangle(0, 0, this.width, this.height,  
+                              1, this.fgColor); 
+    } else {
+      g_painter.drawRectangle(1, 1, this.width-2, this.height-2,
+                              0, this.dimColor, true, this.dimColor); 
+    }
+  }
 
   if (this.tooltip_display) {
     this.tooltip_width = this.tooltip_text.length * this.tooltip_font_size/1.6;

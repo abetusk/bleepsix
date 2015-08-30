@@ -36,9 +36,14 @@ function guiIcon( name )
   //this.fgColor = "rgb(0,0,0)";
   this.fgColor = "rgb(0,0,0)";
 
+  this.dimColor = "rgba(0,0,0,0.9)";
+
   this.bgColorTT = this.bgColor;
 
   this.drawShape = null;
+
+  this.box_highlight=true;
+  this.reverse_highlight=false;
 }
 guiIcon.inherits( guiRegion );
 
@@ -80,11 +85,30 @@ guiIcon.prototype.draw = function()
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
 
-  if (this.selected)
-  {
-    g_painter.drawRectangle( 0, 0, this.width, this.height,  
-                             1, this.fgColor );
-                             //1, "rgb(0,0,0)" );
+  if (!this.reverse_highlight) {
+    if (this.selected)
+    {
+
+      if (this.box_highlight) {
+        g_painter.drawRectangle( 0, 0, this.width, this.height,  
+                                 1, this.fgColor );
+      } else {
+        g_painter.drawRectangle( 1, 1, this.width-2, this.height-2,
+                                 0, "rgb(0,0,0)", true, this.dimColor );
+      }
+    }
+  } else {
+    if (!this.selected)
+    {
+
+      if (this.box_highlight) {
+        g_painter.drawRectangle( 0, 0, this.width, this.height,  
+                                 1, this.fgColor );
+      } else {
+        g_painter.drawRectangle( 1, 1, this.width-2, this.height-2,
+                                 0, "rgb(0,0,0)", true, this.dimColor );
+      }
+    }
   }
 
   if (this.tooltip_display) {
