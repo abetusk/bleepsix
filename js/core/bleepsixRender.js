@@ -1202,6 +1202,7 @@ bleepsixRender.prototype._font_text_width = function(text, font, xsize)
   {
     var ch_ord = text.charCodeAt(i);
     var f = font[ch_ord];
+    if (typeof f === "undefined") { continue; }
     var dx = xsize * (parseFloat(f.xsto) - parseFloat(f.xsta)) * scale ;
     tally += dx;
   }
@@ -1277,6 +1278,7 @@ bleepsixRender.prototype.drawTextFont =
 
 
     var f = font[ch_ord];
+    if (typeof f === "undefined") { continue; }
 
     var xsta = scale * parseFloat(f.xsta) * sizex;
     var xsto = scale * parseFloat(f.xsto) * sizex;
