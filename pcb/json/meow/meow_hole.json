@@ -1,0 +1,72 @@
+{
+  "library_name": "meow_hole",
+  "name": "meow_hole",
+  "layer": "15",
+  "attribute1": "00000000",
+  "timestamp": "00000000",
+  "units": "deci-mils",
+  "x": 0,
+  "rotation_cost_90": "0",
+  "angle": 0,
+  "orientation": "0",
+  "timestamp_op": "00000000",
+  "rotation_cost_180": "0",
+  "attribute2": "~~",
+  "y": 0,
+  "rotation_cost_misc": "0",
+  "text": [
+    {
+      "sizex": 0.0, 
+      "layer": "21", 
+      "angle": 0.0, 
+      "text": "", 
+      "misc": "misc", 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": true, 
+      "flag": "N", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "sizex": 0.0, 
+      "layer": "21", 
+      "angle": 0.0, 
+      "text": "", 
+      "misc": "misc", 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": true, 
+      "flag": "N", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "art": [ ],
+  "pad": [
+    {
+      "posy": 0,
+      "posx": 0,
+      "orientation": 0,
+      "drill_x": 0,
+      "drill_y": 0,
+      "drill_diam": 1600,
+      "drill_shape": "circle",
+      "sizey": 2440,
+      "sizex": 2440,
+      "deltay": 0,
+      "deltax": 0,
+      "name": "S0",
+      "angle": 0,
+      "layer_mask": "00C0FFFF",
+      "shape": "oblong",
+      "shape_code": "O",
+      "type": "STD",
+      "drill_code": "O"
+    }
+  ]
+}
