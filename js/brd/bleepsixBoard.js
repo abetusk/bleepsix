@@ -2132,8 +2132,7 @@ bleepsixBoard.prototype.displayDefaultColor = function(layer)
 // helper module drawing functions
 // ------
 
-bleepsixBoard.prototype.drawFootprintSegment = function( art_entry, x, y )
-{
+bleepsixBoard.prototype.drawFootprintSegment = function( art_entry, x, y ) {
   var sx = parseFloat( art_entry["startx"] );
   var sy = parseFloat( art_entry["starty"] );
   var ex = parseFloat( art_entry["endx"] );
@@ -2149,8 +2148,7 @@ bleepsixBoard.prototype.drawFootprintSegment = function( art_entry, x, y )
 
 }
 
-bleepsixBoard.prototype.drawFootprintCircle = function( art_entry, x, y )
-{
+bleepsixBoard.prototype.drawFootprintCircle = function( art_entry, x, y ) {
   var cx = parseFloat( art_entry["x"] );
   var cy = parseFloat( art_entry["y"] );
   var r = parseFloat( art_entry["r"] );
@@ -2165,8 +2163,23 @@ bleepsixBoard.prototype.drawFootprintCircle = function( art_entry, x, y )
   g_painter.circle( cx + x, cy + y, r, line_width, color );
 }
 
-bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y )
-{
+bleepsixBoard.prototype.drawFootprintPolygon = function( art_entry, x, y ) {
+  var line_width = parseFloat( art_entry["width"] );
+  var layer = parseInt( art_entry["layer"] );
+
+  var art_points = art_entry["points"];
+  var paths = [], path=[];
+  for (var ii=0; ii<art_points.length; ii++) {
+    path.push( [art_points[ii].x, art_points[ii].y] );
+  }
+  paths.push(path);
+
+  var color = this.displayLayerColor(layer);
+
+  this.drawBarePolygon(path, x, y, color, true, line_width);
+}
+
+bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y ) {
   var cx = parseFloat( art_entry["x"] );
   var cy = parseFloat( art_entry["y"] );
   var r = parseFloat( art_entry["r"] );
@@ -2967,6 +2980,7 @@ bleepsixBoard.prototype.drawFootprint = function(data, x, y, rad_angle, draw_f01
       if       ( shape == "segment" )   { this.drawFootprintSegment( art[ind], 0, 0 ); }
       else if  ( shape == "circle" )    { this.drawFootprintCircle( art[ind], 0, 0 );  }
       else if  ( shape == "arc" )       { this.drawFootprintArc( art[ind], 0, 0 );  }
+      else if  ( shape == "polygon" )   { this.drawFootprintPolygon( art[ind], 0, 0 );  }
       //else if  ( shape == "obround" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
       //else if  ( shape == "trapeze" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
 
