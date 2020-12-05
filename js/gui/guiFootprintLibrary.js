@@ -22,10 +22,9 @@
 
 */
 
-function guiFootprintLibrary( name, userId, sessionId, projectId ) 
-{
-  this.constructor(name);
+function guiFootprintLibrary( name, userId, sessionId, projectId ) {
 
+  this.constructor(name);
 
   this.bgColor = "rgba(200,200,200, 0.6)";
 
@@ -50,8 +49,6 @@ function guiFootprintLibrary( name, userId, sessionId, projectId )
   this.addChild( guilist );
   this.guiList = guilist;
 
-
-
   // Ideally we would be able to load either dynamically or dependent
   // on user preferences.  For now, we will load in a footprint library
   // of default values stored in "footprint_list_default.json", which
@@ -60,8 +57,6 @@ function guiFootprintLibrary( name, userId, sessionId, projectId )
   //
 
   this.fetchModuleLibrary( userId, sessionId, projectId );
-
-
 
   // Create and position snugly to the right
   //
@@ -77,7 +72,6 @@ function guiFootprintLibrary( name, userId, sessionId, projectId )
   this.addChild( guiFoot );
   this.guiFootprint = guiFoot;
 
-
   //--
   // Search box
   //--
@@ -92,8 +86,6 @@ function guiFootprintLibrary( name, userId, sessionId, projectId )
 
   //--
 
-
-
   this.height += 4*this.border ;
   this.width  += 2*this.border ;
 
@@ -104,25 +96,19 @@ function guiFootprintLibrary( name, userId, sessionId, projectId )
 }
 guiFootprintLibrary.inherits ( guiRegion );
 
-guiFootprintLibrary.prototype.searchUpdate = function( txt )
-{
+guiFootprintLibrary.prototype.searchUpdate = function( txt ) {
   this.guiList.filter( txt );
 }
 
-guiFootprintLibrary.prototype.hasFocusedElement = function()
-{
+guiFootprintLibrary.prototype.hasFocusedElement = function() {
   return this.guisearch_selected;
 }
 
-guiFootprintLibrary.prototype.focusedElement = function()
-{
+guiFootprintLibrary.prototype.focusedElement = function() {
   return this.guiSearch;
 }
 
-
-
-guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, projectId, callback, callback_err )
-{
+guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, projectId, callback, callback_err ) {
   var foo = this;
 
   if (typeof callback === 'undefined' ) { callback = function(data) { foo.load_webkicad_module_json(data); }; }
@@ -140,8 +126,7 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, 
   var req = { op : "MOD_LIST" };
   if ( (typeof userId !== 'undefined') && 
        (typeof sessionId !== 'undefined') &&
-       (typeof projectId !== 'undefined') ) 
-  {
+       (typeof projectId !== 'undefined') ) {
     req = { op : "MOD_LIST", userId : userId, sessionId : sessionId, projectId: projectId  };
   }
 
@@ -158,26 +143,21 @@ guiFootprintLibrary.prototype.fetchModuleLibrary = function( userId, sessionId, 
 
 // Build up our list gui element
 //
-guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
-{
+guiFootprintLibrary.prototype.load_webkicad_module_json = function(data) {
   this.guiList.clearList();
 
   var parent = null;
 
-  for (var ind in data)
-  {
+  for (var ind in data) {
     var ele = data[ind];
 
-    if (ele.type == "list")
-    {
+    if (ele.type == "list") {
       this.guiList.addList( ele.id, ele.name );
       parent = ele.id ;
 
-      for (var foot_ind in ele.list)
-      {
+      for (var foot_ind in ele.list) {
         var foot = ele.list[foot_ind];
-        if (foot.type == "element")
-        {
+        if (foot.type == "element") {
           this.guiList.add( foot.id, foot.name, foot.data, parent);
         }
       }
@@ -189,15 +169,12 @@ guiFootprintLibrary.prototype.load_webkicad_module_json = function(data)
 }
 
 
-guiFootprintLibrary.prototype.listPick = function(list_ele)
-{
-  if (list_ele.type == "element")
-  {
+guiFootprintLibrary.prototype.listPick = function(list_ele) {
+  if (list_ele.type == "element") {
     var userId = ( g_brdnetwork ? g_brdnetwork.userId : undefined );
     var sessionId = ( g_brdnetwork ? g_brdnetwork.sessionId : undefined );
     var projectId = ( g_brdnetwork ? g_brdnetwork.projectId : undefined );
 
-    //load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
     load_footprint_cache_part( list_ele.name, list_ele.data, userId, sessionId, projectId );
 
     this.guiFootprint.footprint_name = list_ele.name;
@@ -205,71 +182,54 @@ guiFootprintLibrary.prototype.listPick = function(list_ele)
   }
 }
 
-guiFootprintLibrary.prototype.tilePick = function(tile_ele)
-{
-}
+guiFootprintLibrary.prototype.tilePick = function(tile_ele) { }
+guiFootprintLibrary.prototype.load_library = function(data) { }
 
-guiFootprintLibrary.prototype.load_library = function(data)
-{
-}
-
-guiFootprintLibrary.prototype.load_library_error = function(jqxr, textStatus, error)
-{
+guiFootprintLibrary.prototype.load_library_error = function(jqxr, textStatus, error) {
   console.log("load error for " + this.myname)
   console.log(jqxr);
   console.log(textStatus);
   console.log(error);
 }
 
-guiFootprintLibrary.prototype.mouseDown = function(button, x, y )
-{
+guiFootprintLibrary.prototype.mouseDown = function(button, x, y ) {
+
   this.guisearch_selected = false;
 
   var u = numeric.dot( this.inv_world_transform, [x,y,1] );
 
-  if (this.guiFootprint.visible && this.guiChildren[1].ready )
-  {
+  if (this.guiFootprint.visible && this.guiChildren[1].ready ) {
     var r = this.guiFootprint.hitTest(x, y);
 
-    if (r)
-    {
+    if (r) {
       g_board_controller.tool = new toolFootprintPlace( x, y, this.guiChildren[1].footprint_name );
       return true;
     }
-
   }
 
-  if (this.guiList.hitTest(x, y))
-  {
+  if (this.guiList.hitTest(x, y)) {
     return this.guiList.mouseDown(button, x, y);
   }
 
-  if (this.guiSearch.hitTest(x,y))
-  {
+  if (this.guiSearch.hitTest(x,y)) {
     this.guisearch_selected=true;
     return this.guiSearch.mouseDown(button, x, y);
   }
 
 
   if ( (0 <= u[0]) && (u[0] <= this.width) &&
-       (0 <= u[1]) && (u[1] <= this.height) )
-  {
+       (0 <= u[1]) && (u[1] <= this.height) ) {
     return true;
   }
 
   return false;
-
 }
 
-guiFootprintLibrary.prototype.mouseWheel = function(delta)
-{
-}
+guiFootprintLibrary.prototype.mouseWheel = function(delta) { }
 
-guiFootprintLibrary.prototype.draw = function()
-{
+guiFootprintLibrary.prototype.draw = function() {
   g_painter.drawRectangle( 0, 0, this.width, this.height,  
                            0, "rgb(0,0,0)", 
                            true, this.bgColor );
 }
-
 

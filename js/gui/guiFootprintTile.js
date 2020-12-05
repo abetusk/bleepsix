@@ -22,8 +22,7 @@
 
 */
 
-function guiFootprintTile( gui_name, footprint_name ) 
-{
+function guiFootprintTile( gui_name, footprint_name ) {
   this.constructor ( gui_name )   
   this.footprint_name = footprint_name;
   this.bgColor = "rgba(10, 10, 10, 0.5)";
@@ -36,9 +35,7 @@ function guiFootprintTile( gui_name, footprint_name )
   var bbox = this.bbox;
 
   var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
-  if ( footprint_name in footprint_lib )
-  {
-    this.footprint = 
+  if ( footprint_name in footprint_lib ) {
     this.bbox = footprint_lib[footprint_name]["coarse_bounding_box"];
     bbox = this.bbox;
     this.ready = true;
@@ -57,27 +54,21 @@ function guiFootprintTile( gui_name, footprint_name )
   this.guiPickCallback = null;
   this.once = false;
 }
-
 guiFootprintTile.inherits ( guiRegion );
 
-guiFootprintTile.prototype.registerPickCallback = function( f ) 
-{
+guiFootprintTile.prototype.registerPickCallback = function( f ) {
   this.guiPickCallback = f;
 }
 
-guiFootprintTile.prototype.refresh = function()
-{
-
+guiFootprintTile.prototype.refresh = function() {
   this.bbox = [ [0, 0], [0,0] ];
   var bbox = this.bbox;
 
   var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
-  if ( this.footprint_name in footprint_lib )
-  {
+  if ( this.footprint_name in footprint_lib ) {
     this.bbox = footprint_lib[this.footprint_name]["coarse_bounding_box"];
     bbox = this.bbox;
     this.ready = true;
-
   }
 
   this.footprint_width  = bbox[1][0] - bbox[0][0] + this.fudge;
@@ -86,23 +77,21 @@ guiFootprintTile.prototype.refresh = function()
   var mM = Math.max( this.footprint_width, this.footprint_height );
 
   this.rescale = 1.0;
-  if (mM > 0)
+  if (mM > 0) {
     this.rescale = this.width / mM;
+  }
 
 }
 
 
-guiFootprintTile.prototype.draw = function()
-{
+guiFootprintTile.prototype.draw = function() {
 
   this.refresh();
 
-  if (this.ready)
-  {
+  if (this.ready) {
     var footprint_lib = g_board_controller.board.kicad_brd_json.footprint_lib;
 
-    if ( this.footprint_name in footprint_lib )
-    {
+    if ( this.footprint_name in footprint_lib ) {
 
       var r = this.rescale;
       var s = this.width / 2;
@@ -118,34 +107,26 @@ guiFootprintTile.prototype.draw = function()
       g_painter.context.save();
       g_painter.context.transform( r, 0, 0, r, s-com_x, s+com_y );
 
-      var ofx = 0;
-      var ofy = 0;
+      var ofx = 0, ofy = 0;
 
       var footprint = footprint_lib[this.footprint_name];
 
-      if ("x" in footprint)
-        ofx = footprint.x;
-
-      if ("y" in footprint)
-        ofy = footprint.y;
+      if ("x" in footprint) { ofx = footprint.x; }
+      if ("y" in footprint) { ofy = footprint.y; }
 
       g_board_controller.board.drawFootprint(footprint, ofx, -ofy, orientation, true, false, true);
       g_painter.context.restore();
     }
-    else
-    {
+    else {
       console.log("guiFootprintTile: " + this.footprint_name + " not loaded, not rendering");
     }
 
   }
-  else
-  {
+  else {
     g_painter.drawRectangle( 0, 0, this.width, this.height,  
                              0, "rgb(0,0,0)", 
                              true, this.bgColor );
-
   }
 
 }
 
- 

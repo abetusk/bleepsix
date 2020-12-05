@@ -319,23 +319,17 @@ bleepsixBoard.prototype._find_footprint_pad_circle_bbox = function(mod, pad_entr
 
 }
 
-bleepsixBoard.prototype._find_footprint_pad_bbox = function( mod, pad_entry )
-{
-
+bleepsixBoard.prototype._find_footprint_pad_bbox = function( mod, pad_entry ) {
   var shape = pad_entry["shape"];
-
   if      (shape == "rectangle") { this._find_footprint_pad_rectangle_bbox( mod, pad_entry ) }
   else if (shape == "circle")    { this._find_footprint_pad_circle_bbox( mod, pad_entry ) }
   else if (shape == "oblong")    { this._find_footprint_pad_rectangle_bbox( mod, pad_entry ) }
   else if (shape == "trapeze")   { this._find_footprint_pad_rectangle_bbox( mod, pad_entry ) }
-
-
 }
 
 // Again, y co-ord stored in positive y axis, negate to get to screen co-ord
 //
-bleepsixBoard.prototype._find_footprint_text_bbox = function( mod, text_entry )
-{
+bleepsixBoard.prototype._find_footprint_text_bbox = function( mod, text_entry ) {
 
   var coarse_bbox = mod.coarse_bounding_box;
 
@@ -373,58 +367,52 @@ bleepsixBoard.prototype._find_footprint_text_bbox = function( mod, text_entry )
   coarse_bbox[1][1] = Math.max( coarse_bbox[1][1], yM + mod_y );
 
   return;
-
 }
 
 
 //
-bleepsixBoard.prototype._find_footprint_bbox = function( mod )
-{
+//
+bleepsixBoard.prototype._find_footprint_bbox = function( mod ) {
+
   var first = true;
   var art = mod["art"];
   var pad = mod["pad"];
   var text = mod["text"];
 
-
   var x = parseFloat(mod.x);
   var y = parseFloat(mod.y);
 
-  //mod.bounding_box = [[-100,-100],[100,100]];
   mod.bounding_box = [[x,y],[x,y]];
 
-  for ( var ind in art )
-  {
+  for ( var ind in art ) {
     var shape = art[ind]["shape"];
 
     if      (shape == "circle")     { this._find_footprint_art_circle_bbox  ( mod, art[ind] ); }
     else if (shape == "segment")    { this._find_footprint_art_segment_bbox ( mod, art[ind] ); }
     //else if (shape == "rectangle")  { find_footprint_art_rectangle_bbox ( bbox, art[ind] ); }
-    else if (shape == "arc")        { this._find_footprint_art_arc_bbox       ( mod, art[ind] ); }
-    else if (shape == "polygon")    { this._find_footprint_art_polygon_bbox   ( mod, art[ind] ); }
+    else if (shape == "arc")        { this._find_footprint_art_arc_bbox     ( mod, art[ind] ); }
+    else if (shape == "polygon")    { this._find_footprint_art_polygon_bbox ( mod, art[ind] ); }
   }
 
-  for (var ind in pad)
-  {
+  for (var ind in pad) {
     this._find_footprint_pad_bbox( mod, pad[ind] );
   }
 
   var bbox = mod.bounding_box;
 
+  // coarse bounding box used in footprint text, so
+  // populate it before we go in...
+  //
   mod.coarse_bounding_box = [[x,y],[x,y]];
-
   var coarse_bbox = mod.coarse_bounding_box;
   coarse_bbox[0][0] = bbox[0][0];
   coarse_bbox[0][1] = bbox[0][1];
   coarse_bbox[1][0] = bbox[1][0];
   coarse_bbox[1][1] = bbox[1][1];
 
-  for (var ind in text)
-  {
+  for (var ind in text) {
     this._find_footprint_text_bbox( mod , text[ind] );
   }
-
-  //mod["bounding_box"] = bbox;
-  //mod["coarse_bounding_box"] = coarse_bbox;
 
 }
 
@@ -543,8 +531,7 @@ bleepsixBoard.prototype._find_drawsegment_bbox = function( drawsegment )
 
 
 
-bleepsixBoard.prototype._find_text_bbox = function( text_entry )
-{
+bleepsixBoard.prototype._find_text_bbox = function( text_entry ) {
 
   var x = parseFloat( text_entry.x );
   var y = parseFloat( text_entry.y );
@@ -560,11 +547,13 @@ bleepsixBoard.prototype._find_text_bbox = function( text_entry )
   var xM =  sx * l/2;
   var yM =  sx ;
 
-  if (!("bounding_box" in text_entry))
+  if (!("bounding_box" in text_entry)) {
     text_entry.bounding_box = [ [0,0],[0,0] ];
+  }
 
-  if (!("coarse_bounding_box" in text_entry))
+  if (!("coarse_bounding_box" in text_entry)) {
     text_entry.coarse_bounding_box = [ [0,0],[0,0] ];
+  }
 
   text_entry.bounding_box[0][0] = xm + x;
   text_entry.bounding_box[0][1] = ym + y;
