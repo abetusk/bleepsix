@@ -132,8 +132,7 @@ bleepsixBoard.prototype._find_footprint_art_arc_bbox  = function( mod, art_entry
 
 }
 
-bleepsixBoard.prototype._find_footprint_art_segment_bbox = function( mod, art_entry )
-{
+bleepsixBoard.prototype._find_footprint_art_segment_bbox = function( mod, art_entry ) {
 
   var bbox = mod.bounding_box;
 
@@ -168,6 +167,39 @@ bleepsixBoard.prototype._find_footprint_art_segment_bbox = function( mod, art_en
 
   bbox[1][0] = Math.max( bbox[1][0], tx );
   bbox[1][1] = Math.max( bbox[1][1], ty );
+
+}
+
+bleepsixBoard.prototype._find_footprint_art_polygon_bbox = function( mod, art_entry ) {
+
+  var bbox = mod.bounding_box;
+
+  var mod_x = parseFloat( mod.x );
+  var mod_y = parseFloat( mod.y );
+  var a = parseFloat( mod.angle );
+  if (typeof mod.angle === "undefined") { a = 0.0; }
+
+
+  var pnts = art_entry.points;
+
+  var x = 0, y = 0, tx = 0, ty = 0, v=null;
+  for (var ii=0; ii<pnts.length; ii++) {
+
+    x = parseFloat( pnts[ii].x );
+    y = parseFloat( pnts[ii].y );
+
+    v = numeric.dot( this._R(a), [x,y] );
+
+    tx = v[0] + mod_x;
+    ty = v[1] + mod_y;
+
+    bbox[0][0] = Math.min( bbox[0][0], tx );
+    bbox[0][1] = Math.min( bbox[0][1], ty );
+
+    bbox[1][0] = Math.max( bbox[1][0], tx );
+    bbox[1][1] = Math.max( bbox[1][1], ty );
+
+  }
 
 }
 
@@ -368,6 +400,7 @@ bleepsixBoard.prototype._find_footprint_bbox = function( mod )
     else if (shape == "segment")    { this._find_footprint_art_segment_bbox ( mod, art[ind] ); }
     //else if (shape == "rectangle")  { find_footprint_art_rectangle_bbox ( bbox, art[ind] ); }
     else if (shape == "arc")        { this._find_footprint_art_arc_bbox       ( mod, art[ind] ); }
+    else if (shape == "polygon")    { this._find_footprint_art_polygon_bbox   ( mod, art[ind] ); }
   }
 
   for (var ind in pad)

@@ -2176,7 +2176,7 @@ bleepsixBoard.prototype.drawFootprintPolygon = function( art_entry, x, y ) {
 
   var color = this.displayLayerColor(layer);
 
-  this.drawBarePolygon(path, x, y, color, true, line_width);
+  g_painter.drawBarePolygon(path, x, y, color, true, line_width);
 }
 
 bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y ) {
@@ -3326,8 +3326,7 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  )
 
 }
 
-bleepsixBoard.prototype.drawBoardSegment = function( ele )
-{
+bleepsixBoard.prototype.drawBoardSegment = function( ele ) {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
   if (ghostFlag) color = "rgba(255,255,255,0.25)";
 
@@ -3350,16 +3349,14 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
 
   //if (layer == 28) color = "rgba(255,255,0,0.4)";
 
-  if (shape == "line")
-  {
+  if (shape == "line") {
     g_painter.line(x0, y0, x1, y1, color, width);
 
     if (this.flag_draw_bounding_box)
       g_painter.line( ele.x0, ele.y0, ele.x1, ele.y1, "rgba(255,255,255,0.4)", 2*width );
 
   }
-  else if (shape == "circle")
-  {
+  else if (shape == "circle") {
     var x = parseFloat( ele.x );
     var y = parseFloat( ele.y );
     var r = parseFloat( ele.r );
@@ -3370,8 +3367,7 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
       this.drawBoundingBox( ele.bounding_box );
 
   }
-  else if (shape == "arc")
-  {
+  else if (shape == "arc") {
     var x = parseFloat( ele.x );
     var y = parseFloat( ele.y );
     var r = parseFloat( ele.r );
@@ -3387,8 +3383,7 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
 
   }
 
-  if (this.draw_id_text_flag)
-  {
+  if (this.draw_id_text_flag) {
     var bb = ele["bounding_box"];
     g_painter.drawText( ele.id, bb[1][0], bb[1][1], "rgba(255,255,255,0.3)", 50, 0.0, "L", "C" );
   }
@@ -3397,8 +3392,7 @@ bleepsixBoard.prototype.drawBoardSegment = function( ele )
 
 }
 
-bleepsixBoard.prototype.drawBoardCZone = function( ele )
-{
+bleepsixBoard.prototype.drawBoardCZone = function( ele ) {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
 
   var n = ele.zcorner.length;
@@ -3432,8 +3426,7 @@ bleepsixBoard.prototype.drawBoardCZone = function( ele )
   }
 }
 
-bleepsixBoard.prototype.drawBoardModule = function( ele, ghostFlag )
-{
+bleepsixBoard.prototype.drawBoardModule = function( ele, ghostFlag ) {
   var x = parseFloat( ele["x"] );
   var y = parseFloat( ele["y"] );
   var orientation = parseFloat( ele["orientation"] );
@@ -3443,8 +3436,7 @@ bleepsixBoard.prototype.drawBoardModule = function( ele, ghostFlag )
 }
 
 
-bleepsixBoard.prototype.tick = function()
-{
+bleepsixBoard.prototype.tick = function() {
 
   this.flag_draw_ratsnest_shimmer_active = false;
   if (this.flag_draw_ratsnest_shimmer)
@@ -3479,8 +3471,7 @@ bleepsixBoard.prototype.tick = function()
 
 }
 
-bleepsixBoard.prototype.drawElement = function( ele )
-{
+bleepsixBoard.prototype.drawElement = function( ele ) {
   var type = ele.type;
 
   if      ( type == "track" )         { this.drawBoardTrack( ele ); }
@@ -3495,8 +3486,7 @@ bleepsixBoard.prototype.drawElement = function( ele )
 }
 
 
-bleepsixBoard.prototype.drawGhostElement = function( ele )
-{
+bleepsixBoard.prototype.drawGhostElement = function( ele ) {
   var type = ele.type;
 
   if      ( type == "track" )         { this.drawBoardTrack( ele, true ); }
@@ -3511,15 +3501,13 @@ bleepsixBoard.prototype.drawGhostElement = function( ele )
 }
 
 
-bleepsixBoard.prototype._BOARD_SANITY = function()
-{
+bleepsixBoard.prototype._BOARD_SANITY = function() {
   var brd = this.kicad_brd_json;
   var ele_list = brd.element;
 
   var err_count=0;
 
   for (var ind in ele_list) {
-
 
     if (("x" in ele_list[ind]) && (isNaN(ele_list[ind].x))) {
       console.log("SANITY ERROR: isNaN(x) kicad_brd_json.element[" + ind + "]:", ele_list[ind]);
@@ -3604,11 +3592,9 @@ bleepsixBoard.prototype._BOARD_SANITY = function()
 
 }
 
-bleepsixBoard.prototype.drawBoard = function()
-{
+bleepsixBoard.prototype.drawBoard = function() {
 
   this.updateBoundingBox();
-  //this.updateRatsNest(undefined, undefined, this.kicad_brd_json.brd_to_sch_net_map );
 
   var brd = this.kicad_brd_json;
   var ele_list = brd.element;
@@ -3616,57 +3602,43 @@ bleepsixBoard.prototype.drawBoard = function()
   var viewbox = [ [ g_painter.view.x1, g_painter.view.y1 ],
                   [ g_painter.view.x2, g_painter.view.y2 ] ];
 
-  for (var ind in ele_list)
-  {
+  for (var ind in ele_list) {
 
     type = ele_list[ind]["type"];
 
-    if ( ("hideFlag" in ele_list[ind]) &&
-         ele_list[ind].hideFlag )
-    {
-      continue;
-    }
+    if ( ("hideFlag" in ele_list[ind]) && ele_list[ind].hideFlag ) { continue; }
 
-    if ( this.flag_bounding_box_speedup)
-    {
-      if ( "coarse_bounding_box" in ele_list[ind])
-      {
-        if ( !this._box_box_intersect( viewbox, ele_list[ind].coarse_bounding_box ) )
-        {
+    if ( this.flag_bounding_box_speedup) {
+      if ( "coarse_bounding_box" in ele_list[ind]) {
+        if ( !this._box_box_intersect( viewbox, ele_list[ind].coarse_bounding_box ) ) {
           continue;
         }
       }
     }
 
     this.drawElement( ele_list[ind] );
-
   }
 
-  for (var ind in this.debug_point)
-  {
+  for (var ind in this.debug_point) {
     g_painter.drawPoint( this.debug_point[ind].X, 
                          this.debug_point[ind].Y , 
                          "rgba(255,128,64,0.8)", 300 );
   }
 
-  for (var ind in this.debug_edge)
-  {
+  for (var ind in this.debug_edge) {
     var g = this.debug_edge[ind];
     g_painter.line( g[0][0], g[0][1], g[1][0], g[1][1], "rgba(128,128,128,1.0)", 10 );
   }
 
-  for (var ind in this.debug_geom)
-  {
+  for (var ind in this.debug_geom) {
     g_painter.drawPath( this.debug_geom[ind], 0, 0, "rgba(255,128,64,0.8)", 20 );
   }
 
-  for (var ind in this.debug_cgeom)
-  {
+  for (var ind in this.debug_cgeom) {
     g_painter.drawPath( this.debug_cgeom[ind].pnts, 0, 0, this.debug_cgeom[ind].color, 20 );
   }
 
-  for (var ind in this.debug_pgns)
-  {
+  for (var ind in this.debug_pgns) {
     var pgn = this.debug_pgns[ind];
     var color = "rgba(128,255,64,0.8)";
     if (ClipperLib.Clipper.Orientation( pgn ))
@@ -3674,26 +3646,20 @@ bleepsixBoard.prototype.drawBoard = function()
     g_painter.drawPath( this._pgn2pnt(pgn), 0, 0, color, 20 );
   }
 
-  if (this.highlight_net_flag)
-  {
+  if (this.highlight_net_flag) {
     g_painter.drawBarePolygons( this.highlight_net,
                                 0, 0,
                                 "rgba(255,255,255,0.5)");
   }
 
-  if (this.flag_draw_ratsnest)
-  {
+  if (this.flag_draw_ratsnest) {
     var brd = this.kicad_brd_json;
-    for (var nc in brd.net_code_airwire_map)
-    {
-      for (var ind in brd.net_code_airwire_map[nc])
-      {
+    for (var nc in brd.net_code_airwire_map) {
+      for (var ind in brd.net_code_airwire_map[nc]) {
         var lin = brd.net_code_airwire_map[nc][ind];
 
         if ( this.flag_draw_ratsnest_shimmer && 
-             this.flag_draw_ratsnest_shimmer_active )
-
-        {
+             this.flag_draw_ratsnest_shimmer_active ) {
               g_painter.drawGradientLine( lin.x0, lin.y0,
                                           lin.x1, lin.y1,
                                           30,
@@ -3703,8 +3669,7 @@ bleepsixBoard.prototype.drawBoard = function()
                  -10000, -10000, 10000, 10000 );
 
         }
-        else
-        {
+        else {
           g_painter.line( lin.x0, lin.y0, lin.x1, lin.y1, "rgba(255,255,255,0.4)", 30);
         }
       }
@@ -3718,8 +3683,7 @@ bleepsixBoard.prototype.drawBoard = function()
 
 
 
-bleepsixBoard.prototype.drawBoundingBox = function( b, color, width )
-{
+bleepsixBoard.prototype.drawBoundingBox = function( b, color, width ) {
   color = ( typeof color !== 'undefined' ? color : "rgba(255,255,255,0.5)" );
   width = ( typeof width !== 'undefined' ? width : 20 );
   var w = b[1][0] - b[0][0];
@@ -3728,8 +3692,7 @@ bleepsixBoard.prototype.drawBoundingBox = function( b, color, width )
   g_painter.drawRectangle( b[0][0], b[0][1], w, h, width, color );
 }
 
-bleepsixBoard.prototype.updateTextBoundingBox = function( text_entry ) 
-{
+bleepsixBoard.prototype.updateTextBoundingBox = function( text_entry ) {
 
   var x = parseFloat( text_entry.x );
   var y = parseFloat( text_entry.y );
