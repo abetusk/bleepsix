@@ -42,7 +42,9 @@ function guiBoardDisplayLayers(name, bgColor)
   var sz = this.iconWidth;
 
   this.layer_desc = { 0: "B.Cu", 1:"Inner1.Cu", 2:"Inner2.Cu", 15:"F.Cu",
-                      20:"B.SilkS", 21:"F.SilkS", 22:"B.SolderM", 23:"F.SolderM", 28:"Edge.Cuts", " ":"default" }
+                      20:"B.SilkS", 21:"F.SilkS", 22:"B.SolderM", 23:"F.SolderM",
+                      26:"Eco1.User", 27:"Eco2.User",
+                      28:"Edge.Cuts", " ":"default" }
 
   // layers to filter/display
   //
@@ -64,6 +66,8 @@ function guiBoardDisplayLayers(name, bgColor)
   u.addIcon(this.name + ":layerval:21", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,21) );
   u.addIcon(this.name + ":layerval:22", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,22) );
   u.addIcon(this.name + ":layerval:23", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,23) );
+  u.addIcon(this.name + ":layerval:26", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,26) );
+  u.addIcon(this.name + ":layerval:27", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,27) );
   u.addIcon(this.name + ":layerval:28", (function(s,lyr) { return function() { s._draw_layer_icon(lyr); }; })(this,28) );
   u.move(0, cur_y);
 
@@ -92,6 +96,8 @@ function guiBoardDisplayLayers(name, bgColor)
      21:"rgba(0,255,255,0.2)",
      22:"rgba(255,255,0,0.1)",
      23:"rgba(255,255,0,0.1)",
+     26:"rgba(255,127,0,0.4)",
+     27:"rgba(127,255,0,0.4)",
      28:"rgba(255,255,0,0.4)",
      "HiC":"rgba(100,100,100,0.4)",
      " ":"rgba(12,48,64,0.3)" };
