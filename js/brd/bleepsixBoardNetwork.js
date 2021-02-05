@@ -561,6 +561,7 @@ bleepsixBoardNetwork.prototype.refreshBoardState = function( json_brd, json_sch 
 
   var width = 1600, height = 1600;
   var bbox = g_board_controller.board.getBoardBoundingBox();
+
   var cx = (bbox[0][0] + bbox[1][0])/2.0;
   var cy = (bbox[0][1] + bbox[1][1])/2.0;
 
@@ -578,7 +579,6 @@ bleepsixBoardNetwork.prototype.refreshBoardState = function( json_brd, json_sch 
   f *= brd_fudge;
 
   g_painter.setView( cx, cy, 1/f );
-
 
   var netop = { source: "brd", destination: "sch" };
   netop.scope = "local";

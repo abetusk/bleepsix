@@ -690,16 +690,16 @@ bleepsixBoard.prototype.updateBoundingBox = function( ele )
 }
 
 
-bleepsixBoard.prototype.getBoardBoundingBox = function( ele )
-{
+bleepsixBoard.prototype.getBoardBoundingBox = function( ele ) {
   var ind;
   var brd = this.kicad_brd_json["element"];
 
   var fin_bbox = [ [0,0], [0,0] ];
   var first = true;
 
-  for (ind in brd)
-  {
+  var default_x = 1500, default_y = 1500;
+
+  for (ind in brd) {
 
     if ("bounding_box" in brd[ind]) {
       var bbox = brd[ind]["bounding_box"];
@@ -731,6 +731,21 @@ bleepsixBoard.prototype.getBoardBoundingBox = function( ele )
 
     }
 
+  }
+
+  if ((typeof fin_bbox === "undefined") ||
+      (typeof fin_bbox[0][0] === "undefined") ||
+      (typeof fin_bbox[0][1] === "undefined") ||
+      (typeof fin_bbox[1][0] === "undefined") ||
+      (typeof fin_bbox[1][1] === "undefined") ||
+      (isNaN(fin_bbox[0][0])) ||
+      (isNaN(fin_bbox[0][1])) ||
+      (isNaN(fin_bbox[1][0])) ||
+      (isNaN(fin_bbox[1][1]))) {
+    fin_bbox[0][0] = -default_x/2;
+    fin_bbox[1][0] =  default_x/2;
+    fin_bbox[0][1] = -default_y/2;
+    fin_bbox[1][1] =  default_y/2;
   }
 
   return fin_bbox;

@@ -131,6 +131,34 @@ function guiBoardGrid( name , bgColor, fgColor, divColor, displayUnitFlag )
   tw.bgColor = this.bgColor;
   tw.divColor = this.divColor;
 
+
+// new
+var _nam = this.name + ":droptracewidth:100";
+var _f = this._make_tracewidth_draw_function(100);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:90";
+_f = this._make_tracewidth_draw_function(90);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:80";
+_f = this._make_tracewidth_draw_function(80);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:60";
+_f = this._make_tracewidth_draw_function(60);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:50";
+_f = this._make_tracewidth_draw_function(50);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:40";
+_f = this._make_tracewidth_draw_function(40);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:30";
+_f = this._make_tracewidth_draw_function(30);
+tw.addIcon(_nam,_f);
+_nam = this.name + ":droptracewidth:25";
+_f = this._make_tracewidth_draw_function(35);
+tw.addIcon(_nam,_f);
+// new
+
   for (var i=20; i>=1; i--) {
     var nam = this.name + ":droptracewidth:" + i;
     //var f = this._make_text_draw_function(i);
