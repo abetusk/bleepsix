@@ -49,7 +49,7 @@ if (typeof module !== 'undefined') {
   var simplecopy = bleepsixAux.simplecopy;
 
   var boardParameter = require("./bleepsixBoardParameter.js");
-  
+
   if (typeof g_parameter === "undefined") {
     g_parameter = new boardParameter();
   }
@@ -164,7 +164,7 @@ function bleepsixBoard() {
   this.flag_text_zoom_speedup = true;
   //this.flag_text_zoom_speedup = false;
 
-  this.display_text_zoom_threshold = 10; 
+  this.display_text_zoom_threshold = 10;
 
   //this.flag_display_net_name = false;
   this.flag_display_net_name = true;
@@ -520,7 +520,7 @@ bleepsixBoard.prototype._clampAngle = function ( ang ) {
 }
 
 //  flip the module across the X=0 (local) line
-// 
+//
 bleepsixBoard.prototype.moduleFlipY = function ( id_ref ) {
   var X = [ [1,0],[0,-1] ];
   var id = id_ref.id;
@@ -696,7 +696,7 @@ bleepsixBoard.prototype._line_point_intersect = function( l0, l1, p, w ) {
   var dx = l1.x - l0.x;
   var dy = l1.y - l0.y;
   var d2 = ( (dx*dx) + (dy*dy) );
-  
+
   if (d2 < eps) {
     return false;
   }
@@ -791,7 +791,7 @@ bleepsixBoard.prototype.pickElement = function( ele, x, y ) {
 
   // czones are special as they are a unit that has
   // line segments within.  We need to go through
-  // and see if they hit any of the 
+  // and see if they hit any of the
   //if (ele.type == "czone")
   //  return this.pickElementCZone(ele, x, y);
 
@@ -871,7 +871,7 @@ bleepsixBoard.prototype.pickAll = function(x, y) {
 
   for (var ind in brd) {
     id_ref = this.pickElement( brd[ind], x, y );
-    if (id_ref) 
+    if (id_ref)
       ar.push( id_ref );
   }
 
@@ -887,7 +887,7 @@ bleepsixBoard.prototype.pickPads = function(x, y) {
   var brd = this.kicad_brd_json["element"];
 
   for (var ind in brd) {
-    if (brd[ind].type != "module") 
+    if (brd[ind].type != "module")
       continue;
 
     var ref = brd[ind];
@@ -912,7 +912,7 @@ bleepsixBoard.prototype.pickPads = function(x, y) {
 
       if ( ( x <= x1 ) && ( x >= x0 ) &&
            ( y <= y1 ) && ( y >= y0 ) ) {
-        var id_ref = { id: brd[ind].id, ref : brd[ind], 
+        var id_ref = { id: brd[ind].id, ref : brd[ind],
                        pad_id: pad.id, pad_ref: pad };
 
         ar.push( id_ref );
@@ -1087,7 +1087,7 @@ bleepsixBoard.prototype._initBoardNet = function() {
       "via_drill_diameter" : g_parameter.viaDrillWidth,
       "uvia_diameter" : g_parameter.uViaWidth,
       "uvia_drill_diameter" : g_parameter.uViaWidth,
-      "net" : [ ] 
+      "net" : [ ]
     }
   };
 
@@ -1170,7 +1170,7 @@ bleepsixBoard.prototype.renameNet = function( stale_netcode, new_netcode ) {
 // rename the elements in one of the groups.
 //
 // Genearlizes to more than one group.  Worst case
-// O(n^2), so we'll have to come back to it if it 
+// O(n^2), so we'll have to come back to it if it
 // turns out to be too slow.
 //
 //
@@ -1322,7 +1322,7 @@ bleepsixBoard.prototype._genNetName = function() {
   var new_base_net_name = -1;
   for (var ind in equipot) {
     if ( parseInt( equipot[ind].net_number ) > new_net_code ) {
-      new_net_code = parseInt( equipot[ind].net_number ) 
+      new_net_code = parseInt( equipot[ind].net_number )
 
       var s = "0" + equipot[ind].net_name;
       var n = parseInt( s.replace( /[^0-9]*/g, '' ), 10 );
@@ -1387,7 +1387,7 @@ bleepsixBoard.prototype.genNet = function( netcode, netname ) {
     var new_net_code = -1;
     for (var ind in equipot) {
       if ( parseInt( equipot[ind].net_number ) > new_net_code ) {
-        new_net_code = parseInt( equipot[ind].net_number ) 
+        new_net_code = parseInt( equipot[ind].net_number )
       }
     }
 
@@ -1741,8 +1741,8 @@ bleepsixBoard.prototype.updateFootprintData = function( json_module,  id, text_i
 
   var angle = 0;
   var R = this._R( angle );
-  var bbox = 
-    numeric.transpose( 
+  var bbox =
+    numeric.transpose(
       numeric.dot( R, numeric.transpose( ref["bounding_box"]) ) );
   bbox[0][0] += old_ref.x;
   bbox[0][1] += old_ref.y;
@@ -1800,7 +1800,7 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
       {
         footprint_entry.pad[pad_ind].id = pad_ids[pad_ind];
       }
-      else 
+      else
       {
         footprint_entry.pad[pad_ind].id = this._createId(id);
       }
@@ -1816,8 +1816,8 @@ bleepsixBoard.prototype.addFootprintData = function( json_module, x, y, id, text
   }
 
   var R = this._R( angle );
-  var bbox = 
-    numeric.transpose( 
+  var bbox =
+    numeric.transpose(
       numeric.dot( R, numeric.transpose( footprint_entry["bounding_box"]) ) );
   bbox[0][0] += x;
   bbox[0][1] += y;
@@ -2091,7 +2091,7 @@ bleepsixBoard.prototype.drawFootprintArc = function( art_entry, x, y ) {
   if (("start_x" in art_entry) && ("start_y" in art_entry)) {
     var sx = parseFloat( art_entry["start_x"] );
     var sy = parseFloat( art_entry["start_y"] );
-    
+
     var sa = Math.atan2( sy-cy, sx-cx );
     var ea = sa+da;
 
@@ -2139,7 +2139,7 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
   var loc_rad_ang = this._angleMod( parseFloat( pad_entry.angle ) );
   var loc_deg_ang = -loc_rad_ang * 180.0 / Math.PI;
   var g_deg_ang = glob_rad_ang * 180.0 / Math.PI;
-  
+
   var fin_angle = -g_deg_ang;
   var fin_deg_angle = this._findTextDegAngle( 0, -g_deg_ang );
   var fin_rad_angle = fin_deg_angle * Math.PI / 180.0;
@@ -2158,44 +2158,39 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
   var effective_layer = this.padEffectiveLayer(layer_mask);
 
-  if ( this.flag_display_net_name && 
+  if ( this.flag_display_net_name &&
        (net_number > 0) ) {
-    //var net_name_len = pad_entry.net_name.length;
+
     var net_name = this.getNetName(pad_entry.net_number);
-    var net_name_len = net_name.length;
+    if (typeof net_name !== "undefined") {
 
-    var net_name_char_width = d / (net_name_len + 3) ;
-    var net_name_char_height = net_name_char_width / 0.6;
+      var net_name_len = net_name.length;
 
-    net_name_char_height = Math.min( net_name_char_height, r/2 );
+      var net_name_char_width = d / (net_name_len + 3) ;
+      var net_name_char_height = net_name_char_width / 0.6;
 
-    var du = numeric.dot( this._R( fin_rad_angle ), [0, r/2]  )
-    var dv = numeric.dot( this._R( fin_rad_angle ), [0, -r/2]  )
+      net_name_char_height = Math.min( net_name_char_height, r/2 );
 
-    var net_name_text_color = this.displayNetNameTextColor(effective_layer);
-    var pad_text_color = this.displayPadTextColor(effective_layer);
+      var du = numeric.dot( this._R( fin_rad_angle ), [0, r/2]  )
+      var dv = numeric.dot( this._R( fin_rad_angle ), [0, -r/2]  )
 
+      var net_name_text_color = this.displayNetNameTextColor(effective_layer);
+      var pad_text_color = this.displayPadTextColor(effective_layer);
 
-    //g_painter.drawText( pad_entry.net_name, 
-    g_painter.drawText( net_name,
-                       cx + x + du[0], 
-                       cy + y + du[1],
+      g_painter.drawText( net_name,
+                         cx + x + du[0],
+                         cy + y + du[1],
+                         net_name_text_color,
+                         net_name_char_height,
+                         fin_angle, "C", "C" );
 
-                       //this.net_name_text_color,
-                       net_name_text_color,
-
-                       net_name_char_height, 
-                       fin_angle, "C", "C" );
-
-    g_painter.drawText( name, 
-                       cx + x + dv[0], 
-                       cy + y + dv[1],
-
-                       //this.pad_text_color,
-                       pad_text_color,
-
-                       text_size, 
-                       fin_angle , "C", "C");
+      g_painter.drawText( name,
+                         cx + x + dv[0],
+                         cy + y + dv[1],
+                         pad_text_color,
+                         text_size,
+                         fin_angle , "C", "C");
+    }
 
   }
 
@@ -2207,14 +2202,14 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
 
     var c = this.displayDefaultColor(effective_layer)
 
-    g_painter.drawText( name, 
-                        cx + x, 
-                        cy + y, 
+    g_painter.drawText( name,
+                        cx + x,
+                        cy + y,
 
-                        //"rgba(255,255,255,0.5)", 
+                        //"rgba(255,255,255,0.5)",
                         c,
 
-                        text_size, 
+                        text_size,
                         fin_angle , "C", "C");
   }
 
@@ -2223,7 +2218,6 @@ bleepsixBoard.prototype._draw_pad_circle_text = function( pad_entry, x, y, glob_
 
 bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_ang, ghostFlag ) {
   ghostFlag = ( ( typeof ghostFlag === 'undefined' ) ? false : ghostFlag );
-
   glob_rad_ang = ( (typeof glob_rad_ang !== 'undefined') ? glob_rad_ang : 0.0 );
 
   var cx = parseFloat(pad_entry.posx);
@@ -2232,30 +2226,11 @@ bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_a
   var sizey = parseFloat(pad_entry.sizey);
 
   var ang = parseFloat(pad_entry.angle);
-
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
-
-  /*
-  var color = "rgba(255,255,255, 0.5)";
-
-  if ( (layer_mask & 1) && (layer_mask & (1<<15)) )
-    color = "rgba(255,255,0,0.5)";
-  else if (layer_mask & 1)
-    color = this.layer_color[0];
-  else if (layer_mask & (1<<15))
-    color = this.layer_color[15];
-
-  if (ghostFlag) color = "rgba(255,255,255,0.25)";
-    */
-
   var color = this.padColor(layer_mask, ghostFlag);
-
-
   var name = pad_entry.name;
 
-  //****
   ang = this._angleMod( ang - glob_rad_ang );
-  //****
 
   var tx = cx + x;
   var ty = cy + y;
@@ -2264,6 +2239,7 @@ bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_a
 
   var drill_diam = parseFloat( pad_entry.drill_diam );
 
+
   if (drill_diam > 0.5) {
     var drill_x = parseFloat( pad_entry.drill_x );
     var drill_y = parseFloat( pad_entry.drill_y );
@@ -2271,6 +2247,9 @@ bleepsixBoard.prototype._draw_pad_circle = function( pad_entry, x, y, glob_rad_a
     if ( (!( "drill_shape" in pad_entry )) ||
          (pad_entry.drill_shape == "circle") ) {
       g_painter.fillCircleHoleCircle( 0, 0, sizex/2, drill_x, drill_y, drill_diam/2, color );
+
+  console.log("kapow: circle", sizex, drill_x, drill_y, drill_diam, color, ghostFlag );
+
     }
     else if (pad_entry.drill_shape == 'oblong') {
       var iox = parseFloat( pad_entry.drill_hole_extra_x );
@@ -2306,7 +2285,7 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
   var loc_rad_ang = this._angleMod( parseFloat( pad_entry.angle ) );
   var loc_deg_ang = -loc_rad_ang * 180.0 / Math.PI;
   var g_deg_ang = glob_rad_ang * 180.0 / Math.PI;
-  
+
   var fin_angle = -glob_rad_ang;
 
   var major_len = 1, minor_len = 1;
@@ -2338,7 +2317,7 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
   var layer_mask = parseInt( pad_entry["layer_mask"], 16);
   var effective_layer = this.padEffectiveLayer(layer_mask);
 
-  if ( this.flag_display_net_name && 
+  if ( this.flag_display_net_name &&
        (net_number > 0) ) {
 
     if ( (this.flag_text_zoom_speedup) &&
@@ -2368,24 +2347,24 @@ bleepsixBoard.prototype._draw_pad_rect_text = function( pad_entry, x, y, glob_ra
     var net_name_text_color = this.displayNetNameTextColor(effective_layer);
     var pad_text_color = this.displayPadTextColor(effective_layer);
 
-    g_painter.drawText( net_name, 
-                       cx + x + du[0], 
+    g_painter.drawText( net_name,
+                       cx + x + du[0],
                        cy + y + du[1],
 
                        //this.net_name_text_color,
                        net_name_text_color,
 
-                       net_name_char_height, 
+                       net_name_char_height,
                        fin_angle, "C", "C" );
 
-    g_painter.drawText( name, 
-                       cx + x + dv[0], 
+    g_painter.drawText( name,
+                       cx + x + dv[0],
                        cy + y + dv[1],
 
                        //this.pad_text_color,
                        pad_text_color,
 
-                       net_name_char_height, 
+                       net_name_char_height,
                        fin_angle , "C", "C");
 
   }
@@ -2488,7 +2467,7 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
   var loc_rad_ang = this._angleMod( parseFloat( pad_entry.angle ) );
   var loc_deg_ang = -loc_rad_ang * 180.0 / Math.PI;
   var g_deg_ang = glob_rad_ang * 180.0 / Math.PI;
-  
+
   var fin_angle = -g_deg_ang;
 
   var major_len = 1, minor_len = 1;
@@ -2521,7 +2500,7 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
   var effective_layer = this.padEffectiveLayer(layer_mask);
 
 
-  if ( this.flag_display_net_name && 
+  if ( this.flag_display_net_name &&
        (net_number > 0) ) {
     var fudge = -5;
     //var net_name_len = pad_entry.net_name.length;
@@ -2540,25 +2519,25 @@ bleepsixBoard.prototype._draw_pad_oblong_text = function( pad_entry, x, y, glob_
     var pad_text_color = this.displayPadTextColor(effective_layer);
 
 
-    //g_painter.drawText( pad_entry.net_name, 
-    g_painter.drawText( net_name, 
-                       cx + x + du[0], 
+    //g_painter.drawText( pad_entry.net_name,
+    g_painter.drawText( net_name,
+                       cx + x + du[0],
                        cy + y + du[1],
 
                        //this.net_name_text_color,
                        net_name_text_color,
 
-                       net_name_char_height, 
+                       net_name_char_height,
                        fin_angle, "C", "C" );
 
-    g_painter.drawText( name, 
-                       cx + x + dv[0], 
+    g_painter.drawText( name,
+                       cx + x + dv[0],
                        cy + y + dv[1],
 
                        //this.pad_text_color,
                        pad_text_color,
 
-                       net_name_char_height, 
+                       net_name_char_height,
                        fin_angle , "C", "C");
 
   }
@@ -2688,12 +2667,12 @@ bleepsixBoard.prototype._findTextDegAngle = function( loc_deg_ang, glob_deg_ang 
   else if (loc_deg_ang > 90)                             loc_deg_ang -= 180;
   else if (loc_deg_ang < -90)                            loc_deg_ang += 180;
  */
-  if ( (this._feq(loc_deg_ang,  90)) || 
+  if ( (this._feq(loc_deg_ang,  90)) ||
        (this._feq(loc_deg_ang, -90))) {
     loc_deg_ang = -90;
   }
 
-  else if ((this._feq(loc_deg_ang,  180)) || 
+  else if ((this._feq(loc_deg_ang,  180)) ||
            (this._feq(loc_deg_ang, -180))) {
     loc_deg_ang = 0;
   }
@@ -2715,7 +2694,7 @@ bleepsixBoard.prototype._findTextDegAngle = function( loc_deg_ang, glob_deg_ang 
 
 
 // Footprint pad angle applied after posisiont.  So, to place a pad,
-//   move to position posx, posy, then apply the rotation.  
+//   move to position posx, posy, then apply the rotation.
 //
 // In our rendering, we've applied the rotation for the part
 //   at the top layer before pad placement, so we need to take into
@@ -2765,7 +2744,7 @@ bleepsixBoard.prototype.drawFootprintPad = function(pad_entry, x, y, g_rad_ang, 
   // TODO: other shapes
   // and holes (clear through)
 
-  if      ( shape == "rectangle" ) { 
+  if      ( shape == "rectangle" ) {
     this._draw_pad_rect( pad_entry, x, y, g_rad_ang, ghostFlag );
 
     if ((!ghostFlag) && (!noTextFlag)) {
@@ -2826,8 +2805,8 @@ bleepsixBoard.prototype.drawFootprint = function(data, x, y, rad_angle, draw_f01
       else if  ( shape == "circle" )    { this.drawFootprintCircle( art[ind], 0, 0 );  }
       else if  ( shape == "arc" )       { this.drawFootprintArc( art[ind], 0, 0 );  }
       else if  ( shape == "polygon" )   { this.drawFootprintPolygon( art[ind], 0, 0 );  }
-      //else if  ( shape == "obround" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
-      //else if  ( shape == "trapeze" )   { this.drawFootprintCircle( art[ind], x, y, orientation ); 
+      //else if  ( shape == "obround" )   { this.drawFootprintCircle( art[ind], x, y, orientation );
+      //else if  ( shape == "trapeze" )   { this.drawFootprintCircle( art[ind], x, y, orientation );
 
     }
   }
@@ -2862,7 +2841,7 @@ bleepsixBoard.prototype.drawFootprint = function(data, x, y, rad_angle, draw_f01
     this.drawFootprintTextField( data.unknownText, 0, 0, -ang );
 
   }
-  
+
   var text_offset = parseInt( data["text_offset"] );
 
   var viewbox =  [ [ g_painter.view.x1, g_painter.view.y1 ],
@@ -2871,7 +2850,7 @@ bleepsixBoard.prototype.drawFootprint = function(data, x, y, rad_angle, draw_f01
 
   for (ind in pad) {
 
-    // TODO: footprint library window doesn't render pads properly 
+    // TODO: footprint library window doesn't render pads properly
     // when this flag is set.
     if (this.flag_bounding_box_speedup) {
       if ("bounding_box" in pad[ind]) {
@@ -2970,7 +2949,7 @@ bleepsixBoard.prototype._angleMod = function( rad ) {
 // the orienation flips from one to the other.
 // At the -90 and 90, text is rendered to have top pointing to
 // the left, and bottom pointing to the right.
-// 
+//
 // Text fields (as far as I understand) have the angle information
 // needed to display without needing information from a higher
 // level.
@@ -3031,15 +3010,15 @@ bleepsixBoard.prototype.drawFootprintTextField = function(text_field, fp_x, fp_y
   //g_painter.drawText( s , fp_x + x, fp_y + y, color, text_size, loc_deg_ang, "C", "C", is_flipped);
 
   if (this.flag_utf8_hershey_ascii_font_loaded) {
-    g_painter.drawTextFont( s , 
+    g_painter.drawTextFont( s ,
         this.utf8_hershey_ascii_font,
-        fp_x + x, fp_y + y, 
-        color, 
+        fp_x + x, fp_y + y,
+        color,
         sizex, sizey,
         //sizey, sizex,
         line_width,
-        loc_deg_ang, 
-        "C", "C", 
+        loc_deg_ang,
+        "C", "C",
         is_flipped);
   }
 
@@ -3092,7 +3071,7 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  ) {
   }
 
 
-  // draw text 
+  // draw text
   //
   var fudge = 5;
   var text_height = width;
@@ -3164,8 +3143,8 @@ bleepsixBoard.prototype.drawBoardTrack = function( ele, ghostFlag  ) {
 
   var net_name_text_color = this.displayNetNameTextColor(layer);
 
-  g_painter.drawText( net_name, 
-                      x, y, 
+  g_painter.drawText( net_name,
+                      x, y,
 
                       //this.net_name_text_color,
                       net_name_text_color,
@@ -3462,8 +3441,8 @@ bleepsixBoard.prototype.drawBoard = function() {
   }
 
   for (var ind in this.debug_point) {
-    g_painter.drawPoint( this.debug_point[ind].X, 
-                         this.debug_point[ind].Y , 
+    g_painter.drawPoint( this.debug_point[ind].X,
+                         this.debug_point[ind].Y ,
                          "rgba(255,128,64,0.8)", 300 );
   }
 
@@ -3500,7 +3479,7 @@ bleepsixBoard.prototype.drawBoard = function() {
       for (var ind in brd.net_code_airwire_map[nc]) {
         var lin = brd.net_code_airwire_map[nc][ind];
 
-        if ( this.flag_draw_ratsnest_shimmer && 
+        if ( this.flag_draw_ratsnest_shimmer &&
              this.flag_draw_ratsnest_shimmer_active ) {
               g_painter.drawGradientLine( lin.x0, lin.y0,
                                           lin.x1, lin.y1,
@@ -3786,7 +3765,7 @@ bleepsixBoard.prototype.load_part = function(name, data) {
   this.kicad_brd_json.footprint_lib[name] = data;
 
   this._find_footprint_bbox( this.kicad_brd_json.footprint_lib[name] );
-  
+
   this.queued_display_footprint_count--;
 
   if (this.queued_display_footprint_count == 0) {
@@ -3900,7 +3879,7 @@ bleepsixBoard.prototype.load_board = function( json ) {
     }
     else if ( type == "czone" ) {
       this._find_czone_bbox( brd[vind] );
-      
+
       //miscellaneous initialization
       //
       brd[vind].tainted = false;
@@ -3942,21 +3921,21 @@ bleepsixBoard.prototype.load_board = function( json ) {
       // If we just created a callback via 'function(data) { controller.load_part( name, data); }',
       // this would reference the global name and data.  By forcing an evaluation, it loads
       // the current value of name and data, then scope is withdrawn and the old values stick.
-      // blech, bad description, see here: 
+      // blech, bad description, see here:
       //   http://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
 
       if (bleepsixBoardHeadless) {
         continue;
       }
 
-      g_brdnetwork.fetchModule( 
-          name, 
+      g_brdnetwork.fetchModule(
+          name,
           part_json,
 
           (function(xx) {
             return function(nam,dat) { xx.load_part(nam,dat); };
           })(this),
-          
+
           (function(xx) {
             return function(dat, jqxhr, textStatus, error) {
               xx.load_part_error(dat, jqxhr, textStatus, error);
